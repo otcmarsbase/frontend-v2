@@ -1,0 +1,8 @@
+{
+  "name": "frontend-v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/otcmarsbase/frontend-v2",
+  "author": "",
+  "license": "MIT"
+}
