@@ -1,23 +1,28 @@
 {
-  "name": "frontend-v2",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/otcmarsbase/frontend-v2",
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "@chakra-ui/icons": "^2.0.17",
-    "@chakra-ui/react": "^2.5.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@types/node": "^18.14.2",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
-    "framer-motion": "^10.0.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vite": "^4.1.4",
-    "vite-plugin-checker": "^0.5.6"
-  }
+	"name": "frontend-v2",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/otcmarsbase/frontend-v2",
+	"author": "",
+	"license": "MIT",
+	"scripts": {
+		"start": "cross-env NODE_ENV=development vite",
+		"build": "tsc && cross-env NODE_ENV=production vite build"
+	},
+	"dependencies": {
+		"@chakra-ui/icons": "^2.0.17",
+		"@chakra-ui/react": "^2.5.1",
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
+		"@types/node": "^18.14.2",
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@vitejs/plugin-react": "^3.1.0",
+		"cross-env": "^7.0.3",
+		"framer-motion": "^10.0.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"vite": "^4.1.4",
+		"vite-plugin-checker": "^0.5.6"
+	}
 }
