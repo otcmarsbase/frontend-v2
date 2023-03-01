@@ -9,3 +9,8 @@ export type RemapBranch<Branch, Prefix extends string> = {
 			: RemapBranch<Branch[K], Join<[Prefix, Prefix2]>>
 		: never
 }
+
+
+export type Remap<Obj, R, W> = {
+	[K in keyof Obj]: Obj[K] extends R ? W : R
+}
