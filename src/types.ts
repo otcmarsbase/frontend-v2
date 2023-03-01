@@ -8,3 +8,5 @@ export type Join<
 		? `${S[0]}${Separator}${Join<Tail, Separator>}`
 		: `${S[0]}`
 	: never
+
+export type DeepTypeRecord<T> = { [key: string]: T | DeepTypeRecord<T> }
