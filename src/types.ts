@@ -18,3 +18,5 @@ export type Prefixed<T extends DeepTypeRecord<string>, Prefix extends string> = 
 export type PostfixMap<T extends {}, Postfix extends string> = {
 	[K in keyof T as `${Extract<K, string | number>}${Postfix}`]: T[K]
 }
+
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] }
