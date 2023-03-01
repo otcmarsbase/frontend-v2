@@ -1,5 +1,5 @@
 {
-	"name": "frontend-v2",
+	"name": "marsbase",
 	"version": "1.0.0",
 	"main": "index.js",
 	"repository": "https://github.com/otcmarsbase/frontend-v2",
@@ -18,15 +18,18 @@
 		"@types/react": "^18.0.28",
 		"@types/react-dom": "^18.0.11",
 		"@vitejs/plugin-react": "^3.1.0",
+		"buffer": "^6.0.3",
 		"cross-env": "^7.0.3",
 		"framer-motion": "^10.0.1",
 		"git-rev-sync": "^3.0.2",
 		"next-tick": "^1.1.0",
+		"process": "^0.11.10",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.8.2",
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"typescript": "4.8.4",
+		"util": "^0.12.5",
 		"vite": "^4.1.4",
 		"vite-plugin-checker": "^0.5.6"
 	}
