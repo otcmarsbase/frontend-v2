@@ -1,5 +1,12 @@
 import { Join } from "../types";
 
+type SwapParam<Key extends string, T extends `${string}/${Key}${string}`, Value extends string | number> =
+	T extends `${infer Prefix}/${Key}${infer Suffix}` ? `${Prefix}/${Value}${Suffix}`
+	: T extends `${infer Prefix}/${Key}` ? `${Prefix}/${Value}`
+	: T extends `/${Key}${infer Suffix}` ? `${Value}${Suffix}`
+	: T extends `/${Key}` ? `${Value}`
+	: never
+    
 export type RemapBranch<Branch, Prefix extends string> = {
 	[K in keyof Branch]:
 		Branch extends { _: infer Prefix2 extends string }
