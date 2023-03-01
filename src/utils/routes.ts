@@ -38,3 +38,33 @@ export function routeWithParam<
 {
 	return route.replace(key, id + '') as any
 }
+
+
+export const branchToRoute = <
+	Prefix extends string,
+	Branch extends { _: string }
+>(branch: Branch, prefix: Prefix): RemapBranch<Branch, Prefix> =>
+{
+	let remapped = {} as any
+	let prefix2 = branch._
+	for (let key in branch)
+	{
+		let val = branch[key]
+		if (typeof val != "string")
+			remapped[key] = branchToRoute(val as any, `${prefix}${prefix2}`)
+		else
+		{
+			if (key == "_")
+				remapped[key] = {
+					short: val,
+					full: `${prefix}${val}`
+				}
+			else
+				remapped[key] = {
+					short: val,
+					full: `${prefix}${prefix2}${val}`
+				}
+		}
+	}
+	return remapped
+}
