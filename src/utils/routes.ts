@@ -21,6 +21,14 @@ export type Remap<Obj, R, W> = {
 	[K in keyof Obj]: Obj[K] extends R ? W : R
 }
 
+export function routeWithId<
+	U extends string,
+	V extends string,
+	N extends string | number
+>(route: `${U}/:id${V}`, id: N): `${U}/${N}${V}`
+{
+	return route.replace(':id', id + '') as any
+}
 
 export function routeWithParam<
 	Key extends `:${string}`,
