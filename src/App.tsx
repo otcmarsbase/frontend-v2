@@ -21,6 +21,13 @@ export const App: React.FC<AppProps> = ({}) => {
 							/>
 						}
 					/>
+					<Route path={ROUTES.bestbid.offers._.full}>
+						<Route
+							path={ROUTES.bestbid.offers.list.full}
+							element={<BBOffersListHydrator />}
+						/>
+
+					</Route>
 				</Route>
 			</Routes>
 		</BrowserRouter>
