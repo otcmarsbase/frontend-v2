@@ -43,6 +43,7 @@ export const App: React.FC<AppProps> = ({}) => {
 						/>
 					</Route>
 				</Route>
+                <Route path={ROUTES.dashboard_notifications} element={<NotificationsPageRoute />} />
                 <Route path={ROUTES.dashboard_offers} element={<Dashboard activeTab={0} />} />
                 <Route path={ROUTES.dashboard_bids} element={<Dashboard activeTab={1} />} />
                 <Route path={ROUTES.dashboard_history} element={<Dashboard activeTab={2} />} />
