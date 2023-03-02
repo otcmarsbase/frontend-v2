@@ -43,6 +43,7 @@ export const App: React.FC<AppProps> = ({}) => {
 						/>
 					</Route>
 				</Route>
+                <Route path={ROUTES.dashboard_bids} element={<Dashboard activeTab={1} />} />
                 <Route path={ROUTES.dashboard_history} element={<Dashboard activeTab={2} />} />
                 <Route path={ROUTES.dashboard_transactions} element={<Dashboard activeTab={3} />} />
                 <Route path={ROUTES.createBidForOffer} element={<CreateBid />} />
