@@ -11,10 +11,17 @@ export const App: React.FC<AppProps> = ({}) => {
 			<Routes>
 				<Route path={ROUTES.offerDetails} element={<div></div>} />
 				<Route path={ROUTES.calculator} element={<Calculator />} />
-				<Route
-					path={ROUTES.bestbid._.full}
-					element={<div></div>}
-				></Route>
+				<Route path={ROUTES.bestbid._.full} element={<div></div>}>
+					<Route
+						path={ROUTES.bestbid._.full}
+						element={
+							<Navigate
+								to={ROUTES.bestbid.offers.list.full}
+								replace
+							/>
+						}
+					/>
+				</Route>
 			</Routes>
 		</BrowserRouter>
 	)
