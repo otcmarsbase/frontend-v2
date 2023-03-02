@@ -43,6 +43,7 @@ export const App: React.FC<AppProps> = ({}) => {
 						/>
 					</Route>
 				</Route>
+                <Route path={ROUTES.createBidForOffer} element={<CreateBid />} />
                 <Route path={ROUTES.createOffer} element={<CreateOfferNew />} />
                 <Route path={ROUTES.root} element={<Main />} />
 
