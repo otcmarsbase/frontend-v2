@@ -9,9 +9,13 @@ export const App: React.FC<AppProps> = ({}) => {
 	return (
 		<BrowserRouter>
 			<Routes>
-                <Route path={ROUTES.offerDetails} element={<div></div>} />
-                <Route path={ROUTES.calculator} element={<Calculator />} />
-            </Routes>
+				<Route path={ROUTES.offerDetails} element={<div></div>} />
+				<Route path={ROUTES.calculator} element={<Calculator />} />
+				<Route
+					path={ROUTES.bestbid._.full}
+					element={<div></div>}
+				></Route>
+			</Routes>
 		</BrowserRouter>
 	)
 }
