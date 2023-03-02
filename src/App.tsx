@@ -24,34 +24,34 @@ export const App: React.FC<AppProps> = ({}) => {
 					<Route path={ROUTES.bestbid.offers._.full}>
 						<Route
 							path={ROUTES.bestbid.offers.list.full}
-							element={<BBOffersListHydrator />}
+							element={<div></div>}
 						/>
 
 						<Route
 							path={ROUTES.bestbid.offers.new._.full}
-							element={<BBCreateOfferPageRoute />}
+							element={<div></div>}
 						/>
 						<Route
 							path={ROUTES.bestbid.offers.new.waiting.full}
-							element={<BBCreateOfferPageRoute />}
+							element={<div></div>}
 						/>
 					</Route>
 					<Route path={ROUTES.bestbid.offer._.full}>
 						<Route
 							path={ROUTES.bestbid.offer.view.full}
-							element={<BBViewOfferRoute creatingBid={false} />}
+							element={<div></div>}
 						/>
 					</Route>
 				</Route>
-                <Route path={ROUTES.dashboard_notifications} element={<NotificationsPageRoute />} />
-                <Route path={ROUTES.dashboard_offers} element={<Dashboard activeTab={0} />} />
-                <Route path={ROUTES.dashboard_bids} element={<Dashboard activeTab={1} />} />
-                <Route path={ROUTES.dashboard_history} element={<Dashboard activeTab={2} />} />
-                <Route path={ROUTES.dashboard_transactions} element={<Dashboard activeTab={3} />} />
-                <Route path={ROUTES.createBidForOffer} element={<CreateBid />} />
-                <Route path={ROUTES.createOffer} element={<CreateOfferNew />} />
-                <Route path={ROUTES.root} element={<Main />} />
-                <Route path={"/demo/*"} element={<Demo />} />
+                <Route path={ROUTES.dashboard_notifications} element={<div></div>} />
+                <Route path={ROUTES.dashboard_offers} element={<div></div>} />
+                <Route path={ROUTES.dashboard_bids} element={<div></div>} />
+                <Route path={ROUTES.dashboard_history} element={<div></div>} />
+                <Route path={ROUTES.dashboard_transactions} element={<div></div>} />
+                <Route path={ROUTES.createBidForOffer} element={<div></div>} />
+                <Route path={ROUTES.createOffer} element={<div></div>} />
+                <Route path={ROUTES.root} element={<div></div> }/>
+                <Route path={"/demo/*"} element={<div></div>} />
 			</Routes>
 		</BrowserRouter>
 	)
