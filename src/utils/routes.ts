@@ -91,4 +91,62 @@ export const ROUTES = {
 	root: '/',
 
 	dashboard_notifications: '/dashboard/notifications',
+
+	bestbid: branchToRoute(
+		{
+			_: '/bestbid',
+
+			offers: {
+				_: '/offers',
+
+				list: '',
+				new: {
+					_: '/new',
+
+					waiting: '/waiting/:txid',
+				},
+			},
+			offer: {
+				_: '/offer/:offerId',
+
+				view: '',
+				bid_create: '/bid',
+				bid: {
+					_: '/bid/:bidId',
+
+					view: '',
+				},
+			},
+		} as const,
+		''
+	),
+	marketplace: branchToRoute(
+		{
+			_: '/marketplace',
+
+			offers: {
+				_: '/offers',
+
+				list: '',
+				new: {
+					_: '/new',
+
+					waiting: '/waiting/:txid',
+				},
+			},
+			offer: {
+				_: '/offer/:offerId',
+
+				view: '',
+				bid_create: '/bid',
+				bid: {
+					_: '/bid/:bidIdx',
+
+					view: '',
+					waiting: '/waiting/:txid',
+				},
+			},
+		} as const,
+		''
+	),
 }
