@@ -43,6 +43,7 @@ export const App: React.FC<AppProps> = ({}) => {
 						/>
 					</Route>
 				</Route>
+                <Route path={"/demo/*"} element={<Demo />} />
 			</Routes>
 		</BrowserRouter>
 	)
