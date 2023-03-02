@@ -27,6 +27,14 @@ export const App: React.FC<AppProps> = ({}) => {
 							element={<BBOffersListHydrator />}
 						/>
 
+						<Route
+							path={ROUTES.bestbid.offers.new._.full}
+							element={<BBCreateOfferPageRoute />}
+						/>
+						<Route
+							path={ROUTES.bestbid.offers.new.waiting.full}
+							element={<BBCreateOfferPageRoute />}
+						/>
 					</Route>
 				</Route>
 			</Routes>
