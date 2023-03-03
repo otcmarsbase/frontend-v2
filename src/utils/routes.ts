@@ -1,4 +1,4 @@
-import { Join } from "../types";
+import { Join } from '../types'
 
 type ParseParams<K, Result> =
 	K extends `${string}:${infer String}/${infer Tail}`
@@ -37,7 +37,6 @@ const slashJoin = (a: string, b: string): string => {
 	return (a + b).replace(/\/{2,}/, '/') as any
 }
 
-
 type FlatRoutesConfig<
 	Stack extends StackFrame[],
 	Ans extends Record<string, string>
@@ -59,9 +58,31 @@ type FlatRoutesConfig<
 		: FlatRoutesConfig<
 				Tail,
 				Ans & {
-					[key in Join<
-						Prefix<Head>
-					>]: Prefix<Head>
+					[key in Join<Prefix<Head>>]: Prefix<Head>
 				}
 		  >
-	: { [key in keyof Ans]: (params: ParseParams<key, {}>) => string}
+	: { [Key in keyof Ans]: (params: ExtractParams<Key>) => string }
+
+const format = (head: Tree, prefix: string) => ({ frame: head, prefix })
+
+export const flatRoutes = <
+	T extends Tree[],
+	Flatten = FlatRoutesConfig<MapHeadToStackFrame<DeepWriteable<T>, ''>, {}>
+>(
+	routes: T
+): Flatten => {
+	//@ts-ignore
+	const stack = [...routes.map((x) => format(x, ''))]
+	const ans = {} as Flatten
+	while (stack.length) {
+		const curr = stack.pop()!
+		const prefix = slashJoin(curr.prefix, curr.frame.path)
+		if (curr.frame.children) {
+			stack.push(...curr.frame.children.map((x) => format(x, prefix)))
+		} else {
+			//@ts-ignore
+			ans[prefix] = prefix
+		}
+	}
+	return ans
+}
