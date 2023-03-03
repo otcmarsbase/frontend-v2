@@ -35,3 +35,32 @@ const slashJoin = (a: string, b: string): string => {
 	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
 	return (a + b).replace(/\/{2,}/, '/') as any
 }
+
+
+type FlatRoutesConfig<
+	Stack extends StackFrame[],
+	Ans extends Record<string, string>
+> = Stack extends [
+	infer Head extends StackFrame,
+	...infer Tail extends StackFrame[]
+]
+	? Head['frame']['children'] extends Tree[]
+		? FlatRoutesConfig<
+				[
+					...MapHeadToStackFrame<
+						[...Head['frame']['children']],
+						Join<Prefix<Head>>
+					>,
+					...Tail
+				],
+				Ans
+		  >
+		: FlatRoutesConfig<
+				Tail,
+				Ans & {
+					[key in Join<
+						Prefix<Head>
+					>]: Prefix<Head>
+				}
+		  >
+	: { [key in keyof Ans]: (params: ParseParams<key, {}>) => string}
