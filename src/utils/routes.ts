@@ -19,6 +19,7 @@ type ParseParams<K, Result> =
 
 type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
+type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> }
 
 type MapHeadToStackFrame<A extends Tree[], Prefix extends string> = {
 	[K in keyof A]: { prefix: Prefix; frame: A[K] }
