@@ -31,11 +31,6 @@ type StackFrame = {
 
 type Prefix<Head extends StackFrame> = [Head['prefix'], Head['frame']['path']]
 
-const slashJoin = (a: string, b: string): string => {
-	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
-	return (a + b).replace(/\/{2,}/, '/') as any
-}
-
 type FlatRoutesConfig<
 	Stack extends StackFrame[],
 	Ans extends Record<string, string>
@@ -80,8 +75,23 @@ export const flatRoutes = <
 			stack.push(...curr.frame.children.map((x) => format(x, prefix)))
 		} else {
 			//@ts-ignore
-			ans[prefix] = prefix
+			ans[prefix] = (params) => routeWithParams(prefix, params)
 		}
 	}
 	return ans
 }
+
+const slashJoin = (a: string, b: string): string => {
+	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
+	return (a + b).replace(/\/{2,}/, '/') as any
+}
+
+export const routeWithParams = <T extends string>(
+	str: T,
+	keys: ExtractParams<T>
+): string => {
+	//@ts-ignore
+	return Object.keys(keys).reduce((acc, x) => acc.replace(`:${x}`, keys[x]), str)
+}
+
+

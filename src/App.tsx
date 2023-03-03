@@ -14,6 +14,7 @@ const routes = [
 ] as const
 
 export const flattenRoutes = flatRoutes(routes as DeepWriteable<typeof routes>)
+
 export const App: React.FC<AppProps> = ({}) => {
 	return (
 		<BrowserRouter>
