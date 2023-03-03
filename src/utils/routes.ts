@@ -26,3 +26,5 @@ type StackFrame = {
 	frame: Tree
 	prefix: string
 }
+
+type Prefix<Head extends StackFrame> = [Head['prefix'], Head['frame']['path']]
