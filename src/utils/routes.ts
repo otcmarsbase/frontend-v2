@@ -16,3 +16,4 @@ type ParseParams<K, Result> =
 		: { [K in keyof Result]: string }
 
 type ExtractParams<K> = ParseParams<K, {}>
+type Tree = { path: string; children?: Tree[] }
