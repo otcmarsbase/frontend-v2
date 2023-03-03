@@ -28,3 +28,8 @@ type StackFrame = {
 }
 
 type Prefix<Head extends StackFrame> = [Head['prefix'], Head['frame']['path']]
+
+const slashJoin = (a: string, b: string): string => {
+	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
+	return (a + b).replace(/\/{2,}/, '/') as any
+}
