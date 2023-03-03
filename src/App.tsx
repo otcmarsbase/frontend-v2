@@ -8,8 +8,7 @@ const routes = [{ path: '/calculator', element: <Calculator /> }] as const
 export const App: React.FC<AppProps> = ({}) => {
 	return (
 		<BrowserRouter>
-			<Routes>
-			</Routes>
+			
 		</BrowserRouter>
 	)
 }
