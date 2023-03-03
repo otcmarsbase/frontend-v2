@@ -1,3 +1,5 @@
+import { Join } from "../types";
+
 type ParseParams<K, Result> =
 	K extends `${string}:${infer String}/${infer Tail}`
 		? ParseParams<
