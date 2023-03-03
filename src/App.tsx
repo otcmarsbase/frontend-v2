@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Calculator } from './pages/Calculator'
-import { ROUTES } from './utils/routes'
+
 
 type AppProps = {}
 
