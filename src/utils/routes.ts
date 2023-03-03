@@ -21,3 +21,8 @@ type Tree = { path: string; children?: Tree[] }
 type MapHeadToStackFrame<A extends Tree[], Prefix extends string> = {
 	[K in keyof A]: { prefix: Prefix; frame: A[K] }
 }
+
+type StackFrame = {
+	frame: Tree
+	prefix: string
+}
