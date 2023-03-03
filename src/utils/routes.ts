@@ -17,3 +17,7 @@ type ParseParams<K, Result> =
 
 type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
+
+type Map<A extends Tree[], Prefix extends string> = {
+	[K in keyof A]: { prefix: Prefix; frame: A[K] }
+}
