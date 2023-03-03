@@ -1,7 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Route, Navigate, useRoutes } from 'react-router-dom'
 import { Calculator } from './pages/Calculator'
-import { DeepWriteable, flatRoutes } from './utils/routes'
+import { DeepWriteable } from './types'
+import { flatRoutes } from './utils/routes'
 
 type AppProps = {}
 
