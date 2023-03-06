@@ -106,6 +106,12 @@ const slashJoin = (a: string, b: string): string => {
 	return (a + b).replace(/\/{2,}/, '/') as any
 }
 
+/**
+ * @example
+ * replaces params in string
+ * 1) routeWithParams('a/:b', { b: '1' }) -> 'a/1'
+ * 2) routeWithParams('a/:b/:c', { b: '1', c: '2' }) -> 'a/1/2'
+ */
 export const routeWithParams = <
 	T extends string,
 	Keys extends ExtractParams<T>
