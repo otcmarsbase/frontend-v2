@@ -119,6 +119,13 @@ export const flatRoutes = <
 	return ans
 }
 
+/**
+ * @example
+ * joins two strings
+ * 1) 'a', '/b' -> 'a/b'
+ * 2) 'a/', '/b' -> 'a/b'
+ * 3) 'a', 'b' -> 'a/b'
+ */
 const slashJoin = (a: string, b: string): string => {
 	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
 	return (a + b).replace(/\/{2,}/, '/') as any
