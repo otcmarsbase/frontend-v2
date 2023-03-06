@@ -1,9 +1,9 @@
 import { DeepWriteable, Join } from '../types'
 
 type ParseParams<K, Result> =
-	K extends `${string}:${infer String}/${infer Tail}`
+	K extends `${string}:${infer String}/${infer Suffix}`
 		? ParseParams<
-				Tail,
+				Suffix,
 				Result & {
 					[key in String]: string
 				}
