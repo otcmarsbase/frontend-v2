@@ -20,6 +20,9 @@ type ParseParams<K, Result> =
 type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
 
+/**
+ * ReplaceParams<'sad/:abcd/:a/:b', { a: '1'; b: '2'; abcd: '3' }> // should be "sad/3/1/2"
+ */
 type ReplaceParams<
 	T extends string,
 	Params extends Record<string, string>
