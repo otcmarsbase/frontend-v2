@@ -9,6 +9,10 @@ type AppProps = {}
 const routes = [
     {
     {
+        path: '/dashboard/transactions',
+        element: <div>dashboard transactions</div>
+    },
+    {
         path: '/dashboard/history',
         element: <div>dashboard history</div>
     },
