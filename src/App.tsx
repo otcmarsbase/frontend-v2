@@ -35,6 +35,7 @@ const routes = [
         path: '/dashboard/offers',
         element: <div>dashboard offers</div>
     },
+	{
 		path: 'bestbid/',
 		children: [
 			{
