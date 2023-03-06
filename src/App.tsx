@@ -9,6 +9,10 @@ type AppProps = {}
 const routes = [
     {
     {
+        path: '/offer/:id/create-bid',
+        element: <div>create bid</div>
+    },
+    {
         path: '/dashboard/transactions',
         element: <div>dashboard transactions</div>
     },
