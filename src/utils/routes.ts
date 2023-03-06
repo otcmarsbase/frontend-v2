@@ -21,7 +21,10 @@ type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
 
 /**
- * ReplaceParams<'sad/:abcd/:a/:b', { a: '1'; b: '2'; abcd: '3' }> // should be "sad/3/1/2"
+ * @example 
+ * type T = ReplaceParams<'sad/:abcd/:a/:b', { a: '1'; b: '2'; abcd: '3' }> 
+ * 
+ * T is "sad/3/1/2"
  */
 type ReplaceParams<
 	T extends string,
@@ -119,8 +122,8 @@ export const routeWithParams = <
 
 
 /**
+ * @example
  * joins two strings
- * examples: 
  * 1) 'a', '/b' -> 'a/b'
  * 2) 'a/', '/b' -> 'a/b'
  * 3) 'a', 'b' -> 'a/b'
