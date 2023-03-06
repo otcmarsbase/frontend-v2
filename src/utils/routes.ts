@@ -103,12 +103,18 @@ const slashJoin = (a: string, b: string): string => {
 	return (a + b).replace(/\/{2,}/, '/') as any
 }
 
-export const routeWithParams = <T extends string>(
+export const routeWithParams = <
+	T extends string,
+	Keys extends ExtractParams<T>
+>(
 	str: T,
-	keys: ExtractParams<T>
-): string => {
-	//@ts-ignore
-	return Object.keys(keys).reduce((acc, x) => acc.replace(`:${x}`, keys[x]), str)
+	keys: Keys
+) => {
+	return Object.keys(keys).reduce(
+		//@ts-ignore
+		(acc, x) => acc.replace(`:${x}`, keys[x]),
+		str
+	) as ReplaceParams<T, Keys>
 }
 
 
