@@ -79,6 +79,24 @@ type FlatRoutesConfig<
 
 const format = (head: Tree, prefix: string) => ({ frame: head, prefix })
 
+/**
+ * transforms react router tree to flat object with typed route params
+ * @example
+ * const routes = [
+ * 	  {
+ * 		path: 'path/',
+ * 		children: [
+ * 			{
+ * 				path: 'nested/:id',
+ * 				element: <Component/>
+ * 			}
+ *       ]
+ *    }
+ * ]
+ * const flattenRoutes = flatRoutes(routes)
+ * flattenRoutes['path/nested/:id']({ id: '1' }) // 'path/nested/1'
+ *
+ */
 export const flatRoutes = <
 	T extends Tree[],
 	Flatten = FlatRoutesConfig<MapHeadToStackFrame<DeepWriteable<T>, ''>, {}>
