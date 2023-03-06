@@ -17,13 +17,18 @@ type ParseParams<K, Result> =
 		  >
 		: { [K in keyof Result]: string }
 
+/**
+ * @example
+ * type T = ExtractParams<'sad/:abcd/:a/:b'>
+ * T is { abcd: string; a: string; b: string }
+ */
 type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
 
 /**
- * @example 
- * type T = ReplaceParams<'sad/:abcd/:a/:b', { a: '1'; b: '2'; abcd: '3' }> 
- * 
+ * @example
+ * type T = ReplaceParams<'sad/:abcd/:a/:b', { a: '1'; b: '2'; abcd: '3' }>
+ *
  * T is "sad/3/1/2"
  */
 type ReplaceParams<
@@ -150,7 +155,6 @@ export const routeWithParams = <
 		str
 	) as ReplaceParams<T, Keys>
 }
-
 
 /**
  * @example
