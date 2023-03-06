@@ -95,6 +95,13 @@ export const routeWithParams = <T extends string>(
 }
 
 
+/**
+ * joins two strings
+ * examples: 
+ * 1) 'a', '/b' -> 'a/b'
+ * 2) 'a/', '/b' -> 'a/b'
+ * 3) 'a', 'b' -> 'a/b'
+ */
 type SlashJoin<S extends string[]> = S extends [
 	infer S1 extends string,
 	infer S2 extends string
