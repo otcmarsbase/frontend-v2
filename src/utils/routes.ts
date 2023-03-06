@@ -20,6 +20,20 @@ type ParseParams<K, Result> =
 type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
 
+type ReplaceParams<
+	T extends string,
+	Params extends Record<string, string>
+> = T extends `${infer Prefix}:${infer Key extends Exclude<
+	keyof Params,
+	symbol
+>}/${infer Suffix}`
+	? ReplaceParams<`${Prefix}${Params[Key]}/${Suffix}`, Params>
+	: T extends `${infer Prefix}:${infer Key extends Exclude<
+			keyof Params,
+			symbol
+	  >}`
+	? `${Prefix}${Params[Key]}`
+	: T
 type MapHeadToStackFrame<A extends Tree[], Prefix extends string> = {
 	[K in keyof A]: { prefix: Prefix; frame: A[K] }
 }
