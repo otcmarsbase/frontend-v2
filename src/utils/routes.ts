@@ -95,3 +95,15 @@ export const routeWithParams = <T extends string>(
 }
 
 
+type SlashJoin<S extends string[]> = S extends [
+	infer S1 extends string,
+	infer S2 extends string
+]
+	? S1 extends `${infer A}/`
+		? S2 extends `/${infer B}`
+			? `${A}/${B}`
+			: `${A}/${S2}`
+		: S2 extends `/${infer B}`
+		? `${S1}/${B}`
+		: `${S1}/${S2}`
+	: never
