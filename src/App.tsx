@@ -39,6 +39,10 @@ const routes = [
         path: '/dashboard/notifications',
         element: <div>dashboard notifications</div>
     },
+    {
+        path: "/marketplace/",
+        element: <div>marketplace wrapper <Outlet/></div>,
+    },
 		path: 'bestbid/',
 		children: [
 			{
