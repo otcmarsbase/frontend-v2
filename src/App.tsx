@@ -60,6 +60,11 @@ const routes = [
                 children: [
                     {path: "", element: <div>marketplace offer root</div>},
                     {path: "bid", element: <div>marketplace offer bid</div>},
+                    {
+                      path: "bid/:bidIdx/", 
+                        children: [
+                    ]},
+
                 ]
             }
         ]
