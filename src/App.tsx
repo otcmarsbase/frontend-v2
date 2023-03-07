@@ -50,6 +50,7 @@ const routes = [
                 path: "offers/", element: <div>marketplace offers <Outlet/></div>,
                 children: [
                     {path: "", element: <div>marketplace offers  root</div>},
+                    {path: "new", element: <div>marketplace offers new</div>},
                 ]
             },
         ]
