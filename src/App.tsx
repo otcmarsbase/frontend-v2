@@ -42,6 +42,12 @@ const routes = [
     {
         path: "/marketplace/",
         element: <div>marketplace wrapper <Outlet/></div>,
+        children:[
+            // redirecto to marketplace/offers
+            {path: "", element: <div>marketplace root</div>
+            },
+        ]
+    },
     {
         path: '/demo/*',
         element: <div>demo</div>
