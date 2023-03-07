@@ -159,12 +159,12 @@ export const routeWithParams = <
 /**
  * @example
  * replaces all occurrences of searchVal with replaceVal
- * 1) Replace<'a/b/c', '/', ''> -> 'abc'
+ * 1) ReplaceAll<'a/b/c', '/', ''> -> 'abc'
  */
-type Replace<
+type ReplaceAll<
 	S extends string,
 	searchVal extends string,
 	replaceVal extends string
 > = S extends `${infer Prefix}${searchVal}${infer Suffix}`
-	? Replace<`${Prefix}${replaceVal}${Suffix}`, searchVal, replaceVal>
+	? ReplaceAll<`${Prefix}${replaceVal}${Suffix}`, searchVal, replaceVal>
 	: S
