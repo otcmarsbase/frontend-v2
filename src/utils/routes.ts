@@ -68,7 +68,7 @@ type FlatRoutesConfig<
 				[
 					...MapHeadToStackFrame<
 						[...Head['frame']['children']],
-						SlashJoin<Prefix<Head>>
+						ReplaceAll<Join<Prefix<Head>, '/'>, '//', '/'>
 					>,
 					...Tail
 				],
@@ -77,7 +77,11 @@ type FlatRoutesConfig<
 		: FlatRoutesConfig<
 				Tail,
 				Ans & {
-					[key in SlashJoin<Prefix<Head>>]: Prefix<Head>
+					[key in ReplaceAll<
+						Join<Prefix<Head>, '/'>,
+						'//',
+						'/'
+					>]: Prefix<Head>
 				}
 		  >
 	: { [Key in keyof Ans]: (params: ExtractParams<Key>) => string }
