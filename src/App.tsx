@@ -51,6 +51,8 @@ const routes = [
                 children: [
                     {path: "", element: <div>marketplace offers  root</div>},
                     {path: "new", element: <div>marketplace offers new</div>},
+                    {path: "new/waiting/:txid", element: <div>marketplace offers new waiting</div>},
+
                 ]
             },
         ]
