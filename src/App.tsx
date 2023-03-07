@@ -46,6 +46,9 @@ const routes = [
             // redirecto to marketplace/offers
             {path: "", element: <div>marketplace root</div>
             },
+            {
+                path: "offers/", element: <div>marketplace offers <Outlet/></div>,
+            },
         ]
     },
     {
