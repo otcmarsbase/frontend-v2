@@ -55,6 +55,11 @@ const routes = [
 
                 ]
             },
+            {
+                path: "offer/:offerId/",
+                children: [
+                ]
+            }
         ]
     },
     {
