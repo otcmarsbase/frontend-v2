@@ -42,7 +42,11 @@ const routes = [
     {
         path: "/marketplace/",
         element: <div>marketplace wrapper <Outlet/></div>,
+    {
+        path: '/demo/*',
+        element: <div>demo</div>
     },
+	{
 		path: 'bestbid/',
 		children: [
 			{
