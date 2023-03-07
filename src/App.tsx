@@ -42,6 +42,10 @@ const routes = [
 		element: <div>dashboard offers</div>,
 	},
 	{
+		path: '/calculator',
+		element: <Calculator/>
+	},
+	{
 		path: '/dashboard/notifications',
 		element: <div>dashboard notifications</div>,
 	},
