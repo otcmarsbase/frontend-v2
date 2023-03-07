@@ -131,7 +131,10 @@ export const flatRoutes = <
  * 2) 'a/', '/b' -> 'a/b'
  * 3) 'a', 'b' -> 'a/b'
  */
-const slashJoin = (a: string, b: string): string => {
+const slashJoin = <S1 extends string, S2 extends string>(
+	a: S1,
+	b: S2
+): ReplaceAll<Join<[S1, S2], '/'>, '//', '/'> => {
 	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
 	return (a + b).replace(/\/{2,}/, '/') as any
 }
