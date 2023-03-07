@@ -158,20 +158,13 @@ export const routeWithParams = <
 
 /**
  * @example
- * joins two strings
- * 1) 'a', '/b' -> 'a/b'
- * 2) 'a/', '/b' -> 'a/b'
- * 3) 'a', 'b' -> 'a/b'
+ * replaces all occurrences of searchVal with replaceVal
+ * 1) Replace<'a/b/c', '/', ''> -> 'abc'
  */
-type SlashJoin<S extends string[]> = S extends [
-	infer S1 extends string,
-	infer S2 extends string
-]
-	? S1 extends `${infer A}/`
-		? S2 extends `/${infer B}`
-			? `${A}/${B}`
-			: `${A}/${S2}`
-		: S2 extends `/${infer B}`
-		? `${S1}/${B}`
-		: `${S1}/${S2}`
-	: never
+type Replace<
+	S extends string,
+	searchVal extends string,
+	replaceVal extends string
+> = S extends `${infer Prefix}${searchVal}${infer Suffix}`
+	? Replace<`${Prefix}${replaceVal}${Suffix}`, searchVal, replaceVal>
+	: S
