@@ -57,6 +57,9 @@ const routes = [
 			{ path: '', element: <div>bestbid root</div> },
 			{
 				path: 'offers/',
+				children: [
+					{ path: '', element: <div>bestbid offers root</div> },
+				],
 			},
 		],
 	},
