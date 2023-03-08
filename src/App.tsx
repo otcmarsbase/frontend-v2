@@ -6,7 +6,7 @@ import {
 	useRoutes,
 	Outlet,
 } from 'react-router-dom'
-import { Calculator } from './pages/Calculator'
+import { Calculator } from './screens/Calculator'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
 
