@@ -51,6 +51,7 @@ const routes = [
 	},
     {
         path: '/bestbid/',
+        element: <div>bestbid wrapper</div>,
         children: [
             // redirecto to bestbid/offers
 			{ path: '', element: <div>bestbid root</div> },
