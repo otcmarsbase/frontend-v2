@@ -31,8 +31,8 @@ export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> }
  */
 export type ReplaceAll<
 	S extends string,
-	searchVal extends string,
-	replaceVal extends string
-> = S extends `${infer Prefix}${searchVal}${infer Suffix}`
-	? ReplaceAll<`${Prefix}${replaceVal}${Suffix}`, searchVal, replaceVal>
+	SearchVal extends string,
+	ReplaceVal extends string
+> = S extends `${infer Prefix}${SearchVal}${infer Suffix}`
+	? ReplaceAll<`${Prefix}${ReplaceVal}${Suffix}`, SearchVal, ReplaceVal>
 	: S
