@@ -28,6 +28,7 @@ export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> }
  * @example
  * replaces all occurrences of searchVal with replaceVal
  * 1) ReplaceAll<'a/b/c', '/', ''> -> 'abc'
+ * 2) ReplaceAll<'a//b/c', '//', ''> -> 'ab//c'
  */
 export type ReplaceAll<
 	S extends string,
