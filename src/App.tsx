@@ -69,6 +69,7 @@ const routes = [
 			{
 				path: 'offer/:offerId/',
 				children: [
+					{ path: '', element: <div>bestbid offer root</div> },
 				],
 			},
 		],
