@@ -21,3 +21,18 @@ export type PostfixMap<T extends {}, Postfix extends string> = {
 
 export type Writeable<T> = { -readonly [P in keyof T]: T[P] }
 export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> }
+
+
+
+/**
+ * @example
+ * replaces all occurrences of searchVal with replaceVal
+ * 1) ReplaceAll<'a/b/c', '/', ''> -> 'abc'
+ */
+export type ReplaceAll<
+	S extends string,
+	searchVal extends string,
+	replaceVal extends string
+> = S extends `${infer Prefix}${searchVal}${infer Suffix}`
+	? ReplaceAll<`${Prefix}${replaceVal}${Suffix}`, searchVal, replaceVal>
+	: S
