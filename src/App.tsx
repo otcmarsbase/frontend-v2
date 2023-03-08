@@ -26,32 +26,25 @@ const routes = [
 		element: <div>create bid</div>,
 	},
 	{
-		path: '/dashboard/offer/:id/',
-		element: <div>dashboard offer id</div>,
-	},
-	{
-		path: '/dashboard/transactions',
-		element: <div>dashboard transactions</div>,
-	},
-	{
-		path: '/dashboard/history',
-		element: <div>dashboard history</div>,
-	},
-	{
-		path: '/dashboard/bids',
-		element: <div>dashboard bids</div>,
-	},
-	{
-		path: '/dashboard/offers',
-		element: <div>dashboard offers</div>,
+		path: '/dashboard/',
+		children: [
+			{ path: 'offer/:id/', element: <div>dashboard offer id</div> },
+			{
+				path: 'transactions',
+				element: <div>dashboard transactions</div>,
+			},
+			{ path: 'history', element: <div>dashboard history</div> },
+			{ path: 'bids', element: <div>dashboard bids</div> },
+			{ path: 'offers', element: <div>dashboard offers</div> },
+			{
+				path: 'notifications',
+				element: <div>dashboard notifications</div>,
+			},
+		],
 	},
 	{
 		path: '/calculator',
 		element: <Calculator />,
-	},
-	{
-		path: '/dashboard/notifications',
-		element: <div>dashboard notifications</div>,
 	},
 	{
 		path: '/bestbid/',
@@ -174,11 +167,12 @@ const routes = [
 export const flattenRoutes = flatRoutes(routes as DeepWriteable<typeof routes>)
 
 export const App: React.FC<AppProps> = ({}) => {
+	const t = flattenRoutes['/bestbid/']()
+	const t1 = flattenRoutes['/bestbid/offer/:offerId/bid/:bidId']()
 	return (
 		<BrowserRouter>
 			<AppRoutes />
 		</BrowserRouter>
 	)
 }
-
 const AppRoutes: React.FC = () => useRoutes(routes as any)
