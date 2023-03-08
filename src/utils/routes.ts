@@ -129,7 +129,7 @@ export const flatRoutes = <
 			stack.push(...curr.frame.children.map((x) => format(x, prefix)))
 		} else {
 			//@ts-ignore
-			ans[prefix] = (params) => routeWithParams(prefix, params)
+			ans[prefix] = (params) => routeWithParams(prefix, params || {})
 		}
 	}
 	return ans
