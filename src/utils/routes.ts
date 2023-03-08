@@ -15,7 +15,7 @@ type ParseParams<K, Result> =
 					[key in String]: string
 				}
 		  >
-		: { [K in keyof Result]: string }
+		: { [K in keyof Result]: string | number }
 
 /**
  * @example
