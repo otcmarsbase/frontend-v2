@@ -43,7 +43,7 @@ const routes = [
 	},
 	{
 		path: '/calculator',
-		element: <Calculator/>
+		element: <Calculator />,
 	},
 	{
 		path: '/dashboard/notifications',
@@ -60,7 +60,10 @@ const routes = [
 				children: [
 					{ path: '', element: <div>bestbid offers root</div> },
 					{ path: 'new', element: <div>bestbid offers new</div> },
-					{ path: 'new/waiting/:txid', element: <div>bestbid offers waiting</div> },
+					{
+						path: 'new/waiting/:txid',
+						element: <div>bestbid offers waiting</div>,
+					},
 				],
 			},
 		],
