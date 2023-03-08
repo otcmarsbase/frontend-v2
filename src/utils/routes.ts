@@ -84,7 +84,14 @@ type FlatRoutesConfig<
 					>]: Prefix<Head>
 				}
 		  >
-	: { [Key in keyof Ans]: (params: ExtractParams<Key>) => string }
+	: {
+			[Key in Exclude<keyof Ans, symbol | number>]: <
+				Params extends ExtractParams<Key>,
+				Arguments = keyof Params extends never ? never : Params
+			>(
+				...args: Arguments extends never ? [] : [Params]
+			) => ReplaceParams<Key, Params>
+	  }
 
 const format = (head: Tree, prefix: string) => ({ frame: head, prefix })
 
