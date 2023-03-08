@@ -26,6 +26,10 @@ const routes = [
 		element: <div>create bid</div>,
 	},
 	{
+		path: '/dashboard/offer/:id/',
+		element: <div>dashboard offer id</div>,
+	},
+	{
 		path: '/dashboard/transactions',
 		element: <div>dashboard transactions</div>,
 	},
