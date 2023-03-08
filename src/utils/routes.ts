@@ -87,9 +87,9 @@ type FlatRoutesConfig<
 	: {
 			[Key in Exclude<keyof Ans, symbol | number>]: <
 				Params extends ExtractParams<Key>,
-				Arguments = keyof Params extends never ? never : Params
+				ParamsEmpty = keyof Params extends never ? true : false
 			>(
-				...args: Arguments extends never ? [] : [Params]
+				...args: ParamsEmpty extends true ? [] : [Params]
 			) => ReplaceParams<Key, Params>
 	  }
 
