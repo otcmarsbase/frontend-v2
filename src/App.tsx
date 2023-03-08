@@ -49,14 +49,17 @@ const routes = [
 		path: '/dashboard/notifications',
 		element: <div>dashboard notifications</div>,
 	},
-    {
-        path: '/bestbid/',
-        element: <div>bestbid wrapper</div>,
-        children: [
-            // redirecto to bestbid/offers
+	{
+		path: '/bestbid/',
+		element: <div>bestbid wrapper</div>,
+		children: [
+			// redirecto to bestbid/offers
 			{ path: '', element: <div>bestbid root</div> },
-        ]
-    },
+			{
+				path: 'offers/',
+			},
+		],
+	},
 	{
 		path: '/marketplace/',
 		element: (
