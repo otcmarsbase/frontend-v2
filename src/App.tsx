@@ -81,11 +81,14 @@ const routes = [
 			{
 				path: 'offer/:offerId/',
 				children: [
-					{ path: '', element: <BBViewOffer /> },
-					{ path: 'bid', element: <div>bestbid offer bid</div> },
+					{ path: '', element: <BBViewOffer creatingBid={false} /> },
+					{
+						path: 'bid',
+						element: <BBViewOffer creatingBid={true} />,
+					},
 					{
 						path: 'bid/:bidId',
-						element: <div>bestbid offer bid/:bidId</div>,
+						element: <BBViewOffer creatingBid={false} />,
 					},
 				],
 			},
