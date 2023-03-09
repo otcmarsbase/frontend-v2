@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import { Calculator } from './screens/Calculator'
 import { Demo } from './screens/Demo'
+import { Main } from './screens/Main'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
 
@@ -16,7 +17,7 @@ type AppProps = {}
 const routes = [
 	{
 		path: '/',
-		element: <div>root</div>,
+		element: <Main/>,
 	},
 	{
 		path: '/create-offer',
