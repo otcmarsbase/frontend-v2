@@ -10,6 +10,7 @@ import { Calculator } from './screens/Calculator'
 import { CreateBid } from './screens/CreateBid'
 import { CreateOfferNew } from './screens/CreateOfferNew'
 import { DashboardNotifications } from './screens/DashboardNotifications'
+import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
 import { DeepWriteable } from './types'
@@ -36,7 +37,7 @@ const routes = [
 			{ path: 'offer/:id/', element: <div>dashboard offer id</div> },
 			{
 				path: 'transactions',
-				element: <div>dashboard transactions</div>,
+				element: <DashboardTransactions />,
 			},
 			{ path: 'history', element: <div>dashboard history</div> },
 			{ path: 'bids', element: <div>dashboard bids</div> },
