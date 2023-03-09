@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import { BBCreateOffer } from './screens/BBCreateOffer'
 import { BBOffersList } from './screens/BBOffersList'
+import { BBViewOffer } from './screens/BBViewOffer'
 import { BestBidRoot } from './screens/BestBidRoot'
 import { BestBidWrapper } from './screens/BestBidWrapper'
 import { Calculator } from './screens/Calculator'
@@ -80,7 +81,7 @@ const routes = [
 			{
 				path: 'offer/:offerId/',
 				children: [
-					{ path: '', element: <div>bestbid offer root</div> },
+					{ path: '', element: <BBViewOffer /> },
 					{ path: 'bid', element: <div>bestbid offer bid</div> },
 					{
 						path: 'bid/:bidId',
