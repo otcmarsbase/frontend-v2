@@ -9,6 +9,7 @@ import {
 import { Calculator } from './screens/Calculator'
 import { CreateBid } from './screens/CreateBid'
 import { CreateOfferNew } from './screens/CreateOfferNew'
+import { DashboardHistory } from './screens/DashboardHistory'
 import { DashboardNotifications } from './screens/DashboardNotifications'
 import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
@@ -39,7 +40,7 @@ const routes = [
 				path: 'transactions',
 				element: <DashboardTransactions />,
 			},
-			{ path: 'history', element: <div>dashboard history</div> },
+			{ path: 'history', element: <DashboardHistory /> },
 			{ path: 'bids', element: <div>dashboard bids</div> },
 			{ path: 'offers', element: <div>dashboard offers</div> },
 			{
