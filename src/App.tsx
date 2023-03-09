@@ -9,6 +9,7 @@ import {
 import { Calculator } from './screens/Calculator'
 import { CreateBid } from './screens/CreateBid'
 import { CreateOfferNew } from './screens/CreateOfferNew'
+import { DashboardNotifications } from './screens/DashboardNotifications'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
 import { DeepWriteable } from './types'
@@ -19,15 +20,15 @@ type AppProps = {}
 const routes = [
 	{
 		path: '/',
-		element: <Main/>,
+		element: <Main />,
 	},
 	{
 		path: '/create-offer',
-		element: <CreateOfferNew/>,
+		element: <CreateOfferNew />,
 	},
 	{
 		path: '/offer/:id/create-bid',
-		element: <CreateBid/>
+		element: <CreateBid />,
 	},
 	{
 		path: '/dashboard/',
@@ -42,7 +43,7 @@ const routes = [
 			{ path: 'offers', element: <div>dashboard offers</div> },
 			{
 				path: 'notifications',
-				element: <div>dashboard notifications</div>,
+				element: <DashboardNotifications />,
 			},
 		],
 	},
