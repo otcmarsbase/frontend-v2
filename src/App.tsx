@@ -16,6 +16,7 @@ import { DashboardOffers } from './screens/DashboardOffers'
 import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
+import { OfferDetails } from './screens/OfferDetails'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
 
@@ -37,7 +38,7 @@ const routes = [
 	{
 		path: '/dashboard/',
 		children: [
-			{ path: 'offer/:id/', element: <div>dashboard offer id</div> },
+			{ path: 'offer/:id/', element: <OfferDetails /> },
 			{
 				path: 'transactions',
 				element: <DashboardTransactions />,
