@@ -6,6 +6,7 @@ import {
 	useRoutes,
 	Outlet,
 } from 'react-router-dom'
+import { BestBidWrapper } from './screens/BestBidWrapper'
 import { Calculator } from './screens/Calculator'
 import { CreateBid } from './screens/CreateBid'
 import { CreateOfferNew } from './screens/CreateOfferNew'
@@ -58,7 +59,7 @@ const routes = [
 	},
 	{
 		path: '/bestbid/',
-		element: <div>bestbid wrapper</div>,
+		element: <BestBidWrapper />,
 		children: [
 			// redirecto to bestbid/offers
 			{ path: '', element: <div>bestbid root</div> },
