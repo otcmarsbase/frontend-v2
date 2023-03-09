@@ -7,6 +7,7 @@ import {
 	Outlet,
 } from 'react-router-dom'
 import { Calculator } from './screens/Calculator'
+import { Demo } from './screens/Demo'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
 
@@ -130,7 +131,7 @@ const routes = [
 	},
 	{
 		path: '/demo/*',
-		element: <div>demo</div>,
+		element: <Demo />,
 	},
 	{
 		path: 'bestbid/',
@@ -167,8 +168,6 @@ const routes = [
 export const flattenRoutes = flatRoutes(routes as DeepWriteable<typeof routes>)
 
 export const App: React.FC<AppProps> = ({}) => {
-	const t = flattenRoutes['/bestbid/']()
-	const t1 = flattenRoutes['/bestbid/offer/:offerId/bid/:bidId']()
 	return (
 		<BrowserRouter>
 			<AppRoutes />
