@@ -23,6 +23,7 @@ import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
 import { MarketplaceRoot } from './screens/MarketplaceRoot'
 import { MarketplaceWrapper } from './screens/MarketplaceWrapper'
+import { MPOffersList } from './screens/MPOffersList'
 import { OfferDetails } from './screens/OfferDetails'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
@@ -104,13 +105,8 @@ const routes = [
 			{ path: '', element: <MarketplaceRoot /> },
 			{
 				path: 'offers/',
-				element: (
-					<div>
-						marketplace offers <Outlet />
-					</div>
-				),
 				children: [
-					{ path: '', element: <div>marketplace offers root</div> },
+					{ path: '', element: <MPOffersList /> },
 					{ path: 'new', element: <div>marketplace offers new</div> },
 					{
 						path: 'new/waiting/:txid',
