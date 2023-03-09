@@ -7,6 +7,7 @@ import {
 	Outlet,
 } from 'react-router-dom'
 import { Calculator } from './screens/Calculator'
+import { CreateOfferNew } from './screens/CreateOfferNew'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
 import { DeepWriteable } from './types'
@@ -21,7 +22,7 @@ const routes = [
 	},
 	{
 		path: '/create-offer',
-		element: <div>create offer</div>,
+		element: <CreateOfferNew/>,
 	},
 	{
 		path: '/offer/:id/create-bid',
