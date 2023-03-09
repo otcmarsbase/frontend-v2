@@ -12,6 +12,7 @@ import { CreateOfferNew } from './screens/CreateOfferNew'
 import { DashboardBids } from './screens/DashboardBids'
 import { DashboardHistory } from './screens/DashboardHistory'
 import { DashboardNotifications } from './screens/DashboardNotifications'
+import { DashboardOffers } from './screens/DashboardOffers'
 import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
@@ -43,7 +44,7 @@ const routes = [
 			},
 			{ path: 'history', element: <DashboardHistory /> },
 			{ path: 'bids', element: <DashboardBids /> },
-			{ path: 'offers', element: <div>dashboard offers</div> },
+			{ path: 'offers', element: <DashboardOffers /> },
 			{
 				path: 'notifications',
 				element: <DashboardNotifications />,
