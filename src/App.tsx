@@ -7,6 +7,7 @@ import {
 	Outlet,
 } from 'react-router-dom'
 import { Calculator } from './screens/Calculator'
+import { CreateBid } from './screens/CreateBid'
 import { CreateOfferNew } from './screens/CreateOfferNew'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
@@ -26,7 +27,7 @@ const routes = [
 	},
 	{
 		path: '/offer/:id/create-bid',
-		element: <div>create bid</div>,
+		element: <CreateBid/>
 	},
 	{
 		path: '/dashboard/',
