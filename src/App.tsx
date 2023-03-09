@@ -21,6 +21,7 @@ import { DashboardOffers } from './screens/DashboardOffers'
 import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
 import { Main } from './screens/Main'
+import { MarketplaceRoot } from './screens/MarketplaceRoot'
 import { MarketplaceWrapper } from './screens/MarketplaceWrapper'
 import { OfferDetails } from './screens/OfferDetails'
 import { DeepWriteable } from './types'
@@ -100,7 +101,7 @@ const routes = [
 		element: <MarketplaceWrapper />,
 		children: [
 			// redirecto to marketplace/offers
-			{ path: '', element: <div>marketplace root</div> },
+			{ path: '', element: <MarketplaceRoot /> },
 			{
 				path: 'offers/',
 				element: (
