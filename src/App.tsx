@@ -6,6 +6,7 @@ import {
 	useRoutes,
 	Outlet,
 } from 'react-router-dom'
+import { BBOffersList } from './screens/BBOffersList'
 import { BestBidRoot } from './screens/BestBidRoot'
 import { BestBidWrapper } from './screens/BestBidWrapper'
 import { Calculator } from './screens/Calculator'
@@ -67,7 +68,7 @@ const routes = [
 			{
 				path: 'offers/',
 				children: [
-					{ path: '', element: <div>bestbid offers root</div> },
+					{ path: '', element: <BBOffersList /> },
 					{ path: 'new', element: <div>bestbid offers new</div> },
 					{
 						path: 'new/waiting/:txid',
