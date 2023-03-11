@@ -1,7 +1,7 @@
 import { flattenRoutes } from './../App'
 import { Dict } from '../localization/l10n'
 
-const routes = (dict: Dict['navbar']['links']) => [
+export const navlinks = (dict: Dict['navbar']['links']) => [
 	{
 		name: dict.dashboard,
 		path: flattenRoutes['/dashboard/offers'](),
@@ -43,3 +43,5 @@ const routes = (dict: Dict['navbar']['links']) => [
 		auth: false,
 	},
 ]
+
+
