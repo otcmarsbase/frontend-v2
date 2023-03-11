@@ -1,4 +1,4 @@
-import { Container, VStack } from '@chakra-ui/react'
+import { Container, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
 
 type LayoutProps = {
@@ -19,4 +19,8 @@ const PageWrapper: React.FCC = ({ children }) => {
 			{children}
 		</VStack>
 	)
+}
+
+const Header: React.FCC = ({ children }) => {
+	return <VStack></VStack>
 }
