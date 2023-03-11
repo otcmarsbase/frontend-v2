@@ -1,7 +1,9 @@
 import React from 'react'
 
-type LayoutProps = {}
+type LayoutProps = {
+	top?: React.ReactNode
+}
 
-export const Layout: React.FC<LayoutProps> = ({}) => {
-    return <div></div>
+export const Layout: React.FCC<LayoutProps> = ({ top }) => {
+	return <div></div>
 }
