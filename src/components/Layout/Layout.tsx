@@ -1,5 +1,7 @@
 import { Container, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { flattenRoutes } from '../../App'
 
 type LayoutProps = {
 	top?: React.ReactNode
@@ -8,6 +10,7 @@ type LayoutProps = {
 export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 	return (
 		<PageWrapper>
+			<Header />
 			<Container paddingX={'20px'}>{children}</Container>
 		</PageWrapper>
 	)
@@ -31,7 +34,9 @@ type NavbarProps = {
 const Navbar: React.FCC<NavbarProps> = ({ children }) => {
 	return (
 		<HStack>
-			<HeaderLogo />
+			<Link to={flattenRoutes['/']()}>
+				<HeaderLogo />
+			</Link>
 			{/* <MenuLinks /> */}
 			{/* <Button /> */}
 		</HStack>
