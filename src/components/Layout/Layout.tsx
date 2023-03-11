@@ -14,6 +14,7 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 	return (
 		<PageWrapper>
 			<Header menuLinks={navlinks(l10n.navbar.links)} />
+			<Container>{children}</Container>
 			<Footer />
 		</PageWrapper>
 	)
@@ -21,7 +22,7 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 
 const PageWrapper: React.FCC = ({ children }) => {
 	return (
-		<VStack minHeight={'100vh'} height={'100%'}>
+		<VStack paddingX={'20px'} minHeight={'100vh'} height={'100%'}>
 			{children}
 		</VStack>
 	)
