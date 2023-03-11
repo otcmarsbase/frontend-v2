@@ -2,15 +2,18 @@ import { Container, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 import { flattenRoutes } from '../../App'
+import { useTranslation } from '../../localization/l10n'
+import { navlinks } from '../../utils/links'
 
 type LayoutProps = {
 	top?: React.ReactNode
 }
 
 export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
+	const l10n = useTranslation()
 	return (
 		<PageWrapper>
-			<Header />
+			<Header menuLinks={navlinks(l10n.navbar.links)} />
 			<Container paddingX={'20px'}>{children}</Container>
 		</PageWrapper>
 	)
@@ -24,16 +27,20 @@ const PageWrapper: React.FCC = ({ children }) => {
 	)
 }
 
-const Header: React.FCC = ({ children }) => {
+const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
+	children,
+	menuLinks,
+}) => {
 	return (
 		<VStack>
-			<Navbar />
+			<Navbar menuLinks={menuLinks} />
 		</VStack>
 	)
 }
 
+type NavLink = { path: string; name: string; auth?: boolean }
 type NavbarProps = {
-	menuLinks: { path: string; name: string; auth?: boolean }[]
+	menuLinks: NavLink[]
 }
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 	return (
