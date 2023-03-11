@@ -1,4 +1,4 @@
-import { Container, HStack, VStack } from '@chakra-ui/react'
+import { Box, Container, HStack, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 import { flattenRoutes } from '../../App'
@@ -14,7 +14,7 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 	return (
 		<PageWrapper>
 			<Header menuLinks={navlinks(l10n.navbar.links)} />
-			<Container paddingX={'20px'}>{children}</Container>
+			<Footer />
 		</PageWrapper>
 	)
 }
@@ -27,6 +27,14 @@ const PageWrapper: React.FCC = ({ children }) => {
 	)
 }
 
+const Footer: React.FCC = ({ children }) => {
+	return (
+		<HStack width={'100%'} justifyContent={"space-between"}>
+			<Box>links</Box>
+			<Box>social</Box>
+		</HStack>
+	)
+}
 const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
 	children,
 	menuLinks,
