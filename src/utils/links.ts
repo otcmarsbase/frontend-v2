@@ -1,40 +1,41 @@
+import { flattenRoutes } from './../App'
 import { Dict } from '../localization/l10n'
 
 const routes = (dict: Dict['navbar']['links']) => [
 	{
 		name: dict.dashboard,
-		path: ROUTES.dashboard_offers,
+		path: flattenRoutes['/dashboard/offers'](),
 		enabled: false,
 		auth: true,
 	},
 	{
 		name: dict.marketplace,
-		path: ROUTES.marketplace._.full,
+		path: flattenRoutes['/marketplace/'](),
 		enabled: FLAGS.marketplace,
 		auth: false,
 	},
 	BESTBID_ADDRESS
 		? {
 				name: dict.bestbidAuction,
-				path: ROUTES.bestbid._.full,
+				path: flattenRoutes['/bestbid/'](),
 				enabled: true,
 				auth: false,
 		  }
 		: {
 				name: dict.createOffer,
-				path: ROUTES.createOffer,
+				path: flattenRoutes['/create-offer'](),
 				enabled: true,
 				auth: true,
 		  },
 	{
 		name: dict.root,
-		path: ROUTES.root,
+		path: flattenRoutes['/'](),
 		enabled: true,
 		auth: false,
 	},
 	{
 		name: dict.calculator,
-		path: ROUTES.calculator,
+		path: flattenRoutes['/calculator'](),
 		enabled: !FLAGS.marketplace,
 		auth: false,
 	},
