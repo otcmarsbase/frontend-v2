@@ -27,7 +27,7 @@ const PageWrapper: React.FCC = ({ children }) => {
 const Header: React.FCC = ({ children }) => {
 	return (
 		<VStack>
-			<Navbar  />
+			<Navbar />
 		</VStack>
 	)
 }
@@ -42,7 +42,7 @@ const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 				<HeaderLogo />
 			</Link>
 			{menuLinks.map((x) => (
-				<NavMenuLink title={x.name} to={x.path} />
+				<NavMenuLink title={x.name} to={x.path} onClick={() => {}} />
 			))}
 			{/* <MenuLinks /> */}
 			{/* <Button /> */}
