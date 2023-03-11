@@ -11,10 +11,12 @@ const routes = (dict: Dict['navbar']['links']) => [
 	{
 		name: dict.marketplace,
 		path: flattenRoutes['/marketplace/'](),
-		enabled: FLAGS.marketplace,
+		// enabled: FLAGS.marketplace,
+        enabled: true,
 		auth: false,
 	},
-	BESTBID_ADDRESS
+	// BESTBID_ADDRESS
+    true
 		? {
 				name: dict.bestbidAuction,
 				path: flattenRoutes['/bestbid/'](),
@@ -36,7 +38,8 @@ const routes = (dict: Dict['navbar']['links']) => [
 	{
 		name: dict.calculator,
 		path: flattenRoutes['/calculator'](),
-		enabled: !FLAGS.marketplace,
+		// enabled: !FLAGS.marketplace,
+        enabled: true,
 		auth: false,
 	},
 ]
