@@ -9,7 +9,7 @@ const container = document.getElementById('root')
 const root = createRoot(container!)
 
 root.render(
-	<ChakraProvider resetCSS={false} theme={theme}>
+	<ChakraProvider resetCSS={true} theme={theme}>
 		<SWRConfig value={{ provider: () => new Map() }}>
 			<App />
 		</SWRConfig>
