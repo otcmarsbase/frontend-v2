@@ -1,5 +1,15 @@
 {
-    "header": {
-        "title": "test"
-    }
+	"header": {
+		"title": "test"
+	},
+	"navbar": {
+		"links": {
+			"dashboard": "MY DASHBOARD",
+			"marketplace": "🔥 ZERO-LOCK OFFERS",
+			"bestbidAuction": "BEST BID AUCTION",
+			"createOffer": "CREATE OFFER",
+			"root": "OTC DESK",
+			"calculator": "CALCULATOR"
+		}
+	}
 }
