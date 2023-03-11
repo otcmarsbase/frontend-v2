@@ -25,6 +25,18 @@ const Header: React.FCC = ({ children }) => {
 	return <VStack></VStack>
 }
 
+type NavbarProps = {
+	menuLinks: { path: string; name: string; auth?: boolean }[]
+}
+const Navbar: React.FCC<NavbarProps> = ({ children }) => {
+	return (
+		<HStack>
+			<HeaderLogo />
+			{/* <MenuLinks /> */}
+			{/* <Button /> */}
+		</HStack>
+	)
+}
 const HeaderLogo: React.FC = ({}) => {
 	return (
 		<img
