@@ -8,7 +8,7 @@ export const baseLocalization = {
     Rus,
 }
 
-type Dict = typeof baseLocalization.Eng
+export type Dict = typeof baseLocalization.Eng
 
 export const LocalizationContext = React.createContext<Dict>(
     baseLocalization.Eng
