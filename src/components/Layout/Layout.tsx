@@ -4,6 +4,8 @@ import {
 	HStack,
 	VStack,
 	Link as ChakraLink,
+	Select,
+	Button,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -68,10 +70,19 @@ const Header: React.FCC<{
 	supportLinks: SupportLink[]
 }> = ({ menuLinks, supportLinks }) => {
 	return (
-		<Box>
+		<HStack justifyContent={'space-between'} w={'100%'}>
 			<Navbar menuLinks={menuLinks} />
-			<HeaderSupport supportLinks={supportLinks} />
-		</Box>
+			<HStack>
+				<HeaderSupport supportLinks={supportLinks} />
+				<HStack>
+					<Select maxWidth={'max-content'}>
+						<option value="option1">BNB Chain</option>
+						<option value="option2">Ethereum</option>
+					</Select>
+					<Button>CONNECT</Button>
+				</HStack>
+			</HStack>
+		</HStack>
 	)
 }
 
@@ -114,8 +125,6 @@ const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 			{menuLinks.map((x) => (
 				<NavMenuLink title={x.name} to={x.path} onClick={() => {}} />
 			))}
-			{/* <MenuLinks /> */}
-			{/* <Button /> */}
 		</HStack>
 	)
 }
