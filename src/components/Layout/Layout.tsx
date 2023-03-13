@@ -6,12 +6,14 @@ import {
 	Link as ChakraLink,
 	Select,
 	Button,
+	Text,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { flattenRoutes } from '../../App'
 import { useTranslation } from '../../localization/l10n'
 import { links, navlinks } from '../../utils/links'
+import { Footer } from '../Footer/Footer'
 
 type LayoutProps = {
 	top?: React.ReactNode
@@ -39,7 +41,37 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 				]}
 			/>
 			<Container>{children}</Container>
-			<Footer />
+			<Footer
+				copyRight={
+					<>
+						commit: {process.env.VITE_GIT_COMMIT} version:
+						{process.env.VITE_APP_VERSION}
+						<br />© All Rights Reserved MarsBase,
+						{new Date().getFullYear()}
+					</>
+				}
+				description={
+					<Text maxWidth={'308px'} align="left">
+						A perfect place for crypto whales and retail investors
+						to trade large volumes of any digital asset with no
+						price slippage or market impact.
+					</Text>
+				}
+				menuLinks={[
+					'abc',
+					'def',
+					'ghi',
+					'jkl',
+					'abc',
+					'def',
+					'ghi',
+					'jkl',
+				].map((x) => (
+					<div>{x}</div>
+				))}
+				socialLinks={null}
+				title={<Text>MARSBASE OTC DESK</Text>}
+			/>
 		</PageWrapper>
 	)
 }
@@ -49,15 +81,6 @@ const PageWrapper: React.FCC = ({ children }) => {
 		<VStack paddingX={'20px'} minHeight={'100vh'} height={'100%'}>
 			{children}
 		</VStack>
-	)
-}
-
-const Footer: React.FCC = ({ children }) => {
-	return (
-		<HStack width={'100%'} justifyContent={'space-between'}>
-			<Box>links</Box>
-			<Box>social</Box>
-		</HStack>
 	)
 }
 
