@@ -43,6 +43,11 @@ const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
 	return (
 		<Box>
 			<Navbar menuLinks={menuLinks} />
+			<HStack>
+				<SupportLink>Support</SupportLink>
+				<SupportLink>Support</SupportLink>
+				<SupportLink>Support</SupportLink>
+			</HStack>
 		</Box>
 	)
 }
