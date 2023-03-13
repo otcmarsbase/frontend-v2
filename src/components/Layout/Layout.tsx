@@ -9,7 +9,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { flattenRoutes } from '../../App'
 import { useTranslation } from '../../localization/l10n'
-import { navlinks } from '../../utils/links'
+import { links, navlinks } from '../../utils/links'
 
 type LayoutProps = {
 	top?: React.ReactNode
@@ -19,7 +19,23 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 	const l10n = useTranslation()
 	return (
 		<PageWrapper>
-			<Header menuLinks={navlinks(l10n.navbar.links)} />
+			<Header
+				menuLinks={navlinks(l10n.navbar.links)}
+				supportLinks={[
+					{
+						href: links.general.aboutMarsbase,
+						text: l10n.navbar.support.about,
+					},
+					{
+						href: links.general.helpCenter,
+						text: l10n.navbar.support.helpCenter,
+					},
+					{
+						href: links.general.community,
+						text: l10n.navbar.support.community,
+					},
+				]}
+			/>
 			<Container>{children}</Container>
 			<Footer />
 		</PageWrapper>
@@ -42,6 +58,7 @@ const Footer: React.FCC = ({ children }) => {
 		</HStack>
 	)
 }
+
 type SupportLink = {
 	href: string
 	text: string
