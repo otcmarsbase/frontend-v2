@@ -28,6 +28,11 @@ export const Footer: React.FC<FooterProps> = ({
 				</Grid>
 				<VStack>
 					<Text>MARSBASE OTC DESK</Text>
+					<Text maxWidth={'308px'} align="left">
+						A perfect place for crypto whales and retail investors
+						to trade large volumes of any digital asset with no
+						price slippage or market impact.
+					</Text>
 				</VStack>
 			<VStack>
 				{socialLinks}
