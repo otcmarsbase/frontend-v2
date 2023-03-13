@@ -51,6 +51,12 @@ type NavLink = { path: string; name: string; auth?: boolean }
 type NavbarProps = {
 	menuLinks: NavLink[]
 }
+type LinkProps = {
+	onClick: () => void
+}
+const SupportLink: React.FCC<LinkProps> = ({ onClick, children }) => {
+	return <div onClick={onClick}>{children}</div>
+}
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 	return (
 		<HStack>
