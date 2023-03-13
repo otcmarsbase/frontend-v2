@@ -30,7 +30,7 @@ const PageWrapper: React.FCC = ({ children }) => {
 
 const Footer: React.FCC = ({ children }) => {
 	return (
-		<HStack width={'100%'} justifyContent={"space-between"}>
+		<HStack width={'100%'} justifyContent={'space-between'}>
 			<Box>links</Box>
 			<Box>social</Box>
 		</HStack>
@@ -44,7 +44,7 @@ const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
 		<Box>
 			<Navbar menuLinks={menuLinks} />
 			<HStack>
-				<SupportLink>Support</SupportLink>
+				<SupportLink onClick={}>Support</SupportLink>
 				<SupportLink>Support</SupportLink>
 				<SupportLink>Support</SupportLink>
 			</HStack>
@@ -57,10 +57,17 @@ type NavbarProps = {
 	menuLinks: NavLink[]
 }
 type LinkProps = {
-	onClick: () => void
+	href: string
+	text: string
 }
-const SupportLink: React.FCC<LinkProps> = ({ onClick, children }) => {
-	return <div onClick={onClick}>{children}</div>
+const SupportLink: React.FCC<LinkProps> = ({ href, text }) => {
+	return (
+		<div>
+			<a target={'_blank'} href={href}>
+				{text}
+			</a>
+		</div>
+	)
 }
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 	return (
