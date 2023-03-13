@@ -41,9 +41,9 @@ const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
 	menuLinks,
 }) => {
 	return (
-		<VStack>
+		<Box>
 			<Navbar menuLinks={menuLinks} />
-		</VStack>
+		</Box>
 	)
 }
 
