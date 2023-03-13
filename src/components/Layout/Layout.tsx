@@ -50,7 +50,7 @@ const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
 		<Box>
 			<Navbar menuLinks={menuLinks} />
 			<HStack>
-				<SupportLink onClick={}>Support</SupportLink>
+				<SupportLink>Support</SupportLink>
 				<SupportLink>Support</SupportLink>
 				<SupportLink>Support</SupportLink>
 			</HStack>

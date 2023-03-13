@@ -12,11 +12,11 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 		name: dict.marketplace,
 		path: flattenRoutes['/marketplace/'](),
 		// enabled: FLAGS.marketplace,
-        enabled: true,
+		enabled: true,
 		auth: false,
 	},
 	// BESTBID_ADDRESS
-    true
+	true
 		? {
 				name: dict.bestbidAuction,
 				path: flattenRoutes['/bestbid/'](),
@@ -39,9 +39,16 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 		name: dict.calculator,
 		path: flattenRoutes['/calculator'](),
 		// enabled: !FLAGS.marketplace,
-        enabled: true,
+		enabled: true,
 		auth: false,
 	},
 ]
 
-
+export const links = {
+	general: {
+		aboutMarsbase:
+			'https://otc-marsbase.gitbook.io/marsbase/about-marsbase',
+		helpCenter: 'https://intercom.help/marsbase/en',
+		community: 'https://linktr.ee/MARSBASE',
+	},
+}
