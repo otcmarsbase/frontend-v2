@@ -1,6 +1,12 @@
-import { Box, Container, HStack, VStack } from '@chakra-ui/react'
+import {
+	Box,
+	Container,
+	HStack,
+	VStack,
+	Link as ChakraLink,
+} from '@chakra-ui/react'
 import React from 'react'
-import { Link, LinkProps } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { flattenRoutes } from '../../App'
 import { useTranslation } from '../../localization/l10n'
 import { navlinks } from '../../utils/links'
@@ -62,11 +68,11 @@ type LinkProps = {
 }
 const SupportLink: React.FCC<LinkProps> = ({ href, text }) => {
 	return (
-		<div>
-			<a target={'_blank'} href={href}>
+		<Box>
+			<ChakraLink target={'_blank'} href={href}>
 				{text}
-			</a>
-		</div>
+			</ChakraLink>
+		</Box>
 	)
 }
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
