@@ -42,17 +42,21 @@ const Footer: React.FCC = ({ children }) => {
 		</HStack>
 	)
 }
-const Header: React.FCC<{ menuLinks: NavLink[] }> = ({
-	children,
-	menuLinks,
-}) => {
+type SupportLink = {
+	href: string
+	text: string
+}
+const Header: React.FCC<{
+	menuLinks: NavLink[]
+	supportLinks: SupportLink[]
+}> = ({ menuLinks, supportLinks }) => {
 	return (
 		<Box>
 			<Navbar menuLinks={menuLinks} />
 			<HStack>
-				<SupportLink>Support</SupportLink>
-				<SupportLink>Support</SupportLink>
-				<SupportLink>Support</SupportLink>
+				{supportLinks.map((x) => (
+					<SupportLink {...x} />
+				))}
 			</HStack>
 		</Box>
 	)
