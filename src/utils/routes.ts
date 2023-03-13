@@ -146,8 +146,7 @@ const slashJoin = <S1 extends string, S2 extends string>(
 	a: S1,
 	b: S2
 ): ReplaceAll<Join<[S1, S2], '/'>, '//', '/'> => {
-	if (a[a.length - 1] !== '/' && b[0] !== '/') return `${a}/${b}` as any
-	return (a + b).replace(/\/{2,}/, '/') as any
+	return [a, b].join('/').replace(/\/{2,}/g, '/') as any
 }
 
 /**
@@ -169,4 +168,3 @@ export const routeWithParams = <
 		str
 	) as ReplaceParams<T, Keys>
 }
-
