@@ -70,11 +70,7 @@ const Header: React.FCC<{
 	return (
 		<Box>
 			<Navbar menuLinks={menuLinks} />
-			<HStack>
-				{supportLinks.map((x) => (
-					<SupportLink {...x} />
-				))}
-			</HStack>
+			<HeaderSupport supportLinks={supportLinks} />
 		</Box>
 	)
 }
@@ -94,6 +90,19 @@ const SupportLink: React.FCC<LinkProps> = ({ href, text }) => {
 				{text}
 			</ChakraLink>
 		</Box>
+	)
+}
+
+type HeaderSupportProps = {
+	supportLinks: SupportLink[]
+}
+const HeaderSupport: React.FC<HeaderSupportProps> = ({ supportLinks }) => {
+	return (
+		<HStack>
+			{supportLinks.map((x) => (
+				<SupportLink {...x} />
+			))}
+		</HStack>
 	)
 }
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
