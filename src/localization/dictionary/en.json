@@ -10,6 +10,11 @@
 			"createOffer": "CREATE OFFER",
 			"root": "OTC DESK",
 			"calculator": "CALCULATOR"
+		},
+		"support": {
+			"about": "Knowledge base",
+			"helpCenter": "Help Center",
+			"community": "Community"
 		}
 	}
 }
