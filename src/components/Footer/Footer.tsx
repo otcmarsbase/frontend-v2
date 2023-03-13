@@ -26,8 +26,10 @@ export const Footer: React.FC<FooterProps> = ({
 				>
 					{menuLinks}
 				</Grid>
-			</Box>
-			<Box>social</Box>
+			<VStack>
+				{socialLinks}
+				{copyRight}
+			</VStack>
 		</HStack>
 	)
 }
