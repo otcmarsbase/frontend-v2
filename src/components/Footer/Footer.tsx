@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, HStack } from '@chakra-ui/react'
+import { Box, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 
 type FooterProps = {
@@ -18,11 +18,11 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
 	return (
 		<HStack width={'100%'} justifyContent={'space-between'}>
-			<Box>
+			<HStack>
 				<Grid
 					templateColumns="repeat(2, 1fr)"
 					templateRows={'repeat(4, 1fr)'}
-                    gap={2}
+					gap={2}
 				>
 					{menuLinks}
 				</Grid>
@@ -34,6 +34,7 @@ export const Footer: React.FC<FooterProps> = ({
 						price slippage or market impact.
 					</Text>
 				</VStack>
+			</HStack>
 			<VStack>
 				{socialLinks}
 				{copyRight}
