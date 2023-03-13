@@ -9,7 +9,7 @@ type FooterProps = {
 	menuLinks: React.ReactNode[]
 }
 
-export const Footer: React.FC<FooterProps> = ({
+const FooterLayout: React.FC<FooterProps> = ({
 	copyRight,
 	description,
 	socialLinks,
@@ -36,5 +36,41 @@ export const Footer: React.FC<FooterProps> = ({
 				{copyRight}
 			</VStack>
 		</HStack>
+	)
+}
+
+export const Footer: React.FC = () => {
+	return (
+		<FooterLayout
+			copyRight={
+				<>
+					commit: {process.env.VITE_GIT_COMMIT} version:
+					{process.env.VITE_APP_VERSION}
+					<br />© All Rights Reserved MarsBase,
+					{new Date().getFullYear()}
+				</>
+			}
+			description={
+				<Text maxWidth={'308px'} align="left">
+					A perfect place for crypto whales and retail investors to
+					trade large volumes of any digital asset with no price
+					slippage or market impact.
+				</Text>
+			}
+			menuLinks={[
+				'abc',
+				'def',
+				'ghi',
+				'jkl',
+				'abc',
+				'def',
+				'ghi',
+				'jkl',
+			].map((x) => (
+				<div>{x}</div>
+			))}
+			socialLinks={null}
+			title={<Text>MARSBASE OTC DESK</Text>}
+		/>
 	)
 }

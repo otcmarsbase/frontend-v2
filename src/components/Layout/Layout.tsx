@@ -41,37 +41,7 @@ export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
 				]}
 			/>
 			<Container>{children}</Container>
-			<Footer
-				copyRight={
-					<>
-						commit: {process.env.VITE_GIT_COMMIT} version:
-						{process.env.VITE_APP_VERSION}
-						<br />© All Rights Reserved MarsBase,
-						{new Date().getFullYear()}
-					</>
-				}
-				description={
-					<Text maxWidth={'308px'} align="left">
-						A perfect place for crypto whales and retail investors
-						to trade large volumes of any digital asset with no
-						price slippage or market impact.
-					</Text>
-				}
-				menuLinks={[
-					'abc',
-					'def',
-					'ghi',
-					'jkl',
-					'abc',
-					'def',
-					'ghi',
-					'jkl',
-				].map((x) => (
-					<div>{x}</div>
-				))}
-				socialLinks={null}
-				title={<Text>MARSBASE OTC DESK</Text>}
-			/>
+			<Footer/>
 		</PageWrapper>
 	)
 }
