@@ -28,6 +28,8 @@
 		"knowledgeBase": "Knowledge base",
 		"title": "MARSBASE OTC DESK",
 		"description": "A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.",
-		"copyright": "© All Rights Reserved MarsBase,"
+		"copyright": "© All Rights Reserved MarsBase,",
+		"commit": "commit:",
+		"version": "version:"
 	}
 }
