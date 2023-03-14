@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import checker from 'vite-plugin-checker'
 import git from 'git-rev-sync'
 import rollupNodePolyfills from 'rollup-plugin-node-polyfills'
+import path from 'path'
 
 let commit = git.short()
 
@@ -48,6 +49,7 @@ export default defineConfig({
 			{ find: 'stream', replacement: 'stream-browserify' },
 			{ find: 'zlib', replacement: 'browserify-zlib' },
 			{ find: 'util', replacement: 'util/util' },
+			{ find: '@', replacement: path.resolve(__dirname, 'src') },
 		],
 	},
 })
