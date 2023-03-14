@@ -38,7 +38,7 @@ const FooterLayout: React.FC<FooterProps> = ({
 		</HStack>
 	)
 }
-
+const footerLinks = Object.entries(links.footer)
 export const Footer: React.FC = () => {
 	return (
 		<FooterLayout
