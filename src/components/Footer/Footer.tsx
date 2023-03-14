@@ -1,5 +1,16 @@
-import { Box, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react'
+import {
+	Box,
+	Button,
+	Grid,
+	GridItem,
+	HStack,
+	Link,
+	Text,
+	VStack,
+} from '@chakra-ui/react'
 import React from 'react'
+import { useTranslation } from '../../localization/l10n'
+import { links } from '../../utils/links'
 
 type FooterProps = {
 	title: React.ReactNode
@@ -40,6 +51,7 @@ const FooterLayout: React.FC<FooterProps> = ({
 }
 const footerLinks = Object.entries(links.footer)
 export const Footer: React.FC = () => {
+	const l10n = useTranslation()
 	return (
 		<FooterLayout
 			copyRight={
@@ -57,17 +69,10 @@ export const Footer: React.FC = () => {
 					slippage or market impact.
 				</Text>
 			}
-			menuLinks={[
-				'abc',
-				'def',
-				'ghi',
-				'jkl',
-				'abc',
-				'def',
-				'ghi',
-				'jkl',
-			].map((x) => (
-				<div>{x}</div>
+			menuLinks={footerLinks.map(([key, href]) => (
+				<Link href={href} target={'_blank'}>
+					{l10n.footer[key as keyof typeof l10n.footer]}
+				</Link>
 			))}
 			socialLinks={null}
 			title={<Text>MARSBASE OTC DESK</Text>}
