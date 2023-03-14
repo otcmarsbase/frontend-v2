@@ -18,14 +18,14 @@
 		}
 	},
 	"footer": {
-		"column_1_1": "Pitch Deck",
-		"column_1_2": "License",
-		"column_1_3": "Privacy Policy",
-		"column_1_4": "White Paper",
-		"column_2_1": "Support",
-		"column_2_2": "Our website",
-		"column_2_3": "Terms & Agreements",
-		"column_2_4": "Knowledge base",
+		"pitchDesk": "Pitch Deck",
+		"license": "License",
+		"privacyPolicy": "Privacy Policy",
+		"whitePaper": "White Paper",
+		"support": "Support",
+		"dOTCDesk": "Our website",
+		"terms": "Terms & Agreements",
+		"knowledgeBase": "Knowledge base",
 		"title": "MARSBASE OTC DESK",
 		"description": "A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.",
 		"copyright": "© All Rights Reserved MarsBase,"
