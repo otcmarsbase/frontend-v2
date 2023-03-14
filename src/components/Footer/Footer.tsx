@@ -70,7 +70,7 @@ export const Footer: React.FC = () => {
 				</Text>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
-				<Link href={href} target={'_blank'}>
+				<Link key={href} href={href} target={'_blank'}>
 					{l10n.footer[key as keyof typeof l10n.footer]}
 				</Link>
 			))}
