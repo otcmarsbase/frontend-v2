@@ -104,7 +104,7 @@ const HeaderSupport: React.FC<HeaderSupportProps> = ({ supportLinks }) => {
 	return (
 		<HStack>
 			{supportLinks.map((x) => (
-				<SupportLink {...x} />
+				<SupportLink key={x.href} {...x} />
 			))}
 		</HStack>
 	)
@@ -116,7 +116,7 @@ const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 				<HeaderLogo />
 			</Link>
 			{menuLinks.map((x) => (
-				<NavMenuLink title={x.name} to={x.path} onClick={() => {}} />
+				<NavMenuLink key={x.path} title={x.name} to={x.path} onClick={() => {}} />
 			))}
 		</HStack>
 	)
