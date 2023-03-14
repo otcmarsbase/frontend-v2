@@ -58,15 +58,13 @@ export const Footer: React.FC = () => {
 				<>
 					commit: {process.env.VITE_GIT_COMMIT} version:
 					{process.env.VITE_APP_VERSION}
-					<br />© All Rights Reserved MarsBase,
+					<br />© {l10n.footer.copyright}
 					{new Date().getFullYear()}
 				</>
 			}
 			description={
 				<Text maxWidth={'308px'} align="left">
-					A perfect place for crypto whales and retail investors to
-					trade large volumes of any digital asset with no price
-					slippage or market impact.
+					{l10n.footer.description}
 				</Text>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
@@ -75,7 +73,7 @@ export const Footer: React.FC = () => {
 				</Link>
 			))}
 			socialLinks={null}
-			title={<Text>MARSBASE OTC DESK</Text>}
+			title={<Text>{l10n.footer.title}</Text>}
 		/>
 	)
 }
