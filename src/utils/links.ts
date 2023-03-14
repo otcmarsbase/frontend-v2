@@ -51,4 +51,20 @@ export const links = {
 		helpCenter: 'https://intercom.help/marsbase/en',
 		community: 'https://linktr.ee/MARSBASE',
 	},
+	footer: {
+		pitchDesk:
+		  'https://drive.google.com/file/d/1OerpyQdyqwKixW0Mc5D16-vumskeG8qK/view',
+		license:
+		  'https://drive.google.com/file/d/1nf3_Q3ZOIBAqf5w6JVzekKACsfsIQTkB/view?usp=sharing',
+		privacyPolicy:
+		  'https://drive.google.com/file/d/1mHwB3uSvzpRFOQftK8EOTmxMRX2LVfq8/view?usp=sharing',
+		whitePaper:
+		  'https://drive.google.com/file/d/1Sa_eUfxlkOuOYMC9pktU-Nbgp5uKL3A_/view',
+		support: 'https://intercom.help/marsbase/en',
+		dOTCDesk: 'https://app.otcmarsbase.io/en/trading#',
+		terms:
+		  'https://drive.google.com/file/d/1PlJSXdu7b8dH3EAY7XY7NPSsB9YZS6Pg/view?usp=sharing',
+		knowledgeBase:
+		  'https://otc-marsbase.gitbook.io/marsbase/D4i0W5CUWz8SJkPxT7zF/',
+	  },
 }
