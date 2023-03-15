@@ -11,6 +11,14 @@ import {
 import React from 'react'
 import { useTranslation } from '../../localization/l10n'
 import { links } from '../../utils/links'
+import {
+	DiscordIcon,
+	LinktreeIcon,
+	MediumIcon,
+	RedditIcon,
+	TelegramIcon,
+	TwitterIcon,
+} from '@/icons'
 
 type FooterProps = {
 	title: React.ReactNode
@@ -50,13 +58,22 @@ const FooterLayout: React.FC<FooterProps> = ({
 	)
 }
 const footerLinks = Object.entries(links.footer)
+const socialIcons = [
+	DiscordIcon,
+	RedditIcon,
+	TelegramIcon,
+	LinktreeIcon,
+	TwitterIcon,
+	MediumIcon,
+]
 export const Footer: React.FC = () => {
 	const l10n = useTranslation()
 	return (
 		<FooterLayout
 			copyRight={
 				<>
-					{l10n.footer.commit} {process.env.VITE_GIT_COMMIT} {l10n.footer.version}
+					{l10n.footer.commit} {process.env.VITE_GIT_COMMIT}{' '}
+					{l10n.footer.version}
 					{process.env.VITE_APP_VERSION}
 					<br />© {l10n.footer.copyright}
 					{new Date().getFullYear()}
@@ -72,7 +89,15 @@ export const Footer: React.FC = () => {
 					{l10n.footer[key as keyof typeof l10n.footer]}
 				</Link>
 			))}
-			socialLinks={null}
+			socialLinks={
+				<HStack>
+					{socialIcons.map((x) => (
+						<div onClick={() => {}}>
+							<img src={x} alt="" />
+						</div>
+					))}
+				</HStack>
+			}
 			title={<Text>{l10n.footer.title}</Text>}
 		/>
 	)
