@@ -15,11 +15,11 @@ import { useTranslation } from '../../localization/l10n'
 import { links, navlinks } from '../../utils/links'
 import { Footer } from '../Footer/Footer'
 
-type LayoutProps = {
+type MainScreenWrapperProps = {
 	top?: React.ReactNode
 }
 
-export const Layout: React.FCC<LayoutProps> = ({ top, children }) => {
+export const MainScreenWrapper: React.FCC<MainScreenWrapperProps> = ({ top, children }) => {
 	const l10n = useTranslation()
 	return (
 		<PageWrapper>
