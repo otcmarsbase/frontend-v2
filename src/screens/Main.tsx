@@ -1,7 +1,7 @@
 import { Link } from '@chakra-ui/react'
 import React from 'react'
 import { CreateOfferHeader } from '../components/CreateOfferHeader/CreateOfferHeader'
-import { MainScreenWrapper } from '../components/MainScreenWrapper/MainScreenWrapper'
+import { ScreenWrapper } from '../components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '../localization/l10n'
 import { links } from '../utils/links'
 
@@ -10,7 +10,7 @@ type MainProps = {}
 export const Main: React.FC<MainProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<MainScreenWrapper
+		<ScreenWrapper
 			top={
 				<CreateOfferHeader
 					titleLink={<Link href={links.general.howToUse}>{l10n.OTCDesk.howToUse}</Link>}
@@ -24,6 +24,6 @@ export const Main: React.FC<MainProps> = ({}) => {
 			}
 		>
 			HELLO WORLD
-		</MainScreenWrapper>
+		</ScreenWrapper>
 	)
 }

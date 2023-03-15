@@ -6,7 +6,6 @@ import {
 	Link as ChakraLink,
 	Select,
 	Button,
-	Text,
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -15,11 +14,14 @@ import { useTranslation } from '../../localization/l10n'
 import { links, navlinks } from '../../utils/links'
 import { Footer } from '../Footer/Footer'
 
-type MainScreenWrapperProps = {
+type ScreenWrapperProps = {
 	top?: React.ReactNode
 }
 
-export const MainScreenWrapper: React.FCC<MainScreenWrapperProps> = ({ top, children }) => {
+export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
+	top,
+	children,
+}) => {
 	const l10n = useTranslation()
 	return (
 		<PageWrapper>
@@ -42,7 +44,7 @@ export const MainScreenWrapper: React.FCC<MainScreenWrapperProps> = ({ top, chil
 			/>
 			{top}
 			<Container>{children}</Container>
-			<Footer/>
+			<Footer />
 		</PageWrapper>
 	)
 }
@@ -117,7 +119,12 @@ const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 				<HeaderLogo />
 			</Link>
 			{menuLinks.map((x) => (
-				<NavMenuLink key={x.path} title={x.name} to={x.path} onClick={() => {}} />
+				<NavMenuLink
+					key={x.path}
+					title={x.name}
+					to={x.path}
+					onClick={() => {}}
+				/>
 			))}
 		</HStack>
 	)
