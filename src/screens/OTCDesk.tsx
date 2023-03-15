@@ -5,9 +5,9 @@ import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
 
-type MainProps = {}
+type OTCDeskProps = {}
 
-export const Main: React.FC<MainProps> = ({}) => {
+export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
 		<ScreenWrapper

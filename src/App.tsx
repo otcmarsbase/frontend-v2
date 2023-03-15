@@ -20,11 +20,11 @@ import { DashboardNotifications } from './screens/DashboardNotifications'
 import { DashboardOffers } from './screens/DashboardOffers'
 import { DashboardTransactions } from './screens/DashboardTransactions'
 import { Demo } from './screens/Demo'
-import { Main } from './screens/Main'
 import { MarketplaceRoot } from './screens/MarketplaceRoot'
 import { MarketplaceWrapper } from './screens/MarketplaceWrapper'
 import { MPOffersList } from './screens/MPOffersList'
 import { OfferDetails } from './screens/OfferDetails'
+import { OTCDesk } from './screens/OTCDesk'
 import { DeepWriteable } from './types'
 import { flatRoutes } from './utils/routes'
 
@@ -33,7 +33,7 @@ type AppProps = {}
 const routes = [
 	{
 		path: '/',
-		element: <Main />,
+		element: <OTCDesk />,
 	},
 	{
 		path: '/create-offer',
