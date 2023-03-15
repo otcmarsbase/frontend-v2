@@ -46,11 +46,13 @@ const FooterLayout: React.FC<FooterProps> = ({
 					{menuLinks}
 				</Grid>
 				<VStack>
-					<Box width={"100%"} textAlign={"left"}>{title}</Box>
+					<Box width={'100%'} textAlign={'left'}>
+						{title}
+					</Box>
 					{description}
 				</VStack>
 			</HStack>
-			<VStack alignItems={"end"}>
+			<VStack alignItems={'end'}>
 				{socialLinks}
 				{copyRight}
 			</VStack>
@@ -72,10 +74,11 @@ export const Footer: React.FC = () => {
 		<FooterLayout
 			copyRight={
 				<>
-					{l10n.footer.commit} {process.env.VITE_GIT_COMMIT}{' '}
-					{l10n.footer.version}
-					{process.env.VITE_APP_VERSION}
-					<br />{l10n.footer.copyright}
+					<div>
+						{l10n.footer.commit} {process.env.VITE_GIT_COMMIT}{' '}
+						{l10n.footer.version} {process.env.VITE_APP_VERSION}
+					</div>
+					{l10n.footer.copyright}
 					{new Date().getFullYear()}
 				</>
 			}
