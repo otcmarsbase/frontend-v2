@@ -59,12 +59,12 @@ const FooterLayout: React.FC<FooterProps> = ({
 }
 const footerLinks = Object.entries(links.footer)
 const socialIcons = [
-	DiscordIcon,
-	RedditIcon,
-	TelegramIcon,
-	LinktreeIcon,
-	TwitterIcon,
-	MediumIcon,
+	[DiscordIcon, links.social.discord],
+	[RedditIcon, links.social.reddit],
+	[TelegramIcon, links.social.telegram],
+	[LinktreeIcon, links.social.linktree],
+	[TwitterIcon, links.social.twitter],
+	[MediumIcon, links.social.medium],
 ]
 export const Footer: React.FC = () => {
 	const l10n = useTranslation()
@@ -91,9 +91,9 @@ export const Footer: React.FC = () => {
 			))}
 			socialLinks={
 				<HStack>
-					{socialIcons.map((x) => (
-						<div onClick={() => {}}>
-							<img src={x} alt="" />
+					{socialIcons.map(([icon, href]) => (
+						<div onClick={() => window.open(href, '_blank')}>
+							<img src={icon} alt="" />
 						</div>
 					))}
 				</HStack>
