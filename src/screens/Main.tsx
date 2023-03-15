@@ -1,9 +1,9 @@
 import { Link } from '@chakra-ui/react'
 import React from 'react'
-import { CreateOfferHeader } from '../components/CreateOfferHeader/CreateOfferHeader'
-import { ScreenWrapper } from '../components/ScreenWrapper/ScreenWrapper'
-import { useTranslation } from '../localization/l10n'
-import { links } from '../utils/links'
+import { CreateOfferHeader } from '@/components/CreateOfferHeader/CreateOfferHeader'
+import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
+import { useTranslation } from '@/localization/l10n'
+import { links } from '@/utils/links'
 
 type MainProps = {}
 
