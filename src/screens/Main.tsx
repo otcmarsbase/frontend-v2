@@ -3,6 +3,7 @@ import React from 'react'
 import { CreateOfferHeader } from '../components/CreateOfferHeader/CreateOfferHeader'
 import { MainScreenWrapper } from '../components/MainScreenWrapper/MainScreenWrapper'
 import { useTranslation } from '../localization/l10n'
+import { links } from '../utils/links'
 
 type MainProps = {}
 
@@ -12,7 +13,7 @@ export const Main: React.FC<MainProps> = ({}) => {
 		<MainScreenWrapper
 			top={
 				<CreateOfferHeader
-					titleLink={<Link>{l10n.OTCDesk.howToUse}</Link>}
+					titleLink={<Link href={links.general.howToUse}>{l10n.OTCDesk.howToUse}</Link>}
 					createOfferBtn={{
 						label: l10n.OTCDesk.createOfferLabel,
 						onClick: () => {},
