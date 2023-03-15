@@ -23,7 +23,7 @@ export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
 			<VStack alignItems={'flex-start'}>
 				<HStack>
 					<Text>{title}</Text>
-					{titleLink}
+					<Box>{titleLink}</Box>
 				</HStack>
 				<Text>{subTitle}</Text>
 			</VStack>
