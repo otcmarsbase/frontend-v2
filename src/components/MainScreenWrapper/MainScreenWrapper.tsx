@@ -40,6 +40,7 @@ export const MainScreenWrapper: React.FCC<MainScreenWrapperProps> = ({ top, chil
 					},
 				]}
 			/>
+			{top}
 			<Container>{children}</Container>
 			<Footer/>
 		</PageWrapper>

@@ -1,8 +1,9 @@
 import React from 'react'
-import { MainScreenWrapper } from '../components/Layout/Layout'
+import { MainScreenTop } from '../components/MainScreenTop/MainScreenTop'
+import { MainScreenWrapper } from '../components/MainScreenWrapper/MainScreenWrapper'
 
 type MainProps = {}
 
 export const Main: React.FC<MainProps> = ({}) => {
-	return <MainScreenWrapper>HELLO WORLD</MainScreenWrapper>
+	return <MainScreenWrapper top={<MainScreenTop onCreateOfferClick={() => {}}/>}>HELLO WORLD</MainScreenWrapper>
 }
