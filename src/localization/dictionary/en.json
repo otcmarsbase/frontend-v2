@@ -31,5 +31,11 @@
 		"copyright": "© All Rights Reserved MarsBase,",
 		"commit": "commit:",
 		"version": "version:"
+	},
+	"OTCDesk": {
+		"title": "OTC Desk",
+		"subTitle": "Explore available OTC deals, filter them by token, size, type, or create your own offers",
+		"howToUse": "How to use?",
+		"createOfferLabel": "CREATE OFFER"
 	}
 }
