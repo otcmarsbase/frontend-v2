@@ -1,5 +1,6 @@
 import { Box, Button, HStack, Link, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
+import { useTranslation } from '../../localization/l10n'
 
 type MainScreenTopProps = {
 	onCreateOfferClick: () => void
@@ -8,19 +9,19 @@ type MainScreenTopProps = {
 export const MainScreenTop: React.FC<MainScreenTopProps> = ({
 	onCreateOfferClick,
 }) => {
+	const l10n = useTranslation()
 	return (
 		<HStack justifyContent={'space-between'} width={'100%'}>
 			<VStack alignItems={'flex-start'}>
 				<HStack>
-					<Text>OTC Desk</Text>
-					<Link>How to use?</Link>
+					<Text>{l10n.OTCDesk.title}</Text>
+					<Link>{l10n.OTCDesk.howToUse}</Link>
 				</HStack>
-				<Text>
-					Explore available OTC deals, filter them by token, size,
-					type, or create your own offers
-				</Text>
+				<Text>{l10n.OTCDesk.subTitle}</Text>
 			</VStack>
-			<Button>Create Offer</Button>
+			<Button onClick={onCreateOfferClick}>
+				{l10n.OTCDesk.createOfferLabel}
+			</Button>
 		</HStack>
 	)
 }
