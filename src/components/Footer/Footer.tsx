@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
 					{l10n.footer.commit} {process.env.VITE_GIT_COMMIT}{' '}
 					{l10n.footer.version}
 					{process.env.VITE_APP_VERSION}
-					<br />© {l10n.footer.copyright}
+					<br />{l10n.footer.copyright}
 					{new Date().getFullYear()}
 				</>
 			}
