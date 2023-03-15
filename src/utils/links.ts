@@ -50,6 +50,8 @@ export const links = {
 			'https://otc-marsbase.gitbook.io/marsbase/about-marsbase',
 		helpCenter: 'https://intercom.help/marsbase/en',
 		community: 'https://linktr.ee/MARSBASE',
+		howToUse:
+			'https://www.youtube.com/watch?v=MIp9Q2ucXKc&ab_channel=INSIDEOTC',
 	},
 	footer: {
 		pitchDesk:
