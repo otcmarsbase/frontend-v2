@@ -46,7 +46,7 @@ const FooterLayout: React.FC<FooterProps> = ({
 					{menuLinks}
 				</Grid>
 				<VStack>
-					{title}
+					<Box width={"100%"} textAlign={"left"}>{title}</Box>
 					{description}
 				</VStack>
 			</HStack>
