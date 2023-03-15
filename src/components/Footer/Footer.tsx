@@ -50,7 +50,7 @@ const FooterLayout: React.FC<FooterProps> = ({
 					{description}
 				</VStack>
 			</HStack>
-			<VStack>
+			<VStack alignItems={"end"}>
 				{socialLinks}
 				{copyRight}
 			</VStack>
