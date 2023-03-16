@@ -5,6 +5,7 @@ import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
 import { HowToUseBtn } from '../components/HowToUseBtn/HowToUseBtn'
+import { openExternalUrl } from '../utils/utils'
 
 type OTCDeskProps = {}
 
@@ -18,7 +19,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 						<HowToUseBtn
 							label={l10n.OTCDesk.howToUse}
 							onClick={() =>
-								window.open(links.general.howToUse, '_blank')
+								openExternalUrl(links.general.howToUse)
 							}
 						/>
 					}
