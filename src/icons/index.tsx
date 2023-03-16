@@ -5,6 +5,7 @@ import LinktreeIcon from '@/assets/icon/socials/simple-icons_linktree.svg'
 import TwitterIcon from '@/assets/icon/socials/akar-icons_twitter-fill.svg'
 import MediumIcon from '@/assets/icon/socials/bi_medium.svg'
 import LeftIcon from '@/assets/icon/go-back-icon.svg'
+import QuestionIcon from "@/assets/icon/icon--question.svg"
 
 export {
 	DiscordIcon,
@@ -14,4 +15,5 @@ export {
 	TwitterIcon,
 	MediumIcon,
 	LeftIcon,
+	QuestionIcon
 }
