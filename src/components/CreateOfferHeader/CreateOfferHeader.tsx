@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from '../../localization/l10n'
 
 type CreateOfferHeaderProps = {
-	createOfferBtn: {
+	createOfferBtn?: {
 		label: string
 		onClick: () => void
 	}
@@ -27,9 +27,11 @@ export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
 				</HStack>
 				<Text>{subTitle}</Text>
 			</VStack>
-			<Button onClick={createOfferBtn.onClick}>
-				{createOfferBtn.label}
-			</Button>
+			{createOfferBtn && (
+				<Button onClick={createOfferBtn.onClick}>
+					{createOfferBtn.label}
+				</Button>
+			)}
 		</HStack>
 	)
 }
