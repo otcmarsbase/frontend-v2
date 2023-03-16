@@ -1,12 +1,16 @@
-import { Box, Button, HStack, Link, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
+import { BackButton } from '../BackButton/BackButton'
 
 type CreateOfferHeaderProps = {
 	createOfferBtn?: {
 		label: string
 		onClick: () => void
 	}
-	backButton: React.ReactNode
+	backButton?: {
+		label: string
+		onClick: () => void
+	}
 	title: string
 	subTitle: React.ReactNode
 	titleLink?: React.ReactNode
@@ -17,12 +21,12 @@ export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
 	title,
 	titleLink,
 	createOfferBtn,
-	backButton
+	backButton,
 }) => {
 	return (
 		<HStack justifyContent={'space-between'} width={'100%'}>
 			<VStack alignItems={'flex-start'}>
-				{backButton}
+				{backButton && <BackButton {...backButton} />}
 				<HStack>
 					<Text>{title}</Text>
 					<Box>{titleLink}</Box>
