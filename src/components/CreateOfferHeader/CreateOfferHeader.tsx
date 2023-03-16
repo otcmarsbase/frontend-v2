@@ -8,7 +8,7 @@ type CreateOfferHeaderProps = {
 		onClick: () => void
 	}
 	title: string
-	subTitle: string
+	subTitle: React.ReactNode
 	titleLink?: React.ReactNode
 }
 
@@ -25,7 +25,7 @@ export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
 					<Text>{title}</Text>
 					<Box>{titleLink}</Box>
 				</HStack>
-				<Text>{subTitle}</Text>
+				{subTitle}
 			</VStack>
 			{createOfferBtn && (
 				<Button onClick={createOfferBtn.onClick}>
