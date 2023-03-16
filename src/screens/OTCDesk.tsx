@@ -6,6 +6,7 @@ import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
 import { HowToUseBtn } from '../components/HowToUseBtn/HowToUseBtn'
 import { openExternalUrl } from '../utils/utils'
+import { OTCDeskContent } from '../components/OTCDesk/OTCDeskContent'
 
 type OTCDeskProps = {}
 
@@ -32,7 +33,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 				/>
 			}
 		>
-			HELLO WORLD
+			<OTCDeskContent />
 		</ScreenWrapper>
 	)
 }
