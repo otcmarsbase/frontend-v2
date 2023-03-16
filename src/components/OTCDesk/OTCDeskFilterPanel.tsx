@@ -1,5 +1,4 @@
 import { Text, VStack } from '@chakra-ui/react'
-import { title } from 'process'
 import Select from 'react-select'
 import React from 'react'
 
@@ -18,7 +17,9 @@ const tokenRanks = [
 		label: 'Middle Liquid - Top 20 - 50',
 	},
 ]
-export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({}) => {
+export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
+	title,
+}) => {
 	return (
 		<VStack>
 			<Text>{title}</Text>
