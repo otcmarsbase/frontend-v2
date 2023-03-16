@@ -4,6 +4,7 @@ import TelegramIcon from '@/assets/icon/socials/bxl_telegram.svg'
 import LinktreeIcon from '@/assets/icon/socials/simple-icons_linktree.svg'
 import TwitterIcon from '@/assets/icon/socials/akar-icons_twitter-fill.svg'
 import MediumIcon from '@/assets/icon/socials/bi_medium.svg'
+import LeftIcon from '@/assets/icon/go-back-icon.svg'
 
 export {
 	DiscordIcon,
@@ -12,4 +13,5 @@ export {
 	LinktreeIcon,
 	TwitterIcon,
 	MediumIcon,
+	LeftIcon,
 }
