@@ -36,6 +36,15 @@
 		"title": "OTC Desk",
 		"subTitle": "Explore available OTC deals, filter them by token, size, type, or create your own offers",
 		"howToUse": "How to use?",
-		"createOfferLabel": "CREATE OFFER"
+		"createOfferLabel": "CREATE OFFER",
+		"emoji": {
+			"discount_1": "🔥 — Crazy arbitrage",
+			"discount_2": "💸 — Good arbitrage",
+			"discount_3": "👍 — Not bad",
+			"discount_4": "🤨 — Not interesting",
+			"discount_5": "😐 — Are you sure??",
+			"discount_6": "😒 — High risk",
+			"discount_7": "☹️ — Goodbye money"
+		}
 	}
 }
