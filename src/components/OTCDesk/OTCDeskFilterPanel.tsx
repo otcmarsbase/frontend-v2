@@ -23,7 +23,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	onClearFilterClick
 }) => {
 	return (
-		<VStack>
+		<VStack alignItems={'flex-start'}>
 			<Text>{title}</Text>
 			<Select
 				options={tokenRanks}
