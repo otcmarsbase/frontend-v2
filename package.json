@@ -31,6 +31,7 @@
 		"react-select": "^5.7.0",
 		"react-tooltip": "^5.10.0",
 		"rollup-plugin-node-polyfills": "^0.2.1",
+		"sass": "^1.59.3",
 		"swr": "^2.0.4",
 		"typescript": "4.8.4",
 		"util": "^0.12.5",
