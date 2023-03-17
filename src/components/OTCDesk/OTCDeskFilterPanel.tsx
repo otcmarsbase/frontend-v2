@@ -27,6 +27,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				options={tokenRanks}
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
 			/>
+			<Text>Offer type</Text>
 			<HStack>
 				<Checkbox size="md" colorScheme={'orange'}>
 					Static
