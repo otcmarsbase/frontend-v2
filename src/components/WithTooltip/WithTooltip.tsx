@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactTooltip from 'react-tooltip'
+import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
-
 
 type WithTooltipProps = {
 	intoText: string
@@ -13,10 +12,10 @@ export const WithTooltip: React.FCC<WithTooltipProps> = ({
 }) => {
 	return (
 		<>
-			<div data-tip={intoText} style={{ display: 'inline-block' }}>
+			<div data-tooltip-id="my-tooltip" data-tooltip-content={intoText}>
 				{children}
 			</div>
-			<ReactTooltip multiline className="react-tooltip" />
+			<Tooltip id="my-tooltip" />
 		</>
 	)
 }
