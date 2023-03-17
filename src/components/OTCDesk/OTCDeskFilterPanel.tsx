@@ -28,10 +28,10 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
 			/>
 			<HStack>
-				<Checkbox size="md" colorScheme="orange">
+				<Checkbox size="md" colorScheme={'orange'}>
 					Static
 				</Checkbox>
-				<Checkbox size="md" colorScheme="orange">
+				<Checkbox size="md" colorScheme={'orange'}>
 					Dymanic
 				</Checkbox>
 			</HStack>
