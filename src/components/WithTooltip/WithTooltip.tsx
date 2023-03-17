@@ -10,12 +10,13 @@ export const WithTooltip: React.FCC<WithTooltipProps> = ({
 	intoText,
 	children,
 }) => {
+	const id = 'my-tooltip' + Math.random()
 	return (
 		<>
-			<div data-tooltip-id="my-tooltip" data-tooltip-content={intoText}>
+			<div data-tooltip-id={id} data-tooltip-content={intoText}>
 				{children}
 			</div>
-			<Tooltip id="my-tooltip" />
+			<Tooltip id={id} />
 		</>
 	)
 }
