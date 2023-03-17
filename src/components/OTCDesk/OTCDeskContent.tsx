@@ -6,8 +6,9 @@ type OTCDeskContentProps = {}
 
 export const OTCDeskContent: React.FC<OTCDeskContentProps> = ({}) => {
 	return (
-		<HStack justifyContent={"space-between"} width={"100%"}>
+		<HStack justifyContent={'space-between'} width={'100%'}>
 			<OTCDeskFilterPanel
+				onClearFilterClick={() => {}}
 				title="SORT OTC DEALS BY CATEGORY"
 			/>
 		</HStack>

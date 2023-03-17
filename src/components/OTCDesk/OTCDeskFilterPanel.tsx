@@ -1,6 +1,7 @@
 import { Button, Checkbox, HStack, Text, VStack } from '@chakra-ui/react'
 import Select from 'react-select'
 import React from 'react'
+import { useTranslation } from '../../localization/l10n'
 
 type OTCDeskFilterPanelProps = {
 	title: string
@@ -20,8 +21,9 @@ const tokenRanks = [
 ]
 export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	title,
-	onClearFilterClick
+	onClearFilterClick,
 }) => {
+	const l10n = useTranslation()
 	return (
 		<VStack alignItems={'flex-start'}>
 			<Text>{title}</Text>
@@ -39,6 +41,11 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				</Checkbox>
 			</HStack>
 			<Button onClick={onClearFilterClick}>Clean the filter</Button>
+			<VStack>
+				{Object.values(l10n.OTCDesk.emoji).map((x) => (
+					<Text>{x}</Text>
+				))}
+			</VStack>
 		</VStack>
 	)
 }
