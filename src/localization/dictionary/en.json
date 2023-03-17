@@ -45,6 +45,10 @@
 			"discount_5": "😐 — Are you sure??",
 			"discount_6": "😒 — High risk",
 			"discount_7": "🙁 — Goodbye money"
+		},
+		"sortPanel": {
+			"titleTip": "Need a crazy OTC deal? Use filters to sort deals from large, tier-1 fast-closing offers to smaller and even shitcoin ones",
+			"offerTypeTip": "Make fast, hot & volatile dynamic offers or trade safer making static deals with stable prices"
 		}
 	}
 }
