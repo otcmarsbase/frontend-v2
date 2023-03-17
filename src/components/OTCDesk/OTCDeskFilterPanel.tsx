@@ -1,4 +1,4 @@
-import { Button, Text, VStack } from '@chakra-ui/react'
+import { Button, Checkbox, HStack, Text, VStack } from '@chakra-ui/react'
 import Select from 'react-select'
 import React from 'react'
 
@@ -27,6 +27,14 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				options={tokenRanks}
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
 			/>
+			<HStack>
+				<Checkbox size="md" colorScheme="orange">
+					Static
+				</Checkbox>
+				<Checkbox size="md" colorScheme="orange">
+					Dymanic
+				</Checkbox>
+			</HStack>
 			<Button>Clean the filter</Button>
 		</VStack>
 	)
