@@ -4,6 +4,7 @@ import React from 'react'
 
 type OTCDeskFilterPanelProps = {
 	title: string
+	onClearFilterClick: () => void
 }
 
 const tokenRanks = [
@@ -19,6 +20,7 @@ const tokenRanks = [
 ]
 export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	title,
+	onClearFilterClick
 }) => {
 	return (
 		<VStack>
@@ -36,7 +38,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 					Dymanic
 				</Checkbox>
 			</HStack>
-			<Button>Clean the filter</Button>
+			<Button onClick={onClearFilterClick}>Clean the filter</Button>
 		</VStack>
 	)
 }
