@@ -30,3 +30,7 @@ export const TableHeading: React.FCC = ({ children }) => {
 export const TableBody: React.FCC = ({ children }) => {
 	return <Tbody>{children}</Tbody>
 }
+
+export const TableSortButton: React.FCC = ({ children }) => {
+	return <Th>{children}</Th>
+}
