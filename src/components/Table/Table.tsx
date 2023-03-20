@@ -2,7 +2,7 @@ import {
 	Thead,
 	Tr,
 	TableContainer,
-	Table as T,
+	Table as TableWrapper,
 	Tbody,
 	Th,
 	Td,
@@ -14,7 +14,7 @@ type TableProps = {}
 export const Table: React.FCC<TableProps> = ({ children }) => {
 	return (
 		<TableContainer>
-			<T variant="unstyled">{children}</T>
+			<TableWrapper variant="unstyled">{children}</TableWrapper>
 		</TableContainer>
 	)
 }
@@ -32,11 +32,13 @@ export const TableBody: React.FCC = ({ children }) => {
 }
 
 type TableSortButtonProps = {
-    sorted: boolean
-    reversed: boolean
-    onClick: () => void
+	sorted: boolean
+	reversed: boolean
+	onClick: () => void
 }
-export const TableSortButton: React.FCC<TableSortButtonProps> = ({ children }) => {
+export const TableSortButton: React.FCC<TableSortButtonProps> = ({
+	children,
+}) => {
 	return <Th>{children}</Th>
 }
 
