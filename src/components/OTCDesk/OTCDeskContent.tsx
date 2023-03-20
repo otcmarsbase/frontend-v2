@@ -1,6 +1,7 @@
 import { HStack } from '@chakra-ui/react'
 import React from 'react'
 import { OTCDeskFilterPanel } from './OTCDeskFilterPanel'
+import { OTCDeskTable } from './OTCDeskTable'
 
 type OTCDeskContentProps = {}
 
@@ -11,6 +12,7 @@ export const OTCDeskContent: React.FC<OTCDeskContentProps> = ({}) => {
 				onClearFilterClick={() => {}}
 				title="SORT OTC DEALS BY CATEGORY"
 			/>
+			<OTCDeskTable />
 		</HStack>
 	)
 }
