@@ -11,6 +11,11 @@ import React from 'react'
 
 type TableProps = {}
 
-export const Table: React.FC<TableProps> = ({}) => {
-    return <div></div>
+export const Table: React.FCC<TableProps> = ({ children }) => {
+	return (
+		<TableContainer>
+			<T variant="unstyled">{children}</T>
+		</TableContainer>
+	)
+}
 }
