@@ -31,7 +31,12 @@ export const TableBody: React.FCC = ({ children }) => {
 	return <Tbody>{children}</Tbody>
 }
 
-export const TableSortButton: React.FCC = ({ children }) => {
+type TableSortButtonProps = {
+    sorted: boolean
+    reversed: boolean
+    onClick: () => void
+}
+export const TableSortButton: React.FCC<TableSortButtonProps> = ({ children }) => {
 	return <Th>{children}</Th>
 }
 
