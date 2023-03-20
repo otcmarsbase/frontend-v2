@@ -18,4 +18,12 @@ export const Table: React.FCC<TableProps> = ({ children }) => {
 		</TableContainer>
 	)
 }
+
+export const TableHeading: React.FCC = ({ children }) => {
+	return (
+		<Thead>
+			<Tr>{children}</Tr>
+		</Thead>
+	)
+}
 }
