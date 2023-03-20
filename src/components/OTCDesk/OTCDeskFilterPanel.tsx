@@ -38,7 +38,12 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				options={tokenRanks}
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
 			/>
-			<Text>Offer type</Text>
+			<HStack alignItems={'center'}>
+				<Text>Offer type </Text>
+				<WithTooltip intoText={l10n.OTCDesk.sortPanel.offerTypeTip}>
+					<img src={InfoIcon}></img>
+				</WithTooltip>
+			</HStack>
 			<HStack>
 				<Checkbox size="md" colorScheme={'orange'}>
 					Static
