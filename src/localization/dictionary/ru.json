@@ -58,6 +58,12 @@
 			"offer_type_static": {
 				"static": "Static",
 				"dynamic": "Dynamic"
+			},
+			"offer_size_parameter": {
+				"lt_10k": " < $10k",
+				"gt_10k_lt_100k": " $10k - $100k",
+				"gt_100k_lt_500k": " $100k - $500k",
+				"gt_500k": " > $500k"
 			}
 		}
 	}
