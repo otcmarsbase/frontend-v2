@@ -26,4 +26,7 @@ export const TableHeading: React.FCC = ({ children }) => {
 		</Thead>
 	)
 }
+
+export const TableBody: React.FCC = ({ children }) => {
+	return <Tbody>{children}</Tbody>
 }
