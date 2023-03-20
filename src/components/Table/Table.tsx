@@ -34,3 +34,11 @@ export const TableBody: React.FCC = ({ children }) => {
 export const TableSortButton: React.FCC = ({ children }) => {
 	return <Th>{children}</Th>
 }
+
+export const TableBodyItem: React.FCC = ({ children }) => {
+	return (
+		<Tr>
+			<Td>{children}</Td>
+		</Tr>
+	)
+}
