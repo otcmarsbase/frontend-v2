@@ -2,6 +2,8 @@ import { Button, Checkbox, HStack, Text, VStack } from '@chakra-ui/react'
 import Select from 'react-select'
 import React from 'react'
 import { useTranslation } from '../../localization/l10n'
+import { InfoIcon } from '@/icons'
+import { WithTooltip } from '../WithTooltip/WithTooltip'
 
 type OTCDeskFilterPanelProps = {
 	title: string
@@ -26,7 +28,12 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	const l10n = useTranslation()
 	return (
 		<VStack alignItems={'flex-start'}>
-			<Text>{title}</Text>
+			<Text>
+				{title}{' '}
+				<WithTooltip intoText={l10n.OTCDesk.sortPanel.titleTip}>
+					<img src={InfoIcon}></img>
+				</WithTooltip>
+			</Text>
 			<Select
 				options={tokenRanks}
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
@@ -41,7 +48,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				</Checkbox>
 			</HStack>
 			<Button onClick={onClearFilterClick}>Clean the filter</Button>
-			<VStack alignItems={"flex-start"}>
+			<VStack alignItems={'flex-start'}>
 				{Object.values(l10n.OTCDesk.emoji).map((x) => (
 					<Text>{x}</Text>
 				))}
