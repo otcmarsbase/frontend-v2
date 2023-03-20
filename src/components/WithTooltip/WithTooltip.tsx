@@ -17,6 +17,7 @@ export const WithTooltip: React.FCC<WithTooltipProps> = ({
 			<div
 				data-tooltip-id={idRef.current}
 				data-tooltip-content={intoText}
+				style={{display: "inline-block"}}
 			>
 				{children}
 			</div>
