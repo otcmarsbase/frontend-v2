@@ -49,7 +49,7 @@
 		"sortPanel": {
 			"titleTip": "Need a crazy OTC deal? Use filters to sort deals from large, tier-1 fast-closing offers to smaller and even shitcoin ones",
 			"offerTypeTip": "Make fast, hot & volatile dynamic offers or trade safer making static deals with stable prices",
-			"token_ranks_options": {
+			"token_ranks_parameter": {
 				"high": "High Liquid - Top 20",
 				"middle": "Middle Liquid - Top 20 - 50",
 				"low": "Low Liquid - Top 50 - 150",
