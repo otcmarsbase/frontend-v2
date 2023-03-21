@@ -4,10 +4,6 @@ module.exports = {
     theme: {
       extend: {
         colors:{
-          bluePrimary: "#4286FD",
-          yandexPlus: "linear-gradient(90deg, #EB655D 0%, #DA569C 30%, #7F4DE2 75%, #4C68EF 100%)",
-          red: "#ff0000",
-          gray: "#BFC7CE"
         },
         screens: {
           '320-v': { "raw": "(orientation: portrait) and (min-width: 320px)" },
@@ -35,11 +31,10 @@ module.exports = {
           "lg-tablet-vh": { "raw": "(orientation: landscape) and (min-height: 1024px), (orientation: portrait) and (min-width: 1024px)" },
         },
         boxShadow: {
-          popup: "0px 2px 3px rgba(0, 0, 0, 0.1)",
-          popul_xl: "0px 8px 24px rgba(0, 0, 0, 0.1)"
+         
         },
         backgroundImage: {
-          'yandex':"linear-gradient(90deg, #EB655D 0%, #DA569C 30%, #7F4DE2 75%, #4C68EF 100%)",
+          
         }
       },
     },
