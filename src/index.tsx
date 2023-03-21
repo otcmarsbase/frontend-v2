@@ -5,6 +5,7 @@ import { theme } from './utils/chakra'
 import { App } from './App'
 import { SWRConfig } from 'swr'
 import "./globals.scss"
+import "./tailwind.css"
 
 const container = document.getElementById('root')
 const root = createRoot(container!)
