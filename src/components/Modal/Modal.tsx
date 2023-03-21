@@ -1,8 +1,3 @@
-import {
-	Modal as ModalWrapper,
-	ModalContent,
-	ModalOverlay as ModalOverlayChakra,
-} from '@chakra-ui/react'
 import React from 'react'
 
 type ModalProps = {
@@ -11,16 +6,12 @@ type ModalProps = {
 	renderContent: (close: () => void) => React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({
-	isOpen = true,
-	onClose,
-	renderContent,
-}) => {
+export const Modal: React.FC<ModalProps> = ({ onClose, renderContent }) => {
 	return (
-		<ModalWrapper isOpen={isOpen} onClose={onClose}>
+		<div className="flex justify-center items-center fixed top-0 right-0 left-0 bottom-0">
 			<ModalOverlay />
-			<ModalContent>{renderContent(onClose)}</ModalContent>
-		</ModalWrapper>
+			<div className="z-999 relative">{renderContent(onClose)}</div>
+		</div>
 	)
 }
 
