@@ -34,7 +34,7 @@ module.exports = {
          
         },
         backgroundImage: {
-          
+            "popup": "linear-gradient(151.47deg,#8A67FF -7.28%,#49D4FF 29.09%,#FE673C 65.78%,#A6498F 107.39%)"
         }
       },
     },
