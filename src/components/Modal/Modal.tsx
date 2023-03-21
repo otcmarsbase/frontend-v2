@@ -8,12 +8,17 @@ import React from 'react'
 type ModalProps = {
 	isOpen?: boolean
 	onClose: () => void
+	renderContent: (close: () => void) => React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen = true, onClose }) => {
+export const Modal: React.FC<ModalProps> = ({
+	isOpen = true,
+	onClose,
+	renderContent,
+}) => {
 	return (
 		<ModalWrapper isOpen={isOpen} onClose={onClose}>
-			<ModalContent></ModalContent>
+			<ModalContent>{renderContent(onClose)}</ModalContent>
 		</ModalWrapper>
 	)
 }
