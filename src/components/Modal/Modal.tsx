@@ -26,9 +26,6 @@ export const Modal: React.FC<ModalProps> = ({
 
 export const ModalOverlay: React.FC = ({}) => {
 	return (
-		<ModalOverlayChakra
-			bg="radial-gradient(50% 50% at 50% 50%,rgba(36,19,43,.8) 34.93%,rgba(19,20,25,.8) 100%)"
-			backdropFilter="blur(15px)"
-		/>
+		<div className="bg-overlay absolute top-0 right-0 left-0 bottom-0 z-999 backdrop-blur-lg" />
 	)
 }
