@@ -1,8 +1,7 @@
 import {
-	ModalBody,
 	Modal as ModalWrapper,
 	ModalContent,
-	ModalOverlay,
+	ModalOverlay as ModalOverlayChakra,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -19,11 +18,17 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
 	return (
 		<ModalWrapper isOpen={isOpen} onClose={onClose}>
-			<ModalOverlay
-				bg="radial-gradient(50% 50% at 50% 50%,rgba(36,19,43,.8) 34.93%,rgba(19,20,25,.8) 100%)"
-                backdropFilter='blur(15px)'
-			/>
+			<ModalOverlay />
 			<ModalContent>{renderContent(onClose)}</ModalContent>
 		</ModalWrapper>
+	)
+}
+
+export const ModalOverlay: React.FC = ({}) => {
+	return (
+		<ModalOverlayChakra
+			bg="radial-gradient(50% 50% at 50% 50%,rgba(36,19,43,.8) 34.93%,rgba(19,20,25,.8) 100%)"
+			backdropFilter="blur(15px)"
+		/>
 	)
 }
