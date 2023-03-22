@@ -1,7 +1,8 @@
 import React from 'react'
 
-type WelcomePopupProps = {}
+	onClose: () => void
+}
 
-export const WelcomePopup: React.FC<WelcomePopupProps> = ({}) => {
-    return <div></div>
+export const WelcomePopup: React.FC<WelcomePopupProps> = ({ onClose }) => {
+	return (
 }
