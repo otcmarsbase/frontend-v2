@@ -1,3 +1,7 @@
+import { flattenRoutes } from '@/App'
+import { Footer } from '@/components/Footer/Footer'
+import { useTranslation } from '@/localization/l10n'
+import { links, navlinks } from '@/utils/links'
 import {
 	Box,
 	Container,
@@ -9,10 +13,6 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { flattenRoutes } from '../../App'
-import { useTranslation } from '../../localization/l10n'
-import { links, navlinks } from '../../utils/links'
-import { Footer } from '../Footer/Footer'
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode

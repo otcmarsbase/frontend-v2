@@ -4,9 +4,9 @@ import { CreateOfferHeader } from '@/components/CreateOfferHeader/CreateOfferHea
 import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
-import { HowToUseBtn } from '../components/HowToUseBtn/HowToUseBtn'
-import { openExternalUrl } from '../utils/utils'
-import { OTCDeskContent } from '../components/OTCDesk/OTCDeskContent'
+import { HowToUseBtn } from '@/components/HowToUseBtn/HowToUseBtn'
+import { openExternalUrl } from '@/utils/utils'
+import { OTCDeskContent } from '@/components/OTCDesk/OTCDeskContent'
 
 type OTCDeskProps = {}
 

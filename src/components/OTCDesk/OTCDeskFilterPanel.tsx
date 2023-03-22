@@ -1,9 +1,10 @@
 import { Button, Checkbox, HStack, Text, VStack } from '@chakra-ui/react'
 import Select from 'react-select'
 import React from 'react'
-import { useTranslation } from '../../localization/l10n'
 import { InfoIcon } from '@/icons'
-import { WithTooltip } from '../WithTooltip/WithTooltip'
+import { BaseText } from '@/components/Text/BaseText'
+import { useTranslation } from '@/localization/l10n'
+import { WithTooltip } from '@/components/WithTooltip/WithTooltip'
 
 type OTCDeskFilterPanelProps = {
 	title: string

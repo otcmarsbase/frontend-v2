@@ -1,3 +1,4 @@
+import { BackButton } from '@/components/BackButton/BackButton'
 import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { BackButton } from '../BackButton/BackButton'

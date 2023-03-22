@@ -9,8 +9,6 @@ import {
 	VStack,
 } from '@chakra-ui/react'
 import React from 'react'
-import { useTranslation } from '../../localization/l10n'
-import { links } from '../../utils/links'
 import {
 	DiscordIcon,
 	LinktreeIcon,
@@ -19,6 +17,9 @@ import {
 	TelegramIcon,
 	TwitterIcon,
 } from '@/icons'
+import { BaseText } from '@/components/Text/BaseText'
+import { links } from '@/utils/links'
+import { useTranslation } from '@/localization/l10n'
 
 type FooterProps = {
 	title: React.ReactNode

@@ -1,5 +1,5 @@
-import { flattenRoutes } from './../App'
-import { Dict } from '../localization/l10n'
+import { flattenRoutes } from "@/App"
+import { Dict } from "@/localization/l10n"
 
 export const navlinks = (dict: Dict['navbar']['links']) => [
 	{
