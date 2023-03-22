@@ -7,8 +7,8 @@ type WelcomePopupProps = {
 
 export const WelcomePopup: React.FC<WelcomePopupProps> = ({ onClose }) => {
 	return (
-		<Popup>
-			<div className="w-full h-full bg-black rounded-2xl tablet-vh:w-[436px] ">
+		<Popup className="w-full tablet-vh:w-[436px]">
+			<div className="bg-white tablet-vh:rounded-2xl">
 				<div>asd</div>
 				<div>asd</div>
 				<div>asd</div>
