@@ -2,12 +2,12 @@ import clsx from 'clsx'
 import React from 'react'
 import styles from './Img.module.scss'
 
-type size = 'auto' | 's' | 'm'
+export type ImgSize = 'auto' | 's' | 'm' | 'l'
 
 type ImgProps = {
 	src: string
 	alt?: string
-	size?: size
+	size?: ImgSize
 }
 
 export const Img: React.FCC<ImgProps> = ({ src, alt = '', size = 'auto' }) => {
