@@ -1,7 +1,7 @@
 import { BackButton } from '@/components/BackButton/BackButton'
+import { BaseText } from '@/components/Text/BaseText'
 import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { BackButton } from '../BackButton/BackButton'
 
 type CreateOfferHeaderProps = {
 	createOfferBtn?: {
@@ -29,7 +29,7 @@ export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
 			<VStack alignItems={'flex-start'}>
 				{backButton && <BackButton {...backButton} />}
 				<HStack>
-					<Text>{title}</Text>
+					<BaseText>{title}</BaseText>
 					<Box>{titleLink}</Box>
 				</HStack>
 				{subTitle}

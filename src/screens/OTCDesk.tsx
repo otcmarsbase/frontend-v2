@@ -4,6 +4,7 @@ import { CreateOfferHeader } from '@/components/CreateOfferHeader/CreateOfferHea
 import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
+import { BaseText } from '@/components/Text/BaseText'
 import { HowToUseBtn } from '@/components/HowToUseBtn/HowToUseBtn'
 import { openExternalUrl } from '@/utils/utils'
 import { OTCDeskContent } from '@/components/OTCDesk/OTCDeskContent'
@@ -28,7 +29,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 						label: l10n.OTCDesk.createOfferLabel,
 						onClick: () => {},
 					}}
-					subTitle={<Text>{l10n.OTCDesk.subTitle}</Text>}
+					subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
 					title={l10n.OTCDesk.title}
 				/>
 			}

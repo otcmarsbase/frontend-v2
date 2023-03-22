@@ -84,9 +84,9 @@ export const Footer: React.FC = () => {
 				</>
 			}
 			description={
-				<Text maxWidth={'308px'} align="left">
+				<BaseText maxWidth={'308px'} align="left">
 					{l10n.footer.description}
-				</Text>
+				</BaseText>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
 				<Link key={href} href={href} target={'_blank'}>
@@ -102,7 +102,7 @@ export const Footer: React.FC = () => {
 					))}
 				</HStack>
 			}
-			title={<Text>{l10n.footer.title}</Text>}
+			title={<BaseText>{l10n.footer.title}</BaseText>}
 		/>
 	)
 }

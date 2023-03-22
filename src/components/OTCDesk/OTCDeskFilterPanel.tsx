@@ -29,18 +29,18 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	const l10n = useTranslation()
 	return (
 		<VStack alignItems={'flex-start'}>
-			<Text>
+			<BaseText>
 				{title}{' '}
 				<WithTooltip intoText={l10n.OTCDesk.sortPanel.titleTip}>
 					<img src={InfoIcon}></img>
 				</WithTooltip>
-			</Text>
+			</BaseText>
 			<Select
 				options={tokenRanks}
 				styles={{ container: (base) => ({ ...base, width: '100%' }) }}
 			/>
 			<HStack alignItems={'center'}>
-				<Text>Offer type </Text>
+				<BaseText>Offer type </BaseText>
 				<WithTooltip intoText={l10n.OTCDesk.sortPanel.offerTypeTip}>
 					<img src={InfoIcon}></img>
 				</WithTooltip>
@@ -56,7 +56,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			<Button onClick={onClearFilterClick}>Clean the filter</Button>
 			<VStack alignItems={'flex-start'}>
 				{Object.values(l10n.OTCDesk.emoji).map((x) => (
-					<Text>{x}</Text>
+					<BaseText>{x}</BaseText>
 				))}
 			</VStack>
 		</VStack>
