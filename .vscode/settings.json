@@ -1,5 +1,5 @@
 {
-	"typescript.preferences.importModuleSpecifier": "relative",
+	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"typescript.suggest.paths": false,
 	"javascript.suggest.paths": false,
 	"path-intellisense.mappings": {
