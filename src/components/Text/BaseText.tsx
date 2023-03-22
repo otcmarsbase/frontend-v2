@@ -4,5 +4,5 @@ import React from 'react'
 type BaseTextProps = {} & React.ComponentProps<typeof Text>
 
 export const BaseText: React.FCC<BaseTextProps> = ({ children }) => {
-	return <Text>{children}</Text>
+	return <Text style={{ whiteSpace: 'pre-line' }}>{children}</Text>
 }
