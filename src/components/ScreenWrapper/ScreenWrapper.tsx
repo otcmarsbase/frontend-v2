@@ -1,4 +1,4 @@
-import { flattenRoutes } from '@/App'
+import { flattenRoutes } from '@/AppRoutes'
 import { Footer } from '@/components/Footer/Footer'
 import { useTranslation } from '@/localization/l10n'
 import { links, navlinks } from '@/utils/links'
