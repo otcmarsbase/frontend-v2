@@ -1,8 +1,9 @@
 /**
  * @example
- * node gen.js ./assets/icon/socials ./images.tsx %file%Icon
+ * node gen.js ./assets/icon/socials ./images.tsx %file%Icon flag
  * will generate images.tsx that contains import %file%Icon from "assets/icon/socials",
  * %file% is replacement for original filename
+ * flag -- file system flag, default "w" https://nodejs.org/api/fs.html#file-system-flags
  */
 
 const fs = require('fs')
@@ -16,6 +17,7 @@ const outputPath = path.join(__dirname, process.argv[3])
  %importName%Icon => NameIcon
 */
 const importMask = process.argv[4]
+const openFileFlag = process.argv[5] || "w"
 const srcPath = path.join(__dirname, './')
 const importPrefix = `@${folderPath.replace(srcPath, '/')}`
 
