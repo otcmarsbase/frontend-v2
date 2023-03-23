@@ -1,6 +1,6 @@
 import DiscordIcon from "@/assets/icon/discord.svg";
-import GoBackIcon from "@/assets/icon/goBack.svg";
 import InfoIcon from "@/assets/icon/info.svg";
+import LeftArrowIcon from "@/assets/icon/leftArrow.svg";
 import LinktreeIcon from "@/assets/icon/linktree.svg";
 import MediumIcon from "@/assets/icon/medium.svg";
 import QuestionIcon from "@/assets/icon/question.svg";
@@ -10,8 +10,8 @@ import TwitterIcon from "@/assets/icon/twitter.svg";
 
 export {
     DiscordIcon,
-    GoBackIcon,
     InfoIcon,
+    LeftArrowIcon,
     LinktreeIcon,
     MediumIcon,
     QuestionIcon,
