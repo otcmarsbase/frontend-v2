@@ -1,7 +1,7 @@
 /**
  * @example
  * node gen.js ./assets/icon/socials ./images.tsx %file%Icon
- * will generate images.tsx that contains import %file%Icon from "assets/icon/socials", 
+ * will generate images.tsx that contains import %file%Icon from "assets/icon/socials",
  * %file% is replacement for original filename
  */
 
@@ -21,13 +21,20 @@ const importPrefix = `@${folderPath.replace(srcPath, '/')}`
 
 const files = fs.readdirSync(folderPath)
 
-// Filter out non-image files 
+// Filter out non-image files
 const imageFiles = files.filter((file) =>
 	['.png', '.jpg', '.jpeg', '.gif', '.svg'].includes(path.extname(file))
 )
-
+const capitalizeFirstLetter = (string) =>
+	string.charAt(0).toUpperCase() + string.slice(1)
 const filename = (file) => path.parse(file).name
-const mask = (file) => importMask.replace(/%(.*)%/, () => filename(file))
+
+const mask = (file) =>
+	capitalizeFirstLetter(
+		importMask.replace(/%(.*)%/, () =>
+			capitalizeFirstLetter(filename(file))
+		)
+	)
 // Generate the import statements
 const importStatements = imageFiles
 	.map(
