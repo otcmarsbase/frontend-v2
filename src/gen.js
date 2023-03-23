@@ -8,6 +8,9 @@
 
 const fs = require('fs')
 const path = require('path')
+const prettier = require('prettier')
+
+const pretify = (str) => prettier.format(str, { parser: 'babel', tabWidth: 4 })
 
 // Specify the folder path and output file path
 const folderPath = path.join(__dirname, process.argv[2])
@@ -17,7 +20,7 @@ const outputPath = path.join(__dirname, process.argv[3])
  %importName%Icon => NameIcon
 */
 const importMask = process.argv[4]
-const openFileFlag = process.argv[5] || "w"
+const openFileFlag = process.argv[5] || 'w'
 const srcPath = path.join(__dirname, './')
 const importPrefix = `@${folderPath.replace(srcPath, '/')}`
 
@@ -50,6 +53,9 @@ const exportsStatement = `export {\n${imageFiles
 	.join('\n')}\n}`
 
 // Write the output file
-fs.writeFileSync(outputPath, `${importStatements}\n\n${exportsStatement}`, {
-	flag: openFileFlag,
-})
+fs.writeFileSync(
+	outputPath,
+	pretify(`${importStatements}\n\n${exportsStatement}`, {
+		flag: openFileFlag,
+	})
+)
