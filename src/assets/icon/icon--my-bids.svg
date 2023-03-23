@@ -1,6 +1,0 @@
-<svg id='icon--my-bids' viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="7.5" cy="7.5" r="6.1875"  stroke-width="1.125"/>
-<path d="M4.875 13.2012C5.91169 15.1637 7.96496 16.5 10.3286 16.5C13.737 16.5 16.5 13.7212 16.5 10.2932C16.5 7.87771 15.128 5.78446 13.125 4.75873"  stroke-width="1.125" stroke-linecap="round"/>
-<line x1="0.5625" y1="-0.5625" x2="4.6875" y2="-0.5625" transform="matrix(-3.99103e-08 -1 -1 4.78742e-08 6.75 10.7812)"  stroke-width="1.125" stroke-linecap="round"/>
-<circle r="0.5625" transform="matrix(1 0 0 -1 7.3125 4.3125)" fill="white"/>
-</svg>

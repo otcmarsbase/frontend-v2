@@ -1,6 +1,0 @@
-<svg id='icon--network' viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M15.5 2H9.5V8H15.5V2Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M22.5 16H16.5V22H22.5V16Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.5 16H2.5V22H8.5V16Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.5 12H19.5V16M12.5 8V12V8ZM12.5 12H5.5V16L12.5 12Z"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
