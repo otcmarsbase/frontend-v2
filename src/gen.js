@@ -51,5 +51,5 @@ const exportsStatement = `export {\n${imageFiles
 
 // Write the output file
 fs.writeFileSync(outputPath, `${importStatements}\n\n${exportsStatement}`, {
-	flag: 'w+',
+	flag: openFileFlag,
 })
