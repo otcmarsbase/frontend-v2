@@ -19,10 +19,9 @@ const importMask = process.argv[4]
 const srcPath = path.join(__dirname, './')
 const importPrefix = `@${folderPath.replace(srcPath, '/')}`
 
-// Read all files in the folder
 const files = fs.readdirSync(folderPath)
 
-// Filter out non-image files (you can adjust this condition as needed)
+// Filter out non-image files 
 const imageFiles = files.filter((file) =>
 	['.png', '.jpg', '.jpeg', '.gif', '.svg'].includes(path.extname(file))
 )
