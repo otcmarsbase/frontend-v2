@@ -21,6 +21,7 @@ import {
 import { BaseText } from '@/components/Text/BaseText'
 import { links } from '@/utils/links'
 import { useTranslation } from '@/localization/l10n'
+import { APP_VERSION, GIT_COMMIT } from '@/vite-env'
 
 type FooterProps = {
 	title: React.ReactNode
@@ -77,8 +78,8 @@ export const Footer: React.FC = () => {
 			copyRight={
 				<>
 					<div>
-						{l10n.footer.commit} {process.env.VITE_GIT_COMMIT}{' '}
-						{l10n.footer.version} {process.env.VITE_APP_VERSION}
+						{l10n.footer.commit} {GIT_COMMIT}{' '}
+						{l10n.footer.version} {APP_VERSION}
 					</div>
 					{l10n.footer.copyright}
 					{new Date().getFullYear()}
