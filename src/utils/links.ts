@@ -44,7 +44,7 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 	},
 	{
 		name: dict.saft,
-		path: flattenRoutes['/'],
+		path: flattenRoutes['/'](),
 		enabled: true,
 		auth: false,
 	},
