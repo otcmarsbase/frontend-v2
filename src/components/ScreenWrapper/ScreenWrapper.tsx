@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -76,7 +77,7 @@ const Header: React.FCC<{
 						<option value="option1">BNB Chain</option>
 						<option value="option2">Ethereum</option>
 					</Select>
-					<Button>CONNECT</Button>
+					<ConnectButton></ConnectButton>
 				</HStack>
 			</HStack>
 		</HStack>
