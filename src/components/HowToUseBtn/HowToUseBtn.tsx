@@ -1,6 +1,7 @@
 import React from 'react'
 import { QuestionIcon } from '@/icons'
 import { HStack } from '@chakra-ui/react'
+import { Image } from '@/components/Image/Image'
 
 type HowToUseBtnProps = {
 	label: string
@@ -10,7 +11,7 @@ type HowToUseBtnProps = {
 export const HowToUseBtn: React.FC<HowToUseBtnProps> = ({ label, onClick }) => {
 	return (
 		<HStack onClick={onClick}>
-			<img src={QuestionIcon}></img>
+			<Image src={QuestionIcon}></Image>
 			<span>{label}</span>
 		</HStack>
 	)

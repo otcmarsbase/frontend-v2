@@ -3,6 +3,7 @@ import Select from 'react-select'
 import React from 'react'
 import { InfoIcon } from '@/icons'
 import { BaseText } from '@/components/Text/BaseText'
+import { Image } from '@/components/Image/Image'
 import { useTranslation } from '@/localization/l10n'
 import { WithTooltip } from '@/components/WithTooltip/WithTooltip'
 
@@ -32,7 +33,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			<BaseText>
 				{title}{' '}
 				<WithTooltip intoText={l10n.OTCDesk.sortPanel.titleTip}>
-					<img src={InfoIcon}></img>
+					<Image src={InfoIcon}></Image>
 				</WithTooltip>
 			</BaseText>
 			<Select
@@ -42,7 +43,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			<HStack alignItems={'center'}>
 				<BaseText>Offer type </BaseText>
 				<WithTooltip intoText={l10n.OTCDesk.sortPanel.offerTypeTip}>
-					<img src={InfoIcon}></img>
+					<Image src={InfoIcon}></Image>
 				</WithTooltip>
 			</HStack>
 			<HStack>

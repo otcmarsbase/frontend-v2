@@ -1,6 +1,8 @@
+import React from 'react'
 import { LeftArrowIcon } from '@/icons'
 import { HStack } from '@chakra-ui/react'
-import React from 'react'
+import { Image } from '@/components/Image/Image'
+
 
 type BackButtonProps = {
 	label: string
@@ -10,7 +12,7 @@ type BackButtonProps = {
 export const BackButton: React.FC<BackButtonProps> = ({ label, onClick }) => {
 	return (
 		<HStack onClick={onClick}>
-			<img src={LeftArrowIcon}></img>
+			<Image src={LeftArrowIcon}></Image>
 			<span>{label}</span>
 		</HStack>
 	)

@@ -9,6 +9,7 @@ import {
 	VStack,
 } from '@chakra-ui/react'
 import React from 'react'
+import { Image } from '@/components/Image/Image'
 import {
 	DiscordIcon,
 	LinktreeIcon,
@@ -97,7 +98,7 @@ export const Footer: React.FC = () => {
 				<HStack>
 					{socialIcons.map(([icon, href]) => (
 						<div onClick={() => window.open(href, '_blank')}>
-							<img src={icon} alt="" />
+							<Image src={icon} alt="" />
 						</div>
 					))}
 				</HStack>
