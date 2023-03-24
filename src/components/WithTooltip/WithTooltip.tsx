@@ -1,27 +1,31 @@
+import { Tooltip } from '@chakra-ui/react'
 import React from 'react'
-import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import styles from './Tooltip.module.scss'
 
 type WithTooltipProps = {
 	intoText: string
+	placement?: React.ComponentProps<typeof Tooltip>['placement']
 }
 
 export const WithTooltip: React.FCC<WithTooltipProps> = ({
 	intoText,
 	children,
+	placement,
 }) => {
-	const idRef = React.useRef('my-tooltip' + Math.random())
 	return (
-		<>
-			<div
-				data-tooltip-id={idRef.current}
-				data-tooltip-content={intoText}
-				style={{display: "inline-block"}}
-			>
-				{children}
-			</div>
-			<Tooltip id={idRef.current} className={styles.container} />
-		</>
+		<Tooltip
+			label={intoText}
+			hasArrow
+			placement={placement}
+			bg={'#686a6e'}
+			color={'white'}
+			maxW={'290px'}
+			px={'20px'}
+			py={'16px'}
+			borderRadius={'6px'}
+		>
+			<div style={{ display: 'inline-block' }}>{children}</div>
+		</Tooltip>
 	)
 }
