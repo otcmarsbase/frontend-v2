@@ -22,6 +22,7 @@ export const WithTooltip: React.FCC<WithTooltipProps> = ({
 			px={'20px'}
 			py={'16px'}
 			borderRadius={'6px'}
+			cursor="pointer"
 		>
 			<div style={{ display: 'inline-block' }}>{children}</div>
 		</Tooltip>
