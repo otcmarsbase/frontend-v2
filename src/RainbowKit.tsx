@@ -4,11 +4,11 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
+import { ALCHEMY_API_KEY } from '@/vite-env'
 
 const { chains, provider } = configureChains(
 	[mainnet, polygon, optimism, arbitrum],
-	//@ts-ignore
-	[alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
+	[alchemyProvider({ apiKey: ALCHEMY_API_KEY}), publicProvider()]
 )
 
 const { connectors } = getDefaultWallets({
