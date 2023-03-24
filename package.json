@@ -8,8 +8,8 @@
 	"scripts": {
 		"start": "cross-env NODE_ENV=development vite",
 		"build": "tsc && cross-env NODE_ENV=production vite build",
-		"generate-icons": "node src/gen.js assets/icon icons/index.tsx %file%Icon w",
-		"generate-img": "node src/gen.js assets/images images/index.tsx %file%Img w",
+		"generate-icons": "node src/generate-images-file.js assets/icon icons/index.tsx %file%Icon w",
+		"generate-img": "node src/generate-images-file.js assets/images images/index.tsx %file%Img w",
 		"generate-images": "yarn generate-icons && yarn generate-img"
 	},
 	"dependencies": {

@@ -1,6 +1,6 @@
 /**
  * @example
- * node gen.js ./assets/icon/socials ./images.tsx %file%Icon flag
+ * node generate-images-file.js ./assets/icon/socials ./images.tsx %file%Icon flag
  * will generate images.tsx that contains import %file%Icon from "assets/icon/socials",
  * %file% is replacement for original filename
  * flag -- file system flag, default "w" https://nodejs.org/api/fs.html#file-system-flags
