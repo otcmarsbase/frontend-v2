@@ -32,7 +32,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 		<VStack alignItems={'flex-start'}>
 			<BaseText>
 				{title}{' '}
-				<WithTooltip intoText={l10n.OTCDesk.sortPanel.titleTip}>
+				<WithTooltip placement='top' intoText={l10n.OTCDesk.sortPanel.titleTip}>
 					<Image src={InfoIcon}></Image>
 				</WithTooltip>
 			</BaseText>
@@ -42,7 +42,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			/>
 			<HStack alignItems={'center'}>
 				<BaseText>Offer type </BaseText>
-				<WithTooltip intoText={l10n.OTCDesk.sortPanel.offerTypeTip}>
+				<WithTooltip placement='right' intoText={l10n.OTCDesk.sortPanel.offerTypeTip}>
 					<Image src={InfoIcon}></Image>
 				</WithTooltip>
 			</HStack>
