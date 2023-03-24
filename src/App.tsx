@@ -1,17 +1,16 @@
 import { routes } from '@/AppRoutes'
+import { RainbowKitWrapper } from '@/RainbowKit'
 import React from 'react'
-import {
-	BrowserRouter,
-	useRoutes,
-} from 'react-router-dom'
+import { BrowserRouter, useRoutes } from 'react-router-dom'
 
 type AppProps = {}
-
 
 export const App: React.FC<AppProps> = ({}) => {
 	return (
 		<BrowserRouter>
-			<AppRoutes />
+			<RainbowKitWrapper>
+				<AppRoutes />
+			</RainbowKitWrapper>
 		</BrowserRouter>
 	)
 }
