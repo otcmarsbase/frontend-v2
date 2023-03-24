@@ -43,7 +43,7 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 		auth: false,
 	},
 	{
-		name: 'SAFT / Vesting (soon)',
+		name: dict.saft,
 		path: flattenRoutes['/'],
 		enabled: true,
 		auth: false,

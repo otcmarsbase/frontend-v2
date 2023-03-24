@@ -9,7 +9,8 @@
 			"bestbidAuction": "BEST BID AUCTION",
 			"createOffer": "CREATE OFFER",
 			"root": "OTC DESK",
-			"calculator": "CALCULATOR"
+			"calculator": "CALCULATOR",
+			"saft": "SAFT / Vesting (soon)"
 		},
 		"support": {
 			"about": "Knowledge base",
