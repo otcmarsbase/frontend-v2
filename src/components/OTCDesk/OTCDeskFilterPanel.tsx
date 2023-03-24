@@ -57,7 +57,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			<Button onClick={onClearFilterClick}>Clean the filter</Button>
 			<VStack alignItems={'flex-start'}>
 				{Object.values(l10n.OTCDesk.emoji).map((x) => (
-					<BaseText>{x}</BaseText>
+					<BaseText key={x}>{x}</BaseText>
 				))}
 			</VStack>
 		</VStack>

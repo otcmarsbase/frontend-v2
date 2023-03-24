@@ -121,7 +121,7 @@ const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 			</Link>
 			{menuLinks.map((x) => (
 				<NavMenuLink
-					key={x.path}
+					key={x.name + x.path}
 					title={x.name}
 					to={x.path}
 					onClick={() => {}}

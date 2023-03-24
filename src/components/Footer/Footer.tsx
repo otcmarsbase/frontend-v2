@@ -98,7 +98,7 @@ export const Footer: React.FC = () => {
 			socialLinks={
 				<HStack>
 					{socialIcons.map(([icon, href]) => (
-						<div onClick={() => window.open(href, '_blank')}>
+						<div key={href} onClick={() => window.open(href, '_blank')}>
 							<Image src={icon} alt="" />
 						</div>
 					))}
