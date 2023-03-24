@@ -1,7 +1,5 @@
 import { Tooltip } from '@chakra-ui/react'
 import React from 'react'
-import 'react-tooltip/dist/react-tooltip.css'
-import styles from './Tooltip.module.scss'
 
 type WithTooltipProps = {
 	intoText: string
