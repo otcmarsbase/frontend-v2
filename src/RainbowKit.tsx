@@ -1,8 +1,5 @@
 import '@rainbow-me/rainbowkit/styles.css'
-import {
-    getDefaultWallets,
-    RainbowKitProvider,
-  } from '@rainbow-me/rainbowkit';
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
@@ -10,7 +7,7 @@ import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, provider } = configureChains(
 	[mainnet, polygon, optimism, arbitrum],
-    //@ts-ignore
+	//@ts-ignore
 	[alchemyProvider({ apiKey: process.env.ALCHEMY_API_KEY }), publicProvider()]
 )
 
@@ -24,3 +21,11 @@ const wagmiClient = createClient({
 	connectors,
 	provider,
 })
+
+export const RainbowKitWrapper: React.FCC = ({ children }) => {
+	return (
+		<WagmiConfig client={wagmiClient}>
+			<RainbowKitProvider chains={chains}>{children}</RainbowKitProvider>
+		</WagmiConfig>
+	)
+}
