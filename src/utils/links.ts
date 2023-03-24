@@ -1,5 +1,5 @@
-import { flattenRoutes } from "@/AppRoutes"
-import { Dict } from "@/localization/l10n"
+import { flattenRoutes } from '@/AppRoutes'
+import { Dict } from '@/localization/l10n'
 
 export const navlinks = (dict: Dict['navbar']['links']) => [
 	{
@@ -39,6 +39,12 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 		name: dict.calculator,
 		path: flattenRoutes['/calculator'](),
 		// enabled: !FLAGS.marketplace,
+		enabled: true,
+		auth: false,
+	},
+	{
+		name: 'SAFT / Vesting (soon)',
+		path: flattenRoutes['/'],
 		enabled: true,
 		auth: false,
 	},
