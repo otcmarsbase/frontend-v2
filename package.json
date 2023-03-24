@@ -25,6 +25,7 @@
 		"buffer": "^6.0.3",
 		"clsx": "^1.2.1",
 		"cross-env": "^7.0.3",
+		"ethers": "^6.2.2",
 		"framer-motion": "^10.0.1",
 		"git-rev-sync": "^3.0.2",
 		"graphql": "^16.6.0",
