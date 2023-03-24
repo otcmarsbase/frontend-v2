@@ -14,10 +14,9 @@ console.log(`Building app v${version} (${commit})`)
 export default defineConfig({
 	base: '',
 	define: {
-		'process.env': JSON.stringify({
-			VITE_APP_VERSION: version,
-			VITE_GIT_COMMIT: commit,
-		}),
+		VITE_APP_VERSION: JSON.stringify(version),
+		VITE_GIT_COMMIT: JSON.stringify(commit),
+		VITE_ALCHEMY_API_KEY: JSON.stringify("key"),
 	},
 	build: {
 		assetsDir: '',
