@@ -6,6 +6,7 @@ import {
 	Tbody,
 	Th,
 	Td,
+	useMediaQuery,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -38,17 +39,23 @@ export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 	return <Th>{children}</Th>
 }
 
-export const TableBodyItem: React.FCC = ({ children }) => {
-	return (
-		<Tr>
-			<Td>1</Td>
-			<Td>2</Td>
-			<Td>3</Td>
-			<Td>4</Td>
-			<Td>5</Td>
-			<Td>6</Td>
-			<Td>7</Td>
-			<Td>8</Td>
-		</Tr>
-	)
+type TableData = {
+	title: string
+	value: React.ReactNode
+}
+export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
+	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
+	if (isDesktop)
+		return (
+			<Tr>
+				{data.map((x) => (
+					<Td>{x.value}</Td>
+				))}
+			</Tr>
+		)
+	return <TableCard data={data} />
+}
+
+const TableCard: React.FC<{ data: TableData[] }> = () => {
+	return <div></div>
 }
