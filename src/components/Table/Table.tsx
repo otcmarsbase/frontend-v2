@@ -14,12 +14,18 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 
-type TableProps = {}
+type TableProps = {
+	header: React.ReactNode[]
+	body: React.ReactNode[]
+}
 
-export const Table: React.FCC<TableProps> = ({ children }) => {
+export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
 	return (
 		<TableContainer>
-			<TableWrapper variant="unstyled">{children}</TableWrapper>
+			<TableWrapper variant="unstyled">
+				<TableHeading>{header}</TableHeading>
+				<TableBody>{body}</TableBody>
+			</TableWrapper>
 		</TableContainer>
 	)
 }
@@ -51,7 +57,7 @@ export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
 	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 	if (isDesktop)
 		return (
-			<Tr display={"flex"} flexBasis="50%">
+			<Tr>
 				{data.map((x) => (
 					<Td>{x.value}</Td>
 				))}
