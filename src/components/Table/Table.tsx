@@ -20,15 +20,15 @@ type TableProps = {
 	body: React.ReactNode[]
 }
 
-const TableCtx = React.createContext<{ variant: 'row' | '2-cols' | '1-cols' }>({
+const TableCtx = React.createContext<{ variant: 'row' | '2-cols' | "1-cols" }>({
 	variant: 'row',
 })
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
-	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
+	const [isDesktop] = useMediaQuery(['(min-width: 1200px)'])
 
 	let BodyContainer = (b: any) => <TableBody>{b}</TableBody>
 	if (!isDesktop) {
-		BodyContainer = (b: any) => <Flex>{b}</Flex>
+		BodyContainer = (b: any) => <Flex wrap={'wrap'}>{b}</Flex>
 	}
 	return (
 		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : '2-cols' }}>
