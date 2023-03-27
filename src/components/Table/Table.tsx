@@ -25,11 +25,11 @@ export const Table: React.FCC<TableProps> = ({ children }) => {
 }
 
 export const TableHeading: React.FCC = ({ children }) => {
-	return <div className='flex'>{children}</div>
+	return <Thead>{children}</Thead>
 }
 
 export const TableBody: React.FCC = ({ children }) => {
-	return <div className='flex'>{children}</div>
+	return <Tbody>{children}</Tbody>
 }
 
 type TableSortButtonProps = {
@@ -51,20 +51,20 @@ export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
 	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 	if (isDesktop)
 		return (
-			<div className='table-cell'>
+			<Tr display={"flex"} flexBasis="50%">
 				{data.map((x) => (
 					<Td>{x.value}</Td>
 				))}
-			</div>
+			</Tr>
 		)
 	return <TableCard data={data} />
 }
 
 const TableCard: React.FC<{ data: TableData[] }> = ({ data }) => {
 	return (
-		<VStack flexBasis={"50%"}>
+		<VStack>
 			{data.map((x) => (
-				<HStack w={"100%"} justifyContent={'space-between'}>
+				<HStack w={'100%'} justifyContent={'space-between'}>
 					<Box>{x.title}</Box>
 					<Box>{x.value}</Box>
 				</HStack>
