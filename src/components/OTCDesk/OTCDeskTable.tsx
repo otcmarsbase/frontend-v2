@@ -14,56 +14,52 @@ type OTCDeskTableProps = {}
 
 export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 	return (
-		<Table>
-			{/* <Modal
-				onClose={() => {}}
-				renderContent={(close) => <WelcomePopup onClose={close} />}
-			/> */}
-			<TableHeading>
+		<Table
+			header={[
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					From
-				</TableSortButton>
+				</TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					To
-				</TableSortButton>
+				</TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					Offer mode
-				</TableSortButton>
+				</TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					Available size
-				</TableSortButton>
+				</TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					Discount
-				</TableSortButton>
+				</TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
 					Deadline
-				</TableSortButton>
-			</TableHeading>
-			<TableBody>
+				</TableSortButton>,
+			]}
+			body={[
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -74,7 +70,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: 'Deadline', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -85,7 +81,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -96,7 +92,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -107,7 +103,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -118,7 +114,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -129,7 +125,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -140,7 +136,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -151,7 +147,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
+				></TableBodyItem>,
 				<TableBodyItem
 					data={[
 						{ title: 'From', value: 1 },
@@ -162,8 +158,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 						{ title: 'Deadline', value: 6 },
 						{ title: '', value: 7 },
 					]}
-				></TableBodyItem>
-			</TableBody>
-		</Table>
+				></TableBodyItem>,
+			]}
+		></Table>
 	)
 }
