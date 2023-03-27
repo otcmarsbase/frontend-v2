@@ -15,38 +15,155 @@ type OTCDeskTableProps = {}
 export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 	return (
 		<Table>
-			<Modal
+			{/* <Modal
 				onClose={() => {}}
 				renderContent={(close) => <WelcomePopup onClose={close} />}
-			/>
+			/> */}
 			<TableHeading>
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
-					hello
+					From
 				</TableSortButton>
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
-					world
+					To
 				</TableSortButton>
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
 				>
-					lol
+					Offer mode
+				</TableSortButton>
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Available size
+				</TableSortButton>
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Discount
+				</TableSortButton>
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Deadline
 				</TableSortButton>
 			</TableHeading>
 			<TableBody>
-                <TableBodyItem>hello</TableBodyItem>
-                <TableBodyItem>hello</TableBodyItem>
-                <TableBodyItem>hello</TableBodyItem>
-            </TableBody>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: 'Deadline', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+				<TableBodyItem
+					data={[
+						{ title: 'From', value: 1 },
+						{ title: 'To', value: 2 },
+						{ title: 'Offer mode', value: 3 },
+						{ title: 'Available size', value: 4 },
+						{ title: 'Discount', value: 5 },
+						{ title: 'Deadline', value: 6 },
+						{ title: '', value: 7 },
+					]}
+				></TableBodyItem>
+			</TableBody>
 		</Table>
 	)
 }
