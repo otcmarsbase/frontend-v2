@@ -24,16 +24,21 @@ const TableCtx = React.createContext<{ variant: 'row' | 'card' }>({
 	variant: 'row',
 })
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
-	const [isDesktop] = useMediaQuery(['(min-width: 1200px)'])
+	const [isDesktop, isTablet] = useMediaQuery([
+		'(min-width: 1200px)',
+		'(min-width: 768px)',
+	])
 
 	let BodyContainer = (b: any) => <TableBody>{b}</TableBody>
 	if (!isDesktop) {
-		BodyContainer = (b: any) => <Flex wrap={'wrap'}>{b}</Flex>
+		BodyContainer = (b: any) => (
+			<Grid gridTemplateColumns={isTablet ? '1fr 1fr' : '1fr'}>{b}</Grid>
+		)
 	}
 	return (
 		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : 'card' }}>
-			<TableContainer>
-				<TableWrapper variant="unstyled">
+			<TableContainer width={!isDesktop ? '100%' : 'auto'}>
+				<TableWrapper width={'100%'} variant="unstyled">
 					{isDesktop && <TableHeading>{header}</TableHeading>}
 					{BodyContainer(body)}
 				</TableWrapper>
