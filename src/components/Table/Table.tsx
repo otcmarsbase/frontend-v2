@@ -20,11 +20,7 @@ export const Table: React.FCC<TableProps> = ({ children }) => {
 }
 
 export const TableHeading: React.FCC = ({ children }) => {
-	return (
-		<Thead>
-			<Tr>{children}</Tr>
-		</Thead>
-	)
+	return <Thead>{children}</Thead>
 }
 
 export const TableBody: React.FCC = ({ children }) => {
@@ -45,7 +41,14 @@ export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 export const TableBodyItem: React.FCC = ({ children }) => {
 	return (
 		<Tr>
-			<Td>{children}</Td>
+			<Td>1</Td>
+			<Td>2</Td>
+			<Td>3</Td>
+			<Td>4</Td>
+			<Td>5</Td>
+			<Td>6</Td>
+			<Td>7</Td>
+			<Td>8</Td>
 		</Tr>
 	)
 }
