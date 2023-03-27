@@ -82,7 +82,7 @@ const TableCard: React.FC<{ data: TableData[] }> = ({ data }) => {
 	const [isTablet] = useMediaQuery(['(min-width: 768px)'])
 
 	return (
-		<VStack flexBasis={isTablet ? '50%' : "100%"}>
+		<VStack flexBasis={isTablet ? '50%' : '100%'}>
 			{data.map((x) => (
 				<HStack w={'100%'} justifyContent={'space-between'}>
 					<Box>{x.title}</Box>
