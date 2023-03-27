@@ -34,7 +34,7 @@ export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
 		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : '2-cols' }}>
 			<TableContainer>
 				<TableWrapper variant="unstyled">
-					<TableHeading>{header}</TableHeading>
+					{isDesktop && <TableHeading>{header}</TableHeading>}
 					{BodyContainer(body)}
 				</TableWrapper>
 			</TableContainer>
