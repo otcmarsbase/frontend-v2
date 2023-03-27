@@ -11,6 +11,7 @@ import {
 	Box,
 	HStack,
 	Grid,
+	Flex,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -25,12 +26,16 @@ const TableCtx = React.createContext<{ variant: 'row' | '2-cols' | '1-cols' }>({
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
 	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 
+	let BodyContainer = (b: any) => <TableBody>{b}</TableBody>
+	if (!isDesktop) {
+		BodyContainer = (b: any) => <Flex>{b}</Flex>
+	}
 	return (
 		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : '2-cols' }}>
 			<TableContainer>
 				<TableWrapper variant="unstyled">
 					<TableHeading>{header}</TableHeading>
-					<TableBody>{body}</TableBody>
+					{BodyContainer(body)}
 				</TableWrapper>
 			</TableContainer>
 		</TableCtx.Provider>
@@ -62,7 +67,7 @@ type TableData = {
 }
 export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
 	const ctx = React.useContext(TableCtx)
-	if (ctx.variant === "row")
+	if (ctx.variant === 'row')
 		return (
 			<Tr>
 				{data.map((x) => (
