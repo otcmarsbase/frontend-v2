@@ -7,6 +7,10 @@ import {
 	Th,
 	Td,
 	useMediaQuery,
+	VStack,
+	Box,
+	HStack,
+	Grid,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -21,11 +25,11 @@ export const Table: React.FCC<TableProps> = ({ children }) => {
 }
 
 export const TableHeading: React.FCC = ({ children }) => {
-	return <Thead>{children}</Thead>
+	return <div className='flex'>{children}</div>
 }
 
 export const TableBody: React.FCC = ({ children }) => {
-	return <Tbody>{children}</Tbody>
+	return <div className='flex'>{children}</div>
 }
 
 type TableSortButtonProps = {
@@ -47,15 +51,24 @@ export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
 	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 	if (isDesktop)
 		return (
-			<Tr>
+			<div className='table-cell'>
 				{data.map((x) => (
 					<Td>{x.value}</Td>
 				))}
-			</Tr>
+			</div>
 		)
 	return <TableCard data={data} />
 }
 
-const TableCard: React.FC<{ data: TableData[] }> = () => {
-	return <div></div>
+const TableCard: React.FC<{ data: TableData[] }> = ({ data }) => {
+	return (
+		<VStack flexBasis={"50%"}>
+			{data.map((x) => (
+				<HStack w={"100%"} justifyContent={'space-between'}>
+					<Box>{x.title}</Box>
+					<Box>{x.value}</Box>
+				</HStack>
+			))}
+		</VStack>
+	)
 }
