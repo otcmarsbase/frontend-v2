@@ -20,6 +20,8 @@ type TableProps = {
 }
 
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
+	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
+
 	return (
 		<TableContainer>
 			<TableWrapper variant="unstyled">
@@ -54,7 +56,6 @@ type TableData = {
 	value: React.ReactNode
 }
 export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
-	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 	if (isDesktop)
 		return (
 			<Tr>
