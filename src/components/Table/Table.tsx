@@ -20,7 +20,7 @@ type TableProps = {
 	body: React.ReactNode[]
 }
 
-const TableCtx = React.createContext<{ variant: 'row' | '2-cols' | "1-cols" }>({
+const TableCtx = React.createContext<{ variant: 'row' | 'card' }>({
 	variant: 'row',
 })
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
@@ -31,7 +31,7 @@ export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
 		BodyContainer = (b: any) => <Flex wrap={'wrap'}>{b}</Flex>
 	}
 	return (
-		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : '2-cols' }}>
+		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : 'card' }}>
 			<TableContainer>
 				<TableWrapper variant="unstyled">
 					{isDesktop && <TableHeading>{header}</TableHeading>}
