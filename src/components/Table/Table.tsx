@@ -19,16 +19,21 @@ type TableProps = {
 	body: React.ReactNode[]
 }
 
+const TableCtx = React.createContext<{ variant: 'row' | '2-cols' | '1-cols' }>({
+	variant: 'row',
+})
 export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
 	const [isDesktop] = useMediaQuery('(min-width: 1200px)')
 
 	return (
-		<TableContainer>
-			<TableWrapper variant="unstyled">
-				<TableHeading>{header}</TableHeading>
-				<TableBody>{body}</TableBody>
-			</TableWrapper>
-		</TableContainer>
+		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : '2-cols' }}>
+			<TableContainer>
+				<TableWrapper variant="unstyled">
+					<TableHeading>{header}</TableHeading>
+					<TableBody>{body}</TableBody>
+				</TableWrapper>
+			</TableContainer>
+		</TableCtx.Provider>
 	)
 }
 
@@ -56,7 +61,8 @@ type TableData = {
 	value: React.ReactNode
 }
 export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
-	if (isDesktop)
+	const ctx = React.useContext(TableCtx)
+	if (ctx.variant === "row")
 		return (
 			<Tr>
 				{data.map((x) => (
