@@ -4,7 +4,7 @@ import React from 'react'
 import {
 	Table,
 	TableBody,
-	TableBodyItem,
+	TableRow,
 	TableCard,
 	TableHeading,
 	TableSortButton,
@@ -61,7 +61,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 				</TableSortButton>,
 			]}
 			body={[
-				<TableBodyItem
+				<TableRow
 					rowData={[1, 21232132132132121321, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -79,8 +79,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -98,8 +98,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -117,8 +117,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -136,8 +136,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -155,8 +155,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -174,8 +174,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -193,8 +193,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -212,8 +212,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -231,8 +231,8 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
-				<TableBodyItem
+				></TableRow>,
+				<TableRow
 					rowData={[1, 2, 3, 4, 5, 6, 7]}
 					cardComponent={
 						<TableCard
@@ -250,7 +250,7 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							]}
 						/>
 					}
-				></TableBodyItem>,
+				></TableRow>,
 			]}
 		></Table>
 	)

@@ -12,7 +12,6 @@ import {
 	Box,
 	HStack,
 	Grid,
-	Flex,
 } from '@chakra-ui/react'
 import React from 'react'
 
@@ -81,7 +80,7 @@ export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 
 type RowData = React.ReactNode
 
-export const TableBodyItem: React.FC<{
+export const TableRow: React.FC<{
 	rowData: RowData[]
 	cardComponent: React.ReactNode
 }> = ({ rowData, cardComponent }) => {
