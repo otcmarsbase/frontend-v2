@@ -42,7 +42,10 @@ export const Table: React.FCC<TableProps> = (props) => {
 const MobileTableView: React.FCC<TableProps> = ({ body, header }) => {
 	return (
 		<TableCtx.Provider value={{ variant: 'card' }}>
-			<Grid gridTemplateColumns={{ md: '1fr 1fr', sm: '1fr' }} gap={"15px"}>
+			<Grid
+				gridTemplateColumns={{ md: '1fr 1fr', sm: '1fr' }}
+				gap={'15px'}
+			>
 				{body}
 			</Grid>
 		</TableCtx.Provider>
@@ -76,26 +79,27 @@ export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 	return <Th>{children}</Th>
 }
 
-type TableData = {
-	title: string
-	value: React.ReactNode
-}
-export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
+type RowData = React.ReactNode
+
+export const TableBodyItem: React.FC<{
+	rowData: RowData[]
+	cardComponent: React.ReactNode
+}> = ({ rowData, cardComponent }) => {
 	const ctx = React.useContext(TableCtx)
 	if (ctx.variant === 'row')
 		return (
 			<Tr>
-				{data.map((x) => (
-					<Td>{x.value}</Td>
+				{rowData.map((x) => (
+					<Td>{x}</Td>
 				))}
 			</Tr>
 		)
-	return <TableCard data={data} />
+	return <>{cardComponent}</>
 }
 
-const TableCard: React.FC<{ data: TableData[] }> = ({ data }) => {
+export const TableCard: React.FC<{ data: any[] }> = ({ data }) => {
 	return (
-		<VStack  border="1px solid red">
+		<VStack border="1px solid red">
 			{data.map((x) => (
 				<HStack w={'100%'} justifyContent={'space-between'}>
 					<Box>{x.title}</Box>
