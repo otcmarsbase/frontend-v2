@@ -6,9 +6,12 @@ const config: ThemeConfig = {
 }
 
 const breakpoints = {
-	sm: '320px', 
-	md: '712px', 
-	lg: '1200px', 
+	sm: '320px',
+	md: '712px',
+	lg: '1200px',
+}
+export const queris = {
+	LARGE: `(min-width: ${breakpoints.lg})`,
 }
 export const theme = extendTheme({
 	breakpoints,
