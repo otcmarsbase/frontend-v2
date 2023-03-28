@@ -15,6 +15,7 @@ export const theme = extendTheme({
 	config,
 	styles: {
 		global: () => ({
+			// TODO: переделать
 			body: {
 				bg: 'var(--color-dark-950)',
 				fontFamily: 'var(--font-main)',
