@@ -6,9 +6,9 @@ const config: ThemeConfig = {
 }
 
 const breakpoints = {
-	sm: '320px', // 480px
-	md: '712px', // 768px
-	lg: '1200px', // 992px
+	sm: '320px', 
+	md: '712px', 
+	lg: '1200px', 
 }
 export const theme = extendTheme({
 	breakpoints,
