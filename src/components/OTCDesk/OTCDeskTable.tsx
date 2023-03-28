@@ -1,15 +1,10 @@
-import { Modal } from '@/components/Modal/Modal'
-import { Button, Text } from '@chakra-ui/react'
 import React from 'react'
 import {
 	Table,
-	TableBody,
 	TableRow,
 	TableCard,
-	TableHeading,
 	TableSortButton,
 } from '@/components/Table/Table'
-import { WelcomePopup } from '@/components/WelcomePopup/WelcomePopup'
 
 type OTCDeskTableProps = {}
 

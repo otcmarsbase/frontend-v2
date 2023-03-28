@@ -1,4 +1,4 @@
-import { Button, Checkbox, HStack, Text, VStack } from '@chakra-ui/react'
+import { Button, Checkbox, HStack, VStack } from '@chakra-ui/react'
 import Select from 'react-select'
 import React from 'react'
 import { InfoIcon } from '@/icons'

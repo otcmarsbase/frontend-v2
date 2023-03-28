@@ -1,6 +1,5 @@
 import { HStack } from '@chakra-ui/react'
 import React from 'react'
-import { OTCDeskFilterPanel } from './OTCDeskFilterPanel'
 import { OTCDeskTable } from './OTCDeskTable'
 
 type OTCDeskContentProps = {}
