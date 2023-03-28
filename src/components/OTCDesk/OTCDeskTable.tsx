@@ -252,10 +252,14 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 	)
 }
 
-const OTCOfferRow: React.FC<{ data: any[] }> = ({ data }) => {
+type OTCOfferRowProps = {
+	title: string
+	value: React.ReactNode
+}
+const OTCOfferRow: React.FC<{ data: OTCOfferRowProps[] }> = ({ data }) => {
 	return (
 		<TableRow
-			rowData={[1, 2, 3, 4, 5, 6, 7]}
+			rowData={data.map((x) => x.value)}
 			cardComponent={
 				<VStack border="1px solid red">
 					{data.map((x) => (
