@@ -10,7 +10,8 @@
 		"build": "tsc && cross-env NODE_ENV=production vite build",
 		"generate-icons": "node src/generate-images-file.js assets/icon icons/index.tsx %file%Icon w",
 		"generate-img": "node src/generate-images-file.js assets/images images/index.tsx %file%Img w",
-		"generate-images": "yarn generate-icons && yarn generate-img"
+		"generate-images": "yarn generate-icons && yarn generate-img",
+		"theme": "chakra-cli tokens src/utils/chakra.tsx"
 	},
 	"dependencies": {
 		"@chakra-ui/cli": "^2.3.0",
