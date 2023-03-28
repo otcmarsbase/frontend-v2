@@ -253,10 +253,33 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 }
 
 type OTCOfferRowProps = {
-	title: string
-	value: React.ReactNode
+	from: {
+		title: string
+		value: string
+	}
+	to: {
+		title: string
+		value: string
+	}
+	offerMode: {
+		title: string
+		value: string
+	}
+	availableSize: {
+		title: string
+		value: string
+	}
+	discount: {
+		title: string
+		value: string
+	}
+	deadline: {
+		title: string
+		value: string
+	}
+	button: React.ReactNode
 }
-const OTCOfferRow: React.FC<{ data: OTCOfferRowProps[] }> = ({ data }) => {
+const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 	return (
 		<TableRow
 			rowData={data.map((x) => x.value)}
