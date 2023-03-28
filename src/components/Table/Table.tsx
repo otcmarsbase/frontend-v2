@@ -1,3 +1,4 @@
+import { queries } from '@/utils/chakra'
 import {
 	Thead,
 	Tr,
@@ -23,26 +24,35 @@ type TableProps = {
 const TableCtx = React.createContext<{ variant: 'row' | 'card' }>({
 	variant: 'row',
 })
-export const Table: React.FCC<TableProps> = ({ children, body, header }) => {
-	const [isDesktop, isTablet] = useMediaQuery([
-		'(min-width: 1200px)',
-		'(min-width: 768px)',
-	])
+export const Table: React.FCC<TableProps> = (props) => {
+	const [isDesktop] = useMediaQuery([queries.lg])
 
-	let BodyContainer = (b: any) => <TableBody>{b}</TableBody>
-	if (!isDesktop) {
-		BodyContainer = (b: any) => (
-			<Grid gridTemplateColumns={isTablet ? '1fr 1fr' : '1fr'}>{b}</Grid>
-		)
-	}
 	return (
-		<TableCtx.Provider value={{ variant: isDesktop ? 'row' : 'card' }}>
-			<TableContainer width={!isDesktop ? '100%' : 'auto'}>
-				<TableWrapper width={'100%'} variant="unstyled">
-					{isDesktop && <TableHeading>{header}</TableHeading>}
-					{BodyContainer(body)}
-				</TableWrapper>
-			</TableContainer>
+		<TableContainer width={{ sm: '100%', lg: 'auto' }}>
+			<TableWrapper width={'100%'} variant="unstyled">
+				{isDesktop ? (
+					<DesktopTableView {...props} />
+				) : (
+					<MobileTableView {...props} />
+				)}
+			</TableWrapper>
+		</TableContainer>
+	)
+}
+const MobileTableView: React.FCC<TableProps> = ({ body, header }) => {
+	return (
+		<TableCtx.Provider value={{ variant: 'card' }}>
+			<Grid gridTemplateColumns={{ md: '1fr 1fr', sm: '1fr' }} gap={"15px"}>
+				{body}
+			</Grid>
+		</TableCtx.Provider>
+	)
+}
+const DesktopTableView: React.FCC<TableProps> = ({ body, header }) => {
+	return (
+		<TableCtx.Provider value={{ variant: 'row' }}>
+			<TableHeading>{header}</TableHeading>
+			<TableBody>{body}</TableBody>
 		</TableCtx.Provider>
 	)
 }
@@ -85,7 +95,7 @@ export const TableBodyItem: React.FC<{ data: TableData[] }> = ({ data }) => {
 
 const TableCard: React.FC<{ data: TableData[] }> = ({ data }) => {
 	return (
-		<VStack>
+		<VStack  border="1px solid red">
 			{data.map((x) => (
 				<HStack w={'100%'} justifyContent={'space-between'}>
 					<Box>{x.title}</Box>
