@@ -13,6 +13,7 @@
 		"generate-images": "yarn generate-icons && yarn generate-img"
 	},
 	"dependencies": {
+		"@chakra-ui/cli": "^2.3.0",
 		"@chakra-ui/icons": "^2.0.17",
 		"@chakra-ui/react": "^2.5.1",
 		"@emotion/react": "^11.10.6",
