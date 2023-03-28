@@ -5,6 +5,7 @@ import {
 	TableCard,
 	TableSortButton,
 } from '@/components/Table/Table'
+import { Box, HStack, VStack } from '@chakra-ui/react'
 
 type OTCDeskTableProps = {}
 
@@ -248,5 +249,23 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 				></TableRow>,
 			]}
 		></Table>
+	)
+}
+
+const OTCOfferRow: React.FC<{ data: any[] }> = ({ data }) => {
+	return (
+		<TableRow
+			rowData={[1, 2, 3, 4, 5, 6, 7]}
+			cardComponent={
+				<VStack border="1px solid red">
+					{data.map((x) => (
+						<HStack w={'100%'} justifyContent={'space-between'}>
+							<Box>{x.title}</Box>
+							<Box>{x.value}</Box>
+						</HStack>
+					))}
+				</VStack>
+			}
+		></TableRow>
 	)
 }

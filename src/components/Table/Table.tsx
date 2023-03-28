@@ -95,16 +95,3 @@ export const TableRow: React.FC<{
 		)
 	return <>{cardComponent}</>
 }
-
-export const TableCard: React.FC<{ data: any[] }> = ({ data }) => {
-	return (
-		<VStack border="1px solid red">
-			{data.map((x) => (
-				<HStack w={'100%'} justifyContent={'space-between'}>
-					<Box>{x.title}</Box>
-					<Box>{x.value}</Box>
-				</HStack>
-			))}
-		</VStack>
-	)
-}
