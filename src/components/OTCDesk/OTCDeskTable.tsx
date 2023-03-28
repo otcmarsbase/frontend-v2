@@ -1,11 +1,6 @@
 import React from 'react'
-import {
-	Table,
-	TableRow,
-	TableCard,
-	TableSortButton,
-} from '@/components/Table/Table'
-import { Box, HStack, VStack } from '@chakra-ui/react'
+import { Table, TableRow, TableSortButton } from '@/components/Table/Table'
+import { Box, Button, HStack, VStack } from '@chakra-ui/react'
 
 type OTCDeskTableProps = {}
 
@@ -57,196 +52,90 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 				</TableSortButton>,
 			]}
 			body={[
-				<TableRow
-					rowData={[1, 21232132132132121321, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 21232132132132121321,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
-				<TableRow
-					rowData={[1, 2, 3, 4, 5, 6, 7]}
-					cardComponent={
-						<TableCard
-							data={[
-								{ title: 'From', value: 1 },
-								{
-									title: 'To',
-									value: 2,
-								},
-								{ title: 'Offer mode', value: 3 },
-								{ title: 'Available size', value: 4 },
-								{ title: 'Discount', value: 5 },
-								{ title: 'Deadline', value: 6 },
-								{ title: 'Deadline', value: 7 },
-							]}
-						/>
-					}
-				></TableRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
+				<OTCOfferRow
+					data={{
+						from: { title: 'From', value: 1 },
+						to: {
+							title: 'To',
+							value: 2,
+						},
+						offerMode: { title: 'Offer mode', value: 3 },
+						availableSize: { title: 'Available size', value: 4 },
+						discount: { title: 'Discount', value: 5 },
+						deadline: { title: 'Deadline', value: 6 },
+						button: <Button>Offer</Button>,
+					}}
+				></OTCOfferRow>,
 			]}
 		></Table>
 	)
@@ -255,42 +144,68 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 type OTCOfferRowProps = {
 	from: {
 		title: string
-		value: string
+		value: any
 	}
 	to: {
 		title: string
-		value: string
+		value: any
 	}
 	offerMode: {
 		title: string
-		value: string
+		value: any
 	}
 	availableSize: {
 		title: string
-		value: string
+		value: any
 	}
 	discount: {
 		title: string
-		value: string
+		value: any
 	}
 	deadline: {
 		title: string
-		value: string
+		value: any
 	}
 	button: React.ReactNode
 }
 const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 	return (
 		<TableRow
-			rowData={data.map((x) => x.value)}
+			rowData={[
+				data.from.value,
+				data.to.value,
+				data.offerMode.value,
+				data.availableSize.value,
+				data.discount.value,
+				data.deadline.value,
+				data.button
+			]}
 			cardComponent={
 				<VStack border="1px solid red">
-					{data.map((x) => (
+					<Box>
+						<HStack w={'100%'} justifyContent={'space-between'}>
+							<Box>
+								{data.from.title}
+								{data.from.value}
+							</Box>
+							<Box>
+								{data.to.title}
+								{data.to.value}
+							</Box>
+						</HStack>
+					</Box>
+					{[
+						data.offerMode,
+						data.availableSize,
+						data.discount,
+						data.discount,
+					].map((x) => (
 						<HStack w={'100%'} justifyContent={'space-between'}>
 							<Box>{x.title}</Box>
 							<Box>{x.value}</Box>
 						</HStack>
 					))}
+					{data.button}
 				</VStack>
 			}
 		></TableRow>
