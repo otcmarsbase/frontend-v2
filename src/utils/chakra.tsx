@@ -10,8 +10,10 @@ const breakpoints = {
 	md: '712px',
 	lg: '1200px',
 }
-export const queris = {
-	LARGE: `(min-width: ${breakpoints.lg})`,
+export const queries = {
+	lg: `(min-width: ${breakpoints.lg})`,
+	md: `(min-width: ${breakpoints.md})`,
+	sm: `(min-width: ${breakpoints.sm})`,
 }
 export const theme = extendTheme({
 	breakpoints,
