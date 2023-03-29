@@ -180,7 +180,7 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 				data.deadline.value,
 				data.button,
 			]}
-			cardComponent={
+			cardData={
 				<VStack border="1px solid red">
 					<HStack
 						w={"100%"}

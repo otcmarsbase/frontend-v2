@@ -82,8 +82,8 @@ type RowData = React.ReactNode
 
 export const TableRow: React.FC<{
 	rowData: RowData[]
-	cardComponent: React.ReactNode
-}> = ({ rowData, cardComponent }) => {
+	cardData: React.ReactNode
+}> = ({ rowData, cardData }) => {
 	const ctx = React.useContext(TableCtx)
 	if (ctx.variant === 'row')
 		return (
@@ -93,5 +93,5 @@ export const TableRow: React.FC<{
 				))}
 			</Tr>
 		)
-	return <>{cardComponent}</>
+	return <>{cardData}</>
 }
