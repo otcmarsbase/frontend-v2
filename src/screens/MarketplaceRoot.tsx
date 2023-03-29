@@ -14,11 +14,13 @@ export const MarketplaceRoot: React.FC<MarketplaceRootProps> = ({}) => {
 			top={
 				<CreateOfferHeader
 					createOfferBtn={{
-						label: l10n.OTCDesk.createOfferLabel,
+						label: l10n.marketplace.header.offerBtn,
 						onClick: () => {},
 					}}
-					subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
-					title={l10n.OTCDesk.title}
+					subTitle={
+						<BaseText>{l10n.marketplace.header.subitle}</BaseText>
+					}
+					title={l10n.marketplace.header.title}
 				/>
 			}
 		>
