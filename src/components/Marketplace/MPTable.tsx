@@ -1,11 +1,130 @@
 import { Table, TableRow } from "@/components/Table/Table"
-import { Box, HStack, VStack } from "@chakra-ui/react"
+import { Box, Button, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
 type MPTableProps = {}
-
 export const MPTable: React.FC<MPTableProps> = ({}) => {
-	return <Table body={[]} header={[]} />
+	return (
+		<Table
+			body={[
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+				<MPRow
+					offerId={{
+						title: "Offer ID",
+						value: String(Math.random()).slice(1, 3),
+					}}
+					acceptedTokens={{
+						title: "Accepted tokens",
+						value: "USDT",
+					}}
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bids={{
+						title: "Bids",
+						value: 12,
+					}}
+					viewOffer={<Button>view offer</Button>}
+				/>,
+			]}
+			header={["Offer ID", "Amount", "Accepted tokens"]}
+		/>
+	)
 }
 
 type MPRow = {
