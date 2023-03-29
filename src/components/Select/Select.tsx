@@ -31,9 +31,7 @@ export const SelectV2 = <OptionType extends SelectOptionType,>(
 
     return (
         <Select
-            className="react-select-container"
             defaultValue={props.defaultValue}
-            classNamePrefix="regular-select"
             placeholder={props.placeholder}
             isDisabled={props.disabled}
             options={props.options}
