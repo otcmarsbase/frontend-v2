@@ -6,9 +6,9 @@ module.exports = {
         colors:{
         },
         screens: {
-          'sm': { "raw": "(orientation: portrait) and (min-width: 320px)" },
-          'md': { "raw": "(orientation: portrait) and (min-width: 712px)" },
-          'lg': { "raw": "(orientation: portrait) and (min-width: 1200px)" },
+          'sm': { "raw": "(min-width: 320px)" },
+          'md': { "raw": "(min-width: 712px)" },
+          'lg': { "raw": "(min-width: 1200px)" },
         },
         boxShadow: {
          
