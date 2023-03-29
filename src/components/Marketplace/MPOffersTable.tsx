@@ -1,4 +1,4 @@
-import { Table, TableRow } from "@/components/Table/Table"
+import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { Box, Button, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
@@ -10,7 +10,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -29,7 +29,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -48,7 +48,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -67,7 +67,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -86,7 +86,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -105,7 +105,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 				<MPRow
 					offerId={{
 						title: "Offer ID",
-						value: String(Math.random()).slice(1, 3),
+						value: String(Math.random()).slice(2, 4),
 					}}
 					acceptedTokens={{
 						title: "Accepted tokens",
@@ -122,7 +122,30 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 					viewOffer={<Button>view offer</Button>}
 				/>,
 			]}
-			header={["Offer ID", "Amount", "Accepted tokens"]}
+			header={[
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Offer ID
+				</TableSortButton>,
+
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Amount
+				</TableSortButton>,
+				<TableSortButton
+					onClick={() => {}}
+					reversed={false}
+					sorted={false}
+				>
+					Accepted tokens
+				</TableSortButton>,
+			]}
 		/>
 	)
 }
