@@ -10,7 +10,7 @@ export type SelectOptionType = {
     value: string
 }
 
-export type SelectV2Props<OptType extends SelectOptionType> = {
+export type SelectProps<OptType extends SelectOptionType> = {
     options: OptType[]
     disabled?: boolean
     isSearcheable?: boolean
@@ -26,7 +26,7 @@ export type SelectV2Props<OptType extends SelectOptionType> = {
 }
 
 export const SelectV2 = <OptionType extends SelectOptionType,>( 
-    props: SelectV2Props<OptionType>,
+    props: SelectProps<OptionType>,
 ) => {
 
     return (
