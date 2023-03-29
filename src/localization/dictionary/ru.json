@@ -67,5 +67,12 @@
 				"gt_500k": " > $500k"
 			}
 		}
+	},
+	"marketplace": {
+		"header": {
+			"title": "Marketplace Offers",
+			"subitle": "Trade tokens without locking your liquidity",
+			"offerBtn": "CREATE MARKETPLACE OFFER"
+		}
 	}
 }
