@@ -2,8 +2,8 @@ import { Table, TableRow } from "@/components/Table/Table"
 import { Box, Button, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
-type MPTableProps = {}
-export const MPTable: React.FC<MPTableProps> = ({}) => {
+type MPOffersTableProps = {}
+export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 	return (
 		<Table
 			body={[
