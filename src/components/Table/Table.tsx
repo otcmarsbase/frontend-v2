@@ -105,6 +105,16 @@ const useSortedData = <
 	const [sortOrder, setSortOrder] = React.useState()
 
 	const sort = (field: keyof T) =>
-		setData((p) => p.sort((a, b) => sortRule[field](a, b)))
+		setData((p) =>
+			p.sort((a, b) => {
+				const result = sortRule[field](a, b)
+				if (result > 0)
+					setSortOrder((p) => {
+						p[field] = result > 0 ? "desc" : "asc"
+						return p
+					})
+				return result
+			})
+		)
 	return { data, sort, sortOrder }
 }
