@@ -109,7 +109,7 @@ export const useSortedData = <T extends object>(
 
 	const sort = (field: keyof T) =>
 		setData((p) =>
-			p.sort((a, b) => {
+			p.slice().sort((a, b) => {
 				const result = sortRule[field](a[field], b[field])
 				if (result > 0)
 					setSortOrder((p) => {
