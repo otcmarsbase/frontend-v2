@@ -122,3 +122,19 @@ export const useSortedData = <T extends object>(
 		)
 	return { data, sort, sortOrder }
 }
+
+const desc = <A, B>(f: (a: A, b: B) => number) => {
+	return (a: A, b: B) => f(a, b) * -1
+}
+
+const asc = <A, B>(f: (a: A, b: B) => number) => {
+	return (a: A, b: B) => desc(f)(a, b) * -1
+}
+
+const orders: Record<
+	Order,
+	<A, B>(f: (a: A, b: B) => number) => (a: A, b: B) => number
+> = {
+	desc,
+	asc,
+}
