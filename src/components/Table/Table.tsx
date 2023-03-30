@@ -1,4 +1,4 @@
-import { queries } from '@/utils/chakra'
+import { queries } from "@/utils/chakra"
 import {
 	Thead,
 	Tr,
@@ -9,23 +9,23 @@ import {
 	Td,
 	useMediaQuery,
 	Grid,
-} from '@chakra-ui/react'
-import React from 'react'
+} from "@chakra-ui/react"
+import React from "react"
 
 type TableProps = {
 	header: React.ReactNode[]
 	body: React.ReactNode[]
 }
 
-const TableCtx = React.createContext<{ variant: 'row' | 'card' }>({
-	variant: 'row',
+const TableCtx = React.createContext<{ variant: "row" | "card" }>({
+	variant: "row",
 })
 export const Table: React.FCC<TableProps> = (props) => {
 	const [isDesktop] = useMediaQuery([queries.lg])
 
 	return (
-		<TableContainer width={{ sm: '100%', lg: 'auto' }}>
-			<TableWrapper width={'100%'} variant="unstyled">
+		<TableContainer width={{ sm: "100%", lg: "auto" }}>
+			<TableWrapper width={"100%"} variant="unstyled">
 				{isDesktop ? (
 					<DesktopTableView {...props} />
 				) : (
@@ -37,10 +37,10 @@ export const Table: React.FCC<TableProps> = (props) => {
 }
 const MobileTableView: React.FCC<TableProps> = ({ body, header }) => {
 	return (
-		<TableCtx.Provider value={{ variant: 'card' }}>
+		<TableCtx.Provider value={{ variant: "card" }}>
 			<Grid
-				gridTemplateColumns={{ md: '1fr 1fr', sm: '1fr' }}
-				gap={'15px'}
+				gridTemplateColumns={{ md: "1fr 1fr", sm: "1fr" }}
+				gap={"15px"}
 			>
 				{body}
 			</Grid>
@@ -49,7 +49,7 @@ const MobileTableView: React.FCC<TableProps> = ({ body, header }) => {
 }
 const DesktopTableView: React.FCC<TableProps> = ({ body, header }) => {
 	return (
-		<TableCtx.Provider value={{ variant: 'row' }}>
+		<TableCtx.Provider value={{ variant: "row" }}>
 			<TableHeading>{header}</TableHeading>
 			<TableBody>{body}</TableBody>
 		</TableCtx.Provider>
@@ -82,7 +82,7 @@ export const TableRow: React.FC<{
 	cardData: React.ReactNode
 }> = ({ rowData, cardData }) => {
 	const ctx = React.useContext(TableCtx)
-	if (ctx.variant === 'row')
+	if (ctx.variant === "row")
 		return (
 			<Tr>
 				{rowData.map((x) => (
@@ -93,9 +93,15 @@ export const TableRow: React.FC<{
 	return <>{cardData}</>
 }
 
-
-const useSortedData = <T extends {}, RowData>(sortRule: T, rows: RowData[]) => {
+const useSortedData = <
+	T extends {},
+	RowData,
+	SortOrder extends { data: RowData; order: "asc" | "desc" }
+>(
+	sortRule: T,
+	rows: RowData[]
+) => {
 	const [data, setData] = React.useState<RowData[]>(rows)
-
+	const [sortOrder, setSortOrder] = React.useState()
 	return data
 }
