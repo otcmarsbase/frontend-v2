@@ -116,7 +116,7 @@ const HeaderSupport: React.FC<HeaderSupportProps> = ({ supportLinks }) => {
 }
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 	return (
-		<HStack>
+		<HStack wrap={"wrap"}>
 			<Link to={flattenRoutes['/']()}>
 				<HeaderLogo />
 			</Link>
