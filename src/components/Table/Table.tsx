@@ -100,9 +100,10 @@ const useSortedData = <
 >(
 	sortRule: { [field in keyof T]: (l: T[field], r: T[field]) => number },
 	rows: RowData[],
-	sort: (field: keyof T) => void
 ) => {
 	const [data, setData] = React.useState<RowData[]>(rows)
 	const [sortOrder, setSortOrder] = React.useState()
+	
+	const sort = (field: keyof T) => setData(p => p.sort((a, b) => sortRule[field](a, b)))
 	return data
 }
