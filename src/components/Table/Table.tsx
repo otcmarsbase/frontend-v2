@@ -96,13 +96,15 @@ export const TableRow: React.FC<{
 const useSortedData = <
 	T extends {},
 	RowData,
-	SortOrder extends { data: RowData; order: "asc" | "desc" }
+	Order extends "asc" | "desc",
+	SortOrder extends { data: RowData; order: Order }
 >(
 	sortRule: { [field in keyof T]: (l: T[field], r: T[field]) => number },
 	rows: RowData[]
 ) => {
 	const [data, setData] = React.useState<RowData[]>(rows)
-	const [sortOrder, setSortOrder] = React.useState()
+	const [sortOrder, setSortOrder] =
+		React.useState<{ [K in keyof T]: Order }>()
 
 	const sort = (field: keyof T) =>
 		setData((p) =>
