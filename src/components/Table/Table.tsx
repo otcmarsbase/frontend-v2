@@ -95,7 +95,7 @@ export const TableRow: React.FC<{
 
 type Order = "desc" | "asc"
 export const useSortedData = <T extends object>(
-	sortRule: { [field in keyof T]: (l: T[field], r: T[field]) => number },
+	sortRule: { [field in keyof T]: (l: T, r: T) => number },
 	rows: T[]
 ) => {
 	const [data, setData] = React.useState<T[]>(rows)
@@ -110,12 +110,13 @@ export const useSortedData = <T extends object>(
 	const sort = (field: keyof T) =>
 		setData((p) =>
 			p.slice().sort((a, b) => {
-				const result = sortRule[field](a[field], b[field])
-				if (result > 0)
-					setSortOrder((p) => {
-						const ord = result > 0 ? "desc" : "asc"
-						return {...p, [field]: ord }
-					})
+				let result = sortRule[field](a, b)
+				if (sortOrder[field] == "desc") result *= -1
+				setSortOrder((p) => {
+					const ord = p[field]
+					return { ...p, [field]: ord === "asc" ? "desc" : "asc" }
+				})
+
 				return result
 			})
 		)
