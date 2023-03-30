@@ -93,6 +93,7 @@ export const TableRow: React.FC<{
 	return <>{cardData}</>
 }
 
+type Order = "desc" | "asc"
 const useSortedData = <
 	T extends {},
 	RowData,
