@@ -113,7 +113,7 @@ const useSortedData = <
 	const sort = (field: keyof T) =>
 		setData((p) =>
 			p.sort((a, b) => {
-				const result = sortRule[field](a, b)
+				const result = sortRule[field](a[field], b[field])
 				if (result > 0)
 					setSortOrder((p) => {
 						p[field] = result > 0 ? "desc" : "asc"
