@@ -8,9 +8,6 @@ import {
 	Th,
 	Td,
 	useMediaQuery,
-	VStack,
-	Box,
-	HStack,
 	Grid,
 } from '@chakra-ui/react'
 import React from 'react'
