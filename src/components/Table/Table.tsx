@@ -92,3 +92,10 @@ export const TableRow: React.FC<{
 		)
 	return <>{cardData}</>
 }
+
+
+const useSortedData = <T extends {}, RowData>(sortRule: T, rows: RowData[]) => {
+	const [data, setData] = React.useState<RowData[]>(rows)
+
+	return data
+}
