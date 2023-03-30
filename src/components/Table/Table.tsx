@@ -95,31 +95,25 @@ export const TableRow: React.FC<{
 
 type Order = "desc" | "asc"
 export const useSortedData = <T extends object>(
-	sortRule: { [field in keyof T]: (l: T, r: T) => number },
-	rows: T[]
+	sortRules: { [field in keyof T]: (l: T, r: T) => number },
+	rows: T[],
+	defaultOrd: Order = "asc"
 ) => {
 	const [data, setData] = React.useState<T[]>(rows)
 	const [sortOrder, setSortOrder] = React.useState<{ [K in keyof T]: Order }>(
 		() =>
-			Object.keys(sortRule).reduce((acc, x) => {
-				acc[x] = "asc"
+			Object.keys(sortRules).reduce((acc, x) => {
+				acc[x] = defaultOrd
 				return acc
 			}, {} as any)
 	)
 
-	const sort = (field: keyof T) =>
-		setData((p) =>
-			p.slice().sort((a, b) => {
-				let result = sortRule[field](a, b)
-				if (sortOrder[field] == "desc") result *= -1
-				setSortOrder((p) => {
-					const ord = p[field]
-					return { ...p, [field]: ord === "asc" ? "desc" : "asc" }
-				})
-
-				return result
-			})
-		)
+	const sort = (key: keyof T, order: Order) => {
+		setSortOrder((p) => {
+			return { ...p, [key]: order }
+		})
+		setData((p) => p.slice().sort(orders[order](sortRules[key])))
+	}
 	return { data, sort, sortOrder }
 }
 
@@ -128,13 +122,10 @@ const desc = <A, B>(f: (a: A, b: B) => number) => {
 }
 
 const asc = <A, B>(f: (a: A, b: B) => number) => {
-	return (a: A, b: B) => desc(f)(a, b) * -1
+	return (a: A, b: B) => f(a, b)
 }
 
-const orders: Record<
-	Order,
-	<A, B>(f: (a: A, b: B) => number) => (a: A, b: B) => number
-> = {
+const orders = {
 	desc,
 	asc,
 }
