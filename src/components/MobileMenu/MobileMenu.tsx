@@ -4,7 +4,7 @@ import React from "react"
 
 type MobileMenuProps = {}
 
-export const MobileMenu: React.FC<MobileMenuProps> = ({}) => {
+export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 	const [drawerVisible, setDrawerVisibility] = React.useState(false)
 	const [active, setActive] = React.useState(false)
 	return (
@@ -26,7 +26,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({}) => {
 				}}
 			>
 				<DrawerOverlay />
-				<DrawerContent></DrawerContent>
+				<DrawerContent>{children}</DrawerContent>
 			</Drawer>
 		</Box>
 	)
