@@ -98,14 +98,13 @@ type FullOrder = Order | "none"
 
 export const useSortedData = <T extends object>(
 	sortRules: { [field in keyof T]: (l: T, r: T) => number },
-	rows: T[],
-	defaultOrd: Order = "asc"
+	rows: T[]
 ) => {
 	const [data, setData] = React.useState<T[]>(rows)
-	const [sortOrder, setSortOrder] = React.useState<{ [K in keyof T]: Order }>(
+	const [sortOrder, setSortOrder] = React.useState<{ [K in keyof T]: FullOrder }>(
 		() =>
 			Object.keys(sortRules).reduce((acc, x) => {
-				acc[x] = defaultOrd
+				acc[x] = "none"
 				return acc
 			}, {} as any)
 	)
