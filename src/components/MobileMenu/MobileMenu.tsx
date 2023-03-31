@@ -1,20 +1,28 @@
-import { Box, Drawer, DrawerContent, DrawerOverlay, useDisclosure } from "@chakra-ui/react"
+import { Box, Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react"
 import { Spin as Hamburger } from "hamburger-react"
 import React from "react"
 
 type MobileMenuProps = {}
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({}) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
+	const [drawerVisible, setDrawerVisibility] = React.useState(false)
+	const [active, setActive] = React.useState(false)
 	return (
 		<Box>
-			<Hamburger />
-			<Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+			<Hamburger
+				toggled={active}
+				onToggle={() => {
+					setActive((t) => !t)
+					setDrawerVisibility((t) => !t)
+				}}
+			/>
+			<Drawer
+				placement="left"
+				isOpen={drawerVisible}
+				onClose={() => setDrawerVisibility(false)}
+			>
 				<DrawerOverlay />
-				<DrawerContent>
-                    
-                </DrawerContent>
+				<DrawerContent></DrawerContent>
 			</Drawer>
 		</Box>
 	)
