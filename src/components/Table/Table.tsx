@@ -94,6 +94,8 @@ export const TableRow: React.FC<{
 }
 
 type Order = "desc" | "asc"
+type FullOrder = Order | "none"
+
 export const useSortedData = <T extends object>(
 	sortRules: { [field in keyof T]: (l: T, r: T) => number },
 	rows: T[],
