@@ -72,8 +72,8 @@ const Header: React.FCC<{
 			<Link to={flattenRoutes["/"]()}>
 				<HeaderLogo />
 			</Link>
-			<Navbar menuLinks={menuLinks} />
-			<HStack>
+			<HStack display={{ sm: "none", lg: "flex" }}>
+				<Navbar menuLinks={menuLinks} />
 				<HeaderSupport supportLinks={supportLinks} />
 				<HStack>
 					<Select maxWidth={"max-content"}>
