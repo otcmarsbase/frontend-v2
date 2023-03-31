@@ -10,6 +10,7 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 	return (
 		<Box display={{ lg: "none" }}>
 			<Hamburger
+				color={active ? "white" : "black"}
 				direction="right"
 				toggled={active}
 				onToggle={() => {
