@@ -19,7 +19,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({}) => {
 			<Drawer
 				placement="left"
 				isOpen={drawerVisible}
-				onClose={() => setDrawerVisibility(false)}
+				onClose={() => {
+					setDrawerVisibility(false)
+					setActive(false)
+				}}
 			>
 				<DrawerOverlay />
 				<DrawerContent></DrawerContent>
