@@ -1,8 +1,8 @@
-import { flattenRoutes } from '@/AppRoutes'
-import { Footer } from '@/components/Footer/Footer'
-import { Image } from '@/components/Image/Image'
-import { useTranslation } from '@/localization/l10n'
-import { links, navlinks } from '@/utils/links'
+import { flattenRoutes } from "@/AppRoutes"
+import { Footer } from "@/components/Footer/Footer"
+import { Image } from "@/components/Image/Image"
+import { useTranslation } from "@/localization/l10n"
+import { links, navlinks } from "@/utils/links"
 import {
 	Box,
 	Container,
@@ -11,10 +11,10 @@ import {
 	Link as ChakraLink,
 	Select,
 	Button,
-} from '@chakra-ui/react'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+} from "@chakra-ui/react"
+import React from "react"
+import { Link } from "react-router-dom"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -53,7 +53,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 
 const PageWrapper: React.FCC = ({ children }) => {
 	return (
-		<VStack paddingX={'20px'} minHeight={'100vh'} height={'100%'}>
+		<VStack paddingX={"20px"} minHeight={"100vh"} height={"100%"}>
 			{children}
 		</VStack>
 	)
@@ -68,12 +68,15 @@ const Header: React.FCC<{
 	supportLinks: SupportLink[]
 }> = ({ menuLinks, supportLinks }) => {
 	return (
-		<HStack justifyContent={'space-between'} w={'100%'}>
+		<HStack justifyContent={"space-between"} w={"100%"}>
+			<Link to={flattenRoutes["/"]()}>
+				<HeaderLogo />
+			</Link>
 			<Navbar menuLinks={menuLinks} />
 			<HStack>
 				<HeaderSupport supportLinks={supportLinks} />
 				<HStack>
-					<Select maxWidth={'max-content'}>
+					<Select maxWidth={"max-content"}>
 						<option value="option1">BNB Chain</option>
 						<option value="option2">Ethereum</option>
 					</Select>
@@ -95,7 +98,7 @@ type LinkProps = {
 const SupportLink: React.FCC<LinkProps> = ({ href, text }) => {
 	return (
 		<Box>
-			<ChakraLink target={'_blank'} href={href}>
+			<ChakraLink target={"_blank"} href={href}>
 				{text}
 			</ChakraLink>
 		</Box>
@@ -117,9 +120,6 @@ const HeaderSupport: React.FC<HeaderSupportProps> = ({ supportLinks }) => {
 const Navbar: React.FCC<NavbarProps> = ({ children, menuLinks }) => {
 	return (
 		<HStack wrap={"wrap"}>
-			<Link to={flattenRoutes['/']()}>
-				<HeaderLogo />
-			</Link>
 			{menuLinks.map((x) => (
 				<NavMenuLink
 					key={x.name + x.path}
