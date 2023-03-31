@@ -8,7 +8,7 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 	const [drawerVisible, setDrawerVisibility] = React.useState(false)
 	const [active, setActive] = React.useState(false)
 	return (
-		<Box>
+		<Box display={{ lg: "none" }}>
 			<Hamburger
 				direction="right"
 				toggled={active}
