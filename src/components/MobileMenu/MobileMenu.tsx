@@ -9,15 +9,6 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 	const [active, setActive] = React.useState(false)
 	return (
 		<Box display={{ lg: "none" }}>
-			<Hamburger
-				color={active ? "white" : "black"}
-				direction="right"
-				toggled={active}
-				onToggle={() => {
-					setActive((t) => !t)
-					setDrawerVisibility((t) => !t)
-				}}
-			/>
 			<Drawer
 				placement="left"
 				isOpen={drawerVisible}
@@ -29,6 +20,17 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 				<DrawerOverlay />
 				<DrawerContent>{children}</DrawerContent>
 			</Drawer>
+			<Box position={"relative"} zIndex="1500">
+				<Hamburger
+					color={active ? "white" : "black"}
+					direction="right"
+					toggled={active}
+					onToggle={() => {
+						setActive((t) => !t)
+						setDrawerVisibility((t) => !t)
+					}}
+				/>
+			</Box>
 		</Box>
 	)
 }
