@@ -11,10 +11,12 @@ import {
 	Link as ChakraLink,
 	Select,
 	Button,
+	Flex,
 } from "@chakra-ui/react"
 import React from "react"
 import { Link } from "react-router-dom"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
+import { MobileMenu } from "@/components/MobileMenu/MobileMenu"
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -83,6 +85,7 @@ const Header: React.FCC<{
 					<ConnectButton></ConnectButton>
 				</HStack>
 			</HStack>
+			<MobileMenu></MobileMenu>
 		</HStack>
 	)
 }
