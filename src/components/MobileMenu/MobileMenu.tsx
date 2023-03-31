@@ -10,6 +10,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({}) => {
 	return (
 		<Box>
 			<Hamburger
+				direction="right"
 				toggled={active}
 				onToggle={() => {
 					setActive((t) => !t)
