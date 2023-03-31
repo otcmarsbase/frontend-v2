@@ -21,6 +21,7 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 				/>
 			</Box>
 			<Drawer
+				size={"full"}
 				placement="left"
 				isOpen={drawerVisible}
 				onClose={() => {
