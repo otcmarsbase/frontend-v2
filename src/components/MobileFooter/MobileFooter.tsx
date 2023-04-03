@@ -16,7 +16,15 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	)
 }
 
-type MobileFooterButtonProps = {}
-const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({}) => {
+type MobileFooterButtonProps = {
+	imageUrl: string
+	onClick: () => void
+	redirectUrl: string
+}
+const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
+	imageUrl,
+	onClick,
+	redirectUrl,
+}) => {
 	return <Box></Box>
 }
