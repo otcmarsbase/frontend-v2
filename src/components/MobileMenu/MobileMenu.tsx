@@ -1,3 +1,4 @@
+import { MobileView } from "@/components/MobileView"
 import { Box, Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react"
 import { Spin as Hamburger } from "hamburger-react"
 import React from "react"
@@ -8,7 +9,7 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 	const [drawerVisible, setDrawerVisibility] = React.useState(false)
 	const [active, setActive] = React.useState(false)
 	return (
-		<Box display={{ lg: "none" }}>
+		<MobileView>
 			<Box position={"relative"} zIndex="1500">
 				<Hamburger
 					color={active ? "black" : "black"}
@@ -32,6 +33,6 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 				<DrawerOverlay />
 				<DrawerContent>{children}</DrawerContent>
 			</Drawer>
-		</Box>
+		</MobileView>
 	)
 }
