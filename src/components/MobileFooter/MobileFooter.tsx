@@ -1,10 +1,7 @@
-import { MobileView } from '@/components/MobileView'
-import React from 'react'
+import { useNavigate } from "react-router-dom"
 
 type MobileFooterProps = {}
 
 export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
-    return <MobileView>
-        
-    </MobileView>
+    const navigate = useNavigate()
 }
