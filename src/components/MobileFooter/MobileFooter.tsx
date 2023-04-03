@@ -14,6 +14,10 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 		<MobileView>
 			<HStack>
 				<MobileFooterButton
+					active={
+						location.pathname ===
+						flattenRoutes["/marketplace/offers/"]()
+					}
 					imageUrl=""
 					onClick={() => {}}
 					redirectUrl={flattenRoutes["/marketplace/"]()}
