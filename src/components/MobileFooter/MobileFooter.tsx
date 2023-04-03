@@ -26,20 +26,18 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 type MobileFooterButtonProps = {
 	imageUrl: string
 	onClick: () => void
-	redirectUrl: string
+	active: boolean
 }
 const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 	imageUrl,
 	onClick,
-	redirectUrl,
+	active,
 }) => {
 	return (
-		<NavLink to={redirectUrl}>
-			{({ isActive, isPending }) => (
-				<span className={isActive ? "bg-red-600" : "bg-green-500"}>
-					Tasks
-				</span>
-			)}
-		</NavLink>
+		<Box onClick={onClick}>
+			<span className={active ? "bg-red-600" : "bg-green-500"}>
+				Tasks
+			</span>
+		</Box>
 	)
 }
