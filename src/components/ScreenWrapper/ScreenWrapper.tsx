@@ -74,7 +74,7 @@ const Header: React.FCC<{
 			<Link to={flattenRoutes["/"]()}>
 				<HeaderLogo />
 			</Link>
-			<HStack display={{ sm: "none", lg: "flex" }}>
+			<HStack>
 				<Navbar menuLinks={menuLinks} />
 				<HeaderSupport supportLinks={supportLinks} />
 				<HStack>
