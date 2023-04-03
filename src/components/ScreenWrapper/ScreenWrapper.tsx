@@ -49,7 +49,9 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 			/>
 			{top}
 			<Box w={"100%"}>{children}</Box>
-			<Footer />
+			<DesktopView>
+				<Footer />
+			</DesktopView>
 		</PageWrapper>
 	)
 }
