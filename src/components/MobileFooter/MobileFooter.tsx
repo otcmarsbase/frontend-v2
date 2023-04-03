@@ -18,6 +18,9 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 						location.pathname ===
 						flattenRoutes["/marketplace/offers/"]()
 					}
+					onClick={() => {
+						navigate(flattenRoutes["/marketplace/offers/"]())
+					}}
 					imageUrl=""
 					onClick={() => {}}
 					redirectUrl={flattenRoutes["/marketplace/"]()}
