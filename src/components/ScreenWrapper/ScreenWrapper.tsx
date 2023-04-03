@@ -17,6 +17,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { MobileMenu } from "@/components/MobileMenu/MobileMenu"
+import { DesktopView } from "@/components/DesktopView"
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -74,17 +75,19 @@ const Header: React.FCC<{
 			<Link to={flattenRoutes["/"]()}>
 				<HeaderLogo />
 			</Link>
-			<HStack>
-				<Navbar menuLinks={menuLinks} />
-				<HeaderSupport supportLinks={supportLinks} />
+			<DesktopView>
 				<HStack>
-					<Select maxWidth={"max-content"}>
-						<option value="option1">BNB Chain</option>
-						<option value="option2">Ethereum</option>
-					</Select>
-					<ConnectButton></ConnectButton>
+					<Navbar menuLinks={menuLinks} />
+					<HeaderSupport supportLinks={supportLinks} />
+					<HStack>
+						<Select maxWidth={"max-content"}>
+							<option value="option1">BNB Chain</option>
+							<option value="option2">Ethereum</option>
+						</Select>
+						<ConnectButton></ConnectButton>
+					</HStack>
 				</HStack>
-			</HStack>
+			</DesktopView>
 			<MobileMenu></MobileMenu>
 		</HStack>
 	)
