@@ -12,7 +12,7 @@ export const MobileMenu: React.FCC<MobileMenuProps> = ({ children }) => {
 		<MobileView>
 			<Box position={"relative"} zIndex="1500">
 				<Hamburger
-					color={active ? "black" : "black"}
+					color={active ? "white" : "white"}
 					direction="right"
 					toggled={active}
 					onToggle={() => {
