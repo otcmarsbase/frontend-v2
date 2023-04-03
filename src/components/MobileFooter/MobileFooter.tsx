@@ -2,7 +2,7 @@ import { Image } from "@/components/Image/Image"
 import { MobileView } from "@/components/MobileView"
 import { Box, HStack } from "@chakra-ui/react"
 import React from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
 type MobileFooterProps = {}
 
@@ -11,7 +11,9 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const location = useLocation()
 	return (
 		<MobileView>
-			<HStack></HStack>
+			<HStack>
+				<MobileFooterButton />
+			</HStack>
 		</MobileView>
 	)
 }
@@ -26,5 +28,5 @@ const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 	onClick,
 	redirectUrl,
 }) => {
-	return <Box></Box>
+	return <NavLink to={redirectUrl}></NavLink>
 }
