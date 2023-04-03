@@ -22,10 +22,6 @@ export const theme = extendTheme({
 		global: () => ({
 			// TODO: переделать
 			body: {
-				bg: 'var(--color-dark-950)',
-				fontFamily: 'var(--font-main)',
-				color: 'var(--color-white)',
-				lineHeight: 'var(--line-height-xl)',
 			},
 		}),
 	},
