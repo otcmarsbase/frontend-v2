@@ -15,11 +15,9 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 			<HStack>
 				<MobileFooterButton
 					active={Boolean(
-						location.pathname.match(
-							`${flattenRoutes["/marketplace/offers/"]().replace(
-								/\/$/,
-								""
-							)}`
+						matchRoute(
+							flattenRoutes["/marketplace/offers/"](),
+							location.pathname
 						)
 					)}
 					onClick={() => {
