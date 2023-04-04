@@ -1,5 +1,4 @@
 import { flattenRoutes } from "@/AppRoutes"
-import { Image } from "@/components/Image/Image"
 import { MobileView } from "@/components/MobileView"
 import { Box, HStack } from "@chakra-ui/react"
 import React from "react"
@@ -10,20 +9,23 @@ type MobileFooterProps = {}
 export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const navigate = useNavigate()
 	const location = useLocation()
+
 	return (
 		<MobileView>
 			<HStack>
 				<MobileFooterButton
-					active={
-						location.pathname ===
-						flattenRoutes["/marketplace/offers/"]()
-					}
+					active={Boolean(
+						location.pathname.match(
+							`${flattenRoutes["/marketplace/offers/"]().replace(
+								/\/$/,
+								""
+							)}`
+						)
+					)}
 					onClick={() => {
 						navigate(flattenRoutes["/marketplace/offers/"]())
 					}}
 					imageUrl=""
-					onClick={() => {}}
-					redirectUrl={flattenRoutes["/marketplace/"]()}
 				/>
 			</HStack>
 		</MobileView>
