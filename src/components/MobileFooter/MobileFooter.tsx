@@ -1,7 +1,8 @@
 import { flattenRoutes } from "@/AppRoutes"
+import { Image } from "@/components/Image/Image"
 import { MobileView } from "@/components/MobileView"
 import { useTranslation } from "@/localization/l10n"
-import { Box, HStack } from "@chakra-ui/react"
+import { Box, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
@@ -70,11 +71,12 @@ const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 	active,
 }) => {
 	return (
-		<Box onClick={onClick}>
+		<VStack onClick={onClick}>
+			<Image src={imageUrl} />
 			<span className={active ? "bg-red-600" : "bg-green-500"}>
 				{text}
 			</span>
-		</Box>
+		</VStack>
 	)
 }
 
