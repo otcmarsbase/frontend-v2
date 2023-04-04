@@ -34,16 +34,18 @@ type MobileFooterButtonProps = {
 	imageUrl: string
 	onClick: () => void
 	active: boolean
+	text: string
 }
 const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 	imageUrl,
+	text,
 	onClick,
 	active,
 }) => {
 	return (
 		<Box onClick={onClick}>
 			<span className={active ? "bg-red-600" : "bg-green-500"}>
-				Tasks
+				{text}
 			</span>
 		</Box>
 	)
