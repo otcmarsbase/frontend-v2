@@ -12,6 +12,11 @@
 			"calculator": "CALCULATOR",
 			"saft": "SAFT / Vesting (soon)"
 		},
+		"mobileNav": {
+			"createOffer": "Create offer",
+			"otcDesk": "OTC Desk",
+			"dashboard": "Dashboard"
+		},
 		"support": {
 			"about": "Knowledge base",
 			"helpCenter": "Help Center",
