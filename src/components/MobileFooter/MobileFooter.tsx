@@ -17,8 +17,8 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 					text="Create offer"
 					active={Boolean(
 						matchRoute(
-							flattenRoutes["/create-offer"](),
-							location.pathname
+							location.pathname,
+							flattenRoutes["/create-offer"]()
 						)
 					)}
 					onClick={() => {
@@ -29,7 +29,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 				<MobileFooterButton
 					text="OTC Desk"
 					active={Boolean(
-						matchRoute(flattenRoutes["/"](), location.pathname)
+						matchRoute(location.pathname, flattenRoutes["/"]())
 					)}
 					onClick={() => {
 						navigate(flattenRoutes["/"]())
@@ -40,13 +40,10 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 					text="Dashboard"
 					active={Boolean(
 						matchRoute(
-							flattenRoutes["/dashboard/offers"](),
-							location.pathname
-						) ||
-							matchRoute(
-								flattenRoutes["/dashboard/bids"](),
-								location.pathname
-							)
+							location.pathname,
+							flattenRoutes["/dashboard/bids"](),
+							flattenRoutes["/dashboard/offers"]()
+						)
 					)}
 					onClick={() => {
 						navigate(flattenRoutes["/dashboard/offers"]())
