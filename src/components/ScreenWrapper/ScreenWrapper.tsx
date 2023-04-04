@@ -18,6 +18,7 @@ import { Link } from "react-router-dom"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { MobileMenu } from "@/components/MobileMenu/MobileMenu"
 import { DesktopView } from "@/components/DesktopView"
+import { MobileFooter } from "@/components/MobileFooter/MobileFooter"
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -52,6 +53,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 			<DesktopView>
 				<Footer />
 			</DesktopView>
+			<MobileFooter />
 		</PageWrapper>
 	)
 }
