@@ -77,7 +77,8 @@ const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 }
 
 const matchRoute = (location: string, ...routes: string[]) => {
-	return routes.some((x) =>
-		Boolean(location.match(`${x.replace(/\/$/, "")}`))
-	)
+	return routes.some((x) => {
+		if (x === "/" && location !== "/") return false
+		return Boolean(location.match(`${x.replace(/\/$/, "")}`))
+	})
 }
