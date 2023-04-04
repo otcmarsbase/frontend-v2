@@ -4,9 +4,7 @@ import { Box, HStack } from "@chakra-ui/react"
 import React from "react"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
-type MobileFooterProps = {
-    
-}
+type MobileFooterProps = {}
 
 export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const navigate = useNavigate()
@@ -25,6 +23,33 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 					)}
 					onClick={() => {
 						navigate(flattenRoutes["/create-offer"]())
+					}}
+					imageUrl=""
+				/>
+				<MobileFooterButton
+					text="OTC Desk"
+					active={Boolean(
+						matchRoute(flattenRoutes["/"](), location.pathname)
+					)}
+					onClick={() => {
+						navigate(flattenRoutes["/"]())
+					}}
+					imageUrl=""
+				/>
+				<MobileFooterButton
+					text="Dashboard"
+					active={Boolean(
+						matchRoute(
+							flattenRoutes["/dashboard/offers"](),
+							location.pathname
+						) ||
+							matchRoute(
+								flattenRoutes["/dashboard/bids"](),
+								location.pathname
+							)
+					)}
+					onClick={() => {
+						navigate(flattenRoutes["/dashboard/offers"]())
 					}}
 					imageUrl=""
 				/>
