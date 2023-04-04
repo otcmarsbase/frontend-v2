@@ -1,5 +1,6 @@
 import { flattenRoutes } from "@/AppRoutes"
 import { MobileView } from "@/components/MobileView"
+import { useTranslation } from "@/localization/l10n"
 import { Box, HStack } from "@chakra-ui/react"
 import React from "react"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
@@ -10,11 +11,12 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const navigate = useNavigate()
 	const location = useLocation()
 
+	const l10n = useTranslation()
 	return (
 		<MobileView>
 			<HStack>
 				<MobileFooterButton
-					text="Create offer"
+					text={l10n.navbar.mobileNav.createOffer}
 					active={Boolean(
 						matchRoutes(
 							location.pathname,
@@ -27,7 +29,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 					imageUrl=""
 				/>
 				<MobileFooterButton
-					text="OTC Desk"
+					text={l10n.navbar.mobileNav.otcDesk}
 					active={Boolean(
 						matchRoutes(location.pathname, flattenRoutes["/"]())
 					)}
@@ -37,7 +39,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 					imageUrl=""
 				/>
 				<MobileFooterButton
-					text="Dashboard"
+					text={l10n.navbar.mobileNav.dashboard}
 					active={Boolean(
 						matchRoutes(
 							location.pathname,
