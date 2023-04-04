@@ -1,6 +1,7 @@
 import React from "react"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { Box, Button, HStack, VStack } from "@chakra-ui/react"
+import { Popup } from "@/components/Popup/Popup"
 
 type OTCDeskTableProps = {}
 
@@ -52,90 +53,26 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 				</TableSortButton>,
 			]}
 			body={[
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
-				<OTCOfferRow
-					data={{
-						from: { title: "From", value: 1 },
-						to: {
-							title: "To",
-							value: 2,
-						},
-						offerMode: { title: "Offer mode", value: 3 },
-						availableSize: { title: "Available size", value: 4 },
-						discount: { title: "Discount", value: 5 },
-						deadline: { title: "Deadline", value: 6 },
-						button: <Button w={"100%"}>PlaceBid</Button>,
-					}}
-				></OTCOfferRow>,
+				[0, 1, 2, 3, 4, 5, 6, 7, 8].map((x) => (
+					<OTCOfferRow
+						key={x}
+						data={{
+							from: { title: "From", value: 1 },
+							to: {
+								title: "To",
+								value: 2,
+							},
+							offerMode: { title: "Offer mode", value: 3 },
+							availableSize: {
+								title: "Available size",
+								value: 4,
+							},
+							discount: { title: "Discount", value: 5 },
+							deadline: { title: "Deadline", value: 6 },
+							button: <Button w={"100%"}>PlaceBid</Button>,
+						}}
+					></OTCOfferRow>
+				)),
 			]}
 		></Table>
 	)
@@ -196,18 +133,25 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 							<Box>{data.to.value}</Box>
 						</VStack>
 					</HStack>
-					{[
-						data.offerMode,
-						data.availableSize,
-						data.discount,
-						data.discount,
-					].map((x) => (
-						<HStack w={"100%"} justifyContent={"space-between"}>
-							<Box>{x.title}</Box>
-							<Box>{x.value}</Box>
-						</HStack>
-					))}
-					<Box w={"100%"} paddingTop="10px" borderTop="1px solid #2A2A2C">{data.button}</Box>
+					{[data.offerMode, data.availableSize, data.discount, data.deadline].map(
+						(x) => (
+							<HStack
+								key={x.title}
+								w={"100%"}
+								justifyContent={"space-between"}
+							>
+								<Box>{x.title}</Box>
+								<Box>{x.value}</Box>
+							</HStack>
+						)
+					)}
+					<Box
+						w={"100%"}
+						paddingTop="10px"
+						borderTop="1px solid #2A2A2C"
+					>
+						{data.button}
+					</Box>
 				</VStack>
 			}
 		></TableRow>
