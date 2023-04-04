@@ -8,12 +8,6 @@ type MobileFooterProps = {
     
 }
 
-type LinkType = {
-    text: string,
-    active: boolean 
-    imageUrl: string 
-    onClick: () => {}
-}
 export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -22,14 +16,15 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 		<MobileView>
 			<HStack>
 				<MobileFooterButton
+					text="Create offer"
 					active={Boolean(
 						matchRoute(
-							flattenRoutes["/marketplace/offers/"](),
+							flattenRoutes["/create-offer"](),
 							location.pathname
 						)
 					)}
 					onClick={() => {
-						navigate(flattenRoutes["/marketplace/offers/"]())
+						navigate(flattenRoutes["/create-offer"]())
 					}}
 					imageUrl=""
 				/>
