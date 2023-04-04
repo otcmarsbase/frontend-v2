@@ -16,7 +16,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 				<MobileFooterButton
 					text="Create offer"
 					active={Boolean(
-						matchRoute(
+						matchRoutes(
 							location.pathname,
 							flattenRoutes["/create-offer"]()
 						)
@@ -29,7 +29,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 				<MobileFooterButton
 					text="OTC Desk"
 					active={Boolean(
-						matchRoute(location.pathname, flattenRoutes["/"]())
+						matchRoutes(location.pathname, flattenRoutes["/"]())
 					)}
 					onClick={() => {
 						navigate(flattenRoutes["/"]())
@@ -39,7 +39,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 				<MobileFooterButton
 					text="Dashboard"
 					active={Boolean(
-						matchRoute(
+						matchRoutes(
 							location.pathname,
 							flattenRoutes["/dashboard/bids"](),
 							flattenRoutes["/dashboard/offers"]()
@@ -76,7 +76,7 @@ const MobileFooterButton: React.FC<MobileFooterButtonProps> = ({
 	)
 }
 
-const matchRoute = (location: string, ...routes: string[]) => {
+const matchRoutes = (location: string, ...routes: string[]) => {
 	return routes.some((x) => {
 		if (x === "/" && location !== "/") return false
 		return Boolean(location.match(`${x.replace(/\/$/, "")}`))
