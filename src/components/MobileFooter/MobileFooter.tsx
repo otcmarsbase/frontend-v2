@@ -4,8 +4,16 @@ import { Box, HStack } from "@chakra-ui/react"
 import React from "react"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 
-type MobileFooterProps = {}
+type MobileFooterProps = {
+    
+}
 
+type LinkType = {
+    text: string,
+    active: boolean 
+    imageUrl: string 
+    onClick: () => {}
+}
 export const MobileFooter: React.FC<MobileFooterProps> = ({}) => {
 	const navigate = useNavigate()
 	const location = useLocation()
