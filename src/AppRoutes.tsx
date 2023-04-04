@@ -1,3 +1,4 @@
+import { Leaderboard } from '@/components/Leaderboard/Leaderboard'
 import { DeepWriteable } from '@/types'
 import { flatRoutes } from '@/utils/routes'
 import { Outlet } from 'react-router-dom'
@@ -54,6 +55,10 @@ export const routes = [
 	{
 		path: '/calculator',
 		element: <Calculator />,
+	},
+	{
+		path: '/leaderboard',
+		element: <Leaderboard />,
 	},
 	{
 		path: '/bestbid/',
