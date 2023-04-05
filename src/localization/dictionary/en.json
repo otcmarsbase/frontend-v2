@@ -80,5 +80,10 @@
 			"subitle": "Trade tokens without locking your liquidity",
 			"offerBtn": "CREATE MARKETPLACE OFFER"
 		}
+	},
+	"calculator": {
+		"title": "Calculate your profit",
+		"subTitle": "New Decentralized. We introduce a unique farming model where only you choose whether to stake alone or with a team.",
+		"howToUse": "How to use?"
 	}
 }
