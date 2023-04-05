@@ -24,8 +24,8 @@ export const GradientPopup: React.FCC<PopupProps> = ({
 	className,
 }) => {
 	return (
-		<Box className={clsx(`bg-popup rounded-2xl p-[3px] mx-auto`)}>
-			<Box className={clsx("rounded-2xl py-[30px] px-[20px]", className)}>
+		<Box className={clsx(`bg-popup rounded-[19px] p-[3px] mx-auto`)}>
+			<Box className={clsx("rounded-[16px] py-[30px] px-[20px]", className)}>
 				{children}
 			</Box>
 		</Box>
