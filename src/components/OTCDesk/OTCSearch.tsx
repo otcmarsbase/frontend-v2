@@ -64,6 +64,7 @@ export const OTCSearch: React.FC<React.PropsWithChildren<OTCSearchProps>> = (
 ) => {
 	return (
 		<SelectV2
+			isSearcheable
 			placeholder={props.placeholder}
 			isClearable={props.isClearable}
 			value={props?.value}
