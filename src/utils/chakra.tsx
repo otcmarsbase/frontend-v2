@@ -1,14 +1,14 @@
-import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
+import { extendTheme, type ThemeConfig } from "@chakra-ui/react"
 
 const config: ThemeConfig = {
-	initialColorMode: 'dark',
+	initialColorMode: "dark",
 	useSystemColorMode: false,
 }
 
 const breakpoints = {
-	sm: '320px',
-	md: '712px',
-	lg: '1200px',
+	sm: "320px",
+	md: "712px",
+	lg: "1200px",
 }
 export const queries = {
 	lg: `(min-width: ${breakpoints.lg})`,
@@ -22,6 +22,7 @@ export const theme = extendTheme({
 		global: () => ({
 			// TODO: переделать
 			body: {
+				bg: "var(--color-dark-950)",
 			},
 		}),
 	},
