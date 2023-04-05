@@ -6,6 +6,7 @@ import { OTCDeskTable } from './OTCDeskTable'
 type OTCDeskContentProps = {}
 
 export const OTCDeskContent: React.FC<OTCDeskContentProps> = ({}) => {
+	const [val, setVal] = React.useState<any>("")
 	return (
 		<HStack justifyContent={'space-between'} width={'100%'}>
 			<OTCDeskFilterPanel
