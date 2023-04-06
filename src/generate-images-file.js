@@ -24,7 +24,7 @@ const fs = require("fs")
 const path = require("path")
 const prettier = require("prettier")
 
-const pretify = (str) => prettier.format(str, { parser: "babel", tabWidth: 4 })
+const pretify = (str) => prettier.format(str, { parser: "babel", tabWidth: 4, semi: false })
 
 const folderPath = path.join(__dirname, process.argv[2])
 const outputPath = path.join(__dirname, process.argv[3])
