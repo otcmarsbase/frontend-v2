@@ -12,5 +12,11 @@ const Context = React.createContext<{ state: AppState; msgs: Messages }>({
 export const useAppContext = React.useContext(Context)
 
 export const AppContextProvider: React.FCC = ({ children }) => {
-	return <Context.Provider value={}>{children}</Context.Provider>
+	const [state, setState] = React.useState<AppState>({})
+
+	return (
+		<Context.Provider value={{ msgs: {}, state }}>
+			{children}
+		</Context.Provider>
+	)
 }
