@@ -9,3 +9,4 @@ const Context = React.createContext<{ state: AppState; msgs: Messages }>({
 	state: {},
 })
 
+export const useAppContext = React.useContext(Context)
