@@ -22,7 +22,7 @@
 
 const fs = require("fs")
 const path = require("path")
-const utls = require("./utils.js")
+const utils = require("./utils.js")
 
 
 
@@ -49,17 +49,17 @@ const importPaths = {
 
 const importStatements = imageFiles
 	.map((file) =>
-		importPaths["img"](utls.formatImportFile(file, importMask), path.join(importPrefix, file))
+		importPaths["img"](utils.formatImportFile(file, importMask), path.join(importPrefix, file))
 	)
 	.join("\n")
 
 const exportsStatement = `export {\n${imageFiles
-	.map((file) => `${utls.formatImportFile(file, importMask)},`)
+	.map((file) => `${utils.formatImportFile(file, importMask)},`)
 	.join("\n")}\n}`
 
 fs.writeFileSync(
 	outputPath,
-	pretify(`${importStatements}\n\n${exportsStatement}`, {
+	utils.pretify(`${importStatements}\n\n${exportsStatement}`, {
 		flag: openFileFlag,
 	})
 )
