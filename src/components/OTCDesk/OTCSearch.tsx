@@ -47,7 +47,7 @@ const OTCSearchValueContainer = (
 	props: ValueContainerProps<OTCSearchOptionType>
 ) => (
 	<>
-		<img src={SearchIcon} alt="search img" />
+		<SearchIcon />
 		<div style={{ flexGrow: "1" }}>
 			<components.ValueContainer {...props} />
 		</div>
