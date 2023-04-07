@@ -34,7 +34,7 @@ const outputPath = path.join(dirName, process.argv[3])
 
 const importMask = process.argv[4]
 const openFileFlag = process.argv[5] || "w"
-const format = process.argv[6] || "img"
+
 const srcPath = path.join(dirName, "./")
 const importPrefix = `@${folderPath.replace(srcPath, "/")}`
 
@@ -46,14 +46,12 @@ const imageFiles = files.filter((file) =>
 
 
 const importPaths = {
-	svg: (filename, path) =>
-		`import { ReactComponent as ${filename} } from "${path}"`,
 	img: (filename, path) => `import ${filename} from "${path}"`,
 }
 
 const importStatements = imageFiles
 	.map((file) =>
-		importPaths[format](utls.formatImportFile(file, importMask), path.join(importPrefix, file))
+		importPaths["img"](utls.formatImportFile(file, importMask), path.join(importPrefix, file))
 	)
 	.join("\n")
 
