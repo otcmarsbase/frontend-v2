@@ -5,7 +5,6 @@ import checker from "vite-plugin-checker"
 import git from "git-rev-sync"
 import rollupNodePolyfills from "rollup-plugin-node-polyfills"
 import path from "path"
-import svgr from "vite-plugin-svgr"
 
 let commit = git.short()
 
@@ -24,8 +23,6 @@ export default defineConfig({
 	},
 	plugins: [
 		react({ fastRefresh: false }),
-		svgr(),
-
 		checker({
 			typescript: true,
 		}),
