@@ -22,11 +22,9 @@
 
 const fs = require("fs")
 const path = require("path")
-const prettier = require("prettier")
 const utls = require("./utils.js")
 
-const pretify = (str) =>
-	prettier.format(str, { parser: "babel", tabWidth: 4, semi: false })
+
 
 const dirName = path.join(__dirname, "..")
 const folderPath = path.join(dirName, process.argv[2])
