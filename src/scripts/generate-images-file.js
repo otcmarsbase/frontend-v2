@@ -24,15 +24,17 @@ const fs = require("fs")
 const path = require("path")
 const prettier = require("prettier")
 
-const pretify = (str) => prettier.format(str, { parser: "babel", tabWidth: 4, semi: false })
+const pretify = (str) =>
+	prettier.format(str, { parser: "babel", tabWidth: 4, semi: false })
 
-const folderPath = path.join(__dirname, process.argv[2])
-const outputPath = path.join(__dirname, process.argv[3])
+const dirName = path.join(__dirname, "..")
+const folderPath = path.join(dirName, process.argv[2])
+const outputPath = path.join(dirName, process.argv[3])
 
 const importMask = process.argv[4]
 const openFileFlag = process.argv[5] || "w"
 const format = process.argv[6] || "img"
-const srcPath = path.join(__dirname, "./")
+const srcPath = path.join(dirName, "./")
 const importPrefix = `@${folderPath.replace(srcPath, "/")}`
 
 const files = fs.readdirSync(folderPath)
