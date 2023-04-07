@@ -1,7 +1,6 @@
 import React from "react"
 import { QuestionIcon } from "@/icons"
 import { HStack } from "@chakra-ui/react"
-import { Image } from "@/components/Image/Image"
 
 type HowToUseBtnProps = {
 	label: string

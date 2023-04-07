@@ -4,13 +4,11 @@ import {
 	Grid,
 	GridItem,
 	HStack,
-	Icon,
 	Link,
 	Text,
 	VStack,
 } from "@chakra-ui/react"
 import React from "react"
-import { Image } from "@/components/Image/Image"
 import {
 	DiscordIcon,
 	LinktreeIcon,
@@ -98,12 +96,12 @@ export const Footer: React.FC = () => {
 			))}
 			socialLinks={
 				<HStack>
-					{socialIcons.map(([Icon1, href]) => (
+					{socialIcons.map(([Icon, href]) => (
 						<div
 							key={href}
 							onClick={() => window.open(href, "_blank")}
 						>
-							<Icon as={Icon1} />
+							<Icon />
 						</div>
 					))}
 				</HStack>
