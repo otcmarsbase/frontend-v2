@@ -19,8 +19,12 @@ const imageFiles = files.filter((file) =>
 )
 
 const importPaths = {
-	img: (filename, path) => `import ${filename} from "${path}"`,
+	svg: (filename, path) =>
+		`import { ReactComponent as ${filename} } from "${path}"`,
 }
+
+const importName = (file, importMask) =>
+	utils.formatImportFile(file, importMask)
 
 const getExportStatement = (
 	componentName,
@@ -28,11 +32,10 @@ const getExportStatement = (
 ) => `export const ${componentName}: React.FC<React.ComponentProps<typeof ChakraIcon>> = (props) => {
                                             	return <ChakraIcon as={${importName}} {...props} />
                                   }`
-const importName = (file, importMask) =>
-	utils.formatImportFile(file, importMask)
+
 const importStatements = imageFiles
 	.map((file) =>
-		importPaths["img"](
+		importPaths["svg"](
 			importName(file, importMask) + "Source",
 			path.join(importPrefix, file)
 		)
@@ -43,12 +46,14 @@ const importStatements = imageFiles
 	])
 	.join("\n")
 
-const exportsStatement = imageFiles.map((file) =>
-	getExportStatement(
-		importName(file, importMask),
-		importName(file, importMask) + "Source"
+const exportsStatement = imageFiles
+	.map((file) =>
+		getExportStatement(
+			importName(file, importMask),
+			importName(file, importMask) + "Source"
+		)
 	)
-).join("\n\n")
+	.join("\n\n")
 
 fs.writeFileSync(
 	outputPath,
