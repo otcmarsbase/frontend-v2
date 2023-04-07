@@ -23,6 +23,7 @@
 const fs = require("fs")
 const path = require("path")
 const prettier = require("prettier")
+const utls = require("./utils.js")
 
 const pretify = (str) =>
 	prettier.format(str, { parser: "babel", tabWidth: 4, semi: false })
@@ -42,29 +43,22 @@ const files = fs.readdirSync(folderPath)
 const imageFiles = files.filter((file) =>
 	[".png", ".jpg", ".jpeg", ".gif", ".svg"].includes(path.extname(file))
 )
-const capitalizeFirstLetter = (string) =>
-	string.charAt(0).toUpperCase() + string.slice(1)
-const filename = (file) => path.parse(file).name
+
 
 const importPaths = {
 	svg: (filename, path) =>
 		`import { ReactComponent as ${filename} } from "${path}"`,
 	img: (filename, path) => `import ${filename} from "${path}"`,
 }
-const mask = (file) =>
-	capitalizeFirstLetter(
-		importMask.replace(/%(.*)%/, () =>
-			capitalizeFirstLetter(filename(file))
-		)
-	)
+
 const importStatements = imageFiles
 	.map((file) =>
-		importPaths[format](mask(file), path.join(importPrefix, file))
+		importPaths[format](utls.formatImportFile(file, importMask), path.join(importPrefix, file))
 	)
 	.join("\n")
 
 const exportsStatement = `export {\n${imageFiles
-	.map((file) => `${mask(file)},`)
+	.map((file) => `${utls.formatImportFile(file, importMask)},`)
 	.join("\n")}\n}`
 
 fs.writeFileSync(
