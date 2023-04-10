@@ -84,10 +84,6 @@ const Header: React.FCC<{
 					<Navbar menuLinks={menuLinks} />
 					<HeaderSupport supportLinks={supportLinks} />
 					<HStack>
-						<Select maxWidth={"max-content"}>
-							<option value="option1">BNB Chain</option>
-							<option value="option2">Ethereum</option>
-						</Select>
 						<ConnectButton></ConnectButton>
 					</HStack>
 				</HStack>
