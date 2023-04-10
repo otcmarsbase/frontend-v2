@@ -16,6 +16,21 @@ export const format = (template: string, ...params: string[]) =>
 		return acc.replaceAll(`{${i}}`, cur)
 	}, template)
 
+
+/**
+ * A component that highlights a string
+ * @param template The string to highlight
+ * @param components The components to use
+ * @param query The query to use
+ * @returns The highlighted string
+ * @example
+ * <HighlightComponent
+ *     components={[(key) => <TelegramIcon />]}
+ *     query={["{0}"]}
+ *     template={"link to {0} telegram"}
+ * />
+ * // "link to <TelegramIcon /> telegram"
+ */
 export const HighlightComponent: React.FC<{
 	template: string
 	components: ((key: string) => any)[]
