@@ -1,4 +1,4 @@
-import { Leaderboard } from '@/components/Leaderboard/Leaderboard'
+import { Leaderboard } from '@/screens/Leaderboard'
 import { DeepWriteable } from '@/types'
 import { flatRoutes } from '@/utils/routes'
 import { Outlet } from 'react-router-dom'
