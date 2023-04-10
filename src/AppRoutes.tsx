@@ -81,10 +81,10 @@ export const routes = [
 				path: 'offer/:offerId/',
 				children: [
 					{ path: '', element: <BBViewOffer creatingBid={false} /> },
-					{
-						path: 'bid',
-						element: <BBViewOffer creatingBid={true} />,
-					},
+					// {
+					// 	path: 'bid',
+					// 	element: <BBViewOffer creatingBid={true} />,
+					// },
 					{
 						path: 'bid/:bidId',
 						element: <BBViewOffer creatingBid={false} />,
