@@ -23,8 +23,7 @@ const OTCSearchOption = (props: OptionProps<OTCSearchOptionType>) => (
 	<div>
 		<components.Option {...props}>
 			<img src={props.data.currencyImg} alt="" />
-			<span>{props.data.shortName}</span>
-			<span>{props.data.fullName}</span>
+			<span>{props.data.value}</span>
 		</components.Option>
 	</div>
 )
