@@ -25,7 +25,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 			top={
 				<CreateOfferHeader
 					backButton={{
-						label: "back to offer list",
+						label: l10n.BBViewOffer.header.back,
 						onClick: handleBack,
 					}}
 					subTitle={
