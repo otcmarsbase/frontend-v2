@@ -85,5 +85,12 @@
 		"title": "Calculate your profit",
 		"subTitle": "New Decentralized. We introduce a unique farming model where only you choose whether to stake alone or with a team.",
 		"howToUse": "How to use?"
+	},
+	"BBViewOffer": {
+		"header": {
+			"title": "for sale",
+			"subTitle": "Suggest your price to buy {0} and wait for your bid to be accepted.",
+			"back": "Back to offer list"
+		}
 	}
 }
