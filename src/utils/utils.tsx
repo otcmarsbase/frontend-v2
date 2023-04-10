@@ -3,6 +3,14 @@ import React from "react"
 
 export const openExternalUrl = (url: string) => window.open(url, "_blank")
 
+/**
+ * Formats a string with the given params
+ * @param template The string to format
+ * @param params The params to use
+ * @returns The formatted string
+ * @example
+ * format("Hello {0}!", "World") // "Hello World!"
+ */
 export const format = (template: string, ...params: string[]) =>
 	params.reduce((acc, cur, i) => {
 		return acc.replaceAll(`{${i}}`, cur)
