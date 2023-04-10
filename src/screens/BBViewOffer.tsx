@@ -2,7 +2,9 @@ import { flattenRoutes } from "@/AppRoutes"
 import { CreateOfferHeader } from "@/components/CreateOfferHeader/CreateOfferHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
+import { TelegramIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
+import { HighlightComponent } from "@/utils/utils"
 import React from "react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
 
@@ -26,14 +28,24 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 						label: "back to offer list",
 						onClick: handleBack,
 					}}
-					createOfferBtn={{
-						label: l10n.marketplace.header.offerBtn,
-						onClick: () => {},
-					}}
 					subTitle={
-						<BaseText>{l10n.marketplace.header.subitle}</BaseText>
+						<BaseText>
+							<HighlightComponent
+								components={[() => <TelegramIcon />]}
+								query={["{0}"]}
+								template={l10n.BBViewOffer.header.subTitle}
+							/>
+						</BaseText>
 					}
-					title={l10n.marketplace.header.title}
+					title={
+						<BaseText>
+							<HighlightComponent
+								components={[() => <></>]}
+								query={["{0}"]}
+								template={l10n.BBViewOffer.header.title}
+							/>
+						</BaseText>
+					}
 				/>
 			}
 		></ScreenWrapper>
