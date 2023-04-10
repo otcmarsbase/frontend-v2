@@ -16,7 +16,6 @@ export const format = (template: string, ...params: string[]) =>
 		return acc.replaceAll(`{${i}}`, cur)
 	}, template)
 
-
 /**
  * A component that highlights a string
  * @param template The string to highlight
@@ -36,16 +35,18 @@ export const HighlightComponent: React.FC<{
 	components: ((key: string) => any)[]
 	query: string[]
 }> = ({ components, query, template }) => {
-    const componentCountRef = React.useRef(0)
 	const chunks = useHighlight({
 		query: query,
 		text: template,
 	})
+	const matchedChunks = chunks.filter((chunk) => chunk.match)
+	const matchedIdx = (text: string) =>
+		matchedChunks.findIndex((x) => x.text === text)
 	return (
 		<>
 			{chunks.map((chunk, i) => {
 				if (chunk.match) {
-					return components[componentCountRef.current++](chunk.text)
+					return components[matchedIdx(chunk.text)](chunk.text)
 				}
 				return chunk.text
 			})}
