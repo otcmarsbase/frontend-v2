@@ -31,24 +31,28 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 	const l10n = useTranslation()
 	return (
 		<PageWrapper>
-			<Header
-				menuLinks={navlinks(l10n.navbar.links)}
-				supportLinks={[
-					{
-						href: links.general.aboutMarsbase,
-						text: l10n.navbar.support.about,
-					},
-					{
-						href: links.general.helpCenter,
-						text: l10n.navbar.support.helpCenter,
-					},
-					{
-						href: links.general.community,
-						text: l10n.navbar.support.community,
-					},
-				]}
-			/>
-			{top}
+			<VStack
+				style={{ borderBottom: "1px solid #1B1B1C", width: "100%" }}
+			>
+				<Header
+					menuLinks={navlinks(l10n.navbar.links)}
+					supportLinks={[
+						{
+							href: links.general.aboutMarsbase,
+							text: l10n.navbar.support.about,
+						},
+						{
+							href: links.general.helpCenter,
+							text: l10n.navbar.support.helpCenter,
+						},
+						{
+							href: links.general.community,
+							text: l10n.navbar.support.community,
+						},
+					]}
+				/>
+				{top}
+			</VStack>
 			<Box w={"100%"}>{children}</Box>
 			<DesktopView>
 				<Footer />
