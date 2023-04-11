@@ -12,8 +12,8 @@ type CreateOfferStep1Props = {}
 export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<GradientPopup className="w-max ">
-			<VStack>
+		<GradientPopup className="bg-black px-6 py-8">
+			<VStack alignItems={"start"}>
 				<HStack>
 					<BaseText>Specify offer details</BaseText>
 					<HowToUseBtn
