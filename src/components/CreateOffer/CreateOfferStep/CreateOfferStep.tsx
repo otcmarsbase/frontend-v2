@@ -1,4 +1,4 @@
-import { Box, HStack, Text } from "@chakra-ui/react"
+import { Box, Flex, Grid, HStack, Text } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
 
@@ -16,9 +16,11 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 	isActive,
 }) => {
 	return (
-		<HStack
+		<Grid
+			autoFlow={"column"}
+			gap={4}
 			className={clsx(
-				"p-6 rounded-2xl",
+				"p-6 rounded-2xl basis-[340px] items-start justify-start ml-3",
 				isActive && "bg-[rgba(37,38,40,.5)]"
 			)}
 		>
@@ -30,10 +32,10 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 			>
 				<Text>{num}</Text>
 			</Box>
-			<Box>
+			<Box className={clsx(!isActive && "opacity-40")}>
 				<Text>{title}</Text>
 				<Text>{text}</Text>
 			</Box>
-		</HStack>
+		</Grid>
 	)
 }
