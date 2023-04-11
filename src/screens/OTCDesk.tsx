@@ -1,6 +1,6 @@
 import { HStack, Link, Text } from '@chakra-ui/react'
 import React from 'react'
-import { CreateOfferHeader } from '@/components/CreateOfferHeader/CreateOfferHeader'
+import { ScreenHeader } from '@/components/ScreenHeader/ScreenHeader'
 import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
 import { useTranslation } from '@/localization/l10n'
 import { links } from '@/utils/links'
@@ -16,7 +16,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	return (
 		<ScreenWrapper
 			top={
-				<CreateOfferHeader
+				<ScreenHeader
 					titleLink={
 						<HowToUseBtn
 							label={l10n.OTCDesk.howToUse}

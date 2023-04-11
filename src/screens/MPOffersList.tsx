@@ -1,4 +1,4 @@
-import { CreateOfferHeader } from "@/components/CreateOfferHeader/CreateOfferHeader"
+import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { MPOffersTable } from "@/components/Marketplace/MPOffersTable"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
@@ -12,7 +12,7 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 	return (
 		<ScreenWrapper
 			top={
-				<CreateOfferHeader
+				<ScreenHeader
 					createOfferBtn={{
 						label: l10n.marketplace.header.offerBtn,
 						onClick: () => {},

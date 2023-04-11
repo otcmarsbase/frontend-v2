@@ -1,5 +1,5 @@
 import { flattenRoutes } from "@/AppRoutes"
-import { CreateOfferHeader } from "@/components/CreateOfferHeader/CreateOfferHeader"
+import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
 import { TelegramIcon } from "@/icons"
@@ -23,7 +23,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	return (
 		<ScreenWrapper
 			top={
-				<CreateOfferHeader
+				<ScreenHeader
 					backButton={{
 						label: l10n.BBViewOffer.header.back,
 						onClick: handleBack,

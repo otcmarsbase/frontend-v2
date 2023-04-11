@@ -1,9 +1,8 @@
 import { BackButton } from "@/components/BackButton/BackButton"
-import { BaseText } from "@/components/Text/BaseText"
 import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react"
 import React from "react"
 
-type CreateOfferHeaderProps = {
+type ScreenHeaderProps = {
 	createOfferBtn?: {
 		label: string
 		onClick: () => void
@@ -17,7 +16,7 @@ type CreateOfferHeaderProps = {
 	titleLink?: React.ReactNode
 }
 
-export const CreateOfferHeader: React.FC<CreateOfferHeaderProps> = ({
+export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 	subTitle,
 	title,
 	titleLink,
