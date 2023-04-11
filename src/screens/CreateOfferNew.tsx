@@ -3,7 +3,7 @@ import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
 import { useTranslation } from "@/localization/l10n"
-import { HStack } from "@chakra-ui/react"
+import { Flex, HStack } from "@chakra-ui/react"
 import React from "react"
 
 type CreateOfferNewProps = {}
@@ -18,7 +18,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 						subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
 						title={l10n.OTCDesk.title}
 					/>
-					<HStack w={"100%"}>
+					<Flex alignItems={"stretch"} w={"100%"}>
 						<CreateOfferStep
 							isActive
 							num={1}
@@ -35,7 +35,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 							text="Send the offer to the market"
 							title="Publication"
 						/>
-					</HStack>
+					</Flex>
 				</>
 			}
 		></ScreenWrapper>
