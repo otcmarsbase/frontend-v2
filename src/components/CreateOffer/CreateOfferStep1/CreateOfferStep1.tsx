@@ -13,7 +13,18 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
 	return (
 		<GradientPopup className="w-max ">
-			
+			<VStack>
+				<HStack>
+					<BaseText>Specify offer details</BaseText>
+					<HowToUseBtn
+						label={l10n.OTCDesk.howToUse}
+						onClick={() => openExternalUrl(links.general.howToUse)}
+					/>
+				</HStack>
+				<BaseText>
+					What asset do you have and what do you want to get for it
+				</BaseText>
+			</VStack>
 		</GradientPopup>
 	)
 }
