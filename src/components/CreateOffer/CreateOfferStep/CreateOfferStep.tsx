@@ -1,4 +1,5 @@
 import { Box, HStack, Text } from "@chakra-ui/react"
+import clsx from "clsx"
 import React from "react"
 
 type CreateOfferStepProps = {
@@ -16,7 +17,9 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 }) => {
 	return (
 		<HStack>
-			<Text>{num}</Text>
+			<Box>
+				<Text>{num}</Text>
+			</Box>
 			<Box>
 				<Text>{title}</Text>
 				<Text>{text}</Text>
