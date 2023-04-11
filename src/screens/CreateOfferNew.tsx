@@ -1,4 +1,5 @@
 import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/CreateOfferStep"
+import { CreateOfferStep1 } from "@/components/CreateOffer/CreateOfferStep1/CreateOfferStep1"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
@@ -41,6 +42,8 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 					</Box>
 				</>
 			}
-		></ScreenWrapper>
+		>
+			<CreateOfferStep1 />
+		</ScreenWrapper>
 	)
 }
