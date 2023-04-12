@@ -55,7 +55,15 @@ const SelectContainer: React.FCC<SelectContainerProps> = ({
 }) => {
 	return (
 		<Flex direction={"column"}>
-			
+			<Flex justifyContent={"space-between"}>
+				<Box>{titleLeft}</Box>
+				{titleRight && <Box>{titleRight}</Box>}
+			</Flex>
+			{children}
+			<Flex justifyContent={"space-between"}>
+				{bottomLeft && <Box>{bottomLeft}</Box>}
+				{bottomRight && <Box>{bottomRight}</Box>}
+			</Flex>
 		</Flex>
 	)
 }
