@@ -39,8 +39,9 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					What asset do you have and what do you want to get for it
 				</BaseText>
 				<Grid
+					gridTemplateColumns={{sm: "none", md: "1fr auto 1fr"}}
 					autoFlow={{ md: "column", sm: "row" }}
-					className="sm:gap-2 lg:gap-4 w-full items-center"
+					className="sm:gap-2 md:gap-4 w-full items-center"
 				>
 					<SelectContainer
 						titleLeft={<InfoTooltip intoText="hello" />}
