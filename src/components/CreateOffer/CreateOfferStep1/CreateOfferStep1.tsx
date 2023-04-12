@@ -22,7 +22,6 @@ type CreateOfferStep1Props = {}
 
 export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
-	const [isMd] = useMediaQuery([queries.md])
 	return (
 		<GradientPopup contentClassName="bg-black px-6 py-8 w-full" containerClassName="w-full">
 			<VStack alignItems={"start"} w={"full"}>
@@ -37,7 +36,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					What asset do you have and what do you want to get for it
 				</BaseText>
 				<Grid
-					autoFlow={isMd ? "column" : "row"}
+					autoFlow={{ md: "column", sm: "row" }}
 					className="sm:gap-2 lg:gap-4 w-full items-center"
 				>
 					<SelectContainer
