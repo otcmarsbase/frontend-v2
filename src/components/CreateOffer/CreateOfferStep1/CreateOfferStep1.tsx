@@ -1,5 +1,6 @@
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
 import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
+import { Input } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { SelectV2 } from "@/components/SelectV2/SelectV2"
 import { BaseText } from "@/components/Text/BaseText"
@@ -7,6 +8,7 @@ import { SwapHorizontalIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
 import { queries } from "@/utils/chakra"
 import { links } from "@/utils/links"
+import { Config } from "tailwindcss"
 import { openExternalUrl } from "@/utils/utils"
 import {
 	Box,
@@ -17,11 +19,14 @@ import {
 	VStack,
 } from "@chakra-ui/react"
 import React from "react"
+import { TailwindColors } from "@/tailwind"
 
 type CreateOfferStep1Props = {}
 
 export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
+	const [from, setFrom] = React.useState()
+	const [to, setTo] = React.useState()
 	return (
 		<GradientPopup
 			contentClassName="bg-black px-6 py-8 w-full"
@@ -39,13 +44,25 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					What asset do you have and what do you want to get for it
 				</BaseText>
 				<Grid
-					gridTemplateColumns={{sm: "none", md: "1fr auto 1fr"}}
+					gridTemplateColumns={{ sm: "none", md: "1fr auto 1fr" }}
 					autoFlow={{ md: "column", sm: "row" }}
 					className="sm:gap-2 md:gap-4 w-full items-center"
 				>
 					<SelectContainer
-						titleLeft={<InfoTooltip intoText="hello" />}
-						bottomLeft={<InfoTooltip intoText="hello" />}
+						titleLeft={
+							<InputName
+								className="text-orange-600"
+								text="From"
+								tooltipText="From kek"
+							/>
+						}
+						bottomLeft={
+							<InputName
+								className="text-orange-600"
+								text="From"
+								tooltipText="From kek"
+							/>
+						}
 					>
 						<SelectV2
 							options={[]}
@@ -58,8 +75,8 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 						<SwapHorizontalIcon />
 					</div>
 					<SelectContainer
-						titleLeft={<InfoTooltip intoText="hello" />}
-						bottomLeft={<InfoTooltip intoText="hello" />}
+						titleLeft={<InfoTooltip infoText="hello" />}
+						bottomLeft={<InfoTooltip infoText="hello" />}
 					>
 						<SelectV2
 							options={[]}
@@ -70,16 +87,11 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					</SelectContainer>
 				</Grid>
 				<SelectContainer
-					titleLeft={<InfoTooltip intoText="hello" />}
-					bottomLeft={<InfoTooltip intoText="hello" />}
-					titleRight={<InfoTooltip intoText="hello" />}
+					titleLeft={<InfoTooltip infoText="hello" />}
+					bottomLeft={<InfoTooltip infoText="hello" />}
+					titleRight={<InfoTooltip infoText="hello" />}
 				>
-					<SelectV2
-						options={[]}
-						onChange={(t) => {
-							console.log("change:", t)
-						}}
-					/>
+					<Input />
 				</SelectContainer>
 			</VStack>
 		</GradientPopup>
@@ -111,5 +123,23 @@ const SelectContainer: React.FCC<SelectContainerProps> = ({
 				{bottomRight && <Box>{bottomRight}</Box>}
 			</Flex>
 		</Flex>
+	)
+}
+
+const InputName: React.FC<{
+	tooltipText: string
+	text: string
+	className: string
+}> = ({ text, tooltipText, className }) => {
+	return (
+		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
+			<BaseText className={className}>{text}</BaseText>
+			<InfoTooltip
+				height={"10px"}
+				width={"10px"}
+				infoText={tooltipText}
+				display="flex"
+			/>
+		</Grid>
 	)
 }
