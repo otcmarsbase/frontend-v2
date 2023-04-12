@@ -2,18 +2,18 @@ import { Tooltip } from '@chakra-ui/react'
 import React from 'react'
 
 type WithTooltipProps = {
-	intoText: string
+	infoText: string
 	placement?: React.ComponentProps<typeof Tooltip>['placement']
 }
 
 export const WithTooltip: React.FCC<WithTooltipProps> = ({
-	intoText,
+	infoText,
 	children,
 	placement,
 }) => {
 	return (
 		<Tooltip
-			label={intoText}
+			label={infoText}
 			hasArrow
 			placement={placement}
 			bg={'#686a6e'}

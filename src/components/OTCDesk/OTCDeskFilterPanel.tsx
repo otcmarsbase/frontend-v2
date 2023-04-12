@@ -34,7 +34,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				{title}{" "}
 				<WithTooltip
 					placement="top"
-					intoText={l10n.OTCDesk.sortPanel.titleTip}
+					infoText={l10n.OTCDesk.sortPanel.titleTip}
 				>
 					<InfoIcon />
 				</WithTooltip>
@@ -47,7 +47,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				<BaseText>Offer type </BaseText>
 				<WithTooltip
 					placement="right"
-					intoText={l10n.OTCDesk.sortPanel.offerTypeTip}
+					infoText={l10n.OTCDesk.sortPanel.offerTypeTip}
 				>
 					<InfoIcon />
 				</WithTooltip>
