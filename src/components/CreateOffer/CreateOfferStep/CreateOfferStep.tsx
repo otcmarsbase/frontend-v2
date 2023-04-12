@@ -40,7 +40,22 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 	)
 }
 
-type SelectContainerProps = {}
-const SelectContainer: React.FCC<SelectContainerProps> = ({}) => {
-	return <Flex direction={"column"}></Flex>
+type SelectContainerProps = {
+	titleLeft: React.ReactNode
+	titleRight?: React.ReactNode
+	bottomLeft?: React.ReactNode
+	bottomRight?: React.ReactNode
+}
+const SelectContainer: React.FCC<SelectContainerProps> = ({
+	children,
+	titleLeft,
+	bottomLeft,
+	bottomRight,
+	titleRight,
+}) => {
+	return (
+		<Flex direction={"column"}>
+			
+		</Flex>
+	)
 }
