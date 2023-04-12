@@ -1,3 +1,5 @@
+import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
+import { SwapHorizontalIcon } from "@/icons"
 import { Box, Flex, Grid, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
@@ -35,35 +37,7 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 				<Text>{title}</Text>
 				<Text>{text}</Text>
 			</Box>
-			<HStack></HStack>
 		</Grid>
 	)
 }
 
-type SelectContainerProps = {
-	titleLeft: React.ReactNode
-	titleRight?: React.ReactNode
-	bottomLeft?: React.ReactNode
-	bottomRight?: React.ReactNode
-}
-const SelectContainer: React.FCC<SelectContainerProps> = ({
-	children,
-	titleLeft,
-	bottomLeft,
-	bottomRight,
-	titleRight,
-}) => {
-	return (
-		<Flex direction={"column"}>
-			<Flex justifyContent={"space-between"}>
-				<Box>{titleLeft}</Box>
-				{titleRight && <Box>{titleRight}</Box>}
-			</Flex>
-			{children}
-			<Flex justifyContent={"space-between"}>
-				{bottomLeft && <Box>{bottomLeft}</Box>}
-				{bottomRight && <Box>{bottomRight}</Box>}
-			</Flex>
-		</Flex>
-	)
-}
