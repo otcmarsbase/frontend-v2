@@ -9,7 +9,7 @@ type WelcomePopupProps = {
 
 export const WelcomePopup: React.FC<WelcomePopupProps> = ({ onClose }) => {
 	return (
-		<GradientPopup className="max-w-[436px] bg-white ">
+		<GradientPopup contentClassName="max-w-[436px] bg-white ">
 			<VStack className="text-center">
 				<BaseText>Welcome to DeFi OTC Marsbase</BaseText>
 				<BaseText>
