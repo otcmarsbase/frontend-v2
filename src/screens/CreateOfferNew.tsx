@@ -21,7 +21,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 					/>
 
 					<Box overflow={"scroll"} w={"full"}>
-						<Flex alignItems={"stretch"}>
+						<Flex alignItems={"stretch"} w="full">
 							<CreateOfferStep
 								isActive
 								num={1}
@@ -43,7 +43,9 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 				</>
 			}
 		>
-			<CreateOfferStep1 />
+			<div className="max-w-[790px] mx-auto">
+				<CreateOfferStep1 />
+			</div>
 		</ScreenWrapper>
 	)
 }

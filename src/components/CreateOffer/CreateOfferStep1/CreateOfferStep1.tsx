@@ -5,18 +5,27 @@ import { SelectV2 } from "@/components/SelectV2/SelectV2"
 import { BaseText } from "@/components/Text/BaseText"
 import { SwapHorizontalIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
+import { queries } from "@/utils/chakra"
 import { links } from "@/utils/links"
 import { openExternalUrl } from "@/utils/utils"
-import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
+import {
+	Box,
+	Flex,
+	Grid,
+	HStack,
+	useMediaQuery,
+	VStack,
+} from "@chakra-ui/react"
 import React from "react"
 
 type CreateOfferStep1Props = {}
 
 export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
+	const [isMd] = useMediaQuery([queries.md])
 	return (
-		<GradientPopup className="bg-black px-6 py-8">
-			<VStack alignItems={"start"}>
+		<GradientPopup contentClassName="bg-black px-6 py-8 w-full" containerClassName="w-full">
+			<VStack alignItems={"start"} w={"full"}>
 				<HStack>
 					<BaseText>Specify offer details</BaseText>
 					<HowToUseBtn
@@ -27,7 +36,10 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 				<BaseText>
 					What asset do you have and what do you want to get for it
 				</BaseText>
-				<Grid autoFlow={"column"} className="sm:gap-2 lg:gap-4 w-full items-center">
+				<Grid
+					autoFlow={isMd ? "column" : "row"}
+					className="sm:gap-2 lg:gap-4 w-full items-center"
+				>
 					<SelectContainer
 						titleLeft={<InfoTooltip intoText="hello" />}
 						bottomLeft={<InfoTooltip intoText="hello" />}
@@ -37,7 +49,6 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 							onChange={(t) => {
 								console.log("change:", t)
 							}}
-
 						/>
 					</SelectContainer>
 					<div className="w-12 h-12 bg-dark800 flex justify-center items-center rounded-full justify-self-center">
@@ -56,18 +67,17 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					</SelectContainer>
 				</Grid>
 				<SelectContainer
-						titleLeft={<InfoTooltip intoText="hello" />}
-						bottomLeft={<InfoTooltip intoText="hello" />}
-						titleRight={<InfoTooltip intoText="hello" />}
-					>
-						<SelectV2
-							options={[]}
-							onChange={(t) => {
-								console.log("change:", t)
-							}}
-
-						/>
-					</SelectContainer>
+					titleLeft={<InfoTooltip intoText="hello" />}
+					bottomLeft={<InfoTooltip intoText="hello" />}
+					titleRight={<InfoTooltip intoText="hello" />}
+				>
+					<SelectV2
+						options={[]}
+						onChange={(t) => {
+							console.log("change:", t)
+						}}
+					/>
+				</SelectContainer>
 			</VStack>
 		</GradientPopup>
 	)
