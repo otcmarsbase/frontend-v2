@@ -55,6 +55,19 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 						/>
 					</SelectContainer>
 				</Grid>
+				<SelectContainer
+						titleLeft={<InfoTooltip intoText="hello" />}
+						bottomLeft={<InfoTooltip intoText="hello" />}
+						titleRight={<InfoTooltip intoText="hello" />}
+					>
+						<SelectV2
+							options={[]}
+							onChange={(t) => {
+								console.log("change:", t)
+							}}
+
+						/>
+					</SelectContainer>
 			</VStack>
 		</GradientPopup>
 	)
@@ -74,7 +87,7 @@ const SelectContainer: React.FCC<SelectContainerProps> = ({
 	titleRight,
 }) => {
 	return (
-		<Flex direction={"column"}>
+		<Flex direction={"column"} w={"full"}>
 			<Flex justifyContent={"space-between"}>
 				<Box>{titleLeft}</Box>
 				{titleRight && <Box>{titleRight}</Box>}
