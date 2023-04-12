@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
+	important: true,
 	theme: {
 		extend: {
 			colors: {
@@ -15,7 +16,19 @@ module.exports = {
 				dark800: "#1b1b1c",
 				dark900: "#0b0b0b",
 				dark950: "#000000",
+				orange50: "#ffdfad",
+				orange100: "#f89a7f",
+				orange200: "#f0a160",
+				orange300: "#df603b",
+				orange400: "#cf4f29",
+				orange500: "#bc601c",
+				orange600: "#b63b17",
+				orange700: "#ad3613",
+				orange800: "#a53717",
+				orange900: "#8d2d11",
+				orange950: "#74250e",
 			},
+
 			screens: {
 				sm: { raw: "(min-width: 320px)" },
 				md: { raw: "(min-width: 712px)" },
