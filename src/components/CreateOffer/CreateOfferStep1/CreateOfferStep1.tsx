@@ -23,7 +23,10 @@ type CreateOfferStep1Props = {}
 export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<GradientPopup contentClassName="bg-black px-6 py-8 w-full" containerClassName="w-full">
+		<GradientPopup
+			contentClassName="bg-black px-6 py-8 w-full"
+			containerClassName="w-full"
+		>
 			<VStack alignItems={"start"} w={"full"}>
 				<HStack>
 					<BaseText>Specify offer details</BaseText>
@@ -50,7 +53,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 							}}
 						/>
 					</SelectContainer>
-					<div className="w-12 h-12 bg-dark800 flex justify-center items-center rounded-full justify-self-center">
+					<div className="w-12 h-12 bg-dark800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
 						<SwapHorizontalIcon />
 					</div>
 					<SelectContainer
