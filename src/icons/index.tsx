@@ -9,7 +9,7 @@ import { ReactComponent as MediumIconSource } from "@/assets/icon/medium.svg"
 import { ReactComponent as QuestionIconSource } from "@/assets/icon/question.svg"
 import { ReactComponent as RedditIconSource } from "@/assets/icon/reddit.svg"
 import { ReactComponent as SearchIconSource } from "@/assets/icon/search.svg"
-import { ReactComponent as SwapIconSource } from "@/assets/icon/swap.svg"
+import { ReactComponent as SwapVerticalIconSource } from "@/assets/icon/swapVertical.svg"
 import { ReactComponent as TelegramIconSource } from "@/assets/icon/telegram.svg"
 import { ReactComponent as TwitterIconSource } from "@/assets/icon/twitter.svg"
 import React from "react"
@@ -81,10 +81,10 @@ export const SearchIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
     return <ChakraIcon as={SearchIconSource} {...props} />
 }
 
-export const SwapIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={SwapIconSource} {...props} />
+export const SwapVerticalIcon: React.FC<
+    React.ComponentProps<typeof ChakraIcon>
+> = (props) => {
+    return <ChakraIcon as={SwapVerticalIconSource} {...props} />
 }
 
 export const TelegramIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
