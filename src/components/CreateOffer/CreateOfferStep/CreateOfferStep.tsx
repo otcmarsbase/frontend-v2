@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, HStack, Text } from "@chakra-ui/react"
+import { Box, Flex, Grid, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
 
@@ -35,6 +35,12 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 				<Text>{title}</Text>
 				<Text>{text}</Text>
 			</Box>
+			<HStack></HStack>
 		</Grid>
 	)
+}
+
+type SelectContainerProps = {}
+const SelectContainer: React.FCC<SelectContainerProps> = ({}) => {
+	return <Flex direction={"column"}></Flex>
 }
