@@ -2,7 +2,7 @@ import {
 	SelectOptionType,
 	SelectV2,
 	SelectV2Props,
-} from "@/components/Select/Select"
+} from "@/components/SelectV2/SelectV2"
 import { SearchIcon } from "@/icons"
 import {
 	components,
