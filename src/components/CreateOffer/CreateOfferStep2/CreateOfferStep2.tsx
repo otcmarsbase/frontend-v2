@@ -27,7 +27,6 @@ import { BaseText } from "@/components/Text/BaseText"
 type CreateOfferStep2Props = {}
 
 export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
-	const t = useTranslation()
 	return (
 		<CreateOfferDetails>
 			<DetailsHeading
@@ -45,30 +44,26 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 			/>
 
 			<DetailsBoardSell
-				name={t["Create offer"].title_2_line}
-				info={t["Create offer"].sub_title_2_line}
+				name={"Offer size"}
+				info={"The amount you would like to exchange"}
 				value={`12 ETH`}
 				additionalValue={`≈`}
 			/>
 
 			<DetailsBoardSell
-				name={
-					true
-						? t["Create offer"].title_3_line.premium
-						: t["Create offer"].title_3_line.discount
-				}
+				name={true ? "Premium" : "Discount"}
 				info={
 					true
-						? t["Create offer"].sub_title_3_line.premium
-						: t["Create offer"].sub_title_3_line.discount
+						? "Reduced price you set for an asset"
+						: "Increased price you set for an asset"
 				}
 				value={`100%`}
 				additionalValue={"additionalVlue"}
 			/>
 
 			<DetailsBoardSell
-				name={t["Create offer"].title_4_line}
-				info={t["Create offer"].sub_title_4_line}
+				name={"Open price"}
+				info={"Market price at the time of offer creation"}
 				value={
 					<>
 						<CurrencyIcon src={"ETH"}>{`1 ETH = `}</CurrencyIcon>
@@ -78,14 +73,14 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 			/>
 
 			<DetailsBoardSell
-				name={t["Create offer"].title_5_line}
-				info={t["Create offer"].sub_title_5_line}
+				name={"Deadline"}
+				info={"The execution date and time"}
 				value={new Date().toString()}
 			/>
 
 			<DetailsBoardSell
-				name={t["Create offer"].title_6_line}
-				info={t["Create offer"].sub_title_6_line}
+				name={"Min bid"}
+				info={"The minimum amount participants can place to your offer"}
 				value={null}
 				additionalValue={null}
 			/>
@@ -109,19 +104,19 @@ const DetailsHeading: React.FC<
 		type: "static" | "dynamic"
 	}>
 > = (props) => {
-	const t = useTranslation()
-
 	return (
 		<GridStyles justify="space-between">
 			<ContainerDefault>
 				<GridStyles gap="12px">
-					<H3>{t["Create offer"].step_2_title}</H3>
+					<H3>{"Check offer details"}</H3>
 					<OfferTypeIndicator type={props.type} />
 				</GridStyles>
 
 				<GridStyles direction="row" align="center">
 					<BodyText color="grey">
-						{t["Create offer"].step_2_sub_title}
+						{
+							"Verify that all parameters are set the way you want them"
+						}
 					</BodyText>
 				</GridStyles>
 			</ContainerDefault>
