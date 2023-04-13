@@ -54,9 +54,9 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 							}}
 						/>
 					</SelectContainer>
-					<div className="w-12 h-12 bg-dark-800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
+					<SwapWrapper>
 						<SwapHorizontalIcon />
-					</div>
+					</SwapWrapper>
 					<SelectContainer
 						titleLeft={
 							<InputName text="From" tooltipText="From kek" />
@@ -136,5 +136,13 @@ const InputNote: React.FC<{ text: string }> = ({ text }) => {
 		<BaseText className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
 			{text}
 		</BaseText>
+	)
+}
+
+const SwapWrapper: React.FCC = ({ children }) => {
+	return (
+		<div className="w-12 h-12 bg-dark-800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
+			{children}
+		</div>
 	)
 }
