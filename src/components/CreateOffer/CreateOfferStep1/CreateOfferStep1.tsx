@@ -42,19 +42,9 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 				>
 					<SelectContainer
 						titleLeft={
-							<InputName
-								className="text-orange-600"
-								text="From"
-								tooltipText="From kek"
-							/>
+							<InputName text="From" tooltipText="From kek" />
 						}
-						bottomLeft={
-							<InputName
-								className="text-orange-600"
-								text="From"
-								tooltipText="From kek"
-							/>
-						}
+						bottomLeft={<InputNote text="hello world" />}
 					>
 						<SelectV2
 							options={[]}
@@ -67,8 +57,10 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 						<SwapHorizontalIcon />
 					</div>
 					<SelectContainer
-						titleLeft={<InfoTooltip infoText="hello" />}
-						bottomLeft={<InfoTooltip infoText="hello" />}
+						titleLeft={
+							<InputName text="From" tooltipText="From kek" />
+						}
+						bottomLeft={<InputNote text="hello world" />}
 					>
 						<SelectV2
 							options={[]}
@@ -79,8 +71,8 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					</SelectContainer>
 				</Grid>
 				<SelectContainer
-					titleLeft={<InfoTooltip infoText="hello" />}
-					bottomLeft={<InfoTooltip infoText="hello" />}
+					titleLeft={<InputName text="Offer size" tooltipText="From kek" />}
+					bottomLeft={<InputNote text="hello world" />}
 					titleRight={<InfoTooltip infoText="hello" />}
 				>
 					<Input />
@@ -121,11 +113,10 @@ const SelectContainer: React.FCC<SelectContainerProps> = ({
 const InputName: React.FC<{
 	tooltipText: string
 	text: string
-	className: string
-}> = ({ text, tooltipText, className }) => {
+}> = ({ text, tooltipText }) => {
 	return (
 		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
-			<BaseText className={className}>{text}</BaseText>
+			<BaseText className={"text-white"}>{text}</BaseText>
 			<InfoTooltip
 				height={"10px"}
 				width={"10px"}
@@ -133,5 +124,13 @@ const InputName: React.FC<{
 				display="flex"
 			/>
 		</Grid>
+	)
+}
+
+const InputNote: React.FC<{ text: string }> = ({ text }) => {
+	return (
+		<BaseText className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
+			{text}
+		</BaseText>
 	)
 }
