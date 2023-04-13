@@ -5,26 +5,17 @@ import MetamaskImgSource from "@/assets/images/metamask.png"
 import React from "react"
 import { Image } from "@/components/Image/Image"
 
-export const LoaderErrorImg: React.FC<React.ComponentProps<typeof Image>> = (
-    props
-) => {
-    return <Image src={LoaderErrorImgSource} {...props} />
+const img = (img: any) => {
+    const Component: React.FC<React.ComponentProps<typeof Image>> = (props) => {
+        return <Image src={img} {...props} />
+    }
+    return Component
 }
 
-export const LoaderLoadingImg: React.FC<React.ComponentProps<typeof Image>> = (
-    props
-) => {
-    return <Image src={LoaderLoadingImgSource} {...props} />
-}
+export const LoaderErrorImg = img(LoaderErrorImgSource)
 
-export const LoaderOkImg: React.FC<React.ComponentProps<typeof Image>> = (
-    props
-) => {
-    return <Image src={LoaderOkImgSource} {...props} />
-}
+export const LoaderLoadingImg = img(LoaderLoadingImgSource)
 
-export const MetamaskImg: React.FC<React.ComponentProps<typeof Image>> = (
-    props
-) => {
-    return <Image src={MetamaskImgSource} {...props} />
-}
+export const LoaderOkImg = img(LoaderOkImgSource)
+
+export const MetamaskImg = img(MetamaskImgSource)

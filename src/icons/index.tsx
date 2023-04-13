@@ -16,92 +16,41 @@ import { ReactComponent as TwitterIconSource } from "@/assets/icon/twitter.svg"
 import React from "react"
 import { Icon as ChakraIcon } from "@chakra-ui/react"
 
-export const ArrowsIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={ArrowsIconSource} {...props} />
+const img = (img: any) => {
+    const Component: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
+        props
+    ) => {
+        return <ChakraIcon as={img} {...props} />
+    }
+    return Component
 }
 
-export const DashboardIcon: React.FC<
-    React.ComponentProps<typeof ChakraIcon>
-> = (props) => {
-    return <ChakraIcon as={DashboardIconSource} {...props} />
-}
+export const ArrowsIcon = img(ArrowsIconSource)
 
-export const DiscordIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={DiscordIconSource} {...props} />
-}
+export const DashboardIcon = img(DashboardIconSource)
 
-export const FilterIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={FilterIconSource} {...props} />
-}
+export const DiscordIcon = img(DiscordIconSource)
 
-export const InfoIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={InfoIconSource} {...props} />
-}
+export const FilterIcon = img(FilterIconSource)
 
-export const LeftArrowIcon: React.FC<
-    React.ComponentProps<typeof ChakraIcon>
-> = (props) => {
-    return <ChakraIcon as={LeftArrowIconSource} {...props} />
-}
+export const InfoIcon = img(InfoIconSource)
 
-export const LinktreeIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={LinktreeIconSource} {...props} />
-}
+export const LeftArrowIcon = img(LeftArrowIconSource)
 
-export const MediumIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={MediumIconSource} {...props} />
-}
+export const LinktreeIcon = img(LinktreeIconSource)
 
-export const QuestionIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={QuestionIconSource} {...props} />
-}
+export const MediumIcon = img(MediumIconSource)
 
-export const RedditIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={RedditIconSource} {...props} />
-}
+export const QuestionIcon = img(QuestionIconSource)
 
-export const SearchIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={SearchIconSource} {...props} />
-}
+export const RedditIcon = img(RedditIconSource)
 
-export const SwapHorizontalIcon: React.FC<
-    React.ComponentProps<typeof ChakraIcon>
-> = (props) => {
-    return <ChakraIcon as={SwapHorizontalIconSource} {...props} />
-}
+export const SearchIcon = img(SearchIconSource)
 
-export const SwapVerticalIcon: React.FC<
-    React.ComponentProps<typeof ChakraIcon>
-> = (props) => {
-    return <ChakraIcon as={SwapVerticalIconSource} {...props} />
-}
+export const SwapHorizontalIcon = img(SwapHorizontalIconSource)
 
-export const TelegramIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={TelegramIconSource} {...props} />
-}
+export const SwapVerticalIcon = img(SwapVerticalIconSource)
 
-export const TwitterIcon: React.FC<React.ComponentProps<typeof ChakraIcon>> = (
-    props
-) => {
-    return <ChakraIcon as={TwitterIconSource} {...props} />
-}
+export const TelegramIcon = img(TelegramIconSource)
+
+export const TwitterIcon = img(TwitterIconSource)
