@@ -1,5 +1,3 @@
-import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
-import { SwapHorizontalIcon } from "@/icons"
 import { Box, Flex, Grid, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
@@ -27,7 +25,7 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 		>
 			<Box
 				className={clsx(
-					"h-9 w-9 rounded-full flex justify-center items-center bg-dark300 text-black",
+					"h-9 w-9 rounded-full flex justify-center items-center bg-dark-300 text-black",
 					isActive && "bg-mainGradient text-white"
 				)}
 			>

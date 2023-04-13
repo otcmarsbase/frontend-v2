@@ -10,16 +10,8 @@ import { queries } from "@/utils/chakra"
 import { links } from "@/utils/links"
 import { Config } from "tailwindcss"
 import { openExternalUrl } from "@/utils/utils"
-import {
-	Box,
-	Flex,
-	Grid,
-	HStack,
-	useMediaQuery,
-	VStack,
-} from "@chakra-ui/react"
+import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
-import { TailwindColors } from "@/tailwind"
 
 type CreateOfferStep1Props = {}
 
@@ -71,7 +63,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 							}}
 						/>
 					</SelectContainer>
-					<div className="w-12 h-12 bg-dark800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
+					<div className="w-12 h-12 bg-dark-800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
 						<SwapHorizontalIcon />
 					</div>
 					<SelectContainer
