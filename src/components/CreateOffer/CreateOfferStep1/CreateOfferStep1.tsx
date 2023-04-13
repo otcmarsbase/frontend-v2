@@ -35,11 +35,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 				<BaseText>
 					What asset do you have and what do you want to get for it
 				</BaseText>
-				<Grid
-					gridTemplateColumns={{ sm: "none", md: "1fr auto 1fr" }}
-					autoFlow={{ md: "column", sm: "row" }}
-					className="sm:gap-2 md:gap-4 w-full items-center"
-				>
+				<SelectWrapper>
 					<SelectContainer
 						titleLeft={
 							<InputName text="From" tooltipText="From kek" />
@@ -71,7 +67,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 							}}
 						/>
 					</SelectContainer>
-				</Grid>
+				</SelectWrapper>
 				<SelectContainer
 					titleLeft={
 						<InputName text="Offer size" tooltipText="From kek" />
@@ -144,5 +140,16 @@ const SwapWrapper: React.FCC = ({ children }) => {
 		<div className="w-12 h-12 bg-dark-800 flex justify-center items-center rounded-full justify-self-center sm:rotate-90 md:rotate-0">
 			{children}
 		</div>
+	)
+}
+const SelectWrapper: React.FCC = ({ children }) => {
+	return (
+		<Grid
+			gridTemplateColumns={{ sm: "none", md: "1fr auto 1fr" }}
+			autoFlow={{ md: "column", sm: "row" }}
+			className="sm:gap-2 md:gap-4 w-full items-center"
+		>
+			{children}
+		</Grid>
 	)
 }
