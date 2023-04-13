@@ -8,7 +8,13 @@ type AnimatedProgressProps = {
 export const AnimatedProgress: React.FC<AnimatedProgressProps> = ({
 	status,
 }) => {
-	if (status === "success") return <LoaderOkImg />
-	if (status === "failed") return <LoaderErrorImg />
-	return <LoaderLoadingImg />
+	let Img = LoaderLoadingImg
+	if (status === "success") Img = LoaderOkImg
+	if (status === "failed") Img = LoaderErrorImg
+
+	return (
+		<div className="sm:w-[167px] sm:h-[167px] md:w-[220px] md:h-[220px] lg:w-[320px] lg:h-[320px]">
+			<Img />
+		</div>
+	)
 }
