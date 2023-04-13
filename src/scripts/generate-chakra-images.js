@@ -30,7 +30,7 @@ const getArgs = () => {
 }
 
 const args = getArgs()
-console.log("args",args)
+
 const srcPath = path.join(dirName, "./")
 const importPrefix = `@${args.FOLDER_PATH.replace(srcPath, "/")}`
 
@@ -49,19 +49,30 @@ const importPaths = {
 const importName = (file, mask) => utils.formatImportFile(file, mask)
 
 const getExportStatement = (componentName, importName) => {
-	return {
-		svg: `export const ${componentName}: React.FC<React.ComponentProps<typeof ChakraIcon>> = (props) => {
-		return <ChakraIcon as={${importName}} {...props} />
-}`,
-		img: `export const ${componentName}: React.FC<React.ComponentProps<typeof Image>> = (props) => {
-			return <Image src={${importName}} {...props} />
-}`,
-	}
+	return `export const ${componentName} = img(${importName})`
 }
 
 const importWrapper = {
 	svg: 'import { Icon as ChakraIcon } from "@chakra-ui/react"',
 	img: 'import { Image } from "@/components/Image/Image"',
+}
+
+const ComponentWrapper = {
+	svg: `
+	\n
+		 const img = (img: any) => {
+			const Component: React.FC<React.ComponentProps<typeof ChakraIcon>> = (props) => {
+				return <ChakraIcon as={img} {...props} />
+			}
+			return Component
+	      }`,
+	img: `\n
+	       const img = (img: any) => {
+			const Component: React.FC<React.ComponentProps<typeof Image>> = (props) => {
+				return <Image src={img} {...props} />
+			}
+			return Component
+  		  }`,
 }
 
 const importStatements = imageFiles
@@ -71,16 +82,15 @@ const importStatements = imageFiles
 			path.join(importPrefix, file)
 		)
 	)
-	.concat(['import React from "react"', importWrapper[args.IMG_TYPE]])
+	.concat(['import React from "react"', importWrapper[args.IMG_TYPE], ComponentWrapper[args.IMG_TYPE]])
 	.join("\n")
 
 const exportsStatement = imageFiles
-	.map(
-		(file) =>
-			getExportStatement(
-				importName(file, args.IMPORT_MASK),
-				importName(file, args.IMPORT_MASK) + "Source"
-			)[args.IMG_TYPE]
+	.map((file) =>
+		getExportStatement(
+			importName(file, args.IMPORT_MASK),
+			importName(file, args.IMPORT_MASK) + "Source"
+		)
 	)
 	.join("\n\n")
 
