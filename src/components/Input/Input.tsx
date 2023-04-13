@@ -10,7 +10,7 @@ export const Input: React.FC<InputProps> = (props) => {
 			borderWidth={"2px"}
 			style={{ outline: "none" }}
 			className={
-				"border-dark200 shadow-none focus-visible:border-orange100"
+				"border-dark-200 shadow-none focus-visible:border-orange-100 hover:border-orange-100"
 			}
 			{...props}
 		/>
