@@ -47,6 +47,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 						bottomLeft={<InputNote text="hello world" />}
 					>
 						<SelectV2
+							isSearcheable
 							options={[]}
 							onChange={(t) => {
 								console.log("change:", t)
@@ -63,6 +64,7 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 						bottomLeft={<InputNote text="hello world" />}
 					>
 						<SelectV2
+							isSearcheable
 							options={[]}
 							onChange={(t) => {
 								console.log("change:", t)
@@ -71,9 +73,11 @@ export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
 					</SelectContainer>
 				</Grid>
 				<SelectContainer
-					titleLeft={<InputName text="Offer size" tooltipText="From kek" />}
+					titleLeft={
+						<InputName text="Offer size" tooltipText="From kek" />
+					}
 					bottomLeft={<InputNote text="hello world" />}
-					titleRight={<InfoTooltip infoText="hello" />}
+					titleRight={<InputNote text="Balance: 0.0000000" />}
 				>
 					<Input />
 				</SelectContainer>
