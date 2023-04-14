@@ -28,6 +28,7 @@ import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress
 import { BaseText } from "@/components/Text/BaseText"
 import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
+import { RightArrowIcon } from "@/icons"
 type CreateOfferDetailsProps = {}
 
 export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
@@ -93,7 +94,7 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 				<StepDisplay step="accept" />
 			</Flex>
 			<ActiveStepDisplay
-				status={false ? "step1" : "none"}
+				status={true ? "step1" : "none"}
 				onApprove={() => {}}
 				onAccept={() => {}}
 			/>
@@ -115,7 +116,39 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 		approve: "Approve",
 		accept: "Accept",
 	} as any
+	const steps = ["approve", "accept"]
 	return (
+		<Box className="grow">
+			<Flex gap={"20px"}>
+				{steps.map((x) => {
+					return (
+						<Button
+							w={"full"}
+							isDisabled={
+								step !== x ||
+								(loading && step === x) ||
+								disabled
+							}
+						>
+							{l10n[x]}
+						</Button>
+					)
+				})}
+			</Flex>
+			<Flex
+				gap={"12px"}
+				justifyContent="center"
+				alignItems="center"
+				pt={"4"}
+			>
+				<Box className="bg-orange-500 rounded-2xl px-2">Step 1</Box>
+				<Arrow />
+				<Box className="bg-orange-500 rounded-2xl px-2">Step 2</Box>
+			</Flex>
+		</Box>
+	)
+}
+
 const Arrow: React.FC = () => {
 	const line = () => (
 		<div className="w-[70px] bg-[rgba(113,138,167,0.2)] h-[1px]"></div>
