@@ -153,8 +153,19 @@ const DetailsItem: React.FC<{
 	additionalValue?: React.ReactNode
 }> = ({ title, value, additionalValue, subTitle }) => {
 	return (
-		<Flex>
-			
+		<Flex className="justify-between items-center py-3 border-b-[1px] border-b-[#151516] border-solid">
+			<VStack alignItems={"start"}>
+				<BaseText color="white">{title}</BaseText>
+				<BaseText color="grey">{subTitle}</BaseText>
+			</VStack>
+			<VStack alignItems={"end"}>
+				<BaseText>{value}</BaseText>
+				{additionalValue ? (
+					<BodyText color="grey">{additionalValue}</BodyText>
+				) : (
+					""
+				)}
+			</VStack>
 		</Flex>
 	)
 }
