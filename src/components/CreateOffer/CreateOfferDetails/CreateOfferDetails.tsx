@@ -24,7 +24,7 @@ import {
 	BadgeText,
 	DetailsValue,
 } from "@otcmarsbase/react-components"
-import { Box, Flex, VStack } from "@chakra-ui/react"
+import { Box, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
 type CreateOfferDetailsProps = {}
@@ -109,21 +109,17 @@ const DetailsHeading: React.FC<
 	}>
 > = (props) => {
 	return (
-		<GridStyles justify="space-between">
-			<ContainerDefault>
-				<GridStyles gap="12px">
+		<Flex className="justify-between items-start">
+			<Flex direction={"column"}>
+				<Grid templateColumns={"auto auto"} gap="12px">
 					<H3>{"Check offer details"}</H3>
 					<OfferTypeIndicator type={props.type} />
-				</GridStyles>
+				</Grid>
 
-				<GridStyles direction="row" align="center">
-					<BodyText color="grey">
-						{
-							"Verify that all parameters are set the way you want them"
-						}
-					</BodyText>
-				</GridStyles>
-			</ContainerDefault>
+				<BodyText color="grey">
+					{"Verify that all parameters are set the way you want them"}
+				</BodyText>
+			</Flex>
 
 			<DetailsHeadingLink
 				onClick={props.onLinkClick}
@@ -131,7 +127,7 @@ const DetailsHeading: React.FC<
 			>
 				{props.linkText}
 			</DetailsHeadingLink>
-		</GridStyles>
+		</Flex>
 	)
 }
 
