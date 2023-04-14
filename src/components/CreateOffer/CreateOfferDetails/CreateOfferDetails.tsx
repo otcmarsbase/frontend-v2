@@ -23,7 +23,7 @@ import {
 	BadgeText,
 	DetailsValue,
 } from "@otcmarsbase/react-components"
-import { Box, Flex, Grid, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
 import { BackButton } from "@/components/BackButton/BackButton"
@@ -89,17 +89,39 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 				value={null}
 			/>
 
-			<TransactionDetails>
-				<ActiveStepDisplay
-					status={false ? "step1" : "none"}
-					onApprove={() => {}}
-					onAccept={() => {}}
-				/>
-			</TransactionDetails>
+			<Flex className="pt-10">
+				<StepDisplay step="accept" />
+			</Flex>
 		</Box>
 	)
 }
 
+type StepDisplayProps = {
+	step: "accept" | "approve"
+	disabled?: boolean
+	loading?: boolean
+}
+const StepDisplay: React.FC<StepDisplayProps> = ({
+	step,
+	disabled,
+	loading,
+}) => {
+	return (
+		<Box className="grow">
+			<Button disabled={disabled || loading || step !== "approve"}>
+				Approve
+			</Button>
+			<Button disabled={disabled || loading || step !== "accept"}>
+				Accept
+			</Button>
+			<ActiveStepDisplay
+				status={false ? "step1" : "none"}
+				onApprove={() => {}}
+				onAccept={() => {}}
+			/>
+		</Box>
+	)
+}
 const DetailsHeading: React.FC<
 	React.PropsWithChildren<{
 		onLinkClick: () => void
