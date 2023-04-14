@@ -16,7 +16,6 @@ import {
 	GridStyles,
 	CurrencyIcon,
 	ContainerDefault,
-	OfferTypeIndicator,
 	FinishScreen,
 	CreateOfferLoading,
 	ProgressAnimationBody,
@@ -28,6 +27,7 @@ import { Box, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
 import { BackButton } from "@/components/BackButton/BackButton"
+import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 type CreateOfferDetailsProps = {}
 
 export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
