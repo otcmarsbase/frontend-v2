@@ -46,46 +46,47 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 				additionalValue={`≈asdasd}`}
 			/>
 
-			<DetailsBoardSell
-				name={"Offer size"}
-				info={"The amount you would like to exchange"}
+			<DetailsItem
+				title={"Offer size"}
 				value={`12 ETH`}
+				subTitle={"The amount you would like to exchange"}
 				additionalValue={`≈`}
 			/>
 
-			<DetailsBoardSell
-				name={true ? "Premium" : "Discount"}
-				info={
+			<DetailsItem
+				title={true ? "Premium" : "Discount"}
+				value={`100%`}
+				subTitle={
 					true
 						? "Reduced price you set for an asset"
 						: "Increased price you set for an asset"
 				}
-				value={`100%`}
-				additionalValue={"additionalVlue"}
+				additionalValue={`additionalVlue`}
 			/>
 
-			<DetailsBoardSell
-				name={"Open price"}
-				info={"Market price at the time of offer creation"}
+			<DetailsItem
+				title={"Open price"}
 				value={
 					<>
 						<CurrencyIcon src={"ETH"}>{`1 ETH = `}</CurrencyIcon>
 						<CurrencyIcon src={""}>{"Alice"}</CurrencyIcon>
 					</>
 				}
+				subTitle={"Market price at the time of offer creation"}
 			/>
 
-			<DetailsBoardSell
-				name={"Deadline"}
-				info={"The execution date and time"}
+			<DetailsItem
+				title="Deadline"
+				subTitle={"The execution date and time"}
 				value={new Date().toString()}
 			/>
 
-			<DetailsBoardSell
-				name={"Min bid"}
-				info={"The minimum amount participants can place to your offer"}
+			<DetailsItem
+				title="Min bid"
+				subTitle={
+					"The minimum amount participants can place to your offer"
+				}
 				value={null}
-				additionalValue={null}
 			/>
 
 			<TransactionDetails>
