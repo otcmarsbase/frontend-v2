@@ -3,6 +3,10 @@
 	"header": {
 		"title": "test"
 	},
+	"offerTypeIndicator": {
+		"static": "Part static",
+		"dynamic": "Part dynamic"
+	},
 	"navbar": {
 		"links": {
 			"dashboard": "MY DASHBOARD",
