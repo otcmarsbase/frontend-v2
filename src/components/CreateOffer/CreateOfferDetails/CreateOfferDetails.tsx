@@ -29,6 +29,7 @@ import { BaseText } from "@/components/Text/BaseText"
 import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { RightArrowIcon } from "@/icons"
+import clsx from "clsx"
 type CreateOfferDetailsProps = {}
 
 export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
@@ -91,7 +92,19 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 			/>
 
 			<Flex className="pt-10">
-				<StepDisplay step="accept" />
+				<StepDisplay
+					buttons={{
+						accept: {
+							text: "Accept",
+							onClick: () => {},
+						},
+						approve: {
+							text: "Approve",
+							onClick: () => {},
+						},
+					}}
+					step="accept"
+				/>
 			</Flex>
 			<ActiveStepDisplay
 				status={true ? "step1" : "none"}
@@ -106,23 +119,31 @@ type StepDisplayProps = {
 	step: "accept" | "approve"
 	disabled?: boolean
 	loading?: boolean
+	buttons: {
+		approve: {
+			text: string
+			onClick: () => void
+		}
+		accept: {
+			text: string
+			onClick: () => void
+		}
+	}
 }
 const StepDisplay: React.FC<StepDisplayProps> = ({
 	step,
 	disabled,
 	loading,
+	buttons,
 }) => {
-	const l10n = {
-		approve: "Approve",
-		accept: "Accept",
-	} as any
-	const steps = ["approve", "accept"]
+	const steps = ["approve", "accept"] as const
 	return (
 		<Box className="grow">
 			<Flex gap={"20px"}>
 				{steps.map((x) => {
 					return (
 						<Button
+							onClick={buttons[x].onClick}
 							w={"full"}
 							isDisabled={
 								step !== x ||
@@ -130,7 +151,7 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 								disabled
 							}
 						>
-							{l10n[x]}
+							{buttons[x].text}
 						</Button>
 					)
 				})}
@@ -141,17 +162,32 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 				alignItems="center"
 				pt={"4"}
 			>
-				<Box className="bg-orange-500 rounded-2xl px-2">Step 1</Box>
+				<Step active={step === "approve"} text={"Step 1"} />
 				<Arrow />
-				<Box className="bg-orange-500 rounded-2xl px-2">Step 2</Box>
+				<Step active={step === "accept"} text={"Step 2"} />
 			</Flex>
 		</Box>
 	)
 }
 
+const Step: React.FC<{ active?: boolean; text: string }> = ({
+	active,
+	text,
+}) => {
+	return (
+		<Box
+			className={clsx(
+				"rounded-2xl px-2",
+				active ? "bg-orange-500" : "bg-dark-200 opacity-20"
+			)}
+		>
+			{text}
+		</Box>
+	)
+}
 const Arrow: React.FC = () => {
 	const line = () => (
-		<div className="w-[70px] bg-[rgba(113,138,167,0.2)] h-[1px]"></div>
+		<div className="w-[70px] bg-[rgba(113,138,167,0.1)] h-[1px]"></div>
 	)
 	return (
 		<Flex className="justify-center items-center gap-3">
