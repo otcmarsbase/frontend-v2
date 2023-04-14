@@ -2,7 +2,7 @@ import { useTranslation } from "@/localization/l10n"
 import React from "react"
 import {
 	ActiveStepDisplay,
-	CreateOfferDetails,
+	CreateOfferDetails as Det,
 	// DetailsFromTo,
 	// InputContainer,
 	// InputName,
@@ -20,15 +20,18 @@ import {
 	FinishScreen,
 	CreateOfferLoading,
 	ProgressAnimationBody,
+	DetailsName,
+	BadgeText,
+	DetailsValue,
 } from "@otcmarsbase/react-components"
-import { Flex } from "@chakra-ui/react"
+import { Box, Flex, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
-type CreateOfferStep2Props = {}
+type CreateOfferDetailsProps = {}
 
-export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
+export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 	return (
-		<CreateOfferDetails>
+		<Box>
 			<DetailsHeading
 				onLinkClick={() => {}}
 				linkText={"Go back to edit"}
@@ -37,9 +40,9 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 			/>
 
 			<DetailsItem
-				name={"name"}
-				info={"discount"}
-				value={null}
+				title={"name"}
+				value={"value"}
+				subTitle={"discount"}
 				additionalValue={`≈asdasd}`}
 			/>
 
@@ -87,12 +90,12 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 
 			<TransactionDetails>
 				<ActiveStepDisplay
-					status={false ? "step1" : "step2"}
+					status={false ? "step1" : "none"}
 					onApprove={() => {}}
 					onAccept={() => {}}
 				/>
 			</TransactionDetails>
-		</CreateOfferDetails>
+		</Box>
 	)
 }
 
