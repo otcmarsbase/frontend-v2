@@ -12,7 +12,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ label, onClick }) => {
 	return (
 		<HStack onClick={onClick}>
 			<LeftArrowIcon />
-			<span>{label}</span>
+			<span className="text-orange-500">{label}</span>
 		</HStack>
 	)
 }

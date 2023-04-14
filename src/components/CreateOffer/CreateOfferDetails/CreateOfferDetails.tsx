@@ -111,7 +111,7 @@ const DetailsHeading: React.FC<
 		<Flex className="justify-between items-start">
 			<Flex direction={"column"}>
 				<Grid templateColumns={"auto auto"} gap="12px">
-					<H3>{"Check offer details"}</H3>
+					<BaseText>{"Check offer details"}</BaseText>
 					<OfferTypeIndicator type={props.type} />
 				</Grid>
 
