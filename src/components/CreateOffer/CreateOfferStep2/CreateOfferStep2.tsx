@@ -36,7 +36,7 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 				type={true ? "static" : "dynamic"}
 			/>
 
-			<DetailsBoardSell
+			<DetailsItem
 				name={"name"}
 				info={"discount"}
 				value={null}
