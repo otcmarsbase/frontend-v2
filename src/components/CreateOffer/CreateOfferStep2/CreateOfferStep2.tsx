@@ -31,7 +31,7 @@ export const CreateOfferStep2: React.FC<CreateOfferStep2Props> = ({}) => {
 		<CreateOfferDetails>
 			<DetailsHeading
 				onLinkClick={() => {}}
-				linkText={"TEXT"}
+				linkText={"Go back to edit"}
 				linkIcon={""}
 				type={true ? "static" : "dynamic"}
 			/>
