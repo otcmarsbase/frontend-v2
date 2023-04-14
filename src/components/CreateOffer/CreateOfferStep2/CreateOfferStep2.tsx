@@ -145,3 +145,16 @@ export const LoadingCreated: React.FC<
 		</Flex>
 	)
 }
+
+const DetailsItem: React.FC<{
+	title: React.ReactNode
+	subTitle?: React.ReactNode
+	value: React.ReactNode
+	additionalValue?: React.ReactNode
+}> = ({ title, value, additionalValue, subTitle }) => {
+	return (
+		<Flex>
+			
+		</Flex>
+	)
+}
