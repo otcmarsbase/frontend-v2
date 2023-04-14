@@ -27,6 +27,7 @@ import {
 import { Box, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
+import { BackButton } from "@/components/BackButton/BackButton"
 type CreateOfferDetailsProps = {}
 
 export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
@@ -35,7 +36,6 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 			<DetailsHeading
 				onLinkClick={() => {}}
 				linkText={"Go back to edit"}
-				linkIcon={""}
 				type={true ? "static" : "dynamic"}
 			/>
 
@@ -102,8 +102,7 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 
 const DetailsHeading: React.FC<
 	React.PropsWithChildren<{
-		onLinkClick: any
-		linkIcon?: string
+		onLinkClick: () => void
 		linkText: string
 		type: "static" | "dynamic"
 	}>
