@@ -121,12 +121,7 @@ const DetailsHeading: React.FC<
 				</BodyText>
 			</Flex>
 
-			<DetailsHeadingLink
-				onClick={props.onLinkClick}
-				icon={props.linkIcon}
-			>
-				{props.linkText}
-			</DetailsHeadingLink>
+			<BackButton label={props.linkText} onClick={props.onLinkClick} />
 		</Flex>
 	)
 }
