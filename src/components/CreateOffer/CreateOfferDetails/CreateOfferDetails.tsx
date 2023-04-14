@@ -92,6 +92,11 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 			<Flex className="pt-10">
 				<StepDisplay step="accept" />
 			</Flex>
+			<ActiveStepDisplay
+				status={false ? "step1" : "none"}
+				onApprove={() => {}}
+				onAccept={() => {}}
+			/>
 		</Box>
 	)
 }
@@ -106,20 +111,25 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 	disabled,
 	loading,
 }) => {
+	const l10n = {
+		approve: "Approve",
+		accept: "Accept",
+	} as any
 	return (
-		<Box className="grow">
-			<Button disabled={disabled || loading || step !== "approve"}>
-				Approve
-			</Button>
-			<Button disabled={disabled || loading || step !== "accept"}>
-				Accept
-			</Button>
-			<ActiveStepDisplay
-				status={false ? "step1" : "none"}
-				onApprove={() => {}}
-				onAccept={() => {}}
-			/>
-		</Box>
+		<Flex className="grow" gap={"20px"}>
+			{["approve", "accept"].map((x) => {
+				return (
+					<Button
+						w={"full"}
+						isDisabled={
+							step !== x || (loading && step === x) || disabled
+						}
+					>
+						{l10n[x]}
+					</Button>
+				)
+			})}
+		</Flex>
 	)
 }
 const DetailsHeading: React.FC<
