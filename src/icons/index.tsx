@@ -4,11 +4,11 @@ import { ReactComponent as DiscordIconSource } from "@/assets/icon/discord.svg"
 import { ReactComponent as FilterIconSource } from "@/assets/icon/filter.svg"
 import { ReactComponent as GoBackIconSource } from "@/assets/icon/goBack.svg"
 import { ReactComponent as InfoIconSource } from "@/assets/icon/info.svg"
-import { ReactComponent as LeftArrowIconSource } from "@/assets/icon/leftArrow.svg"
 import { ReactComponent as LinktreeIconSource } from "@/assets/icon/linktree.svg"
 import { ReactComponent as MediumIconSource } from "@/assets/icon/medium.svg"
 import { ReactComponent as QuestionIconSource } from "@/assets/icon/question.svg"
 import { ReactComponent as RedditIconSource } from "@/assets/icon/reddit.svg"
+import { ReactComponent as RightArrowIconSource } from "@/assets/icon/rightArrow.svg"
 import { ReactComponent as SearchIconSource } from "@/assets/icon/search.svg"
 import { ReactComponent as SwapHorizontalIconSource } from "@/assets/icon/swapHorizontal.svg"
 import { ReactComponent as SwapVerticalIconSource } from "@/assets/icon/swapVertical.svg"
@@ -38,8 +38,6 @@ export const GoBackIcon = img(GoBackIconSource)
 
 export const InfoIcon = img(InfoIconSource)
 
-export const LeftArrowIcon = img(LeftArrowIconSource)
-
 export const LinktreeIcon = img(LinktreeIconSource)
 
 export const MediumIcon = img(MediumIconSource)
@@ -47,6 +45,8 @@ export const MediumIcon = img(MediumIconSource)
 export const QuestionIcon = img(QuestionIconSource)
 
 export const RedditIcon = img(RedditIconSource)
+
+export const RightArrowIcon = img(RightArrowIconSource)
 
 export const SearchIcon = img(SearchIconSource)
 
