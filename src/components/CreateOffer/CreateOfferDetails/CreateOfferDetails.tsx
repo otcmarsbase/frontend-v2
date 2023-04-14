@@ -116,19 +116,17 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 		accept: "Accept",
 	} as any
 	return (
-		<Flex className="grow" gap={"20px"}>
-			{["approve", "accept"].map((x) => {
-				return (
-					<Button
-						w={"full"}
-						isDisabled={
-							step !== x || (loading && step === x) || disabled
-						}
-					>
-						{l10n[x]}
-					</Button>
-				)
-			})}
+const Arrow: React.FC = () => {
+	const line = () => (
+		<div className="w-[70px] bg-[rgba(113,138,167,0.2)] h-[1px]"></div>
+	)
+	return (
+		<Flex className="justify-center items-center gap-3">
+			{line()}
+			<Flex className="justify-center items-center bg-[rgba(113,138,167,0.2)] rounded-full p-2">
+				<RightArrowIcon boxSize={"10px"} />
+			</Flex>
+			{line()}
 		</Flex>
 	)
 }
