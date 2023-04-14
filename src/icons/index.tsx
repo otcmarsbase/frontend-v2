@@ -2,6 +2,7 @@ import { ReactComponent as ArrowsIconSource } from "@/assets/icon/arrows.svg"
 import { ReactComponent as DashboardIconSource } from "@/assets/icon/dashboard.svg"
 import { ReactComponent as DiscordIconSource } from "@/assets/icon/discord.svg"
 import { ReactComponent as FilterIconSource } from "@/assets/icon/filter.svg"
+import { ReactComponent as GoBackIconSource } from "@/assets/icon/goBack.svg"
 import { ReactComponent as InfoIconSource } from "@/assets/icon/info.svg"
 import { ReactComponent as LeftArrowIconSource } from "@/assets/icon/leftArrow.svg"
 import { ReactComponent as LinktreeIconSource } from "@/assets/icon/linktree.svg"
@@ -32,6 +33,8 @@ export const DashboardIcon = img(DashboardIconSource)
 export const DiscordIcon = img(DiscordIconSource)
 
 export const FilterIcon = img(FilterIconSource)
+
+export const GoBackIcon = img(GoBackIconSource)
 
 export const InfoIcon = img(InfoIconSource)
 
