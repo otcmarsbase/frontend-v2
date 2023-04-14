@@ -12,7 +12,7 @@ export const BackButton: React.FC<BackButtonProps> = ({ label, onClick }) => {
 	return (
 		<HStack onClick={onClick}>
 			<LeftArrowIcon />
-			<span className="text-orange-500">{label}</span>
+			<span className="text-orange-500 cursor-pointer">{label}</span>
 		</HStack>
 	)
 }
