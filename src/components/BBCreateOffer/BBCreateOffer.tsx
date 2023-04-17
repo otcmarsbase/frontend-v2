@@ -30,10 +30,15 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 }) => {
 	return (
 		<GradientPopup
-			contentClassName="bg-black px-6 py-8 w-full"
+			contentClassName="bg-black px-6 py-8 w-full flex flex-col"
 			containerClassName="w-full"
 		>
-			<BackButton label={backButton.label} onClick={backButton.onClick} />
+			<Flex alignSelf={"end"}>
+				<BackButton
+					label={backButton.label}
+					onClick={backButton.onClick}
+				/>
+			</Flex>
 			<Flex className="flex-col gap-4">
 				<Box>
 					<FormControlHeader
