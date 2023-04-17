@@ -1,5 +1,5 @@
 import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/CreateOfferStep"
-import { CreateOfferStep1 } from "@/components/CreateOffer/CreateOfferStep1/CreateOfferStep1"
+import { CreateOfferSelection } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelection"
 import { CreateOfferDetails, LoadingCreated } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"

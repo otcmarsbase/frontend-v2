@@ -13,9 +13,9 @@ import { openExternalUrl } from "@/utils/utils"
 import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
-type CreateOfferStep1Props = {}
+type CreateOfferSelectionProps = {}
 
-export const CreateOfferStep1: React.FC<CreateOfferStep1Props> = ({}) => {
+export const CreateOfferSelection: React.FC<CreateOfferSelectionProps> = ({}) => {
 	const l10n = useTranslation()
 	const [from, setFrom] = React.useState()
 	const [to, setTo] = React.useState()
