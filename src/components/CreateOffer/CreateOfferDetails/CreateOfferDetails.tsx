@@ -1,28 +1,4 @@
-import { useTranslation } from "@/localization/l10n"
 import React from "react"
-import {
-	ActiveStepDisplay,
-	CreateOfferDetails as Det,
-	// DetailsFromTo,
-	// InputContainer,
-	// InputName,
-	// CurrencyPanel,
-	DetailsBoardSell,
-	TransactionDetails,
-	H3,
-	BodyText,
-	Clickable,
-	DetailsHeadingLink,
-	GridStyles,
-	CurrencyIcon,
-	ContainerDefault,
-	FinishScreen,
-	CreateOfferLoading,
-	ProgressAnimationBody,
-	DetailsName,
-	BadgeText,
-	DetailsValue,
-} from "@otcmarsbase/react-components"
 import { Box, Button, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
 import { BaseText } from "@/components/Text/BaseText"
@@ -30,9 +6,17 @@ import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { RightArrowIcon } from "@/icons"
 import clsx from "clsx"
-type CreateOfferDetailsProps = {}
+type CreateOfferDetailsProps = {
+	approved?: boolean
+}
 
-export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
+export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({
+	approved,
+}) => {
+	const getStep = (): Steps => {
+		if (approved) return "accept"
+		return "approve"
+	}
 	return (
 		<Box>
 			<DetailsHeading
@@ -70,8 +54,8 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 				title={"Open price"}
 				value={
 					<>
-						<CurrencyIcon src={"ETH"}>{`1 ETH = `}</CurrencyIcon>
-						<CurrencyIcon src={""}>{"Alice"}</CurrencyIcon>
+						{/* <CurrencyIcon src={"ETH"}>{`1 ETH = `}</CurrencyIcon>
+						<CurrencyIcon src={""}>{"Alice"}</CurrencyIcon> */}
 					</>
 				}
 				subTitle={"Market price at the time of offer creation"}
@@ -103,14 +87,9 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({}) => {
 							onClick: () => {},
 						},
 					}}
-					step="accept"
+					step={getStep()}
 				/>
 			</Flex>
-			<ActiveStepDisplay
-				status={true ? "step1" : "none"}
-				onApprove={() => {}}
-				onAccept={() => {}}
-			/>
 		</Box>
 	)
 }
@@ -206,9 +185,9 @@ const DetailsHeading: React.FC<
 					<OfferTypeIndicator type={props.type} />
 				</Grid>
 
-				<BodyText color="grey">
+				<BaseText color="grey">
 					{"Verify that all parameters are set the way you want them"}
-				</BodyText>
+				</BaseText>
 			</Flex>
 
 			<BackButton label={props.linkText} onClick={props.onLinkClick} />
@@ -246,7 +225,7 @@ const DetailsItem: React.FC<{
 			<VStack alignItems={"end"}>
 				<BaseText>{value}</BaseText>
 				{additionalValue ? (
-					<BodyText color="grey">{additionalValue}</BodyText>
+					<BaseText color="grey">{additionalValue}</BaseText>
 				) : (
 					""
 				)}
