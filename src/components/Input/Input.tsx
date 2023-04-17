@@ -19,9 +19,10 @@ export const Input: React.FC<InputProps> = ({ rightComponent, ...props }) => {
 				pr={rightSizes?.width || "auto"}
 				bg={"transparent"}
 				borderWidth={"2px"}
+				borderColor={"dark.200"}
 				style={{ outline: "none", boxShadow: "none" }}
 				className={
-					"border-dark-200 shadow-none focus-visible:!border-orange-100 hover:!border-orange-100 "
+					"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100 "
 				}
 				{...props}
 			/>
