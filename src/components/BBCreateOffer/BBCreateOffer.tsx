@@ -2,7 +2,7 @@ import { BackButton } from "@/components/BackButton/BackButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react"
 import React from "react"
 
 // TODO: вынести куда-то
@@ -40,7 +40,7 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 				/>
 			</Flex>
 			<Flex className="flex-col gap-4">
-				<Box>
+				<FormControl>
 					<FormControlHeader
 						title="1. Asset to sell"
 						subtitle="Select the asset you want to exchange."
@@ -50,7 +50,7 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 						{...removePostfix(props, "Alice")}
 						disabled={props.disabledAlice || props.disableAllInputs}
 					/> */}
-				</Box>
+				</FormControl>
 				{/* <TokenApproximatelyEqualsDollar
 					size="small"
 					align="right"
@@ -59,7 +59,7 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 					amountUsd={props.tokenAliceUsdPrice}
 				/> */}
 
-				<Flex>
+				<FormControl>
 					<FormControlHeader
 						title={`2. Amount of ${tokenAlice.symbol}`}
 						subtitle={`Enter the amount of ${
@@ -79,7 +79,7 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 						balance={props.balanceAlice}
 						disabled={props.disableAllInputs}
 					/> */}
-				</Flex>
+				</FormControl>
 
 				{/* {!!props.amountAliceUsd && !props.amountAliceInputError && (
 					<TokenApproximatelyEqualsDollar
@@ -91,9 +91,7 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 					/>
 				)} */}
 
-				<br />
-
-				<Flex>
+				<FormControl>
 					<FormControlHeader
 						title={`3. Assets to receive`}
 						subtitle={`Select the asset you want to receive in exchange for ${tokenAlice.symbol}.`}
@@ -108,9 +106,8 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 							"Same tokens selected in From/To"
 						}
 					/> */}
-				</Flex>
+				</FormControl>
 
-				<br />
 				{/* 
 				{props.actionButtons}
 
