@@ -126,4 +126,10 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 	)
 }
 
+type BBCreateOfferContainerProps = {} & BBCreateOfferViewProps
 
+export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
+	props
+) => {
+	return <BBCreateOfferView {...props} />
+}
