@@ -12,10 +12,13 @@ import { Config } from "tailwindcss"
 import { openExternalUrl } from "@/utils/utils"
 import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
+import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 
 type CreateOfferSelectionProps = {}
 
-export const CreateOfferSelection: React.FC<CreateOfferSelectionProps> = ({}) => {
+export const CreateOfferSelection: React.FC<
+	CreateOfferSelectionProps
+> = ({}) => {
 	const l10n = useTranslation()
 	const [from, setFrom] = React.useState()
 	const [to, setTo] = React.useState()
@@ -25,16 +28,18 @@ export const CreateOfferSelection: React.FC<CreateOfferSelectionProps> = ({}) =>
 			containerClassName="w-full"
 		>
 			<VStack alignItems={"start"} w={"full"}>
-				<HStack>
-					<BaseText>Specify offer details</BaseText>
-					<HowToUseBtn
-						label={l10n.OTCDesk.howToUse}
-						onClick={() => openExternalUrl(links.general.howToUse)}
-					/>
-				</HStack>
-				<BaseText>
-					What asset do you have and what do you want to get for it
-				</BaseText>
+				<FormControlHeader
+					title={"Specify offer details"}
+					subtitle="What asset do you have and what do you want to get for it"
+					titleLink={
+						<HowToUseBtn
+							label={l10n.OTCDesk.howToUse}
+							onClick={() =>
+								openExternalUrl(links.general.howToUse)
+							}
+						/>
+					}
+				/>
 				<SelectWrapper>
 					<SelectContainer
 						titleLeft={
