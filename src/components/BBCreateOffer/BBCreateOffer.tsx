@@ -14,21 +14,21 @@ type TokenInfo = {
 	iconUrl: string
 }
 
-type BBCreateOfferViewProps = {
+type BBMPCreateOfferView = {
 	backButton: {
 		label: string
 		onClick: () => void
 	}
 	tokenAlice: TokenInfo
 	tokensWillBeLocked: boolean
+	actionButtons?: React.ReactNode
 }
 
-type BBCreateOfferContainerProps = {} & BBCreateOfferViewProps
-
-export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = ({
+const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	backButton,
 	tokenAlice,
 	tokensWillBeLocked,
+	actionButtons,
 }) => {
 	return (
 		<GradientPopup
@@ -110,9 +110,8 @@ export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = ({
 					/> */}
 				</FormControl>
 
+				{actionButtons}
 				{/* 
-				{props.actionButtons}
-
 				{props.ctaButtonMode == "approving" && (
 					<>
 						<Center mt="2rem">
@@ -128,4 +127,12 @@ export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = ({
 			</Flex>
 		</GradientPopup>
 	)
+}
+
+type BBCreateOfferContainerProps = {} & BBMPCreateOfferView
+
+export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
+	props
+) => {
+	return <BBMPCreateOfferView {...props} />
 }
