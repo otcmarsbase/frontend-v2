@@ -40,6 +40,11 @@ const imageFiles = files.filter((file) =>
 	[".png", ".jpg", ".jpeg", ".gif", ".svg"].includes(path.extname(file))
 )
 
+const header = `
+	// This file is generated automatically by generate-chakra-images.js
+	// Do not edit it manually
+	// To regenerate this file run: yarn generate-images
+`
 const importPaths = {
 	svg: (filename, path) =>
 		`import { ReactComponent as ${filename} } from "${path}"`,
@@ -82,7 +87,11 @@ const importStatements = imageFiles
 			path.join(importPrefix, file)
 		)
 	)
-	.concat(['import React from "react"', importWrapper[args.IMG_TYPE], ComponentWrapper[args.IMG_TYPE]])
+	.concat([
+		'import React from "react"',
+		importWrapper[args.IMG_TYPE],
+		ComponentWrapper[args.IMG_TYPE],
+	])
 	.join("\n")
 
 const exportsStatement = imageFiles
@@ -96,7 +105,7 @@ const exportsStatement = imageFiles
 
 fs.writeFileSync(
 	args.OUTPUT_PATH,
-	utils.pretify(`${importStatements}\n\n${exportsStatement}`, {
+	utils.pretify(`${header}\n\n${importStatements}\n\n${exportsStatement}`, {
 		flag: args.OUT_FILE_FLAG,
 	})
 )
