@@ -23,7 +23,9 @@ type BBCreateOfferViewProps = {
 	tokensWillBeLocked: boolean
 }
 
-const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
+type BBCreateOfferContainerProps = {} & BBCreateOfferViewProps
+
+export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = ({
 	backButton,
 	tokenAlice,
 	tokensWillBeLocked,
@@ -126,12 +128,4 @@ const BBCreateOfferView: React.FC<BBCreateOfferViewProps> = ({
 			</Flex>
 		</GradientPopup>
 	)
-}
-
-type BBCreateOfferContainerProps = {} & BBCreateOfferViewProps
-
-export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
-	props
-) => {
-	return <BBCreateOfferView {...props} />
 }
