@@ -1,3 +1,7 @@
+// This file is generated automatically by generate-chakra-images.js
+// Do not edit it manually
+// To regenerate this file run: yarn generate-images
+
 import { ReactComponent as ArrowsIconSource } from "@/assets/icon/arrows.svg"
 import { ReactComponent as DashboardIconSource } from "@/assets/icon/dashboard.svg"
 import { ReactComponent as DiscordIconSource } from "@/assets/icon/discord.svg"
