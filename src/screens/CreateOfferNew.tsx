@@ -1,6 +1,9 @@
 import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/CreateOfferStep"
 import { CreateOfferSelection } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelection"
-import { CreateOfferDetails, LoadingCreated } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
+import {
+	CreateOfferDetails,
+	LoadingCreated,
+} from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { BaseText } from "@/components/Text/BaseText"
@@ -19,6 +22,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 					<ScreenHeader
 						subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
 						title={l10n.OTCDesk.title}
+						borderBottom
 					/>
 
 					<Box overflow={"scroll"} w={"full"}>
@@ -45,9 +49,9 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<CreateOfferDetails/>
+				<CreateOfferDetails />
 				{/* <CreateOfferStep1 /> */}
-			{/* <LoadingCreated progress={0}/> */}
+				{/* <LoadingCreated progress={0}/> */}
 			</div>
 		</ScreenWrapper>
 	)

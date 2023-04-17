@@ -24,6 +24,9 @@ type ScreenWrapperProps = {
 	top?: React.ReactNode
 }
 
+export const ScreenContainer: React.FCC = ({ children }) => {
+	return <div className="px-5 w-full">{children}</div>
+}
 export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 	top,
 	children,
@@ -31,42 +34,44 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 	const l10n = useTranslation()
 	return (
 		<PageWrapper>
-			<VStack
-				style={{ borderBottom: "1px solid #1B1B1C", width: "100%" }}
-			>
-				<Header
-					menuLinks={navlinks(l10n.navbar.links)}
-					supportLinks={[
-						{
-							href: links.general.aboutMarsbase,
-							text: l10n.navbar.support.about,
-						},
-						{
-							href: links.general.helpCenter,
-							text: l10n.navbar.support.helpCenter,
-						},
-						{
-							href: links.general.community,
-							text: l10n.navbar.support.community,
-						},
-					]}
-				/>
+			<VStack style={{ width: "100%" }}>
+				<ScreenContainer>
+					<Header
+						menuLinks={navlinks(l10n.navbar.links)}
+						supportLinks={[
+							{
+								href: links.general.aboutMarsbase,
+								text: l10n.navbar.support.about,
+							},
+							{
+								href: links.general.helpCenter,
+								text: l10n.navbar.support.helpCenter,
+							},
+							{
+								href: links.general.community,
+								text: l10n.navbar.support.community,
+							},
+						]}
+					/>
+				</ScreenContainer>
 				{top}
 			</VStack>
-			<Box w={"100%"}>{children}</Box>
-			<Box w={"100%"}>
-				<DesktopView>
-					<Footer />
-				</DesktopView>
-				<MobileFooter />
-			</Box>
+			<ScreenContainer>
+				<Box w={"100%"}>{children}</Box>
+				<Box w={"100%"}>
+					<DesktopView>
+						<Footer />
+					</DesktopView>
+					<MobileFooter />
+				</Box>
+			</ScreenContainer>
 		</PageWrapper>
 	)
 }
 
 const PageWrapper: React.FCC = ({ children }) => {
 	return (
-		<VStack paddingX={"20px"} minHeight={"100vh"} height={"100%"}>
+		<VStack minHeight={"100vh"} height={"100%"}>
 			{children}
 		</VStack>
 	)

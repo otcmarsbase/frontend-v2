@@ -1,13 +1,13 @@
-import { HStack, Link, Text } from '@chakra-ui/react'
-import React from 'react'
-import { ScreenHeader } from '@/components/ScreenHeader/ScreenHeader'
-import { ScreenWrapper } from '@/components/ScreenWrapper/ScreenWrapper'
-import { useTranslation } from '@/localization/l10n'
-import { links } from '@/utils/links'
-import { BaseText } from '@/components/Text/BaseText'
-import { HowToUseBtn } from '@/components/HowToUseBtn/HowToUseBtn'
-import { openExternalUrl } from '@/utils/utils'
-import { OTCDeskContent } from '@/components/OTCDesk/OTCDeskContent'
+import { HStack, Link, Text } from "@chakra-ui/react"
+import React from "react"
+import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { useTranslation } from "@/localization/l10n"
+import { links } from "@/utils/links"
+import { BaseText } from "@/components/Text/BaseText"
+import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
+import { openExternalUrl } from "@/utils/utils"
+import { OTCDeskContent } from "@/components/OTCDesk/OTCDeskContent"
 
 type OTCDeskProps = {}
 
@@ -17,6 +17,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 		<ScreenWrapper
 			top={
 				<ScreenHeader
+					borderBottom
 					titleLink={
 						<HowToUseBtn
 							label={l10n.OTCDesk.howToUse}
