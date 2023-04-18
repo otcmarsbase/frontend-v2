@@ -96,3 +96,60 @@ const singleValueFactory =
 				{render(optionProps.data.value)}
 			</RSComps.SingleValue>
 		)
+
+export type ReactSelectIndexedProps<T> = {
+	values: T[]
+	selectedIdx: number
+	onSelect: (idx: number) => void
+	onDeselect: () => void
+	render: (data: T) => React.ReactElement
+	filter?: (data: T) => string
+	theme?: (theme: Theme) => Theme
+	disabled?: boolean
+}
+export const ReactSelectIndexed = <T extends any>(
+	props: ReactSelectIndexedProps<T>
+) => {
+	type OptionType = { value: T; i: number }
+
+	let values = useMemo(
+		() => props.values.map((value, i) => ({ value, i })),
+		[props.values]
+	)
+	let selectedValue = useMemo(
+		() => values[props.selectedIdx],
+		[props.selectedIdx, values]
+	)
+	let onChange = useCallback(
+		(e: SingleValue<OptionType>) =>
+			e ? props.onSelect(e.i) : props.onDeselect(),
+		[props.onSelect, props.onDeselect]
+	)
+	let filter = useMemo(
+		() => (props.filter ? filterOptions(props.filter) : undefined),
+		[props.filter]
+	)
+
+	let Option = useMemo(() => optionFactory(props.render), [props.render])
+	let SingleValue = useMemo(
+		() => singleValueFactory(props.render),
+		[props.render]
+	)
+
+	return (
+		<Select<OptionType>
+			options={values}
+			value={selectedValue}
+			onChange={onChange}
+			filterOption={filter}
+			isMulti={false}
+			theme={props.theme}
+			isDisabled={props.disabled}
+			components={{
+				Option,
+				SingleValue,
+				MenuList: OptimizedMenuList,
+			}}
+		/>
+	)
+}
