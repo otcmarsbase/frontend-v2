@@ -40,3 +40,27 @@ export const reactSelectBlackTheme = (theme: Theme): Theme => ({
 	},
 })
 
+export const OptimizedMenuList = <T extends any>(
+	props: MenuListProps<T, false, GroupBase<T>>
+) => {
+	const LIMIT = 100
+	let children = Array.isArray(props.children)
+		? props.children
+		: [props.children]
+	let shortChildren = useMemo(
+		() => (children.length < LIMIT ? children : children.slice(0, LIMIT)),
+		[children]
+	)
+	let remaining = children.length - shortChildren.length
+	return (
+		<RSComps.MenuList {...props}>
+			{shortChildren}
+			{!!remaining && (
+				<div className="ml-2">
+					Start typing for {remaining} more items...
+				</div>
+			)}
+		</RSComps.MenuList>
+	)
+}
+
