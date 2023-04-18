@@ -1,5 +1,5 @@
 import { useHighlight } from "@chakra-ui/react"
-import React from "react"
+import React, { ReactElement } from "react"
 
 export const openExternalUrl = (url: string) => window.open(url, "_blank")
 
@@ -53,3 +53,13 @@ export const HighlightComponent: React.FC<{
 		</>
 	)
 }
+
+export const either =
+	<Left extends any, Right extends Exclude<any, Left>>(
+		isLeft: (value: Left | Right) => value is Left,
+		left: (value: Left) => ReactElement,
+		right: (value: Exclude<Right, Left>) => ReactElement
+	): React.FC<{ value: Left | Right }> =>
+	(props) => {
+		return isLeft(props.value) ? left(props.value) : right(props.value)
+	}
