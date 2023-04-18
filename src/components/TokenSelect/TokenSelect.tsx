@@ -55,3 +55,6 @@ export const TokenSelectorOption = either(
 	(token) => <TokenSelectorSingleTokenOption token={token} />,
 	(group) => <TokenSelectorTokenGroupOption group={group} />
 )
+const renderTokenSelectorOption = (token: TokenInfo | TokenGroup) => (
+	<TokenSelectorOption value={token} />
+)
