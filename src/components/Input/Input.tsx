@@ -8,6 +8,8 @@ import {
 	InputRightElement,
 } from "@chakra-ui/react"
 import { useSize } from "@chakra-ui/react-use-size"
+import { BaseText } from "@/components/Text/BaseText"
+import clsx from "clsx"
 type InputProps = React.ComponentProps<typeof InputComponent> & {
 	rightComponent?: React.ReactNode
 	errorMsg?: string
@@ -28,11 +30,13 @@ export const Input: React.FC<InputProps> = ({
 					pr={rightSizes?.width || "auto"}
 					bg={"transparent"}
 					borderWidth={"2px"}
-					borderColor={"dark.200"}
 					style={{ outline: "none", boxShadow: "none" }}
-					className={
-						"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100 "
-					}
+					className={clsx({
+						"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100  ":
+							true,
+						"!border-dark-200": !isInvalid,
+						"!border-red-300": isInvalid,
+					})}
 					{...props}
 				/>
 				{rightComponent && (
@@ -46,7 +50,7 @@ export const Input: React.FC<InputProps> = ({
 					</InputRightElement>
 				)}
 			</InputGroup>
-			{isInvalid && <FormErrorMessage>{errorMsg}</FormErrorMessage>}
+			{isInvalid && <ErrorLine text={errorMsg || ""} />}
 		</FormControl>
 	)
 }
