@@ -72,3 +72,11 @@ export const TokenSelectorTokenGroupOption: React.FC<
 	</Flex>
 )
 
+export const TokenSelectorSingleTokenOption: React.FC<
+	React.PropsWithChildren<{ token: TokenInfo }>
+> = ({ token }) => (
+	<Flex>
+		<CurrencyIcon imgSrc={token.iconUrl}>{token.symbol}</CurrencyIcon>
+		<span className="ml-2">({token.name})</span>
+	</Flex>
+)
