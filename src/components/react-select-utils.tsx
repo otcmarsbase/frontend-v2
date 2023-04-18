@@ -64,3 +64,19 @@ export const OptimizedMenuList = <T extends any>(
 	)
 }
 
+const optionFactory =
+	<T extends any>(render: (data: T) => React.ReactElement) =>
+	(
+		optionProps: React.PropsWithChildren<
+			OptionProps<
+				{ value: T; i: number },
+				false,
+				GroupBase<{ value: T; i: number }>
+			>
+		>
+	) =>
+		(
+			<RSComps.Option {...optionProps}>
+				{render(optionProps.data.value)}
+			</RSComps.Option>
+		)
