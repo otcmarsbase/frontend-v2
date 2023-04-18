@@ -80,3 +80,19 @@ const optionFactory =
 				{render(optionProps.data.value)}
 			</RSComps.Option>
 		)
+const singleValueFactory =
+	<T extends any>(render: (data: T) => React.ReactElement) =>
+	(
+		optionProps: React.PropsWithChildren<
+			SingleValueProps<
+				{ value: T; i: number },
+				false,
+				GroupBase<{ value: T; i: number }>
+			>
+		>
+	) =>
+		(
+			<RSComps.SingleValue {...optionProps}>
+				{render(optionProps.data.value)}
+			</RSComps.SingleValue>
+		)
