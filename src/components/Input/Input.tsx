@@ -50,3 +50,7 @@ export const Input: React.FC<InputProps> = ({
 		</FormControl>
 	)
 }
+
+export const ErrorLine: React.FC<{ text: string }> = ({ text }) => {
+	return <BaseText className="text-red-500">{text}</BaseText>
+}
