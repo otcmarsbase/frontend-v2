@@ -50,3 +50,8 @@ export const TokenSelectorDropdown = <T extends TokenInfo | TokenGroup>(
 	)
 }
 
+export const TokenSelectorOption = either(
+	isSingleTokenInfo,
+	(token) => <TokenSelectorSingleTokenOption token={token} />,
+	(group) => <TokenSelectorTokenGroupOption group={group} />
+)
