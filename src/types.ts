@@ -1,6 +1,6 @@
 export type Join<
 	S extends string[],
-	Separator extends string = ''
+	Separator extends string = ""
 > = S extends [string]
 	? S[0]
 	: S extends [string, ...infer Tail]
@@ -11,8 +11,13 @@ export type Join<
 
 export type DeepTypeRecord<T> = { [key: string]: T | DeepTypeRecord<T> }
 
-export type Prefixed<T extends DeepTypeRecord<string>, Prefix extends string> = {
-	[key in keyof T]: T[key] extends string ? `${Prefix}${T[key]}` : Prefixed<Exclude<T[key], string>, Prefix>
+export type Prefixed<
+	T extends DeepTypeRecord<string>,
+	Prefix extends string
+> = {
+	[key in keyof T]: T[key] extends string
+		? `${Prefix}${T[key]}`
+		: Prefixed<Exclude<T[key], string>, Prefix>
 }
 
 export type PostfixMap<T extends {}, Postfix extends string> = {
@@ -21,8 +26,6 @@ export type PostfixMap<T extends {}, Postfix extends string> = {
 
 export type Writeable<T> = { -readonly [P in keyof T]: T[P] }
 export type DeepWriteable<T> = { -readonly [P in keyof T]: DeepWriteable<T[P]> }
-
-
 
 /**
  * @example
@@ -37,3 +40,11 @@ export type ReplaceAll<
 > = S extends `${infer Prefix}${SearchVal}${infer Suffix}`
 	? ReplaceAll<`${Prefix}${ReplaceVal}${Suffix}`, SearchVal, ReplaceVal>
 	: S
+
+export type TokenInfo = {
+	name: string
+	symbol: string
+	decimals: number
+	address: string
+	iconUrl: string
+}

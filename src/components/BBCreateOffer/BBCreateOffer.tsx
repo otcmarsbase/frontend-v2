@@ -2,17 +2,10 @@ import { BackButton } from "@/components/BackButton/BackButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { TokenInfo } from "@/types"
 import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react"
 import React from "react"
 
-// TODO: вынести куда-то
-type TokenInfo = {
-	name: string
-	symbol: string
-	decimals: number
-	address: string
-	iconUrl: string
-}
 
 type BBMPCreateOfferView = {
 	backButton: {
