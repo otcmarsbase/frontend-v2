@@ -58,3 +58,17 @@ export const TokenSelectorOption = either(
 const renderTokenSelectorOption = (token: TokenInfo | TokenGroup) => (
 	<TokenSelectorOption value={token} />
 )
+
+export const TokenSelectorTokenGroupOption: React.FC<
+	React.PropsWithChildren<{ group: TokenGroup }>
+> = ({ group }) => (
+	<Flex>
+		<span>{group.name}:</span>
+		{group.tokens.map((x) => (
+			<span key={x.address} className="ml-2">
+				<CurrencyIcon imgSrc={x.iconUrl}>{x.symbol}</CurrencyIcon>
+			</span>
+		))}
+	</Flex>
+)
+
