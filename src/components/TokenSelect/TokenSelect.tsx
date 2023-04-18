@@ -18,10 +18,20 @@ export type TokenSelectorDropdownProps<T> = {
 	disabled?: boolean
 }
 
-type TokenSelectProps = {}
+export function isSingleTokenInfo(
+	token: TokenInfo | TokenGroup
+): token is TokenInfo {
+	return "symbol" in token
+}
+export const tokenAddresses = (t: TokenGroup | TokenInfo) =>
+	isSingleTokenInfo(t) ? [t.address] : t.tokens.map((x) => x.address)
+export const tokensToList = (t: TokenGroup | TokenInfo) =>
+	isSingleTokenInfo(t) ? [t] : t.tokens
 
-export const TokenSelect: React.FC<TokenSelectProps> = ({}) => {
-    return <div></div>
+export function textSearchTokenFormat(data: TokenInfo | TokenGroup): string {
+	if (isSingleTokenInfo(data)) return `${data.name} ${data.symbol}`
+
+	return `${data.name} ${data.tokens.map(textSearchTokenFormat).join(" ")}`
 }
 export const TokenSelectorDropdown = <T extends TokenInfo | TokenGroup>(
 	props: TokenSelectorDropdownProps<T>
