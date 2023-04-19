@@ -81,6 +81,18 @@ export const YourBalance: React.FC<
 	</span>
 )
 
+export type TokenIconSymbolProps = {
+	token: Pick<TokenInfo, "iconUrl" | "symbol">
+}
+export const TokenIconSymbol: React.FC<Pick<TokenIconSymbolProps, "token">> = (
+	props
+) => (
+	<OneLine gap="0.1em">
+		<Image boxSize="1em" src={props.token.iconUrl} />
+		<BaseText>{props.token.symbol}</BaseText>
+	</OneLine>
+)
+
 export const LongEthValueView: React.FC<
 	React.PropsWithChildren<{ amountEth: string }>
 > = ({ amountEth }) => (
