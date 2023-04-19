@@ -13,6 +13,7 @@ import { openExternalUrl } from "@/utils/utils"
 import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
+import { TokenSelectorDropdown } from "@/components/TokenSelect/TokenSelect"
 
 type CreateOfferSelectionProps = {}
 
@@ -47,12 +48,31 @@ export const CreateOfferSelection: React.FC<
 						}
 						bottomLeft={<InputNote text="hello world" />}
 					>
-						<SelectV2
-							isSearcheable
-							options={[]}
-							onChange={(t) => {
-								console.log("change:", t)
-							}}
+						<TokenSelectorDropdown
+							tokens={[
+								{
+									name: "BNB",
+									symbol: "BNB",
+									iconUrl:
+										"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+									address: "0x0000000",
+									decimals: 18,
+								},
+								{
+									name: "Ethereum",
+									symbol: "ETH",
+									iconUrl:
+										"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+									address: "0x0000000",
+									decimals: 18,
+								},
+							]}
+							onTokenDeselected={() => console.log("DESELECT")}
+							onTokenSelected={(token) =>
+								console.log("SELECT", token)
+							}
+							tokenSelectedIdx={0}
+							disabled={false}
 						/>
 					</SelectContainer>
 					<SwapWrapper>
@@ -64,12 +84,31 @@ export const CreateOfferSelection: React.FC<
 						}
 						bottomLeft={<InputNote text="hello world" />}
 					>
-						<SelectV2
-							isSearcheable
-							options={[]}
-							onChange={(t) => {
-								console.log("change:", t)
-							}}
+						<TokenSelectorDropdown
+							tokens={[
+								{
+									name: "BNB",
+									symbol: "BNB",
+									iconUrl:
+										"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+									address: "0x0000000",
+									decimals: 18,
+								},
+								{
+									name: "Ethereum",
+									symbol: "ETH",
+									iconUrl:
+										"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+									address: "0x0000000",
+									decimals: 18,
+								},
+							]}
+							onTokenDeselected={() => console.log("DESELECT")}
+							onTokenSelected={(token) =>
+								console.log("SELECT", token)
+							}
+							tokenSelectedIdx={0}
+							disabled={false}
 						/>
 					</SelectContainer>
 				</SelectWrapper>
