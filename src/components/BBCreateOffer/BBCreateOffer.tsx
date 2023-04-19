@@ -3,19 +3,45 @@ import { FormControlHeader } from "@/components/FormControlHeader/FormControlHea
 import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
-import { TokenSelectorDropdown } from "@/components/TokenSelect/TokenSelect"
+import {
+	TokenGroup,
+	TokenSelectorDropdown,
+	TokenSelectorDropdownProps,
+} from "@/components/TokenSelect/TokenSelect"
 import { TokenInfo } from "@/types"
 import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react"
 import React from "react"
 
-type BBMPCreateOfferView = {
+type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
+	bob: TokenSelectorDropdownProps<TokenInfo | TokenGroup>
+} & {
+	tokenAlice: TokenInfo
+	tokenBob: TokenInfo | TokenGroup
+
+	//TODO: add type
+	balanceAlice?: any
+	tokenAliceUsdPrice: number
+
+	amountAlice: string
+	onAmountAliceChange: (val: string) => void
+
+	amountAliceUsd?: number
+
+	amountAliceInputError?: string
+	tokenBobSameAsAlice?: boolean
+
+	ctaButtonMode: "login" | "actions" | "approving" | "creating"
+	disableAllInputs: boolean
+
 	backButton: {
 		label: string
 		onClick: () => void
 	}
-	tokenAlice: TokenInfo
-	tokensWillBeLocked: boolean
+
+	injectedHeader?: React.ReactNode
 	actionButtons?: React.ReactNode
+
+	tokensWillBeLocked: boolean
 }
 
 const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
