@@ -1,6 +1,7 @@
+import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { TokenInfo } from "@/types"
 import { either } from "@/utils/utils"
-import { CurrencyIcon } from "@otcmarsbase/react-components"
+import { Flex } from "@chakra-ui/react"
 import {
 	reactSelectBlackTheme,
 	ReactSelectIndexed,
