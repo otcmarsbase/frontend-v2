@@ -63,3 +63,14 @@ export const either =
 	(props) => {
 		return isLeft(props.value) ? left(props.value) : right(props.value)
 	}
+
+export const removeTrailingZeros = (num: number | string): string => {
+	if (typeof num == "number") num = num + ""
+
+	if (num.indexOf(".") == -1) return num
+
+	num = num.replace(/0+$/, "")
+	if (!num) return "0"
+
+	return num
+}
