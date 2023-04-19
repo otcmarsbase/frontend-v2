@@ -1,11 +1,12 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
+import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { TokenSelectorDropdown } from "@/components/TokenSelect/TokenSelect"
 import { TokenInfo } from "@/types"
 import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react"
 import React from "react"
-
 
 type BBMPCreateOfferView = {
 	backButton: {
@@ -39,12 +40,35 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 					<FormControlHeader
 						title="1. Asset to sell"
 						subtitle="Select the asset you want to exchange."
+						className="sm:mb-3 md:mb-4 lg:mb-5"
 					/>
 
-					{/* <TokenSelectorDropdown<TokenInfo>
-						{...removePostfix(props, "Alice")}
-						disabled={props.disabledAlice || props.disableAllInputs}
-					/> */}
+					<TokenSelectorDropdown<TokenInfo>
+						tokens={[
+							{
+								name: "BNB",
+								symbol: "BNB",
+								iconUrl:
+									"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+								address: "0x0000000",
+								decimals: 18,
+							},
+							{
+								name: "Ethereum",
+								symbol: "ETH",
+								iconUrl:
+									"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+								address: "0x0000000",
+								decimals: 18,
+							},
+						]}
+						onTokenDeselected={() => console.log("DESELECT")}
+						onTokenSelected={(token) =>
+							console.log("SELECT", token)
+						}
+						tokenSelectedIdx={0}
+						disabled={false}
+					/>
 				</FormControl>
 				{/* <TokenApproximatelyEqualsDollar
 					size="small"
@@ -88,14 +112,37 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 
 				<FormControl>
 					<FormControlHeader
+						className="sm:mb-3 md:mb-4 lg:mb-5"
 						title={`3. Assets to receive`}
 						subtitle={`Select the asset you want to receive in exchange for ${tokenAlice.symbol}.`}
 					/>
-					{/* <TokenSelectorDropdown<TokenInfo | TokenGroup>
-						{...removePostfix(props, "Bob")}
-						disabled={props.disabledBob || props.disableAllInputs}
+					<TokenSelectorDropdown<TokenInfo>
+						tokens={[
+							{
+								name: "BNB",
+								symbol: "BNB",
+								iconUrl:
+									"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+								address: "0x0000000",
+								decimals: 18,
+							},
+							{
+								name: "Ethereum",
+								symbol: "ETH",
+								iconUrl:
+									"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+								address: "0x0000000",
+								decimals: 18,
+							},
+						]}
+						onTokenDeselected={() => console.log("DESELECT")}
+						onTokenSelected={(token) =>
+							console.log("SELECT", token)
+						}
+						tokenSelectedIdx={0}
+						disabled={false}
 					/>
-					<ErrorLine
+					{/* <ErrorLine
 						error={
 							props.tokenBobSameAsAlice &&
 							"Same tokens selected in From/To"
