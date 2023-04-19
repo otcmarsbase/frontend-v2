@@ -6,15 +6,17 @@ type FormControlHeaderProps = {
 	title: string
 	subtitle?: string
 	titleLink?: React.ReactNode
+	className?: string
 }
 
 export const FormControlHeader: React.FC<FormControlHeaderProps> = ({
 	title,
 	subtitle,
 	titleLink,
+	className,
 }) => {
 	return (
-		<VStack alignItems={"start"}>
+		<VStack alignItems={"start"} className={className}>
 			<HStack>
 				<BaseText>{title}</BaseText>
 				{titleLink}
