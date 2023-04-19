@@ -81,6 +81,20 @@ export const YourBalance: React.FC<
 	</span>
 )
 
+export const LongEthValueView: React.FC<
+	React.PropsWithChildren<{ amountEth: string }>
+> = ({ amountEth }) => (
+	<LongEthValue
+		amountEth={amountEth}
+		significant={(val) => <BaseText>{val}</BaseText>}
+		insignificant={(val) => (
+			<BaseText tag="span" color={"gray"}>
+				{val}
+			</BaseText>
+		)}
+	/>
+)
+
 export const LongEthValue: React.FC<{
 	amountEth: string
 	significant: (val: string) => ReactElement
