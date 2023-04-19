@@ -80,3 +80,28 @@ export const YourBalance: React.FC<
 		{props.token && <TokenIconSymbol token={props.token} />}
 	</span>
 )
+
+export const LongEthValue: React.FC<{
+	amountEth: string
+	significant: (val: string) => ReactElement
+	insignificant: (val: string) => ReactElement
+}> = ({ amountEth, significant, insignificant }) => {
+	return <div></div>
+	// let signdig = formatSigndig(amountEth)
+	// let insigndig =
+	// 	amountEth.length > signdig.length
+	// 		? amountEth.substring(signdig.length)
+	// 		: ""
+	// if (!insigndig)
+	// 	return significant(removeTrailingZeros(separateThousands(signdig)))
+
+	// insigndig = insigndig.replace(/(0*)$/, "")
+	// insigndig = insigndig.replace(/\.$/, "")
+
+	// return (
+	// 	<span>
+	// 		{significant(removeTrailingZeros(separateThousands(signdig)))}
+	// 		{insignificant(insigndig)}
+	// 	</span>
+	// )
+}
