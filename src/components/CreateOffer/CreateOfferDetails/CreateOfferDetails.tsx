@@ -1,7 +1,7 @@
 import React from "react"
 import { Box, Button, Flex, Grid, VStack } from "@chakra-ui/react"
 import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { RightArrowIcon } from "@/icons"
@@ -181,13 +181,13 @@ const DetailsHeading: React.FC<
 		<Flex className="justify-between items-start">
 			<Flex direction={"column"}>
 				<Grid templateColumns={"auto auto"} gap="12px">
-					<BaseText>{"Check offer details"}</BaseText>
+					<Text>{"Check offer details"}</Text>
 					<OfferTypeIndicator type={props.type} />
 				</Grid>
 
-				<BaseText color="grey">
+				<Text color="grey">
 					{"Verify that all parameters are set the way you want them"}
-				</BaseText>
+				</Text>
 			</Flex>
 
 			<BackButton label={props.linkText} onClick={props.onLinkClick} />
@@ -201,11 +201,11 @@ export const LoadingCreated: React.FC<
 	return (
 		<Flex direction={"column"} textAlign="center" alignItems={"center"}>
 			<AnimatedProgress status="lodaing" />
-			<BaseText>{"Creating your offer"}</BaseText>
-			<BaseText color="grey">
+			<Text>{"Creating your offer"}</Text>
+			<Text color="grey">
 				Please wait for a few moments. Colonizing Mars may take a
 				while...
-			</BaseText>
+			</Text>
 		</Flex>
 	)
 }
@@ -219,13 +219,13 @@ const DetailsItem: React.FC<{
 	return (
 		<Flex className="justify-between items-center py-3 border-b-[1px] border-b-[#151516] border-solid">
 			<VStack alignItems={"start"}>
-				<BaseText color="white">{title}</BaseText>
-				<BaseText color="grey">{subTitle}</BaseText>
+				<Text color="white">{title}</Text>
+				<Text color="grey">{subTitle}</Text>
 			</VStack>
 			<VStack alignItems={"end"}>
-				<BaseText>{value}</BaseText>
+				<Text>{value}</Text>
 				{additionalValue ? (
-					<BaseText color="grey">{additionalValue}</BaseText>
+					<Text color="grey">{additionalValue}</Text>
 				) : (
 					""
 				)}

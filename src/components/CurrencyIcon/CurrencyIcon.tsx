@@ -1,5 +1,5 @@
 import { Image } from "@/components/Image/Image"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
@@ -14,7 +14,7 @@ export const CurrencyIcon: React.FCC<CurrencyIconProps> = ({
 	return (
 		<Flex className="items-center gap-2">
 			<Image size="m" src={imgSrc} />
-			{children && <BaseText>{children}</BaseText>}
+			{children && <Text>{children}</Text>}
 		</Flex>
 	)
 }

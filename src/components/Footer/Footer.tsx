@@ -5,7 +5,6 @@ import {
 	GridItem,
 	HStack,
 	Link,
-	Text,
 	VStack,
 } from "@chakra-ui/react"
 import React from "react"
@@ -17,7 +16,7 @@ import {
 	TelegramIcon,
 	TwitterIcon,
 } from "@/icons"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { links } from "@/utils/links"
 import { useTranslation } from "@/localization/l10n"
 import { APP_VERSION, GIT_COMMIT } from "@/vite-env"
@@ -85,9 +84,9 @@ export const Footer: React.FC = () => {
 				</>
 			}
 			description={
-				<BaseText maxWidth={"308px"} align="left">
+				<Text maxWidth={"308px"} align="left">
 					{l10n.footer.description}
-				</BaseText>
+				</Text>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
 				<Link key={href} href={href} target={"_blank"}>
@@ -106,7 +105,7 @@ export const Footer: React.FC = () => {
 					))}
 				</HStack>
 			}
-			title={<BaseText>{l10n.footer.title}</BaseText>}
+			title={<Text>{l10n.footer.title}</Text>}
 		/>
 	)
 }

@@ -6,7 +6,7 @@ import {
 } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import { Box, Flex, HStack } from "@chakra-ui/react"
 import React from "react"
@@ -20,7 +20,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 			top={
 				<>
 					<ScreenHeader
-						subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
+						subTitle={<Text>{l10n.OTCDesk.subTitle}</Text>}
 						title={l10n.OTCDesk.title}
 						borderBottom
 					/>

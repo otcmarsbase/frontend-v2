@@ -1,7 +1,7 @@
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { MPOffersTable } from "@/components/Marketplace/MPOffersTable"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import React from "react"
 
@@ -18,7 +18,7 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 						onClick: () => {},
 					}}
 					subTitle={
-						<BaseText>{l10n.marketplace.header.subitle}</BaseText>
+						<Text>{l10n.marketplace.header.subitle}</Text>
 					}
 					title={l10n.marketplace.header.title}
 				/>

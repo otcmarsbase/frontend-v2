@@ -3,7 +3,7 @@ import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
 import { Input } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { SelectV2 } from "@/components/SelectV2/SelectV2"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { SwapHorizontalIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
 import { queries } from "@/utils/chakra"
@@ -160,7 +160,7 @@ const InputName: React.FC<{
 }> = ({ text, tooltipText }) => {
 	return (
 		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
-			<BaseText className={"text-white"}>{text}</BaseText>
+			<Text className={"text-white"}>{text}</Text>
 			<InfoTooltip
 				height={"10px"}
 				width={"10px"}
@@ -173,9 +173,9 @@ const InputName: React.FC<{
 
 const InputNote: React.FC<{ text: string }> = ({ text }) => {
 	return (
-		<BaseText className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
+		<Text className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
 			{text}
-		</BaseText>
+		</Text>
 	)
 }
 

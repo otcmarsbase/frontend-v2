@@ -1,4 +1,4 @@
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { Flex, Spinner, VStack } from "@chakra-ui/react"
 
 export const SpinnerWithText: React.FCC<{ height?: string }> = ({
@@ -8,7 +8,7 @@ export const SpinnerWithText: React.FCC<{ height?: string }> = ({
 	<Flex justify="center" align="center" minH={height || "100vh"}>
 		<VStack>
 			<Spinner size="xl" />
-			<BaseText>{children}</BaseText>
+			<Text>{children}</Text>
 		</VStack>
 	</Flex>
 )

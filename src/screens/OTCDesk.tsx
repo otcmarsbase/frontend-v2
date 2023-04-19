@@ -1,10 +1,10 @@
-import { HStack, Link, Text } from "@chakra-ui/react"
+import { HStack, Link } from "@chakra-ui/react"
 import React from "react"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { useTranslation } from "@/localization/l10n"
 import { links } from "@/utils/links"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
 import { openExternalUrl } from "@/utils/utils"
 import { OTCDeskContent } from "@/components/OTCDesk/OTCDeskContent"
@@ -30,7 +30,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 						label: l10n.OTCDesk.createOfferLabel,
 						onClick: () => {},
 					}}
-					subTitle={<BaseText>{l10n.OTCDesk.subTitle}</BaseText>}
+					subTitle={<Text>{l10n.OTCDesk.subTitle}</Text>}
 					title={l10n.OTCDesk.title}
 				/>
 			}

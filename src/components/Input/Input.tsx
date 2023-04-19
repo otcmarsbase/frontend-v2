@@ -8,7 +8,7 @@ import {
 	InputRightElement,
 } from "@chakra-ui/react"
 import { useSize } from "@chakra-ui/react-use-size"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import clsx from "clsx"
 type InputProps = React.ComponentProps<typeof InputComponent> & {
 	rightComponent?: React.ReactNode
@@ -56,5 +56,5 @@ export const Input: React.FC<InputProps> = ({
 }
 
 export const ErrorLine: React.FC<{ text: string }> = ({ text }) => {
-	return <BaseText className="text-red-500">{text}</BaseText>
+	return <Text className="text-red-500">{text}</Text>
 }

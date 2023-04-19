@@ -1,7 +1,7 @@
 import { BBCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import React from "react"
 
 type BBCreateOfferProps = {}
@@ -12,11 +12,11 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 			top={
 				<ScreenHeader
 					subTitle={
-						<BaseText>
+						<Text>
 							Create an auction available to everyone or share the
 							offer link with another investor to use Marsbase as
 							an escrow.
-						</BaseText>
+						</Text>
 					}
 					title={"Create Best Bid Auction"}
 				/>

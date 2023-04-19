@@ -1,7 +1,7 @@
 import { Image } from "@/components/Image/Image"
 import { ErrorLine, Input } from "@/components/Input/Input"
 import { OneLine } from "@/components/OneLine/OneLine"
-import { BaseText } from "@/components/Text/BaseText"
+import { Text } from "@/components/Text/Text"
 import { TokenInfo } from "@/types"
 import { removeTrailingZeros } from "@/utils/utils"
 import { Flex } from "@chakra-ui/react"
@@ -47,9 +47,9 @@ export const TokenAmountInput: React.FC<
 					<div>
 						{props.balance && (
 							<div className="flex items-center justify-center text-orange-500">
-								<BaseText onClick={onMaxButtonClick}>
+								<Text onClick={onMaxButtonClick}>
 									MAX
-								</BaseText>
+								</Text>
 							</div>
 						)}
 					</div>
@@ -68,9 +68,9 @@ export const YourBalance: React.FC<
 	React.PropsWithChildren<YourBalanceProps>
 > = (props) => (
 	<span style={{ display: "inline-flex", gap: "6px" }}>
-		<BaseText tag="span" color={["gray"]}>
+		<Text tag="span" color={["gray"]}>
 			Your balance:{" "}
-		</BaseText>
+		</Text>
 		<span>
 			{props.amountEth ? (
 				<LongEthValueView amountEth={props.amountEth} />
@@ -91,7 +91,7 @@ export const TokenIconSymbol: React.FC<Pick<TokenIconSymbolProps, "token">> = (
 ) => (
 	<OneLine gap="0.1em">
 		<Image boxSize="1em" src={props.token.iconUrl} />
-		<BaseText>{props.token.symbol}</BaseText>
+		<Text>{props.token.symbol}</Text>
 	</OneLine>
 )
 
@@ -100,11 +100,11 @@ export const LongEthValueView: React.FC<
 > = ({ amountEth }) => (
 	<LongEthValue
 		amountEth={amountEth}
-		significant={(val) => <BaseText>{val}</BaseText>}
+		significant={(val) => <Text>{val}</Text>}
 		insignificant={(val) => (
-			<BaseText tag="span" color={"gray"}>
+			<Text tag="span" color={"gray"}>
 				{val}
-			</BaseText>
+			</Text>
 		)}
 	/>
 )
