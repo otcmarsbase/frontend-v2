@@ -36,7 +36,23 @@ export const TokenAmountInput: React.FC<
 					/>
 				</div>
 			</Flex>
-			
+			<Input
+				value={props.amount}
+				badValue={!!props.amountInputError}
+				onChange={(e) => props.onAmountChange(e.target.value)}
+				disabled={props.disabled}
+				rightComponent={
+					<div>
+						{props.balance && (
+							<div className="flex items-center justify-center text-orange-500">
+								<BaseText onClick={onMaxButtonClick}>
+									MAX
+								</BaseText>
+							</div>
+						)}
+					</div>
+				}
+			/>
 			<ErrorLine text={props.amountInputError || ""} />
 		</>
 	)
