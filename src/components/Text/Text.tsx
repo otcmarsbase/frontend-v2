@@ -1,7 +1,9 @@
 import { Box } from "@chakra-ui/react"
 import React from "react"
 
-type TextProps = React.ComponentProps<typeof Box> & {}
+type TextProps = React.ComponentProps<typeof Box> & {
+	size: variant
+}
 
 export const Text: React.FCC<TextProps> = ({ children, ...props }) => {
 	return (
