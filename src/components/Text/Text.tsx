@@ -1,13 +1,19 @@
 import { Box } from "@chakra-ui/react"
+import clsx from "clsx"
 import React from "react"
+import styles from "./sizes.module.scss"
 
 type TextProps = React.ComponentProps<typeof Box> & {
 	size: variant
 }
 
-export const Text: React.FCC<TextProps> = ({ children, ...props }) => {
+export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 	return (
-		<Box style={{ whiteSpace: "pre-line" }} {...props}>
+		<Box
+			style={{ whiteSpace: "pre-line" }}
+			{...props}
+			className={clsx(styles[`size-${size}`], props.className)}
+		>
 			{children}
 		</Box>
 	)
