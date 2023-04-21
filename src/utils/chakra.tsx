@@ -64,7 +64,7 @@ export const theme = extendTheme({
 		global: () => ({
 			// TODO: переделать
 			body: {
-				bg: "var(--color-dark-950)",
+				bg: "dark.950",
 			},
 		}),
 	},
