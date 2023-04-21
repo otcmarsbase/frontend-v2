@@ -19,6 +19,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { MobileMenu } from "@/components/MobileMenu/MobileMenu"
 import { DesktopView } from "@/components/DesktopView"
 import { MobileFooter } from "@/components/MobileFooter/MobileFooter"
+import { Text } from "@/components/Text/Text"
 
 type ScreenWrapperProps = {
 	top?: React.ReactNode
@@ -115,8 +116,8 @@ type LinkProps = {
 const SupportLink: React.FCC<LinkProps> = ({ href, text }) => {
 	return (
 		<Box>
-			<ChakraLink target={"_blank"} href={href}>
-				{text}
+			<ChakraLink target={"_blank"} href={href} opacity="0.6">
+				<Text size="10">{text}</Text>
 			</ChakraLink>
 		</Box>
 	)
@@ -165,7 +166,9 @@ type NavMenuLinkProps = {
 const NavMenuLink: React.FC<NavMenuLinkProps> = ({ onClick, to, title }) => {
 	return (
 		<Link to={to} onClick={onClick}>
-			<div>{title}</div>
+			<Text size="promo-10" fontWeight={"bold"}>
+				{title}
+			</Text>
 		</Link>
 	)
 }
