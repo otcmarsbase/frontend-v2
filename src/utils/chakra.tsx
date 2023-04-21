@@ -19,6 +19,7 @@ export const theme = extendTheme({
 	breakpoints,
 	config,
 	colors: {
+		gray: "#827f7f",
 		dark: {
 			50: "#94969a",
 			100: "#686a6e",
