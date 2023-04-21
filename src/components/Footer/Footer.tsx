@@ -74,23 +74,28 @@ export const Footer: React.FC = () => {
 	return (
 		<FooterLayout
 			copyRight={
-				<>
+				<Text size="14" className="text-gray text-right">
 					<div>
 						{l10n.footer.commit} {GIT_COMMIT} {l10n.footer.version}{" "}
 						{APP_VERSION}
 					</div>
 					{l10n.footer.copyright}
 					{new Date().getFullYear()}
-				</>
+				</Text>
 			}
 			description={
-				<Text maxWidth={"308px"} align="left">
+				<Text
+					className="text-gray"
+					size="14"
+					maxWidth={"308px"}
+					align="left"
+				>
 					{l10n.footer.description}
 				</Text>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
 				<Link
-					className="!no-underline hover:text-orange-500"
+					className="!no-underline !text-gray hover:!text-orange-500"
 					key={href}
 					href={href}
 					target={"_blank"}
@@ -112,7 +117,7 @@ export const Footer: React.FC = () => {
 					))}
 				</HStack>
 			}
-			title={<Text>{l10n.footer.title}</Text>}
+			title={<Text size="promo-14">{l10n.footer.title}</Text>}
 		/>
 	)
 }
