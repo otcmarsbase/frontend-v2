@@ -20,6 +20,7 @@ import { Text } from "@/components/Text/Text"
 import { links } from "@/utils/links"
 import { useTranslation } from "@/localization/l10n"
 import { APP_VERSION, GIT_COMMIT } from "@/vite-env"
+import { LeadText } from "@/components/Text/Typography"
 
 type FooterProps = {
 	title: React.ReactNode
@@ -74,24 +75,19 @@ export const Footer: React.FC = () => {
 	return (
 		<FooterLayout
 			copyRight={
-				<Text size="14" className="text-gray text-right">
+				<LeadText className="text-gray text-right">
 					<div>
 						{l10n.footer.commit} {GIT_COMMIT} {l10n.footer.version}{" "}
 						{APP_VERSION}
 					</div>
 					{l10n.footer.copyright}
 					{new Date().getFullYear()}
-				</Text>
+				</LeadText>
 			}
 			description={
-				<Text
-					className="text-gray"
-					size="14"
-					maxWidth={"308px"}
-					align="left"
-				>
+				<LeadText maxWidth={"308px"} textAlign="left">
 					{l10n.footer.description}
-				</Text>
+				</LeadText>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
 				<Link
@@ -100,9 +96,9 @@ export const Footer: React.FC = () => {
 					href={href}
 					target={"_blank"}
 				>
-					<Text size="14">
+					<LeadText>
 						{l10n.footer[key as keyof typeof l10n.footer]}
-					</Text>
+					</LeadText>
 				</Link>
 			))}
 			socialLinks={
