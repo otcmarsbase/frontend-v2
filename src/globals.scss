@@ -1,3 +1,5 @@
+@import "./assets/font-files/fonts.scss";
+
 :root {
 	--zIndexMax: 2147483647;
 
@@ -7,5 +9,4 @@
 
 body {
 	font-family: var(--font-primary);
-
 }
