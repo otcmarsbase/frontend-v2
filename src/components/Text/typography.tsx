@@ -1,8 +1,14 @@
 import React from "react"
 import { Text } from "@/components/Text/Text"
 
-const TextGeneric = (genericProps: React.ComponentProps<typeof Text>) => {
-	const Component: React.FC<React.ComponentProps<typeof Text>> = (props) => {
+type TextProps = React.ComponentProps<typeof Text>
+
+const TextGeneric = (genericProps: TextProps) => {
+	const Component: React.FC<
+		Omit<TextProps, "size"> & {
+			size?: TextProps["size"] | undefined
+		}
+	> = (props) => {
 		return <Text {...genericProps} {...props} />
 	}
 	return Component

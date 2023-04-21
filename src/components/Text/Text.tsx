@@ -1,12 +1,11 @@
-import { Box } from "@chakra-ui/react"
+import { Box, BoxProps } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
 import styles from "./sizes.module.scss"
 
-type TextProps = React.ComponentProps<typeof Box> & {
+type TextProps = BoxProps & {
 	size: variant
 }
-
 
 export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 	return (
@@ -19,7 +18,6 @@ export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 		</Box>
 	)
 }
-
 
 type variant =
 	| "28"
