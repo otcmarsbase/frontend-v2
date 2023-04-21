@@ -35,3 +35,4 @@ type variant =
 	| "promo-14"
 	| "promo-12"
 	| "promo-11"
+	| "promo-10"
