@@ -17,3 +17,9 @@ const TextGeneric = (genericProps: TextProps) => {
 export const LeadText = TextGeneric({ size: "14" })
 
 export const H1 = TextGeneric({ size: "promo-32" })
+
+export const H2 = TextGeneric({ size: "promo-18" })
+
+export const H3 = TextGeneric({ size: "promo-16" })
+
+export const BodyText = TextGeneric({ size: "12" })
