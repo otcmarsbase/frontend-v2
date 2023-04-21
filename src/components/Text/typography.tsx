@@ -8,3 +8,6 @@ const TextGeneric = (genericProps: React.ComponentProps<typeof Text>) => {
 	return Component
 }
 
+export const LeadText = TextGeneric({ size: "14" })
+
+export const H1 = TextGeneric({ size: "promo-32" })
