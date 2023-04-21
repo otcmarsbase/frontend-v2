@@ -37,7 +37,7 @@ const FooterLayout: React.FC<FooterProps> = ({
 	menuLinks,
 }) => {
 	return (
-		<HStack width={"100%"} justifyContent={"space-between"}>
+		<HStack width={"100%"} justifyContent={"space-between"} pb="10">
 			<HStack>
 				<Grid
 					templateColumns="repeat(2, 1fr)"
@@ -106,7 +106,7 @@ export const Footer: React.FC = () => {
 				</Link>
 			))}
 			socialLinks={
-				<HStack>
+				<HStack gap="10">
 					{socialIcons.map(([Icon, href]) => (
 						<div
 							key={href}
