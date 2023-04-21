@@ -18,9 +18,15 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 						onClick: () => {},
 					}}
 					subTitle={
-						<Text>{l10n.marketplace.header.subitle}</Text>
+						<Text size="14" className="text-gray">
+							{l10n.marketplace.header.subitle}
+						</Text>
 					}
-					title={l10n.marketplace.header.title}
+					title={
+						<Text size="promo-32">
+							{l10n.marketplace.header.title}
+						</Text>
+					}
 				/>
 			}
 		>

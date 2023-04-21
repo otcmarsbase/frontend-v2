@@ -29,7 +29,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 						onClick: handleBack,
 					}}
 					subTitle={
-						<Text>
+						<Text size="14" className="text-gray">
 							<HighlightComponent
 								components={[() => <TelegramIcon />]}
 								query={["{0}"]}
@@ -38,7 +38,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 						</Text>
 					}
 					title={
-						<Text>
+						<Text size="promo-32">
 							<HighlightComponent
 								components={[() => <></>]}
 								query={["{0}"]}

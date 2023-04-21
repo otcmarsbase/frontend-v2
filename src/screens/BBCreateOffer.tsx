@@ -12,13 +12,17 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 			top={
 				<ScreenHeader
 					subTitle={
-						<Text>
+						<Text size="promo-32">
 							Create an auction available to everyone or share the
 							offer link with another investor to use Marsbase as
 							an escrow.
 						</Text>
 					}
-					title={"Create Best Bid Auction"}
+					title={
+						<Text size="14" className="text-gray">
+							Create Best Bid Auction
+						</Text>
+					}
 				/>
 			}
 		>

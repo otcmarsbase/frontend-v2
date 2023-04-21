@@ -20,8 +20,14 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 			top={
 				<>
 					<ScreenHeader
-						subTitle={<Text>{l10n.OTCDesk.subTitle}</Text>}
-						title={l10n.OTCDesk.title}
+						subTitle={
+							<Text size="14" className="text-gray">
+								{l10n.OTCDesk.subTitle}
+							</Text>
+						}
+						title={
+							<Text size="promo-32">{l10n.OTCDesk.title}</Text>
+						}
 						borderBottom
 					/>
 
