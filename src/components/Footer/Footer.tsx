@@ -89,8 +89,15 @@ export const Footer: React.FC = () => {
 				</Text>
 			}
 			menuLinks={footerLinks.map(([key, href]) => (
-				<Link key={href} href={href} target={"_blank"}>
-					{l10n.footer[key as keyof typeof l10n.footer]}
+				<Link
+					className="!no-underline hover:text-orange-500"
+					key={href}
+					href={href}
+					target={"_blank"}
+				>
+					<Text size="14">
+						{l10n.footer[key as keyof typeof l10n.footer]}
+					</Text>
 				</Link>
 			))}
 			socialLinks={
