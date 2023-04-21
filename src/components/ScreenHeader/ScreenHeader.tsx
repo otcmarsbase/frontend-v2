@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { ScreenContainer } from "@/components/ScreenWrapper/ScreenWrapper"
-import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
 
@@ -35,21 +35,21 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 			)}
 		>
 			<ScreenContainer>
-				<HStack justifyContent={"space-between"} width={"100%"}>
-					<VStack alignItems={"flex-start"}>
+				<Flex justifyContent={"space-between"} width={"100%"}>
+					<Flex direction={"column"} alignItems={"flex-start"}>
 						{backButton && <BackButton {...backButton} />}
 						<HStack>
 							<Box>{title}</Box>
 							<Box>{titleLink}</Box>
 						</HStack>
 						{subTitle}
-					</VStack>
+					</Flex>
 					{createOfferBtn && (
 						<Button onClick={createOfferBtn.onClick}>
 							{createOfferBtn.label}
 						</Button>
 					)}
-				</HStack>
+				</Flex>
 			</ScreenContainer>
 		</Box>
 	)
