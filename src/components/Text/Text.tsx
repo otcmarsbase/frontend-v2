@@ -7,6 +7,12 @@ type TextProps = React.ComponentProps<typeof Box> & {
 	size: variant
 }
 
+const TextGeneric = (size: TextProps["size"]) => {
+	const Component: React.FC<React.ComponentProps<typeof Text>> = (props) => {
+		return <Text {...props} size={size} />
+	}
+	return Component
+}
 export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 	return (
 		<Box
@@ -18,6 +24,7 @@ export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 		</Box>
 	)
 }
+
 
 type variant =
 	| "28"
