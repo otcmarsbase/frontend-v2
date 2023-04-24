@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text/Text"
+import { LeadText } from "@/components/Text/Typography"
 import { useTranslation } from "@/localization/l10n"
 import { Flex } from "@chakra-ui/react"
 import clsx from "clsx"
@@ -21,7 +21,7 @@ export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
 				"bg-[rgba(152,81,255,0.15)] text-[#9851FF]": type === "dynamic",
 			})}
 		>
-			<Text>{text}</Text>
+			<LeadText fontWeight={"semibold"}>{text}</LeadText>
 		</Flex>
 	)
 }
