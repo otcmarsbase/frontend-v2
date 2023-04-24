@@ -8,6 +8,7 @@ import { Text } from "@/components/Text/Text"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
 import { openExternalUrl } from "@/utils/utils"
 import { OTCDeskContent } from "@/components/OTCDesk/OTCDeskContent"
+import { H1 } from "@/components/Text/Typography"
 
 type OTCDeskProps = {}
 
@@ -35,7 +36,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 							{l10n.OTCDesk.subTitle}
 						</Text>
 					}
-					title={<Text size="promo-32">{l10n.OTCDesk.title}</Text>}
+					title={<H1>{l10n.OTCDesk.title}</H1>}
 				/>
 			}
 		>
