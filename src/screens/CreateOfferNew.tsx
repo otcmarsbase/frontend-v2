@@ -10,6 +10,7 @@ import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import { Box, Flex, HStack } from "@chakra-ui/react"
 import React from "react"
+import { H1 } from "@/components/Text/Typography"
 
 type CreateOfferNewProps = {}
 
@@ -25,9 +26,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 								{l10n.OTCDesk.subTitle}
 							</Text>
 						}
-						title={
-							<Text size="promo-32">{l10n.OTCDesk.title}</Text>
-						}
+						title={<H1>{l10n.OTCDesk.title}</H1>}
 						borderBottom
 					/>
 
