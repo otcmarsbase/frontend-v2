@@ -201,11 +201,11 @@ export const LoadingCreated: React.FC<
 	return (
 		<Flex direction={"column"} textAlign="center" alignItems={"center"}>
 			<AnimatedProgress status="lodaing" />
-			<Text>{"Creating your offer"}</Text>
-			<Text color="grey">
+			<H3>{"Creating your offer"}</H3>
+			<BodyText color="grey">
 				Please wait for a few moments. Colonizing Mars may take a
 				while...
-			</Text>
+			</BodyText>
 		</Flex>
 	)
 }
