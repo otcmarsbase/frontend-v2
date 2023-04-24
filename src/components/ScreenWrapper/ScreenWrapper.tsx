@@ -3,16 +3,7 @@ import { Footer } from "@/components/Footer/Footer"
 import { Image } from "@/components/Image/Image"
 import { useTranslation } from "@/localization/l10n"
 import { links, navlinks } from "@/utils/links"
-import {
-	Box,
-	Container,
-	HStack,
-	VStack,
-	Link as ChakraLink,
-	Select,
-	Button,
-	Flex,
-} from "@chakra-ui/react"
+import { Box, HStack, VStack, Link as ChakraLink } from "@chakra-ui/react"
 import React from "react"
 import { Link } from "react-router-dom"
 import { ConnectButton } from "@rainbow-me/rainbowkit"
