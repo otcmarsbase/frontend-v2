@@ -2,6 +2,7 @@ import { flattenRoutes } from "@/AppRoutes"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
+import { H1 } from "@/components/Text/Typography"
 import { TelegramIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
 import { HighlightComponent } from "@/utils/utils"
@@ -38,13 +39,13 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 						</Text>
 					}
 					title={
-						<Text size="promo-32">
+						<H1>
 							<HighlightComponent
 								components={[() => <></>]}
 								query={["{0}"]}
 								template={l10n.BBViewOffer.header.title}
 							/>
-						</Text>
+						</H1>
 					}
 				/>
 			}
