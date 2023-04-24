@@ -181,13 +181,13 @@ const DetailsHeading: React.FC<
 		<Flex className="justify-between items-start">
 			<Flex direction={"column"}>
 				<Grid templateColumns={"auto auto"} gap="12px">
-					<Text>{"Check offer details"}</Text>
+					<H3>{"Check offer details"}</H3>
 					<OfferTypeIndicator type={props.type} />
 				</Grid>
 
-				<Text color="grey">
+				<BodyText color="grey">
 					{"Verify that all parameters are set the way you want them"}
-				</Text>
+				</BodyText>
 			</Flex>
 
 			<BackButton label={props.linkText} onClick={props.onLinkClick} />
