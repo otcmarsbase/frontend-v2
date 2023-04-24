@@ -4,6 +4,7 @@ import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import React from "react"
+import { H1 } from "@/components/Text/Typography"
 
 type MPOffersListProps = {}
 
@@ -23,9 +24,9 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 						</Text>
 					}
 					title={
-						<Text size="promo-32">
+						<H1>
 							{l10n.marketplace.header.title}
-						</Text>
+						</H1>
 					}
 				/>
 			}
