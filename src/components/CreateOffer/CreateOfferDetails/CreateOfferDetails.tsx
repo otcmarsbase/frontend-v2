@@ -6,6 +6,7 @@ import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { RightArrowIcon } from "@/icons"
 import clsx from "clsx"
+import { BodyText, H3, LeadText } from "@/components/Text/Typography"
 type CreateOfferDetailsProps = {
 	approved?: boolean
 }
