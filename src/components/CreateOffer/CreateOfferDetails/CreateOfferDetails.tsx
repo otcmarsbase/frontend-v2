@@ -219,13 +219,15 @@ const DetailsItem: React.FC<{
 	return (
 		<Flex className="justify-between items-center py-3 border-b-[1px] border-b-[#151516] border-solid">
 			<VStack alignItems={"start"}>
-				<Text color="white">{title}</Text>
-				<Text color="grey">{subTitle}</Text>
+				<LeadText color="white">{title}</LeadText>
+				<BodyText color="grey">{subTitle}</BodyText>
 			</VStack>
 			<VStack alignItems={"end"}>
-				<Text>{value}</Text>
+				<Text size="16" fontWeight={"bold"}>
+					{value}
+				</Text>
 				{additionalValue ? (
-					<Text color="grey">{additionalValue}</Text>
+					<BodyText color="grey">{additionalValue}</BodyText>
 				) : (
 					""
 				)}
