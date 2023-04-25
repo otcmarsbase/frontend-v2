@@ -95,7 +95,7 @@ export const TokenIconSymbol: React.FC<Pick<TokenIconSymbolProps, "token">> = (
 ) => (
 	<OneLine gap="0.1em">
 		<Image boxSize="1em" src={props.token.iconUrl} />
-		<Text>{props.token.symbol}</Text>
+		<LeadText>{props.token.symbol}</LeadText>
 	</OneLine>
 )
 
