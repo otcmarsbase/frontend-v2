@@ -1,10 +1,8 @@
 import React from "react"
 import {
 	FormControl,
-	FormErrorMessage,
 	Input as InputComponent,
 	InputGroup,
-	InputRightAddon,
 	InputRightElement,
 } from "@chakra-ui/react"
 import { useSize } from "@chakra-ui/react-use-size"
@@ -56,5 +54,9 @@ export const Input: React.FC<InputProps> = ({
 }
 
 export const ErrorLine: React.FC<{ text: string }> = ({ text }) => {
-	return <Text className="text-red-500">{text}</Text>
+	return (
+		<Text size="12" className="text-red-500 font-bold">
+			{text}
+		</Text>
+	)
 }
