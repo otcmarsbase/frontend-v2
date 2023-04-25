@@ -1,6 +1,8 @@
-// This file is generated automatically by generate-chakra-images.js
-// Do not edit it manually
-// To regenerate this file run: yarn generate-images
+/**
+ * This file is generated automatically by generate-chakra-images.js
+ * Do not edit it manually
+ * To regenerate this file run: yarn generate-images
+ */
 
 import { ReactComponent as ArrowsIconSource } from "@/assets/icon/arrows.svg"
 import { ReactComponent as BagIconSource } from "@/assets/icon/bag.svg"
