@@ -14,6 +14,7 @@ import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { TokenSelectorDropdown } from "@/components/TokenSelect/TokenSelect"
+import { LeadText } from "@/components/Text/Typography"
 
 type CreateOfferSelectionProps = {}
 
@@ -173,9 +174,9 @@ const InputName: React.FC<{
 
 const InputNote: React.FC<{ text: string }> = ({ text }) => {
 	return (
-		<Text className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
+		<LeadText className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
 			{text}
-		</Text>
+		</LeadText>
 	)
 }
 
