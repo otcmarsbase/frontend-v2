@@ -41,9 +41,11 @@ const imageFiles = files.filter((file) =>
 )
 
 const header = `
-	// This file is generated automatically by generate-chakra-images.js
-	// Do not edit it manually
-	// To regenerate this file run: yarn generate-images
+	/**
+	* This file is generated automatically by generate-chakra-images.js
+	* Do not edit it manually
+	* To regenerate this file run: yarn generate-images
+	*/
 `
 const importPaths = {
 	svg: (filename, path) =>
