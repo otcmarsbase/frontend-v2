@@ -104,11 +104,15 @@ export const LongEthValueView: React.FC<
 > = ({ amountEth }) => (
 	<LongEthValue
 		amountEth={amountEth}
-		significant={(val) => <Text>{val}</Text>}
-		insignificant={(val) => (
-			<Text tag="span" color={"gray"}>
+		significant={(val) => (
+			<LeadText as={"span"} fontWeight={"bold"}>
 				{val}
-			</Text>
+			</LeadText>
+		)}
+		insignificant={(val) => (
+			<LeadText as={"span"} color={"gray"}>
+				{val}
+			</LeadText>
 		)}
 	/>
 )
