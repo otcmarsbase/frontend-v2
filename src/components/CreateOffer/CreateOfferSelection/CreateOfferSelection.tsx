@@ -160,7 +160,7 @@ const InputName: React.FC<{
 }> = ({ text, tooltipText }) => {
 	return (
 		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
-			<Text className={"text-white"}>{text}</Text>
+			<LeadText className={"text-white"}>{text}</LeadText>
 			<InfoTooltip
 				height={"10px"}
 				width={"10px"}
