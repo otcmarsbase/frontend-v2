@@ -6,7 +6,7 @@ import { BackButton } from "@/components/BackButton/BackButton"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { RightArrowIcon } from "@/icons"
 import clsx from "clsx"
-import { BodyText, H3, LeadText } from "@/components/Text/Typography"
+import { Text12Normal, H3, LeadText } from "@/components/Text/Typography"
 type CreateOfferDetailsProps = {
 	approved?: boolean
 }
@@ -186,9 +186,9 @@ const DetailsHeading: React.FC<
 					<OfferTypeIndicator type={props.type} />
 				</Grid>
 
-				<BodyText color="grey">
+				<Text12Normal color="grey">
 					{"Verify that all parameters are set the way you want them"}
-				</BodyText>
+				</Text12Normal>
 			</Flex>
 
 			<BackButton label={props.linkText} onClick={props.onLinkClick} />
@@ -203,10 +203,10 @@ export const LoadingCreated: React.FC<
 		<Flex direction={"column"} textAlign="center" alignItems={"center"}>
 			<AnimatedProgress status="lodaing" />
 			<H3>{"Creating your offer"}</H3>
-			<BodyText color="grey">
+			<Text12Normal color="grey">
 				Please wait for a few moments. Colonizing Mars may take a
 				while...
-			</BodyText>
+			</Text12Normal>
 		</Flex>
 	)
 }
@@ -221,14 +221,14 @@ const DetailsItem: React.FC<{
 		<Flex className="justify-between items-center py-3 border-b-[1px] border-b-[#151516] border-solid">
 			<VStack alignItems={"start"}>
 				<LeadText color="white">{title}</LeadText>
-				<BodyText color="grey">{subTitle}</BodyText>
+				<Text12Normal color="grey">{subTitle}</Text12Normal>
 			</VStack>
 			<VStack alignItems={"end"}>
 				<Text size="16" fontWeight={"bold"}>
 					{value}
 				</Text>
 				{additionalValue ? (
-					<BodyText color="grey">{additionalValue}</BodyText>
+					<Text12Normal color="grey">{additionalValue}</Text12Normal>
 				) : (
 					""
 				)}

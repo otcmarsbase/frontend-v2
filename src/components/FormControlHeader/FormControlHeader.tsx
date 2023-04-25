@@ -1,4 +1,4 @@
-import { BodyText, H3 } from "@/components/Text/Typography"
+import { Text12Normal, H3 } from "@/components/Text/Typography"
 import { HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
@@ -21,7 +21,7 @@ export const FormControlHeader: React.FC<FormControlHeaderProps> = ({
 				<H3>{title}</H3>
 				{titleLink}
 			</HStack>
-			<BodyText color={"gray"}>{subtitle}</BodyText>
+			<Text12Normal color={"gray"}>{subtitle}</Text12Normal>
 		</VStack>
 	)
 }
