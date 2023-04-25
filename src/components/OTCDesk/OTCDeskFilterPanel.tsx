@@ -3,9 +3,9 @@ import Select from "react-select"
 import React from "react"
 import { InfoIcon } from "@/icons"
 import { Text } from "@/components/Text/Text"
-import { Image } from "@/components/Image/Image"
 import { useTranslation } from "@/localization/l10n"
 import { WithTooltip } from "@/components/WithTooltip/WithTooltip"
+import { LeadText } from "@/components/Text/Typography"
 
 type OTCDeskFilterPanelProps = {
 	title: string
@@ -30,7 +30,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 	const l10n = useTranslation()
 	return (
 		<VStack alignItems={"flex-start"}>
-			<Text>
+			<Text size="promo-12" color={"gray"}>
 				{title}{" "}
 				<WithTooltip
 					placement="top"
@@ -44,7 +44,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 				styles={{ container: (base) => ({ ...base, width: "100%" }) }}
 			/>
 			<HStack alignItems={"center"}>
-				<Text>Offer type </Text>
+				<LeadText>Offer type </LeadText>
 				<WithTooltip
 					placement="right"
 					infoText={l10n.OTCDesk.sortPanel.offerTypeTip}
@@ -63,7 +63,7 @@ export const OTCDeskFilterPanel: React.FC<OTCDeskFilterPanelProps> = ({
 			<Button onClick={onClearFilterClick}>Clean the filter</Button>
 			<VStack alignItems={"flex-start"}>
 				{Object.values(l10n.OTCDesk.emoji).map((x) => (
-					<Text key={x}>{x}</Text>
+					<LeadText key={x}>{x}</LeadText>
 				))}
 			</VStack>
 		</VStack>
