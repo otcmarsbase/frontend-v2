@@ -72,9 +72,9 @@ export const YourBalance: React.FC<
 	React.PropsWithChildren<YourBalanceProps>
 > = (props) => (
 	<span style={{ display: "inline-flex", gap: "6px" }}>
-		<Text tag="span" color={["gray"]}>
+		<LeadText as="span" color={"gray"}>
 			Your balance:{" "}
-		</Text>
+		</LeadText>
 		<span>
 			{props.amountEth ? (
 				<LongEthValueView amountEth={props.amountEth} />
