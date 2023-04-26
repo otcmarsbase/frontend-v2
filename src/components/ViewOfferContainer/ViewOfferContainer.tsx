@@ -1,7 +1,7 @@
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { Text } from "@/components/Text/Text"
-import { H3 } from "@/components/Text/Typography"
+import { H3, LeadText } from "@/components/Text/Typography"
 import { TokenSelectorSingleTokenOption } from "@/components/TokenSelect/TokenSelect"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
@@ -23,7 +23,7 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 			<Text w={"full"} textAlign="center" size="21" fontWeight={"bold"}>
 				100 ETH ≈ $183 365.08
 			</Text>
-			<H3>Accepted tokens:</H3>
+			<FormControlHeader title="Accepted tokens:" />
 			<Flex className="flex-row justify-start gap-2">
 				{[
 					{
@@ -49,6 +49,13 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 					/>
 				))}
 			</Flex>
+			<LeadText color={"gray"}>
+				This is a zero lock offer. You can offer your price without
+				locking funds. The only thing you need to pay for is gas. It is
+				important to remember that the offer maker expects that your bid
+				will be backed by tokens. Respect your counterparty.
+			</LeadText>
+			{children}
 		</GradientPopup>
 	)
 }
