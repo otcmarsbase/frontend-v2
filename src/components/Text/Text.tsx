@@ -22,6 +22,7 @@ export const Text: React.FCC<TextProps> = ({ children, size, ...props }) => {
 type variant =
 	| "28"
 	| "24"
+	| "21"
 	| "18"
 	| "16"
 	| "14"
