@@ -29,6 +29,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 			<VStack style={{ width: "100%" }}>
 				<Box
 					w={"full"}
+					py={5}
 					position={"relative"}
 					_before={{
 						content: `""`,
