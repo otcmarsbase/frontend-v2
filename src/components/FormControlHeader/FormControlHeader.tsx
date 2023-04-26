@@ -1,5 +1,5 @@
 import { Text12Normal, H3 } from "@/components/Text/Typography"
-import { HStack, VStack } from "@chakra-ui/react"
+import { Flex, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
 type FormControlHeaderProps = {
@@ -16,12 +16,16 @@ export const FormControlHeader: React.FC<FormControlHeaderProps> = ({
 	className,
 }) => {
 	return (
-		<VStack alignItems={"start"} className={className}>
-			<HStack>
+		<Flex
+			flexDirection={"column"}
+			alignItems={"start"}
+			className={className}
+		>
+			<Flex>
 				<H3>{title}</H3>
 				{titleLink}
-			</HStack>
+			</Flex>
 			<Text12Normal color={"gray"}>{subtitle}</Text12Normal>
-		</VStack>
+		</Flex>
 	)
 }
