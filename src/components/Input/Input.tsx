@@ -8,6 +8,7 @@ import {
 import { useSize } from "@chakra-ui/react-use-size"
 import { Text } from "@/components/Text/Text"
 import clsx from "clsx"
+import { Text12Normal } from "@/components/Text/Typography"
 type InputProps = React.ComponentProps<typeof InputComponent> & {
 	rightComponent?: React.ReactNode
 	errorMsg?: string
@@ -55,8 +56,6 @@ export const Input: React.FC<InputProps> = ({
 
 export const ErrorLine: React.FC<{ text: string }> = ({ text }) => {
 	return (
-		<Text size="12" className="text-red-500 font-bold">
-			{text}
-		</Text>
+		<Text12Normal className="text-red-500 font-bold">{text}</Text12Normal>
 	)
 }
