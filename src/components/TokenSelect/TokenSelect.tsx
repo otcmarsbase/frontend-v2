@@ -1,4 +1,5 @@
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { LeadText } from "@/components/Text/Typography"
 import { TokenInfo } from "@/types"
 import { either } from "@/utils/utils"
 import { Flex } from "@chakra-ui/react"
@@ -78,6 +79,6 @@ export const TokenSelectorSingleTokenOption: React.FC<
 > = ({ token }) => (
 	<Flex>
 		<CurrencyIcon imgSrc={token.iconUrl}>{token.symbol}</CurrencyIcon>
-		<span className="ml-2">({token.name})</span>
+		<LeadText className="ml-2">({token.name})</LeadText>
 	</Flex>
 )
