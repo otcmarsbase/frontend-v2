@@ -2,6 +2,13 @@ import React from "react"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { Box, Button, HStack, VStack } from "@chakra-ui/react"
 import { Popup } from "@/components/Popup/Popup"
+import { Text } from "@/components/Text/Text"
+import {
+	LeadText,
+	Text12Normal,
+	Text12Semibold,
+} from "@/components/Text/Typography"
+import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 
 type OTCDeskTableProps = {}
 
@@ -62,7 +69,10 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 								title: "To",
 								value: 2,
 							},
-							offerMode: { title: "Offer mode", value: 3 },
+							offerMode: {
+								title: "Offer mode",
+								value: <OfferTypeIndicator type="dynamic" />,
+							},
 							availableSize: {
 								title: "Available size",
 								value: 4,
@@ -109,12 +119,12 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 	return (
 		<TableRow
 			rowData={[
-				data.from.value,
-				data.to.value,
+				<LeadText fontWeight={"semibold"}>{data.from.value}</LeadText>,
+				<LeadText fontWeight={"semibold"}>{data.to.value}</LeadText>,
 				data.offerMode.value,
-				data.availableSize.value,
-				data.discount.value,
-				data.deadline.value,
+				<Text12Normal>{data.availableSize.value}</Text12Normal>,
+				<Text12Normal>{data.discount.value}</Text12Normal>,
+				<Text12Normal>{data.deadline.value}</Text12Normal>,
 				data.button,
 			]}
 			cardData={
@@ -125,26 +135,33 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 						borderBottom="1px solid #2A2A2C"
 					>
 						<VStack alignItems={"flex-start"}>
-							<Box>{data.from.title}</Box>
-							<Box>{data.from.value}</Box>
+							<Text12Semibold>{data.from.title}</Text12Semibold>
+							<LeadText fontWeight={"semibold"}>
+								{data.from.value}
+							</LeadText>
 						</VStack>
 						<VStack alignItems={"flex-start"}>
-							<Box>{data.to.title}</Box>
-							<Box>{data.to.value}</Box>
+							<Text12Semibold>{data.to.title}</Text12Semibold>
+							<LeadText fontWeight={"semibold"}>
+								{data.to.value}
+							</LeadText>
 						</VStack>
 					</HStack>
-					{[data.offerMode, data.availableSize, data.discount, data.deadline].map(
-						(x) => (
-							<HStack
-								key={x.title}
-								w={"100%"}
-								justifyContent={"space-between"}
-							>
-								<Box>{x.title}</Box>
-								<Box>{x.value}</Box>
-							</HStack>
-						)
-					)}
+					{[
+						data.offerMode,
+						data.availableSize,
+						data.discount,
+						data.deadline,
+					].map((x) => (
+						<HStack
+							key={x.title}
+							w={"100%"}
+							justifyContent={"space-between"}
+						>
+							<Box>{x.title}</Box>
+							<Box>{x.value}</Box>
+						</HStack>
+					))}
 					<Box
 						w={"100%"}
 						paddingTop="10px"
