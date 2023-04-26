@@ -27,25 +27,39 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 	return (
 		<PageWrapper>
 			<VStack style={{ width: "100%" }}>
-				<ScreenContainer>
-					<Header
-						menuLinks={navlinks(l10n.navbar.links)}
-						supportLinks={[
-							{
-								href: links.general.aboutMarsbase,
-								text: l10n.navbar.support.about,
-							},
-							{
-								href: links.general.helpCenter,
-								text: l10n.navbar.support.helpCenter,
-							},
-							{
-								href: links.general.community,
-								text: l10n.navbar.support.community,
-							},
-						]}
-					/>
-				</ScreenContainer>
+				<Box
+					w={"full"}
+					position={"relative"}
+					_before={{
+						content: `""`,
+						position: "absolute",
+						bottom: 0,
+						left: 0,
+						right: 0,
+						bg: "gradientBrightOrange",
+						height: "1px",
+					}}
+				>
+					<ScreenContainer>
+						<Header
+							menuLinks={navlinks(l10n.navbar.links)}
+							supportLinks={[
+								{
+									href: links.general.aboutMarsbase,
+									text: l10n.navbar.support.about,
+								},
+								{
+									href: links.general.helpCenter,
+									text: l10n.navbar.support.helpCenter,
+								},
+								{
+									href: links.general.community,
+									text: l10n.navbar.support.community,
+								},
+							]}
+						/>
+					</ScreenContainer>
+				</Box>
 				{top}
 			</VStack>
 			<ScreenContainer>
