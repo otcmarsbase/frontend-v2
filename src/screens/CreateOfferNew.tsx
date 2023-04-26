@@ -54,8 +54,8 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<CreateOfferDetails />
-				{/* <CreateOfferStep1 /> */}
+				{/* <CreateOfferDetails /> */}
+				<CreateOfferSelection />
 				{/* <LoadingCreated progress={0}/> */}
 			</div>
 		</ScreenWrapper>
