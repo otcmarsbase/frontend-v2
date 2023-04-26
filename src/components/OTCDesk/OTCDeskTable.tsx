@@ -64,10 +64,21 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 					<OTCOfferRow
 						key={x}
 						data={{
-							from: { title: "From", value: 1 },
+							from: {
+								title: "From",
+								value: (
+									<LeadText fontWeight={"semibold"}>
+										ETH
+									</LeadText>
+								),
+							},
 							to: {
 								title: "To",
-								value: 2,
+								value: (
+									<LeadText fontWeight={"semibold"}>
+										USDC
+									</LeadText>
+								),
 							},
 							offerMode: {
 								title: "Offer mode",
@@ -75,10 +86,30 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 							},
 							availableSize: {
 								title: "Available size",
-								value: 4,
+								value: (
+									<div>
+										<Text size="16">0.1 ATOM</Text>
+										<Text size="11" color={"gray"}>
+											~$1.07
+										</Text>
+									</div>
+								),
 							},
-							discount: { title: "Discount", value: 5 },
-							deadline: { title: "Deadline", value: 6 },
+							discount: {
+								title: "Discount",
+								value: (
+									<div>
+										<Text size="16">+ 49%</Text>
+										<Text size="11" color={"gray"}>
+											0.773368 USDC
+										</Text>
+									</div>
+								),
+							},
+							deadline: {
+								title: "Deadline",
+								value: <Text size="16">06.08.2023</Text>,
+							},
 							button: <Button w={"100%"}>PlaceBid</Button>,
 						}}
 					></OTCOfferRow>
@@ -119,12 +150,12 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 	return (
 		<TableRow
 			rowData={[
-				<LeadText fontWeight={"semibold"}>{data.from.value}</LeadText>,
-				<LeadText fontWeight={"semibold"}>{data.to.value}</LeadText>,
+				data.from.value,
+				data.to.value,
 				data.offerMode.value,
-				<Text12Normal>{data.availableSize.value}</Text12Normal>,
-				<Text12Normal>{data.discount.value}</Text12Normal>,
-				<Text12Normal>{data.deadline.value}</Text12Normal>,
+				data.availableSize.value,
+				data.discount.value,
+				data.deadline.value,
 				data.button,
 			]}
 			cardData={
@@ -135,13 +166,17 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 						borderBottom="1px solid #2A2A2C"
 					>
 						<VStack alignItems={"flex-start"}>
-							<Text12Semibold>{data.from.title}</Text12Semibold>
+							<Text12Semibold color={"gray"}>
+								{data.from.title}
+							</Text12Semibold>
 							<LeadText fontWeight={"semibold"}>
 								{data.from.value}
 							</LeadText>
 						</VStack>
 						<VStack alignItems={"flex-start"}>
-							<Text12Semibold>{data.to.title}</Text12Semibold>
+							<Text12Semibold color={"gray"}>
+								{data.to.title}
+							</Text12Semibold>
 							<LeadText fontWeight={"semibold"}>
 								{data.to.value}
 							</LeadText>
@@ -157,8 +192,13 @@ const OTCOfferRow: React.FC<{ data: OTCOfferRowProps }> = ({ data }) => {
 							key={x.title}
 							w={"100%"}
 							justifyContent={"space-between"}
+							textAlign="right"
 						>
-							<Box>{x.title}</Box>
+							<Box>
+								<Text12Semibold color={"gray"}>
+									{x.title}
+								</Text12Semibold>
+							</Box>
 							<Box>{x.value}</Box>
 						</HStack>
 					))}
