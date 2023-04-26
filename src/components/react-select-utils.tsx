@@ -98,6 +98,7 @@ const singleValueFactory =
 		)
 
 export type ReactSelectIndexedProps<T> = {
+	isSearchable?: boolean
 	values: T[]
 	selectedIdx: number
 	onSelect: (idx: number) => void
@@ -138,6 +139,7 @@ export const ReactSelectIndexed = <T extends any>(
 
 	return (
 		<Select<OptionType>
+			isSearchable={props.isSearchable}
 			options={values}
 			value={selectedValue}
 			onChange={onChange}
