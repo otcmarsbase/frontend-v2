@@ -1,5 +1,6 @@
 import { Text12Normal, H3 } from "@/components/Text/Typography"
 import { Flex, HStack, VStack } from "@chakra-ui/react"
+import clsx from "clsx"
 import React from "react"
 
 type FormControlHeaderProps = {
@@ -19,7 +20,7 @@ export const FormControlHeader: React.FC<FormControlHeaderProps> = ({
 		<Flex
 			flexDirection={"column"}
 			alignItems={"start"}
-			className={className}
+			className={clsx(className, "md:mb-4 lg:mb-5")}
 		>
 			<Flex>
 				<H3>{title}</H3>
