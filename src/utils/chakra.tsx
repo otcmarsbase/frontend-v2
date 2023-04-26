@@ -19,6 +19,8 @@ export const theme = extendTheme({
 	breakpoints,
 	config,
 	colors: {
+		gradientBrightOrange:
+			"linear-gradient(263.9deg, #c74a26 3.46%, #e24400 50.09%, #981807 105.19%)",
 		gray: "#827f7f",
 		dark: {
 			50: "#94969a",
