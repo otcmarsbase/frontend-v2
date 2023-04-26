@@ -11,6 +11,8 @@ import {
 	Grid,
 } from "@chakra-ui/react"
 import React from "react"
+import { Text } from "@/components/Text/Text"
+import { Text12Normal } from "@/components/Text/Typography"
 
 type TableProps = {
 	header: React.ReactNode[]
@@ -72,7 +74,11 @@ type TableSortButtonProps = {
 export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 	children,
 }) => {
-	return <Th>{children}</Th>
+	return (
+		<Th>
+			<Text12Normal color={"#4c4c4c"}>{children}</Text12Normal>
+		</Th>
+	)
 }
 
 type RowData = React.ReactNode
@@ -101,12 +107,13 @@ export const useSortedData = <T extends object>(
 	rows: T[]
 ) => {
 	const [data, setData] = React.useState<T[]>(rows)
-	const [sortOrder, setSortOrder] = React.useState<{ [K in keyof T]: FullOrder }>(
-		() =>
-			Object.keys(sortRules).reduce((acc, x) => {
-				acc[x] = "none"
-				return acc
-			}, {} as any)
+	const [sortOrder, setSortOrder] = React.useState<{
+		[K in keyof T]: FullOrder
+	}>(() =>
+		Object.keys(sortRules).reduce((acc, x) => {
+			acc[x] = "none"
+			return acc
+		}, {} as any)
 	)
 
 	const sort = (key: keyof T, order: Order) => {
