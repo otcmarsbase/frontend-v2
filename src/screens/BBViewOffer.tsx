@@ -3,6 +3,7 @@ import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1 } from "@/components/Text/Typography"
+import { ViewOfferContainer } from "@/components/ViewOfferContainer/ViewOfferContainer"
 import { TelegramIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
 import { HighlightComponent } from "@/utils/utils"
@@ -49,6 +50,10 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 					}
 				/>
 			}
-		></ScreenWrapper>
+		>
+			<div className="max-w-[790px] mx-auto">
+				<ViewOfferContainer />
+			</div>
+		</ScreenWrapper>
 	)
 }
