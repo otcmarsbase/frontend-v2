@@ -4,7 +4,10 @@ import { Text } from "@/components/Text/Text"
 
 export type BaseButtonProps = ButtonProps & {}
 
-export const BaseButton: React.FCC<BaseButtonProps> = ({ children }) => {
+export const BaseButton: React.FCC<BaseButtonProps> = ({
+	children,
+	...props
+}) => {
 	return (
 		<Button
 			style={{
@@ -19,6 +22,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({ children }) => {
 					speed="1s"
 				/>
 			}
+			{...props}
 		>
 			<Text size="promo-14">{children}</Text>
 		</Button>
