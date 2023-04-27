@@ -13,6 +13,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 			style={{
 				height: "48px",
 				width: "100%",
+				borderRadius: "8px",
 			}}
 			spinner={
 				<Spinner
