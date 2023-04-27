@@ -19,7 +19,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({ children }) => {
 				/>
 			}
 		>
-			{children}
+			<Text size="promo-14">{children}</Text>
 		</Button>
 	)
 }
