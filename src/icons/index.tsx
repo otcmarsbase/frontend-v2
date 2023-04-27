@@ -15,6 +15,7 @@ import { ReactComponent as GoBackIconSource } from "@/assets/icon/goBack.svg"
 import { ReactComponent as InfoIconSource } from "@/assets/icon/info.svg"
 import { ReactComponent as LightningIconSource } from "@/assets/icon/lightning.svg"
 import { ReactComponent as LinktreeIconSource } from "@/assets/icon/linktree.svg"
+import { ReactComponent as LoaderIconSource } from "@/assets/icon/loader.svg"
 import { ReactComponent as MediumIconSource } from "@/assets/icon/medium.svg"
 import { ReactComponent as PercentIconSource } from "@/assets/icon/percent.svg"
 import { ReactComponent as QuestionIconSource } from "@/assets/icon/question.svg"
@@ -58,6 +59,8 @@ export const InfoIcon = img(InfoIconSource)
 export const LightningIcon = img(LightningIconSource)
 
 export const LinktreeIcon = img(LinktreeIconSource)
+
+export const LoaderIcon = img(LoaderIconSource)
 
 export const MediumIcon = img(MediumIconSource)
 
