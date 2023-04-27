@@ -8,8 +8,10 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	...props
 }) => {
+	const TextComp = <Text size="promo-14">{children}</Text>
 	return (
 		<Button
+			opacity={1}
 			style={{
 				height: "48px",
 				width: "100%",
@@ -23,9 +25,12 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 					speed="1s"
 				/>
 			}
+			gap={1}
+			//@ts-ignore
+			loadingText={TextComp}
 			{...props}
 		>
-			<Text size="promo-14">{children}</Text>
+			{TextComp}
 		</Button>
 	)
 }
