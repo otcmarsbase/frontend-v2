@@ -1,7 +1,8 @@
 import React from "react"
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
+import { Text } from "@/components/Text/Text"
 
-type BaseButtonProps = ButtonProps & {}
+export type BaseButtonProps = ButtonProps & {}
 
 export const BaseButton: React.FCC<BaseButtonProps> = ({ children }) => {
 	return (
