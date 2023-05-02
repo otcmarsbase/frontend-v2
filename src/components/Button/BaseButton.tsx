@@ -9,14 +9,18 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 	...props
 }) => {
 	const TextComp = <Text size="promo-14">{children}</Text>
+	const styles = React.useMemo(
+		() => ({
+			height: "48px",
+			width: "100%",
+			borderRadius: "8px",
+		}),
+		[size]
+	)
 	return (
 		<Button
 			opacity={1}
-			style={{
-				height: "48px",
-				width: "100%",
-				borderRadius: "8px",
-			}}
+			style={styles}
 			spinner={
 				<Spinner
 					thickness="2px"
