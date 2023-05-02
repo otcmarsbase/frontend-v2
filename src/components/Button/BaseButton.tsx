@@ -59,6 +59,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 				transform: `scale(0.98)`,
 				...props._active,
 			}}
+			_hover={{ ...props._hover }}
 			_disabled={{ transform: "none", ...props._disabled }}
 			_loading={{ transform: "none", ...props._loading }}
 			{...props}
