@@ -21,24 +21,16 @@ const sizes: Record<TextSize, string> = {
 	s: "40px",
 	xs: "28px",
 }
-const mapSizeToFontSize: Record<TextSize, TextVariant> = {
-	xl: "promo-20",
-	lg: "promo-16",
-	m: "promo-14",
-	s: "promo-12",
-	xs: "promo-11",
-}
+
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	size = "m",
-	fontSize,
+	fontSize = "promo-14",
 	loading,
 	disabled,
 	...props
 }) => {
-	const TextComp = (
-		<Text size={fontSize || mapSizeToFontSize[size]}>{children}</Text>
-	)
+	const TextComp = <Text size={fontSize}>{children}</Text>
 	const styles = React.useMemo(
 		() => ({
 			height: sizes[size],
