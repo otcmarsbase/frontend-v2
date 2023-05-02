@@ -2,37 +2,36 @@ import React from "react"
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 
+type TextVariant = React.ComponentProps<typeof Text>["size"]
 export type BaseButtonProps = Omit<
 	ButtonProps,
 	"size" | "fontSize" | "disabled" | "loading"
 > & {
 	size?: TextSize
-	fontSize?: React.ComponentProps<typeof Text>["size"]
+	fontSize?: TextVariant
 	disabled?: boolean
 	loading?: boolean
 }
 
-type TextSize = "xl" | "lg" | "m" | "s" | "sm" | "xs"
+type TextSize = "xl" | "lg" | "m" | "s" | "xs"
 const sizes: Record<TextSize, string> = {
 	xl: "64px",
 	lg: "56px",
 	m: "48px",
 	s: "40px",
-	sm: "32px",
 	xs: "28px",
 }
-const mapSizeToFontSize: Record<TextSize, string> = {
+const mapSizeToFontSize: Record<TextSize, TextVariant> = {
 	xl: "promo-20",
 	lg: "promo-16",
 	m: "promo-14",
 	s: "promo-12",
-	sm: "promo-10",
-	xs: "promo-8",
+	xs: "promo-11",
 }
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	size = "m",
-	fontSize = "promo-14",
+	fontSize,
 	loading,
 	disabled,
 	...props
