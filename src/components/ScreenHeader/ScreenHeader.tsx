@@ -1,4 +1,5 @@
 import { BackButton } from "@/components/BackButton/BackButton"
+import { SpecialButton } from "@/components/Button/SpecialButton"
 import { ScreenContainer } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
@@ -45,9 +46,15 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 						{subTitle}
 					</Flex>
 					{createOfferBtn && (
-						<Button onClick={createOfferBtn.onClick}>
+						<SpecialButton
+							px={"10"}
+							maxWidth={"max-content"}
+							size="s"
+							fontSize="promo-12"
+							onClick={createOfferBtn.onClick}
+						>
 							{createOfferBtn.label}
-						</Button>
+						</SpecialButton>
 					)}
 				</Flex>
 			</ScreenContainer>
