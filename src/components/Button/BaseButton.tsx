@@ -2,16 +2,28 @@ import React from "react"
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 
-export type BaseButtonProps = ButtonProps & {}
+export type BaseButtonProps = Omit<ButtonProps, "size"> & {
+	size: TextSize
+}
 
+type TextSize = "xl" | "lg" | "m" | "s" | "sm" | "xs"
+const sizes: Record<TextSize, string> = {
+	xl: "64px",
+	lg: "56px",
+	m: "48px",
+	s: "40px",
+	sm: "32px",
+	xs: "28px",
+}
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
+	size,
 	...props
 }) => {
 	const TextComp = <Text size="promo-14">{children}</Text>
 	const styles = React.useMemo(
 		() => ({
-			height: "48px",
+			height: sizes[size],
 			width: "100%",
 			borderRadius: "8px",
 		}),
