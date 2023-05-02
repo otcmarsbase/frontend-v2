@@ -2,9 +2,14 @@ import React from "react"
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 
-export type BaseButtonProps = Omit<ButtonProps, "size" | "fontSize"> & {
+export type BaseButtonProps = Omit<
+	ButtonProps,
+	"size" | "fontSize" | "disabled" | "loading"
+> & {
 	size?: TextSize
 	fontSize?: React.ComponentProps<typeof Text>["size"]
+	disabled?: boolean
+	loading?: boolean
 }
 
 type TextSize = "xl" | "lg" | "m" | "s" | "sm" | "xs"
@@ -20,6 +25,8 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	size = "m",
 	fontSize = "promo-14",
+	loading,
+	disabled,
 	...props
 }) => {
 	const TextComp = <Text size={fontSize}>{children}</Text>
@@ -46,6 +53,8 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 			gap={1}
 			//@ts-ignore
 			loadingText={TextComp}
+			isLoading={loading}
+			isDisabled={disabled}
 			{...props}
 		>
 			{TextComp}
