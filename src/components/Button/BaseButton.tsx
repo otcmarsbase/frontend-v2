@@ -4,6 +4,7 @@ import { Text } from "@/components/Text/Text"
 
 export type BaseButtonProps = Omit<ButtonProps, "size"> & {
 	size?: TextSize
+	fontSize?: React.ComponentProps<typeof Text>["size"]
 }
 
 type TextSize = "xl" | "lg" | "m" | "s" | "sm" | "xs"
@@ -18,9 +19,10 @@ const sizes: Record<TextSize, string> = {
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	size = "m",
+	fontSize = "promo-12",
 	...props
 }) => {
-	const TextComp = <Text size="promo-14">{children}</Text>
+	const TextComp = <Text size={fontSize}>{children}</Text>
 	const styles = React.useMemo(
 		() => ({
 			height: sizes[size],
