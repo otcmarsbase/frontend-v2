@@ -55,6 +55,12 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 			loadingText={TextComp}
 			isLoading={loading}
 			isDisabled={disabled}
+			_active={{
+				transform: `scale(0.98)`,
+				...props._active,
+			}}
+			_disabled={{ transform: "none", ...props._disabled }}
+			_loading={{ transform: "none", ...props._loading }}
 			{...props}
 		>
 			{TextComp}
