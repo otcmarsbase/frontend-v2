@@ -19,7 +19,7 @@ const sizes: Record<TextSize, string> = {
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
 	size = "m",
-	fontSize = "promo-12",
+	fontSize = "promo-14",
 	...props
 }) => {
 	const TextComp = <Text size={fontSize}>{children}</Text>
