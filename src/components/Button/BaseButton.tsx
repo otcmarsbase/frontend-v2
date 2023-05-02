@@ -60,7 +60,10 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 				...props._active,
 			}}
 			_hover={{ ...props._hover }}
-			_disabled={{ transform: "none", ...props._disabled }}
+			_disabled={{
+				transform: "none",
+				...props._disabled,
+			}}
 			_loading={{ transform: "none", ...props._loading }}
 			{...props}
 		>
