@@ -48,15 +48,22 @@ const header = `
 	*/
 `
 const importPaths = {
-	svg: (filename, path) =>
-		`import { ReactComponent as ${filename} } from "${path}"`,
+	svg: (filename, path, defaultName) =>
+		`import ${defaultName}, { ReactComponent as ${filename} } from "${path}"`,
 	img: (filename, path) => `import ${filename} from "${path}"`,
 }
 
 const importName = (file, mask) => utils.formatImportFile(file, mask)
 
-const getExportStatement = (componentName, importName) => {
-	return `export const ${componentName} = img(${importName})`
+const getExportStatement = {
+	svg: (
+		componentName,
+		importName,
+		defaultName
+	) => `export const ${componentName} = img(${importName})\n
+	export const ${componentName}Raw = ${defaultName}`,
+	img: (componentName, importName) =>
+		`export const ${componentName} = img(${importName})`,
 }
 
 const importWrapper = {
@@ -86,7 +93,8 @@ const importStatements = imageFiles
 	.map((file) =>
 		importPaths[args.IMG_TYPE](
 			importName(file, args.IMPORT_MASK) + "Source",
-			path.join(importPrefix, file)
+			path.join(importPrefix, file),
+			importName(file, args.IMPORT_MASK) + "SourceRaw"
 		)
 	)
 	.concat([
@@ -98,9 +106,10 @@ const importStatements = imageFiles
 
 const exportsStatement = imageFiles
 	.map((file) =>
-		getExportStatement(
+		getExportStatement[args.IMG_TYPE](
 			importName(file, args.IMPORT_MASK),
-			importName(file, args.IMPORT_MASK) + "Source"
+			importName(file, args.IMPORT_MASK) + "Source",
+			importName(file, args.IMPORT_MASK) + "SourceRaw"
 		)
 	)
 	.join("\n\n")
