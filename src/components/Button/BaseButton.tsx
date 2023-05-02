@@ -2,7 +2,7 @@ import React from "react"
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 
-export type BaseButtonProps = Omit<ButtonProps, "size"> & {
+export type BaseButtonProps = Omit<ButtonProps, "size" | "fontSize"> & {
 	size?: TextSize
 	fontSize?: React.ComponentProps<typeof Text>["size"]
 }
