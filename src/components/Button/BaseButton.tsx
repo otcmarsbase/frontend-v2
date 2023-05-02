@@ -3,7 +3,7 @@ import { Button, ButtonProps, Spinner } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 
 export type BaseButtonProps = Omit<ButtonProps, "size"> & {
-	size: TextSize
+	size?: TextSize
 }
 
 type TextSize = "xl" | "lg" | "m" | "s" | "sm" | "xs"
@@ -17,7 +17,7 @@ const sizes: Record<TextSize, string> = {
 }
 export const BaseButton: React.FCC<BaseButtonProps> = ({
 	children,
-	size,
+	size = "m",
 	...props
 }) => {
 	const TextComp = <Text size="promo-14">{children}</Text>
