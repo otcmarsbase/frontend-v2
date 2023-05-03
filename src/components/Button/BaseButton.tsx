@@ -41,6 +41,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 	)
 	return (
 		<Button
+			transition={"all 0.3s ease"}
 			opacity={1}
 			style={styles}
 			spinner={
