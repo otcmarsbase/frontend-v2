@@ -85,7 +85,7 @@ export const Footer: React.FC = () => {
 				</LeadText>
 			}
 			description={
-				<LeadText maxWidth={"308px"} textAlign="left">
+				<LeadText maxWidth={"308px"} textAlign="left" color={"gray"}>
 					{l10n.footer.description}
 				</LeadText>
 			}
