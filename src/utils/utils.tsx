@@ -1,6 +1,8 @@
 import { useHighlight } from "@chakra-ui/react"
 import React, { ReactElement } from "react"
 
+export const APPROXIMATELY_EQUALS_SYMBOL = "\u2248"
+
 export const openExternalUrl = (url: string) => window.open(url, "_blank")
 
 /**
