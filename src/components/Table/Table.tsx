@@ -17,6 +17,7 @@ import { Text12Normal } from "@/components/Text/Typography"
 type TableProps = {
 	header: React.ReactNode[]
 	body: React.ReactNode[]
+	adaptive?: boolean
 }
 
 const TableCtx = React.createContext<{ variant: "row" | "card" }>({
@@ -28,7 +29,7 @@ export const Table: React.FCC<TableProps> = (props) => {
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
-				{isDesktop ? (
+				{isDesktop || !props.adaptive ? (
 					<DesktopTableView {...props} />
 				) : (
 					<MobileTableView {...props} />
