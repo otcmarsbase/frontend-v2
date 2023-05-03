@@ -43,6 +43,24 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	)
 }
 
+type BidRow = {
+	bidId: {
+		title: string
+		value: any
+	}
+	amount: {
+		title: string
+		value: any
+	}
+	usd: {
+		title: string
+		value: any
+	}
+	value: {
+		title: string
+		value: any
+	}
+}
 const BidRow: React.FC<BidRow> = ({ amount, bidId, usd, value }) => {
 	return (
 		<TableRow
