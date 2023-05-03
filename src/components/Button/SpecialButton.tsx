@@ -3,14 +3,13 @@ import React from "react"
 
 type SpecialButtonProps = {} & BaseButtonProps
 
-export const SpecialButton: React.FC<SpecialButtonProps> = ({
+export const SpecialButton: React.FCC<SpecialButtonProps> = ({
 	children,
 	...props
 }) => {
 	return (
 		<BaseButton
 			bg={"specialBtnGradient"}
-			transition={"all 0.3s ease"}
 			_active={{
 				bg: "specialBtnGradient",
 			}}

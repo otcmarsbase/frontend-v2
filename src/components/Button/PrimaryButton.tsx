@@ -11,7 +11,6 @@ export const PrimaryButton: React.FCC<PrimaryButtonProps> = ({
 	return (
 		<BaseButton
 			bg={"gradientBrightOrange"}
-			transition={"all 0.3s ease"}
 			_active={{
 				bg: "gradientBrightOrange",
 			}}
