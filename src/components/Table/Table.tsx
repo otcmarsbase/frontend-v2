@@ -9,6 +9,7 @@ import {
 	Td,
 	useMediaQuery,
 	Grid,
+	TextProps,
 } from "@chakra-ui/react"
 import React from "react"
 import { Text } from "@/components/Text/Text"
@@ -17,7 +18,6 @@ import { Text12Normal } from "@/components/Text/Typography"
 type TableProps = {
 	header: React.ReactNode[]
 	body: React.ReactNode[]
-	adaptive?: boolean
 }
 
 const TableCtx = React.createContext<{ variant: "row" | "card" }>({
@@ -29,7 +29,7 @@ export const Table: React.FCC<TableProps> = (props) => {
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
-				{isDesktop || !props.adaptive ? (
+				{isDesktop ? (
 					<DesktopTableView {...props} />
 				) : (
 					<MobileTableView {...props} />
@@ -71,13 +71,15 @@ type TableSortButtonProps = {
 	sorted: boolean
 	reversed: boolean
 	onClick: () => void
+	textColor?: TextProps["color"]
 }
 export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 	children,
+	textColor = "#4c4c4c",
 }) => {
 	return (
 		<Th>
-			<Text12Normal color={"#4c4c4c"}>{children}</Text12Normal>
+			<Text12Normal color={textColor}>{children}</Text12Normal>
 		</Th>
 	)
 }
