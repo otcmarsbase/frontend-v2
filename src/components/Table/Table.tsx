@@ -95,7 +95,7 @@ export const TableRow: React.FC<{
 		return (
 			<Tr>
 				{rowData.map((x) => (
-					<Td>{x}</Td>
+					<Td py={"0.5"}>{x}</Td>
 				))}
 			</Tr>
 		)
