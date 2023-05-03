@@ -11,15 +11,19 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				<BidRow
 					amount={{
 						title: "Amount",
-						value: "100 ETH",
+						value: <Text12Normal>100 ETH</Text12Normal>,
 					}}
 					bidId={{
 						title: "Bid ID",
-						value: "#0",
+						value: <Text12Normal>#0</Text12Normal>,
 					}}
 					usd={{
 						title: "USD",
-						value: APPROXIMATELY_EQUALS_SYMBOL + " $100",
+						value: (
+							<Text12Normal>
+								{APPROXIMATELY_EQUALS_SYMBOL + " $100"}
+							</Text12Normal>
+						),
 					}}
 					value={{
 						title: "Value",
@@ -29,15 +33,19 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				<BidRow
 					amount={{
 						title: "Amount",
-						value: "100 BNB",
+						value: <Text12Normal>100 BNB</Text12Normal>,
 					}}
 					bidId={{
 						title: "Bid ID",
-						value: "#1",
+						value: <Text12Normal>#0</Text12Normal>,
 					}}
 					usd={{
 						title: "USD",
-						value: APPROXIMATELY_EQUALS_SYMBOL + " $100",
+						value: (
+							<Text12Normal>
+								{APPROXIMATELY_EQUALS_SYMBOL + " $100"}
+							</Text12Normal>
+						),
 					}}
 					value={{
 						title: "Value",
