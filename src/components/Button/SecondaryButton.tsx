@@ -16,7 +16,8 @@ export const SecondaryButton: React.FCC<SecondaryButtonProps> = ({
 				bg: "transparent",
 			}}
 			_hover={{
-				
+				borderColor: "orange.500",
+                color: "orange.500",
 				bg: "transparent",
 			}}
 			_disabled={{
