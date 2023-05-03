@@ -9,6 +9,9 @@ export const SecondaryButton: React.FCC<SecondaryButtonProps> = ({
 }) => {
 	return (
 		<BaseButton
+			bg={"transparent"}
+			borderWidth={"2px"}
+			borderColor={"dark.300"}
 			_active={{
 				bg: "transparent",
 			}}
