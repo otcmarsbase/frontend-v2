@@ -42,3 +42,12 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 		></Table>
 	)
 }
+
+const BidRow: React.FC<BidRow> = ({ amount, bidId, usd, value }) => {
+	return (
+		<TableRow
+			rowData={[bidId.value, amount.value, usd.value, value.value]}
+			cardData={null}
+		/>
+	)
+}
