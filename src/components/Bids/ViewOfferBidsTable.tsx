@@ -7,7 +7,44 @@ type ViewOfferBidsTableProps = {}
 export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	return (
 		<Table
-		
+			body={[
+				<BidRow
+					amount={{
+						title: "Amount",
+						value: "100 ETH",
+					}}
+					bidId={{
+						title: "Bid ID",
+						value: "#0",
+					}}
+					usd={{
+						title: "USD",
+						value: APPROXIMATELY_EQUALS_SYMBOL + " $100",
+					}}
+					value={{
+						title: "Value",
+						value: "-55.27% discount",
+					}}
+				/>,
+				<BidRow
+					amount={{
+						title: "Amount",
+						value: "100 BNB",
+					}}
+					bidId={{
+						title: "Bid ID",
+						value: "#1",
+					}}
+					usd={{
+						title: "USD",
+						value: APPROXIMATELY_EQUALS_SYMBOL + " $100",
+					}}
+					value={{
+						title: "Value",
+						value: "-55.27% discount",
+					}}
+				/>,
+			]}
 			header={[
 				<TableSortButton
 					onClick={() => {}}
