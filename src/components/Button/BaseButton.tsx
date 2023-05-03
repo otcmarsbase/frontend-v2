@@ -37,6 +37,7 @@ export const BaseButton: React.FCC<BaseButtonProps> = ({
 			width: "100%",
 			borderRadius: "8px",
 			boxShadow: "none",
+			outline: "none",
 		}),
 		[size]
 	)
