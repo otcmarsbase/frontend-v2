@@ -12,7 +12,14 @@ import {
 	TokenSelectorDropdownProps,
 } from "@/components/TokenSelect/TokenSelect"
 import { TokenInfo } from "@/types"
-import { Box, Center, Flex, FormControl, FormLabel, Grid } from "@chakra-ui/react"
+import {
+	Box,
+	Center,
+	Flex,
+	FormControl,
+	FormLabel,
+	Grid,
+} from "@chakra-ui/react"
 import React from "react"
 
 type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
@@ -198,10 +205,18 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	)
 }
 
-type BBCreateOfferContainerProps = {} & BBMPCreateOfferView & BBCreateOfferViewActionsProps
+type BBCreateOfferContainerProps = {} & BBMPCreateOfferView &
+	BBCreateOfferViewActionsProps
 
-export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (props) => {
-	return <BBMPCreateOfferView {...props} actionButtons={<BBCreateOfferViewActions {...props} />} />
+export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
+	props
+) => {
+	return (
+		<BBMPCreateOfferView
+			{...props}
+			actionButtons={<BBCreateOfferViewActions {...props} />}
+		/>
+	)
 }
 
 type BBCreateOfferViewActionsProps = {
@@ -226,7 +241,11 @@ export const BBCreateOfferViewActions: React.FC<
 
 	let btnApproveCaption = props.approveEnabled ? "Approve" : "Approved"
 	return (
-		<Grid justifyContent={"space-around"} templateColumns={"40% 40%"}>
+		<Grid
+			justifyContent={"space-between"}
+			templateColumns={{ sm: "100%", md: "45% 45%" }}
+			gap={"1rem"}
+		>
 			<PrimaryButton
 				loading={false}
 				disabled={!props.approveEnabled}
