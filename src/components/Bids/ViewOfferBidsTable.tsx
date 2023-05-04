@@ -58,31 +58,35 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					BID ID
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>BID ID</Text12Normal>
+					)}
+				/>,
 
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					AMOUT
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>AMOUT</Text12Normal>
+					)}
+				/>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					USD
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>USD</Text12Normal>
+					)}
+				/>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					VALUE
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>VALUE</Text12Normal>
+					)}
+				/>,
 			]}
 		></Table>
 	)
