@@ -59,6 +59,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	tokenAlice,
 	tokensWillBeLocked,
 	actionButtons,
+	ctaButtonMode,
 }) => {
 	return (
 		<GradientPopup
@@ -187,6 +188,13 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 				</FormControl>
 
 				{actionButtons}
+
+				{ctaButtonMode == "approving" && (
+					<FormActionInProgressView>
+						Approving {tokenAlice.symbol}...
+					</FormActionInProgressView>
+				)}
+
 				{/* 
 				{props.ctaButtonMode == "approving" && (
 					<>
