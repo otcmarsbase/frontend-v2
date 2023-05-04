@@ -29,7 +29,11 @@ export const Input: React.FC<InputProps> = ({
 					pr={rightSizes?.width || "auto"}
 					bg={"transparent"}
 					borderWidth={"2px"}
-					style={{ outline: "none", boxShadow: "none" }}
+					style={{
+						outline: "none",
+						boxShadow: "none",
+						height: "48px",
+					}}
 					className={clsx({
 						"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100  ":
 							true,
