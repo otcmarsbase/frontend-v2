@@ -220,7 +220,7 @@ export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
 }
 
 type BBCreateOfferViewActionsProps = {
-	ctaButtonMode: "login" | "creating" | "approving"
+	ctaButtonMode: "login" | "creating" | "approving" | "approving"
 	approveEnabled: boolean
 	createEnabled: boolean
 	onApprove: () => void
