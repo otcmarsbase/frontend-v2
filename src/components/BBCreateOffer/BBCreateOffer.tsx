@@ -22,6 +22,8 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 
+type CtaButtonMode = "login" | "creating" | "approving" | "actions"
+
 type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
 	bob: TokenSelectorDropdownProps<TokenInfo | TokenGroup>
 } & {
@@ -40,7 +42,7 @@ type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
 	amountAliceInputError?: string
 	tokenBobSameAsAlice?: boolean
 
-	ctaButtonMode: "login" | "actions" | "approving" | "creating"
+	ctaButtonMode: CtaButtonMode
 	disableAllInputs: boolean
 
 	backButton: {
@@ -53,6 +55,7 @@ type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
 
 	tokensWillBeLocked: boolean
 }
+
 
 const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	backButton,
@@ -201,7 +204,6 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	)
 }
 
-type CtaButtonMode = "login" | "creating" | "approving" | "actions"
 type BBCreateOfferContainerProps = {} & BBMPCreateOfferView &
 	BBCreateOfferViewActionsProps
 
