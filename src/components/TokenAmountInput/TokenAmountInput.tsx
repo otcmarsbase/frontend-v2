@@ -41,7 +41,7 @@ export const TokenAmountInput: React.FC<
 			</Flex>
 			<Input
 				value={props.amount}
-				badValue={!!props.amountInputError}
+				isInvalid={!!props.amountInputError}
 				onChange={(e) => props.onAmountChange(e.target.value)}
 				disabled={props.disabled}
 				rightComponent={
