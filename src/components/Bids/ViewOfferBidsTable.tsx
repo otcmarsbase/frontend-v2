@@ -110,7 +110,16 @@ const BidRow: React.FC<BidRow> = ({ amount, bidId, usd, value }) => {
 	return (
 		<TableRow
 			rowData={[bidId.value, amount.value, usd.value, value.value]}
-			cardData={null}
+			cardData={
+				<VStack border="1px solid red">
+					{[bidId, amount, usd, value].map((x) => (
+						<HStack w={"100%"} justifyContent={"space-between"}>
+							<Box>{x.title}</Box>
+							<Box>{x.value}</Box>
+						</HStack>
+					))}
+				</VStack>
+			}
 		/>
 	)
 }
