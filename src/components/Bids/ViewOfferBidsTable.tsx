@@ -1,6 +1,8 @@
 import React from "react"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { APPROXIMATELY_EQUALS_SYMBOL } from "@/utils/utils"
+import { Text12Normal } from "@/components/Text/Typography"
+import { Box, HStack, VStack } from "@chakra-ui/react"
 
 type ViewOfferBidsTableProps = {}
 
