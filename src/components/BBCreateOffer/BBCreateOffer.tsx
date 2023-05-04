@@ -195,19 +195,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 					</FormActionInProgressView>
 				)}
 
-				{/* 
-				{props.ctaButtonMode == "approving" && (
-					<>
-						<Center mt="2rem">
-							<BigFormHeader
-								title={`Approving ${props.tokenAlice.symbol}...`}
-							/>
-						</Center>
-						<InfiniteProgressBar />
-					</>
-				)}
-
-				{props.injectedHeader} */}
+				{/* {props.injectedHeader}  */}
 			</Flex>
 		</GradientPopup>
 	)
@@ -216,6 +204,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 type CtaButtonMode = "login" | "creating" | "approving" | "actions"
 type BBCreateOfferContainerProps = {} & BBMPCreateOfferView &
 	BBCreateOfferViewActionsProps
+
 
 export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
 	props
@@ -228,8 +217,21 @@ export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
 	)
 }
 
+type MPCreateOfferContainerProps = {} & BBMPCreateOfferView &
+	MPCreateOfferViewActionsProps
+export const MMCreateOfferContainer: React.FC<MPCreateOfferContainerProps> = (
+	props
+) => {
+	return (
+		<BBMPCreateOfferView
+			{...props}
+			actionButtons={<MPCreateOfferViewActions {...props} />}
+		/>
+	)
+}
+
 type BBCreateOfferViewActionsProps = {
-	ctaButtonMode: "login" | "creating" | "approving" | "approving"
+	ctaButtonMode: CtaButtonMode
 	approveEnabled: boolean
 	createEnabled: boolean
 	onApprove: () => void
