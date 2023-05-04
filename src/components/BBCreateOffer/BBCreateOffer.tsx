@@ -282,3 +282,31 @@ export const FormActionInProgressView: React.FCC = ({ children }) => (
 		<InfiniteProgressBar />
 	</>
 )
+type MPCreateOfferViewActionsProps = {
+	ctaButtonMode: CtaButtonMode
+	onCreate: () => void
+	createEnabled: boolean
+}
+export const MPCreateOfferViewActions: React.FC<
+	MPCreateOfferViewActionsProps
+> = (props) => {
+	if (props.ctaButtonMode == "login")
+		return <PrimaryButton>connect wallet</PrimaryButton>
+
+	if (props.ctaButtonMode == "creating")
+		return (
+			<FormActionInProgressView>
+				Creating the offer...
+			</FormActionInProgressView>
+		)
+
+	return (
+		<PrimaryButton
+			loading={false}
+			disabled={!props.createEnabled}
+			onClick={props.onCreate}
+		>
+			Create offer
+		</PrimaryButton>
+	)
+}
