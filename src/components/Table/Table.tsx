@@ -71,17 +71,13 @@ type TableSortButtonProps = {
 	sorted: boolean
 	reversed: boolean
 	onClick: () => void
-	textColor?: TextProps["color"]
+	render: () => React.ReactNode
 }
 export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 	children,
-	textColor = "#4c4c4c",
+	render,
 }) => {
-	return (
-		<Th>
-			<Text12Normal color={textColor}>{children}</Text12Normal>
-		</Th>
-	)
+	return <Th>{render()}</Th>
 }
 
 type RowData = React.ReactNode
