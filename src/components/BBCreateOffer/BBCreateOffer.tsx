@@ -202,3 +202,12 @@ export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
 ) => {
 	return <BBMPCreateOfferView {...props} />
 }
+
+export const FormActionInProgressView: React.FCC = ({ children }) => (
+	<>
+		<Center mt={"2rem"}>
+			<H3>{children}</H3>
+		</Center>
+		<InfiniteProgressBar />
+	</>
+)
