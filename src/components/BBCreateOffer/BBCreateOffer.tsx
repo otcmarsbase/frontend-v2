@@ -195,12 +195,39 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	)
 }
 
-type BBCreateOfferContainerProps = {} & BBMPCreateOfferView
+export const BBCreateOfferViewActions: React.FC<
+	BBCreateOfferViewActionsProps
+> = (props) => {
+	if (props.ctaButtonMode === "login")
+		return <PrimaryButton>connect wallet</PrimaryButton>
 
-export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
-	props
-) => {
-	return <BBMPCreateOfferView {...props} />
+	if (props.ctaButtonMode == "creating")
+		return (
+			<FormActionInProgressView>
+				Creating the offer...
+			</FormActionInProgressView>
+		)
+
+	let btnApproveCaption = props.approveEnabled ? "Approve" : "Approved"
+	return (
+		<Grid justifyContent={"space-around"} templateColumns={"40% 40%"}>
+			<PrimaryButton
+				loading={false}
+				disabled={!props.approveEnabled}
+				onClick={props.onApprove}
+			>
+				{btnApproveCaption}
+			</PrimaryButton>
+
+			<PrimaryButton
+				loading={false}
+				disabled={!props.createEnabled}
+				onClick={props.onCreate}
+			>
+				Create offer
+			</PrimaryButton>
+		</Grid>
+	)
 }
 
 export const FormActionInProgressView: React.FCC = ({ children }) => (
