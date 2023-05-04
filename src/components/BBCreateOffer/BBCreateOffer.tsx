@@ -195,6 +195,12 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	)
 }
 
+type BBCreateOfferContainerProps = {} & BBMPCreateOfferView & BBCreateOfferViewActionsProps
+
+export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (props) => {
+	return <BBMPCreateOfferView {...props} actionButtons={<BBCreateOfferViewActions {...props} />} />
+}
+
 type BBCreateOfferViewActionsProps = {
 	ctaButtonMode: "login" | "creating" | "approving"
 	approveEnabled: boolean
