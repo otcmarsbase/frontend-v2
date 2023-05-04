@@ -1,15 +1,18 @@
 import { BackButton } from "@/components/BackButton/BackButton"
+import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
+import { InfiniteProgressBar } from "@/components/InfiniteProgress/InfiniteProgress"
 import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { H3 } from "@/components/Text/Typography"
 import {
 	TokenGroup,
 	TokenSelectorDropdown,
 	TokenSelectorDropdownProps,
 } from "@/components/TokenSelect/TokenSelect"
 import { TokenInfo } from "@/types"
-import { Box, Flex, FormControl, FormLabel } from "@chakra-ui/react"
+import { Box, Center, Flex, FormControl, FormLabel, Grid } from "@chakra-ui/react"
 import React from "react"
 
 type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
