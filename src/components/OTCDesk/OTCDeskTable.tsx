@@ -20,44 +20,52 @@ export const OTCDeskTable: React.FC<OTCDeskTableProps> = ({}) => {
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					From
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>From</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					To
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>To</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Offer mode
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>Offer mode</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Available size
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>
+							Available size
+						</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Discount
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>Discount</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Deadline
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>Deadline</Text12Normal>
+					)}
+				></TableSortButton>,
 			]}
 			body={[
 				[0, 1, 2, 3, 4, 5, 6, 7, 8].map((x) => (

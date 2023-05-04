@@ -1,4 +1,5 @@
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
+import { Text12Normal } from "@/components/Text/Typography"
 import { Box, Button, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
@@ -127,24 +128,29 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Offer ID
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>Offer ID</Text12Normal>
+					)}
+				></TableSortButton>,
 
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Amount
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>Amount</Text12Normal>
+					)}
+				></TableSortButton>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-				>
-					Accepted tokens
-				</TableSortButton>,
+					render={() => (
+						<Text12Normal color={"white"}>
+							Accepted tokens
+						</Text12Normal>
+					)}
+				></TableSortButton>,
 			]}
 		/>
 	)
