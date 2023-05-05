@@ -48,6 +48,7 @@ export const Input: React.FC<InputProps> = ({
 						paddingRight={"16px"}
 						ref={rightElementRef}
 						w={"max-content"}
+						height={"100%"}
 					>
 						{rightComponent}
 					</InputRightElement>
