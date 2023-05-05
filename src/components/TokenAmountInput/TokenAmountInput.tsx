@@ -2,7 +2,7 @@ import { Image } from "@/components/Image/Image"
 import { ErrorLine, Input } from "@/components/Input/Input"
 import { OneLine } from "@/components/OneLine/OneLine"
 import { Text } from "@/components/Text/Text"
-import { LeadText } from "@/components/Text/Typography"
+import { LeadText, Text12Normal } from "@/components/Text/Typography"
 import { TokenInfo } from "@/types"
 import { removeTrailingZeros } from "@/utils/utils"
 import { Flex } from "@chakra-ui/react"
@@ -47,7 +47,7 @@ export const TokenAmountInput: React.FC<
 				rightComponent={
 					<div>
 						{props.balance && (
-							<div className="flex items-center justify-center text-orange-500">
+							<div className="flex items-center justify-center text-orange-500 px-1 rounded-sm bg-[#ff400933]">
 								<Text12Normal
 									color={"orange.500"}
 									onClick={onMaxButtonClick}
