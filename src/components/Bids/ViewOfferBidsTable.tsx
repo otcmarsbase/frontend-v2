@@ -2,6 +2,7 @@ import React from "react"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { APPROXIMATELY_EQUALS_SYMBOL } from "@/utils/utils"
 import { Text12Normal } from "@/components/Text/Typography"
+import { Text } from "@/components/Text/Text"
 import { Box, HStack, VStack } from "@chakra-ui/react"
 
 type ViewOfferBidsTableProps = {}
@@ -60,34 +61,26 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>BID ID</Text12Normal>
-					)}
+					render={() => <Text size="11">BID ID</Text>}
 				/>,
 
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>AMOUT</Text12Normal>
-					)}
+					render={() => <Text size="11">AMOUT</Text>}
 				/>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>USD</Text12Normal>
-					)}
+					render={() => <Text size="11">USD</Text>}
 				/>,
 				<TableSortButton
 					onClick={() => {}}
 					reversed={false}
 					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>VALUE</Text12Normal>
-					)}
+					render={() => <Text size="11">VALUE</Text>}
 				/>,
 			]}
 		></Table>
