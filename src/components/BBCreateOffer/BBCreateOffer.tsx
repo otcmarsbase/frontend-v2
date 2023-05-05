@@ -275,7 +275,7 @@ export const BBCreateOfferViewActions: React.FC<
 				disabled={!props.approveEnabled}
 				onClick={props.onApprove}
 			>
-				{btnApproveCaption}
+				{btnApproveCaption.toUpperCase()}
 			</PrimaryButton>
 
 			<PrimaryButton
@@ -283,7 +283,7 @@ export const BBCreateOfferViewActions: React.FC<
 				disabled={!props.createEnabled}
 				onClick={props.onCreate}
 			>
-				Create offer
+				{"Create offer".toUpperCase()}
 			</PrimaryButton>
 		</Grid>
 	)
