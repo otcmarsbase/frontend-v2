@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
-import { InfiniteProgressBar } from "@/components/InfiniteProgress/InfiniteProgress"
+import { InfiniteProgressBar, TransactionInProgress } from "@/components/InfiniteProgress/InfiniteProgress"
 import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
@@ -205,9 +205,9 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 				<div className="md:mt-4 lg:mt-5">{actionButtons}</div>
 
 				{ctaButtonMode == "approving" && (
-					<FormActionInProgressView>
+					<TransactionInProgress>
 						Approving {tokenAlice.symbol}...
-					</FormActionInProgressView>
+					</TransactionInProgress>
 				)}
 
 				{/* {props.injectedHeader}  */}
@@ -258,9 +258,9 @@ export const BBCreateOfferViewActions: React.FC<
 
 	if (props.ctaButtonMode == "creating")
 		return (
-			<FormActionInProgressView>
+			<TransactionInProgress>
 				Creating the offer...
-			</FormActionInProgressView>
+			</TransactionInProgress>
 		)
 
 	let btnApproveCaption = props.approveEnabled ? "Approve" : "Approved"
@@ -289,14 +289,7 @@ export const BBCreateOfferViewActions: React.FC<
 	)
 }
 
-export const FormActionInProgressView: React.FCC = ({ children }) => (
-	<>
-		<Center mt={"2rem"}>
-			<H3>{children}</H3>
-		</Center>
-		<InfiniteProgressBar />
-	</>
-)
+
 type MPCreateOfferViewActionsProps = {
 	ctaButtonMode: CtaButtonMode
 	onCreate: () => void
@@ -310,9 +303,9 @@ export const MPCreateOfferViewActions: React.FC<
 
 	if (props.ctaButtonMode == "creating")
 		return (
-			<FormActionInProgressView>
+			<TransactionInProgress>
 				Creating the offer...
-			</FormActionInProgressView>
+			</TransactionInProgress>
 		)
 
 	return (
