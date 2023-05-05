@@ -10,6 +10,14 @@ export const BBViewOfferBidsListContainer: React.FC<
 	BBViewOfferBidsListContainerProps
 > = ({}) => {
 	return (
-		
+		<Flex flexDirection={"column"}>
+			<Flex justifyContent={"space-between"}>
+				<FormControlHeader title="Bids" subtitle="2 bids total" />
+				<SpecialButton maxWidth={"max-content"}>
+					PLACE BID
+				</SpecialButton>
+			</Flex>
+			<ViewOfferBidsTable />
+		</Flex>
 	)
 }
