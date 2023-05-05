@@ -190,7 +190,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 					/> */}
 				</FormControl>
 
-				{actionButtons}
+				<div className="md:mt-4 lg:mt-5">{actionButtons}</div>
 
 				{ctaButtonMode == "approving" && (
 					<FormActionInProgressView>
