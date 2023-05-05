@@ -38,7 +38,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 			<ScreenContainer>
 				<Flex justifyContent={"space-between"} width={"100%"}>
 					<Flex direction={"column"} alignItems={"flex-start"}>
-						{backButton && <BackButton {...backButton} />}
+						{backButton && <BackButton icon {...backButton} />}
 						<HStack>
 							<Box>{title}</Box>
 							<Box>{titleLink}</Box>

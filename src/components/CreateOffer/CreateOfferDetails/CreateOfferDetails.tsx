@@ -191,7 +191,11 @@ const DetailsHeading: React.FC<
 				</Text12Normal>
 			</Flex>
 
-			<BackButton label={props.linkText} onClick={props.onLinkClick} />
+			<BackButton
+				icon
+				label={props.linkText}
+				onClick={props.onLinkClick}
+			/>
 		</Flex>
 	)
 }

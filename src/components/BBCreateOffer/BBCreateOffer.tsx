@@ -1,7 +1,10 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
-import { InfiniteProgressBar, TransactionInProgress } from "@/components/InfiniteProgress/InfiniteProgress"
+import {
+	InfiniteProgressBar,
+	TransactionInProgress,
+} from "@/components/InfiniteProgress/InfiniteProgress"
 import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
@@ -83,6 +86,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 		>
 			<Flex alignSelf={"end"}>
 				<BackButton
+					icon
 					label={backButton.label}
 					onClick={backButton.onClick}
 				/>
@@ -258,9 +262,7 @@ export const BBCreateOfferViewActions: React.FC<
 
 	if (props.ctaButtonMode == "creating")
 		return (
-			<TransactionInProgress>
-				Creating the offer...
-			</TransactionInProgress>
+			<TransactionInProgress>Creating the offer...</TransactionInProgress>
 		)
 
 	let btnApproveCaption = props.approveEnabled ? "Approve" : "Approved"
@@ -289,7 +291,6 @@ export const BBCreateOfferViewActions: React.FC<
 	)
 }
 
-
 type MPCreateOfferViewActionsProps = {
 	ctaButtonMode: CtaButtonMode
 	onCreate: () => void
@@ -303,9 +304,7 @@ export const MPCreateOfferViewActions: React.FC<
 
 	if (props.ctaButtonMode == "creating")
 		return (
-			<TransactionInProgress>
-				Creating the offer...
-			</TransactionInProgress>
+			<TransactionInProgress>Creating the offer...</TransactionInProgress>
 		)
 
 	return (

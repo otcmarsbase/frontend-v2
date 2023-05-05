@@ -7,12 +7,17 @@ import { LeadText } from "@/components/Text/Typography"
 type BackButtonProps = {
 	label: string
 	onClick: () => void
+	icon?: boolean
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ label, onClick }) => {
+export const BackButton: React.FC<BackButtonProps> = ({
+	label,
+	onClick,
+	icon,
+}) => {
 	return (
 		<HStack onClick={onClick}>
-			<GoBackIcon />
+			{icon && <GoBackIcon />}
 			<LeadText className="text-orange-500 cursor-pointer">
 				{label}
 			</LeadText>
