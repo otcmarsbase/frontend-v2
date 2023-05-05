@@ -6,6 +6,7 @@ import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { H3 } from "@/components/Text/Typography"
+import { TokenAmountInput } from "@/components/TokenAmountInput/TokenAmountInput"
 import {
 	TokenGroup,
 	TokenSelectorDropdown,
@@ -56,13 +57,24 @@ type BBMPCreateOfferView = { alice: TokenSelectorDropdownProps<TokenInfo> } & {
 	tokensWillBeLocked: boolean
 }
 
-
 const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 	backButton,
 	tokenAlice,
 	tokensWillBeLocked,
 	actionButtons,
 	ctaButtonMode,
+	alice,
+	amountAlice,
+	bob,
+	disableAllInputs,
+	onAmountAliceChange,
+	tokenAliceUsdPrice,
+	tokenBob,
+	amountAliceInputError,
+	amountAliceUsd,
+	balanceAlice,
+	injectedHeader,
+	tokenBobSameAsAlice,
 }) => {
 	return (
 		<GradientPopup
@@ -130,14 +142,14 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 						}`}
 					/>
 
-					{/* <TokenAmountInput
-						token={props.tokenAlice}
-						amount={props.amountAlice}
-						onAmountChange={props.onAmountAliceChange}
-						amountInputError={props.amountAliceInputError}
-						balance={props.balanceAlice}
-						disabled={props.disableAllInputs}
-					/> */}
+					<TokenAmountInput
+						token={tokenAlice}
+						amount={amountAlice}
+						onAmountChange={onAmountAliceChange}
+						amountInputError={amountAliceInputError}
+						balance={balanceAlice}
+						disabled={disableAllInputs}
+					/>
 				</FormControl>
 
 				{/* {!!props.amountAliceUsd && !props.amountAliceInputError && (
@@ -206,7 +218,6 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 
 type BBCreateOfferContainerProps = {} & BBMPCreateOfferView &
 	BBCreateOfferViewActionsProps
-
 
 export const BBCreateOfferContainer: React.FC<BBCreateOfferContainerProps> = (
 	props
