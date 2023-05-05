@@ -48,12 +48,12 @@ export const TokenAmountInput: React.FC<
 					<div>
 						{props.balance && (
 							<div className="flex items-center justify-center text-orange-500">
-								<LeadText
+								<Text12Normal
 									color={"orange.500"}
 									onClick={onMaxButtonClick}
 								>
 									MAX
-								</LeadText>
+								</Text12Normal>
 							</div>
 						)}
 					</div>
