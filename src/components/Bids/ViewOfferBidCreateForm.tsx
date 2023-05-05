@@ -45,7 +45,13 @@ export const ViewOfferBidCreateForm: React.FC<ViewOfferBidCreateFormProps> = (
 	props
 ) => (
 	<Flex flexDirection={"column"}>
-		
+		<Flex justifyContent={"space-between"}>
+			<H3>Place a new bid</H3>
+            <BackButton
+				label={props.backButton.label}
+				onClick={props.backButton.onClick}
+			/>
+		</Flex>
 		<Flex className="flex-col gap-4">
 			{!props.disabled && (
 				<FormControl>
