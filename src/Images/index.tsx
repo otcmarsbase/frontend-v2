@@ -7,6 +7,7 @@
 import LoaderErrorImgSource from "@/assets/images/loaderError.gif"
 import LoaderLoadingImgSource from "@/assets/images/loaderLoading.gif"
 import LoaderOkImgSource from "@/assets/images/loaderOk.gif"
+import LoaderOkLoopedImgSource from "@/assets/images/loaderOkLooped.gif"
 import MetamaskImgSource from "@/assets/images/metamask.png"
 import React from "react"
 import { Image } from "@/components/Image/Image"
@@ -23,5 +24,7 @@ export const LoaderErrorImg = img(LoaderErrorImgSource)
 export const LoaderLoadingImg = img(LoaderLoadingImgSource)
 
 export const LoaderOkImg = img(LoaderOkImgSource)
+
+export const LoaderOkLoopedImg = img(LoaderOkLoopedImgSource)
 
 export const MetamaskImg = img(MetamaskImgSource)
