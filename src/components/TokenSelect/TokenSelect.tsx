@@ -61,9 +61,9 @@ const renderTokenSelectorOption = (token: TokenInfo | TokenGroup) => (
 	<TokenSelectorOption value={token} />
 )
 
-export const TokenSelectorTokenGroupOption: React.FC<
-	React.PropsWithChildren<{ group: TokenGroup }>
-> = ({ group }) => (
+export const TokenSelectorTokenGroupOption: React.FCC<{
+	group: TokenGroup
+}> = ({ group }) => (
 	<Flex>
 		<span>{group.name}:</span>
 		{group.tokens.map((x) => (
@@ -74,9 +74,9 @@ export const TokenSelectorTokenGroupOption: React.FC<
 	</Flex>
 )
 
-export const TokenSelectorSingleTokenOption: React.FC<
-	React.PropsWithChildren<{ token: TokenInfo }>
-> = ({ token }) => (
+export const TokenSelectorSingleTokenOption: React.FCC<{
+	token: TokenInfo
+}> = ({ token }) => (
 	<Flex>
 		<CurrencyIcon imgSrc={token.iconUrl}>{token.symbol}</CurrencyIcon>
 		<LeadText className="ml-2">({token.name})</LeadText>

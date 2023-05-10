@@ -20,9 +20,7 @@ export type TokenAmountInputProps = {
 	// TODO: What is the type of WBN?
 	balance?: any
 }
-export const TokenAmountInput: React.FC<
-	React.PropsWithChildren<TokenAmountInputProps>
-> = (props) => {
+export const TokenAmountInput: React.FCC<TokenAmountInputProps> = (props) => {
 	let onMaxButtonClick = useCallback(
 		() =>
 			props.balance &&
@@ -68,9 +66,7 @@ type YourBalanceProps = {
 	amountEth?: string
 	token?: TokenIconSymbolProps["token"]
 }
-export const YourBalance: React.FC<
-	React.PropsWithChildren<YourBalanceProps>
-> = (props) => (
+export const YourBalance: React.FC<YourBalanceProps> = (props) => (
 	<span style={{ display: "inline-flex", gap: "6px" }}>
 		<LeadText as="span" color={"gray"}>
 			Your balance:{" "}
@@ -99,9 +95,9 @@ export const TokenIconSymbol: React.FC<Pick<TokenIconSymbolProps, "token">> = (
 	</OneLine>
 )
 
-export const LongEthValueView: React.FC<
-	React.PropsWithChildren<{ amountEth: string }>
-> = ({ amountEth }) => (
+export const LongEthValueView: React.FC<{ amountEth: string }> = ({
+	amountEth,
+}) => (
 	<LongEthValue
 		amountEth={amountEth}
 		significant={(val) => (

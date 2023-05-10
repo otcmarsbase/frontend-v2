@@ -58,9 +58,7 @@ export type OTCSearchProps = Omit<
 	"isSearcheable"
 >
 
-export const OTCSearch: React.FC<React.PropsWithChildren<OTCSearchProps>> = (
-	props
-) => {
+export const OTCSearch: React.FCC<OTCSearchProps> = (props) => {
 	return (
 		<SelectV2
 			isSearcheable

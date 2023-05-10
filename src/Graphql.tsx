@@ -5,9 +5,7 @@ import { Provider } from "urql"
 
 import { QueryClientProvider } from "@tanstack/react-query"
 
-const GraphqlContext: React.FC<
-	React.PropsWithChildren<React.PropsWithChildren>
-> = ({ children }) => {
+const GraphqlContext: React.FCC = ({ children }) => {
 	return (
 		<Provider value={client}>
 			<QueryClientProvider client={queryClient}>

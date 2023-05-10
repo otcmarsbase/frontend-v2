@@ -173,13 +173,11 @@ const Arrow: React.FC = () => {
 		</Flex>
 	)
 }
-const DetailsHeading: React.FC<
-	React.PropsWithChildren<{
-		onLinkClick: () => void
-		linkText: string
-		type: "static" | "dynamic"
-	}>
-> = (props) => {
+const DetailsHeading: React.FCC<{
+	onLinkClick: () => void
+	linkText: string
+	type: "static" | "dynamic"
+}> = (props) => {
 	return (
 		<Flex className="justify-between items-start">
 			<Flex direction={"column"}>
