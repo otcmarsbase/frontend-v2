@@ -1,16 +1,14 @@
 import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/CreateOfferStep"
 import { CreateOfferSelection } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelection"
-import {
-	CreateOfferDetails,
-	LoadingCreated,
-} from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
+import { CreateOfferDetails } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import { Box, Flex, HStack } from "@chakra-ui/react"
 import React from "react"
-import { H1 } from "@/components/Text/Typography"
+import { H1, H3 } from "@/components/Text/Typography"
+import { CreatedFinished } from "@/components/CreateOffer/CreatedFinished"
 
 type CreateOfferNewProps = {}
 
@@ -55,8 +53,9 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 		>
 			<div className="max-w-[790px] mx-auto">
 				{/* <CreateOfferDetails /> */}
-				<CreateOfferSelection />
-				{/* <LoadingCreated progress={0}/> */}
+				{/* <CreateOfferSelection /> */}
+				<CreatedFinished />
+				{/* <LoadingCreated  status="success"/> */}
 			</div>
 		</ScreenWrapper>
 	)
