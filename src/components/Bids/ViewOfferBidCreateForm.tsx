@@ -52,7 +52,7 @@ export const ViewOfferBidCreateForm: React.FC<ViewOfferBidCreateFormProps> = (
 				onClick={props.backButton.onClick}
 			/>
 		</Flex>
-		<Flex className="flex-col gap-4">
+		<Flex className="flex-col gap-8 mt-4">
 			{!props.disabled && (
 				<FormControl>
 					<FormControlHeader
