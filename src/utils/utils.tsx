@@ -76,3 +76,21 @@ export const removeTrailingZeros = (num: number | string): string => {
 
 	return num
 }
+
+// TODO: понять че тут написано и переписать
+export const separateThousands = (
+	num: number | string,
+	separator: string = "\u00A0",
+	removeTrailingDecimalZeroes = false
+): string => {
+	if (typeof num == "number") num = num + ""
+
+	let [whole, dec] = num.split(".")
+
+	if (removeTrailingDecimalZeroes) dec = dec?.replace(/0+$/, "")
+
+	let p1 = whole.replace(/\B(?=(\d{3})+(?!\d))/g, separator)
+	let p2 = typeof dec === "undefined" ? "" : `.${dec}`
+
+	return `${p1}${p2}`
+}
