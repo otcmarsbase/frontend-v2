@@ -217,7 +217,7 @@ export const LoadingCreated: React.FC = (props) => {
 
 export const FinishedCreated: React.FC = (props) => {
 	return (
-		<Flex direction={"column"} textAlign="center" alignItems={"center"} maxW={"400px"}>
+		<Flex direction={"column"} textAlign="center" alignItems={"center"} maxW={"400px"} gap={2} mx={"auto"}>
 			<AnimatedProgress status={"success"} />
 			<H3>{"Order #123 was created"}</H3>
 			<Text12Normal color="grey">
