@@ -15,6 +15,7 @@ import {
 	TokenSelectorDropdown,
 	TokenSelectorDropdownProps,
 } from "@/components/TokenSelect/TokenSelect"
+import { TwoButtons } from "@/components/TwoButtons/TwoButtons"
 import { TokenInfo } from "@/types"
 import {
 	Box,
@@ -267,11 +268,7 @@ export const BBCreateOfferViewActions: React.FC<
 
 	let btnApproveCaption = props.approveEnabled ? "Approve" : "Approved"
 	return (
-		<Grid
-			justifyContent={"space-between"}
-			templateColumns={{ sm: "100%", md: "45% 45%" }}
-			gap={"1rem"}
-		>
+		<TwoButtons>
 			<PrimaryButton
 				loading={false}
 				disabled={!props.approveEnabled}
@@ -287,7 +284,7 @@ export const BBCreateOfferViewActions: React.FC<
 			>
 				{"Create offer".toUpperCase()}
 			</PrimaryButton>
-		</Grid>
+		</TwoButtons>
 	)
 }
 

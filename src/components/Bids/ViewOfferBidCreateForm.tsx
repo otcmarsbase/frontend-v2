@@ -9,6 +9,7 @@ import {
 	TokenSelectorDropdown,
 	TokenSelectorDropdownProps,
 } from "@/components/TokenSelect/TokenSelect"
+import { TwoButtons } from "@/components/TwoButtons/TwoButtons"
 import { TokenInfo } from "@/types"
 import { Flex, FormControl, Grid } from "@chakra-ui/react"
 import React from "react"
@@ -47,7 +48,7 @@ export const ViewOfferBidCreateForm: React.FC<ViewOfferBidCreateFormProps> = (
 	<Flex flexDirection={"column"}>
 		<Flex justifyContent={"space-between"}>
 			<H3>Place a new bid</H3>
-            <BackButton
+			<BackButton
 				label={props.backButton.label}
 				onClick={props.backButton.onClick}
 			/>
@@ -168,11 +169,7 @@ export const ViewOfferCreateBidActionButtons: React.FC<
 	if (!props.onApprove) return createButton
 
 	return (
-		<Grid
-			justifyContent={"space-between"}
-			templateColumns={{ sm: "100%", md: "45% 45%" }}
-			gap={"1rem"}
-		>
+		<TwoButtons>
 			<PrimaryButton
 				loading={false}
 				disabled={!props.approveEnabled}
@@ -181,6 +178,6 @@ export const ViewOfferCreateBidActionButtons: React.FC<
 				{props.approveEnabled ? "Approve" : "Approved"}
 			</PrimaryButton>
 			{createButton}
-		</Grid>
+		</TwoButtons>
 	)
 }
