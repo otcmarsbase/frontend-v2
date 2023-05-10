@@ -1,3 +1,11 @@
+type TAEBaseProps = {
+	size: "big" | "small"
+	align: FlexProps["align"]
+}
+export type TokenApproximatelyEqualsProps = {
+	leftToken: React.ReactNode
+	rightToken: React.ReactNode
+} & TAEBaseProps
 export const TokenApproximatelyEquals: React.FCC<
 	TokenApproximatelyEqualsProps
 > = (props) => {
