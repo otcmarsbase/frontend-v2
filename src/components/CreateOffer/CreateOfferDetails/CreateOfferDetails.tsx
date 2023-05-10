@@ -200,12 +200,10 @@ const DetailsHeading: React.FC<
 	)
 }
 
-export const LoadingCreated: React.FC<
-	React.PropsWithChildren<{ progress: number }>
-> = (props) => {
+export const LoadingCreated: React.FC = (props) => {
 	return (
 		<Flex direction={"column"} textAlign="center" alignItems={"center"}>
-			<AnimatedProgress status="lodaing" />
+			<AnimatedProgress status={"lodaing"} />
 			<H3>{"Creating your offer"}</H3>
 			<Text12Normal color="grey">
 				Please wait for a few moments. Colonizing Mars may take a
