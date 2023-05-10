@@ -2,7 +2,7 @@ import { AnimatedProgress } from "@/components/AnimatedProgress/AnimatedProgress
 import { H3, Text12Normal } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 
-export const LoadingCreated: React.FC = (props) => {
+export const CreatedLoading: React.FC = (props) => {
 	return (
 		<Flex direction={"column"} textAlign="center" alignItems={"center"}>
 			<AnimatedProgress status={"lodaing"} />
