@@ -1,4 +1,6 @@
 import { flattenRoutes } from "@/AppRoutes"
+import { BBViewOfferBidsListContainer } from "@/components/Bids/BBViewOfferBidsListContainer"
+import { ViewOfferBidCreateForm } from "@/components/Bids/ViewOfferBidCreateForm"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
@@ -52,7 +54,46 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<ViewOfferContainer />
+				<ViewOfferContainer>
+					{false ? (
+						<BBViewOfferBidsListContainer />
+					) : (
+						<ViewOfferBidCreateForm
+							tokens={[]}
+							tokenSelectedIdx={0}
+							onTokenSelected={function (idx: number): void {
+								throw new Error("Function not implemented.")
+							}}
+							onTokenDeselected={function (): void {
+								throw new Error("Function not implemented.")
+							}}
+							createEnabled={false}
+							onCreate={function (): void {
+								throw new Error("Function not implemented.")
+							}}
+							onApprove={() => {}}
+							amountBobInput={""}
+							onAmountBobInput={function (amount: string): void {
+								throw new Error("Function not implemented.")
+							}}
+							balanceBob={undefined}
+							amountBobInputError={undefined}
+							shouldShowLogin={false}
+							onLogin={function (): void {
+								throw new Error("Function not implemented.")
+							}}
+							disableAllInputs={false}
+							transactionInProgress={false}
+							tokensWillBeLocked={false}
+							backButton={{
+								label: "Cancel bid",
+								onClick: function (): void {
+									throw new Error("Function not implemented.")
+								},
+							}}
+						/>
+					)}
+				</ViewOfferContainer>
 			</div>
 		</ScreenWrapper>
 	)
