@@ -5,7 +5,7 @@ import { H3, Text12Normal } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
-export const FinishedCreated: React.FC = (props) => {
+export const CreatedFinished: React.FC = (props) => {
 	return (
 		<Flex
 			direction={"column"}
