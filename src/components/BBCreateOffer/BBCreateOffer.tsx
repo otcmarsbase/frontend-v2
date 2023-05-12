@@ -92,7 +92,7 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 					onClick={backButton.onClick}
 				/>
 			</Flex>
-			<Flex className="flex-col gap-4">
+			<Flex className="flex-col gap-8">
 				<FormControl>
 					<FormControlHeader
 						title="1. Asset to sell"
