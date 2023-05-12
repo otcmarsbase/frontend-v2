@@ -12,6 +12,7 @@ import { useMemo } from "react"
 type TAEBaseProps = {
 	size: "big" | "small"
 	align: "left" | "center" | "right"
+	className?: string
 }
 export type TokenApproximatelyEqualsProps = {
 	leftToken: React.ReactNode
@@ -29,7 +30,7 @@ export const TokenApproximatelyEquals: React.FCC<
 	)
 
 	return (
-		<Flex justifyContent={props.align} style={style}>
+		<Flex justifyContent={props.align} className={props.className}>
 			<Text size={props.size === "big" ? "21" : "14"} fontWeight={"bold"} alignItems={"center"} display={"flex"} gap={style.gap}>
 				{props.leftToken}
 				<span>{APPROXIMATELY_EQUALS_SYMBOL}</span>
