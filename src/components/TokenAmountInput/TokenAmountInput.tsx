@@ -91,7 +91,7 @@ export const TokenIconSymbol: React.FC<Pick<TokenIconSymbolProps, "token">> = (
 ) => (
 	<OneLine gap="0.1em">
 		<Image boxSize="1em" src={props.token.iconUrl} />
-		<LeadText>{props.token.symbol}</LeadText>
+		<LeadText fontSize={"inherit"}>{props.token.symbol}</LeadText>
 	</OneLine>
 )
 
@@ -118,7 +118,7 @@ export const LongEthValue: React.FC<{
 	significant: (val: string) => ReactElement
 	insignificant: (val: string) => ReactElement
 }> = ({ amountEth, significant, insignificant }) => {
-	return <div></div>
+	return <div>{amountEth}</div>
 	// let signdig = formatSigndig(amountEth)
 	// let insigndig =
 	// 	amountEth.length > signdig.length
