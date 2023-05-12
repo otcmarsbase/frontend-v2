@@ -21,14 +21,20 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 		>
 			<Flex flexDirection={"column"} gap={4}>
 				<FormControlHeader title="For sale: " subtitle="Ethereum" />
-				<Text
-					w={"full"}
-					textAlign="center"
-					size="21"
-					fontWeight={"bold"}
-				>
-					100 ETH ≈ $183 365.08
-				</Text>
+				<TokenApproximatelyEqualsDollar
+					size="small"
+					align="center"
+					token={{
+						address: "0x0000000",
+						name: "Ethereum",
+						symbol: "ETH",
+						iconUrl:
+							"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+						decimals: 18,
+					}}
+					amountEth="1"
+					amountUsd={"183365.08"}
+				/>
 				<FormControlHeader title="Accepted tokens:" />
 				<Flex className="flex-row justify-start gap-2">
 					{[
