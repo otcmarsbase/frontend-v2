@@ -10,7 +10,7 @@ import { useMemo } from "react"
 
 type TAEBaseProps = {
 	size: "big" | "small"
-	align: FlexProps["align"]
+	align: "left" | "center" | "right"
 }
 export type TokenApproximatelyEqualsProps = {
 	leftToken: React.ReactNode
