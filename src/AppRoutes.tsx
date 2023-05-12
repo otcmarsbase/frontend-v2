@@ -1,4 +1,5 @@
 import { Leaderboard } from "@/screens/Leaderboard"
+import { MPCreateOffer } from "@/screens/MPCreateOffer"
 import { DeepWriteable } from "@/types"
 import { flatRoutes } from "@/utils/routes"
 import { Outlet } from "react-router-dom"
@@ -102,7 +103,7 @@ export const routes = [
 				path: "offers/",
 				children: [
 					{ path: "", element: <MPOffersList /> },
-					{ path: "new", element: <div>marketplace offers new</div> },
+					{ path: "new", element: <MPCreateOffer /> },
 					{
 						path: "new/waiting/:txid",
 						element: <div>marketplace offers new waiting</div>,
