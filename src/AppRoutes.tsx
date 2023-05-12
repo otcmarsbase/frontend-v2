@@ -95,7 +95,6 @@ export const routes = [
 	},
 	{
 		path: "/marketplace/",
-		element: <MarketplaceWrapper />,
 		children: [
 			// redirecto to marketplace/offers
 			{ path: "", element: <MarketplaceRoot /> },
