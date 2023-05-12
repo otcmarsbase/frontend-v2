@@ -30,7 +30,7 @@ export const TokenApproximatelyEquals: React.FCC<
 
 	return (
 		<Flex justifyContent={props.align} style={style}>
-			<Text size="21" fontWeight={"bold"} alignItems={"center"} display={"flex"} gap={"1rem"}>
+			<Text size={props.size === "big" ? "21" : "14"} fontWeight={"bold"} alignItems={"center"} display={"flex"} gap={style.gap}>
 				{props.leftToken}
 				<span>{APPROXIMATELY_EQUALS_SYMBOL}</span>
 				{props.rightToken}
