@@ -19,7 +19,7 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 			contentClassName="bg-black px-6 py-8 w-full"
 			containerClassName="w-full"
 		>
-			<Flex flexDirection={"column"} gap={4}> 
+			<Flex flexDirection={"column"} gap={4}>
 				<FormControlHeader title="For sale: " subtitle="Ethereum" />
 				<Text
 					w={"full"}
