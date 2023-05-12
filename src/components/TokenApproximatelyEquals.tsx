@@ -46,8 +46,7 @@ export const TokenApproximatelyEqualsDollar: React.FC<
 	}
 > = (props) => (
 	<TokenApproximatelyEquals
-		size={props.size}
-		align={props.align}
+		{...props}
 		leftToken={
 			<OneLine gap={props.size == "big" ? "0.2em" : "0.1em"}>
 				<LongEthValueView amountEth={props.amountEth} />
