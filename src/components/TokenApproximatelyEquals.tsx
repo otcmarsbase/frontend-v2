@@ -1,3 +1,13 @@
+import { OneLine } from "@/components/OneLine/OneLine"
+import {
+	LongEthValueView,
+	TokenIconSymbol,
+} from "@/components/TokenAmountInput/TokenAmountInput"
+import { TokenInfo } from "@/types"
+import { APPROXIMATELY_EQUALS_SYMBOL, separateThousands } from "@/utils/utils"
+import { Flex, FlexProps } from "@chakra-ui/react"
+import { useMemo } from "react"
+
 type TAEBaseProps = {
 	size: "big" | "small"
 	align: FlexProps["align"]
@@ -6,6 +16,7 @@ export type TokenApproximatelyEqualsProps = {
 	leftToken: React.ReactNode
 	rightToken: React.ReactNode
 } & TAEBaseProps
+
 export const TokenApproximatelyEquals: React.FCC<
 	TokenApproximatelyEqualsProps
 > = (props) => {
@@ -27,3 +38,24 @@ export const TokenApproximatelyEquals: React.FCC<
 	)
 }
 
+export const TokenApproximatelyEqualsDollar: React.FC<
+	TAEBaseProps & {
+		token: TokenInfo
+		amountEth: string
+		amountUsd: number
+	}
+> = (props) => (
+	<TokenApproximatelyEquals
+		size={props.size}
+		align={props.align}
+		leftToken={
+			<OneLine gap={props.size == "big" ? "0.2em" : "0.1em"}>
+				<LongEthValueView amountEth={props.amountEth} />
+				<TokenIconSymbol token={props.token} />
+			</OneLine>
+		}
+		rightToken={
+			<span>${separateThousands(props.amountUsd.toFixed(2))}</span>
+		}
+	/>
+)
