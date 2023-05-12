@@ -6,6 +6,7 @@ import {
 import { TokenInfo } from "@/types"
 import { APPROXIMATELY_EQUALS_SYMBOL, separateThousands } from "@/utils/utils"
 import { Flex, FlexProps } from "@chakra-ui/react"
+import { Text } from "@/components/Text/Text"
 import { useMemo } from "react"
 
 type TAEBaseProps = {
@@ -29,6 +30,11 @@ export const TokenApproximatelyEquals: React.FCC<
 
 	return (
 		<Flex justifyContent={props.align} style={style}>
+			<Text size="21" fontWeight={"bold"}>
+				{props.leftToken}
+				<span>{APPROXIMATELY_EQUALS_SYMBOL}</span>
+				{props.rightToken}
+			</Text>
 		</Flex>
 	)
 }
