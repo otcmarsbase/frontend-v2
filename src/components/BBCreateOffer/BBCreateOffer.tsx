@@ -10,6 +10,7 @@ import { GradientPopup } from "@/components/Popup/Popup"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { H3 } from "@/components/Text/Typography"
 import { TokenAmountInput } from "@/components/TokenAmountInput/TokenAmountInput"
+import { TokenApproximatelyEqualsDollar } from "@/components/TokenApproximatelyEquals"
 import {
 	TokenGroup,
 	TokenSelectorDropdown,
@@ -126,14 +127,15 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 						tokenSelectedIdx={0}
 						disabled={false}
 					/>
+					<TokenApproximatelyEqualsDollar
+						className="mt-2"
+						size="small"
+						align="right"
+						token={tokenAlice}
+						amountEth="1"
+						amountUsd={tokenAliceUsdPrice}
+					/>
 				</FormControl>
-				{/* <TokenApproximatelyEqualsDollar
-					size="small"
-					align="right"
-					token={props.tokenAlice}
-					amountEth="1"
-					amountUsd={props.tokenAliceUsdPrice}
-				/> */}
 
 				<FormControl>
 					<FormControlHeader
@@ -157,15 +159,15 @@ const BBMPCreateOfferView: React.FC<BBMPCreateOfferView> = ({
 					/>
 				</FormControl>
 
-				{/* {!!props.amountAliceUsd && !props.amountAliceInputError && (
+				{!!amountAliceUsd && !amountAliceInputError && (
 					<TokenApproximatelyEqualsDollar
 						size="big"
 						align="center"
-						token={props.tokenAlice}
-						amountEth={props.amountAlice}
-						amountUsd={props.amountAliceUsd}
+						token={tokenAlice}
+						amountEth={amountAlice}
+						amountUsd={amountAliceUsd}
 					/>
-				)} */}
+				)}
 
 				<FormControl>
 					<FormControlHeader
