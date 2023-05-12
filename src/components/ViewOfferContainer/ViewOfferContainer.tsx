@@ -2,6 +2,7 @@ import { FormControlHeader } from "@/components/FormControlHeader/FormControlHea
 import { GradientPopup } from "@/components/Popup/Popup"
 import { Text } from "@/components/Text/Text"
 import { H3, LeadText } from "@/components/Text/Typography"
+import { TokenApproximatelyEqualsDollar } from "@/components/TokenApproximatelyEquals"
 import { TokenSelectorSingleTokenOption } from "@/components/TokenSelect/TokenSelect"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
@@ -9,8 +10,8 @@ import React from "react"
 type ViewOfferProps = {}
 
 // orig BBViewOfferWrapper.tsx
-export const ViewOfferContainer: React.FC<ViewOfferProps> = ({}) => {
-	return <ViewOfferContainerView />
+export const ViewOfferContainer: React.FCC<ViewOfferProps> = ({ children }) => {
+	return <ViewOfferContainerView>{children}</ViewOfferContainerView>
 }
 
 const ViewOfferContainerView: React.FCC = ({ children }) => {
@@ -62,11 +63,9 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 					))}
 				</Flex>
 				<LeadText color={"gray"}>
-					This is a zero lock offer. You can offer your price without
-					locking funds. The only thing you need to pay for is gas. It
-					is important to remember that the offer maker expects that
-					your bid will be backed by tokens. Respect your
-					counterparty.
+					This is a Best Bid auction. When your bid is accepted, you
+					will receive the tokens. Setup notifications to be notified
+					when your bid is accepted.
 				</LeadText>
 				{children}
 			</Flex>
