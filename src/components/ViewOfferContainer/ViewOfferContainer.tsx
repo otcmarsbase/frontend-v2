@@ -22,7 +22,7 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 			<Flex flexDirection={"column"} gap={4}>
 				<FormControlHeader title="For sale: " subtitle="Ethereum" />
 				<TokenApproximatelyEqualsDollar
-					size="small"
+					size="big"
 					align="center"
 					token={{
 						address: "0x0000000",
@@ -33,7 +33,7 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 						decimals: 18,
 					}}
 					amountEth="1"
-					amountUsd={"183365.08"}
+					amountUsd={183365.08}
 				/>
 				<FormControlHeader title="Accepted tokens:" />
 				<Flex className="flex-row justify-start gap-2">
