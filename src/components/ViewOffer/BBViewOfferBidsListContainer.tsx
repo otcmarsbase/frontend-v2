@@ -1,4 +1,4 @@
-import { ViewOfferBidsTable } from "@/components/Bids/ViewOfferBidsTable"
+import { ViewOfferBidsTable } from "@/components/ViewOffer/ViewOfferBidsTable"
 import { SpecialButton } from "@/components/Button/SpecialButton"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { InfiniteProgressBar } from "@/components/InfiniteProgress/InfiniteProgress"

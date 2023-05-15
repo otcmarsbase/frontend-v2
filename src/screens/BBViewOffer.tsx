@@ -1,6 +1,6 @@
 import { flattenRoutes } from "@/AppRoutes"
-import { BBViewOfferBidsListContainer } from "@/components/Bids/BBViewOfferBidsListContainer"
-import { ViewOfferBidCreateForm } from "@/components/Bids/ViewOfferBidCreateForm"
+import { BBViewOfferBidsListContainer } from "@/components/ViewOffer/BBViewOfferBidsListContainer"
+import { ViewOfferBidCreateForm } from "@/components/ViewOffer/ViewOfferBidCreateForm"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
