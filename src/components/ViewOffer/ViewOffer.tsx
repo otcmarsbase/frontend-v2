@@ -11,6 +11,17 @@ type BBMPViewOfferProps = {
 	description: string
 }
 
+export const BBViewOffer: React.FCC<BBMPViewOfferProps> = ({ children }) => {
+	return (
+		<BBMPViewOffer
+			description="This is a Best Bid auction. When your bid is accepted, you
+	will receive the tokens. Setup notifications to be notified
+	when your bid is accepted."
+		>
+			{children}
+		</BBMPViewOffer>
+	)
+}
 
 export const MPViewOffer: React.FCC<BBMPViewOfferProps> = ({ children }) => {
 	return (
