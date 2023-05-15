@@ -17,13 +17,13 @@ export const BBViewOfferWrapper: React.FCC<BBViewOfferWrapperProps> = ({
 	children,
 }) => {
 	return (
-		<BBMPViewOffer
+		<BBMPViewOfferWrapper
 			description="This is a Best Bid auction. When your bid is accepted, you
 	will receive the tokens. Setup notifications to be notified
 	when your bid is accepted."
 		>
 			{children}
-		</BBMPViewOffer>
+		</BBMPViewOfferWrapper>
 	)
 }
 
@@ -32,13 +32,13 @@ export const MPViewOfferWrapper: React.FCC<MPViewOfferWrapperProps> = ({
 	children,
 }) => {
 	return (
-		<BBMPViewOffer description="This is a zero lock offer. You can offer your price without locking funds. The only thing you need to pay for is gas. It is important to remember that the offer maker expects that your bid will be backed by tokens. Respect your counterparty.">
+		<BBMPViewOfferWrapper description="This is a zero lock offer. You can offer your price without locking funds. The only thing you need to pay for is gas. It is important to remember that the offer maker expects that your bid will be backed by tokens. Respect your counterparty.">
 			{children}
-		</BBMPViewOffer>
+		</BBMPViewOfferWrapper>
 	)
 }
 
-const BBMPViewOffer: React.FCC<BBMPViewOfferProps> = (props) => {
+const BBMPViewOfferWrapper: React.FCC<BBMPViewOfferProps> = (props) => {
 	return (
 		<GradientPopup
 			contentClassName="bg-black px-6 py-8 w-full"
