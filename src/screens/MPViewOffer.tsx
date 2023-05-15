@@ -9,6 +9,7 @@ import { useTranslation } from "@/localization/l10n"
 import { useNavigate } from "react-router-dom"
 import { flattenRoutes } from "@/AppRoutes"
 import { TelegramIcon } from "@/icons"
+import { MPViewOfferHydrator } from "@/components/ViewOffer/MPViewOfferHydrator"
 
 type MPViewOfferProps = {}
 
@@ -49,48 +50,28 @@ export const MPViewOffer: React.FC<MPViewOfferProps> = ({}) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<MPViewOfferWrapper>
-					{false ? (
-						<BBViewOfferBidsListContainer />
-					) : (
-						<ViewOfferBidCreateForm
-							tokens={[]}
-							tokenSelectedIdx={0}
-							onTokenSelected={function (idx: number): void {
-								throw new Error("Function not implemented.")
-							}}
-							onTokenDeselected={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							createEnabled={false}
-							onCreate={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							onApprove={() => {}}
-							amountBobInput={""}
-							onAmountBobInput={function (amount: string): void {
-								throw new Error("Function not implemented.")
-							}}
-							balanceBob={undefined}
-							amountBobInputError={undefined}
-							shouldShowLogin={false}
-							onLogin={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							disableAllInputs={false}
-							transactionInProgress={false}
-							tokensWillBeLocked={false}
-							backButton={{
-								label: "Cancel bid",
-								onClick: function (): void {
-									throw new Error("Function not implemented.")
-								},
-							}}
-						/>
-					)}
-				</MPViewOfferWrapper>
+				<MPViewOfferScreenContainer />
 			</div>
 		</ScreenWrapper>
 	)
 }
 
+const MPViewOfferScreenContainer: React.FC = ({}) => {
+	const offerId = 0
+	const error = null
+	if (false) return <div>Loading offer #{offerId}...</div>
+
+	if (false)
+		return (
+			<div>
+				Error loading offer #{offerId}! {typeof error}
+				<br />
+				{JSON.stringify(error)}
+			</div>
+		)
+
+	// if (false)
+	// 	return <ViewOfferNotFound offerId={offerId} />
+
+	return <MPViewOfferHydrator />
+}
