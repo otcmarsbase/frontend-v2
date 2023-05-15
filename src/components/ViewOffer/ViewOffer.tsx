@@ -11,7 +11,11 @@ type BBMPViewOfferProps = {
 	description: string
 }
 
-export const BBViewOffer: React.FCC<BBMPViewOfferProps> = ({ children }) => {
+type BBViewOfferWrapperProps = Omit<BBMPViewOfferProps, "description">
+
+export const BBViewOfferWrapper: React.FCC<BBViewOfferWrapperProps> = ({
+	children,
+}) => {
 	return (
 		<BBMPViewOffer
 			description="This is a Best Bid auction. When your bid is accepted, you
