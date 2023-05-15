@@ -14,7 +14,7 @@ export const ViewOfferContainer: React.FCC<ViewOfferProps> = ({ children }) => {
 	return <ViewOfferContainerView>{children}</ViewOfferContainerView>
 }
 
-const ViewOfferContainerView: React.FCC = ({ children }) => {
+const BBMPViewOffer: React.FCC<BBMPViewOfferProps> = (props) => {
 	return (
 		<GradientPopup
 			contentClassName="bg-black px-6 py-8 w-full"
@@ -62,12 +62,8 @@ const ViewOfferContainerView: React.FCC = ({ children }) => {
 						/>
 					))}
 				</Flex>
-				<LeadText color={"gray"}>
-					This is a Best Bid auction. When your bid is accepted, you
-					will receive the tokens. Setup notifications to be notified
-					when your bid is accepted.
-				</LeadText>
-				{children}
+				<LeadText color={"gray"}>{props.description}</LeadText>
+				{props.children}
 			</Flex>
 		</GradientPopup>
 	)
