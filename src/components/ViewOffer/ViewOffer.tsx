@@ -11,9 +11,9 @@ type BBMPViewOfferProps = {
 	description: string
 }
 
-type BBViewOfferWrapperProps = Omit<BBMPViewOfferProps, "description">
+type BBViewOfferProps = Omit<BBMPViewOfferProps, "description">
 
-export const BBViewOfferWrapper: React.FCC<BBViewOfferWrapperProps> = ({
+export const BBViewOfferWrapper: React.FCC<BBViewOfferProps> = ({
 	children,
 }) => {
 	return (
@@ -27,8 +27,8 @@ export const BBViewOfferWrapper: React.FCC<BBViewOfferWrapperProps> = ({
 	)
 }
 
-type MPViewOfferWrapperProps = Omit<BBMPViewOfferProps, "description">
-export const MPViewOfferWrapper: React.FCC<MPViewOfferWrapperProps> = ({
+type MPViewOfferProps = Omit<BBMPViewOfferProps, "description">
+export const MPViewOfferWrapper: React.FCC<MPViewOfferProps> = ({
 	children,
 }) => {
 	return (
