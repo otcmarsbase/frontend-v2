@@ -12,9 +12,12 @@ type BBMPViewOfferProps = {
 }
 
 
-// orig BBViewOfferWrapper.tsx
-export const ViewOfferContainer: React.FCC<ViewOfferProps> = ({ children }) => {
-	return <ViewOfferContainerView>{children}</ViewOfferContainerView>
+export const MPViewOffer: React.FCC<BBMPViewOfferProps> = ({ children }) => {
+	return (
+		<BBMPViewOffer description="This is a zero lock offer. You can offer your price without locking funds. The only thing you need to pay for is gas. It is important to remember that the offer maker expects that your bid will be backed by tokens. Respect your counterparty.">
+			{children}
+		</BBMPViewOffer>
+	)
 }
 
 const BBMPViewOffer: React.FCC<BBMPViewOfferProps> = (props) => {
