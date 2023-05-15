@@ -7,7 +7,10 @@ import { TokenSelectorSingleTokenOption } from "@/components/TokenSelect/TokenSe
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
-type ViewOfferProps = {}
+type BBMPViewOfferProps = {
+	description: string
+}
+
 
 // orig BBViewOfferWrapper.tsx
 export const ViewOfferContainer: React.FCC<ViewOfferProps> = ({ children }) => {
