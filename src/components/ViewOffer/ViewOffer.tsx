@@ -27,7 +27,10 @@ export const BBViewOfferWrapper: React.FCC<BBViewOfferWrapperProps> = ({
 	)
 }
 
-export const MPViewOffer: React.FCC<BBMPViewOfferProps> = ({ children }) => {
+type MPViewOfferWrapperProps = Omit<BBMPViewOfferProps, "description">
+export const MPViewOfferWrapper: React.FCC<MPViewOfferWrapperProps> = ({
+	children,
+}) => {
 	return (
 		<BBMPViewOffer description="This is a zero lock offer. You can offer your price without locking funds. The only thing you need to pay for is gas. It is important to remember that the offer maker expects that your bid will be backed by tokens. Respect your counterparty.">
 			{children}
