@@ -18,9 +18,7 @@ export const BBViewOfferWrapper: React.FCC<BBViewOfferProps> = ({
 }) => {
 	return (
 		<BBMPViewOfferWrapper
-			description="This is a Best Bid auction. When your bid is accepted, you
-	will receive the tokens. Setup notifications to be notified
-	when your bid is accepted."
+			description="This is a Best Bid auction. When your bid is accepted, you will receive the tokens. Setup notifications to be notified when your bid is accepted."
 		>
 			{children}
 		</BBMPViewOfferWrapper>
