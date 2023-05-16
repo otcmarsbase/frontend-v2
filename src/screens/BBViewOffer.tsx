@@ -5,18 +5,18 @@ import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1 } from "@/components/Text/Typography"
-import { ViewOfferContainer } from "@/components/ViewOfferContainer/ViewOfferContainer"
+import { BBViewOfferWrapper } from "@/components/ViewOffer/ViewOfferWrapper"
 import { TelegramIcon } from "@/icons"
 import { useTranslation } from "@/localization/l10n"
 import { HighlightComponent } from "@/utils/utils"
 import React from "react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
+import { BBViewOfferHydrator } from "@/components/ViewOffer/BBViewOfferHydrator"
 
 type BBViewOfferProps = {
 	creatingBid: boolean
 }
 
-// TODO: Можно ли разделить экраны так, чтобы не прокидывать creatingBid?
 export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	const l10n = useTranslation()
 	let navigate = useNavigate()
@@ -54,47 +54,28 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<ViewOfferContainer>
-					{false ? (
-						<BBViewOfferBidsListContainer />
-					) : (
-						<ViewOfferBidCreateForm
-							tokens={[]}
-							tokenSelectedIdx={0}
-							onTokenSelected={function (idx: number): void {
-								throw new Error("Function not implemented.")
-							}}
-							onTokenDeselected={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							createEnabled={false}
-							onCreate={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							onApprove={() => {}}
-							amountBobInput={""}
-							onAmountBobInput={function (amount: string): void {
-								throw new Error("Function not implemented.")
-							}}
-							balanceBob={undefined}
-							amountBobInputError={undefined}
-							shouldShowLogin={false}
-							onLogin={function (): void {
-								throw new Error("Function not implemented.")
-							}}
-							disableAllInputs={false}
-							transactionInProgress={false}
-							tokensWillBeLocked={false}
-							backButton={{
-								label: "Cancel bid",
-								onClick: function (): void {
-									throw new Error("Function not implemented.")
-								},
-							}}
-						/>
-					)}
-				</ViewOfferContainer>
+				<BBViewOfferScreenContainer />
 			</div>
 		</ScreenWrapper>
 	)
+}
+
+const BBViewOfferScreenContainer: React.FC = ({}) => {
+	const offerId = 0
+	const error = null
+	if (false) return <div>Loading offer #{offerId}...</div>
+
+	if (false)
+		return (
+			<div>
+				Error loading offer #{offerId}! {typeof error}
+				<br />
+				{JSON.stringify(error)}
+			</div>
+		)
+
+	// if (false)
+	// 	return <ViewOfferNotFound offerId={offerId} />
+
+	return <BBViewOfferHydrator />
 }
