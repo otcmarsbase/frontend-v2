@@ -24,6 +24,7 @@ export const BBViewOfferCreateBid: React.FC<
 			onAmountBobInput={function (amount: string): void {
 				throw new Error("Function not implemented.")
 			}}
+			onApprove={function (): void {}}
 			balanceBob={undefined}
 			amountBobInputError={undefined}
 			shouldShowLogin={false}
