@@ -1,5 +1,6 @@
 import { Leaderboard } from "@/screens/Leaderboard"
 import { MPCreateOffer } from "@/screens/MPCreateOffer"
+import { MPViewOffer } from "@/screens/MPViewOffer"
 import { DeepWriteable } from "@/types"
 import { flatRoutes } from "@/utils/routes"
 import { Outlet } from "react-router-dom"
@@ -113,7 +114,7 @@ export const routes = [
 			{
 				path: "offer/:offerId/",
 				children: [
-					{ path: "", element: <div>marketplace offer root</div> },
+					{ path: "", element: <MPViewOffer/> },
 					{ path: "bid", element: <div>marketplace offer bid</div> },
 					{
 						path: "bid/:bidIdx/",
