@@ -7,7 +7,7 @@ export const DisplayProfit: React.FC<{
 	profit: ReturnType<typeof calculateProfit>
 }> = ({ profit }) => {
 	return (
-		<Flex>
+		<Flex className="gap-1">
 			<Text12Bold
 				size="12"
 				className={clsx({
