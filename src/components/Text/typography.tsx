@@ -24,6 +24,8 @@ export const H3 = TextGeneric({ size: "promo-16" })
 
 export const Text12Normal = TextGeneric({ size: "12" })
 
+export const Text12Bold = TextGeneric({ size: "12", fontWeight: "bold" })
+
 export const Text12Semibold = TextGeneric({
 	size: "12",
 	fontWeight: "semibold",
