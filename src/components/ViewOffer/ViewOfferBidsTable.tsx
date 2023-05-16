@@ -87,7 +87,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	)
 }
 
-type BidRow = {
+type OfferBidSingleViewProps = {
 	bidId: {
 		title: string
 		value: any
@@ -105,7 +105,12 @@ type BidRow = {
 		value: any
 	}
 }
-const BidRow: React.FC<BidRow> = ({ amount, bidId, usd, value }) => {
+const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
+	amount,
+	bidId,
+	usd,
+	value,
+}) => {
 	return (
 		<TableRow
 			rowData={[bidId.value, amount.value, usd.value, value.value]}
