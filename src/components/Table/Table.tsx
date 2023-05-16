@@ -83,18 +83,22 @@ export const TableSortButton: React.FCC<TableSortButtonProps> = ({
 type RowData = React.ReactNode
 
 export const TableRow: React.FC<{
-	rowData: RowData[]
+	rowData: RowData[] | React.ReactNode
 	cardData: React.ReactNode
 }> = ({ rowData, cardData }) => {
 	const ctx = React.useContext(TableCtx)
-	if (ctx.variant === "row")
-		return (
-			<Tr>
-				{rowData.map((x) => (
-					<Td py={"0.5"}>{x}</Td>
-				))}
-			</Tr>
-		)
+	if (ctx.variant === "row") {
+		if (Array.isArray(rowData))
+			return (
+				<Tr>
+					{rowData.map((x) => (
+						<Td py={"0.5"}>{x}</Td>
+					))}
+				</Tr>
+			)
+		return <>{rowData}</>
+	}
+
 	return <>{cardData}</>
 }
 
