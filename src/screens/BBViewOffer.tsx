@@ -1,4 +1,4 @@
-import { flattenRoutes } from "@/AppRoutes"
+import { appRoutes } from "@/AppRoutes"
 import { BBViewOfferBidsListContainer } from "@/components/ViewOffer/BBViewOfferBidsListContainer"
 import { ViewOfferBidCreateForm } from "@/components/ViewOffer/ViewOfferBidCreateForm"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
@@ -22,7 +22,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	let navigate = useNavigate()
 
 	const handleBack = () => {
-		navigate(flattenRoutes["/bestbid/offers/"]())
+		navigate(appRoutes["/bestbid/offers/"]())
 	}
 	return (
 		<ScreenWrapper

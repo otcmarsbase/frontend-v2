@@ -1,4 +1,4 @@
-import { flattenRoutes } from "@/AppRoutes"
+import { appRoutes } from "@/AppRoutes"
 import { Footer } from "@/components/Footer/Footer"
 import { Image } from "@/components/Image/Image"
 import { useTranslation } from "@/localization/l10n"
@@ -94,7 +94,7 @@ const Header: React.FCC<{
 }> = ({ menuLinks, supportLinks }) => {
 	return (
 		<HStack justifyContent={"space-between"} w={"100%"}>
-			<Link to={flattenRoutes["/"]()}>
+			<Link to={appRoutes["/"]()}>
 				<HeaderLogo />
 			</Link>
 			<DesktopView>

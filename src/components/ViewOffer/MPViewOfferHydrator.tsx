@@ -10,7 +10,7 @@ export const MPViewOfferHydrator: React.FC<MPViewOfferHydratorProps> = ({}) => {
 	// 	return <OneOfTheTokenNotSupported params={offer.params} />
 	return (
 		<MPViewOfferWrapper>
-			{true ? <MPViewOfferCreateBid /> : <MPViewOfferBidsList />}
+			{false ? <MPViewOfferCreateBid /> : <MPViewOfferBidsList />}
 		</MPViewOfferWrapper>
 	)
 }

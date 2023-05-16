@@ -1,16 +1,16 @@
-import { flattenRoutes } from '@/AppRoutes'
+import { appRoutes } from '@/AppRoutes'
 import { Dict } from '@/localization/l10n'
 
 export const navlinks = (dict: Dict['navbar']['links']) => [
 	{
 		name: dict.dashboard,
-		path: flattenRoutes['/dashboard/offers'](),
+		path: appRoutes['/dashboard/offers'](),
 		enabled: false,
 		auth: true,
 	},
 	{
 		name: dict.marketplace,
-		path: flattenRoutes['/marketplace/'](),
+		path: appRoutes['/marketplace/'](),
 		// enabled: FLAGS.marketplace,
 		enabled: true,
 		auth: false,
@@ -19,32 +19,32 @@ export const navlinks = (dict: Dict['navbar']['links']) => [
 	true
 		? {
 				name: dict.bestbidAuction,
-				path: flattenRoutes['/bestbid/'](),
+				path: appRoutes['/bestbid/'](),
 				enabled: true,
 				auth: false,
 		  }
 		: {
 				name: dict.createOffer,
-				path: flattenRoutes['/create-offer'](),
+				path: appRoutes['/create-offer'](),
 				enabled: true,
 				auth: true,
 		  },
 	{
 		name: dict.root,
-		path: flattenRoutes['/'](),
+		path: appRoutes['/'](),
 		enabled: true,
 		auth: false,
 	},
 	{
 		name: dict.calculator,
-		path: flattenRoutes['/calculator'](),
+		path: appRoutes['/calculator'](),
 		// enabled: !FLAGS.marketplace,
 		enabled: true,
 		auth: false,
 	},
 	{
 		name: dict.saft,
-		path: flattenRoutes['/'](),
+		path: appRoutes['/'](),
 		enabled: true,
 		auth: false,
 	},

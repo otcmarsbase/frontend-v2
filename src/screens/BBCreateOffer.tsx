@@ -24,20 +24,25 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<BBCreateOfferContainer
+				{/* <BBCreateOfferContainer
+					ctaButtonMode="actions"
 					backButton={{
 						label: "Back to offer list",
 						onClick: () => {},
 					}}
 					tokenAlice={{
-						address: "0x000",
-						decimals: 1,
-						iconUrl: "https://via.placeholder.com/150",
-						name: "Etherium",
+						name: "Ethereum",
 						symbol: "ETH",
+						iconUrl:
+							"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+						address: "0x0000000",
+						decimals: 18,
 					}}
+					tokenAliceUsdPrice={183365.08}
 					tokensWillBeLocked={true}
-				/>
+					amountAliceUsd={1}
+					amountAlice={"1"}
+				/> */}
 			</div>
 		</ScreenWrapper>
 	)

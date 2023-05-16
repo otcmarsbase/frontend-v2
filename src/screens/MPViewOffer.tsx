@@ -7,7 +7,7 @@ import { Text } from "@/components/Text/Text"
 import React from "react"
 import { useTranslation } from "@/localization/l10n"
 import { useNavigate } from "react-router-dom"
-import { flattenRoutes } from "@/AppRoutes"
+import { appRoutes } from "@/AppRoutes"
 import { TelegramIcon } from "@/icons"
 import { MPViewOfferHydrator } from "@/components/ViewOffer/MPViewOfferHydrator"
 
@@ -18,7 +18,7 @@ export const MPViewOffer: React.FC<MPViewOfferProps> = ({}) => {
 	let navigate = useNavigate()
 
 	const handleBack = () => {
-		navigate(flattenRoutes["/marketplace/offers/"]())
+		navigate(appRoutes["/marketplace/offers/"]())
 	}
 	return (
 		<ScreenWrapper

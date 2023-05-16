@@ -143,4 +143,4 @@ export const routes = [
 	},
 ] as const
 
-export const flattenRoutes = flatRoutes(routes as DeepWriteable<typeof routes>)
+export const appRoutes = flatRoutes(routes as DeepWriteable<typeof routes>)
