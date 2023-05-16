@@ -94,3 +94,31 @@ export const separateThousands = (
 
 	return `${p1}${p2}`
 }
+
+export const calculateProfit = (
+	amountAliceUsd: number,
+	amountBobUsd: number
+): { type: "discount" | "premium"; amount: number } => {
+	if (!amountBobUsd)
+		return {
+			type: "discount",
+			amount: -1,
+		}
+
+	if (!amountAliceUsd)
+		return {
+			type: "premium",
+			amount: 0,
+		}
+
+	if (amountAliceUsd >= amountBobUsd)
+		return {
+			type: "discount",
+			amount: -1 + amountBobUsd / amountAliceUsd,
+		}
+
+	return {
+		type: "premium",
+		amount: amountBobUsd / amountAliceUsd - 1,
+	}
+}
