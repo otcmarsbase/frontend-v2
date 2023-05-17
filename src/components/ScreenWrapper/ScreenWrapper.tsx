@@ -13,14 +13,14 @@ import { MobileFooter } from "@/components/MobileFooter/MobileFooter"
 import { Text } from "@/components/Text/Text"
 
 type ScreenWrapperProps = {
-	top?: React.ReactNode
+	header?: React.ReactNode
 }
 
 export const ScreenContainer: React.FCC = ({ children }) => {
 	return <div className="px-5 w-full">{children}</div>
 }
 export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
-	top,
+	header,
 	children,
 }) => {
 	const l10n = useTranslation()
@@ -61,7 +61,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 						/>
 					</ScreenContainer>
 				</Box>
-				{top}
+				{header}
 			</VStack>
 			<ScreenContainer>
 				<Box w={"100%"}>{children}</Box>

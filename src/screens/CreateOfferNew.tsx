@@ -16,7 +16,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<>
 					<ScreenHeader
 						subTitle={

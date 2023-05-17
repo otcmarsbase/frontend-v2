@@ -10,7 +10,7 @@ type BBCreateOfferProps = {}
 export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<ScreenHeader
 					subTitle={
 						<LeadText color={"gray"}>

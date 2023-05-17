@@ -26,7 +26,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	}
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<ScreenHeader
 					backButton={{
 						label: l10n.BBViewOffer.header.back,

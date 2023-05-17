@@ -12,7 +12,7 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<ScreenHeader
 					createOfferBtn={{
 						label: l10n.marketplace.header.offerBtn,

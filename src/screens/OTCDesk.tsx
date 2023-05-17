@@ -16,7 +16,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<ScreenHeader
 					borderBottom
 					titleLink={

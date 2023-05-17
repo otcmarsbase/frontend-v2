@@ -9,7 +9,7 @@ type MPCreateOfferProps = {}
 export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 	return (
 		<ScreenWrapper
-			top={
+			header={
 				<ScreenHeader
 					subTitle={
 						<LeadText color={"gray"}>
