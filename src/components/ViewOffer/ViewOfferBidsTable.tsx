@@ -1,9 +1,22 @@
 import React from "react"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
-import { APPROXIMATELY_EQUALS_SYMBOL } from "@/utils/utils"
+import {
+	APPROXIMATELY_EQUALS_SYMBOL,
+	calculateProfit,
+	separateThousands,
+} from "@/utils/utils"
 import { Text12Normal } from "@/components/Text/Typography"
 import { Text } from "@/components/Text/Text"
-import { Box, HStack, VStack } from "@chakra-ui/react"
+import { Box, Flex, HStack, Spinner, Td, Tr, VStack } from "@chakra-ui/react"
+import { DisplayProfit } from "@/components/DisplayProfit/DisplayProfit"
+import { TokenInfo } from "@/types"
+import { WBN } from "@/utils/WBN"
+import {
+	LongEthValueView,
+	TokenIconSymbol,
+} from "@/components/TokenAmountInput/TokenAmountInput"
+import { PrimaryButton } from "@/components/Button/PrimaryButton"
+import { OrangeButton } from "@/components/Button/OrangeButton"
 
 type ViewOfferBidsTableProps = {}
 
@@ -49,52 +62,88 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	]
 	return (
 		<Table
-			body={[
-				<BidRow
-					amount={{
-						title: "Amount",
-						value: <Text12Normal>100 ETH</Text12Normal>,
-					}}
-					bidId={{
-						title: "Bid ID",
-						value: <Text12Normal>#0</Text12Normal>,
-					}}
-					usd={{
-						title: "USD",
-						value: (
-							<Text12Normal>
-								{APPROXIMATELY_EQUALS_SYMBOL + " $100"}
-							</Text12Normal>
-						),
-					}}
-					value={{
-						title: "Value",
-						value: "-55.27% discount",
-					}}
-				/>,
-				<BidRow
-					amount={{
-						title: "Amount",
-						value: <Text12Normal>100 BNB</Text12Normal>,
-					}}
-					bidId={{
-						title: "Bid ID",
-						value: <Text12Normal>#0</Text12Normal>,
-					}}
-					usd={{
-						title: "USD",
-						value: (
-							<Text12Normal>
-								{APPROXIMATELY_EQUALS_SYMBOL + " $100"}
-							</Text12Normal>
-						),
-					}}
-					value={{
-						title: "Value",
-						value: "-55.27% discount",
-					}}
-				/>,
-			]}
+			body={data.map((x) => {
+				return (
+					<OfferBidSingleView
+						amount={{
+							title: "Amount",
+							value:
+								x.tokenBob && x.amountBob ? (
+									<Flex as="span" justifyContent="flex-end">
+										<LongEthValueView
+											amountEth={x.amountBob.toEth()}
+										/>
+										<TokenIconSymbol token={x.tokenBob} />
+									</Flex>
+								) : (
+									<Spinner size={"sm"} />
+								),
+						}}
+						bidId={{
+							title: "Bid ID",
+							value: <Text12Normal>#{x.bidIdx}</Text12Normal>,
+						}}
+						usd={{
+							title: "USD",
+							value: (
+								<Text12Normal>
+									{APPROXIMATELY_EQUALS_SYMBOL + " "}$
+									{separateThousands(
+										x.amountBobUsd.toFixed(2)
+									)}
+								</Text12Normal>
+							),
+						}}
+						value={{
+							title: "Value",
+							value: (
+								<DisplayProfit
+									profit={calculateProfit(
+										x.amountAliceUsd,
+										x.amountBobUsd
+									)}
+								/>
+							),
+						}}
+						btn={{
+							value: (
+								<>
+									{x.isMyOffer ? (
+										<Flex
+											style={{ display: "inline-flex" }}
+										>
+											<OrangeButton
+												size="xs"
+												fontSize="12"
+												onClick={x.onAccept}
+											>
+												Accept bid
+											</OrangeButton>
+										</Flex>
+									) : (
+										<span />
+									)}
+									{x.isMyBid ? (
+										<Flex
+											style={{ display: "inline-flex" }}
+										>
+											<OrangeButton
+												size="xs"
+												fontSize="12"
+												onClick={x.onCancel}
+											>
+												Cancel bid
+											</OrangeButton>
+										</Flex>
+									) : (
+										<span />
+									)}
+								</>
+							),
+						}}
+					/>
+				)
+			})}
 			header={[
 				<TableSortButton
 					onClick={() => {}}
