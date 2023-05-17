@@ -32,3 +32,15 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}
 		</PageWrapper>
 	)
 }
+
+const YoureSubscribed: React.FC = () => {
+	return (
+		<VStack>
+			<CheckCircleIcon boxSize="40px" />
+			<H2>Success!</H2>
+			<LeadText>
+				You are subscribed and will receive notifications.
+			</LeadText>
+		</VStack>
+	)
+}
