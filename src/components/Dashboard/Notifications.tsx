@@ -11,3 +11,24 @@ export const NotificationsHydrator: React.FC<NotificationsProps> = ({}) => {
 	return <div></div>
 }
 
+    subscribedAlready?: boolean
+    loading?: boolean
+}
+export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}) => {
+	return (
+		<PageWrapper
+			header={
+				<PageHeader
+					subTitle="Enable notifications to make sure you don't miss the best deals."
+					title="Notifications"
+				/>
+			}
+		>
+			<Center>
+				<Flex direction={"row"}>
+				
+				</Flex>
+			</Center>
+		</PageWrapper>
+	)
+}
