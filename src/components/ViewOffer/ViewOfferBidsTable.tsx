@@ -23,6 +23,30 @@ type BidProps = {
 	onCancel: () => void
 }
 export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
+	const data: BidProps[] = [
+		{
+			amountAliceUsd: 100,
+			amountBob: WBN.fromEth("100", 18),
+			amountBobUsd: 100,
+			bidIdx: "0",
+			isMyBid: false,
+			isMyOffer: false,
+			onAccept: () => {},
+			onCancel: () => {},
+			tokenBob: undefined,
+		},
+		{
+			amountAliceUsd: 100,
+			amountBob: WBN.fromEth("100", 18),
+			amountBobUsd: 100,
+			bidIdx: "1",
+			isMyBid: false,
+			isMyOffer: true,
+			onAccept: () => {},
+			onCancel: () => {},
+			tokenBob: undefined,
+		},
+	]
 	return (
 		<Table
 			body={[
