@@ -1,7 +1,7 @@
 import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/CreateOfferStep"
 import { CreateOfferSelection } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelection"
 import { CreateOfferDetails } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
@@ -18,13 +18,9 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 		<PageWrapper
 			header={
 				<>
-					<PageHeaderGeneric
-						subTitle={
-							<Text size="14" className="text-gray">
-								{l10n.OTCDesk.subTitle}
-							</Text>
-						}
-						title={<H1>{l10n.OTCDesk.title}</H1>}
+					<PageHeader
+						subTitle={l10n.OTCDesk.subTitle}
+						title={l10n.OTCDesk.title}
 						borderBottom
 					/>
 

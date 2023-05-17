@@ -1,5 +1,5 @@
 import { MMCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H1, LeadText } from "@/components/Text/Typography"
 import React from "react"
@@ -10,13 +10,9 @@ export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<PageHeaderGeneric
-					subTitle={
-						<LeadText color={"gray"}>
-							Trade tokens without locking your liquidity
-						</LeadText>
-					}
-					title={<H1>Create Zero Lock Offer</H1>}
+				<PageHeader
+					subTitle={"Trade tokens without locking your liquidity"}
+					title={"Create Zero Lock Offer"}
 				/>
 			}
 		>

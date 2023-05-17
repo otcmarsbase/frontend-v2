@@ -1,7 +1,7 @@
 import { appRoutes } from "@/AppRoutes"
 import { BBViewOfferBidsListContainer } from "@/components/ViewOffer/BBViewOfferBidsListContainer"
 import { ViewOfferBidCreateForm } from "@/components/ViewOffer/ViewOfferBidCreateForm"
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1 } from "@/components/Text/Typography"
@@ -27,28 +27,24 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	return (
 		<PageWrapper
 			header={
-				<PageHeaderGeneric
+				<PageHeader
 					backButton={{
 						label: l10n.BBViewOffer.header.back,
 						onClick: handleBack,
 					}}
 					subTitle={
-						<Text size="14" className="text-gray">
-							<HighlightComponent
-								components={[() => <TelegramIcon />]}
-								query={["{0}"]}
-								template={l10n.BBViewOffer.header.subTitle}
-							/>
-						</Text>
+						<HighlightComponent
+							components={[() => <TelegramIcon />]}
+							query={["{0}"]}
+							template={l10n.BBViewOffer.header.subTitle}
+						/>
 					}
 					title={
-						<H1>
-							<HighlightComponent
-								components={[() => <></>]}
-								query={["{0}"]}
-								template={l10n.BBViewOffer.header.title}
-							/>
-						</H1>
+						<HighlightComponent
+							components={[() => <></>]}
+							query={["{0}"]}
+							template={l10n.BBViewOffer.header.title}
+						/>
 					}
 				/>
 			}

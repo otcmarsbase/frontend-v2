@@ -1,4 +1,4 @@
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { MPOffersTable } from "@/components/Marketplace/MPOffersTable"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
@@ -13,21 +13,13 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<PageHeaderGeneric
+				<PageHeader
 					createOfferBtn={{
 						label: l10n.marketplace.header.offerBtn,
 						onClick: () => {},
 					}}
-					subTitle={
-						<Text size="14" className="text-gray">
-							{l10n.marketplace.header.subitle}
-						</Text>
-					}
-					title={
-						<H1>
-							{l10n.marketplace.header.title}
-						</H1>
-					}
+					subTitle={l10n.marketplace.header.subitle}
+					title={l10n.marketplace.header.title}
 				/>
 			}
 		>

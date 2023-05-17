@@ -1,6 +1,6 @@
 import { HStack, Link } from "@chakra-ui/react"
 import React from "react"
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { useTranslation } from "@/localization/l10n"
 import { links } from "@/utils/links"
@@ -17,7 +17,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<PageHeaderGeneric
+				<PageHeader
 					borderBottom
 					titleLink={
 						<HowToUseBtn
@@ -31,12 +31,8 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 						label: l10n.OTCDesk.createOfferLabel,
 						onClick: () => {},
 					}}
-					subTitle={
-						<Text size="14" className="text-gray">
-							{l10n.OTCDesk.subTitle}
-						</Text>
-					}
-					title={<H1>{l10n.OTCDesk.title}</H1>}
+					subTitle={l10n.OTCDesk.subTitle}
+					title={l10n.OTCDesk.title}
 				/>
 			}
 		>

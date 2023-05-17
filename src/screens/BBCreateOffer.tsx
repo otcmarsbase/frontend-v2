@@ -1,5 +1,5 @@
 import { BBCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
-import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
+import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1, LeadText } from "@/components/Text/Typography"
@@ -11,15 +11,11 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<PageHeaderGeneric
+				<PageHeader
 					subTitle={
-						<LeadText color={"gray"}>
-							Create an auction available to everyone or share the
-							offer link with another investor to use Marsbase as
-							an escrow.
-						</LeadText>
+						"Create an auction available to everyone or share the offer link with another investor to use Marsbase as an escrow."
 					}
-					title={<H1>Create Best Bid Auction</H1>}
+					title={"Create Best Bid Auction"}
 				/>
 			}
 		>
