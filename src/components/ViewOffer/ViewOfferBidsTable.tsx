@@ -104,16 +104,26 @@ type OfferBidSingleViewProps = {
 		title: string
 		value: any
 	}
+	btn: {
+		value: any
+	}
 }
 const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 	amount,
 	bidId,
 	usd,
 	value,
+	btn,
 }) => {
 	return (
 		<TableRow
-			rowData={[bidId.value, amount.value, usd.value, value.value]}
+			rowData={[
+				bidId.value,
+				amount.value,
+				usd.value,
+				value.value,
+				btn.value,
+			]}
 			cardData={
 				<VStack border="1px solid red">
 					{[bidId, amount, usd, value].map((x) => (
@@ -122,6 +132,7 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 							<Box>{x.value}</Box>
 						</HStack>
 					))}
+					<HStack>{btn.value}</HStack>
 				</VStack>
 			}
 		/>
