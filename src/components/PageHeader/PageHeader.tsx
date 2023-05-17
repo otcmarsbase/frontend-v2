@@ -5,7 +5,7 @@ import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 import clsx from "clsx"
 import React from "react"
-import { H1 } from "@/components/Text/Typography"
+import { H1, LeadText } from "@/components/Text/Typography"
 
 type PageHeaderProps = {
 	createOfferBtn?: {
@@ -64,3 +64,12 @@ export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
 	)
 }
 
+export const PageHeader: React.FC<PageHeaderProps> = (props) => {
+	return (
+		<PageHeaderGeneric
+			{...props}
+			subTitle={<LeadText color={"gray"}>{props.subTitle}</LeadText>}
+			title={<H1>{props.title}</H1>}
+		/>
+	)
+}
