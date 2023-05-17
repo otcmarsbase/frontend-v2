@@ -1,4 +1,4 @@
-import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H1 } from "@/components/Text/Typography"
 import { MPViewOfferWrapper } from "@/components/ViewOffer/ViewOfferWrapper"
@@ -23,7 +23,7 @@ export const MPViewOffer: React.FC<MPViewOfferProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<ScreenHeader
+				<PageHeaderGeneric
 					backButton={{
 						label: l10n.BBViewOffer.header.back,
 						onClick: handleBack,

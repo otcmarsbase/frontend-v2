@@ -1,7 +1,7 @@
 import { appRoutes } from "@/AppRoutes"
 import { BBViewOfferBidsListContainer } from "@/components/ViewOffer/BBViewOfferBidsListContainer"
 import { ViewOfferBidCreateForm } from "@/components/ViewOffer/ViewOfferBidCreateForm"
-import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1 } from "@/components/Text/Typography"
@@ -27,7 +27,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 	return (
 		<PageWrapper
 			header={
-				<ScreenHeader
+				<PageHeaderGeneric
 					backButton={{
 						label: l10n.BBViewOffer.header.back,
 						onClick: handleBack,

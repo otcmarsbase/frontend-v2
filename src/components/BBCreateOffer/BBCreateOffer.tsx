@@ -7,7 +7,7 @@ import {
 } from "@/components/InfiniteProgress/InfiniteProgress"
 import { ErrorLine } from "@/components/Input/Input"
 import { GradientPopup } from "@/components/Popup/Popup"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H3 } from "@/components/Text/Typography"
 import { TokenAmountInput } from "@/components/TokenAmountInput/TokenAmountInput"
 import { TokenApproximatelyEqualsDollar } from "@/components/TokenApproximatelyEquals"

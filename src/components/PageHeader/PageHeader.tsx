@@ -1,11 +1,13 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { SpecialButton } from "@/components/Button/SpecialButton"
 import { Container } from "@/components/PageWrapper/PageWrapper"
-import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
+import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
+import { Text } from "@/components/Text/Text"
 import clsx from "clsx"
 import React from "react"
+import { H1 } from "@/components/Text/Typography"
 
-type ScreenHeaderProps = {
+type PageHeaderProps = {
 	createOfferBtn?: {
 		label: string
 		onClick: () => void
@@ -20,7 +22,7 @@ type ScreenHeaderProps = {
 	borderBottom?: boolean
 }
 
-export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
+export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
 	subTitle,
 	title,
 	titleLink,
@@ -61,3 +63,4 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 		</Box>
 	)
 }
+

@@ -1,5 +1,5 @@
 import { MMCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
-import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H1, LeadText } from "@/components/Text/Typography"
 import React from "react"
@@ -10,7 +10,7 @@ export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<ScreenHeader
+				<PageHeaderGeneric
 					subTitle={
 						<LeadText color={"gray"}>
 							Trade tokens without locking your liquidity

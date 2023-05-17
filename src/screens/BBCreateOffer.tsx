@@ -1,5 +1,5 @@
 import { BBCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
-import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1, LeadText } from "@/components/Text/Typography"
@@ -11,7 +11,7 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<ScreenHeader
+				<PageHeaderGeneric
 					subTitle={
 						<LeadText color={"gray"}>
 							Create an auction available to everyone or share the

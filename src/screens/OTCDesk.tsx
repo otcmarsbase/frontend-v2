@@ -1,6 +1,6 @@
 import { HStack, Link } from "@chakra-ui/react"
 import React from "react"
-import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
+import { PageHeaderGeneric } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { useTranslation } from "@/localization/l10n"
 import { links } from "@/utils/links"
@@ -17,7 +17,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	return (
 		<PageWrapper
 			header={
-				<ScreenHeader
+				<PageHeaderGeneric
 					borderBottom
 					titleLink={
 						<HowToUseBtn
