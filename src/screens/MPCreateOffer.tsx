@@ -1,6 +1,6 @@
 import { MMCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H1, LeadText } from "@/components/Text/Typography"
 import React from "react"
 
@@ -8,7 +8,7 @@ type MPCreateOfferProps = {}
 
 export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					subTitle={
@@ -41,6 +41,6 @@ export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 					amountAlice={"1"}
 				/>
 			</div>
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }

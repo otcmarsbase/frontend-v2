@@ -12,20 +12,20 @@ import { DesktopView } from "@/components/DesktopView"
 import { MobileFooter } from "@/components/MobileFooter/MobileFooter"
 import { Text } from "@/components/Text/Text"
 
-type ScreenWrapperProps = {
+type PageWrapperProps = {
 	header?: React.ReactNode
 }
 
-export const ScreenContainer: React.FCC = ({ children }) => {
+export const Container: React.FCC = ({ children }) => {
 	return <div className="px-5 w-full">{children}</div>
 }
-export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
+export const PageWrapper: React.FCC<PageWrapperProps> = ({
 	header,
 	children,
 }) => {
 	const l10n = useTranslation()
 	return (
-		<PageWrapper>
+		<VStack minHeight={"100vh"} height={"100%"}>
 			<VStack style={{ width: "100%" }}>
 				<Box
 					w={"full"}
@@ -41,7 +41,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 						height: "1px",
 					}}
 				>
-					<ScreenContainer>
+					<Container>
 						<Header
 							menuLinks={navlinks(l10n.navbar.links)}
 							supportLinks={[
@@ -59,11 +59,11 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 								},
 							]}
 						/>
-					</ScreenContainer>
+					</Container>
 				</Box>
 				{header}
 			</VStack>
-			<ScreenContainer>
+			<Container>
 				<Box w={"100%"}>{children}</Box>
 				<Box w={"100%"}>
 					<DesktopView>
@@ -71,15 +71,7 @@ export const ScreenWrapper: React.FCC<ScreenWrapperProps> = ({
 					</DesktopView>
 					<MobileFooter />
 				</Box>
-			</ScreenContainer>
-		</PageWrapper>
-	)
-}
-
-const PageWrapper: React.FCC = ({ children }) => {
-	return (
-		<VStack minHeight={"100vh"} height={"100%"}>
-			{children}
+			</Container>
 		</VStack>
 	)
 }

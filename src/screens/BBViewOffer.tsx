@@ -2,7 +2,7 @@ import { appRoutes } from "@/AppRoutes"
 import { BBViewOfferBidsListContainer } from "@/components/ViewOffer/BBViewOfferBidsListContainer"
 import { ViewOfferBidCreateForm } from "@/components/ViewOffer/ViewOfferBidCreateForm"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1 } from "@/components/Text/Typography"
 import { BBViewOfferWrapper } from "@/components/ViewOffer/ViewOfferWrapper"
@@ -25,7 +25,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 		navigate(appRoutes["/bestbid/offers/"]())
 	}
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					backButton={{
@@ -56,7 +56,7 @@ export const BBViewOffer: React.FC<BBViewOfferProps> = ({ creatingBid }) => {
 			<div className="max-w-[790px] mx-auto">
 				<BBViewOfferScreenContainer />
 			</div>
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }
 

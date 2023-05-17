@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { SpecialButton } from "@/components/Button/SpecialButton"
-import { ScreenContainer } from "@/components/ScreenWrapper/ScreenWrapper"
+import { Container } from "@/components/PageWrapper/PageWrapper"
 import { Box, Button, Flex, HStack, Text, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
@@ -35,7 +35,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 				"w-full"
 			)}
 		>
-			<ScreenContainer>
+			<Container>
 				<Flex justifyContent={"space-between"} width={"100%"}>
 					<Flex direction={"column"} alignItems={"flex-start"}>
 						{backButton && <BackButton icon {...backButton} />}
@@ -57,7 +57,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = ({
 						</SpecialButton>
 					)}
 				</Flex>
-			</ScreenContainer>
+			</Container>
 		</Box>
 	)
 }

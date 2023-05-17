@@ -1,6 +1,6 @@
 import { BBCreateOfferContainer } from "@/components/BBCreateOffer/BBCreateOffer"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { H1, LeadText } from "@/components/Text/Typography"
 import React from "react"
@@ -9,7 +9,7 @@ type BBCreateOfferProps = {}
 
 export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					subTitle={
@@ -44,6 +44,6 @@ export const BBCreateOffer: React.FC<BBCreateOfferProps> = ({}) => {
 					amountAlice={"1"}
 				/> */}
 			</div>
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }

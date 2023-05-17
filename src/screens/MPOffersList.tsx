@@ -1,6 +1,6 @@
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
 import { MPOffersTable } from "@/components/Marketplace/MPOffersTable"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import React from "react"
@@ -11,7 +11,7 @@ type MPOffersListProps = {}
 export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					createOfferBtn={{
@@ -32,6 +32,6 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 			}
 		>
 			<MPOffersTable />
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }

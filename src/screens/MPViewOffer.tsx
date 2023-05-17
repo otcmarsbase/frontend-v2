@@ -1,5 +1,5 @@
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { H1 } from "@/components/Text/Typography"
 import { MPViewOfferWrapper } from "@/components/ViewOffer/ViewOfferWrapper"
 import { HighlightComponent } from "@/utils/utils"
@@ -21,7 +21,7 @@ export const MPViewOffer: React.FC<MPViewOfferProps> = ({}) => {
 		navigate(appRoutes["/marketplace/offers/"]())
 	}
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					backButton={{
@@ -52,7 +52,7 @@ export const MPViewOffer: React.FC<MPViewOfferProps> = ({}) => {
 			<div className="max-w-[790px] mx-auto">
 				<MPViewOfferScreenContainer />
 			</div>
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }
 

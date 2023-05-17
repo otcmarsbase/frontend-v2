@@ -1,7 +1,7 @@
 import { HStack, Link } from "@chakra-ui/react"
 import React from "react"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { useTranslation } from "@/localization/l10n"
 import { links } from "@/utils/links"
 import { Text } from "@/components/Text/Text"
@@ -15,7 +15,7 @@ type OTCDeskProps = {}
 export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<ScreenHeader
 					borderBottom
@@ -41,6 +41,6 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 			}
 		>
 			<OTCDeskContent />
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }

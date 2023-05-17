@@ -2,7 +2,7 @@ import { CreateOfferStep } from "@/components/CreateOffer/CreateOfferStep/Create
 import { CreateOfferSelection } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelection"
 import { CreateOfferDetails } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { ScreenHeader } from "@/components/ScreenHeader/ScreenHeader"
-import { ScreenWrapper } from "@/components/ScreenWrapper/ScreenWrapper"
+import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import { Box, Flex, HStack } from "@chakra-ui/react"
@@ -15,7 +15,7 @@ type CreateOfferNewProps = {}
 export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 	const l10n = useTranslation()
 	return (
-		<ScreenWrapper
+		<PageWrapper
 			header={
 				<>
 					<ScreenHeader
@@ -57,6 +57,6 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 				<CreatedFinished />
 				{/* <LoadingCreated  status="success"/> */}
 			</div>
-		</ScreenWrapper>
+		</PageWrapper>
 	)
 }
