@@ -1,6 +1,7 @@
 import { Leaderboard } from "@/screens/Leaderboard"
 import { MPCreateOffer } from "@/screens/MPCreateOffer"
 import { MPViewOffer } from "@/screens/MPViewOffer"
+import { NotificationsPage } from "@/screens/NotificationsPage"
 import { DeepWriteable } from "@/types"
 import { flatRoutes } from "@/utils/routes"
 import { Outlet } from "react-router-dom"
@@ -14,7 +15,6 @@ import { CreateBid } from "./screens/CreateBid"
 import { CreateOfferNew } from "./screens/CreateOfferNew"
 import { DashboardBids } from "./screens/DashboardBids"
 import { DashboardHistory } from "./screens/DashboardHistory"
-import { DashboardNotifications } from "./screens/DashboardNotifications"
 import { DashboardOffers } from "./screens/DashboardOffers"
 import { DashboardTransactions } from "./screens/DashboardTransactions"
 import { Demo } from "./screens/Demo"
@@ -50,7 +50,7 @@ export const routes = [
 			{ path: "offers", element: <DashboardOffers /> },
 			{
 				path: "notifications",
-				element: <DashboardNotifications />,
+				element: <NotificationsPage />,
 			},
 		],
 	},
@@ -114,7 +114,7 @@ export const routes = [
 			{
 				path: "offer/:offerId/",
 				children: [
-					{ path: "", element: <MPViewOffer/> },
+					{ path: "", element: <MPViewOffer /> },
 					{ path: "bid", element: <div>marketplace offer bid</div> },
 					{
 						path: "bid/:bidIdx/",
