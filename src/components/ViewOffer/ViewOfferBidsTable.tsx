@@ -7,6 +7,21 @@ import { Box, HStack, VStack } from "@chakra-ui/react"
 
 type ViewOfferBidsTableProps = {}
 
+type BidProps = {
+	isMyOffer: boolean
+	isMyBid: boolean
+
+	bidIdx: string
+
+	tokenBob?: TokenInfo
+	amountBob?: WBN
+
+	amountBobUsd: number
+	amountAliceUsd: number
+
+	onAccept: () => void
+	onCancel: () => void
+}
 export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	return (
 		<Table
