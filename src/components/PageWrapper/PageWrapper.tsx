@@ -26,7 +26,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 	const l10n = useTranslation()
 	return (
 		<VStack minHeight={"100vh"} height={"100%"}>
-			<VStack style={{ width: "100%" }}>
+			<Flex direction={"column"} style={{ width: "100%" }}>
 				<Box
 					w={"full"}
 					py={5}
@@ -40,6 +40,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 						bg: "gradientBrightOrange",
 						height: "1px",
 					}}
+					 
 				>
 					<Container>
 						<Header
@@ -62,7 +63,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 					</Container>
 				</Box>
 				{header}
-			</VStack>
+			</Flex>
 			<Container>
 				{children}
 				<Box w={"100%"}>
