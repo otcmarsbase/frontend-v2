@@ -25,18 +25,20 @@ type NotificationsProps = {}
 
 export const NotificationsHydrator: React.FC<NotificationsProps> = ({}) => {
 	// let { subscribedAlready, data } = useNotificationEnabledInfo()
-	
+	// let { token } = useNotificationBotToken()
 	let subscribedAlready = false
-	return <NotificationsContainer  />
+	return <NotificationsContainer notificationToken="123456" />
 }
 
 type NotificationsContainerProps = {
 	subscribedAlready?: boolean
 	loading?: boolean
+	notificationToken?: string
 }
 export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 	loading,
 	subscribedAlready,
+	notificationToken,
 }) => {
 	return (
 		<PageWrapper
@@ -54,7 +56,7 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 					) : subscribedAlready ? (
 						<YoureSubscribed />
 					) : (
-						<SubscribeToOurTelegramWrapper />
+						<SubscribeToOurTelegramWrapper notificationToken={notificationToken} />
 					)}
 				</LoginRequired>
 			</Flex>
@@ -74,13 +76,13 @@ const YoureSubscribed: React.FC = () => {
 	)
 }
 
-export const SubscribeToOurTelegramWrapper: React.FC = () => {
-	
-	const token = "123456"
-	let { onCopy, hasCopied } = useClipboard(token || "")
+export const SubscribeToOurTelegramWrapper: React.FC<{
+	notificationToken?: string
+}> = (props) => {
+	let { onCopy, hasCopied } = useClipboard(props.notificationToken || "")
 	return (
 		<SubscribeToOurTelegram
-			token={token}
+			token={props.notificationToken}
 			botname="otcmarsbase_bot"
 			onCopyClick={onCopy}
 			hasCopied={hasCopied}
