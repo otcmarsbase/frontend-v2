@@ -167,7 +167,10 @@ const PinInputView: React.FCC<{
 	value: string
 }> = ({ value }) => {
 	const inputs = React.useMemo(
-		() => value.split("").map((x) => <PinInputField />),
+		() =>
+			value
+				.split("")
+				.map((x) => <PinInputField _disabled={{ opacity: 1 }} />),
 		[value]
 	)
 	return (
