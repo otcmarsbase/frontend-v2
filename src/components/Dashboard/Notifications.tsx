@@ -15,7 +15,10 @@ type NotificationsContainerProps = {
 	subscribedAlready?: boolean
 	loading?: boolean
 }
-export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}) => {
+export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
+	loading,
+	subscribedAlready,
+}) => {
 	return (
 		<PageWrapper
 			header={
@@ -25,6 +28,7 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}
 				/>
 			}
 		>
+			<Flex className="flex-grow justify-center items-center flex-row">
 				<LoginRequired loggedIn showLoginWindowByDefault>
 					{loading ? (
 						<Spinner size="xl" />
@@ -34,6 +38,7 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}
 						<SubscribeToOurTelegramWrapper />
 					)}
 				</LoginRequired>
+			</Flex>
 		</PageWrapper>
 	)
 }
