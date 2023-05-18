@@ -56,7 +56,7 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 					) : subscribedAlready ? (
 						<YoureSubscribed />
 					) : (
-						<SubscribeToOurTelegramWrapper notificationToken={notificationToken} />
+						<SubscribeToOurTelegramContainer notificationToken={notificationToken} />
 					)}
 				</LoginRequired>
 			</Flex>
@@ -76,7 +76,7 @@ const YoureSubscribed: React.FC = () => {
 	)
 }
 
-export const SubscribeToOurTelegramWrapper: React.FC<{
+export const SubscribeToOurTelegramContainer: React.FC<{
 	notificationToken?: string
 }> = (props) => {
 	let { onCopy, hasCopied } = useClipboard(props.notificationToken || "")
