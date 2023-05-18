@@ -11,8 +11,9 @@ export const NotificationsHydrator: React.FC<NotificationsProps> = ({}) => {
 	return <div></div>
 }
 
-    subscribedAlready?: boolean
-    loading?: boolean
+type NotificationsContainerProps = {
+	subscribedAlready?: boolean
+	loading?: boolean
 }
 export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}) => {
 	return (
