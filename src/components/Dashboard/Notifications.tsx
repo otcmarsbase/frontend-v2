@@ -44,3 +44,19 @@ const YoureSubscribed: React.FC = () => {
 		</VStack>
 	)
 }
+
+const PinInputView: React.FCC<{
+	value: string
+}> = ({ value }) => {
+	const inputs = React.useMemo(
+		() => value.split("").map((x) => <PinInputField />),
+		[value]
+	)
+	return (
+		<HStack>
+			<PinInput isDisabled defaultValue={value}>
+				{inputs}
+			</PinInput>
+		</HStack>
+	)
+}
