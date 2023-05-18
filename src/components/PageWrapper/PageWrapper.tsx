@@ -66,7 +66,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 			</Flex>
 			<Container>
 				{children}
-				<Box w={"100%"}>
+				<Box w={"100%"} className="pt-12 lg:pt-16">
 					<DesktopView>
 						<Footer />
 					</DesktopView>
