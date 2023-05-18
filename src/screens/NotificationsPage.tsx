@@ -1,7 +1,8 @@
-import React from 'react'
+import { NotificationsHydrator } from "@/components/Dashboard/Notifications"
+import React from "react"
 
 type NotificationsPageProps = {}
 
 export const NotificationsPage: React.FC<NotificationsPageProps> = ({}) => {
-    return <div></div>
+	return <NotificationsHydrator />
 }
