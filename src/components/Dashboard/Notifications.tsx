@@ -45,6 +45,23 @@ const YoureSubscribed: React.FC = () => {
 	)
 }
 
+const HighlightedLink: React.FCC<{ href: string; sameWindow?: boolean }> = ({
+	href,
+	sameWindow,
+	children,
+}) => (
+	<Link href={href} target={sameWindow ? "_self" : "_blank"}>
+		<Code
+			bgColor={"black"}
+			color="white"
+			fontSize={"1em"}
+			textDecoration={"underline"}
+		>
+			{children}
+		</Code>
+	</Link>
+)
+
 const PinInputView: React.FCC<{
 	value: string
 }> = ({ value }) => {
