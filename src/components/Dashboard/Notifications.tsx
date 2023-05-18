@@ -133,7 +133,9 @@ export const SubscribeToOurTelegram: React.FC<SubscribeToOurTelegramProps> = ({
 									variant="link"
 									onClick={props.onCopyClick}
 								>
-									{props.hasCopied ? "Copied!" : "Copy"}
+									<LeadText>
+										{props.hasCopied ? "Copied!" : "Copy"}
+									</LeadText>
 								</Button>
 							</Flex>
 						</VStack>
