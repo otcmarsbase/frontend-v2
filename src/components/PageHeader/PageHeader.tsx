@@ -34,7 +34,7 @@ export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
 		<Flex
 			className={clsx(
 				borderBottom && "border-dark-800 border-solid border-b-[1px]",
-				"w-full pt-6 lg:pt-8"
+				"w-full py-6 lg:py-8"
 			)}
 		>
 			<Container>
