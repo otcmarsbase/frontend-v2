@@ -1,14 +1,33 @@
 import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
-import { Center, Flex } from "@chakra-ui/react"
+import {
+	Button,
+	Center,
+	Circle,
+	Code,
+	Flex,
+	HStack,
+	Icon,
+	Link,
+	PinInput,
+	PinInputField,
+	Spinner,
+	useClipboard,
+	VStack,
+} from "@chakra-ui/react"
+import { FaTelegramPlane } from "react-icons/fa"
+import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons"
 import React from "react"
+import { H2, LeadText } from "@/components/Text/Typography"
+import { LoginRequired } from "@/components/LoginRequired/LoginRequired"
 
 type NotificationsProps = {}
 
 export const NotificationsHydrator: React.FC<NotificationsProps> = ({}) => {
 	// let { subscribedAlready, data } = useNotificationEnabledInfo()
+	
 	let subscribedAlready = false
-	return <div></div>
+	return <NotificationsContainer  />
 }
 
 type NotificationsContainerProps = {
