@@ -17,7 +17,7 @@ type PageWrapperProps = {
 }
 
 export const Container: React.FCC = ({ children }) => {
-	return <div className="px-5 w-full">{children}</div>
+	return <div className="px-5 w-full flex flex-col flex-grow">{children}</div>
 }
 export const PageWrapper: React.FCC<PageWrapperProps> = ({
 	header,
@@ -64,7 +64,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 				{header}
 			</VStack>
 			<Container>
-				<Box w={"100%"}>{children}</Box>
+				{children}
 				<Box w={"100%"}>
 					<DesktopView>
 						<Footer />
