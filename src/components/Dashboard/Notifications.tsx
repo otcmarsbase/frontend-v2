@@ -128,7 +128,7 @@ export const SubscribeToOurTelegram: React.FC<SubscribeToOurTelegramProps> = ({
 							<PinInputView value={token} />
 							<Flex w="100%" justifyContent={"flex-end"}>
 								<Button
-									leftIcon={<CopyIcon boxSize={"1.5em"} />}
+									leftIcon={<CopyIcon boxSize={"1.3em"} />}
 									colorScheme="white"
 									variant="link"
 									onClick={props.onCopyClick}
