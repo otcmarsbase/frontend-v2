@@ -25,11 +25,15 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({}
 				/>
 			}
 		>
-			<Center>
-				<Flex direction={"row"}>
-				
-				</Flex>
-			</Center>
+				<LoginRequired loggedIn showLoginWindowByDefault>
+					{loading ? (
+						<Spinner size="xl" />
+					) : subscribedAlready ? (
+						<YoureSubscribed />
+					) : (
+						<SubscribeToOurTelegramWrapper />
+					)}
+				</LoginRequired>
 		</PageWrapper>
 	)
 }
