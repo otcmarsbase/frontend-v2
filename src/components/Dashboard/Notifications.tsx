@@ -45,6 +45,62 @@ const YoureSubscribed: React.FC = () => {
 	)
 }
 
+type SubscribeToOurTelegramProps = {
+	token?: string
+	botname: string
+	onCopyClick: () => void
+	hasCopied: boolean
+}
+export const SubscribeToOurTelegram: React.FC<SubscribeToOurTelegramProps> = ({
+	token,
+	botname,
+	...props
+}) => {
+	return (
+		<VStack gap="1rem">
+			<Circle
+				bgColor="black"
+				border={"2px"}
+				size="80px"
+				justifyContent={"center"}
+				alignItems="center"
+			>
+				<Icon as={FaTelegramPlane} boxSize="40px" mr="8px" />
+			</Circle>
+			<H2>Subscribe to our Telegram bot</H2>
+			<VStack alignItems={"flex-start"} minWidth="40vw" gap="1rem">
+				<LeadText>
+					1. Find{" "}
+					<HighlightedLink href={`https://${botname}.t.me`}>
+						@{botname}
+					</HighlightedLink>{" "}
+					on Telegram
+				</LeadText>
+				<LeadText>2. Send this code to the bot:</LeadText>
+				<Center w="100%" minH="5em">
+					{token ? (
+						<VStack>
+							<PinInputView value={token} />
+							<Flex w="100%" justifyContent={"flex-end"}>
+								<Button
+									leftIcon={<CopyIcon boxSize={"1.5em"} />}
+									colorScheme="white"
+									variant="link"
+									onClick={props.onCopyClick}
+								>
+									{props.hasCopied ? "Copied!" : "Copy"}
+								</Button>
+							</Flex>
+						</VStack>
+					) : (
+						<Spinner />
+					)}
+				</Center>
+			</VStack>
+		</VStack>
+	)
+}
+
 const HighlightedLink: React.FCC<{ href: string; sameWindow?: boolean }> = ({
 	href,
 	sameWindow,
