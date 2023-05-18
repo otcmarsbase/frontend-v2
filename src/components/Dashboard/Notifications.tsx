@@ -45,6 +45,20 @@ const YoureSubscribed: React.FC = () => {
 	)
 }
 
+export const SubscribeToOurTelegramWrapper: React.FC = () => {
+	
+	const token = "123456"
+	let { onCopy, hasCopied } = useClipboard(token || "")
+	return (
+		<SubscribeToOurTelegram
+			token={token}
+			botname="otcmarsbase_bot"
+			onCopyClick={onCopy}
+			hasCopied={hasCopied}
+		/>
+	)
+}
+
 type SubscribeToOurTelegramProps = {
 	token?: string
 	botname: string
