@@ -1,5 +1,10 @@
 import React from "react"
-import { Table, TableCardContainer, TableRow, TableSortButton } from "@/components/Table/Table"
+import {
+	Table,
+	TableCardContainer,
+	TableRow,
+	TableSortButton,
+} from "@/components/Table/Table"
 import {
 	APPROXIMATELY_EQUALS_SYMBOL,
 	calculateProfit,
@@ -17,6 +22,7 @@ import {
 } from "@/components/TokenAmountInput/TokenAmountInput"
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { OrangeButton } from "@/components/Button/OrangeButton"
+import { Divider } from "@/components/Divider/Divider"
 
 type ViewOfferBidsTableProps = {}
 
@@ -212,6 +218,7 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 						))}
 						{btn.text && (
 							<>
+								<Divider className="bg-dark-700 my-3" />
 								<HStack>
 									<OrangeButton
 										size="m"
