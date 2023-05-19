@@ -187,7 +187,17 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 				amount.value,
 				usd.value,
 				value.value,
-				btn.value,
+				btn.text && (
+					<Flex style={{ display: "inline-flex" }}>
+						<OrangeButton
+							size="xs"
+							fontSize="12"
+							onClick={btn.onClick}
+						>
+							{btn.text}
+						</OrangeButton>
+					</Flex>
+				),
 			]}
 			cardData={
 				<TableCardContainer>
