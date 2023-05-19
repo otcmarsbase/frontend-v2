@@ -10,6 +10,7 @@ import {
 	useMediaQuery,
 	Grid,
 	TextProps,
+	Flex,
 } from "@chakra-ui/react"
 import React from "react"
 import { Text } from "@/components/Text/Text"
@@ -139,4 +140,8 @@ const asc = <A, B>(f: (a: A, b: B) => number) => {
 const orders = {
 	desc,
 	asc,
+}
+
+export const TableCardContainer: React.FCC = ({ children }) => {
+	return <Flex>{children}</Flex>
 }
