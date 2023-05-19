@@ -106,40 +106,16 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 							),
 						}}
 						btn={{
-							value: (
-								<>
-									{x.isMyOffer ? (
-										<Flex
-											style={{ display: "inline-flex" }}
-										>
-											<OrangeButton
-												size="xs"
-												fontSize="12"
-												onClick={x.onAccept}
-											>
-												Accept bid
-											</OrangeButton>
-										</Flex>
-									) : (
-										<span />
-									)}
-									{x.isMyBid ? (
-										<Flex
-											style={{ display: "inline-flex" }}
-										>
-											<OrangeButton
-												size="xs"
-												fontSize="12"
-												onClick={x.onCancel}
-											>
-												Cancel bid
-											</OrangeButton>
-										</Flex>
-									) : (
-										<span />
-									)}
-								</>
-							),
+							onClick: x.isMyOffer
+								? x.onAccept
+								: x.isMyBid
+								? x.onCancel
+								: () => {},
+							text: x.isMyOffer
+								? "Accept bid"
+								: x.isMyBid
+								? "Cancel bid"
+								: "",
 						}}
 					/>
 				)
@@ -193,7 +169,8 @@ type OfferBidSingleViewProps = {
 		value: any
 	}
 	btn: {
-		value: any
+		text: string
+		onClick: () => void
 	}
 }
 const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
