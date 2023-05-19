@@ -1,5 +1,5 @@
 import React from "react"
-import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
+import { Table, TableCardContainer, TableRow, TableSortButton } from "@/components/Table/Table"
 import {
 	APPROXIMATELY_EQUALS_SYMBOL,
 	calculateProfit,
@@ -213,15 +213,17 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 				btn.value,
 			]}
 			cardData={
-				<VStack border="1px solid red">
-					{[bidId, amount, usd, value].map((x) => (
-						<HStack w={"100%"} justifyContent={"space-between"}>
-							<Box>{x.title}</Box>
-							<Box>{x.value}</Box>
-						</HStack>
-					))}
-					<HStack>{btn.value}</HStack>
-				</VStack>
+				<TableCardContainer>
+					<VStack border="1px solid red">
+						{[bidId, amount, usd, value].map((x) => (
+							<HStack w={"100%"} justifyContent={"space-between"}>
+								<Box>{x.title}</Box>
+								<Box>{x.value}</Box>
+							</HStack>
+						))}
+						<HStack>{btn.value}</HStack>
+					</VStack>
+				</TableCardContainer>
 			}
 		/>
 	)
