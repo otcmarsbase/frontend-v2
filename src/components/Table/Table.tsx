@@ -143,5 +143,5 @@ const orders = {
 }
 
 export const TableCardContainer: React.FCC = ({ children }) => {
-	return <Flex>{children}</Flex>
+	return <Flex className="p-4 bg-[#0d0d0d] w-full">{children}</Flex>
 }
