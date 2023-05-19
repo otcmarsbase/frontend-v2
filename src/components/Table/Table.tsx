@@ -19,6 +19,7 @@ import { Text12Normal } from "@/components/Text/Typography"
 type TableProps = {
 	header: React.ReactNode[]
 	body: React.ReactNode[]
+	colWidths?: string[]
 }
 
 const TableCtx = React.createContext<{ variant: "row" | "card" }>({
@@ -51,9 +52,12 @@ const MobileTableView: React.FCC<TableProps> = ({ body, header }) => {
 		</TableCtx.Provider>
 	)
 }
-const DesktopTableView: React.FCC<TableProps> = ({ body, header }) => {
+const DesktopTableView: React.FCC<TableProps> = ({ body, header, colWidths = [] }) => {
 	return (
 		<TableCtx.Provider value={{ variant: "row" }}>
+			<colgroup>{
+				header.map((x, i) => <col style={{ width: colWidths[i] || "auto" }} />)
+			}</colgroup>
 			<TableHeading>{header}</TableHeading>
 			<TableBody>{body}</TableBody>
 		</TableCtx.Provider>
