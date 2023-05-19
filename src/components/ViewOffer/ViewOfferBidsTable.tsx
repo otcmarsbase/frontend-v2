@@ -68,6 +68,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	]
 	return (
 		<Table
+			colWidths={["25%", "15%", "15%", "15%", "15%"]}
 			body={data.map((x) => {
 				return (
 					<OfferBidSingleView
