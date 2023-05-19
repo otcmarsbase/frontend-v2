@@ -204,7 +204,9 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 					<Flex direction={"column"} w={"full"}>
 						{[bidId, amount, usd, value].map((x) => (
 							<HStack w={"100%"} justifyContent={"space-between"}>
-								<Box>{x.title}</Box>
+								<Text12Normal color={"gray"}>
+									{x.title}
+								</Text12Normal>
 								<Box>{x.value}</Box>
 							</HStack>
 						))}
