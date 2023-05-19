@@ -210,7 +210,19 @@ const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
 								<Box>{x.value}</Box>
 							</HStack>
 						))}
-						<HStack>{btn.value}</HStack>
+						{btn.text && (
+							<>
+								<HStack>
+									<OrangeButton
+										size="m"
+										fontSize="14"
+										onClick={btn.onClick}
+									>
+										{btn.text}
+									</OrangeButton>
+								</HStack>
+							</>
+						)}
 					</Flex>
 				</TableCardContainer>
 			}
