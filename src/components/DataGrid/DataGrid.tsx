@@ -41,6 +41,7 @@ type DataGridProps<Row extends object, Key extends string> = {
 	onSortColumnsChange?: (sortColumns: SortColumn<Key>[]) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
+	sortRules?: { [key in Key]: (l: Row, r: Row) => number }
 }
 
 type SortColumn<Key> = {
