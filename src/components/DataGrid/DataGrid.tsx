@@ -113,9 +113,22 @@ const DesktopTableView = <Row extends object, Key extends string>(
 				))}
 			</colgroup>
 			<TableHeading>
-				{props.columns.map((x) => (
-					<Th>{columnRender(x.name, x.key)}</Th>
-				))}
+				{props.columns.map((x) => {
+					const sortFn = x.sortingFn
+					return (
+						<Th>
+							<div
+								onClick={
+									sortFn
+										? () => props.sort(sortFn, x.key)
+										: () => {}
+								}
+							>
+								{columnRender(x.name, x.key)}
+							</div>
+						</Th>
+					)
+				})}
 			</TableHeading>
 			<TableBody>
 				{props.rows.map((row) => (
