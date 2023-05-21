@@ -20,7 +20,7 @@ type Column<Row extends object, Key extends string> = {
 	cellRender: (row: Row) => React.ReactNode
 	/** cardRender is used for card view, if not passed, uses cellRender instead */
 	cardRender?: (row: Row) => React.ReactNode
-	sortingFn?: (a: Row, b: Row) => number
+	sortingFn?: SortFunction<Row>
 }
 
 type CellViewObject<Key extends string> = Record<
@@ -46,8 +46,8 @@ type DataGridProps<Row extends object, Key extends string> = {
 
 export type SortColumn = {
 	columnKey: string
-	direction: SortDirection
-}
+type SortFunction<Row> = (a: Row, b: Row) => number
+
 type SortOrder = "asc" | "desc"
 
 export const DataGrid = <Row extends object, Key extends string>(
@@ -98,7 +98,9 @@ const MobileTableView = <Row extends object, Key extends string>(
 	)
 }
 const DesktopTableView = <Row extends object, Key extends string>(
-	props: DataGridProps<Row, Key>
+	props: DataGridProps<Row, Key> & {
+		sort: (sortFn: SortFunction<Row>, key: Key) => void
+	}
 ) => {
 	const columnRender =
 		props.renderers?.column ||
