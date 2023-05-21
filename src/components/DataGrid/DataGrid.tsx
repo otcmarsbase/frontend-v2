@@ -38,17 +38,16 @@ type DataGridProps<Row extends object, Key extends string> = {
 		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
-	sortColumns?: SortColumn[]
-	onSortColumnsChange?: (sortColumns: SortColumn[]) => void
+	// onSortColumnsChange?: (sortColumns: SortColumn<Key>) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
 }
 
-export type SortColumn = {
-	columnKey: string
+export type SortColumn<Key extends string> = Record<Key, SortOrder>
+
 type SortFunction<Row> = (a: Row, b: Row) => number
 
-type SortOrder = "asc" | "desc"
+type SortOrder = "asc" | "desc" | "none"
 
 export const DataGrid = <Row extends object, Key extends string>(
 	props: DataGridProps<Row, Key>
@@ -66,11 +65,27 @@ export const DataGrid = <Row extends object, Key extends string>(
 		}, {})
 	)
 
+	const handleSort =
+		(order: SortOrder) => (sort: SortFunction<Row>, key: Key) => {
+			setSortColumns((p) => {
+				return { ...p, [key]: order }
+			})
+			setData((p) => p.slice().sort(orders[order](sort)))
+		}
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
 				{isDesktop || !hasMobileViewRenderer ? (
-					<DesktopTableView {...props} rows={data} />
+					<DesktopTableView
+						{...props}
+						rows={data}
+						sort={(sort, key) =>
+							handleSort(reverseOrder[sortColumns[key]])(
+								sort,
+								key
+							)
+						}
+					/>
 				) : (
 					<MobileTableView {...props} rows={data} />
 				)}
