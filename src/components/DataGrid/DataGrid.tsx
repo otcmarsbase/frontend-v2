@@ -23,6 +23,7 @@ type Column<Row extends object, Key extends string> = {
 	cellRender: (row: Row) => React.ReactNode
 	/** cardRender is used for card view, if not passed, uses cellRender instead */
 	cardRender?: (row: Row) => React.ReactNode
+	sortingFn?: (a: Row, b: Row) => number
 } & DefaultColumn
 
 type CellViewObject<Key extends string> = Record<
@@ -44,7 +45,6 @@ type DataGridProps<Row extends object, Key extends string> = {
 	onSortColumnsChange?: (sortColumns: SortColumn[]) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
-	sortRules?: { [key in Key]: (l: Row, r: Row) => number }
 	defaultColumnOptions?: DefaultColumn
 }
 
