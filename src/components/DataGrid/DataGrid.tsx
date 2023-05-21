@@ -40,15 +40,16 @@ type DataGridProps<Row extends object, Key extends string> = {
 		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
-	sortColumns?: SortColumn<Key>[]
-	onSortColumnsChange?: (sortColumns: SortColumn<Key>[]) => void
+	sortColumns?: SortColumn[]
+	onSortColumnsChange?: (sortColumns: SortColumn[]) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
 	sortRules?: { [key in Key]: (l: Row, r: Row) => number }
+	defaultColumnOptions?: DefaultColumn
 }
 
-type SortColumn<Key> = {
-	columnKey: Key
+export type SortColumn = {
+	columnKey: string
 	direction: SortDirection
 }
 type SortDirection = "ASC" | "DESC"
@@ -60,10 +61,7 @@ export const DataGrid = <Row extends object, Key extends string>(
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
 	const [data, setData] = React.useState<Row[]>(props.rows)
-	const [sortColumns, setSortColumns] = React.useState<
-		SortColumn<keyof Row>[]
-	>([])
-	// const [filterColumns, setFilterColumns] = React.useState<FilterColumn<keyof Row>[]>([])
+	const [sortColumns, setSortColumns] = React.useState<SortColumn[]>([])
 
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
