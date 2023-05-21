@@ -62,7 +62,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 		{
 			amountAliceUsd: 100,
 			amountBob: WBN.fromEth("100", 18),
-			amountBobUsd: 100,
+			amountBobUsd: 1000,
 			bidIdx: "1",
 			isMyBid: false,
 			isMyOffer: true,
@@ -89,6 +89,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					cellRender: (row) => (
 						<Text12Normal>#{row.bidIdx}</Text12Normal>
 					),
+					sortingFn: (a, b) => a.bidIdx.localeCompare(b.bidIdx),
 				},
 				{
 					name: "Amount",
@@ -109,7 +110,6 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "USD",
 					key: "usd",
-					width: "15%",
 					cellRender: (row) => (
 						<Text12Normal>
 							{APPROXIMATELY_EQUALS_SYMBOL + " "}$
@@ -129,6 +129,11 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 							)}
 						/>
 					),
+					sortingFn: (a, b) =>
+						calculateProfit(a.amountAliceUsd, a.amountBobUsd)
+							.amount -
+						calculateProfit(b.amountAliceUsd, b.amountBobUsd)
+							.amount,
 				},
 				{
 					key: "btn",
