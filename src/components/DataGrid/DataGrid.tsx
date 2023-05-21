@@ -48,7 +48,7 @@ export type SortColumn = {
 	columnKey: string
 	direction: SortDirection
 }
-type SortDirection = "ASC" | "DESC"
+type SortOrder = "asc" | "desc"
 
 export const DataGrid = <Row extends object, Key extends string>(
 	props: DataGridProps<Row, Key>
