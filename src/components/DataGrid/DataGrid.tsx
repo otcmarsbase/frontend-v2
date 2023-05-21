@@ -86,13 +86,16 @@ const desc = <A, B>(f: (a: A, b: B) => number) => {
 const asc = <A, B>(f: (a: A, b: B) => number) => {
 	return (a: A, b: B) => f(a, b)
 }
+
 const reverseOrder = {
 	asc: "desc",
 	desc: "asc",
+	none: "asc",
 } as const
 const orders = {
 	desc,
 	asc,
+	none: asc,
 }
 
 const MobileTableView = <Row extends object, Key extends string>(
