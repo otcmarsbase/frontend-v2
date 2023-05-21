@@ -57,7 +57,14 @@ export const DataGrid = <Row extends object, Key extends string>(
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
 	const [data, setData] = React.useState<Row[]>(props.rows)
-	const [sortColumns, setSortColumns] = React.useState<SortColumn[]>([])
+	const [sortColumns, setSortColumns] = React.useState<
+		Record<Key, SortOrder>
+	>(() =>
+		props.columns.reduce<any>((acc, x) => {
+			acc[x.key] = "none"
+			return acc
+		}, {})
+	)
 
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
