@@ -188,9 +188,9 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 									w={"100%"}
 									justifyContent={"space-between"}
 								>
-									<Text12Normal color={"gray"}>
+									<Text12Semibold color={"gray"}>
 										{x.name}
-									</Text12Normal>
+									</Text12Semibold>
 									<Box>{x.view}</Box>
 								</HStack>
 							))}
