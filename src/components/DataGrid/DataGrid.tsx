@@ -12,6 +12,9 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
+type DefaultColumn = {
+	sortable?: boolean
+}
 type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
@@ -20,7 +23,7 @@ type Column<Row extends object, Key extends string> = {
 	cellRender: (row: Row) => React.ReactNode
 	/** cardRender is used for card view, if not passed, uses cellRender instead */
 	cardRender?: (row: Row) => React.ReactNode
-}
+} & DefaultColumn
 
 type CellViewObject<Key extends string> = Record<
 	Key,
