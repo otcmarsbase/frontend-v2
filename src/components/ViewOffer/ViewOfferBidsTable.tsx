@@ -67,6 +67,13 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			tokenBob: undefined,
 		},
 	]
+	const buttonProps = (data: BidProps) => {
+		if (!(data.isMyBid || data.isMyOffer)) return null
+		return {
+			text: data.isMyOffer ? "Accept bid" : "Cancel bid",
+			onClick: data.isMyOffer ? data.onAccept : data.onCancel,
+		}
+	}
 	return (
 		<DataGrid
 			rowKeyGetter={(row) => row.bidIdx}
