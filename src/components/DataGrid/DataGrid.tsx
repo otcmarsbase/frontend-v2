@@ -72,6 +72,13 @@ export const DataGrid = <Row extends object, Key extends string>(
 	)
 }
 
+const desc = <A, B>(f: (a: A, b: B) => number) => {
+	return (a: A, b: B) => f(a, b) * -1
+}
+
+const asc = <A, B>(f: (a: A, b: B) => number) => {
+	return (a: A, b: B) => f(a, b)
+}
 const reverseOrder = {
 	asc: "desc",
 	desc: "asc",
