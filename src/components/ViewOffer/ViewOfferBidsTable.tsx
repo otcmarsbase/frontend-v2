@@ -10,7 +10,11 @@ import {
 	calculateProfit,
 	separateThousands,
 } from "@/utils/utils"
-import { Text12Bold, Text12Normal, Text12Semibold } from "@/components/Text/Typography"
+import {
+	Text12Bold,
+	Text12Normal,
+	Text12Semibold,
+} from "@/components/Text/Typography"
 import { Text } from "@/components/Text/Text"
 import { Box, Flex, HStack, Spinner, Td, Tr, VStack } from "@chakra-ui/react"
 import { DisplayProfit } from "@/components/DisplayProfit/DisplayProfit"
@@ -49,7 +53,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			amountBob: WBN.fromEth("100", 18),
 			amountBobUsd: 100,
 			bidIdx: "0",
-			isMyBid: true,
+			isMyBid: false,
 			isMyOffer: false,
 			onAccept: () => {},
 			onCancel: () => {},
@@ -129,54 +133,41 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					key: "btn",
 					name: "",
-					cellRender: (row) =>
-						row.isMyOffer ? (
+					cellRender: (row) => {
+						const props = buttonProps(row)
+						if (!props) return null
+						return (
 							<Flex style={{ display: "inline-flex" }}>
 								<OrangeButton
 									size="xs"
 									fontSize="12"
-									onClick={() =>
+									onClick={() => {
 										console.log("Accept bid #", row.bidIdx)
-									}
+										props.onClick()
+									}}
 								>
-									Accept bid
+									{props.text}
 								</OrangeButton>
 							</Flex>
-						) : row.isMyBid ? (
-							<Flex style={{ display: "inline-flex" }}>
-								<OrangeButton
-									size="xs"
-									fontSize="12"
-									onClick={() =>
-										console.log("Cancel bid #", row.bidIdx)
-									}
-								>
-									Cancel bid
-								</OrangeButton>
-							</Flex>
-						) : null,
-					cardRender: (row) =>
-						row.isMyOffer ? (
+						)
+					},
+
+					cardRender: (row) => {
+						const props = buttonProps(row)
+						if (!props) return null
+						return (
 							<OrangeButton
 								size="m"
 								fontSize="14"
-								onClick={() =>
+								onClick={() => {
 									console.log("Accept bid #", row.bidIdx)
-								}
+									props.onClick()
+								}}
 							>
-								Accept bid
+								{props.text}
 							</OrangeButton>
-						) : row.isMyBid ? (
-							<OrangeButton
-								size="m"
-								fontSize="14"
-								onClick={() =>
-									console.log("Cancel bid #", row.bidIdx)
-								}
-							>
-								Cancel bid
-							</OrangeButton>
-						) : null,
+						)
+					},
 				},
 			]}
 			rows={data}
