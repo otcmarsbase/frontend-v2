@@ -72,6 +72,15 @@ export const DataGrid = <Row extends object, Key extends string>(
 	)
 }
 
+const reverseOrder = {
+	asc: "desc",
+	desc: "asc",
+} as const
+const orders = {
+	desc,
+	asc,
+}
+
 const MobileTableView = <Row extends object, Key extends string>(
 	props: DataGridProps<Row, Key>
 ) => {
