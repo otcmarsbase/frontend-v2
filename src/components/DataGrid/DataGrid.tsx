@@ -12,9 +12,6 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
-type DefaultColumn = {
-	sortable?: boolean
-}
 type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
@@ -24,7 +21,7 @@ type Column<Row extends object, Key extends string> = {
 	/** cardRender is used for card view, if not passed, uses cellRender instead */
 	cardRender?: (row: Row) => React.ReactNode
 	sortingFn?: (a: Row, b: Row) => number
-} & DefaultColumn
+}
 
 type CellViewObject<Key extends string> = Record<
 	Key,
@@ -45,7 +42,6 @@ type DataGridProps<Row extends object, Key extends string> = {
 	onSortColumnsChange?: (sortColumns: SortColumn[]) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
-	defaultColumnOptions?: DefaultColumn
 }
 
 export type SortColumn = {
