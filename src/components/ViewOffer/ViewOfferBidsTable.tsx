@@ -10,7 +10,7 @@ import {
 	calculateProfit,
 	separateThousands,
 } from "@/utils/utils"
-import { Text12Normal } from "@/components/Text/Typography"
+import { Text12Bold, Text12Normal, Text12Semibold } from "@/components/Text/Typography"
 import { Text } from "@/components/Text/Text"
 import { Box, Flex, HStack, Spinner, Td, Tr, VStack } from "@chakra-ui/react"
 import { DisplayProfit } from "@/components/DisplayProfit/DisplayProfit"
@@ -49,7 +49,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			amountBob: WBN.fromEth("100", 18),
 			amountBobUsd: 100,
 			bidIdx: "0",
-			isMyBid: false,
+			isMyBid: true,
 			isMyOffer: false,
 			onAccept: () => {},
 			onCancel: () => {},
@@ -147,21 +147,29 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 									Cancel bid
 								</OrangeButton>
 							</Flex>
-						) : (
-							""
-						),
-					extraProps: (row) => ({
-						text: row.isMyOffer
-							? "Accept bid"
-							: row.isMyBid
-							? "Cancel bid"
-							: "",
-						onClick: row.isMyOffer
-							? row.onAccept
-							: row.isMyBid
-							? row.onCancel
-							: () => {},
-					}),
+						) : null,
+					cardRender: (row) =>
+						row.isMyOffer ? (
+							<OrangeButton
+								size="m"
+								fontSize="14"
+								onClick={() =>
+									console.log("Accept bid #", row.bidIdx)
+								}
+							>
+								Accept bid
+							</OrangeButton>
+						) : row.isMyBid ? (
+							<OrangeButton
+								size="m"
+								fontSize="14"
+								onClick={() =>
+									console.log("Cancel bid #", row.bidIdx)
+								}
+							>
+								Cancel bid
+							</OrangeButton>
+						) : null,
 				},
 			]}
 			rows={data}
@@ -186,21 +194,10 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 									<Box>{x.view}</Box>
 								</HStack>
 							))}
-							{cellViewObject.btn.extraProps.text && (
+							{cellViewObject.btn.view && (
 								<>
 									<Divider className="bg-dark-700 my-3" />
-									<HStack>
-										<OrangeButton
-											size="m"
-											fontSize="14"
-											onClick={
-												cellViewObject.btn.extraProps
-													.onClick
-											}
-										>
-											{cellViewObject.btn.extraProps.text}
-										</OrangeButton>
-									</HStack>
+									<HStack>{cellViewObject.btn.view}</HStack>
 								</>
 							)}
 						</Flex>
