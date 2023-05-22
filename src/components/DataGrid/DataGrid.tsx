@@ -25,6 +25,18 @@ type SortColumn<Key> = {
 type SortDirection = "ASC" | "DESC"
 
 export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
+const MobileTableView = <Row extends object>(props: DataGridProps<Row>) => {
+	return (
+		<div>
+			<Grid
+				gridTemplateColumns={{ md: "1fr 1fr", sm: "1fr" }}
+				gap={"15px"}
+			>
+				{body}
+			</Grid>
+		</div>
+	)
+}
 const DesktopTableView = <Row extends object>(props: DataGridProps<Row>) => {
 	return (
 		<div>
