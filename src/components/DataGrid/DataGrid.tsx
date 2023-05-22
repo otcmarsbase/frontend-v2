@@ -1,5 +1,11 @@
 import { queries } from "@/utils/chakra"
-import { Grid, TableContainer, Table as TableWrapper, Tbody, Thead } from "@chakra-ui/react"
+import {
+	Grid,
+	TableContainer,
+	Table as TableWrapper,
+	Tbody,
+	Thead,
+} from "@chakra-ui/react"
 import { useMedia } from "react-use"
 import React from "react"
 
@@ -29,10 +35,12 @@ type SortDirection = "ASC" | "DESC"
 
 export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 	const isDesktop = useMedia(queries.lg)
+	const hasMobileViewRenderer = Boolean(props.renderers?.card)
+
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
-				{isDesktop ? (
+				{isDesktop || !hasMobileViewRenderer ? (
 					<DesktopTableView {...props} />
 				) : (
 					<MobileTableView {...props} />
