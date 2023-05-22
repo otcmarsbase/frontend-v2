@@ -25,7 +25,8 @@ type SortColumn<Key> = {
 type SortDirection = "ASC" | "DESC"
 
 export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
-	return <div></div>
+export const TableHeading: React.FCC = ({ children }) => {
+	return <Thead>{children}</Thead>
 }
 
 export const TableBody: React.FCC = ({ children }) => {
