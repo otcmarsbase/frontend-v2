@@ -1,3 +1,6 @@
+import { queries } from "@/utils/chakra"
+import { Grid, TableContainer, Table as TableWrapper, Tbody, Thead } from "@chakra-ui/react"
+import { useMedia } from "react-use"
 import React from "react"
 
 type Column<Row extends object, Key extends keyof Row> = {
