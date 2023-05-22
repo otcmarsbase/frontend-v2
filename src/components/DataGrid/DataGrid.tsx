@@ -11,6 +11,7 @@ type DataGridProps<Row extends object> = {
 	rows: Row[]
 	renderers?: {
 		column?: (row: Row) => React.ReactNode
+        card?: (row: Row) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
 }
