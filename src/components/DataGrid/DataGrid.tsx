@@ -1,11 +1,5 @@
 import React from "react"
 
-type DataGridProps = {}
-
-export const DataGrid: React.FC<DataGridProps> = ({}) => {
-	return <div></div>
-}
-
 type Column<Row extends object, Key extends keyof Row> = {
 	name: string
 	width?: string
@@ -27,3 +21,6 @@ type SortColumn<Key> = {
 }
 type SortDirection = "ASC" | "DESC"
 
+export const DataGrid = (props: any) => {
+	return <div></div>
+}
