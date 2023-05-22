@@ -12,5 +12,9 @@ type Column<Row extends object, Key extends keyof Row> = {
 	key: Key
 }
 
+type SortColumn<Key> = {
+	readonly columnKey: Key
+	readonly direction: SortDirection
+}
 type SortDirection = "ASC" | "DESC"
 
