@@ -19,8 +19,8 @@ type DataGridProps<Row extends object> = {
 }
 
 type SortColumn<Key> = {
-	readonly columnKey: Key
-	readonly direction: SortDirection
+	columnKey: Key
+	direction: SortDirection
 }
 type SortDirection = "ASC" | "DESC"
 
