@@ -11,10 +11,11 @@ type DataGridProps<Row extends object> = {
 	rows: Row[]
 	renderers?: {
 		column?: (row: Row, name: string) => React.ReactNode
-        card?: (row: Row) => React.ReactNode
+		card?: (row: Row) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
 	sortColumns?: SortColumn<keyof Row>[]
+	onSortColumnsChange?: (sortColumns: SortColumn<keyof Row>[]) => void
 }
 
 type SortColumn<Key> = {
