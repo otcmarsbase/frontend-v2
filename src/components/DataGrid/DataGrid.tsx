@@ -14,6 +14,7 @@ type DataGridProps<Row extends object> = {
         card?: (row: Row) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
+	sortColumns?: SortColumn<keyof Row>[]
 }
 
 type SortColumn<Key> = {
