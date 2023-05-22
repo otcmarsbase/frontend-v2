@@ -45,6 +45,7 @@
 		"react-icons": "^4.8.0",
 		"react-router-dom": "^6.8.2",
 		"react-select": "^5.7.0",
+		"react-use": "^17.4.0",
 		"rollup-plugin-node-polyfills": "^0.2.1",
 		"runtypes": "^6.6.0",
 		"sass": "^1.59.3",
