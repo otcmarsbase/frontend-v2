@@ -12,6 +12,15 @@ type Column<Row extends object, Key extends keyof Row> = {
 	key: Key
 }
 
+type DataGridProps<Row extends object> = {
+	columns: Column<Row, keyof Row>[]
+	rows: Row[]
+	renderers?: {
+		column?: (row: Row) => React.ReactNode
+		// row?: (row: Row) => React.ReactNode
+	}
+}
+
 type SortColumn<Key> = {
 	readonly columnKey: Key
 	readonly direction: SortDirection
