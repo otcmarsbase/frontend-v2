@@ -11,3 +11,6 @@ type Column<Row extends object, Key extends keyof Row> = {
 	width?: string
 	key: Key
 }
+
+type SortDirection = "ASC" | "DESC"
+
