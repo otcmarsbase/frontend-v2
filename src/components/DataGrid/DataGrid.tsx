@@ -24,6 +24,6 @@ type SortColumn<Key> = {
 }
 type SortDirection = "ASC" | "DESC"
 
-export const DataGrid = (props: any) => {
+export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 	return <div></div>
 }
