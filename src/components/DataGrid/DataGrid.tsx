@@ -19,7 +19,7 @@ type DataGridProps<Row extends object> = {
 	columns: Column<Row, keyof Row>[]
 	rows: Row[]
 	renderers?: {
-		column?: (key: string, name: string) => React.ReactNode
+		column?: (key: keyof Row, name: string) => React.ReactNode
 		card?: (row: Row) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
