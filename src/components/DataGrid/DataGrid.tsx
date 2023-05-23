@@ -57,7 +57,9 @@ const MobileTableView = <Row extends object>(props: DataGridProps<Row>) => {
 				gridTemplateColumns={{ md: "1fr 1fr", sm: "1fr" }}
 				gap={"15px"}
 			>
-				{body}
+				{props.rows.map((row) => {
+					return props.renderers!.card!(row)
+				})}
 			</Grid>
 		</div>
 	)
