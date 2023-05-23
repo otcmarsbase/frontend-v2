@@ -48,9 +48,9 @@ export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
 				{isDesktop || !hasMobileViewRenderer ? (
-					<DesktopTableView {...props} />
+					<DesktopTableView {...props} rows={data} />
 				) : (
-					<MobileTableView {...props} />
+					<MobileTableView {...props} rows={data} />
 				)}
 			</TableWrapper>
 		</TableContainer>
