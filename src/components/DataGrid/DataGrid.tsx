@@ -11,13 +11,12 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
-
 type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
 	key?: Key
 	cellRender: (row: Row) => React.ReactNode
-    extraProps?: (row: Row) => Record<string, any>
+	extraProps?: (row: Row) => Record<string, any>
 }
 
 type DataGridProps<Row extends object, Key extends string> = {
@@ -25,13 +24,16 @@ type DataGridProps<Row extends object, Key extends string> = {
 	rows: Row[]
 	renderers?: {
 		column?: (name: string, key?: Key) => React.ReactNode
-		card?: (row: Row) => React.ReactNode
+		card?: (
+			row: Row,
+			cellView: Record<Key, React.ReactNode>
+		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
 	sortColumns?: SortColumn<Key>[]
 	onSortColumnsChange?: (sortColumns: SortColumn<Key>[]) => void
-    /** The getter should return a unique key for each row */
-    rowKeyGetter: (row: Row) => string;
+	/** The getter should return a unique key for each row */
+	rowKeyGetter: (row: Row) => string
 }
 
 type SortColumn<Key> = {
@@ -40,7 +42,9 @@ type SortColumn<Key> = {
 }
 type SortDirection = "ASC" | "DESC"
 
-export const DataGrid = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
+export const DataGrid = <Row extends object, Key extends string>(
+	props: DataGridProps<Row, Key>
+) => {
 	const isDesktop = useMedia(queries.lg)
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
@@ -63,7 +67,9 @@ export const DataGrid = <Row extends object, Key extends string>(props: DataGrid
 	)
 }
 
-const MobileTableView = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
+const MobileTableView = <Row extends object, Key extends string>(
+	props: DataGridProps<Row, Key>
+) => {
 	return (
 		<div>
 			<Grid
@@ -77,7 +83,9 @@ const MobileTableView = <Row extends object, Key extends string>(props: DataGrid
 		</div>
 	)
 }
-const DesktopTableView = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
+const DesktopTableView = <Row extends object, Key extends string>(
+	props: DataGridProps<Row, Key>
+) => {
 	const columnRender =
 		props.renderers?.column ||
 		((name: string, row?: Key) => <th>{name}</th>)
