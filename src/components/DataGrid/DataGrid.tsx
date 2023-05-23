@@ -11,9 +11,7 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
-type RowId = {
-    [Symbol("__marsbase_table_id")]: string
-}
+
 type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
