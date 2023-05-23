@@ -6,7 +6,7 @@ import {
 	Tbody,
 	Td,
 	Thead,
-    Tr,
+	Tr,
 } from "@chakra-ui/react"
 import { useMedia } from "react-use"
 import React from "react"
@@ -15,7 +15,7 @@ type Column<Row extends object, Key extends keyof Row> = {
 	name: string
 	width?: string
 	key: Key
-    cellRender: (row: Row) => React.ReactNode
+	cellRender: (row: Row) => React.ReactNode
 }
 
 type DataGridProps<Row extends object> = {
@@ -41,6 +41,9 @@ export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
     const [data, setData] = React.useState<Row[]>(props.rows)
+    const [sortColumns, setSortColumns] = React.useState<SortColumn<keyof Row>[]>([])
+    // const [filterColumns, setFilterColumns] = React.useState<FilterColumn<keyof Row>[]>([])
+
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
