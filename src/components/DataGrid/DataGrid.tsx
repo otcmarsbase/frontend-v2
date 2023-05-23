@@ -40,6 +40,7 @@ export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 	const isDesktop = useMedia(queries.lg)
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
+    const [data, setData] = React.useState<Row[]>(props.rows)
 	return (
 		<TableContainer width={{ sm: "100%", lg: "auto" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
