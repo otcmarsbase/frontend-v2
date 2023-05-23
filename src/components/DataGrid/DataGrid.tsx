@@ -11,23 +11,23 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
-type Column<Row extends object, Key extends keyof Row> = {
+type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
 	key?: Key
 	cellRender: (row: Row) => React.ReactNode
 }
 
-type DataGridProps<Row extends object> = {
-	columns: Column<Row, keyof Row>[]
+type DataGridProps<Row extends object, Key extends string> = {
+	columns: Column<Row, Key>[]
 	rows: Row[]
 	renderers?: {
-		column?: (name: string, key?: keyof Row) => React.ReactNode
+		column?: (name: string, key?: Key) => React.ReactNode
 		card?: (row: Row) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
-	sortColumns?: SortColumn<keyof Row>[]
-	onSortColumnsChange?: (sortColumns: SortColumn<keyof Row>[]) => void
+	sortColumns?: SortColumn<Key>[]
+	onSortColumnsChange?: (sortColumns: SortColumn<Key>[]) => void
 }
 
 type SortColumn<Key> = {
@@ -36,7 +36,7 @@ type SortColumn<Key> = {
 }
 type SortDirection = "ASC" | "DESC"
 
-export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
+export const DataGrid = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
 	const isDesktop = useMedia(queries.lg)
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
 
@@ -59,7 +59,7 @@ export const DataGrid = <Row extends object>(props: DataGridProps<Row>) => {
 	)
 }
 
-const MobileTableView = <Row extends object>(props: DataGridProps<Row>) => {
+const MobileTableView = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
 	return (
 		<div>
 			<Grid
@@ -73,10 +73,10 @@ const MobileTableView = <Row extends object>(props: DataGridProps<Row>) => {
 		</div>
 	)
 }
-const DesktopTableView = <Row extends object>(props: DataGridProps<Row>) => {
+const DesktopTableView = <Row extends object, Key extends string>(props: DataGridProps<Row, Key>) => {
 	const columnRender =
 		props.renderers?.column ||
-		((name: string, row?: keyof Row) => <th>{name}</th>)
+		((name: string, row?: Key) => <th>{name}</th>)
 	return (
 		<div>
 			<colgroup>
