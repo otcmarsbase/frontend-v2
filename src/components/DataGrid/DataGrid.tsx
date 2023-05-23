@@ -17,7 +17,7 @@ type Column<Row extends object, Key extends string> = {
 	width?: string
 	key?: Key
 	cellRender: (row: Row) => React.ReactNode
-    extraProps?: Record<string, any>
+    extraProps?: (row: Row) => Record<string, any>
 }
 
 type DataGridProps<Row extends object, Key extends string> = {
