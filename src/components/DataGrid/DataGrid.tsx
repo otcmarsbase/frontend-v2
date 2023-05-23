@@ -14,7 +14,8 @@ import React from "react"
 type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
-	key?: Key
+	/** The a unique key for each column */
+	key: Key
 	cellRender: (row: Row) => React.ReactNode
 	extraProps?: (row: Row) => Record<string, any>
 }
