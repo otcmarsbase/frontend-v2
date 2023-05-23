@@ -4,7 +4,9 @@ import {
 	TableContainer,
 	Table as TableWrapper,
 	Tbody,
+	Td,
 	Thead,
+    Tr,
 } from "@chakra-ui/react"
 import { useMedia } from "react-use"
 import React from "react"
@@ -13,6 +15,7 @@ type Column<Row extends object, Key extends keyof Row> = {
 	name: string
 	width?: string
 	key: Key
+    cellRender: (row: Row) => React.ReactNode
 }
 
 type DataGridProps<Row extends object> = {
