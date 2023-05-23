@@ -69,7 +69,8 @@ const MobileTableView = <Row extends object>(props: DataGridProps<Row>) => {
 }
 const DesktopTableView = <Row extends object>(props: DataGridProps<Row>) => {
 	const columnRender =
-		props.renderers?.column || ((row: keyof Row, name: string) => <th>{name}</th>)
+		props.renderers?.column ||
+		((row: keyof Row, name: string) => <th>{name}</th>)
 	return (
 		<div>
 			<colgroup>
@@ -80,7 +81,15 @@ const DesktopTableView = <Row extends object>(props: DataGridProps<Row>) => {
 			<TableHeading>
 				{props.columns.map((x) => columnRender(x.key, x.name))}
 			</TableHeading>
-			<TableBody>{body}</TableBody>
+			<TableBody>
+				{props.rows.map((row) => (
+					<Tr>
+						{props.columns.map((x) => (
+							<Td py={"0.5"}>{x.cellRender(row)}</Td>
+						))}
+					</Tr>
+				))}
+			</TableBody>
 		</div>
 	)
 }
