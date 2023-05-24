@@ -71,6 +71,12 @@ export const DataGrid = <Row extends object, Key extends string>(
 const MobileTableView = <Row extends object, Key extends string>(
 	props: DataGridProps<Row, Key>
 ) => {
+	const cellViewObject = (row: Row) =>
+		props.columns.reduce((acc, x) => {
+			//@ts-ignore
+			acc[x.key] = x.cellRender(row)
+			return acc
+		}, {}) as Record<Key, React.ReactNode>
 	return (
 		<div>
 			<Grid
@@ -78,7 +84,7 @@ const MobileTableView = <Row extends object, Key extends string>(
 				gap={"15px"}
 			>
 				{props.rows.map((row) => {
-					return props.renderers!.card!(row)
+					return props.renderers!.card!(row, cellViewObject(row))
 				})}
 			</Grid>
 		</div>
