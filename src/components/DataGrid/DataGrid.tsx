@@ -12,13 +12,14 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 
-type Column<Row extends object, Key extends string, ColumnExtraProps extends object> = {
+type Column<Row extends object, Key extends string> = {
 	name: string
 	width?: string
 	/** The a unique key for each column */
 	key: Key
 	cellRender: (row: Row) => React.ReactNode
-	extraProps?: (row: Row) => ColumnExtraProps
+	/** cardRender is used for card view, if not passed, uses cellRender instead */
+	cardRender?: (row: Row) => React.ReactNode
 }
 
 type CellViewObject<Key extends string> = Record<
@@ -80,8 +81,7 @@ const MobileTableView = <Row extends object, Key extends string>(
 		props.columns.reduce((acc, x) => {
 			//@ts-ignore
 			acc[x.key] = {
-				view: x.cellRender(row),
-				extraProps: x.extraProps || {},
+				view: x.cardRender ? x.cardRender(row) : x.cellRender(row),
 				name: x.name,
 			}
 			return acc
