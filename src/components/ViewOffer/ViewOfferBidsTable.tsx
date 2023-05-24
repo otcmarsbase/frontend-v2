@@ -166,6 +166,45 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			]}
 			renderers={{
 				column: (name, key) => <Text12Normal>{name}</Text12Normal>,
+				card: (row, cellViewObject) => (
+					<TableCardContainer>
+						<Flex direction={"column"} w={"full"}>
+							{[
+								cellViewObject.bidId,
+								cellViewObject.amount,
+								cellViewObject.usd,
+								cellViewObject.value,
+							].map((x) => (
+								<HStack
+									w={"100%"}
+									justifyContent={"space-between"}
+								>
+									<Text12Normal color={"gray"}>
+										{x.name}
+									</Text12Normal>
+									<Box>{x.view}</Box>
+								</HStack>
+							))}
+							{cellViewObject.btn.extraProps.text && (
+								<>
+									<Divider className="bg-dark-700 my-3" />
+									<HStack>
+										<OrangeButton
+											size="m"
+											fontSize="14"
+											onClick={
+												cellViewObject.btn.extraProps
+													.onClick
+											}
+										>
+											{cellViewObject.btn.extraProps.text}
+										</OrangeButton>
+									</HStack>
+								</>
+							)}
+						</Flex>
+					</TableCardContainer>
+				),
 			}}
 		/>
 	)
