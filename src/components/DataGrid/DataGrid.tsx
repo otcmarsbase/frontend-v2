@@ -5,33 +5,34 @@ import {
 	Table as TableWrapper,
 	Tbody,
 	Td,
+	Th,
 	Thead,
 	Tr,
 } from "@chakra-ui/react"
 import { useMedia } from "react-use"
 import React from "react"
 
-type Column<Row extends object, Key extends string> = {
+type Column<Row extends object, Key extends string, ColumnExtraProps extends object> = {
 	name: string
 	width?: string
 	/** The a unique key for each column */
 	key: Key
 	cellRender: (row: Row) => React.ReactNode
-	extraProps?: (row: Row) => Record<string, any>
+	extraProps?: (row: Row) => ColumnExtraProps
 }
 
-type CellViewObject<Key extends string> = Record<
+type CellViewObject<Key extends string, ColumnExtraProps extends object> = Record<
 	Key,
-	{ view: React.ReactNode; extraProps: any; name: string }
+	{ view: React.ReactNode; extraProps: ColumnExtraProps; name: string }
 >
-type DataGridProps<Row extends object, Key extends string> = {
-	columns: Column<Row, Key>[]
+type DataGridProps<Row extends object, Key extends string, ColumnExtraProps extends object> = {
+	columns: Column<Row, Key, ColumnExtraProps>[]
 	rows: Row[]
 	renderers?: {
 		column?: (name: string, key?: Key) => React.ReactNode
 		card?: (
 			row: Row,
-			cellViewObject: CellViewObject<Key>
+			cellViewObject: CellViewObject<Key, ColumnExtraProps>
 		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
@@ -47,8 +48,8 @@ type SortColumn<Key> = {
 }
 type SortDirection = "ASC" | "DESC"
 
-export const DataGrid = <Row extends object, Key extends string>(
-	props: DataGridProps<Row, Key>
+export const DataGrid = <Row extends object, Key extends string, ColumnExtraProps extends object>(
+	props: DataGridProps<Row, Key, ColumnExtraProps>
 ) => {
 	const isDesktop = useMedia(queries.lg)
 	const hasMobileViewRenderer = Boolean(props.renderers?.card)
@@ -72,8 +73,8 @@ export const DataGrid = <Row extends object, Key extends string>(
 	)
 }
 
-const MobileTableView = <Row extends object, Key extends string>(
-	props: DataGridProps<Row, Key>
+const MobileTableView = <Row extends object, Key extends string, ColumnExtraProps extends object>(
+	props: DataGridProps<Row, Key, ColumnExtraProps>
 ) => {
 	const cellViewObject = (row: Row) =>
 		props.columns.reduce((acc, x) => {
@@ -84,7 +85,7 @@ const MobileTableView = <Row extends object, Key extends string>(
 				name: x.name,
 			}
 			return acc
-		}, {}) as CellViewObject<Key>
+		}, {}) as CellViewObject<Key, ColumnExtraProps>
 	return (
 		<div>
 			<Grid
@@ -98,8 +99,8 @@ const MobileTableView = <Row extends object, Key extends string>(
 		</div>
 	)
 }
-const DesktopTableView = <Row extends object, Key extends string>(
-	props: DataGridProps<Row, Key>
+const DesktopTableView = <Row extends object, Key extends string, ColumnExtraProps extends object>(
+	props: DataGridProps<Row, Key, ColumnExtraProps>
 ) => {
 	const columnRender =
 		props.renderers?.column ||
