@@ -74,7 +74,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "Bid ID",
 					key: "bidId",
-					
+					width: "25%",
 					cellRender: (row) => (
 						<Text12Normal>#{row.bidIdx}</Text12Normal>
 					),
@@ -82,7 +82,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "Amount",
 					key: "amount",
-				
+					width: "15%",
 					cellRender: (row) =>
 						row.tokenBob && row.amountBob ? (
 							<Flex as="span" justifyContent="flex-end">
@@ -98,7 +98,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "USD",
 					key: "usd",
-					
+					width: "15%",
 					cellRender: (row) => (
 						<Text12Normal>
 							{APPROXIMATELY_EQUALS_SYMBOL + " "}$
@@ -109,7 +109,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "Value",
 					key: "value",
-				
+					width: "15%",
 					cellRender: (row) => (
 						<DisplayProfit
 							profit={calculateProfit(
