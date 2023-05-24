@@ -27,7 +27,7 @@ type DataGridProps<Row extends object, Key extends string> = {
 		column?: (name: string, key?: Key) => React.ReactNode
 		card?: (
 			row: Row,
-			cellView: Record<Key, React.ReactNode>
+			cellViewObject: Record<Key, React.ReactNode>
 		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
