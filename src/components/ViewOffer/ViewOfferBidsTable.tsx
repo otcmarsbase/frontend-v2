@@ -164,34 +164,9 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					}),
 				},
 			]}
-			cardData={
-				<TableCardContainer>
-					<Flex direction={"column"} w={"full"}>
-						{[bidId, amount, usd, value].map((x) => (
-							<HStack w={"100%"} justifyContent={"space-between"}>
-								<Text12Normal color={"gray"}>
-									{x.title}
-								</Text12Normal>
-								<Box>{x.value}</Box>
-							</HStack>
-						))}
-						{btn.text && (
-							<>
-								<Divider className="bg-dark-700 my-3" />
-								<HStack>
-									<OrangeButton
-										size="m"
-										fontSize="14"
-										onClick={btn.onClick}
-									>
-										{btn.text}
-									</OrangeButton>
-								</HStack>
-							</>
-						)}
-					</Flex>
-				</TableCardContainer>
-			}
+			renderers={{
+				column: (name, key) => <Text12Normal>{name}</Text12Normal>,
+			}}
 		/>
 	)
 }
