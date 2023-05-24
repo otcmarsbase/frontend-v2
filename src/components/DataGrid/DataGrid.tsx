@@ -20,6 +20,10 @@ type Column<Row extends object, Key extends string> = {
 	extraProps?: (row: Row) => Record<string, any>
 }
 
+type CellViewObject<Key extends string> = Record<
+	Key,
+	{ view: React.ReactNode; extraProps: any; name: string }
+>
 type DataGridProps<Row extends object, Key extends string> = {
 	columns: Column<Row, Key>[]
 	rows: Row[]
