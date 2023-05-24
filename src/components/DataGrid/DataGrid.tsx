@@ -31,7 +31,7 @@ type DataGridProps<Row extends object, Key extends string> = {
 		column?: (name: string, key?: Key) => React.ReactNode
 		card?: (
 			row: Row,
-			cellViewObject: Record<Key, React.ReactNode>
+			cellViewObject: CellViewObject<Key>
 		) => React.ReactNode
 		// row?: (row: Row) => React.ReactNode
 	}
@@ -78,9 +78,13 @@ const MobileTableView = <Row extends object, Key extends string>(
 	const cellViewObject = (row: Row) =>
 		props.columns.reduce((acc, x) => {
 			//@ts-ignore
-			acc[x.key] = x.cellRender(row)
+			acc[x.key] = {
+				view: x.cellRender(row),
+				extraProps: x.extraProps || {},
+				name: x.name,
+			}
 			return acc
-		}, {}) as Record<Key, React.ReactNode>
+		}, {}) as CellViewObject<Key>
 	return (
 		<div>
 			<Grid
