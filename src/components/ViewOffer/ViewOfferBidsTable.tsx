@@ -71,6 +71,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			rowKeyGetter={(row) => row.bidIdx}
 			columns={[
 				{
+					name: "Bid ID",
 					
 					
 					cellRender: (row) => (
@@ -78,6 +79,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					),
 				},
 				{
+					name: "Amount",
 					
 				
 					cellRender: (row) =>
@@ -93,6 +95,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 						),
 				},
 				{
+					name: "USD",
 					
 					
 					cellRender: (row) => (
@@ -103,7 +106,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					),
 				},
 				{
-					
+					name: "Value",
 				
 					cellRender: (row) => (
 						<DisplayProfit
@@ -116,7 +119,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				},
 				{
 					
-					
+					name: "",
 					cellRender: (row) =>
 						row.isMyOffer ? (
 							<Flex style={{ display: "inline-flex" }}>
