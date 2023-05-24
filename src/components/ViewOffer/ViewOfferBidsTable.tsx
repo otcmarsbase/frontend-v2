@@ -67,144 +67,86 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 		},
 	]
 	return (
-		<Table
-			colWidths={["25%", "15%", "15%", "15%", "15%"]}
-			body={data.map((x) => {
-				return (
-					<OfferBidSingleView
-						amount={{
-							title: "Amount",
-							value:
-								x.tokenBob && x.amountBob ? (
-									<Flex as="span" justifyContent="flex-end">
-										<LongEthValueView
-											amountEth={x.amountBob.toEth()}
-										/>
-										<TokenIconSymbol token={x.tokenBob} />
-									</Flex>
-								) : (
-									<Spinner size={"sm"} />
-								),
-						}}
-						bidId={{
-							title: "Bid ID",
-							value: <Text12Normal>#{x.bidIdx}</Text12Normal>,
-						}}
-						usd={{
-							title: "USD",
-							value: (
-								<Text12Normal>
-									{APPROXIMATELY_EQUALS_SYMBOL + " "}$
-									{separateThousands(
-										x.amountBobUsd.toFixed(2)
-									)}
-								</Text12Normal>
-							),
-						}}
-						value={{
-							title: "Value",
-							value: (
-								<DisplayProfit
-									profit={calculateProfit(
-										x.amountAliceUsd,
-										x.amountBobUsd
-									)}
+		<DataGrid
+			rowKeyGetter={(row) => row.bidIdx}
+			columns={[
+				{
+					
+					
+					cellRender: (row) => (
+						<Text12Normal>#{row.bidIdx}</Text12Normal>
+					),
+				},
+				{
+					
+				
+					cellRender: (row) =>
+						row.tokenBob && row.amountBob ? (
+							<Flex as="span" justifyContent="flex-end">
+								<LongEthValueView
+									amountEth={row.amountBob.toEth()}
 								/>
-							),
-						}}
-						btn={{
-							onClick: x.isMyOffer
-								? x.onAccept
-								: x.isMyBid
-								? x.onCancel
-								: () => {},
-							text: x.isMyOffer
-								? "Accept bid"
-								: x.isMyBid
-								? "Cancel bid"
-								: "",
-						}}
-					/>
-				)
-			})}
-			header={[
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => <Text size="11">BID ID</Text>}
-				/>,
-
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => <Text size="11">AMOUT</Text>}
-				/>,
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => <Text size="11">USD</Text>}
-				/>,
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => <Text size="11">VALUE</Text>}
-				/>,
-			]}
-		></Table>
-	)
-}
-
-type OfferBidSingleViewProps = {
-	bidId: {
-		title: string
-		value: any
-	}
-	amount: {
-		title: string
-		value: any
-	}
-	usd: {
-		title: string
-		value: any
-	}
-	value: {
-		title: string
-		value: any
-	}
-	btn: {
-		text: string
-		onClick: () => void
-	}
-}
-const OfferBidSingleView: React.FC<OfferBidSingleViewProps> = ({
-	amount,
-	bidId,
-	usd,
-	value,
-	btn,
-}) => {
-	return (
-		<TableRow
-			rowData={[
-				bidId.value,
-				amount.value,
-				usd.value,
-				value.value,
-				btn.text && (
-					<Flex style={{ display: "inline-flex" }}>
-						<OrangeButton
-							size="xs"
-							fontSize="12"
-							onClick={btn.onClick}
-						>
-							{btn.text}
-						</OrangeButton>
-					</Flex>
-				),
+								<TokenIconSymbol token={row.tokenBob} />
+							</Flex>
+						) : (
+							<Spinner size={"sm"} />
+						),
+				},
+				{
+					
+					
+					cellRender: (row) => (
+						<Text12Normal>
+							{APPROXIMATELY_EQUALS_SYMBOL + " "}$
+							{separateThousands(row.amountBobUsd.toFixed(2))}
+						</Text12Normal>
+					),
+				},
+				{
+					
+				
+					cellRender: (row) => (
+						<DisplayProfit
+							profit={calculateProfit(
+								row.amountAliceUsd,
+								row.amountBobUsd
+							)}
+						/>
+					),
+				},
+				{
+					
+					
+					cellRender: (row) =>
+						row.isMyOffer ? (
+							<Flex style={{ display: "inline-flex" }}>
+								<OrangeButton
+									size="xs"
+									fontSize="12"
+									onClick={() =>
+										console.log("Accept bid #", row.bidIdx)
+									}
+								>
+									Accept bid
+								</OrangeButton>
+							</Flex>
+						) : row.isMyBid ? (
+							<Flex style={{ display: "inline-flex" }}>
+								<OrangeButton
+									size="xs"
+									fontSize="12"
+									onClick={() =>
+										console.log("Cancel bid #", row.bidIdx)
+									}
+								>
+									Cancel bid
+								</OrangeButton>
+							</Flex>
+						) : (
+							""
+						),
+					
+				},
 			]}
 			cardData={
 				<TableCardContainer>
