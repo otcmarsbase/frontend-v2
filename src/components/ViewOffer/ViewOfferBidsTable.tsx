@@ -23,6 +23,7 @@ import {
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { OrangeButton } from "@/components/Button/OrangeButton"
 import { Divider } from "@/components/Divider/Divider"
+import { DataGrid } from "@/components/DataGrid/DataGrid"
 
 type ViewOfferBidsTableProps = {}
 
