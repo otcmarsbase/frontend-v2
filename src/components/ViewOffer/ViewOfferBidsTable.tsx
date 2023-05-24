@@ -145,7 +145,18 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 						) : (
 							""
 						),
-					
+					extraProps: (row) => ({
+						text: row.isMyOffer
+							? "Accept bid"
+							: row.isMyBid
+							? "Cancel bid"
+							: "",
+						onClick: row.isMyOffer
+							? row.onAccept
+							: row.isMyBid
+							? row.onCancel
+							: () => {},
+					}),
 				},
 			]}
 			cardData={
