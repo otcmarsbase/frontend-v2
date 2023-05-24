@@ -112,7 +112,9 @@ const DesktopTableView = <Row extends object, Key extends string>(
 				))}
 			</colgroup>
 			<TableHeading>
-				{props.columns.map((x) => columnRender(x.name, x.key))}
+				{props.columns.map((x) => (
+					<Th>{columnRender(x.name, x.key)}</Th>
+				))}
 			</TableHeading>
 			<TableBody>
 				{props.rows.map((row) => (
