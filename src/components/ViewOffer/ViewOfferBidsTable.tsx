@@ -164,6 +164,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					}),
 				},
 			]}
+			rows={data}
 			renderers={{
 				column: (name, key) => <Text12Normal>{name}</Text12Normal>,
 				card: (row, cellViewObject) => (
