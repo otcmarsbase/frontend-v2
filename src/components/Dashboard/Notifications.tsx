@@ -56,7 +56,9 @@ export const NotificationsContainer: React.FC<NotificationsContainerProps> = ({
 					) : subscribedAlready ? (
 						<YoureSubscribed />
 					) : (
-						<SubscribeToOurTelegramContainer notificationToken={notificationToken} />
+						<SubscribeToOurTelegramContainer
+							notificationToken={notificationToken}
+						/>
 					)}
 				</LoginRequired>
 			</Flex>
