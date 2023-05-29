@@ -42,151 +42,31 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 		},
 	]
 	return (
-		<Table
-			body={[
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-				<MPRow
-					offerId={{
-						title: "Offer ID",
-						value: String(Math.random()).slice(2, 4),
-					}}
-					acceptedTokens={{
-						title: "Accepted tokens",
-						value: "USDT",
-					}}
-					amount={{
-						title: "Amount",
-						value: "100 ETH",
-					}}
-					bids={{
-						title: "Bids",
-						value: 12,
-					}}
-					viewOffer={<Button>view offer</Button>}
-				/>,
-			]}
-			header={[
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>Offer ID</Text12Normal>
-					)}
-				></TableSortButton>,
-
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>Amount</Text12Normal>
-					)}
-				></TableSortButton>,
-				<TableSortButton
-					onClick={() => {}}
-					reversed={false}
-					sorted={false}
-					render={() => (
-						<Text12Normal color={"white"}>
-							Accepted tokens
-						</Text12Normal>
-					)}
-				></TableSortButton>,
+		<DataGrid
+			renderers={{
+				card: (row, view) => (
+					<VStack border="1px solid red">
+						{[
+							view.offerId,
+							view.amountBob,
+							view.tokensBob,
+							view.bids,
+						].map((x) => (
+							<HStack w={"100%"} justifyContent={"space-between"}>
+								<Box>{x.name}</Box>
+								<Box>{x.view}</Box>
+							</HStack>
+						))}
+						<Box
+							w={"100%"}
+							paddingTop="10px"
+							borderTop="1px solid #2A2A2C"
+						>
+							{view.viewOffer.view}
+						</Box>
+					</VStack>
+				),
+			}}
 			]}
 		/>
 	)
