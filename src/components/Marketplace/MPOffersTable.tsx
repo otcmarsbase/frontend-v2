@@ -5,6 +5,39 @@ import React from "react"
 
 type MPOffersTableProps = {}
 export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
+	const data = [
+		{
+			bids: 0,
+			offerId: "1",
+			amountBob: WBN.fromEth("100", 2),
+			tokensBob: [
+				{
+					name: "BNB",
+					symbol: "BNB",
+					iconUrl:
+						"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+					address: "0x0000000",
+					decimals: 18,
+				},
+				{
+					name: "Ethereum",
+					symbol: "ETH",
+					iconUrl:
+						"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+					address: "0x0000000",
+					decimals: 18,
+				},
+			],
+			aliceToken: {
+				name: "Ethereum",
+				symbol: "ETH",
+				iconUrl:
+					"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+				address: "0x0000000",
+				decimals: 18,
+			},
+		},
+	]
 	return (
 		<Table
 			body={[
