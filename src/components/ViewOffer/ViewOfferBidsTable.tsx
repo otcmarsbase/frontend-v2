@@ -178,14 +178,14 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 			rows={data}
 			renderers={{
 				column: (name, key) => <Text12Normal>{name}</Text12Normal>,
-				card: (row, cellViewObject) => (
+				card: (row, view) => (
 					<TableCardContainer>
 						<Flex direction={"column"} w={"full"}>
 							{[
-								cellViewObject.bidId,
-								cellViewObject.amount,
-								cellViewObject.usd,
-								cellViewObject.value,
+								view.bidId,
+								view.amount,
+								view.usd,
+								view.value,
 							].map((x) => (
 								<HStack
 									w={"100%"}
@@ -197,10 +197,10 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 									<Box>{x.view}</Box>
 								</HStack>
 							))}
-							{cellViewObject.btn.view && (
+							{view.btn.view && (
 								<>
 									<Divider className="bg-dark-700 my-3" />
-									<HStack>{cellViewObject.btn.view}</HStack>
+									<HStack>{view.btn.view}</HStack>
 								</>
 							)}
 						</Flex>
