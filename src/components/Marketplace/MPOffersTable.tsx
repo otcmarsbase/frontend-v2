@@ -1,3 +1,4 @@
+import { OrangeButton } from "@/components/Button/OrangeButton"
 import { DataGrid } from "@/components/DataGrid/DataGrid"
 import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
 import { LeadText, Text12Normal } from "@/components/Text/Typography"
@@ -67,6 +68,60 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 					</VStack>
 				),
 			}}
+			rowKeyGetter={(x) => x.offerId}
+			rows={data}
+			columns={[
+				{
+					key: "offerId",
+					name: "Offer Id",
+					cellRender: (x) => x.offerId,
+				},
+				{
+					key: "amountBob",
+					name: "Amount",
+					cellRender: (x) => x.amountBob.toEth(),
+				},
+				{
+					key: "tokensBob",
+					name: "Accepted tokens",
+					cellRender: (x) => (
+						<Flex className="flex-row justify-start gap-2">
+							{x.tokensBob.map((token) => (
+								<TokenSelectorSingleTokenOption
+									key={token.address}
+									token={token}
+								/>
+							))}
+						</Flex>
+					),
+				},
+				{
+					key: "bids",
+					name: "",
+					cellRender: (x) => (
+						<Flex>
+							<LeadText color="gray">Bids:</LeadText>
+							<LeadText color="white">{x.bids}</LeadText>
+						</Flex>
+					),
+				},
+				{
+					key: "viewOffer",
+					name: "",
+					cellRender: (row) => (
+						<Flex style={{ display: "inline-flex" }}>
+							<OrangeButton
+								size="xs"
+								fontSize="12"
+								onClick={() => {
+									console.log("view offer bid #", row.offerId)
+								}}
+							>
+								View offer
+							</OrangeButton>
+						</Flex>
+					),
+				},
 			]}
 		/>
 	)
