@@ -2,7 +2,11 @@ import { Image } from "@/components/Image/Image"
 import { ErrorLine, Input } from "@/components/Input/Input"
 import { OneLine } from "@/components/OneLine/OneLine"
 import { Text } from "@/components/Text/Text"
-import { LeadText, Text12Normal } from "@/components/Text/Typography"
+import {
+	LeadText,
+	Text12Bold,
+	Text12Normal,
+} from "@/components/Text/Typography"
 import { TokenInfo } from "@/types"
 import { removeTrailingZeros } from "@/utils/utils"
 import { Flex } from "@chakra-ui/react"
