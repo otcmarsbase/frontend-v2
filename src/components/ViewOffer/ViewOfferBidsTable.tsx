@@ -50,25 +50,39 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 	const data: BidProps[] = [
 		{
 			amountAliceUsd: 100,
-			amountBob: WBN.fromEth("100", 18),
+			amountBob: WBN.fromEth("100", 2),
 			amountBobUsd: 100,
 			bidIdx: "0",
 			isMyBid: false,
 			isMyOffer: false,
 			onAccept: () => {},
 			onCancel: () => {},
-			tokenBob: undefined,
+			tokenBob: {
+				address: "0x0",
+				symbol: "ETH",
+				decimals: 2,
+				iconUrl:
+					"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+				name: "Ethereum",
+			},
 		},
 		{
 			amountAliceUsd: 100,
-			amountBob: WBN.fromEth("100", 18),
+			amountBob: WBN.fromEth("100", 2),
 			amountBobUsd: 1000,
 			bidIdx: "1",
 			isMyBid: false,
 			isMyOffer: true,
 			onAccept: () => {},
 			onCancel: () => {},
-			tokenBob: undefined,
+			tokenBob: {
+				address: "0x0",
+				symbol: "ETH",
+				decimals: 2,
+				iconUrl:
+					"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+				name: "Ethereum",
+			},
 		},
 	]
 	const buttonProps = (data: BidProps) => {
