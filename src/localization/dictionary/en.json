@@ -81,9 +81,9 @@
 	},
 	"marketplace": {
 		"header": {
-			"title": "Marketplace Offers",
-			"subitle": "Trade tokens without locking your liquidity",
-			"offerBtn": "CREATE MARKETPLACE OFFER"
+			"title": "Zero Lock Offers",
+			"subitle": "Place offers and bids without locking your funds. Explore now!",
+			"offerBtn": "CREATE ZERO LOCK OFFER"
 		}
 	},
 	"calculator": {
