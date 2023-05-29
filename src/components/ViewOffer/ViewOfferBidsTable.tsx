@@ -111,7 +111,11 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 					width: "15%",
 					cellRender: (row) =>
 						row.tokenBob && row.amountBob ? (
-							<Flex as="span" justifyContent="flex-end">
+							<Flex
+								as="span"
+								justifyContent="flex-end"
+								alignItems={"center"}
+							>
 								<LongEthValueView
 									amountEth={row.amountBob.toEth()}
 								/>
