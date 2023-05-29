@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import {
+	Box,
 	Button,
 	Center,
 	Circle,
@@ -14,11 +15,12 @@ import {
 	Spinner,
 	useClipboard,
 	VStack,
+	Text,
 } from "@chakra-ui/react"
 import { FaTelegramPlane } from "react-icons/fa"
 import { CheckCircleIcon, CopyIcon } from "@chakra-ui/icons"
 import React from "react"
-import { H2, LeadText } from "@/components/Text/Typography"
+import { H2, LeadText, Text12Bold } from "@/components/Text/Typography"
 import { LoginRequired } from "@/components/LoginRequired/LoginRequired"
 
 type NotificationsProps = {}
@@ -172,16 +174,20 @@ const PinInputView: React.FCC<{
 }> = ({ value }) => {
 	const inputs = React.useMemo(
 		() =>
-			value
-				.split("")
-				.map((x) => <PinInputField _disabled={{ opacity: 1 }} />),
+			value.split("").map((x) => (
+				<Box
+					boxSize={"3em"}
+					lineHeight="3em"
+					borderStyle="solid"
+					borderColor={"white"}
+					borderWidth="thin"
+					borderRadius="0.5em"
+					textAlign={"center"}
+				>
+					<Text fontSize={"28px"} fontWeight={"bold"}>{x}</Text>
+				</Box>
+			)),
 		[value]
 	)
-	return (
-		<HStack>
-			<PinInput isDisabled defaultValue={value}>
-				{inputs}
-			</PinInput>
-		</HStack>
-	)
+	return <HStack>{inputs}</HStack>
 }
