@@ -99,7 +99,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 				{
 					name: "Bid ID",
 					key: "bidId",
-					width: "25%",
+					width: "20%",
 					cellRender: (row) => (
 						<Text12Normal>#{row.bidIdx}</Text12Normal>
 					),
