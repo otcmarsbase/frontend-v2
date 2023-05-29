@@ -118,7 +118,7 @@ export const LongEthValue: React.FC<{
 	significant: (val: string) => ReactElement
 	insignificant: (val: string) => ReactElement
 }> = ({ amountEth, significant, insignificant }) => {
-	return <div>{amountEth}</div>
+	return <Text12Normal>{amountEth}</Text12Normal>
 	// let signdig = formatSigndig(amountEth)
 	// let insigndig =
 	// 	amountEth.length > signdig.length
