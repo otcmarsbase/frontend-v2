@@ -102,14 +102,6 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					address: "0x0000000",
 					decimals: 18,
 				},
-				{
-					name: "Ethereum",
-					symbol: "ETH",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
 			],
 			tokenAlice: {
 				name: "Ethereum",
