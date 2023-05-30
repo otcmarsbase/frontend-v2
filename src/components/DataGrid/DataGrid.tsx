@@ -191,3 +191,7 @@ export const TableHeading: React.FCC = ({ children }) => {
 export const TableBody: React.FCC = ({ children }) => {
 	return <Tbody>{children}</Tbody>
 }
+
+export const DataGridCardDivider: React.FC = () => {
+	return <Divider className="bg-dark-700 my-3" />
+}

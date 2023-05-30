@@ -27,7 +27,7 @@ import {
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
 import { OrangeButton } from "@/components/Button/OrangeButton"
 import { Divider } from "@/components/Divider/Divider"
-import { DataGrid } from "@/components/DataGrid/DataGrid"
+import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
 
 type ViewOfferBidsTableProps = {}
 
@@ -219,7 +219,7 @@ export const ViewOfferBidsTable: React.FC<ViewOfferBidsTableProps> = ({}) => {
 							))}
 							{view.btn.view && (
 								<>
-									<Divider className="bg-dark-700 my-3" />
+									<DataGridCardDivider />
 									<HStack>{view.btn.view}</HStack>
 								</>
 							)}

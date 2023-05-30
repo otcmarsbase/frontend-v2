@@ -1,6 +1,8 @@
 import { OrangeButton } from "@/components/Button/OrangeButton"
-import { DataGrid } from "@/components/DataGrid/DataGrid"
+import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
 import { Divider } from "@/components/Divider/Divider"
+import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import {
 	Table,
 	TableCardContainer,
@@ -73,7 +75,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 							))}
 							{view.viewOffer.view && (
 								<>
-									<Divider className="bg-dark-700 my-3" />
+									<DataGridCardDivider />
 									<HStack>{view.viewOffer.view}</HStack>
 								</>
 							)}
