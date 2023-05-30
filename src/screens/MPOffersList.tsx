@@ -1,5 +1,4 @@
 import { PageHeader } from "@/components/PageHeader/PageHeader"
-import { MPOffersTable } from "@/components/Marketplace/MPOffersTable"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
