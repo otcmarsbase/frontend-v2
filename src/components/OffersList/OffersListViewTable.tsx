@@ -163,7 +163,12 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				{
 					key: "offerId",
 					name: "Offer Id",
-					cellRender: (x) => x.offerId,
+					cellRender: (x) => (
+						<>
+							{x.offerId}
+							{x.isMyOffer && <SmallMyOfferLabel />}
+						</>
+					),
 				},
 				{
 					key: "amountBob",
