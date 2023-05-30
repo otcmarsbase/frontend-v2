@@ -15,6 +15,16 @@ import { WBN } from "@/utils/WBN"
 import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
+type SingleOfferViewProps = {
+	offerId: string
+	active: boolean
+	isMyOffer: boolean
+	bidsCount: number
+	amountAlice: WBN
+	tokenAlice: TokenInfo
+	tokensBob: TokenInfo[]
+}
+
 export const SmallMyOfferLabel: React.FC = () => (
 	<div style={{ transform: "scale(0.75)", display: "inline-block" }}>
 		<MyOfferIndicator />
