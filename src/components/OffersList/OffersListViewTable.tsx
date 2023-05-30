@@ -194,12 +194,14 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					key: "tokensBob",
 					name: "Accepted tokens",
 					cellRender: (x) => (
-						<Flex className="flex-row justify-start gap-2">
+						<Flex className="flex-row justify-start gap-2 flex-wrap items-start">
 							{x.tokensBob.map((token) => (
-								<TokenSelectorSingleTokenOption
-									key={token.address}
-									token={token}
-								/>
+								<CurrencyIcon
+									key={token.name}
+									imgSrc={token.iconUrl}
+								>
+									{token.symbol}
+								</CurrencyIcon>
 							))}
 						</Flex>
 					),
