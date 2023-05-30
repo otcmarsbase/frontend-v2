@@ -131,20 +131,22 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				card: (row, view) => (
 					<TableCardContainer>
 						<Flex direction={"column"} w={"full"}>
-							{[
-								view.offerId,
-								view.amountBob,
-								view.tokensBob,
-								view.bids,
-							].map((x) => (
-								<HStack
-									w={"100%"}
-									justifyContent={"space-between"}
-								>
-									<Box>{x.name}</Box>
-									<Box>{x.view}</Box>
-								</HStack>
-							))}
+							<Flex direction={"column"} grow={1}>
+								{[
+									view.offerId,
+									view.amountBob,
+									view.tokensBob,
+									view.bids,
+								].map((x) => (
+									<HStack
+										w={"100%"}
+										justifyContent={"space-between"}
+									>
+										<Box>{x.name}</Box>
+										<Box>{x.view}</Box>
+									</HStack>
+								))}
+							</Flex>
 							{view.viewOffer.view && (
 								<>
 									<DataGridCardDivider />
