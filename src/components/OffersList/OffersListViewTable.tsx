@@ -133,6 +133,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 									<HStack
 										w={"100%"}
 										justifyContent={"space-between"}
+										alignItems={"start"}
 									>
 										<Box>{x.name}</Box>
 										<Box>{x.view}</Box>
@@ -186,7 +187,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					key: "tokensBob",
 					name: "Accepted tokens",
 					cellRender: (x) => (
-						<Flex className="flex-row justify-start gap-2 flex-wrap items-start">
+						<Flex className="flex-row justify-start gap-2 flex-wrap">
 							{x.tokensBob.map((token) => (
 								<CurrencyIcon
 									key={token.name}
