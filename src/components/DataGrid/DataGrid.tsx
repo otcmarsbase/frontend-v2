@@ -1,6 +1,5 @@
 import { queries } from "@/utils/chakra"
 import {
-	Divider,
 	Grid,
 	TableContainer,
 	Table as TableWrapper,
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/react"
 import { useMedia } from "react-use"
 import React from "react"
+import { Divider } from "@/components/Divider/Divider"
 
 type Column<Row extends object, Key extends string> = {
 	name: string
