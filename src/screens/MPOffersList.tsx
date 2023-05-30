@@ -5,6 +5,7 @@ import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import React from "react"
 import { H1 } from "@/components/Text/Typography"
+import { MPOffersListHydrator } from "@/components/OffersList/MPOffersListHydrator"
 
 type MPOffersListProps = {}
 
@@ -23,7 +24,7 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 				/>
 			}
 		>
-			<MPOffersTable />
+			<MPOffersListHydrator />
 		</PageWrapper>
 	)
 }
