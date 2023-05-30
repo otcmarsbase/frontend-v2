@@ -1,14 +1,20 @@
 import { OrangeButton } from "@/components/Button/OrangeButton"
 import { DataGrid } from "@/components/DataGrid/DataGrid"
-import { Table, TableRow, TableSortButton } from "@/components/Table/Table"
+import { Divider } from "@/components/Divider/Divider"
+import {
+	Table,
+	TableCardContainer,
+	TableRow,
+	TableSortButton,
+} from "@/components/Table/Table"
 import { LeadText, Text12Normal } from "@/components/Text/Typography"
 import { TokenSelectorSingleTokenOption } from "@/components/TokenSelect/TokenSelect"
 import { WBN } from "@/utils/WBN"
 import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
-type MPOffersTableProps = {}
-export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
+type OffersListViewTableProps = {}
+export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 	const data = [
 		{
 			bids: 0,
@@ -45,27 +51,34 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 	return (
 		<DataGrid
 			renderers={{
+				column: (column) => (
+					<Text12Normal color={"#4c4c4c"}>{column}</Text12Normal>
+				),
 				card: (row, view) => (
-					<VStack border="1px solid red">
-						{[
-							view.offerId,
-							view.amountBob,
-							view.tokensBob,
-							view.bids,
-						].map((x) => (
-							<HStack w={"100%"} justifyContent={"space-between"}>
-								<Box>{x.name}</Box>
-								<Box>{x.view}</Box>
-							</HStack>
-						))}
-						<Box
-							w={"100%"}
-							paddingTop="10px"
-							borderTop="1px solid #2A2A2C"
-						>
-							{view.viewOffer.view}
-						</Box>
-					</VStack>
+					<TableCardContainer>
+						<Flex direction={"column"} w={"full"}>
+							{[
+								view.offerId,
+								view.amountBob,
+								view.tokensBob,
+								view.bids,
+							].map((x) => (
+								<HStack
+									w={"100%"}
+									justifyContent={"space-between"}
+								>
+									<Box>{x.name}</Box>
+									<Box>{x.view}</Box>
+								</HStack>
+							))}
+							{view.viewOffer.view && (
+								<>
+									<Divider className="bg-dark-700 my-3" />
+									<HStack>{view.viewOffer.view}</HStack>
+								</>
+							)}
+						</Flex>
+					</TableCardContainer>
 				),
 			}}
 			rowKeyGetter={(x) => x.offerId}
@@ -100,7 +113,7 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 					name: "",
 					cellRender: (x) => (
 						<Flex>
-							<LeadText color="gray">Bids:</LeadText>
+							<LeadText color="gray">{"Bids: "}</LeadText>
 							<LeadText color="white">{x.bids}</LeadText>
 						</Flex>
 					),
@@ -121,6 +134,19 @@ export const MPOffersTable: React.FC<MPOffersTableProps> = ({}) => {
 							</OrangeButton>
 						</Flex>
 					),
+					cardRender: (row) => {
+						return (
+							<OrangeButton
+								size="m"
+								fontSize="14"
+								onClick={() => {
+									console.log("view offer bid #", row.offerId)
+								}}
+							>
+								View offer
+							</OrangeButton>
+						)
+					},
 				},
 			]}
 		/>
