@@ -212,7 +212,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					cellRender: (x) => (
 						<Flex>
 							<LeadText color="gray">{"Bids: "}</LeadText>
-							<LeadText color="white">{x.bids}</LeadText>
+							<LeadText color="white">{x.bidsCount}</LeadText>
 						</Flex>
 					),
 				},
