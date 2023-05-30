@@ -173,7 +173,22 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				{
 					key: "amountBob",
 					name: "Amount",
-					cellRender: (x) => x.amountBob.toEth(),
+					cellRender: (x) => (
+						<LeadText>
+							<Flex
+								justifyContent="flex-end"
+								alignItems={"center"}
+								gap={"4px"}
+							>
+								<LongEthValueView
+									amountEth={x.amountAlice.toEth()}
+								/>
+								<CurrencyIcon imgSrc={x.tokenAlice.iconUrl}>
+									{x.tokenAlice.name}
+								</CurrencyIcon>
+							</Flex>
+						</LeadText>
+					),
 				},
 				{
 					key: "tokensBob",
