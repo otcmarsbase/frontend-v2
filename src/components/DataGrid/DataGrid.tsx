@@ -1,5 +1,6 @@
 import { queries } from "@/utils/chakra"
 import {
+	Divider,
 	Grid,
 	TableContainer,
 	Table as TableWrapper,
@@ -184,11 +185,11 @@ const DesktopTableView = <Row extends object, Key extends string>(
 	)
 }
 
-export const TableHeading: React.FCC = ({ children }) => {
+const TableHeading: React.FCC = ({ children }) => {
 	return <Thead>{children}</Thead>
 }
 
-export const TableBody: React.FCC = ({ children }) => {
+const TableBody: React.FCC = ({ children }) => {
 	return <Tbody>{children}</Tbody>
 }
 
