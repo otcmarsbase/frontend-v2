@@ -1,4 +1,5 @@
 import { LeadText } from "@/components/Text/Typography"
+import { Text } from "@/components/Text/Text"
 import { useTranslation } from "@/localization/l10n"
 import { Flex } from "@chakra-ui/react"
 import clsx from "clsx"
@@ -35,5 +36,21 @@ export const OfferTypeIndicator: React.FC<
 			{...props}
 			text={l10n.offerTypeIndicator[props.type]}
 		/>
+	)
+}
+
+export const MyOfferIndicator: React.FC = () => {
+	return (
+		<Flex
+			justifyItems={"center"}
+			alignItems={"center"}
+			bg={"#BC401C"}
+			borderRadius={"24px"}
+			p={"2px 12px"}
+		>
+			<Text size="14" fontWeight={"semibold"}>
+				My offer
+			</Text>
+		</Flex>
 	)
 }
