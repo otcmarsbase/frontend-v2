@@ -15,6 +15,11 @@ import { WBN } from "@/utils/WBN"
 import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
 import React from "react"
 
+export const SmallMyOfferLabel: React.FC = () => (
+	<div style={{ transform: "scale(0.75)", display: "inline-block" }}>
+		<MyOfferIndicator />
+	</div>
+)
 type OffersListViewTableProps = {}
 export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 	const data = [
