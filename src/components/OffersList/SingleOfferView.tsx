@@ -6,6 +6,7 @@ import { LeadText } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { OrangeButton } from "@/components/Button/OrangeButton"
 
 export const SmallMyOfferLabel: React.FC = () => (
 	<div style={{ transform: "scale(0.75)", display: "inline-block" }}>
@@ -21,7 +22,7 @@ export type SingleOfferViewProps = {
 	amountAlice: WBN
 	tokenAlice: TokenInfo
 	tokensBob: TokenInfo[]
-    onViewOfferClick: (offerId: string) => void
+	onViewOfferClick: (offerId: string) => void
 }
 export const SingleOfferColumnOfferId: React.FC<
 	Pick<SingleOfferViewProps, "isMyOffer" | "offerId">
@@ -64,3 +65,40 @@ export const SingleOfferColumnBidsCount: React.FC<
 		</LeadText>
 	</Flex>
 )
+
+export const SingleOfferColumnButton: React.FC<
+	Pick<SingleOfferViewProps, "onViewOfferClick" | "offerId"> & {
+		variant: "row" | "card"
+	}
+> = (props) => {
+	const style =
+		props.variant === "row"
+			? ({ size: "xs", fontSize: "12" } as const)
+			: ({ size: "m", fontSize: "14" } as const)
+
+	const btn = React.useMemo(
+		() => (
+			<OrangeButton
+				{...style}
+				onClick={() => {
+					props.onViewOfferClick(props.offerId)
+					console.log("view offer bid #", props.offerId)
+				}}
+			>
+				View offer
+			</OrangeButton>
+		),
+		[props.variant]
+	)
+	if (props.variant === "row")
+		return (
+			<Flex
+				style={{
+					display: props.variant === "row" ? "inline-flex" : "flex",
+				}}
+			>
+				{btn}
+			</Flex>
+		)
+	return <>{btn}</>
+}

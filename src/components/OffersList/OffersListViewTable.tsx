@@ -6,6 +6,7 @@ import {
 	SingleOfferColumnAcceptedTokens,
 	SingleOfferColumnAmount,
 	SingleOfferColumnBidsCount,
+	SingleOfferColumnButton,
 	SingleOfferColumnOfferId,
 	SingleOfferViewProps,
 } from "@/components/OffersList/SingleOfferView"
@@ -93,31 +94,11 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 					key: "viewOffer",
 					name: "",
 					cellRender: (row) => (
-						<Flex style={{ display: "inline-flex" }}>
-							<OrangeButton
-								size="xs"
-								fontSize="12"
-								onClick={() => {
-									row.onViewOfferClick(row.offerId)
-									console.log("view offer bid #", row.offerId)
-								}}
-							>
-								View offer
-							</OrangeButton>
-						</Flex>
+						<SingleOfferColumnButton {...row} variant="row" />
 					),
 					cardRender: (row) => {
 						return (
-							<OrangeButton
-								size="m"
-								fontSize="14"
-								onClick={() => {
-									row.onViewOfferClick(row.offerId)
-									console.log("view offer bid #", row.offerId)
-								}}
-							>
-								View offer
-							</OrangeButton>
+							<SingleOfferColumnButton {...row} variant="card" />
 						)
 					},
 				},
