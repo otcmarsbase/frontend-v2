@@ -5,6 +5,7 @@ import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndic
 import {
 	SingleOfferColumnAcceptedTokens,
 	SingleOfferColumnAmount,
+	SingleOfferColumnBidsCount,
 	SingleOfferColumnOfferId,
 	SingleOfferViewProps,
 } from "@/components/OffersList/SingleOfferView"
@@ -158,12 +159,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				{
 					key: "bids",
 					name: "",
-					cellRender: (x) => (
-						<Flex>
-							<LeadText color="gray">{"Bids: "}</LeadText>
-							<LeadText color="white">{x.bidsCount}</LeadText>
-						</Flex>
-					),
+					cellRender: (x) => <SingleOfferColumnBidsCount {...x} />,
 				},
 				{
 					key: "viewOffer",
