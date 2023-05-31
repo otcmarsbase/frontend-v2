@@ -98,6 +98,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 								size="xs"
 								fontSize="12"
 								onClick={() => {
+									row.onViewOfferClick(row.offerId)
 									console.log("view offer bid #", row.offerId)
 								}}
 							>
@@ -111,6 +112,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 								size="m"
 								fontSize="14"
 								onClick={() => {
+									row.onViewOfferClick(row.offerId)
 									console.log("view offer bid #", row.offerId)
 								}}
 							>

@@ -21,6 +21,7 @@ export type SingleOfferViewProps = {
 	amountAlice: WBN
 	tokenAlice: TokenInfo
 	tokensBob: TokenInfo[]
+    onViewOfferClick: (offerId: string) => void
 }
 export const SingleOfferColumnOfferId: React.FC<
 	Pick<SingleOfferViewProps, "isMyOffer" | "offerId">
