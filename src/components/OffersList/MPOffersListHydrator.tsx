@@ -4,6 +4,7 @@ import { SingleOfferViewProps } from "@/components/OffersList/SingleOfferView"
 import { SpinnerWithText } from "@/components/SpinnerWithText"
 import { WBN } from "@/utils/WBN"
 import React from "react"
+import { useNavigate } from "react-router-dom"
 
 type MPOffersListHydratorProps = {}
 
@@ -14,6 +15,7 @@ export const MPOffersListHydrator: React.FC<
 	let offers = false
 	let error = null
 
+	const navigate = useNavigate()
 	if (loading && !offers)
 		return <SpinnerWithText>loading offers list...</SpinnerWithText>
 
@@ -25,6 +27,10 @@ export const MPOffersListHydrator: React.FC<
 				{JSON.stringify(error)}
 			</div>
 		)
+
+	const handleViewOffer = (offerId: string) => {
+		navigate(appRoutes["/marketplace/offer/:offerId/"]({ offerId }))
+	}
 	const data: SingleOfferViewProps[] = [
 		{
 			onViewOfferClick: handleViewOffer,
