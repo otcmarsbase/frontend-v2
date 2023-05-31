@@ -32,8 +32,8 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 	return (
 		<DataGrid
 			renderers={{
-				column: (column) => (
-					<Text12Normal color={"#4c4c4c"}>{column}</Text12Normal>
+				column: (name) => (
+					<Text12Normal color={"#4c4c4c"}>{name}</Text12Normal>
 				),
 				card: (row, view) => (
 					<TableCardContainer>
