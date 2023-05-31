@@ -3,6 +3,7 @@ import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import {
+	SingleOfferColumnAcceptedTokens,
 	SingleOfferColumnAmount,
 	SingleOfferColumnOfferId,
 	SingleOfferViewProps,
@@ -151,16 +152,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					key: "tokensBob",
 					name: "Accepted tokens",
 					cellRender: (x) => (
-						<Flex className="flex-row justify-start gap-2 flex-wrap">
-							{x.tokensBob.map((token) => (
-								<CurrencyIcon
-									key={token.name}
-									imgSrc={token.iconUrl}
-								>
-									{token.symbol}
-								</CurrencyIcon>
-							))}
-						</Flex>
+						<SingleOfferColumnAcceptedTokens {...x} />
 					),
 				},
 				{

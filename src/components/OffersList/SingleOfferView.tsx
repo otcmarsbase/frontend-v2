@@ -42,3 +42,14 @@ export const SingleOfferColumnAmount: React.FC<
 		</Flex>
 	</LeadText>
 )
+export const SingleOfferColumnAcceptedTokens: React.FC<
+	Pick<SingleOfferViewProps, "tokensBob">
+> = (props) => (
+	<Flex className="flex-row justify-start gap-2 flex-wrap">
+		{props.tokensBob.map((token) => (
+			<CurrencyIcon key={token.name} imgSrc={token.iconUrl}>
+				{token.symbol}
+			</CurrencyIcon>
+		))}
+	</Flex>
+)
