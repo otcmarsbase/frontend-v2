@@ -43,7 +43,6 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 									view.offerId,
 									view.amountBob,
 									view.tokensBob,
-									view.bids,
 								].map((x) => (
 									<HStack
 										w={"100%"}
@@ -57,6 +56,17 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 									</HStack>
 								))}
 							</Flex>
+							<HStack
+								w={"100%"}
+								justifyContent={"space-between"}
+								alignItems={"start"}
+							>
+								<Text12Normal color={"gray"}>
+									{"Bids: "}
+								</Text12Normal>
+								{view.bids.view}
+							</HStack>
+							<Flex></Flex>
 							{view.viewOffer.view && (
 								<>
 									<DataGridCardDivider />
@@ -90,7 +100,12 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 				{
 					key: "bids",
 					name: "",
-					cellRender: (x) => <SingleOfferColumnBidsCount {...x} />,
+					cellRender: (x) => (
+						<SingleOfferColumnBidsCount {...x} variant="row" />
+					),
+					cardRender: (x) => (
+						<SingleOfferColumnBidsCount {...x} variant="card" />
+					),
 				},
 				{
 					key: "viewOffer",
