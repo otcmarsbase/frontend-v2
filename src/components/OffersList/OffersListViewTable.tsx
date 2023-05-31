@@ -50,7 +50,9 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 										justifyContent={"space-between"}
 										alignItems={"start"}
 									>
-										<Box>{x.name}</Box>
+										<Text12Normal color={"gray"}>
+											{x.name}
+										</Text12Normal>
 										<Box>{x.view}</Box>
 									</HStack>
 								))}
