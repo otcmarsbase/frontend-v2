@@ -22,3 +22,11 @@ export type SingleOfferViewProps = {
 	tokenAlice: TokenInfo
 	tokensBob: TokenInfo[]
 }
+export const SingleOfferColumnOfferId: React.FC<
+	Pick<SingleOfferViewProps, "isMyOffer" | "offerId">
+> = (props) => (
+	<>
+		{props.offerId}
+		{props.isMyOffer && <SmallMyOfferLabel />}
+	</>
+)

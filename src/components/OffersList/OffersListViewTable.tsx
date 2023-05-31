@@ -2,7 +2,10 @@ import { OrangeButton } from "@/components/Button/OrangeButton"
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
-import { SingleOfferViewProps } from "@/components/OffersList/SingleOfferView"
+import {
+	SingleOfferColumnOfferId,
+	SingleOfferViewProps,
+} from "@/components/OffersList/SingleOfferView"
 import { TableCardContainer } from "@/components/Table/Table"
 import { LeadText, Text12Normal } from "@/components/Text/Typography"
 import { LongEthValueView } from "@/components/TokenAmountInput/TokenAmountInput"
@@ -136,12 +139,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				{
 					key: "offerId",
 					name: "Offer Id",
-					cellRender: (x) => (
-						<>
-							{x.offerId}
-							{x.isMyOffer && <SmallMyOfferLabel />}
-						</>
-					),
+					cellRender: (x) => <SingleOfferColumnOfferId {...x} />,
 				},
 				{
 					key: "amountBob",
