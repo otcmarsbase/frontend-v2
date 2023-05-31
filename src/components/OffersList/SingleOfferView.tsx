@@ -59,7 +59,7 @@ export const SingleOfferColumnBidsCount: React.FC<
 	Pick<SingleOfferViewProps, "bidsCount">
 > = (props) => (
 	<Flex>
-		<LeadText>{"Bids: "}</LeadText>
+		<LeadText color={"gray"}>{"Bids: "}</LeadText>
 		<LeadText color={props.bidsCount > 0 ? "white" : "gray"}>
 			{props.bidsCount}
 		</LeadText>
