@@ -1,34 +1,14 @@
 import { OrangeButton } from "@/components/Button/OrangeButton"
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
-import { Divider } from "@/components/Divider/Divider"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
-import {
-	Table,
-	TableCardContainer,
-	TableRow,
-	TableSortButton,
-} from "@/components/Table/Table"
+import { SingleOfferViewProps } from "@/components/OffersList/SingleOfferView"
+import { TableCardContainer } from "@/components/Table/Table"
 import { LeadText, Text12Normal } from "@/components/Text/Typography"
-import {
-	LongEthValueView,
-	TokenIconSymbol,
-} from "@/components/TokenAmountInput/TokenAmountInput"
-import { TokenSelectorSingleTokenOption } from "@/components/TokenSelect/TokenSelect"
-import { TokenInfo } from "@/types"
+import { LongEthValueView } from "@/components/TokenAmountInput/TokenAmountInput"
 import { WBN } from "@/utils/WBN"
-import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
+import { Box, Flex, HStack } from "@chakra-ui/react"
 import React from "react"
-
-type SingleOfferViewProps = {
-	offerId: string
-	active: boolean
-	isMyOffer: boolean
-	bidsCount: number
-	amountAlice: WBN
-	tokenAlice: TokenInfo
-	tokensBob: TokenInfo[]
-}
 
 export const SmallMyOfferLabel: React.FC = () => (
 	<div style={{ transform: "scale(0.75)", display: "inline-block" }}>
@@ -240,62 +220,6 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 					},
 				},
 			]}
-		/>
-	)
-}
-
-type MPRow = {
-	offerId: {
-		title: string
-		value: any
-	}
-	amount: {
-		title: string
-		value: any
-	}
-	acceptedTokens: {
-		title: string
-		value: any
-	}
-	bids: {
-		title: string
-		value: any
-	}
-	viewOffer: React.ReactNode
-}
-const MPRow: React.FC<MPRow> = ({
-	acceptedTokens,
-	amount,
-	bids,
-	offerId,
-	viewOffer,
-}) => {
-	return (
-		<TableRow
-			rowData={[
-				offerId.value,
-				amount.value,
-				acceptedTokens.value,
-				bids.value,
-				viewOffer,
-			]}
-			cardData={
-				<VStack border="1px solid red">
-					{[offerId, amount, acceptedTokens, bids].map((x) => (
-						<HStack w={"100%"} justifyContent={"space-between"}>
-							<Box>{x.title}</Box>
-							<Box>{x.value}</Box>
-						</HStack>
-					))}
-					<Box
-						w={"100%"}
-						paddingTop="10px"
-						borderTop="1px solid #2A2A2C"
-					>
-						{viewOffer}
-					</Box>
-				</VStack>
-			}
 		/>
 	)
 }
