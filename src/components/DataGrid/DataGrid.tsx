@@ -12,6 +12,7 @@ import {
 import { useMedia } from "react-use"
 import React from "react"
 import { Divider } from "@/components/Divider/Divider"
+import { Text12Normal } from "@/components/Text/Typography"
 
 type Column<Row extends object, Key extends string> = {
 	name: string
@@ -146,7 +147,7 @@ const DesktopTableView = <Row extends object, Key extends string>(
 ) => {
 	const columnRender =
 		props.renderers?.column ||
-		((name: string, row?: Key) => <th>{name}</th>)
+		((name: string, row?: Key) => <Text12Normal>{name}</Text12Normal>)
 	return (
 		<>
 			<colgroup>
