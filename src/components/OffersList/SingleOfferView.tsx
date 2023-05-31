@@ -12,3 +12,13 @@ export const SmallMyOfferLabel: React.FC = () => (
 		<MyOfferIndicator />
 	</div>
 )
+
+export type SingleOfferViewProps = {
+	offerId: string
+	active: boolean
+	isMyOffer: boolean
+	bidsCount: number
+	amountAlice: WBN
+	tokenAlice: TokenInfo
+	tokensBob: TokenInfo[]
+}
