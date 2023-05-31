@@ -22,84 +22,12 @@ export const SmallMyOfferLabel: React.FC = () => (
 	</div>
 )
 
-type OffersListViewTableProps = {}
-export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
-	const data: SingleOfferViewProps[] = [
-		{
-			bidsCount: 0,
-			isMyOffer: true,
-			offerId: "1",
-			amountAlice: WBN.fromEth("100", 2),
-			tokensBob: [
-				{
-					name: "BNB",
-					symbol: "BNB",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
-				{
-					name: "Ethereum",
-					symbol: "ETH",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
-			],
-			tokenAlice: {
-				name: "Ethereum",
-				symbol: "ETH",
-				iconUrl:
-					"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-				address: "0x0000000",
-				decimals: 18,
-			},
-			active: true,
-		},
-		{
-			bidsCount: 22,
-			isMyOffer: false,
-			offerId: "2",
-			amountAlice: WBN.fromEth("100", 2),
-			tokensBob: [
-				{
-					name: "BNB",
-					symbol: "BNB",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
-				{
-					name: "Ethereum",
-					symbol: "ETH",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
-				{
-					name: "Ethereum",
-					symbol: "ETH",
-					iconUrl:
-						"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-					address: "0x0000000",
-					decimals: 18,
-				},
-			],
-			tokenAlice: {
-				name: "Ethereum",
-				symbol: "ETH",
-				iconUrl:
-					"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-				address: "0x0000000",
-				decimals: 18,
-			},
-			active: true,
-		},
-	]
+type OffersListViewTableProps = {
+	data: SingleOfferViewProps[]
+}
+export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
+	data,
+}) => {
 	return (
 		<DataGrid
 			renderers={{
