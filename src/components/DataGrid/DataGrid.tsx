@@ -148,7 +148,7 @@ const DesktopTableView = <Row extends object, Key extends string>(
 		props.renderers?.column ||
 		((name: string, row?: Key) => <th>{name}</th>)
 	return (
-		<div>
+		<>
 			<colgroup>
 				{props.columns.map((x, i) => (
 					<col style={{ width: x.width || "auto" }} />
@@ -181,7 +181,7 @@ const DesktopTableView = <Row extends object, Key extends string>(
 					</Tr>
 				))}
 			</TableBody>
-		</div>
+		</>
 	)
 }
 
