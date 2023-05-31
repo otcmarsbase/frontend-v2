@@ -30,3 +30,15 @@ export const SingleOfferColumnOfferId: React.FC<
 		{props.isMyOffer && <SmallMyOfferLabel />}
 	</>
 )
+export const SingleOfferColumnAmount: React.FC<
+	Pick<SingleOfferViewProps, "amountAlice" | "tokenAlice">
+> = (props) => (
+	<LeadText>
+		<Flex justifyContent="flex-end" alignItems={"center"} gap={"4px"}>
+			<LongEthValueView amountEth={props.amountAlice.toEth()} />
+			<CurrencyIcon imgSrc={props.tokenAlice.iconUrl}>
+				{props.tokenAlice.name}
+			</CurrencyIcon>
+		</Flex>
+	</LeadText>
+)

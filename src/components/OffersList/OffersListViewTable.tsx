@@ -3,6 +3,7 @@ import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { DataGrid, DataGridCardDivider } from "@/components/DataGrid/DataGrid"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import {
+	SingleOfferColumnAmount,
 	SingleOfferColumnOfferId,
 	SingleOfferViewProps,
 } from "@/components/OffersList/SingleOfferView"
@@ -144,22 +145,7 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({}) => {
 				{
 					key: "amountBob",
 					name: "Amount",
-					cellRender: (x) => (
-						<LeadText>
-							<Flex
-								justifyContent="flex-end"
-								alignItems={"center"}
-								gap={"4px"}
-							>
-								<LongEthValueView
-									amountEth={x.amountAlice.toEth()}
-								/>
-								<CurrencyIcon imgSrc={x.tokenAlice.iconUrl}>
-									{x.tokenAlice.name}
-								</CurrencyIcon>
-							</Flex>
-						</LeadText>
-					),
+					cellRender: (x) => <SingleOfferColumnAmount {...x} />,
 				},
 				{
 					key: "tokensBob",
