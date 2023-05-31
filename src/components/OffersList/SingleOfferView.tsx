@@ -56,10 +56,12 @@ export const SingleOfferColumnAcceptedTokens: React.FC<
 	</Flex>
 )
 export const SingleOfferColumnBidsCount: React.FC<
-	Pick<SingleOfferViewProps, "bidsCount">
+	Pick<SingleOfferViewProps, "bidsCount"> & { variant: "row" | "card" }
 > = (props) => (
 	<Flex>
-		<LeadText color={"gray"}>{"Bids: "}</LeadText>
+		{props.variant === "row" && (
+			<LeadText color={"gray"}>{"Bids: "}</LeadText>
+		)}
 		<LeadText color={props.bidsCount > 0 ? "white" : "gray"}>
 			{props.bidsCount}
 		</LeadText>
