@@ -162,7 +162,7 @@ const DesktopTableView = <Row extends object, Key extends string>(
 				{props.columns.map((x) => {
 					const sortFn = x.sortingFn
 					return (
-						<Th>
+						<Th textTransform={"none"}>
 							<div
 								onClick={
 									sortFn
