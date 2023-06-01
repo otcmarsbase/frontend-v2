@@ -31,6 +31,11 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 }) => {
 	return (
 		<DataGrid
+			styles={{
+				cell: {
+					padding: "1rem 0",
+				},
+			}}
 			renderers={{
 				column: (name) => (
 					<Text12Normal color={"#4c4c4c"}>{name}</Text12Normal>
