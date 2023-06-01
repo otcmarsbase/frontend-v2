@@ -1,4 +1,6 @@
 import { appRoutes } from "@/AppRoutes"
+import { PrimaryButton } from "@/components/Button/PrimaryButton"
+import { NoOpenOffersPlaceholder } from "@/components/NoOpenOffersPlaceholder/NoOpenOffersPlaceholder"
 import { OffersListViewTable } from "@/components/OffersList/OffersListViewTable"
 import { SingleOfferViewProps } from "@/components/OffersList/SingleOfferView"
 import { SpinnerWithText } from "@/components/SpinnerWithText"
@@ -109,5 +111,20 @@ export const MPOffersListHydrator: React.FC<
 			active: true,
 		},
 	]
-	return <OffersListViewTable data={data} />
+	return (
+		<>
+			{Boolean(data.length) && <OffersListViewTable data={data} />}
+			{!data?.length && (
+				<NoOpenOffersPlaceholder>
+					<PrimaryButton
+						onClick={() =>
+							navigate(appRoutes["/marketplace/offers/new"]())
+						}
+					>
+						Create Zero Lock offer
+					</PrimaryButton>
+				</NoOpenOffersPlaceholder>
+			)}
+		</>
+	)
 }
