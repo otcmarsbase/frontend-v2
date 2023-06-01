@@ -78,7 +78,7 @@ export const DataGrid = <Row extends object, Key extends string>(
 			setData((p) => p.slice().sort(orders[order](sort)))
 		}
 	return (
-		<TableContainer width={{ sm: "100%", lg: "auto" }}>
+		<TableContainer width={{ sm: "100%", lg: "100%" }}>
 			<TableWrapper width={"100%"} variant="unstyled">
 				{isDesktop || !hasMobileViewRenderer ? (
 					<DesktopTableView
