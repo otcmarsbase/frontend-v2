@@ -2,6 +2,7 @@ import { BBOffersListHydrator } from "@/components/OffersList/BBOffersListHydrat
 import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { useTranslation } from "@/localization/l10n"
+import { Flex } from "@chakra-ui/react"
 import React from "react"
 
 type BBOffersListProps = {}
@@ -23,7 +24,9 @@ export const BBOffersList: React.FC<BBOffersListProps> = ({}) => {
 				/>
 			}
 		>
-			<BBOffersListHydrator />
+			<Flex grow={1} w={"full"}>
+				<BBOffersListHydrator />
+			</Flex>
 		</PageWrapper>
 	)
 }
