@@ -9,7 +9,6 @@ import { BBCreateOffer } from "./screens/BBCreateOffer"
 import { BBOffersList } from "./screens/BBOffersList"
 import { BBViewOffer } from "./screens/BBViewOffer"
 import { BestBidRoot } from "./screens/BestBidRoot"
-import { BestBidWrapper } from "./screens/BestBidWrapper"
 import { Calculator } from "./screens/Calculator"
 import { CreateBid } from "./screens/CreateBid"
 import { CreateOfferNew } from "./screens/CreateOfferNew"
@@ -64,7 +63,6 @@ export const routes = [
 	},
 	{
 		path: "/bestbid/",
-		element: <BestBidWrapper />,
 		children: [
 			// redirecto to bestbid/offers
 			{ path: "", element: <BestBidRoot /> },
