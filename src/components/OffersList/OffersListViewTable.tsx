@@ -31,9 +31,9 @@ export const OffersListViewTable: React.FC<OffersListViewTableProps> = ({
 }) => {
 	return (
 		<DataGrid
-			styles={{
+			properties={{
 				cell: {
-					padding: "1rem 0",
+					py: "1rem",
 				},
 			}}
 			renderers={{
