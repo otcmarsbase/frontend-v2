@@ -7,6 +7,7 @@ import { Flex } from "@chakra-ui/react"
 import { MyOfferIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
 import { OrangeButton } from "@/components/Button/OrangeButton"
+import { NON_BREAKING_SPACE } from "@/utils/utils"
 
 export const SmallMyOfferLabel: React.FC = () => (
 	<div style={{ transform: "scale(0.75)", display: "inline-block" }}>
@@ -63,7 +64,7 @@ export const SingleOfferColumnBidsCount: React.FC<
 			<LeadText color={"gray"}>{"Bids: "}</LeadText>
 		)}
 		<LeadText color={props.bidsCount > 0 ? "white" : "gray"}>
-			{"\u00A0"}
+			{NON_BREAKING_SPACE}
 			{`${props.bidsCount}`}
 		</LeadText>
 	</Flex>
