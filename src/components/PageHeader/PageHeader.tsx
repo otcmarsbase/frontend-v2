@@ -38,7 +38,11 @@ export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
 			)}
 		>
 			<Container>
-				<Flex justifyContent={"space-between"} width={"100%"}>
+				<Flex
+					justifyContent={"space-between"}
+					width={"100%"}
+					flexWrap={"wrap"}
+				>
 					<Flex direction={"column"} alignItems={"flex-start"}>
 						{backButton && <BackButton icon {...backButton} />}
 						<HStack>
