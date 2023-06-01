@@ -63,7 +63,8 @@ export const SingleOfferColumnBidsCount: React.FC<
 			<LeadText color={"gray"}>{"Bids: "}</LeadText>
 		)}
 		<LeadText color={props.bidsCount > 0 ? "white" : "gray"}>
-			{props.bidsCount}
+			{"\u00A0"}
+			{`${props.bidsCount}`}
 		</LeadText>
 	</Flex>
 )
