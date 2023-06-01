@@ -43,6 +43,9 @@ type DataGridProps<Row extends object, Key extends string> = {
 	// onSortColumnsChange?: (sortColumns: SortColumn<Key>) => void
 	/** The getter should return a unique key for each row */
 	rowKeyGetter: (row: Row) => string
+	styles?: {
+		cell?: React.CSSProperties
+	}
 }
 
 export type SortColumn<Key extends string> = Record<Key, SortOrder>
@@ -177,7 +180,9 @@ const DesktopTableView = <Row extends object, Key extends string>(
 				{props.rows.map((row) => (
 					<Tr key={props.rowKeyGetter(row)}>
 						{props.columns.map((x) => (
-							<Td py={"0.5"}>{x.cellRender(row)}</Td>
+							<Td style={props.styles?.cell || { padding: "2px 0" }}>
+								{x.cellRender(row)}
+							</Td>
 						))}
 					</Tr>
 				))}
