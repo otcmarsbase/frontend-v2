@@ -5,6 +5,7 @@ import { useTranslation } from "@/localization/l10n"
 import React from "react"
 import { H1 } from "@/components/Text/Typography"
 import { MPOffersListHydrator } from "@/components/OffersList/MPOffersListHydrator"
+import { Flex } from "@chakra-ui/react"
 
 type MPOffersListProps = {}
 
@@ -23,7 +24,9 @@ export const MPOffersList: React.FC<MPOffersListProps> = ({}) => {
 				/>
 			}
 		>
-			<MPOffersListHydrator />
+			<Flex grow={1} w={"full"}>
+				<MPOffersListHydrator />
+			</Flex>
 		</PageWrapper>
 	)
 }
