@@ -22,28 +22,28 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 						subTitle={l10n.OTCDesk.subTitle}
 						title={l10n.OTCDesk.title}
 						borderBottom
-					/>
-
-					<Box overflow={"scroll"} w={"full"}>
-						<Flex alignItems={"stretch"} w="full">
-							<CreateOfferStep
-								isActive
-								num={1}
-								text="Set suitable conditions"
-								title="Parameter selection"
-							/>
-							<CreateOfferStep
-								num={2}
-								text="Verify that all parameters are set the way you want them"
-								title="Check offer details"
-							/>
-							<CreateOfferStep
-								num={3}
-								text="Send the offer to the market"
-								title="Publication"
-							/>
-						</Flex>
-					</Box>
+					>
+						<Box overflow={"scroll"} w={"full"}>
+							<Flex alignItems={"stretch"} w="full">
+								<CreateOfferStep
+									isActive
+									num={1}
+									text="Set suitable conditions"
+									title="Parameter selection"
+								/>
+								<CreateOfferStep
+									num={2}
+									text="Verify that all parameters are set the way you want them"
+									title="Check offer details"
+								/>
+								<CreateOfferStep
+									num={3}
+									text="Send the offer to the market"
+									title="Publication"
+								/>
+							</Flex>
+						</Box>
+					</PageHeader>
 				</>
 			}
 		>
