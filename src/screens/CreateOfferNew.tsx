@@ -47,7 +47,7 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 				</>
 			}
 		>
-			<div className="max-w-[790px] mx-auto w-full">
+			<div className="max-w-[790px] mx-auto w-full pt-12 lg:pt-16">
 				{/* <CreateOfferDetails /> */}
 				<CreateOfferSelection />
 				{/* <CreatedFinished /> */}
