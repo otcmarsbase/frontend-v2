@@ -64,7 +64,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 						</SpecialButton>
 					)}
 				</Flex>
-				{children}
+				<Flex className="pt-6 lg:pt-8">{children}</Flex>
 			</Container>
 		</Flex>
 	)
