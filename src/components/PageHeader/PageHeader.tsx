@@ -22,13 +22,14 @@ type PageHeaderProps = {
 	borderBottom?: boolean
 }
 
-export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
+export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	subTitle,
 	title,
 	titleLink,
 	createOfferBtn,
 	backButton,
 	borderBottom,
+	children,
 }) => {
 	return (
 		<Flex
@@ -63,12 +64,13 @@ export const PageHeaderGeneric: React.FC<PageHeaderProps> = ({
 						</SpecialButton>
 					)}
 				</Flex>
+				{children}
 			</Container>
 		</Flex>
 	)
 }
 
-export const PageHeader: React.FC<PageHeaderProps> = (props) => {
+export const PageHeader: React.FCC<PageHeaderProps> = (props) => {
 	return (
 		<PageHeaderGeneric
 			{...props}
