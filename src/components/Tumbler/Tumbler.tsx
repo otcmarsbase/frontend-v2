@@ -9,7 +9,7 @@ type TumblerProps = {
 
 export const Tumbler: React.FC<TumblerProps> = (props) => {
 	return (
-		<Flex w={"full"}>
+		<Flex w={"full"} className="bg-dark-800 p-1 rounded-md">
 			{props.options.map((option, idx) => (
 				<TumblerOption>{option}</TumblerOption>
 			))}
