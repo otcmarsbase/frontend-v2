@@ -30,7 +30,7 @@ export const CreateOfferSelectonFirst: React.FC<
 				}
 			/>
 			<SelectWrapper>
-				<SelectContainer
+				<ControlContainer
 					titleLeft={<InputName text="From" tooltipText="From kek" />}
 					bottomLeft={<InputNote text="hello world" />}
 				>
@@ -60,11 +60,11 @@ export const CreateOfferSelectonFirst: React.FC<
 						tokenSelectedIdx={0}
 						disabled={false}
 					/>
-				</SelectContainer>
+				</ControlContainer>
 				<SwapWrapper>
 					<SwapHorizontalIcon />
 				</SwapWrapper>
-				<SelectContainer
+				<ControlContainer
 					titleLeft={<InputName text="From" tooltipText="From kek" />}
 					bottomLeft={<InputNote text="hello world" />}
 				>
@@ -94,9 +94,9 @@ export const CreateOfferSelectonFirst: React.FC<
 						tokenSelectedIdx={0}
 						disabled={false}
 					/>
-				</SelectContainer>
+				</ControlContainer>
 			</SelectWrapper>
-			<SelectContainer
+			<ControlContainer
 				titleLeft={
 					<InputName text="Offer size" tooltipText="From kek" />
 				}
@@ -104,7 +104,7 @@ export const CreateOfferSelectonFirst: React.FC<
 				titleRight={<InputNote text="Balance: 0.0000000" />}
 			>
 				<Input />
-			</SelectContainer>
+			</ControlContainer>
 		</VStack>
 	)
 }
@@ -153,13 +153,13 @@ const SelectWrapper: React.FCC = ({ children }) => {
 	)
 }
 
-type SelectContainerProps = {
+type ControlContainerProps = {
 	titleLeft: React.ReactNode
 	titleRight?: React.ReactNode
 	bottomLeft?: React.ReactNode
 	bottomRight?: React.ReactNode
 }
-const SelectContainer: React.FCC<SelectContainerProps> = ({
+export const ControlContainer: React.FCC<ControlContainerProps> = ({
 	children,
 	titleLeft,
 	bottomLeft,
