@@ -17,7 +17,7 @@ export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 			}
 		>
 			<div className="max-w-[790px] mx-auto">
-				<MMCreateOfferContainer
+				{/* <MMCreateOfferContainer
 					ctaButtonMode="actions"
 					backButton={{
 						label: "Back to offer list",
@@ -35,7 +35,7 @@ export const MPCreateOffer: React.FC<MPCreateOfferProps> = ({}) => {
 					tokensWillBeLocked={true}
 					amountAliceUsd={1}
 					amountAlice={"1"}
-				/>
+				/> */}
 			</div>
 		</PageWrapper>
 	)
