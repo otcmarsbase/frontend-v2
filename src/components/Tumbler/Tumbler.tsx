@@ -4,7 +4,7 @@ import React from "react"
 type TumblerProps = {
 	options: string[]
 	selectedIdx: number
-	onSelected: (idx: number) => void
+	onSelect: (idx: number) => void
 }
 
 export const Tumbler: React.FC<TumblerProps> = (props) => {
