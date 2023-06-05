@@ -19,7 +19,7 @@ export const Tumbler: React.FC<TumblerProps> = (props) => {
 
 const TumblerOption: React.FCC<{}> = (props) => {
 	return (
-		<Flex className="items-center justify-center rounded-md py-2 px-1 text-center w-full">
+		<Flex className="items-center justify-center rounded-md py-2 px-1 text-center w-full cursor-pointer">
 			{props.children}
 		</Flex>
 	)
