@@ -47,10 +47,10 @@ export const CreateOfferNew: React.FC<CreateOfferNewProps> = ({}) => {
 				</>
 			}
 		>
-			<div className="max-w-[790px] mx-auto">
+			<div className="max-w-[790px] mx-auto w-full">
 				{/* <CreateOfferDetails /> */}
-				{/* <CreateOfferSelection /> */}
-				<CreatedFinished />
+				<CreateOfferSelection />
+				{/* <CreatedFinished /> */}
 				{/* <LoadingCreated  status="success"/> */}
 			</div>
 		</PageWrapper>
