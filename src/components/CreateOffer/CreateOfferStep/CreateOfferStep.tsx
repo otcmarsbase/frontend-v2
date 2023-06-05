@@ -1,6 +1,8 @@
-import { Box, Flex, Grid, HStack, Text, VStack } from "@chakra-ui/react"
+import { Box, Flex, Grid, HStack, VStack } from "@chakra-ui/react"
 import clsx from "clsx"
 import React from "react"
+import { Text } from "@/components/Text/Text"
+import { LeadText } from "@/components/Text/Typography"
 
 type CreateOfferStepProps = {
 	num: number
@@ -29,13 +31,12 @@ export const CreateOfferStep: React.FC<CreateOfferStepProps> = ({
 					isActive && "bg-mainGradient text-white"
 				)}
 			>
-				<Text>{num}</Text>
+				<Text size="promo-20">{num}</Text>
 			</Box>
 			<Box className={clsx(!isActive && "opacity-40")}>
-				<Text>{title}</Text>
-				<Text>{text}</Text>
+				<Text size="promo-18">{title}</Text>
+				<LeadText opacity={"0.6"}>{text}</LeadText>
 			</Box>
 		</Grid>
 	)
 }
-
