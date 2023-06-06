@@ -13,6 +13,9 @@ import BagIconSourceRaw, {
 import BidsIconSourceRaw, {
     ReactComponent as BidsIconSource,
 } from "@/assets/icon/bids.svg"
+import CalendarIconSourceRaw, {
+    ReactComponent as CalendarIconSource,
+} from "@/assets/icon/calendar.svg"
 import ClockIconSourceRaw, {
     ReactComponent as ClockIconSource,
 } from "@/assets/icon/clock.svg"
@@ -96,6 +99,10 @@ export const BagIconRaw = BagIconSourceRaw
 export const BidsIcon = img(BidsIconSource)
 
 export const BidsIconRaw = BidsIconSourceRaw
+
+export const CalendarIcon = img(CalendarIconSource)
+
+export const CalendarIconRaw = CalendarIconSourceRaw
 
 export const ClockIcon = img(ClockIconSource)
 
