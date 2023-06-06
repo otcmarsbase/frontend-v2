@@ -3,6 +3,7 @@ import {
 	FormControl,
 	Input as InputComponent,
 	InputGroup,
+	InputLeftElement,
 	InputRightElement,
 } from "@chakra-ui/react"
 import { useSize } from "@chakra-ui/react-use-size"
@@ -11,22 +12,38 @@ import clsx from "clsx"
 import { Text12Normal } from "@/components/Text/Typography"
 type InputProps = React.ComponentProps<typeof InputComponent> & {
 	rightComponent?: React.ReactNode
+	leftComponent?: React.ReactNode
 	errorMsg?: string
 }
 
 export const Input: React.FC<InputProps> = ({
 	rightComponent,
 	isInvalid,
+	leftComponent,
 	errorMsg,
 	...props
 }) => {
 	const rightElementRef = React.useRef(null)
+	const leftElementRef = React.useRef(null)
 	const rightSizes = useSize(rightElementRef)
+	const leftSizes = useSize(leftElementRef)
 	return (
 		<FormControl isInvalid={isInvalid}>
 			<InputGroup>
+				{leftComponent && (
+					<InputLeftElement
+						paddingLeft={"16px"}
+						paddingRight={"4px"}
+						ref={leftElementRef}
+						w={"max-content"}
+						height={"100%"}
+					>
+						{leftComponent}
+					</InputLeftElement>
+				)}
 				<InputComponent
 					pr={rightSizes?.width || "auto"}
+					pl={leftSizes?.width || "auto"}
 					bg={"transparent"}
 					borderWidth={"2px"}
 					style={{
@@ -34,6 +51,7 @@ export const Input: React.FC<InputProps> = ({
 						boxShadow: "none",
 						height: "48px",
 					}}
+					
 					className={clsx({
 						"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100  ":
 							true,
