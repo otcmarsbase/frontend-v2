@@ -1,3 +1,4 @@
+import { LeadText } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
@@ -28,7 +29,9 @@ const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 		>
 			<Flex className="bg-dark-800 items-center justify-center w-full py-2 px-1 rounded-md  text-center cursor-pointer">
 				<LeadText
-				
+					color={"gray"}
+					fontWeight={"bold"}
+					
 				>
 					{props.children}
 				</LeadText>
