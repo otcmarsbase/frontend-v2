@@ -51,7 +51,9 @@ export const Input: React.FC<InputProps> = ({
 						boxShadow: "none",
 						height: "48px",
 					}}
-					
+					_disabled={{
+						borderColor: "dark.200",
+					}}
 					className={clsx({
 						"!shadow-none focus-visible:!border-orange-100 hover:!border-orange-100  ":
 							true,
