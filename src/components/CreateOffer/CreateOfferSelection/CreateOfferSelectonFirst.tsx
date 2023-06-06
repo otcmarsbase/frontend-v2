@@ -109,19 +109,21 @@ export const CreateOfferSelectonFirst: React.FC<
 	)
 }
 
-const InputName: React.FC<{
-	tooltipText: string
+export const InputName: React.FC<{
+	tooltipText?: string
 	text: string
 }> = ({ text, tooltipText }) => {
 	return (
 		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
 			<LeadText className={"text-white"}>{text}</LeadText>
-			<InfoTooltip
-				height={"10px"}
-				width={"10px"}
-				infoText={tooltipText}
-				display="flex"
-			/>
+			{tooltipText && (
+				<InfoTooltip
+					height={"10px"}
+					width={"10px"}
+					infoText={tooltipText}
+					display="flex"
+				/>
+			)}
 		</Grid>
 	)
 }
