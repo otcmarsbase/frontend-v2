@@ -31,7 +31,9 @@ const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 				<LeadText
 					color={"gray"}
 					fontWeight={"bold"}
-					
+					_hover={{
+						color: "orange.300",
+					}}
 				>
 					{props.children}
 				</LeadText>
