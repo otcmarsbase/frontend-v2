@@ -27,7 +27,12 @@ export const CreateOfferSelectonSecond: React.FC<
 							selectedIdx={0}
 						/>
 					</VStack>
-					
+					<Paper className="bg-dark-200">
+						<LeadText>
+							All redeemed parts of offer remain in the smart
+							contract until the offer is completed
+						</LeadText>
+					</Paper>
 					<VStack alignItems={"flex-start"}>
 						<InputName text="Offer condition" />
 						<Tumbler
