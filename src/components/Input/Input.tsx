@@ -42,8 +42,8 @@ export const Input: React.FC<InputProps> = ({
 					</InputLeftElement>
 				)}
 				<InputComponent
-					pr={rightSizes?.width || "auto"}
-					pl={leftSizes?.width || "auto"}
+					pr={`${rightSizes?.width}px` || "auto"}
+					pl={`${leftSizes?.width}px` || "auto"}
 					bg={"transparent"}
 					borderWidth={"2px"}
 					style={{
