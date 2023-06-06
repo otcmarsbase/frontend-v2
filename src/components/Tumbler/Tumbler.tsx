@@ -27,6 +27,11 @@ const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 			className="rounded-md w-full p-[1px]"
 		>
 			<Flex className="bg-dark-800 items-center justify-center w-full py-2 px-1 rounded-md  text-center cursor-pointer">
+				<LeadText
+				
+				>
+					{props.children}
+				</LeadText>
 			</Flex>
 		</Flex>
 	)
