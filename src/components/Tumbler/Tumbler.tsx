@@ -22,6 +22,7 @@ export const Tumbler: React.FC<TumblerProps> = (props) => {
 const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 	return (
 			transition={"all 0.4s ease"}
+			bg={props.active ? "gradientBrightOrange" : "transparent"}
 		</Flex>
 	)
 }
