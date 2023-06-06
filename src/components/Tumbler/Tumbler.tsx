@@ -23,6 +23,7 @@ const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 	return (
 			transition={"all 0.4s ease"}
 			bg={props.active ? "gradientBrightOrange" : "transparent"}
+			className="rounded-md w-full p-[1px]"
 		</Flex>
 	)
 }
