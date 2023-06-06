@@ -21,9 +21,13 @@ export const Tumbler: React.FC<TumblerProps> = (props) => {
 
 const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 	return (
+		<Flex
 			transition={"all 0.4s ease"}
 			bg={props.active ? "gradientBrightOrange" : "transparent"}
 			className="rounded-md w-full p-[1px]"
+		>
+			<Flex className="bg-dark-800 items-center justify-center w-full py-2 px-1 rounded-md  text-center cursor-pointer">
+			</Flex>
 		</Flex>
 	)
 }
