@@ -17,7 +17,23 @@ export const CreateOfferSelectonSecond: React.FC<
 				title={"Parameters"}
 				subtitle="Choose the best strategy for exchanging your funds"
 			/>
-			
+			<Flex gap={8} w={"100%"}>
+				<Flex direction={"column"} w={"50%"} gap={"28px"}>
+					<Tumbler
+						onSelect={() => {}}
+						options={["Static", "Dynamic"]}
+						selectedIdx={0}
+					/>
+					
+					<InputName text="Offer condition" />
+					<Tumbler
+						onSelect={() => {}}
+						options={["Discount", "Premium"]}
+						selectedIdx={0}
+					/>
+				</Flex>
+				<Flex direction={"column"} w={"50%"}></Flex>
+			</Flex>
 		</VStack>
 	)
 }
