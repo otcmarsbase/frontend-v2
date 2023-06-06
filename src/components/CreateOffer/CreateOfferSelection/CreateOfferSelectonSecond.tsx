@@ -19,18 +19,23 @@ export const CreateOfferSelectonSecond: React.FC<
 			/>
 			<Flex gap={8} w={"100%"}>
 				<Flex direction={"column"} w={"50%"} gap={"28px"}>
-					<Tumbler
-						onSelect={() => {}}
-						options={["Static", "Dynamic"]}
-						selectedIdx={0}
-					/>
+					<VStack alignItems={"flex-start"}>
+						<InputName text="Offer type" />
+						<Tumbler
+							onSelect={() => {}}
+							options={["Static", "Dynamic"]}
+							selectedIdx={0}
+						/>
+					</VStack>
 					
-					<InputName text="Offer condition" />
-					<Tumbler
-						onSelect={() => {}}
-						options={["Discount", "Premium"]}
-						selectedIdx={0}
-					/>
+					<VStack alignItems={"flex-start"}>
+						<InputName text="Offer condition" />
+						<Tumbler
+							onSelect={() => {}}
+							options={["Discount", "Premium"]}
+							selectedIdx={0}
+						/>
+					</VStack>
 				</Flex>
 				<Flex direction={"column"} w={"50%"}></Flex>
 			</Flex>
