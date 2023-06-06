@@ -21,8 +21,7 @@ export const Tumbler: React.FC<TumblerProps> = (props) => {
 
 const TumblerOption: React.FCC<{ active: boolean }> = (props) => {
 	return (
-		<Flex className="items-center justify-center rounded-md py-2 px-1 text-center w-full cursor-pointer">
-			{props.children}
+			transition={"all 0.4s ease"}
 		</Flex>
 	)
 }
