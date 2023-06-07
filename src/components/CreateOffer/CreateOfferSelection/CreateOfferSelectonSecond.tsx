@@ -1,8 +1,13 @@
-import { InputName } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
+import {
+	ControlContainer,
+	InputName,
+} from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
+import { Input } from "@/components/Input/Input"
 import { Paper } from "@/components/Paper/Paper"
 import { LeadText } from "@/components/Text/Typography"
 import { Tumbler } from "@/components/Tumbler/Tumbler"
+import { CalendarIcon, CalendarIconRaw, TimepickerIcon } from "@/icons"
 import { Flex, VStack } from "@chakra-ui/react"
 import React from "react"
 
@@ -42,7 +47,26 @@ export const CreateOfferSelectonSecond: React.FC<
 						/>
 					</VStack>
 				</Flex>
-				<Flex direction={"column"} w={"50%"}></Flex>
+				<Flex direction={"column"} w={"50%"}>
+					<Flex gap={"20px"}>
+						<ControlContainer
+							titleLeft={
+								<InputName
+									text="Date"
+									tooltipText="Select the execution date"
+								></InputName>
+							}
+						>
+							<Input
+								value={new Date().toLocaleDateString()}
+								onChange={() => false}
+								leftComponent={<CalendarIcon />}
+							/>
+						</ControlContainer>
+
+						
+					</Flex>
+				</Flex>
 			</Flex>
 		</VStack>
 	)
