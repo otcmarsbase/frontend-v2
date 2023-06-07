@@ -47,14 +47,14 @@ export const CreateOfferSelectonSecond: React.FC<
 						/>
 					</Flex>
 				</Flex>
-				<Flex direction={"column"} w={"50%"}>
+				<Flex direction={"column"} w={"50%"} gap={"24px"}>
 					<Flex gap={"20px"}>
 						<ControlContainer
 							titleLeft={
 								<InputName
 									text="Date"
 									tooltipText="Select the execution date"
-								></InputName>
+								/>
 							}
 						>
 							<Input
@@ -69,7 +69,7 @@ export const CreateOfferSelectonSecond: React.FC<
 								<InputName
 									text="Time"
 									tooltipText="Select the execution time"
-								></InputName>
+								/>
 							}
 						>
 							<Input
