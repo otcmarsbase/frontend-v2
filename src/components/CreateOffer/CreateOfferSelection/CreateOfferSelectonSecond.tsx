@@ -16,6 +16,7 @@ type CreateOfferSelectonSecondProps = {}
 export const CreateOfferSelectonSecond: React.FC<
 	CreateOfferSelectonSecondProps
 > = (props) => {
+	const [calendarVisible, setCalendarVisible] = React.useState(false)
 	return (
 		<VStack alignItems={"start"} w={"full"} my={"40px"}>
 			<FormControlHeader
