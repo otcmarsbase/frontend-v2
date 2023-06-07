@@ -73,6 +73,9 @@ import SwapVerticalIconSourceRaw, {
 import TelegramIconSourceRaw, {
     ReactComponent as TelegramIconSource,
 } from "@/assets/icon/telegram.svg"
+import TimepickerIconSourceRaw, {
+    ReactComponent as TimepickerIconSource,
+} from "@/assets/icon/timepicker.svg"
 import TwitterIconSourceRaw, {
     ReactComponent as TwitterIconSource,
 } from "@/assets/icon/twitter.svg"
@@ -179,6 +182,10 @@ export const SwapVerticalIconRaw = SwapVerticalIconSourceRaw
 export const TelegramIcon = img(TelegramIconSource)
 
 export const TelegramIconRaw = TelegramIconSourceRaw
+
+export const TimepickerIcon = img(TimepickerIconSource)
+
+export const TimepickerIconRaw = TimepickerIconSourceRaw
 
 export const TwitterIcon = img(TwitterIconSource)
 
