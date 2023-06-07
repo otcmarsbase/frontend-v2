@@ -64,7 +64,21 @@ export const CreateOfferSelectonSecond: React.FC<
 							/>
 						</ControlContainer>
 
-						
+						<ControlContainer
+							titleLeft={
+								<InputName
+									text="Time"
+									tooltipText="Select the execution time"
+								></InputName>
+							}
+						>
+							<Input
+								value={"12:00"}
+								disabled
+								onChange={() => false}
+								leftComponent={<TimepickerIcon />}
+							/>
+						</ControlContainer>
 					</Flex>
 				</Flex>
 			</Flex>
