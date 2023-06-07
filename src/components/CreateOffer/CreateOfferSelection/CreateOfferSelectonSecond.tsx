@@ -12,7 +12,7 @@ export const CreateOfferSelectonSecond: React.FC<
 	CreateOfferSelectonSecondProps
 > = (props) => {
 	return (
-		<VStack alignItems={"start"} w={"full"}>
+		<VStack alignItems={"start"} w={"full"} mt={"40px"}>
 			<FormControlHeader
 				title={"Parameters"}
 				subtitle="Choose the best strategy for exchanging your funds"
