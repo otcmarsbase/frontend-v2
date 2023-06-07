@@ -1,3 +1,4 @@
+import { Calendar } from "@/components/Calendar/Calendar"
 import {
 	ControlContainer,
 	InputName,
@@ -7,8 +8,8 @@ import { Input } from "@/components/Input/Input"
 import { Paper } from "@/components/Paper/Paper"
 import { LeadText } from "@/components/Text/Typography"
 import { Tumbler } from "@/components/Tumbler/Tumbler"
-import { CalendarIcon, CalendarIconRaw, TimepickerIcon } from "@/icons"
-import { Flex, VStack } from "@chakra-ui/react"
+import { CalendarIcon, TimepickerIcon } from "@/icons"
+import { Flex, VStack, useOutsideClick } from "@chakra-ui/react"
 import React from "react"
 
 type CreateOfferSelectonSecondProps = {}
@@ -17,6 +18,12 @@ export const CreateOfferSelectonSecond: React.FC<
 	CreateOfferSelectonSecondProps
 > = (props) => {
 	const [calendarVisible, setCalendarVisible] = React.useState(false)
+	const calendarInputRef = React.useRef<HTMLDivElement>(null)
+
+	useOutsideClick({
+		ref: calendarInputRef,
+		handler: () => setCalendarVisible(false),
+	})
 	return (
 		<VStack alignItems={"start"} w={"full"} my={"40px"}>
 			<FormControlHeader
@@ -58,11 +65,17 @@ export const CreateOfferSelectonSecond: React.FC<
 								/>
 							}
 						>
-							<Input
-								value={new Date().toLocaleDateString()}
-								onChange={() => false}
-								leftComponent={<CalendarIcon />}
-							/>
+							<div ref={calendarInputRef}>
+								<Input
+									value={new Date().toLocaleDateString()}
+									onChange={() => false}
+									leftComponent={<CalendarIcon />}
+									onClick={() =>
+										setCalendarVisible((p) => !p)
+									}
+								/>
+								{calendarVisible && <Calendar />}
+							</div>
 						</ControlContainer>
 
 						<ControlContainer
