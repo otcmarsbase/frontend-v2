@@ -1,0 +1,100 @@
+.calendar-input-style {
+	position: absolute;
+	z-index: 9;
+
+	margin-top: 10px;
+	width: 100%;
+	max-width: 280px;
+
+	font-family: "Inter";
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 21px;
+
+	button {
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 14px;
+		text-align: center;
+		color: #FFFFFF;
+
+		background: none;
+		border: none;
+
+		cursor: pointer;
+	}
+	.react-calendar {
+		background: #2A2A2C;
+		border-radius: 8px;
+	}
+	.react-calendar__navigation {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 42px;
+
+		border-bottom: 1px solid #4F4F52;		
+	}
+	.react-calendar__navigation__arrow {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 32px;
+		height: 32px;
+
+		font-size: 20px;
+		color: #BC401C;
+	}
+	.react-calendar__month-view,
+	.react-calendar__year-view__months,
+	.react-calendar__decade-view__years,
+	.react-calendar__century-view__decades {
+		max-width: 206px;
+		margin: 0 auto;
+		padding-top: 16px;
+		padding-bottom: 24px;
+	}
+	.react-calendar__month-view__weekdays > div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 32px;
+		height: 32px;
+
+		cursor: pointer;
+		opacity: 0.5;
+	}
+	.react-calendar__month-view__weekdays abbr {
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 14px;
+		text-align: center;
+		color: #FFFFFF;
+		text-decoration: none;
+	}
+	.react-calendar__month-view__days button,
+	.react-calendar__year-view__months button,
+	.react-calendar__decade-view__years button,
+	.react-calendar__century-view__decades button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 32px;
+		height: 32px;
+
+		opacity: 1;
+
+		transition: all 0.4s;
+	}
+	.react-calendar__month-view__days button:hover,
+	.react-calendar__year-view__months button:hover,
+	.react-calendar__decade-view__years button:hover,
+	.react-calendar__century-view__decades button:hover {
+		opacity: 0.5;
+
+		transition: all 0.4s;
+	}	
+	.react-calendar__century-view__decades button {
+		text-align: left;
+	}
+}
