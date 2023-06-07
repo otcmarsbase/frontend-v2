@@ -1,6 +1,7 @@
 import React from "react"
 import { QuestionIcon } from "@/icons"
 import { HStack } from "@chakra-ui/react"
+import { LeadText } from "@/components/Text/Typography"
 
 type HowToUseBtnProps = {
 	label: string
@@ -11,7 +12,7 @@ export const HowToUseBtn: React.FC<HowToUseBtnProps> = ({ label, onClick }) => {
 	return (
 		<HStack onClick={onClick}>
 			<QuestionIcon />
-			<span>{label}</span>
+			<LeadText color={"orange.500"}>{label}</LeadText>
 		</HStack>
 	)
 }
