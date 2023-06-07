@@ -80,6 +80,34 @@ export const CreateOfferSelectonSecond: React.FC<
 							/>
 						</ControlContainer>
 					</Flex>
+					<ControlContainer
+						titleLeft={
+							<InputName
+								text="Min bid part"
+								tooltipText="Indicate the minimum bid that participants can place to your offer"
+							/>
+						}
+					>
+						<Input
+							rightComponent={
+								<LeadText color={"orange.500"}>%</LeadText>
+							}
+						/>
+					</ControlContainer>
+					<ControlContainer
+						titleLeft={
+							<InputName
+								text="Enter discount"
+								tooltipText="Specify the size of the discount/premium"
+							/>
+						}
+					>
+						<Input
+							rightComponent={
+								<LeadText color={"orange.500"}>%</LeadText>
+							}
+						/>
+					</ControlContainer>
 				</Flex>
 			</Flex>
 		</VStack>
