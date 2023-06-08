@@ -22,7 +22,7 @@ export const FormControlHeader: React.FC<FormControlHeaderProps> = ({
 			alignItems={"start"}
 			className={clsx(className, "md:mb-4 lg:mb-5")}
 		>
-			<Flex>
+			<Flex gap={"10px"}>
 				<H3>{title}</H3>
 				{titleLink}
 			</Flex>
