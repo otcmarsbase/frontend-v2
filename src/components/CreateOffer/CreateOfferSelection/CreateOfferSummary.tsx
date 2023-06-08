@@ -12,7 +12,12 @@ export const CreateOfferSummary: React.FC<CreateOfferSummaryProps> = (
 	return (
 		<Flex direction={"column"} className="gap-6">
 			
-			
+			<PrimaryButton disabled={hasEnoughTokens} size="lg">
+				{(hasEnoughTokens
+					? "Insufficient balance"
+					: "Confirm offer"
+				).toUpperCase()}
+			</PrimaryButton>
 		</Flex>
 	)
 }
