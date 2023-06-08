@@ -3,6 +3,7 @@ import { GoBackIcon } from "@/icons"
 import { HStack } from "@chakra-ui/react"
 import { Image } from "@/components/Image/Image"
 import { LeadText } from "@/components/Text/Typography"
+import { Clickable } from "@/components/Clickable/Clickable"
 
 type BackButtonProps = {
 	label: string
@@ -16,11 +17,11 @@ export const BackButton: React.FC<BackButtonProps> = ({
 	icon,
 }) => {
 	return (
-		<HStack onClick={onClick}>
-			{icon && <GoBackIcon />}
-			<LeadText className="text-orange-500 cursor-pointer">
-				{label}
-			</LeadText>
-		</HStack>
+		<Clickable onClick={onClick}>
+			<HStack>
+				{icon && <GoBackIcon />}
+				<LeadText className="text-orange-500">{label}</LeadText>
+			</HStack>
+		</Clickable>
 	)
 }
