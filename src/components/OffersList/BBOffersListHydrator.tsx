@@ -1,6 +1,6 @@
 import { appRoutes } from "@/AppRoutes"
 import { PrimaryButton } from "@/components/Button/PrimaryButton"
-import { NoOpenOffersPlaceholder } from "@/components/NoOpenOffersPlaceholder/NoOpenOffersPlaceholder"
+import { NoOpenOffersPlaceholder } from "@/components/placeholders/NoOpenOffers/NoOpenOffers"
 import { OffersListViewTable } from "@/components/OffersList/OffersListViewTable"
 import { SingleOfferViewProps } from "@/components/OffersList/SingleOfferView"
 import { SpinnerWithText } from "@/components/SpinnerWithText"
