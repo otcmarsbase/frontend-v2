@@ -11,7 +11,26 @@ export const CreateOfferSummary: React.FC<CreateOfferSummaryProps> = (
 	const hasEnoughTokens = true
 	return (
 		<Flex direction={"column"} className="gap-6">
-			
+			<SummaryCard
+				rows={[
+					{
+						title: "Open price",
+						value: "0.000525108",
+					},
+					{
+						title: "Price with 0% discount",
+						value: "0.000525108",
+					},
+					{
+						title: "Will receive",
+						value: "0.000525108 ETH",
+					},
+					{
+						title: "Will receive in $",
+						value: "$1.00",
+					},
+				]}
+			/>
 			<PrimaryButton disabled={hasEnoughTokens} size="lg">
 				{(hasEnoughTokens
 					? "Insufficient balance"
