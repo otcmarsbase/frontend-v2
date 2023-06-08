@@ -2,6 +2,7 @@ import React from "react"
 import { QuestionIcon } from "@/icons"
 import { HStack } from "@chakra-ui/react"
 import { LeadText } from "@/components/Text/Typography"
+import { Clickable } from "@/components/Clickable/Clickable"
 
 type HowToUseBtnProps = {
 	label: string
@@ -10,9 +11,11 @@ type HowToUseBtnProps = {
 
 export const HowToUseBtn: React.FC<HowToUseBtnProps> = ({ label, onClick }) => {
 	return (
-		<HStack onClick={onClick}>
-			<QuestionIcon />
-			<LeadText color={"orange.500"}>{label}</LeadText>
-		</HStack>
+		<Clickable onClick={onClick}>
+			<HStack>
+				<QuestionIcon />
+				<LeadText color={"orange.500"}>{label}</LeadText>
+			</HStack>
+		</Clickable>
 	)
 }
