@@ -1,5 +1,6 @@
 import { CreateOfferSelectonFirst } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
 import { CreateOfferSelectonSecond } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonSecond"
+import { CreateOfferSummary } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSummary"
 import { GradientPopup } from "@/components/Popup/Popup"
 import { useTranslation } from "@/localization/l10n"
 import React from "react"
@@ -18,7 +19,8 @@ export const CreateOfferSelection: React.FC<
 			containerClassName="w-full"
 		>
 			<CreateOfferSelectonFirst />
-			<CreateOfferSelectonSecond/>
+			<CreateOfferSelectonSecond />
+			<CreateOfferSummary />
 		</GradientPopup>
 	)
 }
