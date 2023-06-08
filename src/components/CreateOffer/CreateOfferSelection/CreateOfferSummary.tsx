@@ -1,6 +1,21 @@
-import React from 'react'
+import { PrimaryButton } from "@/components/Button/PrimaryButton"
+import { LeadText } from "@/components/Text/Typography"
+import { Flex } from "@chakra-ui/react"
+import React from "react"
 
 type CreateOfferSummaryProps = {}
+
+export const CreateOfferSummary: React.FC<CreateOfferSummaryProps> = (
+	props
+) => {
+	const hasEnoughTokens = true
+	return (
+		<Flex direction={"column"} className="gap-6">
+			
+			
+		</Flex>
+	)
+}
 
 type SummaryCardProps = {
 	rows: { title: string; value: React.ReactNode }[]
