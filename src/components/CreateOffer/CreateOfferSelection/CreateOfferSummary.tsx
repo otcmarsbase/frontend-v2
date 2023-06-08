@@ -3,6 +3,7 @@ import React from 'react'
 type CreateOfferSummaryProps = {}
 
 type SummaryCardProps = {
+	rows: { title: string; value: React.ReactNode }[]
 }
 const SummaryCard: React.FC<SummaryCardProps> = (props) => {
 	return (
