@@ -46,9 +46,9 @@ import LoaderIconSourceRaw, {
 import MediumIconSourceRaw, {
     ReactComponent as MediumIconSource,
 } from "@/assets/icon/medium.svg"
-import NoDealsIconSourceRaw, {
-    ReactComponent as NoDealsIconSource,
-} from "@/assets/icon/noDeals.svg"
+import NoOffersIconSourceRaw, {
+    ReactComponent as NoOffersIconSource,
+} from "@/assets/icon/noOffers.svg"
 import PercentIconSourceRaw, {
     ReactComponent as PercentIconSource,
 } from "@/assets/icon/percent.svg"
@@ -147,9 +147,9 @@ export const MediumIcon = img(MediumIconSource)
 
 export const MediumIconRaw = MediumIconSourceRaw
 
-export const NoDealsIcon = img(NoDealsIconSource)
+export const NoOffersIcon = img(NoOffersIconSource)
 
-export const NoDealsIconRaw = NoDealsIconSourceRaw
+export const NoOffersIconRaw = NoOffersIconSourceRaw
 
 export const PercentIcon = img(PercentIconSource)
 
