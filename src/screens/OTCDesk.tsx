@@ -19,14 +19,7 @@ export const OTCDesk: React.FC<OTCDeskProps> = ({}) => {
 			header={
 				<PageHeader
 					borderBottom
-					titleLink={
-						<HowToUseBtn
-							label={l10n.OTCDesk.howToUse}
-							onClick={() =>
-								openExternalUrl(links.general.howToUse)
-							}
-						/>
-					}
+					titleLink={<HowToUseBtn />}
 					createOfferBtn={{
 						label: l10n.OTCDesk.createOfferLabel,
 						onClick: () => {},

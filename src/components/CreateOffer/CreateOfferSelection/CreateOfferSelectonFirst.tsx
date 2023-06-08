@@ -22,12 +22,7 @@ export const CreateOfferSelectonFirst: React.FC<
 			<FormControlHeader
 				title={"Specify offer details"}
 				subtitle="What asset do you have and what do you want to get for it"
-				titleLink={
-					<HowToUseBtn
-						label={l10n.OTCDesk.howToUse}
-						onClick={() => openExternalUrl(links.general.howToUse)}
-					/>
-				}
+				titleLink={<HowToUseBtn />}
 			/>
 			<SelectWrapper>
 				<ControlContainer
