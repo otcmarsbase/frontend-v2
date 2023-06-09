@@ -6,5 +6,14 @@ type DasboardTabsProps = {
 }
 
 export const DasboardTabs: React.FC<DasboardTabsProps> = (props) => {
-	return <Flex></Flex>
+const Tab: React.FC<{
+	title: string
+	onClick: () => void
+	isActive: boolean
+}> = (props) => {
+	return (
+		<Flex>
+			
+		</Flex>
+	)
 }
