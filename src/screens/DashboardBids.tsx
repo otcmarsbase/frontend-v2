@@ -1,7 +1,13 @@
 import { DasboardTabs } from "@/components/Dashboard/Tabs"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
-import { PageHeader } from "@/components/PageHeader/PageHeader"
-import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
+import {
+	HeaderBottomLine,
+	PageHeader,
+} from "@/components/PageHeader/PageHeader"
+import {
+	PageContainer,
+	PageWrapper,
+} from "@/components/PageWrapper/PageWrapper"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
@@ -15,15 +21,16 @@ export const DashboardBids: React.FC<DashboardBidsProps> = ({}) => {
 					<PageHeader
 						subTitle={""}
 						title={"My dashboard"}
-						borderBottom
 						titleLink={<HowToUseBtn />}
 						createOfferBtn={{
 							label: "CREATE NEW",
 							onClick: () => {},
 						}}
-					>
+					></PageHeader>
+					<PageContainer>
 						<DasboardTabs name="bids" />
-					</PageHeader>
+					</PageContainer>
+					<HeaderBottomLine />
 				</>
 			}
 		>

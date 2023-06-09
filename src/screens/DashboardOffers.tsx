@@ -4,7 +4,10 @@ import {
 	HeaderBottomLine,
 	PageHeader,
 } from "@/components/PageHeader/PageHeader"
-import { PageContainer, PageWrapper } from "@/components/PageWrapper/PageWrapper"
+import {
+	PageContainer,
+	PageWrapper,
+} from "@/components/PageWrapper/PageWrapper"
 import { useTranslation } from "@/localization/l10n"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
@@ -29,7 +32,6 @@ export const DashboardOffers: React.FC<DashboardOffersProps> = ({}) => {
 					<PageContainer>
 						<DasboardTabs name="offers" />
 					</PageContainer>
-
 					<HeaderBottomLine />
 				</>
 			}
