@@ -1,3 +1,4 @@
+import { DasboardTabs } from "@/components/Dashboard/Tabs"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
 import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
@@ -20,7 +21,9 @@ export const DashboardBids: React.FC<DashboardBidsProps> = ({}) => {
 							label: "CREATE NEW",
 							onClick: () => {},
 						}}
-					/>
+					>
+						<DasboardTabs name="bids" />
+					</PageHeader>
 				</>
 			}
 		>
