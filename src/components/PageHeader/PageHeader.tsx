@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/BackButton/BackButton"
 import { SpecialButton } from "@/components/Button/SpecialButton"
-import { Container } from "@/components/PageWrapper/PageWrapper"
+import { PageContainer } from "@/components/PageWrapper/PageWrapper"
 import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react"
 import { Text } from "@/components/Text/Text"
 import clsx from "clsx"
@@ -34,7 +34,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	return (
 		<Flex className="flex-col">
 			<Flex className={clsx("w-full py-6 lg:py-8 flex-col")}>
-				<Container>
+				<PageContainer>
 					<Flex
 						justifyContent={"space-between"}
 						width={"100%"}
@@ -61,7 +61,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 						)}
 					</Flex>
 					<Flex className="pt-6 lg:pt-8">{children}</Flex>
-				</Container>
+				</PageContainer>
 			</Flex>
 			{borderBottom && <HeaderBottomLine />}
 		</Flex>

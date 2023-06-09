@@ -16,7 +16,7 @@ type PageWrapperProps = {
 	header?: React.ReactNode
 }
 
-export const Container: React.FCC = ({ children }) => {
+export const PageContainer: React.FCC = ({ children }) => {
 	return <div className="px-5 w-full flex flex-col flex-grow">{children}</div>
 }
 export const PageWrapper: React.FCC<PageWrapperProps> = ({
@@ -42,7 +42,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 					}}
 					 
 				>
-					<Container>
+					<PageContainer>
 						<Header
 							menuLinks={navlinks(l10n.navbar.links)}
 							supportLinks={[
@@ -60,11 +60,11 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 								},
 							]}
 						/>
-					</Container>
+					</PageContainer>
 				</Box>
 				{header}
 			</Flex>
-			<Container>
+			<PageContainer>
 				{children}
 				<Box w={"100%"} className="pt-12 lg:pt-16">
 					<DesktopView>
@@ -72,7 +72,7 @@ export const PageWrapper: React.FCC<PageWrapperProps> = ({
 					</DesktopView>
 					<MobileFooter />
 				</Box>
-			</Container>
+			</PageContainer>
 		</VStack>
 	)
 }
