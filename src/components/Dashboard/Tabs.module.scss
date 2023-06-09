@@ -1,0 +1,15 @@
+.activeTab {
+	position: relative;
+}
+
+.activeTab::before {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: 2px;
+	content: "";
+	background: linear-gradient(103.4deg, #ff6639 11.82%, #7e25b5 89.19%);
+}
