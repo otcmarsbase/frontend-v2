@@ -12,7 +12,7 @@ type DasboardTabsProps = {
 export const DasboardTabs: React.FC<DasboardTabsProps> = (props) => {
 	const navigate = useNavigate()
 	return (
-		<Flex gap={"52px"}>
+		<Flex gap={"52px"} pb={"20px"}>
 			<Tab
 				title="MY DEALS"
 				onClick={() => navigate(appRoutes["/dashboard/offers"]())}
