@@ -4,6 +4,8 @@ import { Text } from "@/components/Text/Text"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import styles from "./Tabs.module.scss"
+import clsx from "clsx"
 
 type DasboardTabsProps = {
 	name: "offers" | "bids"
@@ -12,7 +14,7 @@ type DasboardTabsProps = {
 export const DasboardTabs: React.FC<DasboardTabsProps> = (props) => {
 	const navigate = useNavigate()
 	return (
-		<Flex gap={"52px"} pb={"20px"}>
+		<Flex gap={"52px"}>
 			<Tab
 				title="MY DEALS"
 				onClick={() => navigate(appRoutes["/dashboard/offers"]())}
@@ -33,14 +35,12 @@ const Tab: React.FC<{
 	isActive: boolean
 }> = (props) => {
 	return (
-		<Flex>
+		<Flex
+			className={clsx(props.isActive && styles["activeTab"])}
+			pb={"20px"}
+		>
 			<Clickable onClick={props.onClick}>
-				<Text
-					color={props.isActive ? "green" : "white"}
-					size="promo-14"
-				>
-					{props.title}
-				</Text>
+				<Text size="promo-14">{props.title}</Text>
 			</Clickable>
 		</Flex>
 	)
