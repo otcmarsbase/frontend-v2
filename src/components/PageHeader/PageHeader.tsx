@@ -79,3 +79,9 @@ export const PageHeader: React.FCC<PageHeaderProps> = (props) => {
 		/>
 	)
 }
+
+export const HeaderBottomLine: React.FC = () => {
+	return (
+		<div className="border-dark-800 border-solid border-b-[1px] w-full"></div>
+	)
+}
