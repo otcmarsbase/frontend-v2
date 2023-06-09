@@ -32,40 +32,38 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	children,
 }) => {
 	return (
-		<Flex
-			className={clsx(
-				borderBottom && "border-dark-800 border-solid border-b-[1px]",
-				"w-full py-6 lg:py-8"
-			)}
-		>
-			<Container>
-				<Flex
-					justifyContent={"space-between"}
-					width={"100%"}
-					flexWrap={"wrap"}
-				>
-					<Flex direction={"column"} alignItems={"flex-start"}>
-						{backButton && <BackButton icon {...backButton} />}
-						<HStack>
-							<Box>{title}</Box>
-							<Box>{titleLink}</Box>
-						</HStack>
-						{subTitle}
+		<Flex className="flex-col">
+			<Flex className={clsx("w-full py-6 lg:py-8 flex-col")}>
+				<Container>
+					<Flex
+						justifyContent={"space-between"}
+						width={"100%"}
+						flexWrap={"wrap"}
+					>
+						<Flex direction={"column"} alignItems={"flex-start"}>
+							{backButton && <BackButton icon {...backButton} />}
+							<HStack>
+								<Box>{title}</Box>
+								<Box>{titleLink}</Box>
+							</HStack>
+							{subTitle}
+						</Flex>
+						{createOfferBtn && (
+							<SpecialButton
+								px={"10"}
+								maxWidth={"max-content"}
+								size="s"
+								fontSize="promo-12"
+								onClick={createOfferBtn.onClick}
+							>
+								{createOfferBtn.label}
+							</SpecialButton>
+						)}
 					</Flex>
-					{createOfferBtn && (
-						<SpecialButton
-							px={"10"}
-							maxWidth={"max-content"}
-							size="s"
-							fontSize="promo-12"
-							onClick={createOfferBtn.onClick}
-						>
-							{createOfferBtn.label}
-						</SpecialButton>
-					)}
-				</Flex>
-				<Flex className="pt-6 lg:pt-8">{children}</Flex>
-			</Container>
+					<Flex className="pt-6 lg:pt-8">{children}</Flex>
+				</Container>
+			</Flex>
+			{borderBottom && <HeaderBottomLine />}
 		</Flex>
 	)
 }
