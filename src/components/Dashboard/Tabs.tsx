@@ -13,7 +13,14 @@ const Tab: React.FC<{
 }> = (props) => {
 	return (
 		<Flex>
-			
+			<Clickable onClick={props.onClick}>
+				<Text
+					color={props.isActive ? "green" : "white"}
+					size="promo-14"
+				>
+					{props.title}
+				</Text>
+			</Clickable>
 		</Flex>
 	)
 }
