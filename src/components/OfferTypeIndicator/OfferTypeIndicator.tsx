@@ -29,7 +29,9 @@ export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
 				"bg-[rgba(152,81,255,0.15)] text-[#9851FF]": type === "dynamic",
 			})}
 		>
-			<LeadText fontWeight={"semibold"}>{text}</LeadText>
+			<Text size={sizes[size]} fontWeight={"semibold"}>
+				{text}
+			</Text>
 		</Flex>
 	)
 }
