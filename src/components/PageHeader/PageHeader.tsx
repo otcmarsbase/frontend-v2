@@ -60,7 +60,9 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 							</SpecialButton>
 						)}
 					</Flex>
-					<Flex className="pt-6 lg:pt-8">{children}</Flex>
+					{children && (
+						<Flex className="pt-6 lg:pt-8">{children}</Flex>
+					)}
 				</PageContainer>
 			</Flex>
 			{borderBottom && <HeaderBottomLine />}
