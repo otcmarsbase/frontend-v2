@@ -10,7 +10,7 @@ type WithTooltipProps = {
 export const WithTooltip: React.FCC<WithTooltipProps> = ({
 	infoText,
 	children,
-	placement,
+	placement = "top",
 }) => {
 	return (
 		<Tooltip
