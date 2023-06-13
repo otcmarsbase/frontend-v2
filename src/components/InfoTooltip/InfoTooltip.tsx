@@ -14,6 +14,7 @@ const sizes = {
 export const InfoTooltip: React.FC<InfoTooltipProps> = ({
 	infoText,
 	placement,
+	size = "m",
 	...props
 }) => {
 	return (
