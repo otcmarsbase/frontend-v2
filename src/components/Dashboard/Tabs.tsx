@@ -28,16 +28,13 @@ export const DasboardTabs: React.FC<DasboardTabsProps> = (props) => {
 	const navigate = useNavigate()
 	return (
 		<Flex gap={"52px"}>
-			<Tab
-				title="MY DEALS"
-				onClick={() => navigate(appRoutes["/dashboard/offers"]())}
-				isActive={props.name === "offers"}
-			/>
-			<Tab
-				title="MY BIDS"
-				onClick={() => navigate(appRoutes["/dashboard/bids"]())}
-				isActive={props.name === "bids"}
-			/>
+			{tabsConfig.map((x) => (
+				<Tab
+					isActive={x.name === props.name}
+					onClick={() => navigate(x.route())}
+					title={x.title}
+				/>
+			))}
 		</Flex>
 	)
 }
