@@ -19,7 +19,7 @@ export const InfoTooltip: React.FC<InfoTooltipProps> = ({
 }) => {
 	return (
 		<WithTooltip infoText={infoText} placement={placement}>
-			<InfoIcon {...props} />
+			<InfoIcon {...props} boxSize={`${sizes[size]}px`} />
 		</WithTooltip>
 	)
 }
