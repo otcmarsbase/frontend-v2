@@ -18,7 +18,11 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						subTitle={""}
 						title={"Offer Details"}
 						borderBottom
-						
+						titleLink={
+							<Flex>
+								
+							</Flex>
+						}
 					>
 						<Box overflow={"scroll"} w={"full"}>
 							<Flex alignItems={"stretch"} w="full"></Flex>
