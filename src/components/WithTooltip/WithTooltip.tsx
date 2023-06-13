@@ -25,7 +25,7 @@ export const WithTooltip: React.FCC<WithTooltipProps> = ({
 			borderRadius={"6px"}
 			cursor="pointer"
 		>
-			<div style={{ display: "inline-block" }}>{children}</div>
+			<div style={{ display: "flex" }}>{children}</div>
 		</Tooltip>
 	)
 }
