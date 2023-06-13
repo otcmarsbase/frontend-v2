@@ -21,6 +21,10 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						titleLink={
 							<Flex>
 								<OfferTypeIndicator type="dynamic" size="s" />
+								<InfoTooltip
+									size="s"
+									infoText="All redeemed parts of offer are instantly sent to your wallet"
+								/>
 							</Flex>
 						}
 					>
