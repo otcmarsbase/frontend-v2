@@ -19,6 +19,7 @@ const sizes = {
 export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
 	type,
 	text,
+	size = "m",
 }) => {
 	return (
 		<Flex
