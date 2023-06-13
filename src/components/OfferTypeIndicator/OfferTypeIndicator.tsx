@@ -11,6 +11,11 @@ type OfferTypeIndicatorProps = {
 	size?: "s" | "m"
 }
 
+const sizes = {
+	s: "12",
+	m: "14",
+} as const
+
 export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
 	type,
 	text,
