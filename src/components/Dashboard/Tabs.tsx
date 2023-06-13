@@ -11,6 +11,19 @@ type DasboardTabsProps = {
 	name: "offers" | "bids"
 }
 
+const tabsConfig = [
+	{
+		name: "offers",
+		title: "MY DEALS",
+		route: () => appRoutes["/dashboard/offers"](),
+	},
+	{
+		name: "bids",
+		title: "MY BIDS",
+		route: () => appRoutes["/dashboard/bids"](),
+	},
+]
+
 export const DasboardTabs: React.FC<DasboardTabsProps> = (props) => {
 	const navigate = useNavigate()
 	return (
