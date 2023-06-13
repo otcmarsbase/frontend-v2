@@ -20,7 +20,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						borderBottom
 						titleLink={
 							<Flex>
-								
+								<OfferTypeIndicator type="dynamic" size="s" />
 							</Flex>
 						}
 					>
