@@ -8,6 +8,7 @@ import React from "react"
 type OfferTypeIndicatorProps = {
 	type: "static" | "dynamic"
 	text: string
+	size?: "s" | "m"
 }
 
 export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
