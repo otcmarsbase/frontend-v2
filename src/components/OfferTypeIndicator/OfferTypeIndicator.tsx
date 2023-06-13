@@ -37,7 +37,7 @@ export const OfferTypeIndicatorView: React.FC<OfferTypeIndicatorProps> = ({
 }
 
 export const OfferTypeIndicator: React.FC<
-	Pick<OfferTypeIndicatorProps, "type">
+	Pick<OfferTypeIndicatorProps, "type" | "size">
 > = (props) => {
 	const l10n = useTranslation()
 	return (
