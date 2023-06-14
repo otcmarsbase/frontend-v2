@@ -54,7 +54,7 @@ type StackFrame = {
 	prefix: string
 }
 
-type Prefix<Head extends StackFrame> = [Head['prefix'], Head['frame']['path']]
+type Prefix<Head extends StackFrame> = [Head["prefix"], Head["frame"]["path"]]
 
 type FlatRoutesConfig<
 	Stack extends StackFrame[],
@@ -63,12 +63,12 @@ type FlatRoutesConfig<
 	infer Head extends StackFrame,
 	...infer Tail extends StackFrame[]
 ]
-	? Head['frame']['children'] extends Tree[]
+	? Head["frame"]["children"] extends Tree[]
 		? FlatRoutesConfig<
 				[
 					...MapHeadToStackFrame<
-						[...Head['frame']['children']],
-						ReplaceAll<Join<Prefix<Head>, '/'>, '//', '/'>
+						[...Head["frame"]["children"]],
+						ReplaceAll<Join<Prefix<Head>, "/">, "//", "/">
 					>,
 					...Tail
 				],
@@ -78,9 +78,9 @@ type FlatRoutesConfig<
 				Tail,
 				Ans & {
 					[key in ReplaceAll<
-						Join<Prefix<Head>, '/'>,
-						'//',
-						'/'
+						Join<Prefix<Head>, "/">,
+						"//",
+						"/"
 					>]: Prefix<Head>
 				}
 		  >
@@ -115,12 +115,12 @@ const format = (head: Tree, prefix: string) => ({ frame: head, prefix })
  */
 export const flatRoutes = <
 	T extends Tree[],
-	Flatten = FlatRoutesConfig<MapHeadToStackFrame<DeepWriteable<T>, ''>, {}>
+	Flatten = FlatRoutesConfig<MapHeadToStackFrame<DeepWriteable<T>, "">, {}>
 >(
 	routes: T
 ): Flatten => {
 	//@ts-ignore
-	const stack = [...routes.map((x) => format(x, ''))]
+	const stack = [...routes.map((x) => format(x, ""))]
 	const ans = {} as Flatten
 	while (stack.length) {
 		const curr = stack.pop()!
@@ -145,8 +145,8 @@ export const flatRoutes = <
 const slashJoin = <S1 extends string, S2 extends string>(
 	a: S1,
 	b: S2
-): ReplaceAll<Join<[S1, S2], '/'>, '//', '/'> => {
-	return [a, b].join('/').replace(/\/{2,}/g, '/') as any
+): ReplaceAll<Join<[S1, S2], "/">, "//", "/"> => {
+	return [a, b].join("/").replace(/\/{2,}/g, "/") as any
 }
 
 /**
