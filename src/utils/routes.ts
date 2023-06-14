@@ -22,7 +22,7 @@ type ParseParams<K, Result> =
  * type T = ExtractParams<'sad/:abcd/:a/:b'>
  * T is { abcd: string | number; a: string | number; b: string | number }
  */
-type ExtractParams<K> = ParseParams<K, {}>
+export type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
 
 /**
