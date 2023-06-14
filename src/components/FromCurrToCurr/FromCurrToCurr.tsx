@@ -10,8 +10,8 @@ type FromCurrToCurrProps = {
 export const FromCurrToCurr: React.FC<FromCurrToCurrProps> = (props) => {
 	return (
 		<Flex alignItems={"center"}>
-			<CurrencyIcon imgSrc={props.fromIcon} />
-			<CurrencyIcon imgSrc={props.toIcon} />
+			<CurrencyIcon size="l" imgSrc={props.fromIcon} />
+			<CurrencyIcon size="l" imgSrc={props.toIcon} />
 		</Flex>
 	)
 }
