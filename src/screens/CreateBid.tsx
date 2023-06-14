@@ -16,6 +16,12 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 				<>
 					<PageHeader
 						subTitle={""}
+						titleLeft={
+							<FromCurrToCurr
+								fromIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+								toIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png"
+							/>
+						}
 						title={"Offer Details"}
 						borderBottom
 						titleRight={
