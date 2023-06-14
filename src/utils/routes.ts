@@ -1,4 +1,4 @@
-import { DeepWriteable, Join, ReplaceAll } from '@/types'
+import { DeepWriteable, Join, ReplaceAll } from "@/types"
 
 type ParseParams<K, Result> =
 	K extends `${string}:${infer String}/${infer Suffix}`
@@ -10,17 +10,17 @@ type ParseParams<K, Result> =
 		  >
 		: K extends `${string}:${infer String}`
 		? ParseParams<
-				'',
+				"",
 				Result & {
 					[key in String]: string
 				}
 		  >
-		: { [K in keyof Result]: string | number }
+		: { [K in keyof Result]: string }
 
 /**
  * @example
  * type T = ExtractParams<'sad/:abcd/:a/:b'>
- * T is { abcd: string | number; a: string | number; b: string | number }
+ * T is { abcd: string; a: string; b: string }
  */
 export type ExtractParams<K> = ParseParams<K, {}>
 type Tree = { path: string; children?: Tree[] }
