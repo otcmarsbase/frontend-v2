@@ -11,6 +11,7 @@ import React from "react"
 type CreateBidProps = {}
 
 const route = appRoutes["/offer/:id/create-bid"]()
+type CreateBidParams = ExtractParams<typeof route>
 export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 	return (
 		<PageWrapper
