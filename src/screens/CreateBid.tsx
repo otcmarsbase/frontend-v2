@@ -18,7 +18,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						subTitle={""}
 						title={"Offer Details"}
 						borderBottom
-						titleLink={
+						titleRight={
 							<Flex alignItems={"center"}>
 								<OfferTypeIndicator type="dynamic" size="s" />
 								<InfoTooltip

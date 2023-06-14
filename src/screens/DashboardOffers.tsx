@@ -23,7 +23,7 @@ export const DashboardOffers: React.FC<DashboardOffersProps> = ({}) => {
 					<PageHeader
 						subTitle={""}
 						title={"My dashboard"}
-						titleLink={<HowToUseBtn />}
+						titleRight={<HowToUseBtn />}
 						createOfferBtn={{
 							label: "CREATE NEW",
 							onClick: () => {},
