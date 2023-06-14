@@ -15,7 +15,7 @@ export const CurrencyIcon: React.FCC<CurrencyIconProps> = ({
 }) => {
 	return (
 		<Flex className="items-center gap-2">
-			<Image size="m" src={imgSrc} />
+			<Image size={size} src={imgSrc} />
 			{children && (
 				<LeadText fontWeight={"semibold"}>{children}</LeadText>
 			)}
