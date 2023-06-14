@@ -44,7 +44,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 					>
 						<Flex direction={"column"} alignItems={"flex-start"}>
 							{backButton && <BackButton icon {...backButton} />}
-							<HStack>
+							<HStack alignItems={"center"} justifyContent={"center"}>
 								<Box>{titleLeft}</Box>
 								<Box>{title}</Box>
 								<Box>{titleRight}</Box>
