@@ -11,7 +11,9 @@ export const FromCurrToCurr: React.FC<FromCurrToCurrProps> = (props) => {
 	return (
 		<Flex alignItems={"center"}>
 			<CurrencyIcon size="l" imgSrc={props.fromIcon} />
-			<CurrencyIcon size="l" imgSrc={props.toIcon} />
+			<div style={{ marginLeft: "-10px" }}>
+				<CurrencyIcon size="l" imgSrc={props.toIcon} />
+			</div>
 		</Flex>
 	)
 }
