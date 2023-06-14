@@ -89,8 +89,8 @@ type FlatRoutesConfig<
 				Params extends ExtractParams<Key>,
 				ParamsEmpty = keyof Params extends never ? true : false
 			>(
-				...args: ParamsEmpty extends true ? [] : [Params]
-			) => ReplaceParams<Key, Params>
+				arg?: ParamsEmpty extends true ? never : Params
+			) => Key
 	  }
 
 const format = (head: Tree, prefix: string) => ({ frame: head, prefix })
