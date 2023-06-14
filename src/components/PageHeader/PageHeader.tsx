@@ -19,6 +19,7 @@ type PageHeaderProps = {
 	title: React.ReactNode
 	subTitle: React.ReactNode
 	titleRight?: React.ReactNode
+	titleLeft?: React.ReactNode
 	borderBottom?: boolean
 }
 
@@ -26,6 +27,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	subTitle,
 	title,
 	titleRight,
+	titleLeft,
 	createOfferBtn,
 	backButton,
 	borderBottom,
@@ -43,6 +45,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 						<Flex direction={"column"} alignItems={"flex-start"}>
 							{backButton && <BackButton icon {...backButton} />}
 							<HStack>
+								<Box>{titleLeft}</Box>
 								<Box>{title}</Box>
 								<Box>{titleRight}</Box>
 							</HStack>
