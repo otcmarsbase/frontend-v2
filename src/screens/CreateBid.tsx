@@ -1,4 +1,5 @@
 import { CreateBidHydrator } from "@/components/CreateBid/CreateBidHydrator"
+import { FromCurrToCurr } from "@/components/FromCurrToCurr/FromCurrToCurr"
 import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
 import { PageHeader } from "@/components/PageHeader/PageHeader"
