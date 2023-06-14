@@ -1,4 +1,6 @@
-import React from 'react'
+import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { Flex } from "@chakra-ui/react"
+import React from "react"
 
 type FromCurrToCurrProps = {
 	fromIcon: string
@@ -6,5 +8,10 @@ type FromCurrToCurrProps = {
 }
 
 export const FromCurrToCurr: React.FC<FromCurrToCurrProps> = (props) => {
-    return <div></div>
+	return (
+		<Flex alignItems={"center"}>
+			<CurrencyIcon imgSrc={props.fromIcon} />
+			<CurrencyIcon imgSrc={props.toIcon} />
+		</Flex>
+	)
 }
