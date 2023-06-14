@@ -10,6 +10,7 @@ import React from "react"
 
 type CreateBidProps = {}
 
+const route = appRoutes["/offer/:id/create-bid"]()
 export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 	return (
 		<PageWrapper
