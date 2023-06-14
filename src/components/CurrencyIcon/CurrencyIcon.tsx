@@ -5,6 +5,7 @@ import React from "react"
 
 type CurrencyIconProps = {
 	imgSrc: string
+	size?: React.ComponentProps<typeof Image>["size"]
 }
 
 export const CurrencyIcon: React.FCC<CurrencyIconProps> = ({
