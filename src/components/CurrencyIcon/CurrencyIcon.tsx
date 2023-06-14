@@ -11,6 +11,7 @@ type CurrencyIconProps = {
 export const CurrencyIcon: React.FCC<CurrencyIconProps> = ({
 	imgSrc,
 	children,
+	size = "m",
 }) => {
 	return (
 		<Flex className="items-center gap-2">
