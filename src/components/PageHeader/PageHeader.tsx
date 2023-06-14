@@ -18,14 +18,14 @@ type PageHeaderProps = {
 	}
 	title: React.ReactNode
 	subTitle: React.ReactNode
-	titleLink?: React.ReactNode
+	titleRight?: React.ReactNode
 	borderBottom?: boolean
 }
 
 export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	subTitle,
 	title,
-	titleLink,
+	titleRight,
 	createOfferBtn,
 	backButton,
 	borderBottom,
@@ -44,7 +44,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 							{backButton && <BackButton icon {...backButton} />}
 							<HStack>
 								<Box>{title}</Box>
-								<Box>{titleLink}</Box>
+								<Box>{titleRight}</Box>
 							</HStack>
 							{subTitle}
 						</Flex>
