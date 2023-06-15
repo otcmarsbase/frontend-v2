@@ -7,12 +7,16 @@ import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { WithTooltip } from "@/components/WithTooltip/WithTooltip"
 import { Box, Flex } from "@chakra-ui/react"
 import React from "react"
+import { useParams } from "react-router-dom"
 
 type CreateBidProps = {}
 
 const route = appRoutes["/offer/:id/create-bid"]()
 type CreateBidParams = ExtractParams<typeof route>
+
 export const CreateBid: React.FC<CreateBidProps> = ({}) => {
+	const params = useParams<CreateBidParams>()
+
 	return (
 		<PageWrapper
 			header={
