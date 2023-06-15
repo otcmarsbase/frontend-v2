@@ -12,5 +12,5 @@ type CreateBidOfferInfoCardProps = {
 export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 	props
 ) => {
-	return <Flex></Flex>
+		<Flex direction={"column"}>
 }
