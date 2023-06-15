@@ -1,4 +1,6 @@
-import { Flex } from "@chakra-ui/react"
+import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
+import { Text } from "@/components/Text/Text"
+import { Flex, Image } from "@chakra-ui/react"
 import React from "react"
 
 type CreateBidOfferInfoCardProps = {
@@ -12,7 +14,9 @@ type CreateBidOfferInfoCardProps = {
 export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 	props
 ) => {
+	return (
 		<Flex direction={"column"}>
+			<Flex justifyContent={"space-between"} alignItems={"center"}>
 				<Flex alignItems={"center"} gap={"4px"}>
 					<Text size="promo-12" color="orange.500">
 						{props.name}
@@ -20,4 +24,7 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 					<InfoTooltip size="s" infoText={props.tooltipText} />
 				</Flex>
 				<Image boxSize={"32px"} src={props.icon} />
+			</Flex>
+		</Flex>
+	)
 }
