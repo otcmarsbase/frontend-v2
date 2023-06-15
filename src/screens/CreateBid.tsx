@@ -53,7 +53,12 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						}
 					>
 						<Box overflow={"scroll"} w={"full"}>
-							<Flex alignItems={"stretch"} w="full"></Flex>
+							<Flex
+								alignItems={"stretch"}
+								w="full"
+								gridGap={"32px"}
+							>
+							</Flex>
 						</Box>
 					</PageHeader>
 				</>
