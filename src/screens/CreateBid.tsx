@@ -43,6 +43,14 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 								/>
 							</Flex>
 						}
+						right={
+							<Flex>
+								<LeadText color={"gray"} marginRight={"10px"}>
+									Offer ID:
+								</LeadText>
+								<LeadText>{parseInt(params.id || "")}</LeadText>
+							</Flex>
+						}
 					>
 						<Box overflow={"scroll"} w={"full"}>
 							<Flex alignItems={"stretch"} w="full"></Flex>
