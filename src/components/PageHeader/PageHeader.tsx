@@ -46,7 +46,10 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 					>
 						<Flex direction={"column"} alignItems={"flex-start"}>
 							{backButton && <BackButton icon {...backButton} />}
-							<HStack alignItems={"center"} justifyContent={"center"}>
+							<HStack
+								alignItems={"center"}
+								justifyContent={"center"}
+							>
 								<Box>{titleLeft}</Box>
 								<Box>{title}</Box>
 								<Box>{titleRight}</Box>
@@ -64,6 +67,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 								{createOfferBtn.label}
 							</SpecialButton>
 						)}
+						{right && <Box>{right}</Box>}
 					</Flex>
 					{children && (
 						<Flex className="pt-6 lg:pt-8">{children}</Flex>
