@@ -58,6 +58,15 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 								w="full"
 								gridGap={"32px"}
 							>
+								<CreateBidOfferInfoCard
+									name={"AVAILABLE"}
+									value={"0.099 ATOM"}
+									description={"≈$0.82"}
+									tooltipText={
+										"This shows the part of the whole offer that is sold at the moment."
+									}
+									icon={BagIconRaw}
+								/>
 							</Flex>
 						</Box>
 					</PageHeader>
