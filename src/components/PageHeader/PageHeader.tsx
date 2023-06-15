@@ -21,6 +21,7 @@ type PageHeaderProps = {
 	titleRight?: React.ReactNode
 	titleLeft?: React.ReactNode
 	borderBottom?: boolean
+	right?: React.ReactNode
 }
 
 export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
@@ -32,6 +33,7 @@ export const PageHeaderGeneric: React.FCC<PageHeaderProps> = ({
 	backButton,
 	borderBottom,
 	children,
+	right,
 }) => {
 	return (
 		<Flex className="flex-col">
