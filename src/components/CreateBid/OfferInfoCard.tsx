@@ -13,7 +13,7 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 	props
 ) => {
 		<Flex direction={"column"}>
-				<Flex alignItems={"center"} >
+				<Flex alignItems={"center"} gap={"4px"}>
 					<Text size="promo-12" color="orange.500">
 						{props.name}
 					</Text>
