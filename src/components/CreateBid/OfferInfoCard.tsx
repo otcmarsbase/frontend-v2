@@ -17,6 +17,7 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 					<Text size="promo-12" color="orange.500">
 						{props.name}
 					</Text>
+					<InfoTooltip size="s" infoText={props.tooltipText} />
 				</Flex>
 				<Image boxSize={"32px"} src={props.icon} />
 }
