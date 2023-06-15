@@ -13,4 +13,5 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 	props
 ) => {
 		<Flex direction={"column"}>
+				<Image boxSize={"32px"} src={props.icon} />
 }
