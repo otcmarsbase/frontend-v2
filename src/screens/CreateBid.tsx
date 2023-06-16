@@ -94,6 +94,15 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 									}
 									icon={BidsIconRaw}
 								/>
+								<CreateBidOfferInfoCard
+									name={"DEADLINE"}
+									value={"0.099 ATOM"}
+									description={"≈$0.82"}
+									tooltipText={
+										"How much time is left until the offer expiration"
+									}
+									icon={ClockIconRaw}
+								/>
 							</Flex>
 						</Box>
 					</PageHeader>
