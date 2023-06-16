@@ -97,12 +97,12 @@ export const CreateOfferDetails: React.FC<CreateOfferDetailsProps> = ({
 	)
 }
 
-type Steps = "accept" | "approve"
+type Steps = "accept" | "approve" | "none"
 type StepDisplayProps = {
 	step: Steps
 	disabled?: boolean
 	loading?: boolean
-	buttons: Record<Steps, { text: string; onClick: () => void }>
+	buttons: Record<Exclude<Steps, "none">, { text: string; onClick: () => void }>
 }
 export const StepDisplay: React.FC<StepDisplayProps> = ({
 	step,
