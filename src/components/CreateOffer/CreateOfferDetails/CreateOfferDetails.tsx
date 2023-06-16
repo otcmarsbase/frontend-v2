@@ -104,7 +104,7 @@ type StepDisplayProps = {
 	loading?: boolean
 	buttons: Record<Steps, { text: string; onClick: () => void }>
 }
-const StepDisplay: React.FC<StepDisplayProps> = ({
+export const StepDisplay: React.FC<StepDisplayProps> = ({
 	step,
 	disabled,
 	loading,
