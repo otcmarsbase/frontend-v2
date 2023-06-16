@@ -14,6 +14,21 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 				subtitle="Enter parameters for your bid"
 				titleLink={<HowToUseBtn />}
 			/>
+			<Flex className="pt-10">
+				<StepDisplay
+					buttons={{
+						accept: {
+							text: "ACCEPT",
+							onClick: () => {},
+						},
+						approve: {
+							text: "APPROVE",
+							onClick: () => {},
+						},
+					}}
+					step={"none"}
+				/>
+			</Flex>
 		</Flex>
 	)
 }
