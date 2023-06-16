@@ -155,7 +155,7 @@ const Step: React.FC<{ active?: boolean; text: string }> = ({
 				active ? "bg-orange-500" : "bg-dark-200 opacity-20"
 			)}
 		>
-			{text}
+			<Text12Normal>{text}</Text12Normal>
 		</Box>
 	)
 }
