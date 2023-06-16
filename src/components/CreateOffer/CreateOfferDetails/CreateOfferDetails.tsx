@@ -116,17 +116,17 @@ const StepDisplay: React.FC<StepDisplayProps> = ({
 			<Flex gap={"20px"}>
 				{steps.map((x) => {
 					return (
-						<Button
+						<PrimaryButton
 							onClick={buttons[x].onClick}
 							w={"full"}
 							isDisabled={
 								step !== x ||
-								(loading && step === x) ||
+								(loading && step.toLowerCase() === x.toLowerCase()) ||
 								disabled
 							}
 						>
 							{buttons[x].text}
-						</Button>
+						</PrimaryButton>
 					)
 				})}
 			</Flex>
