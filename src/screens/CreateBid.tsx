@@ -76,6 +76,15 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 									}
 									icon={LightningIconRaw}
 								/>
+								<CreateBidOfferInfoCard
+									name={"DISCOUNT / PREMIUM"}
+									value={"0.099 ATOM"}
+									description={"≈$0.82"}
+									tooltipText={
+										"Premium price means that you are ready to offer a little extra to buy or sell an asset. Discount means you want to offer a lower price to buy or sell an asset."
+									}
+									icon={PercentIconRaw}
+								/>
 							</Flex>
 						</Box>
 					</PageHeader>
