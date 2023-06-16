@@ -85,6 +85,15 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 									}
 									icon={PercentIconRaw}
 								/>
+								<CreateBidOfferInfoCard
+									name={"BIDS"}
+									value={"0.099 ATOM"}
+									description={"≈$0.82"}
+									tooltipText={
+										"The number of bids an offer received at this moment."
+									}
+									icon={BidsIconRaw}
+								/>
 							</Flex>
 						</Box>
 					</PageHeader>
