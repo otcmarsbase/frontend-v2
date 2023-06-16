@@ -1,5 +1,6 @@
 import { appRoutes } from "@/AppRoutes"
 import { CreateBidHydrator } from "@/components/CreateBid/CreateBidHydrator"
+import { CreateBidOfferInfoCard } from "@/components/CreateBid/OfferInfoCard"
 import { FromCurrToCurr } from "@/components/FromCurrToCurr/FromCurrToCurr"
 import { InfoTooltip } from "@/components/InfoTooltip/InfoTooltip"
 import { OfferTypeIndicator } from "@/components/OfferTypeIndicator/OfferTypeIndicator"
@@ -7,6 +8,13 @@ import { PageHeader } from "@/components/PageHeader/PageHeader"
 import { PageWrapper } from "@/components/PageWrapper/PageWrapper"
 import { LeadText } from "@/components/Text/Typography"
 import { WithTooltip } from "@/components/WithTooltip/WithTooltip"
+import {
+	BagIconRaw,
+	BidsIconRaw,
+	ClockIconRaw,
+	LightningIconRaw,
+	PercentIconRaw,
+} from "@/icons"
 import { ExtractParams } from "@/utils/routes"
 import { Box, Flex } from "@chakra-ui/react"
 import React from "react"
