@@ -25,6 +25,11 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 				</Flex>
 				<Image boxSize={"32px"} src={props.icon} />
 			</Flex>
+			<Flex>
+				<Text fontWeight={"bold"} size="21">
+					{props.value}
+				</Text>
+			</Flex>
 		</Flex>
 	)
 }
