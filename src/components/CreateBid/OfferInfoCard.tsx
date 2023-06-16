@@ -38,6 +38,9 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 					{props.value}
 				</Text>
 			</Flex>
+			<Text size="12" color={"gray"}>
+				{props.description}
+			</Text>
 		</Flex>
 	)
 }
