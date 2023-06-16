@@ -8,6 +8,8 @@ type CreateBidFormProps = {}
 
 export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 	return (
-		
+		<Flex direction={"column"} w={"50%"}>
+			
+		</Flex>
 	)
 }
