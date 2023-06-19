@@ -125,7 +125,7 @@ export const InputName: React.FC<{
 	)
 }
 
-const InputNote: React.FC<{ text: string }> = ({ text }) => {
+export const InputNote: React.FC<{ text: string }> = ({ text }) => {
 	return (
 		<LeadText className="text-gray" fontSize={{ base: "12px", md: "14px" }}>
 			{text}
