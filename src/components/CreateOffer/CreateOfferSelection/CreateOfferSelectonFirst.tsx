@@ -107,8 +107,8 @@ export const CreateOfferSelectonFirst: React.FC<
 export const InputName: React.FC<{
 	tooltipText?: string
 	text: string
-	size?: React.ComponentProps<typeof InfoTooltip>["size"]
-}> = ({ text, tooltipText, size }) => {
+	tooltipSize?: React.ComponentProps<typeof InfoTooltip>["size"]
+}> = ({ text, tooltipText, tooltipSize }) => {
 	return (
 		<Grid templateColumns={"auto auto"} gap={"4px"} alignItems="center">
 			<LeadText className={"text-white"}>{text}</LeadText>
@@ -118,7 +118,7 @@ export const InputName: React.FC<{
 					width={"10px"}
 					infoText={tooltipText}
 					display="flex"
-					size={size}
+					size={tooltipSize}
 				/>
 			)}
 		</Grid>
