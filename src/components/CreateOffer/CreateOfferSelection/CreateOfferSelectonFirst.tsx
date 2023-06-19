@@ -153,7 +153,7 @@ const SelectWrapper: React.FCC = ({ children }) => {
 }
 
 type ControlContainerProps = {
-	titleLeft: React.ReactNode
+	titleLeft?: React.ReactNode
 	titleRight?: React.ReactNode
 	bottomLeft?: React.ReactNode
 	bottomRight?: React.ReactNode
