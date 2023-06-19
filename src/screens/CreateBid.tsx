@@ -117,7 +117,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 				</>
 			}
 		>
-			<div className="mx-auto w-full pt-12 lg:pt-16 flex-grow">
+			<div className="mx-auto w-full pt-6 lg:pt-8 flex-grow">
 				<CreateBidHydrator />
 			</div>
 		</PageWrapper>
