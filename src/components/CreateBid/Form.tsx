@@ -1,3 +1,4 @@
+import { CreateBidInputToken } from "@/components/CreateBid/InputToken"
 import { StepDisplay } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
