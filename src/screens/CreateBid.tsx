@@ -16,7 +16,7 @@ import {
 	PercentIconRaw,
 } from "@/icons"
 import { ExtractParams } from "@/utils/routes"
-import { Box, Flex } from "@chakra-ui/react"
+import { Box, Flex, Grid } from "@chakra-ui/react"
 import React from "react"
 import { useParams } from "react-router-dom"
 
@@ -61,11 +61,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						}
 					>
 						<Box overflow={"scroll"} w={"full"}>
-							<Flex
-								alignItems={"stretch"}
-								w="full"
-								gridGap={"32px"}
-							>
+							<Grid w="full" gridGap={"32px"} >
 								<CreateBidOfferInfoCard
 									name={"AVAILABLE"}
 									value={"0.099 ATOM"}
@@ -111,7 +107,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 									}
 									icon={ClockIconRaw}
 								/>
-							</Flex>
+							</Grid>
 						</Box>
 					</PageHeader>
 				</>
