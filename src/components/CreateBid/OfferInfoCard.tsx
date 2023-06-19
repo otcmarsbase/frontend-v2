@@ -17,7 +17,6 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 	return (
 		<Flex
 			direction={"column"}
-			flexGrow={"1"}
 			bg={"rgba(37, 38, 40, 0.4)"}
 			p={"12px 18px"}
 			borderRadius={"16px"}
