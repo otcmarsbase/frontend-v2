@@ -61,7 +61,7 @@ export const CreateBid: React.FC<CreateBidProps> = ({}) => {
 						}
 					>
 						<Box overflow={"scroll"} w={"full"}>
-							<Grid w="full" gridGap={"32px"} >
+							<Grid w="full" gridGap={"32px"} gridAutoFlow={"column"} gridTemplateColumns={"repeat(5,1fr)"}>
 								<CreateBidOfferInfoCard
 									name={"AVAILABLE"}
 									value={"0.099 ATOM"}
