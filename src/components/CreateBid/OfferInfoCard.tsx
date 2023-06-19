@@ -22,6 +22,7 @@ export const CreateBidOfferInfoCard: React.FC<CreateBidOfferInfoCardProps> = (
 			p={"12px 18px"}
 			borderRadius={"16px"}
 			minW={"220px"}
+			minH={"120px"}
 			overflowX={"auto"}
 		>
 			<Flex justifyContent={"space-between"} alignItems={"center"}>
