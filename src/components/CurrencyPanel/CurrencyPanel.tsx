@@ -1,3 +1,5 @@
+import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { Flex } from "@chakra-ui/react"
 import React from "react"
 
 type CurrencyPanelProps = {
@@ -6,5 +8,5 @@ type CurrencyPanelProps = {
 }
 
 export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
-	return <div></div>
+	return <Flex>{props.icon && <CurrencyIcon imgSrc={props.icon} />}</Flex>
 }
