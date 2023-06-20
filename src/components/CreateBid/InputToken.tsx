@@ -3,6 +3,9 @@ import {
 	InputName,
 	InputNote,
 } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
+import { CurrencyPanel } from "@/components/CurrencyPanel/CurrencyPanel"
+import { Input } from "@/components/Input/Input"
+import { InputRedText } from "@/components/Input/redText"
 import React from "react"
 
 type CreateBidInputTokenProps = {}
@@ -20,6 +23,10 @@ export const CreateBidInputToken: React.FC<CreateBidInputTokenProps> = (
 				/>
 			}
 			bottomLeft={<InputNote text="Market price: $8.684618" />}
-		></ControlContainer>
+		>
+			<CurrencyPanel
+			
+			/>
+		</ControlContainer>
 	)
 }
