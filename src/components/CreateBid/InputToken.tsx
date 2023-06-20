@@ -25,7 +25,9 @@ export const CreateBidInputToken: React.FC<CreateBidInputTokenProps> = (
 			bottomLeft={<InputNote text="Market price: $8.684618" />}
 		>
 			<CurrencyPanel
-			
+				icon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+				name="atom"
+				
 			/>
 		</ControlContainer>
 	)
