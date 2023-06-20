@@ -12,6 +12,7 @@ type CurrencyPanelProps = {
 export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
 	return (
 			bg={"dark.800"}
+			direction={"row"}
 				{props.icon && <CurrencyIcon imgSrc={props.icon} />}
 				{props.name && <LeadText>{props.name}</LeadText>}
 			</Flex>
