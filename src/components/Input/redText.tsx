@@ -9,6 +9,10 @@ type InputRedTextProps = {
 
 export const InputRedText: React.FC<InputRedTextProps> = (props) => {
 	return (
-		<div></div>
+		<Clickable className="flex items-center justify-center text-orange-500 px-1 rounded-sm bg-[#ff400933]">
+			<Text12Normal color={"orange.500"} onClick={props.onClick}>
+				{props.text}
+			</Text12Normal>
+		</Clickable>
 	)
 }
