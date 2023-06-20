@@ -15,4 +15,7 @@ export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
 				{props.icon && <CurrencyIcon imgSrc={props.icon} />}
 				{props.name && <LeadText>{props.name}</LeadText>}
 			</Flex>
+			<Flex grow={1}>{props.rightComponent}</Flex>
+		</Flex>
+	)
 }
