@@ -16,6 +16,7 @@ export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
 			alignItems={"center"}
 			px={"16px"}
 			py={"12px"}
+			borderRadius={"8px"}
 				{props.icon && <CurrencyIcon imgSrc={props.icon} />}
 				{props.name && <LeadText>{props.name}</LeadText>}
 			</Flex>
