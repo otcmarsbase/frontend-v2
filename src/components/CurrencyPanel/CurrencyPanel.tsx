@@ -5,9 +5,11 @@ import React from "react"
 type CurrencyPanelProps = {
 	icon: string
 	name: string
+	rightComponent?: React.ReactNode
 }
 
 export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
+	return (
 		<Flex direction={"row"}>
 			<Flex>
 				{props.icon && <CurrencyIcon imgSrc={props.icon} />}
