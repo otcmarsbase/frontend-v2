@@ -1,4 +1,5 @@
 import { CurrencyIcon } from "@/components/CurrencyIcon/CurrencyIcon"
+import { LeadText } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
