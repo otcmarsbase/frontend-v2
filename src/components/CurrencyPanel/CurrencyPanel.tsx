@@ -8,5 +8,9 @@ type CurrencyPanelProps = {
 }
 
 export const CurrencyPanel: React.FCC<CurrencyPanelProps> = (props) => {
-	return <Flex>{props.icon && <CurrencyIcon imgSrc={props.icon} />}</Flex>
+		<Flex direction={"row"}>
+			<Flex>
+				{props.icon && <CurrencyIcon imgSrc={props.icon} />}
+				{props.name && <LeadText>{props.name}</LeadText>}
+			</Flex>
 }
