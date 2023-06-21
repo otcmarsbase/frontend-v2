@@ -2,12 +2,14 @@ import { ControlContainer } from "@/components/CreateOffer/CreateOfferSelection/
 import { Input } from "@/components/Input/Input"
 import { RedControlLabel } from "@/components/Input/controlLabel"
 import { InputRedButton } from "@/components/Input/redButton"
+import { LeadText } from "@/components/Text/Typography"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
 type CreateBidInputTokenOutAmountProps = {
 	value: string
 	onChange: (value: string) => void
+	title?: string
 }
 
 export const CreateBidInputTokenOutAmount: React.FC<
@@ -15,7 +17,9 @@ export const CreateBidInputTokenOutAmount: React.FC<
 > = (props) => {
 	const isUserHasEnoughTokens = true
 	return (
-		<ControlContainer>
+		<ControlContainer
+			titleLeft={props.title && <LeadText>{props.title}</LeadText>}
+		>
 			<Input
 				value={props.value}
 				onChange={(e) => props.onChange(e.target.value)}
