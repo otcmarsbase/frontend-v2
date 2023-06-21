@@ -16,7 +16,15 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 				titleLink={<HowToUseBtn />}
 			/>
 			<Flex>
-				<CreateBidInputToken />
+				<CreateBidInputToken
+					title={"You will receive"}
+					titleTooltip={
+						"Indicate the token you would like to receive"
+					}
+					bottomText={"Market price: $8.684618"}
+					currencyIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+					currencyName="atom"
+				/>
 			</Flex>
 			<Flex className="pt-10">
 				<StepDisplay
