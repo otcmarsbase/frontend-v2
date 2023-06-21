@@ -8,7 +8,13 @@ import { Input } from "@/components/Input/Input"
 import { InputRedText } from "@/components/Input/redText"
 import React from "react"
 
-type CreateBidInputTokenProps = {}
+type CreateBidInputTokenProps = {
+	title: string
+	titleTooltip: string
+	bottomText: string
+	currencyIcon: string
+	currencyName: string
+}
 
 export const CreateBidInputToken: React.FC<CreateBidInputTokenProps> = (
 	props
