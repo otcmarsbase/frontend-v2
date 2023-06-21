@@ -1,3 +1,4 @@
+import { ControlContainer } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
 import { Input } from "@/components/Input/Input"
 import { RedControlLabel } from "@/components/Input/controlLabel"
 import { InputRedButton } from "@/components/Input/redButton"
@@ -14,17 +15,19 @@ export const CreateBidInputTokenOutAmount: React.FC<
 > = (props) => {
 	const isUserHasEnoughTokens = true
 	return (
-		<Input
-			value={props.value}
-			onChange={(e) => props.onChange(e.target.value)}
-			rightComponent={
-				<Flex gap={"1em"} alignItems={"center"}>
-					{isUserHasEnoughTokens && (
-						<InputRedButton onClick={() => {}} text="MAX" />
-					)}
-					<RedControlLabel>{"ATOM"}</RedControlLabel>
-				</Flex>
-			}
-		/>
+		<ControlContainer>
+			<Input
+				value={props.value}
+				onChange={(e) => props.onChange(e.target.value)}
+				rightComponent={
+					<Flex gap={"1em"} alignItems={"center"}>
+						{isUserHasEnoughTokens && (
+							<InputRedButton onClick={() => {}} text="MAX" />
+						)}
+						<RedControlLabel>{"ATOM"}</RedControlLabel>
+					</Flex>
+				}
+			/>
+		</ControlContainer>
 	)
 }
