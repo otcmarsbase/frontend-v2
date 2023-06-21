@@ -28,7 +28,7 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 				/>
 				<CreateBidInputTokenOutAmount onChange={() => {}} value="0.0" />
 			</Flex>
-			<Flex alignItems={"center"} gap={"32px"} mb={"32px"}>
+			<Flex alignItems={"start"} gap={"32px"} mb={"32px"}>
 				<CreateBidInputToken
 					title={"You will pay"}
 					titleTooltip={
