@@ -10,6 +10,8 @@ type CreateBidInputTokenOutAmountProps = {
 	value: string
 	onChange: (value: string) => void
 	title?: string
+	onMaxClick: () => void
+	symbol: string
 }
 
 export const CreateBidInputTokenOutAmount: React.FC<
