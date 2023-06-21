@@ -4,7 +4,6 @@ import {
 	InputNote,
 } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
 import { CurrencyPanel } from "@/components/CurrencyPanel/CurrencyPanel"
-import { Input } from "@/components/Input/Input"
 import { InputRedText } from "@/components/Input/redText"
 import React from "react"
 
