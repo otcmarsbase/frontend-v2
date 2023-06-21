@@ -22,6 +22,7 @@ export const CreateBidInputTokenOutAmount: React.FC<
 					{isUserHasEnoughTokens && (
 						<InputRedText onClick={() => {}} text="MAX" />
 					)}
+					<RedControlLabel>{"ATOM"}</RedControlLabel>
 				</Flex>
 			}
 		/>
