@@ -1,6 +1,6 @@
 import { Input } from "@/components/Input/Input"
 import { RedControlLabel } from "@/components/Input/controlLabel"
-import { InputRedText } from "@/components/Input/redText"
+import { InputRedButton } from "@/components/Input/redButton"
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 
@@ -20,7 +20,7 @@ export const CreateBidInputTokenOutAmount: React.FC<
 			rightComponent={
 				<Flex gap={"1em"} alignItems={"center"}>
 					{isUserHasEnoughTokens && (
-						<InputRedText onClick={() => {}} text="MAX" />
+						<InputRedButton onClick={() => {}} text="MAX" />
 					)}
 					<RedControlLabel>{"ATOM"}</RedControlLabel>
 				</Flex>

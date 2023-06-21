@@ -4,7 +4,7 @@ import {
 	InputNote,
 } from "@/components/CreateOffer/CreateOfferSelection/CreateOfferSelectonFirst"
 import { CurrencyPanel } from "@/components/CurrencyPanel/CurrencyPanel"
-import { InputRedText } from "@/components/Input/redText"
+import { InputRedButton } from "@/components/Input/redButton"
 import React from "react"
 
 type CreateBidInputTokenProps = {
@@ -33,7 +33,7 @@ export const CreateBidInputToken: React.FC<CreateBidInputTokenProps> = (
 				icon={props.currencyIcon}
 				name={props.currencyName}
 				rightComponent={
-					<InputRedText onClick={() => {}} text="address" />
+					<InputRedButton onClick={() => {}} text="address" />
 				}
 			/>
 		</ControlContainer>

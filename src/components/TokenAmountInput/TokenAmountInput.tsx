@@ -1,6 +1,6 @@
 import { Image } from "@/components/Image/Image"
 import { ErrorLine, Input } from "@/components/Input/Input"
-import { InputRedText } from "@/components/Input/redText"
+import { InputRedButton } from "@/components/Input/redButton"
 import { OneLine } from "@/components/OneLine/OneLine"
 import { Text } from "@/components/Text/Text"
 import {
@@ -50,7 +50,7 @@ export const TokenAmountInput: React.FCC<TokenAmountInputProps> = (props) => {
 				rightComponent={
 					<div>
 						{props.balance && (
-							<InputRedText
+							<InputRedButton
 								onClick={onMaxButtonClick}
 								text="MAX"
 							/>
