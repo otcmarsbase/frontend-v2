@@ -16,7 +16,7 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 				subtitle="Enter parameters for your bid"
 				titleLink={<HowToUseBtn />}
 			/>
-			<Flex>
+			<Flex alignItems={"center"}>
 				<CreateBidInputToken
 					title={"You will receive"}
 					titleTooltip={
