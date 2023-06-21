@@ -12,5 +12,14 @@ type CreateBidInputTokenOutAmountProps = {
 export const CreateBidInputTokenOutAmount: React.FC<
 	CreateBidInputTokenOutAmountProps
 > = (props) => {
-	return <div></div>
+	const isUserHasEnoughTokens = true
+	return (
+		<Input
+			value={props.value}
+			onChange={(e) => props.onChange(e.target.value)}
+			rightComponent={
+				
+			}
+		/>
+	)
 }
