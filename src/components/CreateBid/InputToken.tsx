@@ -22,16 +22,16 @@ export const CreateBidInputToken: React.FC<CreateBidInputTokenProps> = (
 		<ControlContainer
 			titleLeft={
 				<InputName
-					text="You will receive"
-					tooltipText="Indicate the token you would like to receive"
+					text={props.title}
+					tooltipText={props.titleTooltip}
 					tooltipSize={"s"}
 				/>
 			}
-			bottomLeft={<InputNote text="Market price: $8.684618" />}
+			bottomLeft={<InputNote text={props.bottomText} />}
 		>
 			<CurrencyPanel
-				icon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
-				name="atom"
+				icon={props.currencyIcon}
+				name={props.currencyName}
 				rightComponent={
 					<InputRedText onClick={() => {}} text="address" />
 				}
