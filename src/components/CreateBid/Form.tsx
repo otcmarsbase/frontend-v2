@@ -1,4 +1,5 @@
 import { CreateBidInputToken } from "@/components/CreateBid/InputToken"
+import { CreateBidInputTokenOutAmount } from "@/components/CreateBid/InputTokenOutAmount"
 import { StepDisplay } from "@/components/CreateOffer/CreateOfferDetails/CreateOfferDetails"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
@@ -25,6 +26,7 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 					currencyIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
 					currencyName="atom"
 				/>
+				<CreateBidInputTokenOutAmount onChange={() => {}} value="0.0" />
 			</Flex>
 			<Flex className="pt-10">
 				<StepDisplay
