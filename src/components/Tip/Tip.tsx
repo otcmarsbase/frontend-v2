@@ -6,5 +6,5 @@ type TipProps = {
 }
 
 export const Tip: React.FCC<TipProps> = (props) => {
-	return <div></div>
+	return <Flex p={"16px 20px"} borderRadius={"12px"}></Flex>
 }
