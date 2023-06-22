@@ -10,7 +10,7 @@ type CreateBidHydratorProps = {}
 export const CreateBidHydrator: React.FCC<CreateBidHydratorProps> = (props) => {
 	
 	return (
-		<Flex>
+		<Flex gap={"32px"} alignItems={"start"}>
 			<CreateBidForm />
 			<CreateBidFinalInfo />
 		</Flex>
