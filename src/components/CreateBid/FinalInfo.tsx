@@ -15,6 +15,7 @@ export const CreateBidFinalInfo: React.FC<CreateBidFinalInfoProps> = (
 					fromIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
 					toIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
 				>
+					<LeadText fontWeight={"semibold"}>ATOM/USDC</LeadText>
 				</FromCurrToCurr>
 		</Flex>
 	)
