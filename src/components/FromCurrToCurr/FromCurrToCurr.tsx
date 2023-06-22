@@ -10,11 +10,12 @@ type FromCurrToCurrProps = {
 
 export const FromCurrToCurr: React.FCC<FromCurrToCurrProps> = (props) => {
 	return (
-		<Flex alignItems={"center"}>
+			<Flex>
 				<CurrencyIcon size={props.size} imgSrc={props.fromIcon} />
 				<div style={{ marginLeft: "-10px" }}>
 					<CurrencyIcon size={props.size} imgSrc={props.toIcon} />
 				</div>
+			</Flex>
 			{props.children}
 		</Flex>
 	)
