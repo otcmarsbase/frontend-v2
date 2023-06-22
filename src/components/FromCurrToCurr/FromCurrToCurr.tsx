@@ -5,6 +5,7 @@ import React from "react"
 type FromCurrToCurrProps = {
 	fromIcon: string
 	toIcon: string
+	size?: React.ComponentProps<typeof CurrencyIcon>["size"]
 }
 
 export const FromCurrToCurr: React.FC<FromCurrToCurrProps> = (props) => {
