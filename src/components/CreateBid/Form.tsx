@@ -26,7 +26,12 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 					currencyIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
 					currencyName="ATOM"
 				/>
-				<CreateBidInputTokenOutAmount onChange={() => {}} value="0.0" />
+				<CreateBidInputTokenOutAmount
+					symbol="ATOM"
+					onChange={() => {}}
+					value="0.0"
+					onMaxClick={() => {}}
+				/>
 			</Flex>
 			<Flex alignItems={"start"} gap={"32px"} mb={"32px"}>
 				<CreateBidInputToken
@@ -38,7 +43,13 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 					currencyIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
 					currencyName="USD Coin"
 				/>
-				<CreateBidInputTokenOutAmount title="balance: 0" onChange={() => {}} value="0.0" />
+				<CreateBidInputTokenOutAmount
+					title="balance: 0"
+					onChange={() => {}}
+					value="0.0"
+					symbol="ATOM"
+					onMaxClick={() => {}}
+				/>
 			</Flex>
 			<Flex className="pt-10">
 				<StepDisplay
