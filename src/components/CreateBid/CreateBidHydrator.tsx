@@ -1,3 +1,4 @@
+import { CreateBidFinalInfo } from "@/components/CreateBid/FinalInfo"
 import { CreateBidForm } from "@/components/CreateBid/Form"
 import { FormControlHeader } from "@/components/FormControlHeader/FormControlHeader"
 import { HowToUseBtn } from "@/components/HowToUseBtn/HowToUseBtn"
@@ -11,6 +12,7 @@ export const CreateBidHydrator: React.FCC<CreateBidHydratorProps> = (props) => {
 	return (
 		<Flex>
 			<CreateBidForm />
+			<CreateBidFinalInfo />
 		</Flex>
 	)
 }
