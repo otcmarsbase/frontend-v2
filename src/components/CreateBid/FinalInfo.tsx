@@ -9,7 +9,7 @@ export const CreateBidFinalInfo: React.FC<CreateBidFinalInfoProps> = (
 	props
 ) => {
 	return (
-		<Flex bg={"rgba(36, 37, 45, 0.3)"} borderRadius={"12px"} w={"50%"}>
+		<Flex bg={"rgba(36, 37, 45, 0.3)"} borderRadius={"12px"} w={"50%"} direction={"column"}>
 			<Flex px={"24px"}>
 				<FromCurrToCurr
 					size="m"
