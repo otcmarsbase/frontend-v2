@@ -44,7 +44,7 @@ export const CreateBidForm: React.FC<CreateBidFormProps> = (props) => {
 				<StepDisplay
 					buttons={{
 						accept: {
-							text: "ACCEPT",
+							text: "BID TOO LOW",
 							onClick: () => {},
 						},
 						approve: {
