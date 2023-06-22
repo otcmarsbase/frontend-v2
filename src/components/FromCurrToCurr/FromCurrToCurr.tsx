@@ -8,7 +8,7 @@ type FromCurrToCurrProps = {
 	size?: React.ComponentProps<typeof CurrencyIcon>["size"]
 }
 
-export const FromCurrToCurr: React.FC<FromCurrToCurrProps> = (props) => {
+export const FromCurrToCurr: React.FCC<FromCurrToCurrProps> = (props) => {
 	return (
 		<Flex alignItems={"center"}>
 			<CurrencyIcon size="l" imgSrc={props.fromIcon} />
