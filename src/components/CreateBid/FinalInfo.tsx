@@ -10,7 +10,12 @@ export const CreateBidFinalInfo: React.FC<CreateBidFinalInfoProps> = (
 ) => {
 	return (
 		<Flex bg={"rgba(36, 37, 45, 0.3)"} borderRadius={"12px"} w={"50%"}>
-			
+				<FromCurrToCurr
+					size="m"
+					fromIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png"
+					toIcon="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+				>
+				</FromCurrToCurr>
 		</Flex>
 	)
 }
