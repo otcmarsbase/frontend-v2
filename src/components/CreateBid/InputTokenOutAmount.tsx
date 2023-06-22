@@ -28,9 +28,9 @@ export const CreateBidInputTokenOutAmount: React.FC<
 				rightComponent={
 					<Flex gap={"1em"} alignItems={"center"}>
 						{isUserHasEnoughTokens && (
-							<InputRedButton onClick={() => {}} text="MAX" />
+							<InputRedButton onClick={props.onMaxClick} text="MAX" />
 						)}
-						<RedControlLabel>{"ATOM"}</RedControlLabel>
+						<RedControlLabel>{props.symbol}</RedControlLabel>
 					</Flex>
 				}
 			/>
