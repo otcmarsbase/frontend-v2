@@ -1,0 +1,92 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nx", "import"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ],
+        "import/prefer-default-export": "off",
+        // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#importorder-enforce-a-convention-in-module-import-order
+        "import/order": [
+          "error",
+          {
+            // Не дефолтное значение, но на момент комментария описанное в основном
+            // примере в шапке правила, и субъективно выглядящее наиболее адекватно
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index",
+              "object",
+              "unknown"
+            ],
+            "pathGroups": [
+              { "pattern": "@/**", "group": "internal" },
+              // React и MobX библиотеки ставить первыми из `external`,
+              // и только после них остальные упорядочивать алфавитно
+              // (`alphabetize` ниже)
+              {
+                "pattern": "+(react|react-*)",
+                "group": "external",
+                "position": "before"
+              },
+              {
+                "pattern": "+(mobx|mobx-*)",
+                "group": "external",
+                "position": "before"
+              },
+              // Стили в конец списка
+              {
+                "pattern": "**.scss",
+                "patternOptions": { "matchBase": true },
+                "group": "unknown",
+                "position": "after"
+              }
+            ],
+            // Позволять `pathGroups` с `pattern: '@/**'` выше воспринимать
+            // `@/**` не как `'external'`, а как `'internal'` модули
+            "pathGroupsExcludedImportTypes": ["builtin"],
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+            "newlines-between": "never"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}
