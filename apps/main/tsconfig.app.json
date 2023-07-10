@@ -19,5 +19,13 @@
     "src/**/*.spec.jsx",
     "src/**/*.test.jsx"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "../../packages/router/src/index.ts"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../packages/router/src/index.ts",
+    "../../components/router/src/index.ts",
+    "../../tools/fonts.d.ts"
+  ]
 }

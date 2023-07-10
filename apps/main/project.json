@@ -18,7 +18,11 @@
         "assets": [
           "apps/main/src/favicon.ico",
           "apps/main/src/assets",
-          "packages/components/src/assets"
+          {
+            "input": "packages/components/src/assets",
+            "glob": "**/*",
+            "output": "assets"
+          }
         ],
         "styles": ["apps/main/src/styles.scss"],
         "scripts": [],

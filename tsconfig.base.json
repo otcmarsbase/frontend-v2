@@ -18,6 +18,8 @@
       "@/components": ["packages/components/src/*"],
       "@/main/*": ["apps/main/src/*"],
       "@/router": ["packages/router/src/*"],
+      "@otcmarsbase/components1": ["packages/components1/src/index.ts"],
+      "@otcmarsbase/components": ["packages/components/src/index.ts"],
       "@otcmarsbase/router": ["packages/router/src/index.ts"]
     }
   },

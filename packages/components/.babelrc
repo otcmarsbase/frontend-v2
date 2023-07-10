@@ -4,8 +4,7 @@
       "@nx/react/babel",
       {
         "runtime": "automatic",
-        "useBuiltIns": "usage",
-        "corejs": 3
+        "useBuiltIns": "usage"
       }
     ]
   ],

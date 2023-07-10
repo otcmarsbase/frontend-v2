@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components';
 import * as pages from '@/pages';
 import { PageRoute, PagesProvider } from '@/router';
 
@@ -8,7 +9,12 @@ const routes: PageRoute[] = [{ path: '/main', component: pages.main.home }];
 
 export function App() {
   return (
-    <PagesProvider startRouteName={pages.main.home.routeName} routes={routes} />
+    <ThemeProvider>
+      <PagesProvider
+        startRouteName={pages.main.home.routeName}
+        routes={routes}
+      />
+    </ThemeProvider>
   );
 }
 

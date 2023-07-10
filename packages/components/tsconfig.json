@@ -4,11 +4,7 @@
     "allowJs": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "strict": true
   },
   "files": [],
   "include": [],
@@ -17,7 +13,7 @@
       "path": "./tsconfig.lib.json"
     },
     {
-      "path": "./.storybook/tsconfig.json"
+      "path": "./tsconfig.spec.json"
     }
   ],
   "extends": "../../tsconfig.base.json"

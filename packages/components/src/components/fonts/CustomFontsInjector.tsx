@@ -1,6 +1,6 @@
 import { Global } from '@emotion/react';
-import EurofontExtendedCWoff from '@/assets/fonts/EurofontExtendedC-Bold.woff';
-import EurofontExtendedCWoff2 from '@/assets/fonts/EurofontExtendedC-Bold.woff2';
+import EurofontExtendedCWoff from '../../assets/fonts/EurofontExtendedC-Bold.woff';
+import EurofontExtendedCWoff2 from '../../assets/fonts/EurofontExtendedC-Bold.woff2';
 
 export const CustomFontsInjection = () => {
   return (
