@@ -1,4 +1,4 @@
-import { HTMLAttributeAnchorTarget } from 'react';
+import {HTMLAttributeAnchorTarget, ReactNode} from 'react';
 import { HStack, Box, Image, Divider, VStack, Link } from '@chakra-ui/react';
 import LogoPng from '../../assets/logo.png';
 
@@ -10,7 +10,7 @@ export type HeaderMenuItem = {
 
 export interface HeaderProps {
   menuItems: HeaderMenuItem[];
-  rightContent: React.ReactNode;
+  rightContent: ReactNode;
   logoHref?: string;
 }
 
@@ -45,6 +45,7 @@ export const Header = ({
                   target={href?.target}
                   fontFamily="menuItem"
                   onClick={onClick}
+                  key={label}
                 >
                   {label}
                 </Link>

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Header } from '@/components';
 import { RoutedComponent } from '@/router';
+import {Web3ModalComponent} from "@/widgets/web3modal/ui/Web3Modal";
 
 export const MainHomePage = observer(() => {
   return (
@@ -10,7 +11,7 @@ export const MainHomePage = observer(() => {
           { label: 'OTC', href: { url: '#' } },
           { label: 'Create offer', href: { url: '#' } },
         ]}
-        rightContent={<></>}
+        rightContent={<Web3ModalComponent/>}
       />
     </div>
   );

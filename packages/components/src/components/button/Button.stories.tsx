@@ -14,5 +14,5 @@ type Story = StoryObj<typeof Button>;
  * to learn how to use render functions.
  */
 export const WithGradient: Story = {
-  render: () => <Button variant="with-gradient" label="Create offer" />,
+  render: () => <Button variant="with-gradient" children="Create offer" />,
 };
