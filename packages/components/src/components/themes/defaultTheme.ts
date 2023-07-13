@@ -1,6 +1,7 @@
 import { extendBaseTheme } from '@chakra-ui/react';
 import chakraTheme, { ChakraTheme } from '@chakra-ui/theme';
 import { ButtonTheme } from '../button/Button.theme';
+import { CheckboxTheme } from '../checkbox/Checkbox.theme';
 
 const darkTheme: Partial<ChakraTheme> = {
   styles: {
@@ -13,6 +14,7 @@ const darkTheme: Partial<ChakraTheme> = {
   },
   components: {
     Button: ButtonTheme,
+    Checkbox: CheckboxTheme
   },
   fonts: {
     body: `'Inter Variable', sans-serif`,

@@ -13,13 +13,11 @@ export interface ButtonProps extends Omit<ChakraButtonProps, 'children' | 'varia
 export const Button = ({
   children,
   variant = 'with-gradient',
-  className,
   fullWidth,
   ...chakraProps
 }: ButtonProps) => {
   return (
     <ChakraButton
-      className={className ? className : undefined}
       variant={variant}
       width={fullWidth ? '100%' : 'auto'}
       {...chakraProps}
