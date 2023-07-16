@@ -1,4 +1,4 @@
-import Layouts from '@layouts';
+import Layouts from '@app/layouts';
 
 const Create: React.FC = () => {
   return <div>List</div>;

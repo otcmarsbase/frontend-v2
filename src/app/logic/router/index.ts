@@ -2,7 +2,7 @@ import browserPlugin from 'router5-plugin-browser';
 import loggerPlugin from 'router5-plugin-logger';
 import { createRouter, generateRoutes, convertRouterPathToName, convertRouterPathToPath } from '@packages/router5-react-auto';
 
-import pages from 'src/pages';
+import pages from '@app/pages';
 
 const homePageItem = 'home';
 const paramsPageItem = '__';

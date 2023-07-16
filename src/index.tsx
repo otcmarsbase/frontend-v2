@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import { RouterProvider } from '@packages/router5-react-auto';
 import { override } from '@packages/react-runtime-layout';
 
-import { AppLoad, GlobalPreload } from '@shared/ui-kit';
-
-import { router } from '@logic/router';
-import { onAppLoad } from '@logic/onAppLoad';
-import { ModalProvider } from '@logic/modal';
-import pages from '@pages';
+import { App } from './app';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -18,10 +11,7 @@ override();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <AppLoad loader={GlobalPreload} preload={onAppLoad}>
-      <ModalProvider />
-      <RouterProvider router={router} notFoundComponent={pages.errors._404} />
-    </AppLoad>
+    <App />
   </React.StrictMode>,
 );
 

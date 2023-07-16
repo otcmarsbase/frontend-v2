@@ -1,5 +1,5 @@
-import pages from '@pages';
-import { router } from '@logic/router';
+import pages from '@app/pages';
+import { router } from '@app/logic';
 
 const Home: React.FC = () => {
   return (
