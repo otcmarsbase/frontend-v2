@@ -24,6 +24,13 @@
     "incremental": true,
 
     "paths": {
+      "@logic": ["./src/logic"],
+      "@logic/*": ["./src/logic/*"],
+      "@layouts": ["./src/layouts"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@pages": ["./src/pages"],
+      "@pages/*": ["./src/pages/*"],
+
       "@shared/*": ["./src/shared/*"],
       "@packages/*": ["./src/packages/*"]
     }

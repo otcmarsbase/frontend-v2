@@ -5,11 +5,11 @@ import { createPortalController, createPortalProvider } from './internal';
 export function createPortal(store?: PortalStoreAdapter) {
   store = store ?? createInMemoryPortalStoreAdapter();
 
-  const Root = createPortalProvider(store);
+  const Provider = createPortalProvider(store);
   const Controller = createPortalController(store);
 
   return {
-    Root,
+    Provider,
     Controller,
   };
 }
