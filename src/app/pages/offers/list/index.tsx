@@ -1,7 +1,7 @@
 import Layouts from '@app/layouts';
 
-const Create: React.FC = () => {
-  return <div>List</div>;
+const Create: React.FC<{ prop: string }> = ({ prop }) => {
+  return <div>List {prop}</div>;
 };
 
 Create.getLayout = ({ children }) => {

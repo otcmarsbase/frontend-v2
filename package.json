@@ -6,6 +6,7 @@
     "@berish/class": "^1.0.2",
     "@berish/serber": "^1.5.0",
     "@craco/craco": "^7.1.0",
+    "@hookform/resolvers": "^3.1.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -16,8 +17,10 @@
     "browserify-zlib": "^0.2.0",
     "crypto-browserify": "^3.12.0",
     "https-browserify": "^1.0.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.1",
     "react-scripts": "5.0.1",
     "router5": "^8.0.1",
     "router5-plugin-browser": "^8.0.1",
@@ -26,7 +29,8 @@
     "stream-http": "^3.2.0",
     "typescript": "^4.4.2",
     "uuid": "^9.0.0",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^1.2.0"
   },
   "scripts": {
     "start": "craco start",
@@ -83,6 +87,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/uuid": "^9.0.2",
     "lint-staged": "^13.2.3"
   }
