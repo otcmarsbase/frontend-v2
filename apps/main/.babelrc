@@ -7,5 +7,5 @@
       }
     ]
   ],
-  "plugins": []
+  "plugins": ["inline-react-svg"]
 }
