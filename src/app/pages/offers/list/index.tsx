@@ -5,7 +5,7 @@ const Create: React.FC<{ prop: string }> = ({ prop }) => {
 };
 
 Create.getLayout = ({ children }) => {
-  return <Layouts.TestLayout>{children}</Layouts.TestLayout>;
+  return <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 };
 
 export default Create;

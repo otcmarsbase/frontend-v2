@@ -1,4 +1,6 @@
 const path = require('path');
+const WebpackShellPlugin = require('webpack-shell-plugin-next');
+const { addPlugins } = require('@craco/craco');
 
 module.exports = {
   webpack: {

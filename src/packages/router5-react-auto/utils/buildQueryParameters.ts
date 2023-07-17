@@ -1,7 +1,12 @@
 export function buildQueryParameters(params: { [key: string]: any }) {
   const keyBuild = (key: string, value: any): { [key: string]: any } => {
-    if (!value && typeof value !== 'boolean' && typeof value !== 'number') return { [key]: null };
-    if (typeof value === 'number' || typeof value === 'string' || typeof value === 'boolean')
+    if (!value && typeof value !== 'boolean' && typeof value !== 'number')
+      return { [key]: null };
+    if (
+      typeof value === 'number' ||
+      typeof value === 'string' ||
+      typeof value === 'boolean'
+    )
       return { [key]: value.toString() };
     if (Array.isArray(value)) {
       if (value.length === 0) return { [key]: '[]' };

@@ -45,7 +45,7 @@
     "eject": "craco eject",
     "clean": "rm -rf node_modules && rm -f yarn.lock && rm -f tsconfig.tsbuildinfo",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "gen:theme-types": "chakra-cli tokens src/shared/theme/index.ts --out src/theme.d.ts"
+    "gen:theme-typings": "chakra-cli tokens src/shared/theme/index.ts --out src/theme-typings.d.ts"
   },
   "husky": {
     "hooks": {
@@ -55,30 +55,6 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
-    ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.ts?(x)"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      },
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
     ]
   },
   "browserslist": {
@@ -97,6 +73,9 @@
     "@chakra-ui/cli": "^2.4.1",
     "@types/lodash": "^4.14.195",
     "@types/uuid": "^9.0.2",
-    "lint-staged": "^13.2.3"
+    "eslint-plugin-import": "^2.27.5",
+    "lint-staged": "^13.2.3",
+    "webpack-shell-plugin": "^0.5.0",
+    "webpack-shell-plugin-next": "^2.3.1"
   }
 }

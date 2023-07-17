@@ -1,3 +1,3 @@
-import { TestLayout } from './testLayout';
+import { AppLayout } from './appLayout';
 
-export default { TestLayout };
+export default { AppLayout };

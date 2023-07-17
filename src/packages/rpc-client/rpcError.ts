@@ -1,6 +1,11 @@
 import { RpcResponseError } from './schema';
 
-export const RpcErrorSystemList = ['InternalError', 'ParseError', 'InvalidRequest', 'MethodNotFound'];
+export const RpcErrorSystemList = [
+  'InternalError',
+  'ParseError',
+  'InvalidRequest',
+  'MethodNotFound',
+];
 
 export class RpcError extends Error {
   public name: string = null;
@@ -24,13 +29,22 @@ export class RpcError extends Error {
     return RpcError.Custom('InternalError', 'Internal RPC error.');
   }
   static ParseError() {
-    return RpcError.Custom('ParseError', 'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text');
+    return RpcError.Custom(
+      'ParseError',
+      'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text',
+    );
   }
   static InvalidRequest() {
-    return RpcError.Custom('InvalidRequest', 'The JSON sent is not a valid Request object');
+    return RpcError.Custom(
+      'InvalidRequest',
+      'The JSON sent is not a valid Request object',
+    );
   }
   static MethodNotFound() {
-    return RpcError.Custom('MethodNotFound', 'The method does not exist / is not available');
+    return RpcError.Custom(
+      'MethodNotFound',
+      'The method does not exist / is not available',
+    );
   }
 
   static fromJSON(json: RpcResponseError) {
