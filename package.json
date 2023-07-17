@@ -5,7 +5,11 @@
   "dependencies": {
     "@berish/class": "^1.0.2",
     "@berish/serber": "^1.5.0",
+    "@chakra-ui/react": "^2.7.1",
     "@craco/craco": "^7.1.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource-variable/inter": "^5.0.5",
     "@hookform/resolvers": "^3.1.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
@@ -16,6 +20,8 @@
     "@types/react-dom": "^18.0.0",
     "browserify-zlib": "^0.2.0",
     "crypto-browserify": "^3.12.0",
+    "focus-visible": "^5.2.0",
+    "framer-motion": "^10.12.21",
     "https-browserify": "^1.0.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -38,7 +44,8 @@
     "test": "craco test",
     "eject": "craco eject",
     "clean": "rm -rf node_modules && rm -f yarn.lock && rm -f tsconfig.tsbuildinfo",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "gen:theme-types": "chakra-cli tokens src/shared/theme/index.ts --out src/theme.d.ts"
   },
   "husky": {
     "hooks": {
@@ -87,6 +94,7 @@
     ]
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.4.1",
     "@types/lodash": "^4.14.195",
     "@types/uuid": "^9.0.2",
     "lint-staged": "^13.2.3"
