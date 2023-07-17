@@ -1,4 +1,5 @@
 import pages from '@app/pages';
+import Layouts from '@app/layouts';
 import { router } from '@app/logic';
 
 const Home: React.FC = () => {
@@ -14,6 +15,10 @@ const Home: React.FC = () => {
       </button>
     </div>
   );
+};
+
+Home.getLayout = ({ children }) => {
+  return <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 };
 
 export default Home;
