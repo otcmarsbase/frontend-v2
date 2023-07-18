@@ -1,5 +1,4 @@
 import {ReactNode} from "react";
-
 export const enum IInvAccType {
     INDIVIDUAL = 'Individual',
     VC = 'VC',
@@ -7,7 +6,6 @@ export const enum IInvAccType {
     FAMILY_OFFICE = 'Family Office',
     DAO = 'DAO'
 }
-
 export const InvAccTypes: IInvAccType[] = [
     IInvAccType.INDIVIDUAL,
     IInvAccType.VC,
@@ -15,24 +13,26 @@ export const InvAccTypes: IInvAccType[] = [
     IInvAccType.FAMILY_OFFICE,
     IInvAccType.DAO
 ]
-
+export type ShemaTypes = 'ProjectName' | 'ProjectWebsite' | 'lotType' | 'Telegram' | 'isReAssigned' | 'isDirectSeller' | 'isAdmToBuy' | 'isDataPickerDisabled' | 'isTokenWarrant' | 'typesOfSeller' | 'typesOfBuyer' | 'deadlineDate'
 export interface IRawFieldProps {
-    handleChange: (value: string) => void,
-    value: string,
-    label: string
+    value: any,
+    id:ShemaTypes,
+    register: any;
+    label: string;
+    errors: any;
+    handleChange: (name:ShemaTypes,value:string)=>void
 }
-
 export interface IRawCheckboxProps {
-    handleChange: (value: boolean) => void,
+    handleChange: (name:ShemaTypes,value: boolean) => void,
     value: boolean,
-    label: string
+    label: string,
+    register: any;
+    id: ShemaTypes
 }
-
 export const Fields = {
     PROJECT_NAME: 'Project Name',
     PROJECT_WEBSITE: 'Project Website'
 }
-
 export const enum ILotType {
     SAFE = 'SAFE',
     SAFT = 'SAFT',

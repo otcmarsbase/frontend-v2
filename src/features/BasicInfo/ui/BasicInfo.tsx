@@ -1,161 +1,107 @@
 import {
-    Box,
     Button,
-    ButtonGroup,
-    Checkbox,
-    HStack,
-    Input,
     VStack,
-    FormControl,
-    FormErrorMessage,
-    FormLabel
 } from "@chakra-ui/react";
-import {useState} from "react";
 import _ from "lodash";
 import {DatePickerComp} from "src/features/DataPicker";
 import {useForm} from '@shared/ui-kit';
 import * as yup from 'yup';
 import {
     Fields,
-    IInvAccProps,
-    IInvAccType,
     ILotType,
-    InvAccTypes,
-    IRawCheckboxProps,
-    IRawFieldProps, LotTypes
+    InvAccTypes,LotTypes, ShemaTypes
 } from "../types";
+import {RawField} from "./RawField";
+import {MultiSelectWrapper} from "./MultiSelectWrapper";
+import {RawCheckbox} from "./RawCheckbox";
 
-const RawCheckbox = ({handleChange, value, label}: IRawCheckboxProps) => {
-    const schema = yup.object({
-        [label]: yup.string().required(`${label} is required`)
-    });
-
-    const {register} = useForm({schema});
-
-
-    return (
-        <HStack>
-            <FormControl>
-                <Checkbox {...register(label, {onChange: () => handleChange(!value)})} checked={value}>
-                    {label}
-                </Checkbox>
-            </FormControl>
-        </HStack>
-    )
-}
-
-const RawField = ({handleChange, value, label}: IRawFieldProps) => {
-    const schema = yup.object({
-        [label]: yup.string().required(`${label} is required`)
-    });
-
-    const {
-        register,
-        isRequired,
-        formState: {errors},
-    } = useForm({schema});
-
-    return (
-        <HStack>
-            <FormControl
-                isRequired={isRequired(label)}
-                isInvalid={Boolean(errors[label])}
-            >
-                <FormLabel>{label}</FormLabel>
-                <Input placeholder={label}
-                       value={value}
-                       {...register(label, {onChange: (e) => handleChange(e.currentTarget.value)})
-                       }
-                />
-                {errors[label] ?
-                    <FormErrorMessage>{errors[label].message}</FormErrorMessage>
-                    :
-                    <Box height={'25px'}
-                    />
-                }
-
-            </FormControl>
-        </HStack>
-    )
-}
-
-// const RawButton = ({handleChange, label}: IRawButtonProps) => {
-//     const schema = yup.object({
-//         [label]: yup.string()
-//     });
-//
-//     const {register} = useForm({schema});
-//     return (
-//         <Button id={label} {...register[label]} onClick={(e) => handleChange(e.currentTarget.id as ILotType)}>
-//             {label}
-//         </Button>
-//     )
-//
-// }
-const MultiSelectWrapper = ({handleChange, data, label, children}: IInvAccProps) => {
-    return (
-        <HStack>
-            <Box>{label}</Box>
-            <ButtonGroup>
-                {data.map(item => <Button
-                    key={item}
-                    id={item}
-                    onClick={(e) => handleChange(e.currentTarget.id as IInvAccType)}
-                >
-                    {item}
-                </Button>)}
-                {children}
-            </ButtonGroup>
-        </HStack>
-    )
-}
+const schema = yup.object({
+    ['ProjectName']: yup.string().required(`Project Name is required`),
+    ['ProjectWebsite']: yup.string().required(`Project Website is required`),
+    ['lotType']: yup.string().required(`Need to select at least one`),
+    ['typesOfSeller']: yup.array(),
+    ['typesOfBuyer']: yup.array(),
+    ['Telegram']: yup.string().required(`Telegram is required`),
+    ['isReAssigned']: yup.boolean(),
+    ['deadlineDate']: yup.string(),
+    ['isDirectSeller']: yup.boolean(),
+    ['isAdmToBuy']: yup.boolean(),
+    ['isDataPickerDisabled']: yup.boolean(),
+    ['isTokenWarrant']: yup.boolean()
+});
 
 export function BasicInfo() {
-    const [projectName, setProjectName] = useState<string>('')
-    const [projectWebsite, setProjectWebsite] = useState<string>('')
-    const [lotType, setLotType] = useState<ILotType | null>(null)
-    const [invAccType, setInvAccType] = useState<IInvAccType[]>([])
-    const [telegram, setTelegram] = useState<string>('')
-    const [isReAssigned, setIsReAssign] = useState<boolean | null>(null)
-    const [isDirectSeller, setIsDirectSeller] = useState<boolean | null>(null);
-    const [isAdmToBuy, setIsAdmToBuy] = useState<boolean | null>(null);
-    const [isDataPickerDisabled, setIsDataPickerDisabled] = useState<boolean | null>(null)
-    const [isTokenWarrant, setIsTokenWarrant] = useState<boolean | null>(null)
+    const {
+        register,
+        getValues,
+        setValue,
+        watch,
+        formState: {errors},
+    } = useForm({schema, defaultValues:{
+            typesOfBuyer:[],
+            typesOfSeller:[]
+        }});
+
+    const lotType = watch('lotType');
+
     const selectTypeOfSeller = (accType) => {
-        if (_.includes(invAccType, accType)) {
-            setInvAccType(prev => _.without(invAccType, accType));
+        const currentSelletTypes = getValues('typesOfSeller')
+        if (_.includes(currentSelletTypes, accType)) {
+            setValue('typesOfSeller', _.without(currentSelletTypes, accType));
         } else {
-            setInvAccType(prev => _.concat(invAccType, accType));
+            setValue('typesOfSeller', _.concat(currentSelletTypes, accType));
         }
     }
 
     function selectTypeOfBuyer(accType) {
-        if (_.includes(invAccType, accType)) {
-            setInvAccType(prev => _.without(invAccType, accType));
+        const currentBuyerTypes = getValues('typesOfBuyer');
+        if (_.includes(currentBuyerTypes, accType)) {
+            setValue('typesOfBuyer', _.without(currentBuyerTypes, accType));
         } else {
-            setInvAccType(prev => _.concat(invAccType, accType));
+            setValue('typesOfBuyer', _.concat(currentBuyerTypes, accType));
         }
     }
 
     return (
         <VStack>
             <Button
-                onClick={() => console.log('invAccType', invAccType)}>
+                onClick={() => console.log('invAccType', getValues())}>
                 checker dev
             </Button>
-            <RawField handleChange={setProjectName} value={projectName} label={Fields.PROJECT_NAME}/>
-            <RawField handleChange={setProjectWebsite} value={projectWebsite} label={Fields.PROJECT_WEBSITE}/>
+            <RawField
+                register={register}
+                errors={errors}
+                handleChange={(id,value)=> setValue(id, value)}
+                // isRequired={isRequired}
+                id={'ProjectName'}
+                value={getValues(Fields.PROJECT_NAME as ShemaTypes)}
+                label={Fields.PROJECT_NAME}
+            />
+            <RawField
+                register={register}
+                errors={errors}
+                id={'ProjectWebsite'}
+                handleChange={(id,value)=> {
+                    console.log('id',id,value)
+                    setValue(id, value)
+                }}
+                // isRequired={isRequired}
+                value={getValues(Fields.PROJECT_WEBSITE as ShemaTypes)}
+                label={Fields.PROJECT_WEBSITE}
+            />
             <MultiSelectWrapper
-                handleChange={setLotType}
+                handleChange={(value)=>setValue('lotType', value)}
                 data={LotTypes}
                 label={'Type of lot'}
                 children={
                     <>
                         {lotType === ILotType.SAFE ?
                             <RawCheckbox
-                                value={isTokenWarrant}
+                                register={register}
+                                id={'isTokenWarrant'}
+                                value={getValues('isTokenWarrant')}
                                 label={'Token Warrant checkbox'}
-                                handleChange={() => setIsTokenWarrant(!isTokenWarrant)}/>
+                                handleChange={(id,value) => setValue(id,value)}/>
                             : null}
                     </>
                 }
@@ -168,19 +114,26 @@ export function BasicInfo() {
                 children={null}
             />
             <RawCheckbox
-                value={isDirectSeller}
+                register={register}
+                id={'isDirectSeller'}
+                value={getValues('isDirectSeller')}
                 label={'I am direct seller'}
-                handleChange={() => setIsDirectSeller(() => !isDirectSeller)}
+                handleChange={(id,value) => setValue(id,value)}
             />
             <RawField
-                handleChange={(text) => setTelegram(text)}
-                value={telegram}
+                register={register}
+                errors={errors}
+                id={'Telegram'}
+                handleChange={(id,value)=>setValue(id,value)}
+                value={getValues('Telegram')}
                 label={'Telegram'}
             />
             <RawCheckbox
-                value={isReAssigned}
+                register={register}
+                id={'isReAssigned'}
+                value={getValues('isReAssigned')}
                 label={'Re-Assign'}
-                handleChange={() => setIsReAssign(() => !isReAssigned)}
+                handleChange={(id,value) => setValue(id,value)}
             />
             <MultiSelectWrapper
                 handleChange={selectTypeOfBuyer}
@@ -189,15 +142,21 @@ export function BasicInfo() {
                 children={null}
             />
             <RawCheckbox
-                value={isAdmToBuy}
+                value={getValues('isAdmToBuy')}
+                register={register}
+                id={'isAdmToBuy'}
                 label={'Admission to buy'}
-                handleChange={() => setIsAdmToBuy(() => !isAdmToBuy)}
+                handleChange={(id,value) => setValue(id,value)}
             />
-            <DatePickerComp/>
+            <DatePickerComp
+                handleGetDate={(value)=>setValue('deadlineDate', value)}
+            />
             <RawCheckbox
-                value={isDataPickerDisabled}
+                register={register}
+                id={'isDataPickerDisabled'}
+                value={getValues('isDataPickerDisabled')}
                 label={'Deadline → Permanent???'}
-                handleChange={() => setIsDataPickerDisabled(() => !isDataPickerDisabled)}
+                handleChange={(id,value) => setValue(id,value)}
             />
         </VStack>
     )

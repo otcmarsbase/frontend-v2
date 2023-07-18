@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import DatePicker, {ReactDatePickerCustomHeaderProps} from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {Box} from "@chakra-ui/react";
@@ -14,6 +14,7 @@ import {DateIcon} from "../assets/DateIcon";
 import {TimeIcon} from "../assets/TimeIcon";
 import {DataPickerInputIcon} from "../assets/DatePickerInputIcon";
 import {Button} from "../button/Button";
+
 interface IDataPickerInput {
     value: Date,
     onClick: () => void
@@ -122,8 +123,12 @@ const DataPickerInput = (({value, onClick}: IDataPickerInput) => (
     </Button>
 ));
 
-export const DatePickerComp = () => {
+export const DatePickerComp = ({handleGetDate}) => {
         const [startDate, setStartDate] = useState<Date>(new Date());
+
+        useEffect(() => {
+            handleGetDate(startDate)
+        }, [startDate])
 
         function decreaseMonth() {
             const newMonth = (getMonth(startDate) - 1);
@@ -175,7 +180,7 @@ export const DatePickerComp = () => {
                     changeYear={() => decreaseYear()}
                     changeMonth={() => increaseYear()}
                     decreaseMonth={() => decreaseMonth()}
-                    increaseMonth={()=>increaseMonth()}
+                    increaseMonth={() => increaseMonth()}
                     prevMonthButtonDisabled={false}
                     nextMonthButtonDisabled={false}
                 />}
