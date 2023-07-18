@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { override } from '@packages/react-runtime-layout';
-
+import ReactDOM from 'react-dom/client';
 import { App } from './app';
-
 import reportWebVitals from './reportWebVitals';
 
 override();

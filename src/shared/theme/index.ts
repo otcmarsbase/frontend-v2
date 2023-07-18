@@ -1,4 +1,4 @@
-import { extendTheme, theme as baseTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 import 'focus-visible/dist/focus-visible';
 import * as components from './components';
 import * as foundations from './foundations';
@@ -6,7 +6,6 @@ import * as foundations from './foundations';
 export default extendTheme({
   ...foundations,
   components: { ...components },
-  // colors: { ...baseTheme.colors, brand: baseTheme.colors.blue },
   space: {
     '4.5': '1.125rem',
   },

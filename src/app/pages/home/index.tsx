@@ -1,6 +1,6 @@
-import pages from '@app/pages';
 import Layouts from '@app/layouts';
 import { router } from '@app/logic';
+import pages from '@app/pages';
 
 const Home: React.FC = () => {
   return (
