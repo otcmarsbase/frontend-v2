@@ -1,5 +1,6 @@
 import pages from '@app/pages';
 import { router } from '@app/logic';
+import {BasicInfo} from "../../../features/BasicInfo";
 
 const Home: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
       >
         Click to offers
       </button>
+        <BasicInfo/>
     </div>
   );
 };
