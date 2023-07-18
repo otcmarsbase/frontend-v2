@@ -1,7 +1,6 @@
 import { Router } from 'router5';
-
-import { buildQueryParameters } from '../utils';
 import { RouterComponent } from '../types';
+import { buildQueryParameters } from '../utils';
 import { getRouteByComponent } from './getRouteByComponent';
 
 export function buildPathComponent<Props>(

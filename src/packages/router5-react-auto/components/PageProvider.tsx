@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState, memo } from 'react';
 import { constants, Router } from 'router5';
-
 import { RouterComponent } from '../types';
 import { parseQueryParameters } from '../utils';
 

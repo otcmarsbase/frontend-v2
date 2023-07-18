@@ -1,13 +1,12 @@
-import browserPlugin from 'router5-plugin-browser';
-import loggerPlugin from 'router5-plugin-logger';
+import pages from '@app/pages';
 import {
   createRouter,
   generateRoutes,
   convertRouterPathToName,
   convertRouterPathToPath,
 } from '@packages/router5-react-auto';
-
-import pages from '@app/pages';
+import browserPlugin from 'router5-plugin-browser';
+import loggerPlugin from 'router5-plugin-logger';
 
 const homePageItem = 'home';
 const paramsPageItem = '__';

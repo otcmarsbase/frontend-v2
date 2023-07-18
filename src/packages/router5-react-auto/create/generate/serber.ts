@@ -7,7 +7,6 @@ import {
   SERBER_PATH_SYMBOL,
 } from '@berish/serber';
 import { isReactComponentTypeComposite } from '@packages/react-utils';
-
 import { RouteMap, RouterPath, RouterComponent } from '../../types';
 
 export const SYMBOL_SERBER_ROUTER5_AUTO_MAP = Symbol('serberRouter5AutoMap');
