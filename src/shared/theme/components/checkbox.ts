@@ -44,6 +44,10 @@ const baseStyle = definePartsStyle({
     _checked: {
       borderColor: 'orange.500',
       background: 'orange.500',
+      _hover: {
+        borderColor: 'orange.500',
+        background: 'orange.500',
+      },
     },
     _disabled: {
       borderColor: 'dark.200',
