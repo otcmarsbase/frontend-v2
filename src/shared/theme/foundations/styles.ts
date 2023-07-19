@@ -7,8 +7,8 @@ export default defineStyle({
       fontSize: '16px',
     },
     body: {
-      background: 'dark.950',
       color: 'white',
+      background: 'dark.950',
     },
   },
 });

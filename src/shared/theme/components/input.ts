@@ -45,6 +45,10 @@ const baseStyle = definePartsStyle({
   field: {
     color: 'dark.200', // change the input text color
     transition: 'color 0.4s, border-color 0.4s',
+    _placeholder: {
+      transition: 'opacity 0.3s',
+      opacity: 1,
+    },
     _focusVisible: {
       color: 'none',
       shadow: 'outline',
@@ -56,6 +60,9 @@ const baseStyle = definePartsStyle({
       color: 'white',
       borderColor: 'orange.500',
       shadow: 'none !important',
+      _placeholder: {
+        opacity: 0,
+      },
     },
   },
 });
