@@ -45,7 +45,9 @@
     "eject": "craco eject",
     "clean": "rm -rf node_modules && rm -f yarn.lock && rm -f tsconfig.tsbuildinfo",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
-    "gen:theme-typings": "chakra-cli tokens src/shared/theme/index.ts --out src/theme-typings.d.ts"
+    "gen:theme-typings": "chakra-cli tokens src/shared/theme/index.ts --out src/theme-typings.d.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "husky": {
     "hooks": {
@@ -70,11 +72,27 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@chakra-ui/cli": "^2.4.1",
+    "@storybook/addon-essentials": "^7.1.0",
+    "@storybook/addon-interactions": "^7.1.0",
+    "@storybook/addon-links": "^7.1.0",
+    "@storybook/addon-onboarding": "^1.0.7",
+    "@storybook/blocks": "^7.1.0",
+    "@storybook/preset-create-react-app": "^7.1.0-rc.2",
+    "@storybook/react": "^7.1.0",
+    "@storybook/react-webpack5": "^7.1.0",
+    "@storybook/testing-library": "^0.2.0",
     "@types/lodash": "^4.14.195",
+    "@types/storybook__react": "^5.2.1",
     "@types/uuid": "^9.0.2",
+    "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-storybook": "^0.6.12",
     "lint-staged": "^13.2.3",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.1.0",
+    "webpack": "^5.88.2",
     "webpack-shell-plugin": "^0.5.0",
     "webpack-shell-plugin-next": "^2.3.1"
   }
