@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { override } from '@packages/react-runtime-layout';
+import {override} from '@packages/react-runtime-layout';
 
-import { App } from './app';
+import {App} from '@app';
 
 import reportWebVitals from './reportWebVitals';
+import {RootStore, StoresContext} from "@app/store/rootStore";
 
 override();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const store = new RootStore();
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <React.StrictMode>
+        <StoresContext.Provider value={store}>
+            <App/>
+        </StoresContext.Provider>
+    </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

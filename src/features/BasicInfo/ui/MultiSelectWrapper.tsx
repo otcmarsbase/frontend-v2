@@ -1,7 +1,7 @@
 import {IInvAccProps, IInvAccType} from "../types";
-import {Box, Button, ButtonGroup, HStack} from "@chakra-ui/react";
+import {Box, Button, ButtonGroup, FormErrorMessage, HStack} from "@chakra-ui/react";
 
-export const MultiSelectWrapper = ({handleChange, data, label, children}: IInvAccProps) => {
+export const MultiSelectWrapper = ({handleChange, data, label, children, errors, id}: IInvAccProps) => {
     return (
         <HStack>
             <Box>{label}</Box>
@@ -12,7 +12,14 @@ export const MultiSelectWrapper = ({handleChange, data, label, children}: IInvAc
                     onClick={(e) => handleChange(e.currentTarget.id as IInvAccType)}
                 >
                     {item}
-                </Button>)}
+                </Button>)
+                }
+                {errors[id] ?
+                    <FormErrorMessage>{errors[id].message}</FormErrorMessage>
+                    :
+                    <Box height={'25px'}
+                    />
+                }
                 {children}
             </ButtonGroup>
         </HStack>

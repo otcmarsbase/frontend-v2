@@ -51,5 +51,8 @@ export interface IInvAccProps {
     handleChange: (value: any)=>void,
     data: string[],
     label: string,
-    children:ReactNode
+    children:ReactNode,
+    id?: ShemaTypes,
+    errors?: any;
+
 }
