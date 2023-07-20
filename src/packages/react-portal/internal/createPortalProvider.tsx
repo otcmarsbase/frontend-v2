@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-
 import { PortalStoreAdapter } from '../types';
 
 export function createPortalProvider(store: PortalStoreAdapter): React.FC<{}> {
