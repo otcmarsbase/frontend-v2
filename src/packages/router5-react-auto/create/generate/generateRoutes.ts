@@ -1,7 +1,12 @@
 import LINQ from '@berish/linq';
 import { Route } from 'router5';
 import { RouteMap, RouterComponent, RouterPath } from '../../types';
-import { serber, SYMBOL_SERBER_HOME_PAGE_ITEM, SYMBOL_SERBER_PARAM_PAGE_ITEM, SYMBOL_SERBER_ROUTER5_AUTO_MAP } from './serber';
+import {
+  serber,
+  SYMBOL_SERBER_HOME_PAGE_ITEM,
+  SYMBOL_SERBER_PARAM_PAGE_ITEM,
+  SYMBOL_SERBER_ROUTER5_AUTO_MAP,
+} from './serber';
 
 export interface GenerateRoutesOptions {
   pages: any;
@@ -9,7 +14,10 @@ export interface GenerateRoutesOptions {
   homePageItem?: string;
   paramsPageItem?: string;
 
-  convertRouterPathToName: (items: RouterPath, homePageItem?: string | number) => string;
+  convertRouterPathToName: (
+    items: RouterPath,
+    homePageItem?: string | number,
+  ) => string;
   convertRouterPathToPath: (items: RouterPath) => string;
 }
 

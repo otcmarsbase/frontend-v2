@@ -26,7 +26,11 @@ export function createInterceptor<T>(): Interceptor<T> {
   const all: Interceptor<T>['all'] = () => map.map((m) => m.callback);
 
   const call: Interceptor<T>['call'] = (data) =>
-    all().reduce((dataPromise, interceptorCallback) => dataPromise.then((data: T) => interceptorCallback(data)), Promise.resolve(data) as Promise<T>);
+    all().reduce(
+      (dataPromise, interceptorCallback) =>
+        dataPromise.then((data: T) => interceptorCallback(data)),
+      Promise.resolve(data) as Promise<T>,
+    );
 
   return {
     use,

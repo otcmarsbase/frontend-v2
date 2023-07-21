@@ -1,0 +1,64 @@
+{
+  "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended"],
+  "plugins": ["import"],
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              "sibling",
+              "index",
+              "object",
+              "unknown"
+            ],
+            "pathGroups": [
+              {
+                "pattern": "@/**",
+                "group": "internal"
+              },
+              {
+                "pattern": "+(react|react-*)",
+                "group": "external",
+                "position": "before"
+              },
+              {
+                "pattern": "+(mobx|mobx-*)",
+                "group": "external",
+                "position": "before"
+              },
+              {
+                "pattern": "**.scss",
+                "patternOptions": {
+                  "matchBase": true
+                },
+                "group": "unknown",
+                "position": "after"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": ["builtin"],
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            },
+            "newlines-between": "never"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/*.stories.*"],
+      "rules": {
+        "import/no-anonymous-default-export": "off",
+        "import/prefer-default-export": "off"
+      }
+    }
+  ]
+}

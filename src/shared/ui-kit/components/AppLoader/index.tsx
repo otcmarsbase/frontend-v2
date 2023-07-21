@@ -5,7 +5,11 @@ export interface AppLoadProps {
   loader?: React.FC;
 }
 
-export const AppLoad: React.FC<React.PropsWithChildren<AppLoadProps>> = ({ loader, preload, children }) => {
+export const AppLoad: React.FC<React.PropsWithChildren<AppLoadProps>> = ({
+  loader,
+  preload,
+  children,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const startedRef = useRef(false);
 

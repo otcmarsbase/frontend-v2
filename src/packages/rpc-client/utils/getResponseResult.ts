@@ -1,7 +1,9 @@
 import { RpcError } from '../rpcError';
 import { RpcResponse } from '../schema';
 
-export function getResponseResult<Result>(data: RpcResponse<Result> | RpcError): Result | RpcError {
+export function getResponseResult<Result>(
+  data: RpcResponse<Result> | RpcError,
+): Result | RpcError {
   if (RpcError.isRpcError(data)) return data;
 
   try {

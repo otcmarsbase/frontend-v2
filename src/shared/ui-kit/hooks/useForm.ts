@@ -10,8 +10,8 @@ import {
   useForm as useRhfForm,
 } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
 import _get from 'lodash/get';
+import * as Yup from 'yup';
 
 export interface UseFormProps<
   TFieldValues extends FieldValues = FieldValues,

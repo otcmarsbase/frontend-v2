@@ -9,7 +9,10 @@ export interface PortalControllerResolver<T> extends Promise<T> {
 }
 
 export interface PortalController {
-  create<Props, Resolve>(instance: React.ComponentType<Props & PortalProps<Resolve>>, props: Props): PortalControllerResolver<Resolve>;
+  create<Props, Resolve>(
+    instance: React.ComponentType<Props & PortalProps<Resolve>>,
+    props: Props,
+  ): PortalControllerResolver<Resolve>;
 
   add(node: React.ReactNode): void;
   destroy(node: React.ReactNode): void;

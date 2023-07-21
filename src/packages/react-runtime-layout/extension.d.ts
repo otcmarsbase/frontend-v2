@@ -2,6 +2,8 @@
 
 declare namespace React {
   export interface FunctionComponent<P = {}> {
-    getLayout?: React.FC<PropsWithChildren<P>> | React.FC<PropsWithChildren<P>>[];
+    getLayout?:
+      | React.FC<PropsWithChildren<P>>
+      | React.FC<PropsWithChildren<P>>[];
   }
 }

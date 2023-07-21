@@ -1,8 +1,16 @@
 import React from 'react';
 import { v4 } from 'uuid';
-import { PortalController, PortalControllerResolver, PortalProps, PortalResolver, PortalStoreAdapter } from '../types';
+import {
+  PortalController,
+  PortalControllerResolver,
+  PortalProps,
+  PortalResolver,
+  PortalStoreAdapter,
+} from '../types';
 
-export function createPortalController(store: PortalStoreAdapter): PortalController {
+export function createPortalController(
+  store: PortalStoreAdapter,
+): PortalController {
   const add: PortalController['add'] = (node) => {
     store.push(node);
   };
@@ -11,11 +19,17 @@ export function createPortalController(store: PortalStoreAdapter): PortalControl
     store.destroy(node);
   };
 
-  const create: PortalController['create'] = <Props, Resolve>(component, props: PortalProps<Resolve>): PortalControllerResolver<Resolve> => {
+  const create: PortalController['create'] = <Props, Resolve>(
+    component,
+    props: PortalProps<Resolve>,
+  ): PortalControllerResolver<Resolve> => {
     const nodeId = v4();
 
     const portal: PortalResolver<Resolve> = { resolve: null, reject: null };
-    const node = React.createElement(component, Object.assign({}, { key: nodeId, portal }, props));
+    const node = React.createElement(
+      component,
+      Object.assign({}, { key: nodeId, portal }, props),
+    );
 
     const promise = new Promise<Resolve>((resolve, reject) => {
       portal.resolve = (data) => {

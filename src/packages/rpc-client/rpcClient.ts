@@ -1,8 +1,8 @@
-import { createInterceptor, Interceptor, push, request } from "./helpers";
-import { RpcError } from "./rpcError";
-import { RpcRequest, RpcResponse } from "./schema";
-import { getResponseResult } from "./utils";
-import { getCorrectRpcRequest } from "./utils/getCorrectRpcRequest";
+import { createInterceptor, Interceptor, push, request } from './helpers';
+import { RpcError } from './rpcError';
+import { RpcRequest, RpcResponse } from './schema';
+import { getResponseResult } from './utils';
+import { getCorrectRpcRequest } from './utils/getCorrectRpcRequest';
 
 export interface RpcClientOptions {
   send: (request: RpcRequest) => Promise<any>;
@@ -34,7 +34,7 @@ export class RpcClient {
   public request<Result>(
     method: string,
     params: Record<string, any>,
-    meta?: Record<string, any>
+    meta?: Record<string, any>,
   ) {
     return this.send(request<Result>(method, params, meta));
   }
@@ -42,7 +42,7 @@ export class RpcClient {
   public push(
     method: string,
     params: Record<string, any>,
-    meta?: Record<string, any>
+    meta?: Record<string, any>,
   ) {
     return this.send(push(method, params, meta));
   }
@@ -56,7 +56,7 @@ export class RpcClient {
   }
 
   public async rawSendIntercept<Params, Result>(
-    request: RpcRequest<Params, Result>
+    request: RpcRequest<Params, Result>,
   ) {
     request = getCorrectRpcRequest(request);
     if (!request) throw RpcError.InvalidRequest();
@@ -70,7 +70,7 @@ export class RpcClient {
   }
 
   public async rawSendWithoutIntercept<Params, Result>(
-    request: RpcRequest<Params, Result>
+    request: RpcRequest<Params, Result>,
   ): Promise<RpcResponse<Result>> {
     request = getCorrectRpcRequest(request);
     if (!request) throw RpcError.InvalidRequest();
@@ -94,7 +94,7 @@ export class RpcClient {
   }
 
   public async interceptRequest<Params, Result>(
-    request: RpcRequest<Params, Result>
+    request: RpcRequest<Params, Result>,
   ) {
     if (this._requestInterceptor) {
       request = await this._requestInterceptor.call(request);

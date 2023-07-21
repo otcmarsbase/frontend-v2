@@ -75,7 +75,10 @@ function Test(props: TestProps) {
 
 ```typescript
 try {
-  const result = await Controller.create(Test, { name: 'Ravil', lastname: 'Berish' });
+  const result = await Controller.create(Test, {
+    name: 'Ravil',
+    lastname: 'Berish',
+  });
   console.log(result); // 123
 } catch (err) {
   console.log(err); // reason

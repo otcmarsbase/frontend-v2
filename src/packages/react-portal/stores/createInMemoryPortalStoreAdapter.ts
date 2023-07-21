@@ -27,7 +27,9 @@ export function createInMemoryPortalStoreAdapter(): PortalStoreAdapter {
     pushUpdates();
   };
 
-  const destroy: PortalStoreAdapter['destroy'] = (...prevNodes: React.ReactNode[]) => {
+  const destroy: PortalStoreAdapter['destroy'] = (
+    ...prevNodes: React.ReactNode[]
+  ) => {
     nodes = nodes.filter((m) => prevNodes.indexOf(m) === -1);
     pushUpdates();
   };
