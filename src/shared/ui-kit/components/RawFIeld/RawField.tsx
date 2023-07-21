@@ -1,7 +1,18 @@
-import {IRawFieldProps} from "../types";
 import {Box, FormControl, FormErrorMessage, FormLabel, HStack, Input} from "@chakra-ui/react";
+import {DeepMap, FieldError, FieldValues} from "react-hook-form";
 
-export const RawField = ({value, id, register, label, errors, handleChange}: IRawFieldProps) => {
+type IFieldErrors<TFieldValues extends FieldValues = FieldValues> =
+    DeepMap<TFieldValues, FieldError>
+
+export interface IRawFieldProps {
+    value: string | number,
+    id: string,
+    register: any;
+    label: string;
+    errors: IFieldErrors;
+}
+
+export const RawField = ({value, id, register, label, errors}: IRawFieldProps) => {
     return (
         <HStack>
             <FormControl
@@ -10,8 +21,7 @@ export const RawField = ({value, id, register, label, errors, handleChange}: IRa
                 <FormLabel>{label}</FormLabel>
                 <Input placeholder={label}
                        value={value}
-                       onChange={(e) => handleChange(id,e.currentTarget.value)}
-                       {...register(id)}
+                       {...register}
                 />
                 {errors[id] ?
                     <FormErrorMessage>{errors[id].message}</FormErrorMessage>

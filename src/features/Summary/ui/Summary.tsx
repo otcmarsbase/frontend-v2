@@ -9,7 +9,7 @@ import {
     useDisclosure,
     VStack
 } from "@chakra-ui/react";
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useEffect} from "react";
 import {SuccessIcon} from "../asssets/SuccessIcon";
 import {NotTouchedIcon} from "../asssets/NotTouchedIcon";
 import {observer} from "mobx-react-lite";
@@ -72,7 +72,7 @@ interface ISecondStep {
 const StepsText = {
     'FIRST_STEP': {
         ProjectName: 'Name',
-        Type: 'Type'
+        lotType: 'Type'
     },
     'SECOND_STEP': {
         fdv: 'Round FDV',
@@ -89,31 +89,36 @@ const StepsText = {
 
 }
 type StepTypes = 'FIRST_STEP' | 'SECOND_STEP' | 'THIRD_STEP'
+
 interface IFirstStepInnerProps {
     data: any,
     step: StepTypes
 }
+
 const FirstStepInner = ({data, step}: IFirstStepInnerProps) => {
-    console.log("datttt1222",data, Object.keys(StepsText[step]))
+
+    let itemList = Object.entries(StepsText[step]).reduce((acc, curValue) => {
+        let tempIbj = {}
+        tempIbj['fieldName'] = curValue[0];
+        tempIbj['fieldValue'] = data[curValue[0]]
+        acc.push(tempIbj)
+        return acc;
 
 
-    console.log("datttt",_.pickBy(data, Object.keys(StepsText[step])))
-
+    }, [])
     return (
         <>
-            {Object.entries(data).map((item) => <MenuItem>
+            {itemList.map((item) => <MenuItem>
                     <HStack>
                         <Box>
-                            {StepsText[step][item[0]]}
+                            {item.fieldName}
                         </Box>
                         <Box>
-                            {/*// @ts-ignore*/}
-                            {item[1] ? item[1].toString() : ''}
+                            {item.fieldValue?.toString()}
                         </Box>
                     </HStack>
                 </MenuItem>
             )
-
             }
         </>
     )
@@ -123,14 +128,17 @@ const EStepLabels = {
     'SECOND_STEP': {label: 'Details about the token', index: 2},
     'THIRD_STEP': {label: 'Pricing details', index: 3}
 }
-interface IStepWrapperProps{
+
+interface IStepWrapperProps {
     isSuccessFilled: boolean,
     step: StepTypes,
     children: ReactNode
 }
+
 const StepWrapper = ({isSuccessFilled, step, children}: IStepWrapperProps) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
-console.log({isSuccessFilled, step, children})
+
+// console.log({isSuccessFilled, step, children})
     function handleClick() {
         isOpen ? onClose() : onOpen()
     }
@@ -138,28 +146,28 @@ console.log({isSuccessFilled, step, children})
     return (
         <Menu isOpen={isOpen}>
             <HStack>
-            <MenuButton
-                // variant="ghost"
-                mx={1}
-                py={[1, 2, 2]}
-                px={4}
-                borderRadius={5}
-                _hover={{bg: useColorModeValue("gray.100", "gray.700")}}
-                aria-label="Courses"
-                bg={'skyblue'}
-                fontWeight="normal"
-                onClick={isSuccessFilled ? handleClick : null}
-            >
+                <MenuButton
+                    // variant="ghost"
+                    mx={1}
+                    py={[1, 2, 2]}
+                    px={4}
+                    borderRadius={5}
+                    _hover={{bg: useColorModeValue("gray.100", "gray.700")}}
+                    aria-label="Courses"
+                    bg={'skyblue'}
+                    fontWeight="normal"
+                    onClick={isSuccessFilled ? handleClick : null}
+                >
 
-                <StepHeader
-                    stepData={{step: EStepLabels[step].index, label: EStepLabels[step].label}}
-                    isSuccessFilled={isSuccessFilled}
-                />
+                    <StepHeader
+                        stepData={{step: EStepLabels[step].index, label: EStepLabels[step].label}}
+                        isSuccessFilled={isSuccessFilled}
+                    />
 
-                {isSuccessFilled &&
-                    <>{isOpen ? '+' : '^'}</>
-                }
-            </MenuButton>
+                    {isSuccessFilled &&
+                        <>{isOpen ? '+' : '^'}</>
+                    }
+                </MenuButton>
             </HStack>
             <MenuList>
                 {children}
@@ -169,26 +177,27 @@ console.log({isSuccessFilled, step, children})
 }
 
 export const Summary = observer(() => {
-    const { SellOfferStore } = useStore();
-    console.log('SellOfferStore',SellOfferStore.basicInfo)
-    function publishLot(){
+        const {SellOfferStore} = useStore();
+        function publishLot() {
 
-    }
-    return (
-        <VStack
-            bg={'orange'}>
-            <SummaryHeader/>
-            <StepWrapper isSuccessFilled={SellOfferStore.stepOneSuccess} step={'FIRST_STEP'} children={
-                <FirstStepInner
-                    data={SellOfferStore.basicInfo}
-                    step={'FIRST_STEP'}
+        }
+
+        return (
+            <VStack
+                bg={'orange'}>
+                <SummaryHeader/>
+                <StepWrapper isSuccessFilled={SellOfferStore.stepOneSuccess} step={'FIRST_STEP'}
+                             children={SellOfferStore.stepOneSuccess ?
+                                 <FirstStepInner
+                                     data={SellOfferStore.basicInfo}
+                                     step={'FIRST_STEP'}
+                                 /> : null
+                             }
                 />
-            }
-            />
-            <StepWrapper isSuccessFilled={false} step={'SECOND_STEP'} children={null}/>
-            <StepWrapper isSuccessFilled={false} step={'THIRD_STEP'} children={null}/>
-            <Button onClick={publishLot} >Publish Lot</Button>
-        </VStack>
-    )
-}
+                <StepWrapper isSuccessFilled={false} step={'SECOND_STEP'} children={null}/>
+                <StepWrapper isSuccessFilled={false} step={'THIRD_STEP'} children={null}/>
+                <Button onClick={publishLot}>Publish Lot</Button>
+            </VStack>
+        )
+    }
 )

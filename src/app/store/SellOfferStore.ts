@@ -3,7 +3,7 @@ import {makeAutoObservable, autorun, action, observable} from 'mobx';
 export class SellOfferStore {
     @observable public basicInfo: any = {};
     @observable public stepOneSuccess: boolean = false;
-
+    @observable public stepOneWasOnSuccess: boolean = false;
 
     constructor() {
         makeAutoObservable(this, {}, { autoBind: true });
@@ -14,6 +14,10 @@ export class SellOfferStore {
 
     @action setStepOneSuccess = (bool) => {
         this.stepOneSuccess = bool;
+    }
+
+    @action setStepOneWasOnSuccess = (bool) => {
+        this.stepOneWasOnSuccess = bool;
     }
 
 
