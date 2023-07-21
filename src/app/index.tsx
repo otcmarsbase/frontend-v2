@@ -5,6 +5,7 @@ import { onAppLoad } from './onAppLoad';
 import pages from './pages';
 import { ThemeProvider } from '@shared/ui-kit';
 import {Header} from "../features/Header/ui/Header";
+import {Web3ModalComponent} from "../features/Web3Modal/ui/Web3Modal";
 
 export function App() {
   return (
@@ -16,7 +17,7 @@ export function App() {
                   { label: 'OTC', href: { url: '#' } },
                   { label: 'Create offer', href: { url: '#' } },
               ]}
-              rightContent={null}
+              rightContent={<Web3ModalComponent/>}
           />
         <RouterProvider router={router} notFoundComponent={pages.errors._404} />
       </AppLoad>

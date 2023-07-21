@@ -71,20 +71,19 @@ interface ISecondStep {
 
 const StepsText = {
     'FIRST_STEP': {
-        ProjectName: 'Name',
+        projectName: 'Name',
         lotType: 'Type'
     },
     'SECOND_STEP': {
-        fdv: 'Round FDV',
+        roundFDV: 'Round FDV',
         contractValue: 'Contract value',
         tokensBought: 'Tokens bought',
         pricePerToken: 'Price per token',
         pricePerEquity: 'Price per 0,01% equity'
     },
     'THIRD_STEP': {
-        contractSize: 'Contract size to offer',
-        minDealSize: 'Minimum deal size',
-        discountFrom: 'Discount from '
+        contractSizeToOffer: 'Contract size to offer',
+        minDealSize: 'Minimum deal size'
     }
 
 }
@@ -99,13 +98,14 @@ const FirstStepInner = ({data, step}: IFirstStepInnerProps) => {
 
     let itemList = Object.entries(StepsText[step]).reduce((acc, curValue) => {
         let tempIbj = {}
-        tempIbj['fieldName'] = curValue[0];
+        tempIbj['fieldName'] = curValue[1];
         tempIbj['fieldValue'] = data[curValue[0]]
         acc.push(tempIbj)
         return acc;
 
 
     }, [])
+
     return (
         <>
             {itemList.map((item) => <MenuItem>
@@ -178,6 +178,8 @@ const StepWrapper = ({isSuccessFilled, step, children}: IStepWrapperProps) => {
 
 export const Summary = observer(() => {
         const {SellOfferStore} = useStore();
+        const {stepOneSuccess, stepTwoSuccess, stepThreeSuccess, basicInfo} = SellOfferStore;
+
         function publishLot() {
 
         }
@@ -186,16 +188,36 @@ export const Summary = observer(() => {
             <VStack
                 bg={'orange'}>
                 <SummaryHeader/>
-                <StepWrapper isSuccessFilled={SellOfferStore.stepOneSuccess} step={'FIRST_STEP'}
-                             children={SellOfferStore.stepOneSuccess ?
-                                 <FirstStepInner
-                                     data={SellOfferStore.basicInfo}
-                                     step={'FIRST_STEP'}
-                                 /> : null
-                             }
+                <StepWrapper
+                    isSuccessFilled={stepOneSuccess}
+                    step={'FIRST_STEP'}
+                    children={stepOneSuccess ?
+                        <FirstStepInner
+                            data={SellOfferStore.basicInfo}
+                            step={'FIRST_STEP'}
+                        /> : null
+                    }
                 />
-                <StepWrapper isSuccessFilled={false} step={'SECOND_STEP'} children={null}/>
-                <StepWrapper isSuccessFilled={false} step={'THIRD_STEP'} children={null}/>
+                <StepWrapper
+                    isSuccessFilled={stepTwoSuccess}
+                    step={'SECOND_STEP'}
+                    children={stepOneSuccess ?
+                        <FirstStepInner
+                            data={basicInfo}
+                            step={'SECOND_STEP'}
+                        /> : null
+                    }
+                />
+                <StepWrapper
+                    isSuccessFilled={stepThreeSuccess}
+                    step={'THIRD_STEP'}
+                    children={stepThreeSuccess ?
+                        <FirstStepInner
+                            data={basicInfo}
+                            step={'THIRD_STEP'}
+                        /> : null
+                    }
+                />
                 <Button onClick={publishLot}>Publish Lot</Button>
             </VStack>
         )

@@ -1,5 +1,5 @@
 import * as yup from "yup";
-// import {LotTypes} from "./types";
+import {ILotType} from "./types";
 
 export const YupProjectInfoShema = yup.object().shape({
     ['projectName']: yup.string().required(`Project Name is required`),

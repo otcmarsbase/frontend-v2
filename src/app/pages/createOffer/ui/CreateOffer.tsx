@@ -1,59 +1,93 @@
 import {HStack, VStack} from "@chakra-ui/react";
 import {useForm, UseFormProps} from "@shared/ui-kit";
-import {YupProjectInfoShema} from "../../../../features/ProjectInfo/consts";
-import {YupTokenInfoShema} from "../../../../features/TokenInfo/consts";
-import {ProjectInfo} from "../../../../features/ProjectInfo";
+import {YupProjectInfoShema} from "../../../../features/StepOne/consts";
+import {YupTokenInfoShema} from "../../../../features/StepTwo/consts";
+import {StepOne} from "../../../../features/StepOne";
 import {Summary} from "../../../../features/Summary";
-import {TokenInfo} from "../../../../features/TokenInfo";
+import {StepTwo} from "../../../../features/StepTwo";
 import {useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {useStore} from "@app/store";
-import {hasAllProperties} from "@app/pages/createOffer/lib/utils";
+import {hasAllProperties, hasNoProperties} from "@app/pages/createOffer/lib/utils";
 import _ from "lodash";
 import {TokenInfoSafe} from "../../../../features/TokenInfoSafe";
+import {StepThreeFields, StepThreeShema} from "../../../../features/StepThree/consts";
+import {StepThree} from "../../../../features/StepThree";
+import {ILotType} from "../../../../features/StepOne/types";
+import * as yup from "yup";
 
 export const CreateOffer = observer(() => {
     const {SellOfferStore} = useStore();
-    const {setBasicInfo, setStepOneSuccess, setStepOneWasOnSuccess, stepOneWasOnSuccess, stepOneSuccess} = SellOfferStore;
-    const schema = YupProjectInfoShema.concat(YupTokenInfoShema);
+    const {
+        setBasicInfo,
+        setStepOneSuccess,
+        setStepOneWasOnSuccess,
+        stepOneWasOnSuccess,
+        stepOneSuccess,
+        stepTwoWasOnSuccess,
+        stepTwoSuccess,
+        setStepTwoSuccess,
+        setStepTwoWasOnSuccess,
+        setStepThreeWasOnSuccess,
+        setStepThreeSuccess
+    } = SellOfferStore;
+    const schema = YupProjectInfoShema.concat(YupTokenInfoShema).concat(StepThreeShema);
 
     const form = useForm({
         schema, defaultValues: {
             typesOfBuyer: [],
-            typesOfSeller: []
+            typesOfSeller: [],
+            projectName:'',
+            projectWebsite:'',
+            lotType:'',
+            telegram:'',
+            deadlineDate:'',
+            investmentRound:''
         }
     });
-
     const data = form.watch();
 
     useEffect(() => {
-        const hasAllFieldsDirty = hasAllProperties(form.formState.dirtyFields, ['projectName', 'projectWebsite', 'telegram'])
-        console.log('hasAllFieldsDirty',hasAllFieldsDirty, '_.isEmpty(form.formState.errors)',_.isEmpty(form.formState.errors))
-        if (hasAllFieldsDirty && _.isEmpty(form.formState.errors)) {
-            setBasicInfo(data)
-            setStepOneSuccess(true)
-            setStepOneWasOnSuccess(true)
-        } else {
-            setBasicInfo({})
-            setStepOneSuccess(false)
-        }
+        //TODO add validations
+        const hasStepOneFieldsDirty = hasAllProperties(form.formState.dirtyFields, ['projectName', 'projectWebsite', 'telegram'])
+        const hasStepTwoFieldsDirty = hasAllProperties(form.formState.dirtyFields, ['investmentRound', 'roundFDV', 'contractValue'])
+        const stepThreeFiledsValid = data.contractSizeToOffer > 0 && data.minDealSize > 0
 
+        const stepOneOnError = hasNoProperties(form.formState.errors, ['projectName', 'projectWebsite', 'telegram'])
+        const stepTwoOnError = hasNoProperties(form.formState.errors, ['investmentRound', 'roundFDV', 'contractValue'])
+        const stepThreeOnError = hasNoProperties(form.formState.errors, ['contractSizeToOffer', 'minDealSize'])
+//TODO костылька
+        const stepOnePassed = !stepOneOnError && hasStepOneFieldsDirty && data.lotType && data.lotType.length > 0;
+        setStepOneSuccess(stepOnePassed)
+        if (stepOnePassed) {
+            setStepOneWasOnSuccess(true)
+        }
+        const stepTwoPassed = !stepTwoOnError && hasStepTwoFieldsDirty;
+        setStepTwoSuccess(stepTwoPassed)
+        if (stepTwoPassed) {
+            setStepTwoWasOnSuccess(true)
+        }
+        const stepThreePassed = !stepThreeOnError && stepThreeFiledsValid;
+        setStepThreeSuccess(stepThreePassed)
+        if (stepTwoPassed) {
+            setStepThreeWasOnSuccess(true)
+        }
+console.log('state',data)
+        setBasicInfo(data)
     }, [data])
 
 
-    // const prevTargetFDV = usePrevious(target_fdv);
-    // const prevPricePerEq = usePrevious(price_per_equity);
-    //
-    // useEffect(() => {
-    //     if (target_fdv && price_per_equity) {
-    //         if (prevTargetFDV !== target_fdv) {
-    //             setValue('price_per_equity', (Number(target_fdv) + 1).toString())
-    //         }
-    //         if (prevPricePerEq !== price_per_equity) {
-    //             setValue('target_fdv', (Number(price_per_equity) + 2).toString())
-    //         }
-    //     }
-    // }, [data])
+    function handleRecountValues(id, value) {
+        if (id === 'minDealSize') {
+            // const valuePrev = form.getValues('contractSizeToOffer');
+            form.setValue('contractSizeToOffer', (Number(value) + 3))
+            form.setValue('minDealSize', Number(value))
+        } else {
+            // const valuePrev = form.getValues('minDealSize')
+            form.setValue('minDealSize', (Number(value) + 3))
+            form.setValue('contractSizeToOffer', Number(value))
+        }
+    }
 
 
     return (
@@ -63,23 +97,34 @@ export const CreateOffer = observer(() => {
             gap={'20px'}
         >
             <VStack>
-                <ProjectInfo
+                <StepOne
                     // @ts-ignore
                     form={form}
                 />
 
                 {stepOneWasOnSuccess || stepOneSuccess ?
-                <>{data.lotType === "SAFE" ?
-                    <TokenInfoSafe
-                        // @ts-ignore
-                        form={form}
-                    />
+                    <>{data.lotType === "SAFE" ?
+                        <TokenInfoSafe
+                            // @ts-ignore
+                            form={form}
+                        />
+                        :
+                        <StepTwo
+                            // @ts-ignore
+                            form={form}
+                        />
+                    }</>
                     :
-                    <TokenInfo
+                    null
+                }
+                {(stepOneWasOnSuccess || stepOneSuccess) && (stepTwoWasOnSuccess || stepTwoSuccess) ?
+                    <StepThree
                         // @ts-ignore
                         form={form}
+                        lotType={data.lotType as ILotType}
+                        handleRecountValues={handleRecountValues}
+                        label={'Pricing model'}
                     />
-                }</>
                     :
                     null
                 }

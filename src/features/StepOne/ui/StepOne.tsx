@@ -5,15 +5,15 @@ import {
     ILotType, InvAccTypes,
     LotTypes
 } from "../types";
-import {MultiSelectWrapper} from "./MultiSelectWrapper";
 import {RawCheckbox} from "@shared/ui-kit/components/RawCheckbox/RawCheckbox";
 import {FC} from "react";
 import {RawField} from "@shared/ui-kit/components/RawFIeld/RawField";
 import {UseFormReturn} from "react-hook-form";
 import {ProjectInfoFields} from "../consts";
 import _ from "lodash";
+import {MultiSelectWrapper} from "@shared/ui-kit/components/MultiSelectBtns/MultiSelectWrapper";
 
-export const ProjectInfo:FC<{form: UseFormReturn }> = (props) => {
+export const StepOne:FC<{form: UseFormReturn }> = (props) => {
 
     const {register, getValues, formState, setValue} = props.form;
     const {errors} = formState;
@@ -28,8 +28,9 @@ export const ProjectInfo:FC<{form: UseFormReturn }> = (props) => {
         }
 
         return (
-            <VStack>
-
+            <VStack
+            bg={'gray'}
+            >
                 <RawField
                     register={{...register('projectName')}}
                     errors={errors}

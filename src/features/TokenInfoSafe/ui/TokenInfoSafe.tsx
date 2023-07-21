@@ -9,17 +9,6 @@ import {observer} from "mobx-react-lite";
 import {RawField} from "@shared/ui-kit/components/RawFIeld/RawField";
 import {SaftPriceInfo} from "../../PriceInfo/SaftPriceInfo/SaftPriceInfo";
 import {UseFormReturn} from "react-hook-form";
-import {TokenInfoFields} from "../../TokenInfo/consts";
-
-export type TokenInfoSafeShemaTypes =
-    'investment_round' | 'round_fdv' | 'price_per_equity'
-
-
-const schema = yup.object({
-    ['investment_round']: yup.string(),
-    ['round_fdv']: yup.string(),
-    ['price_per_equity']: yup.string(),
-});
 
 export const TokenInfoSafeFields = {
     INVESTMENT_ROUND: 'Investment round',
@@ -37,14 +26,14 @@ export const TokenInfoSafe:FC<{form: UseFormReturn }> = observer((props) => {
                 <RawField
                     register={register}
                     errors={errors}
-                    id={'investment_round'}
-                    value={getValues('investment_round')}
+                    id={'investmentRound'}
+                    value={getValues('investmentRound')}
                     label={TokenInfoSafeFields.INVESTMENT_ROUND}
                 />
 
                 <SaftPriceInfo
                     form={props.form}
-                    ids={['round_fdv', 'price_per_equity']}
+                    ids={['roundFDV', 'pricePerEquity']}
                     label={'Price information'}
                     TokenInfoFields={TokenInfoSafeFields}
                     helperText={'You must enter any 3 numbers, then is automatically calculated.'}

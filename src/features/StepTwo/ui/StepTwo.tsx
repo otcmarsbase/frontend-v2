@@ -9,7 +9,7 @@ import {FC} from "react";
 import {TokenInfoFields} from "../consts";
 import {SaftPriceInfo} from "../../PriceInfo/SaftPriceInfo/SaftPriceInfo";
 
-export const TokenInfo:FC<{form: UseFormReturn }> = observer((props) => {
+export const StepTwo:FC<{form: UseFormReturn }> = observer((props) => {
         const {register, getValues, formState, setValue} = props.form;
         const {errors} = formState;
 
@@ -59,7 +59,7 @@ export const TokenInfo:FC<{form: UseFormReturn }> = observer((props) => {
                 />
                 <SaftPriceInfo
                     form={props.form}
-                    ids={['target_fdv', 'price_per_equity']}
+                    ids={['targetFDV', 'pricePerEquity']}
                     label={'Price information'}
                     TokenInfoFields={TokenInfoFields}
                     helperText={'You must enter any 3 numbers, then is automatically calculated.'}

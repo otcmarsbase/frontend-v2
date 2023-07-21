@@ -1,25 +1,47 @@
 import {makeAutoObservable, autorun, action, observable} from 'mobx';
 
 export class SellOfferStore {
-    @observable public basicInfo: any = {};
-    @observable public stepOneSuccess: boolean = false;
-    @observable public stepOneWasOnSuccess: boolean = false;
+    public basicInfo: any = {};
+    public stepOneSuccess: boolean = false;
+    public stepOneWasOnSuccess: boolean = false;
+
+    public stepTwoSuccess: boolean = false;
+    public stepTwoWasOnSuccess: boolean = false;
+
+    public stepThreeSuccess: boolean = false;
+    public stepThreeWasOnSuccess: boolean = false;
 
     constructor() {
-        makeAutoObservable(this, {}, { autoBind: true });
+        makeAutoObservable(this, {}, {autoBind: true});
     }
-    @action setBasicInfo = (updatedBasicInfo) => {
+
+    setBasicInfo = (updatedBasicInfo) => {
         this.basicInfo = updatedBasicInfo;
     }
 
-    @action setStepOneSuccess = (bool) => {
+    setStepOneSuccess = (bool) => {
         this.stepOneSuccess = bool;
     }
 
-    @action setStepOneWasOnSuccess = (bool) => {
+    setStepOneWasOnSuccess = (bool) => {
         this.stepOneWasOnSuccess = bool;
     }
 
+    setStepTwoSuccess = (bool) => {
+        this.stepTwoSuccess = bool;
+    }
+
+    setStepTwoWasOnSuccess = (bool) => {
+        this.stepTwoWasOnSuccess = bool;
+    }
+
+    setStepThreeSuccess = (bool) => {
+        this.stepThreeSuccess = bool;
+    }
+
+    setStepThreeWasOnSuccess = (bool) => {
+        this.stepThreeWasOnSuccess = bool;
+    }
 
 }
 
