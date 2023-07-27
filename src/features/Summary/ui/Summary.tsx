@@ -78,12 +78,13 @@ const StepsText = {
         roundFDV: 'Round FDV',
         contractValue: 'Contract value',
         tokensBought: 'Tokens bought',
-        pricePerToken: 'Price per token',
-        pricePerEquity: 'Price per 0,01% equity'
+
     },
     'THIRD_STEP': {
         contractSizeToOffer: 'Contract size to offer',
-        minDealSize: 'Minimum deal size'
+        minDealSize: 'Minimum deal size',
+        pricePerToken: 'Price per token',
+        pricePerEquity: 'Price per 0,01% equity'
     }
 
 }
@@ -108,7 +109,7 @@ const FirstStepInner = ({data, step}: IFirstStepInnerProps) => {
 
     return (
         <>
-            {itemList.map((item) => <MenuItem>
+            {itemList.map((item) => <MenuItem  key={item.fieldName}>
                     <HStack>
                         <Box>
                             {item.fieldName}

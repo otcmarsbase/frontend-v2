@@ -1,6 +1,10 @@
-import {HTMLAttributeAnchorTarget, ReactNode} from 'react';
-import { HStack, Box, Image, Divider, VStack, Link } from '@chakra-ui/react';
+import {HTMLAttributeAnchorTarget, ReactNode, useEffect, useState} from 'react';
+import {HStack, Box, Image, Divider, VStack, Link} from '@chakra-ui/react';
 import LogoPng from '../assets/logo.png';
+import {ModalController, router} from "@app/logic";
+import {TypeOfOffer} from "../../Modals/TypeOfOffer/TypeOfOffer";
+import {CreateOffer} from "@app/pages/offers/create/CreateOffer";
+
 
 export type HeaderMenuItem = {
     label: string;
@@ -19,6 +23,37 @@ export const Header = ({
                            logoHref = '#',
                            rightContent,
                        }: HeaderProps) => {
+
+
+    async function handleClick({label}) {
+        console.log('label',label)
+        if (label === 'Create offer') {
+             const typeOfDeal = await ModalController.create(TypeOfOffer, {});
+            console.log('typeOfDeal',typeOfDeal)
+             router.navigateComponent(CreateOffer, {typeOfDeal})
+        }
+        // /offers
+
+
+        // const [typeOfDeal, setTypeOfDeal] = useState('Buy');
+        // const getTypeOfDeal = () => ModalController.create(TypeOfOffer, {});
+        //
+        // useEffect(()=>{
+        //     const promisfyResult = getTypeOfDeal();
+        //     async function loadDataAsync() {
+        //         try {
+        //             const modalResult = await promisfyResult;
+        //             // @ts-ignore
+        //             setTypeOfDeal(modalResult)
+        //         } catch (e) {
+        //             promisfyResult.destroy()
+        //         }
+        //     }
+        //     loadDataAsync()
+        //     return () => promisfyResult.destroy();
+        // },[])
+    }
+
     return (
         <VStack gap="0">
             <HStack
@@ -32,19 +67,20 @@ export const Header = ({
             >
                 <HStack gap="4.5rem">
                     <Link href={logoHref}>
-                        <Image width="8rem" src={LogoPng} alt="OTC MarsBase" />
+                        <Image width="8rem" src={LogoPng} alt="OTC MarsBase"/>
                     </Link>
                     <HStack gap="3.75rem" color="white">
                         {menuItems.map((item, id) => {
-                            const { label, onClick, href } = item;
+                            const {label, href} = item;
                             return (
                                 <Link
                                     href={href?.url}
                                     fontSize="0.6875rem"
                                     textTransform="uppercase"
                                     target={href?.target}
+                                    id={href?.url}
                                     fontFamily="menuItem"
-                                    onClick={onClick}
+                                    onClick={() => handleClick({label})}
                                     key={label}
                                 >
                                     {label}

@@ -1,6 +1,5 @@
-import {CreateOffer} from "@app/pages/createOffer";
-
 const Home: React.FC = () => {
+console.log('home page render')
     return (
         <div>
             {/*<div>HOME</div>*/}
@@ -11,7 +10,7 @@ const Home: React.FC = () => {
             {/*>*/}
             {/*  Click to offers*/}
             {/*</button>*/}
-            <CreateOffer/>
+            Home page
 
         </div>
     );

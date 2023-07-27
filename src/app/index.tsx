@@ -14,8 +14,8 @@ export function App() {
         <ModalProvider />
           <Header
               menuItems={[
-                  { label: 'OTC', href: { url: '#' } },
-                  { label: 'Create offer', href: { url: '#' } },
+                  { label: 'OTC', href: { url: '/' } },
+                  { label: 'Create offer', href: null },
               ]}
               rightContent={<Web3ModalComponent/>}
           />

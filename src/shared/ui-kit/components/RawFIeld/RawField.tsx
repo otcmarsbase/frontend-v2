@@ -10,16 +10,17 @@ export interface IRawFieldProps {
     register: any;
     label: string;
     errors: IFieldErrors;
+    placeholder: string
 }
 
-export const RawField = ({value, id, register, label, errors}: IRawFieldProps) => {
+export const RawField = ({value, id, register, label, placeholder, errors}: IRawFieldProps) => {
     return (
         <HStack>
             <FormControl
                 isInvalid={Boolean(errors[id])}
             >
                 <FormLabel>{label}</FormLabel>
-                <Input placeholder={label}
+                <Input placeholder={placeholder}
                        value={value}
                        {...register}
                 />

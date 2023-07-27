@@ -14,6 +14,7 @@ export const YupProjectInfoShema = yup.object().shape({
     ['isAdmToBuy']: yup.boolean(),
     ['isDataPickerDisabled']: yup.boolean(),
     ['isTokenWarrant']: yup.boolean(),
+    ['isReadyToSVP']: yup.boolean(),
 });
 
 export const ProjectInfoFields = {
@@ -29,6 +30,7 @@ export const ProjectInfoFields = {
     TYPES_OF_SELLER: 'Type of seller',
     TYPES_OF_BUYER: 'Type of buyer',
     DEADLINE_DATE: 'Deadline',
+    IS_READY_TO_SVP: 'Ready to SPV'
 }
 
 

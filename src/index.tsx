@@ -6,6 +6,7 @@ import {App} from '@app';
 
 import reportWebVitals from './reportWebVitals';
 import {RootStore, StoresContext} from "@app/store/rootStore";
+import {ErrorBoundary} from "./features/ErrorBoundary/ErrorBoundary";
 
 override();
 
@@ -14,7 +15,10 @@ const store = new RootStore();
 root.render(
     <React.StrictMode>
         <StoresContext.Provider value={store}>
-            <App/>
+            <ErrorBoundary>
+                <App/>
+            </ErrorBoundary>
+
         </StoresContext.Provider>
     </React.StrictMode>,
 );

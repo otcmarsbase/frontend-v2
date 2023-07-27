@@ -35,6 +35,7 @@ export const StepOne:FC<{form: UseFormReturn }> = (props) => {
                     register={{...register('projectName')}}
                     errors={errors}
                     id={'projectName'}
+                    placeholder={'Project info'}
                     value={getValues('projectName')}
                     label={ProjectInfoFields.PROJECT_NAME}
                 />
@@ -42,6 +43,7 @@ export const StepOne:FC<{form: UseFormReturn }> = (props) => {
                     register={{...register('projectWebsite')}}
                     errors={errors}
                     id={'projectWebsite'}
+                    placeholder={'Website'}
                     value={getValues('projectWebsite')}
                     label={ProjectInfoFields.PROJECT_WEBSITE}
                 />
@@ -80,10 +82,18 @@ export const StepOne:FC<{form: UseFormReturn }> = (props) => {
                     value={getValues('isDirectSeller')}
                     label={ProjectInfoFields.IS_DIRECT_SELLER}
                 />
+                <RawCheckbox
+                    handleChange={(id,value)=>setValue(id,value)}
+                    id={'isReadyToSVP'}
+                    value={getValues('isReadyToSVP')}
+                    label={ProjectInfoFields.IS_READY_TO_SVP}
+                />
+
                 <RawField
                     register={{...register('telegram')}}
                     errors={errors}
                     id={'telegram'}
+                    placeholder={'@nikname'}
                     value={getValues('telegram')}
                     label={ProjectInfoFields.TELEGRAM}
                 />
