@@ -77,5 +77,5 @@ export const Input = defineMultiStyleConfig({
       },
     },
   },
-  defaultProps: { size: 'md' },
+  defaultProps: { size: 'sm' },
 });

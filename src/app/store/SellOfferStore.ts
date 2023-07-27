@@ -1,25 +1,24 @@
-import {makeAutoObservable, autorun, action, observable} from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 export class SellOfferStore {
-    @observable public basicInfo: any = {};
-    @observable public stepOneSuccess: boolean = false;
-    @observable public stepOneWasOnSuccess: boolean = false;
+  public basicInfo: any = {};
+  // TODO: Переписать на геттеры, скорее всего как-то можно это сделать
+  public stepOneSuccess: boolean = false;
+  public stepOneWasOnSuccess: boolean = false;
 
-    constructor() {
-        makeAutoObservable(this, {}, { autoBind: true });
-    }
-    @action setBasicInfo = (updatedBasicInfo) => {
-        this.basicInfo = updatedBasicInfo;
-    }
+  constructor() {
+    makeAutoObservable(this, {}, { autoBind: true });
+  }
 
-    @action setStepOneSuccess = (bool) => {
-        this.stepOneSuccess = bool;
-    }
+  setBasicInfo = (updatedBasicInfo) => {
+    this.basicInfo = updatedBasicInfo;
+  };
 
-    @action setStepOneWasOnSuccess = (bool) => {
-        this.stepOneWasOnSuccess = bool;
-    }
+  setStepOneSuccess = (bool) => {
+    this.stepOneSuccess = bool;
+  };
 
-
+  setStepOneWasOnSuccess = (bool) => {
+    this.stepOneWasOnSuccess = bool;
+  };
 }
-

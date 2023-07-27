@@ -1,4 +1,5 @@
 export default {
+  orangeOutline2px: '0 0 0 2px orange.500',
   xs: '0px 1px 2px rgba(16, 24, 40, 0.05)',
   sm: '0px 0px 1px rgba(48, 49, 51, 0.05), 0px 2px 4px rgba(48, 49, 51, 0.1)',
   md: '0px 0px 1px rgba(48, 49, 51, 0.05), 0px 4px 8px rgba(48, 49, 51, 0.1)',

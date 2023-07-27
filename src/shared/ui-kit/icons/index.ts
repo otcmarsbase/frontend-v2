@@ -4,3 +4,7 @@ export * from './MediumIcon';
 export * from './RedditIcon';
 export * from './TelegramIcon';
 export * from './TwitterIcon';
+export * from './WaitingIcon';
+export * from './CheckmarkIcon';
+export * from './ChevronDownIcon';
+export * from './RequiredIcon';
