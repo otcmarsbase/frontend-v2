@@ -1,11 +1,9 @@
-// import {memo} from "react";
-// import {Box} from "@chakra-ui/react";
-//
-export const ConnectingBtn = () => {
-//     return (
-//         <Box>
-//             <Box>Connecting...</Box>
-//     </Box>
-// )
-}
+import { Box } from '@chakra-ui/react';
 
+export const ConnectingBtn = () => {
+  return (
+    <Box>
+      <Box>Connecting...</Box>
+    </Box>
+  );
+};

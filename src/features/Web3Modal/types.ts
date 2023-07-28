@@ -9,4 +9,4 @@
 //     isDisconnected: boolean
 //     status: 'connecting' | 'reconnecting' | 'connected' | 'disconnected'
 // }
-export {}
+export {};

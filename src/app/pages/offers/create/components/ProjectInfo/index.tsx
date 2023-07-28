@@ -62,6 +62,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn }> = (props) => {
         <Select
           placeholder="Choose type"
           size="sm"
+          isMulti
           value={getValues('typesOfSeller')}
           onChange={(value) => setValue('typesOfSeller', value)}
           options={InvAccTypes.map((sellerType) => ({

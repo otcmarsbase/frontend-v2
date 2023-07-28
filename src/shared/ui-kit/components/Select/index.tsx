@@ -11,7 +11,6 @@ export const Select = ({ ...selectProps }: SelectProps) => {
   return (
     <ChakraSelect
       {...selectProps}
-      isMulti={false}
       chakraStyles={{
         indicatorSeparator: (css) => ({
           ...css,

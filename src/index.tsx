@@ -3,6 +3,7 @@ import { RootStore, StoresContext } from '@app/store/rootStore';
 import { override } from '@packages/react-runtime-layout';
 import ReactDOM from 'react-dom/client';
 import { App } from './app';
+import { ErrorBoundary } from './features/ErrorBoundary/ErrorBoundary';
 import reportWebVitals from './reportWebVitals';
 
 override();
@@ -11,10 +12,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 const store = new RootStore();
+
 root.render(
   <React.StrictMode>
     <StoresContext.Provider value={store}>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </StoresContext.Provider>
   </React.StrictMode>,
 );

@@ -1,11 +1,11 @@
 import Layouts from '@app/layouts';
 
-const Create: React.FC<{ prop: string }> = ({ prop }) => {
+const List: React.FC<{ prop: string }> = ({ prop }) => {
   return <div>List {prop}</div>;
 };
 
-Create.getLayout = ({ children }) => {
+List.getLayout = ({ children }) => {
   return <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 };
 
-export default Create;
+export default List;

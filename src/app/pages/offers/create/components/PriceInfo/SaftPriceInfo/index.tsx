@@ -28,6 +28,7 @@ export const SaftPriceInfo: FC<{
               register={fieldRules}
               errors={errors}
               id={item}
+              label={TokenInfoFields[item.toLowerCase()]}
               value={getValues(item)}
               placeholder={TokenInfoFields[item.toLowerCase()]}
               width="100%"

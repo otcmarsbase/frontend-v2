@@ -34,6 +34,7 @@ export const FormField = ({
     <FormControl isInvalid={Boolean(errors[id])} {...props}>
       {label && <FormLabel>{label}</FormLabel>}
       <Input placeholder={placeholder} value={value} {...register} />
+
       {errors[id] ? (
         <FormErrorMessage position="absolute">
           {errors[id].message}

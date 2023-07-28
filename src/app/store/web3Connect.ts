@@ -15,4 +15,4 @@
 //         this.extensionState = newExtensionState;
 //     }
 // }
-export {}
+export {};
