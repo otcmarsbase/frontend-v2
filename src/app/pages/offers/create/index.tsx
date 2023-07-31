@@ -1,20 +1,48 @@
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import Layouts from '@app/layouts';
-import {ICreateOffer} from "@app/pages/offers/create/types";
 import {useStore} from '@app/store';
-import {HStack, VStack, Text, Heading, Badge, Box} from '@chakra-ui/react';
-import {FormSection, FormWrapper, useForm} from '@shared/ui-kit';
+import {HStack, VStack, Text, Heading, Badge, Box, ButtonGroup, Button} from '@chakra-ui/react';
+import {FormBlockElement, FormSection, FormWrapper, RadioButtons, useForm} from '@shared/ui-kit';
 import Decimal from "decimal.js";
 import {ProjectInfo, Summary, TokenInfo, TokenInfoSafe} from './components';
 import {SellOfferSchema} from './schemas';
 import {hasAllProperties, reorderItems} from './utils';
 import {StepThree} from "../../../../features/StepThree";
-import {ILotType} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {ILotType, LotTypes} from "@app/pages/offers/create/components/ProjectInfo/types";
 import {hasNoProperties} from "@app/pages/offers/utils";
+import {ProjectInfoFields} from "@app/pages/offers/create/components/ProjectInfo/consts";
 
-export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
+const defaultValues = {
+    typesOfBuyer: [],
+    typesOfSeller: [],
+    // projectName: '',
+    // projectWebsite: '',
+    lotType: 'SAFE',
+    // telegram: '',
+    // deadlineDate: '',
+    // investmentRound: '',
+    // targetFDV:0,
+    // tokensBought:0,
+    // roundFDV:0,
+    // contractValue:0,
+    // contractSizeToOffer:0,
+    // minDealSize:0
+}
+
+function getDefaultValues(typeOfDeal) {
+    const draftByTypeOfDeal = JSON.parse(localStorage.getItem(`${typeOfDeal}Draft`));
+
+    if (!draftByTypeOfDeal) {
+        return defaultValues
+    } else {
+        return draftByTypeOfDeal
+    }
+}
+
+export const CreateOffer: React.FC = observer(() => {
     const {SellOfferStore} = useStore();
+
     const {
         setBasicInfo,
         setStepOneSuccess,
@@ -27,14 +55,23 @@ export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
         setStepTwoWasOnSuccess,
         setStepThreeWasOnSuccess,
         setStepThreeSuccess,
-        setTypeOfPricingModel
+        setTypeOfPricingModel,
+        typeOfDeal,
+        setTypeOfDeal
     } = SellOfferStore;
+
+    // const [defValues,setDefValues] = useState(defaultValues)
+    // useEffect(()=>{
+    //     setDefValues(getDefaultValues(typeOfDeal))
+    // },[typeOfDeal])
 
     const form = useForm({
         schema: SellOfferSchema,
         defaultValues: {
             typesOfBuyer: [],
             typesOfSeller: [],
+            projectName: '',
+            projectWebsite: '',
             lotType: 'SAFE'
         },
     });
@@ -94,8 +131,9 @@ export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
             setStepThreeWasOnSuccess(true)
         }
         setBasicInfo(data)
-        console.log('this this --------',data)
         localStorage.setItem(`${typeOfDeal}Draft`, JSON.stringify(data));
+
+        console.log('formrrrrr', form.getFieldState('projectName'))
     }, [data])
 
     const [showStepTwo, setShowStepTwo] = useState(false)
@@ -119,9 +157,10 @@ export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
         }
     }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setTypeOfPricingModel('In Stablecoin')
-    },[data.lotType])
+    }, [data.lotType])
+
     function handleRecountValues({currentID, bindedID, value, pricingModel}) {
         const isCurtargetFDV = currentID === 'targetFDV';
 
@@ -151,18 +190,61 @@ export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
         }
     }
 
+    function toggleTypeOfDeal(dealType) {
+        // console.log('form.formState',form.formState.dirtyFields);
+        // localStorage.setItem('formState', JSON.stringify(form.formState.dirtyFields))
+        form.reset(getDefaultValues(dealType));
+        // const fieldStatesPrev = JSON.parse(localStorage.getItem('formState'))
+
+        // form.formState =
+        setTypeOfDeal(dealType)
+    }
+
     return (
         <HStack justifyContent={'center'} mt={'20px'} gap="2rem">
             <FormWrapper width="100%">
-                <VStack gap="0" alignItems="start" marginBottom="1.5rem">
-                    <Heading size="md" fontFamily="promo">
-                        Creating an offer
-                    </Heading>
-                    <Text color="dark.50" fontSize="sm">
-                        Set suitable conditions
-                    </Text>
-                </VStack>
-                {typeOfDeal} type of deal
+                <HStack
+                    justifyContent={'space-between'}
+                >
+                    <VStack gap="0" alignItems="start" marginBottom="1.5rem">
+                        <Heading size="md" fontFamily="promo">
+                            Creating an offer
+                        </Heading>
+                        <Text color="dark.50" fontSize="sm">
+                            Set suitable conditions
+                        </Text>
+                    </VStack>
+                    <HStack>
+
+
+                        <Button
+                            w={'140px'}
+                            h={'40px'}
+                            id={'Buy'}
+                            isActive={typeOfDeal === 'Buy'}
+                            _active={{
+                                bg: 'var(--ui-kit-green-500, #279783)'
+                            }}
+                            onClick={() => toggleTypeOfDeal('Buy')}
+                        >
+                            Buy
+                        </Button>
+                        <Button
+                            w={'140px'}
+                            h={'40px'}
+                            id={'Sell'}
+                            isActive={typeOfDeal === 'Sell'}
+                            _active={{
+                                bg: 'var(--ui-kit-green-500, #279783)'
+                            }}
+                            onClick={() => toggleTypeOfDeal('Sell')}
+                        >
+                            Sell
+                        </Button>
+                    </HStack>
+                </HStack>
+
+
                 <VStack gap="1.5rem">
                     <FormSection>
                         <HStack gap="0.5rem" marginBottom="2.5rem">
@@ -216,12 +298,12 @@ export const CreateOffer: React.FC<ICreateOffer> = observer(({typeOfDeal}) => {
                         :
                         null
                     }
-
                 </VStack>
             </FormWrapper>
             <Box position="sticky" top="0" right="0" alignSelf="start">
                 <Summary
-                    onPublishLot={() => {}}
+                    onPublishLot={() => {
+                    }}
                     typeOfDeal={typeOfDeal}
                     lotType={data.lotType}
                 />

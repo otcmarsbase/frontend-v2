@@ -15,17 +15,21 @@ import {
 } from '@shared/ui-kit';
 import {TypeOfOffer} from "../../../features/Modals/TypeOfOffer/TypeOfOffer";
 import {Web3ModalComponent} from "../../../features/Web3Modal/ui/Web3Modal";
+import {observer} from "mobx-react-lite";
+import {useStore} from "@app/store";
 
 
-
-
-export const AppLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
+export const AppLayout: React.FC<PropsWithChildren<{}>> = observer(({children}) => {
     const copyright = `© All Rights Reserved MarsBase, ${new Date().getFullYear()}`;
+    const {SellOfferStore} = useStore();
+    const {setTypeOfDeal} = SellOfferStore;
 
-    async function pushToOffers(){
+    async function pushToOffers() {
         const typeOfDeal: string = await ModalController.create(TypeOfOffer, {});
-        router.navigateComponent(pages.offers.create, {typeOfDeal} as ICreateOffer)
+        setTypeOfDeal(typeOfDeal)
+        router.navigateComponent(pages.offers.create, {})
     }
+
     return (
         <VStack minHeight="100vh" width="100%" gap="0">
             <Box width="100%" flexShrink="0">
@@ -83,4 +87,4 @@ export const AppLayout: React.FC<PropsWithChildren<{}>> = ({children}) => {
             </Box>
         </VStack>
     );
-};
+});

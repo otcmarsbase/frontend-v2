@@ -11,11 +11,15 @@ export class SellOfferStore {
   public stepThreeSuccess: boolean = false;
   public stepThreeWasOnSuccess: boolean = false;
   public typeOfPricingModel: string = 'In Stablecoin';
+  public typeOfDeal: string = 'Sell';
+
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
-
+  setTypeOfDeal = (payload) => {
+    this.typeOfDeal = payload;
+  };
   setTypeOfPricingModel = (payload) => {
     this.typeOfPricingModel = payload;
   };

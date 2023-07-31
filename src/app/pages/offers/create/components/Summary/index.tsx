@@ -27,7 +27,6 @@ function getTargetFields({step, lotType, pricingModel}) {
 }
 
 const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel}: IStepWrapperProps) => {
-
     const targetFields = getTargetFields({step, lotType, pricingModel});
 
     const fields = targetFields.reduce(

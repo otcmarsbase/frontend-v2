@@ -111,7 +111,7 @@ export const TokenInfo: FC<{
                     lotType={lotType}
                     label={'Price info'}
                     helperText={
-                        'You must enter any 3 numbers, then is automatically calculated.'
+                        'Automatically calculated'
                     }
                     handleRecountPriceInfoValues={handleRecountPriceInfoValues}
                 />
