@@ -1,15 +1,39 @@
 import * as yup from 'yup';
 
+export const TokenDetailsShema = yup.object().shape({
+  contractSizeToOffer: yup.number(),
+  minDealSize: yup.number(),
+  tokenShareToOffer: yup.number(),
+  minTokenShareBid: yup.number(),
+  equityToOffer: yup.number(),
+  minEquityBid: yup.number(),
+  tokensToOffer: yup.number(),
+  minTokenBid: yup.number(),
+
+  targetFDV: yup.number(),
+  pricePerEquity: yup.number(),
+  targetTokenPrice: yup.number(),
+  offerTheBestBid: yup.number(),
+});
+
+
 export const TokenInfoSchema = yup.object().shape({
   investmentRound: yup.string().required(`Investment round is required`),
   roundFDV: yup.number().required(`Round FDV is required`),
-  targetFDV: yup.number(),
-  pricePerEquity: yup.number(),
+
   contractValue: yup.number().required(`Contract value is required`),
-  dates: yup.object(),
+  dates: yup.string(),
   alreadyOver: yup.boolean(),
   lockupPeriod: yup.number(),
   vestingPeriod: yup.number(),
+
+  totalEquityBought: yup.number(),
+  pricePerEquityPriceInfo: yup.number(),
+  tokensBought: yup.number(),
+  pricePerTokenPriceInfo: yup.number(),
+  tokensShareBought: yup.number(),
+  pricePerTokensPriceInfo: yup.number(),
+
 });
 
 export const ProjectInfoSchema = yup.object().shape({
@@ -22,9 +46,10 @@ export const ProjectInfoSchema = yup.object().shape({
   isReAssigned: yup.boolean(),
   deadlineDate: yup.string(),
   isDirectSeller: yup.boolean(),
-  isAdmToBuy: yup.boolean(),
-  isDataPickerDisabled: yup.boolean(),
+  noLimitations: yup.boolean(),
+  isPermanent: yup.boolean(),
   isTokenWarrant: yup.boolean(),
+  isReadyToSVP: yup.boolean()
 });
 
-export const SellOfferSchema = ProjectInfoSchema.concat(TokenInfoSchema);
+export const SellOfferSchema = ProjectInfoSchema.concat(TokenInfoSchema).concat(TokenDetailsShema);

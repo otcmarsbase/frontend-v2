@@ -7,6 +7,44 @@ export const TokenInfoFields = {
   VESTING_PERIOD: 'Vesting period',
   ALREADY_OVER: 'Already over',
   PRICE_INFO: 'Price information',
-  TARGET_FDV: 'Target FDV',
+
+  TOTAL_EQUITY_BOUGHT: 'Total equity bought',
   PRICE_PER_EQUITY: 'Price per 0,01% equity',
+  TOKENS_BOUGHT: 'Tokens bought',
+  PRICE_PER_TOKEN: 'Price per token',
+  TOKENS_SHARE_BOUGHT: 'Tokens share bought',
+  PRICE_PER_TOKENS: 'Price per 0,01% tokens',
+};
+
+export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE = {
+  SAFE: [
+    {
+      id: 'totalEquityBought',
+      fieldLabel: TokenInfoFields.TOTAL_EQUITY_BOUGHT,
+    },
+    {
+      id: 'pricePerEquityPriceInfo',
+      fieldLabel: TokenInfoFields.PRICE_PER_EQUITY,
+    },
+  ],
+  SAFT: [
+    {
+      id: 'tokensBought',
+      fieldLabel: TokenInfoFields.TOKENS_BOUGHT,
+    },
+    {
+      id: 'pricePerTokenPriceInfo',
+      fieldLabel: TokenInfoFields.PRICE_PER_TOKEN,
+    },
+  ],
+  'Token Warrant': [
+    {
+      id: 'tokensShareBought',
+      fieldLabel: TokenInfoFields.TOKENS_SHARE_BOUGHT,
+    },
+    {
+      id: 'PRICE_PER_TOKENS',
+      fieldLabel: TokenInfoFields.PRICE_PER_TOKENS,
+    },
+  ],
 };

@@ -3,7 +3,8 @@ import {useStore} from '@app/store';
 import {Box, Button, VStack, Heading, Text} from '@chakra-ui/react';
 import {SummaryStep} from '@shared/ui-kit';
 import {StepLabels, StepTypes, StepsText} from './constants';
-import {PublishLot} from "@app/pages/offers/create/components/PublishLot";
+import {hasAllProperties} from "@app/pages/offers/utils";
+
 
 interface IStepWrapperProps {
     isSuccessFilled: boolean;
@@ -13,26 +14,19 @@ interface IStepWrapperProps {
     pricingModel: string
 }
 
-function getTargetFields({step, lotType, pricingModel}) {
-    let targetFields = []
-    if (StepTypes.FIRST_STEP === step) {
-        targetFields = Object.entries(StepsText[step])
-    } else if (StepTypes.SECOND_STEP === step) {
-        targetFields = Object.entries(StepsText[step][lotType])
-    } else {
-        const isPricingModelExist = StepsText[step][lotType].hasOwnProperty(pricingModel);
-        targetFields = Object.entries(StepsText[step][lotType][isPricingModelExist ? pricingModel : 'In Stablecoin'])
-    }
-    return targetFields
-}
-
 const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel}: IStepWrapperProps) => {
 
-    const targetFields = getTargetFields({step, lotType, pricingModel});
+    console.log('pricingModel',StepsText[step][lotType], pricingModel)
+    if(!lotType || !step) return
 
+    const objEntr = StepsText[step][lotType].hasOwnProperty(pricingModel) ? StepsText[step][lotType][pricingModel] : StepsText[step][lotType]['In Stablecoin']
+
+    const targetFields = step === StepTypes.SECOND_STEP_BUY ? objEntr : Object.entries(StepsText[step]);
+
+console.log('targetFields',targetFields)
     const fields = targetFields.reduce(
         (acc, curValue) => [
-
+            // @ts-ignore
             ...acc,
             {
                 name: curValue[1],
@@ -48,9 +42,15 @@ const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel}: IStep
                 id: StepLabels[step].index,
                 label: StepLabels[step].label,
             }}
+            // @ts-ignore
             fields={fields}
         />
     );
+    return(
+        <Box>
+            gf
+        </Box>
+    )
 };
 
 export interface SummaryProps {
@@ -61,20 +61,9 @@ export interface SummaryProps {
 
 export const Summary = observer(({onPublishLot, lotType, typeOfDeal}: SummaryProps) => {
     const {SellOfferStore} = useStore();
-    const {
-        typeOfPricingModel,
-        stepOneSuccess,
-        stepThreeSuccess,
-        stepTwoSuccess,
-        basicInfo
-    } = SellOfferStore;
-
-    const SellConditionsComplete = stepOneSuccess && stepTwoSuccess && stepThreeSuccess;
-    const BuyConditionsComplete = stepOneSuccess && stepThreeSuccess;
-
-
+    const {typeOfPricingModel} = SellOfferStore;
     return (
-        <VStack layerStyle="darkGradientBordered" alignSelf="start" gap={'1.5rem'}>
+        <VStack layerStyle="darkGradientBordered" alignSelf="start">
             <Box alignSelf="start" mb="1.5rem">
                 <Heading size="md" fontFamily="promo">
                     Final selection
@@ -83,25 +72,24 @@ export const Summary = observer(({onPublishLot, lotType, typeOfDeal}: SummaryPro
                     Set suitable conditions
                 </Text>
             </Box>
-            <VStack gap={'0.5rem'}>
             <StepWrapper
-                isSuccessFilled={stepOneSuccess}
+                isSuccessFilled={SellOfferStore.stepOneSuccess}
                 step={StepTypes.FIRST_STEP}
                 lotType={lotType}
                 pricingModel={typeOfPricingModel}
-                data={basicInfo}
+                data={SellOfferStore.basicInfo}
             />
             {typeOfDeal === 'Sell' && typeOfPricingModel ?
                 <>
                     <StepWrapper
-                        isSuccessFilled={stepOneSuccess && stepTwoSuccess}
+                        isSuccessFilled={SellOfferStore.stepOneSuccess && SellOfferStore.stepTwoSuccess}
                         step={StepTypes.SECOND_STEP}
                         lotType={lotType}
                         pricingModel={typeOfPricingModel}
                         data={SellOfferStore.basicInfo}
                     />
                     <StepWrapper
-                        isSuccessFilled={SellConditionsComplete}
+                        isSuccessFilled={SellOfferStore.stepOneSuccess && SellOfferStore.stepTwoSuccess && SellOfferStore.stepThreeSuccess}
                         step={StepTypes.THIRD_STEP}
                         lotType={lotType}
                         pricingModel={typeOfPricingModel}
@@ -110,20 +98,14 @@ export const Summary = observer(({onPublishLot, lotType, typeOfDeal}: SummaryPro
                 </>
                 :
                 <StepWrapper
-                    isSuccessFilled={BuyConditionsComplete}
+                    isSuccessFilled={SellOfferStore.stepOneSuccess && SellOfferStore.stepThreeSuccess}
                     step={StepTypes.SECOND_STEP_BUY}
                     lotType={lotType}
                     pricingModel={typeOfPricingModel}
-                    data={basicInfo}
+                    data={SellOfferStore.basicInfo}
                 />
             }
-            </VStack>
-            <PublishLot
-                onPublishLot={onPublishLot}
-                isActive={typeOfDeal === 'Sell' ? SellConditionsComplete : BuyConditionsComplete}
-            >
-                Publish Lot
-            </PublishLot>
+            <Button onClick={onPublishLot}>Publish Lot</Button>
         </VStack>
     )
         ;

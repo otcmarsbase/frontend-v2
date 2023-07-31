@@ -26,24 +26,25 @@ export const TypeOfOffer: React.FC<FormCreatorEditorModalProps> = memo(
         header={'Choose type of offer'}
         onClose={onClose}
         size="2xl"
-        footer={
-          <VStack>
-            <Box>Choose whether you want to buy or sell your funds</Box>
-            <Button
-              flex={1}
-              variant="primary"
-              id={'Buy'}
-              onClick={() => onSubmit('Buy')}
-            >
-              Offer to buy
-            </Button>
-            <Button flex={1} id={'Sell'} onClick={() => onSubmit('Sell')}>
-              Offer to sell
-            </Button>
-          </VStack>
-        }
+        isCentered={true}
+
+
+        // footer={}
       >
-        aaaa
+          <VStack bg={'orange'}>
+              <Box>Choose whether you want to buy or sell your funds</Box>
+              <Button
+                  flex={1}
+                  variant="primary"
+                  id={'Buy'}
+                  onClick={() => onSubmit('Buy')}
+              >
+                  Offer to buy
+              </Button>
+              <Button flex={1} id={'Sell'} onClick={() => onSubmit('Sell')}>
+                  Offer to sell
+              </Button>
+          </VStack>
       </Modal>
     );
   },

@@ -13,29 +13,22 @@ export const InvAccTypes: IInvAccType[] = [
   IInvAccType.DAO,
 ];
 export type ProjectInfoShemaTypes =
-  | 'project_name'
-  | 'project_website'
-  | 'lot_type'
-  | 'telegram'
-  | 'is_re_assigned'
-  | 'is_direct_seller'
-  | 'is_adm_to_buy'
-  | 'is_data_picker_disabled'
-  | 'is_token_warrant'
-  | 'types_of_seller'
-  | 'types_of_buyer'
-  | 'deadline_date';
+    | 'project_name'
+    | 'project_website'
+    | 'lot_type'
+    | 'telegram'
+    | 'is_re_assigned'
+    | 'is_direct_seller'
+    | 'is_adm_to_buy'
+    | 'is_data_picker_disabled'
+    | 'is_token_warrant'
+    | 'types_of_seller'
+    | 'types_of_buyer'
+    | 'deadline_date';
 
-export enum LotType {
+export enum ILotType {
   SAFE = 'SAFE',
   SAFT = 'SAFT',
-  TOKEN_WARRANT = 'TOKEN_WARRANT',
+  TOKEN_WARRANT = 'Token Warrant',
 }
-
-export const LotTypesTexts = {
-  [LotType.SAFE]: 'SAFE',
-  [LotType.SAFT]: 'SAFT',
-  [LotType.TOKEN_WARRANT]: 'Token warrant',
-};
-
-export const LotTypes = [LotType.SAFE, LotType.SAFT, LotType.TOKEN_WARRANT];
+export const LotTypes = [ILotType.SAFE, ILotType.SAFT, ILotType.TOKEN_WARRANT];

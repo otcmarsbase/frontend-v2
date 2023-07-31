@@ -94,7 +94,7 @@ const CustomHeader = ({
 const DataPickerInput = ({ value, onClick }: IDataPickerInput) => (
   <Button
     _hover={{ borderColor: '#94969A', color: '#94969A', stroke: '#94969A' }}
-    h="32px"
+    h="3rem"
     border="2px"
     borderColor="#686A6E"
     borderRadius="8px"
@@ -103,7 +103,7 @@ const DataPickerInput = ({ value, onClick }: IDataPickerInput) => (
     bg="#000000"
     onClick={onClick}
     px={'12px'}
-    w={'342px'}
+    w={'100%'}
     py={'4px'}
     justifyContent={'flex-start'}
   >
@@ -122,7 +122,7 @@ const DataPickerInput = ({ value, onClick }: IDataPickerInput) => (
   </Button>
 );
 
-export const DatePickerComp = ({ handleGetDate }) => {
+export const DatePickerComp = ({ handleGetDate, isDatePickerDisabled }) => {
   const [startDate, setStartDate] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -159,6 +159,7 @@ export const DatePickerComp = ({ handleGetDate }) => {
       onChange={(date: Date) => setStartDate((prevState) => date)}
       dateFormat="dd.MM.yyyy"
       showPopperArrow={false}
+      disabled={isDatePickerDisabled}
       popperPlacement="bottom-start"
       popperClassName="DataPickerPopper"
       customInput={<DataPickerInput value={startDate} onClick={() => {}} />}

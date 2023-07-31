@@ -1,5 +1,5 @@
 import { RouterProvider } from '@packages/router5-react-auto';
-import { AppLoad, GlobalPreload, ThemeProvider } from '@shared/ui-kit';
+import {AppLoad, GlobalPreload, ThemeProvider} from '@shared/ui-kit';
 import { ModalProvider, router } from './logic';
 import { onAppLoad } from './onAppLoad';
 import pages from './pages';

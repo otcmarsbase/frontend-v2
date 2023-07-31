@@ -1,4 +1,4 @@
-export type TokenInfoShemaTypes =
+export type TokenInfoSchemaTypes =
   | 'investment_round'
   | 'round_fdv'
   | 'contract_value'

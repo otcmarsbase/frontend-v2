@@ -1,21 +1,3 @@
-import * as yup from 'yup';
-
-export const StepThreeShema = yup.object().shape({
-    ['contractSizeToOffer']: yup.number(),
-    ['minDealSize']: yup.number(),
-    ['tokenShareToOffer']: yup.number(),
-    ['minTokenShareBid']: yup.number(),
-    ['equityToOffer']: yup.number(),
-    ['minEquityBid']: yup.number(),
-    ['tokensToOffer']: yup.number(),
-    ['minTokenBid']: yup.number(),
-
-    ['targetFDV']: yup.number(),
-    ['pricePerEquity']: yup.number(),
-    ['targetTokenPrice']: yup.number(),
-    ['offerTheBestBid']: yup.number(),
-});
-
 export const StepThreeFields = {
     CONTRACT_SIZE_TO_OFFER: 'Contract size to offer',
     MIN_DEAL_SIZE: 'Minimum deal size, $',
@@ -34,7 +16,7 @@ export const StepThreeFields = {
 export const STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE = {
     SAFT: {
         leftBtnLabel: 'In Stablecoin',
-        rightBtnLabel: 'In Token',
+        rightBtnLabel: 'In Tokens',
     },
     SAFE: {
         leftBtnLabel: 'In Stablecoin',
