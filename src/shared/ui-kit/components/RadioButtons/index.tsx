@@ -35,7 +35,7 @@ export const RadioButtons = ({
         {items.map((item, index) => {
           const isActive = Boolean(value && item.value === value);
 
-          console.log({ isActive, item });
+          // console.log({ isActive, item });
 
           return (
             <Box

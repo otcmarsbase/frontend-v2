@@ -1,80 +1,42 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {observer} from 'mobx-react-lite';
 import Layouts from '@app/layouts';
 import {useStore} from '@app/store';
-import {HStack, VStack, Text, Heading, Badge, Box, ButtonGroup, Button} from '@chakra-ui/react';
-import {FormBlockElement, FormSection, FormWrapper, RadioButtons, useForm} from '@shared/ui-kit';
+import {HStack, VStack, Text, Heading, Badge, Box, Button} from '@chakra-ui/react';
+import {FormSection, FormWrapper, useForm} from '@shared/ui-kit';
 import Decimal from "decimal.js";
-import {ProjectInfo, Summary, TokenInfo, TokenInfoSafe} from './components';
+import {ProjectInfo, Summary, TokenInfo} from './components';
 import {SellOfferSchema} from './schemas';
-import {hasAllProperties, reorderItems} from './utils';
+import {getDefaultValues, reorderItems} from './utils';
 import {StepThree} from "../../../../features/StepThree";
-import {ILotType, LotTypes} from "@app/pages/offers/create/components/ProjectInfo/types";
-import {hasNoProperties} from "@app/pages/offers/utils";
-import {ProjectInfoFields} from "@app/pages/offers/create/components/ProjectInfo/consts";
-
-const defaultValues = {
-    typesOfBuyer: [],
-    typesOfSeller: [],
-    // projectName: '',
-    // projectWebsite: '',
-    lotType: 'SAFE',
-    // telegram: '',
-    // deadlineDate: '',
-    // investmentRound: '',
-    // targetFDV:0,
-    // tokensBought:0,
-    // roundFDV:0,
-    // contractValue:0,
-    // contractSizeToOffer:0,
-    // minDealSize:0
-}
-
-function getDefaultValues(typeOfDeal) {
-    const draftByTypeOfDeal = JSON.parse(localStorage.getItem(`${typeOfDeal}Draft`));
-
-    if (!draftByTypeOfDeal) {
-        return defaultValues
-    } else {
-        return draftByTypeOfDeal
-    }
-}
+import {ILotType} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {formDefaultValues} from "@app/pages/offers/create/consts";
+import {useSummaryStepsValidation} from "@app/pages/offers/create/hooks/useSummaryStepsValidation";
+import {useFormStepsValidation} from "@app/pages/offers/create/hooks/useFormStepsValdiation";
 
 export const CreateOffer: React.FC = observer(() => {
     const {SellOfferStore} = useStore();
 
     const {
-        setBasicInfo,
-        setStepOneSuccess,
-        setStepOneWasOnSuccess,
-        stepOneWasOnSuccess,
-        stepOneSuccess,
-        stepTwoWasOnSuccess,
-        stepTwoSuccess,
-        setStepTwoSuccess,
-        setStepTwoWasOnSuccess,
-        setStepThreeWasOnSuccess,
-        setStepThreeSuccess,
         setTypeOfPricingModel,
         typeOfDeal,
         setTypeOfDeal
     } = SellOfferStore;
 
-    // const [defValues,setDefValues] = useState(defaultValues)
-    // useEffect(()=>{
-    //     setDefValues(getDefaultValues(typeOfDeal))
-    // },[typeOfDeal])
-
     const form = useForm({
         schema: SellOfferSchema,
-        defaultValues: {
-            typesOfBuyer: [],
-            typesOfSeller: [],
-            projectName: '',
-            projectWebsite: '',
-            lotType: 'SAFE'
-        },
+        defaultValues: formDefaultValues,
     });
+
+    const data = form.watch();
+
+    useSummaryStepsValidation({data, typeOfDeal, SellOfferStore});
+
+    const {showStepTwo, showStepThree} = useFormStepsValidation({typeOfDeal, SellOfferStore});
+
+    useEffect(() => {
+        setTypeOfPricingModel('In Stablecoin')
+    }, [data.lotType])
 
     function handleRecountPriceInfoValues(curIds, id, value) {
         if (!value) {
@@ -102,76 +64,25 @@ export const CreateOffer: React.FC = observer(() => {
         form.setValue(fieldOneID, value.toString())
     }
 
-    const data = form.watch();
-
-    useEffect(() => {
-        //TODO add validations
-        const hasStepOneFieldsDirty = hasAllProperties(form.formState.dirtyFields, ['projectName', 'projectWebsite', 'telegram'])
-        const hasStepTwoFieldsDirty = hasAllProperties(form.formState.dirtyFields, ['investmentRound', 'roundFDV', 'contractValue'])
-        const stepThreeFiledsValid = data.contractSizeToOffer > 0 && data.minDealSize > 0
-
-        const stepOneOnError = hasNoProperties(form.formState.errors, ['projectName', 'projectWebsite', 'telegram'])
-        const stepTwoOnError = hasNoProperties(form.formState.errors, ['investmentRound', 'roundFDV', 'contractValue'])
-        const stepThreeOnError = hasNoProperties(form.formState.errors, ['contractSizeToOffer', 'minDealSize'])
-//TODO костылька
-        const stepOnePassed = !stepOneOnError && hasStepOneFieldsDirty && data.lotType && data.lotType.length > 0;
-        setStepOneSuccess(stepOnePassed)
-        if (stepOnePassed) {
-            setStepOneWasOnSuccess(true)
-        }
-
-        const stepTwoPassed = !stepTwoOnError && hasStepTwoFieldsDirty;
-        setStepTwoSuccess(stepTwoPassed)
-        if (stepTwoPassed) {
-            setStepTwoWasOnSuccess(true)
-        }
-        const stepThreePassed = !stepThreeOnError && stepThreeFiledsValid;
-        setStepThreeSuccess(stepThreePassed)
-        if (stepTwoPassed) {
-            setStepThreeWasOnSuccess(true)
-        }
-        setBasicInfo(data)
-        localStorage.setItem(`${typeOfDeal}Draft`, JSON.stringify(data));
-
-        console.log('formrrrrr', form.getFieldState('projectName'))
-    }, [data])
-
-    const [showStepTwo, setShowStepTwo] = useState(false)
-
-    useEffect(() => {
-        let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
-        if (typeOfDeal === 'Sell') {
-            setShowStepTwo(prev => _showStepTwo)
-        } else {
-            setShowStepThree(prev => _showStepTwo)
-            setShowStepTwo(prev => false)
-        }
-    }, [stepOneWasOnSuccess, stepOneSuccess, typeOfDeal]);
-
-    const [showStepThree, setShowStepThree] = useState(false);
-
-    useEffect(() => {
-        let _showStepThree = (stepOneWasOnSuccess || stepOneSuccess) && (stepTwoWasOnSuccess || stepTwoSuccess);
-        if (typeOfDeal === 'Sell') {
-            setShowStepThree(prev => _showStepThree)
-        }
-    }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
-
-    useEffect(() => {
-        setTypeOfPricingModel('In Stablecoin')
-    }, [data.lotType])
 
     function handleRecountValues({currentID, bindedID, value, pricingModel}) {
         const isCurtargetFDV = currentID === 'targetFDV';
-
+console.log('{currentID, bindedID, value, pricingModel}',{currentID, bindedID, value, pricingModel});
         // cv1 =  5,000,000 $
         // fdv1 = 1,000,000,000 $
         const cv1 = Number(form.getValues('contractSizeToOffer'));
         const cv0 = Number(form.getValues('contractValue'));
-        const fdv1 = Number(isCurtargetFDV ? value : 'targetFDV');
+        const fdv1 = Number(isCurtargetFDV ? value : form.getValues('targetFDV'));
         const fdv0 = Number(form.getValues('roundFDV'));
         const uq0 = Number(form.getValues('tokensBought'));
-
+        const equityToOffer = Number(form.getValues('equityToOffer'));
+        const totalEquityBought = Number(form.getValues('totalEquityBought'));
+        console.log('totalEquityBought',totalEquityBought);
+        // console.log('cv1',cv1);
+        // console.log('cv0',cv0);
+        // console.log('fdv1',fdv1);
+        // console.log('fdv0',fdv0);
+        // console.log('uq0',uq0);
         if (pricingModel === 'In Stablecoin') {
             const share0 = (cv0 * 100) / fdv0;
             const share1 = (cv1 * 100) / fdv1;
@@ -179,25 +90,43 @@ export const CreateOffer: React.FC = observer(() => {
             const uq1 = uq0 * ratio;
             if (currentID === 'targetFDV') {
                 const result = cv1 / uq1;
-                form.setValue(bindedID, result)
-                form.setValue('targetFDV', value)
+                // console.log('result',result);
+                form.setValue(bindedID, result);
+                form.setValue('targetFDV', value);
             } else {
-                const result = cv1 / value;
-                form.setValue('targetFDV', result)
-                form.setValue(bindedID, value)
+                const share0 = fdv0 / cv0;
+                const totalTokensForSale = uq0 * share0;
+                const result = totalTokensForSale * value;
+                // console.log('share0',share0, 'totalTokensForSale', totalTokensForSale, 'result', result);
+                form.setValue(bindedID, result);
+                form.setValue(currentID, value);
             }
+        }else{
+            console.log('fdv1', fdv1)
+            const share0 = (cv0 * 100) / fdv0;
+            console.log('share0', share0)
+            const ratio = equityToOffer/totalEquityBought;
+            console.log('ratio', ratio)
+            const share1 = (ratio * share0)/100;
+            console.log('share1',share1)
+            let cv1 = fdv1 * share1;
+            console.log('cv1',cv1)
+            let result = cv1 / equityToOffer;
+            console.log('result',result)
 
+            if (currentID === 'targetFDV') {
+                form.setValue(bindedID, result);
+                form.setValue('targetFDV', value);
+            } else {
+                form.setValue(bindedID, result);
+                form.setValue(currentID, value);
+            }
         }
     }
 
     function toggleTypeOfDeal(dealType) {
-        // console.log('form.formState',form.formState.dirtyFields);
-        // localStorage.setItem('formState', JSON.stringify(form.formState.dirtyFields))
         form.reset(getDefaultValues(dealType));
-        // const fieldStatesPrev = JSON.parse(localStorage.getItem('formState'))
-
-        // form.formState =
-        setTypeOfDeal(dealType)
+        setTypeOfDeal(dealType);
     }
 
     return (
@@ -215,8 +144,6 @@ export const CreateOffer: React.FC = observer(() => {
                         </Text>
                     </VStack>
                     <HStack>
-
-
                         <Button
                             w={'140px'}
                             h={'40px'}
@@ -243,7 +170,6 @@ export const CreateOffer: React.FC = observer(() => {
                         </Button>
                     </HStack>
                 </HStack>
-
 
                 <VStack gap="1.5rem">
                     <FormSection>

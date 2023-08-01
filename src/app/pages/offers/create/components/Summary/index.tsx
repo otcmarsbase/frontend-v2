@@ -10,7 +10,8 @@ interface IStepWrapperProps {
     step: StepTypes;
     data: any;
     lotType: string;
-    pricingModel: string
+    pricingModel: string;
+    stepWasOpened: boolean
 }
 
 function getTargetFields({step, lotType, pricingModel}) {
@@ -26,9 +27,9 @@ function getTargetFields({step, lotType, pricingModel}) {
     return targetFields
 }
 
-const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel}: IStepWrapperProps) => {
+const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel, stepWasOpened}: IStepWrapperProps) => {
     const targetFields = getTargetFields({step, lotType, pricingModel});
-
+// console.log('StepWrapper',data)
     const fields = targetFields.reduce(
         (acc, curValue) => [
 
@@ -43,6 +44,7 @@ const StepWrapper = ({isSuccessFilled, step, data, lotType, pricingModel}: IStep
     return (
         <SummaryStep
             isSuccessFilled={isSuccessFilled}
+            stepWasOpened={stepWasOpened}
             stepData={{
                 id: StepLabels[step].index,
                 label: StepLabels[step].label,
@@ -65,7 +67,10 @@ export const Summary = observer(({onPublishLot, lotType, typeOfDeal}: SummaryPro
         stepOneSuccess,
         stepThreeSuccess,
         stepTwoSuccess,
-        basicInfo
+        basicInfo,
+        stepOneWasOnSuccess,
+        stepTwoWasOnSuccess,
+        stepThreeWasOnSuccess
     } = SellOfferStore;
 
     const SellConditionsComplete = stepOneSuccess && stepTwoSuccess && stepThreeSuccess;
@@ -87,31 +92,35 @@ export const Summary = observer(({onPublishLot, lotType, typeOfDeal}: SummaryPro
                 isSuccessFilled={stepOneSuccess}
                 step={StepTypes.FIRST_STEP}
                 lotType={lotType}
+                stepWasOpened={stepTwoWasOnSuccess}
                 pricingModel={typeOfPricingModel}
                 data={basicInfo}
             />
             {typeOfDeal === 'Sell' && typeOfPricingModel ?
                 <>
                     <StepWrapper
-                        isSuccessFilled={stepOneSuccess && stepTwoSuccess}
+                        isSuccessFilled={stepTwoSuccess}
                         step={StepTypes.SECOND_STEP}
                         lotType={lotType}
+                        stepWasOpened={stepTwoWasOnSuccess}
                         pricingModel={typeOfPricingModel}
                         data={SellOfferStore.basicInfo}
                     />
                     <StepWrapper
-                        isSuccessFilled={SellConditionsComplete}
+                        isSuccessFilled={stepThreeSuccess}
                         step={StepTypes.THIRD_STEP}
                         lotType={lotType}
+                        stepWasOpened={stepThreeWasOnSuccess}
                         pricingModel={typeOfPricingModel}
                         data={SellOfferStore.basicInfo}
                     />
                 </>
                 :
                 <StepWrapper
-                    isSuccessFilled={BuyConditionsComplete}
+                    isSuccessFilled={stepThreeSuccess}
                     step={StepTypes.SECOND_STEP_BUY}
                     lotType={lotType}
+                    stepWasOpened={stepThreeWasOnSuccess}
                     pricingModel={typeOfPricingModel}
                     data={basicInfo}
                 />

@@ -10,8 +10,8 @@ export enum StepTypes {
 export const StepsText: Record<StepTypes, Record<string, {}>> = {
     [StepTypes.FIRST_STEP]: {
         projectName: 'Name',
+        typeOfDeal: 'Direction',
         lotType: 'Type',
-        direction: 'Direction',
         deadlineDate: 'Deadline'
     },
     [StepTypes.SECOND_STEP]: {
@@ -34,14 +34,8 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
             tokensShareBought: TokenInfoFields.TOKENS_SHARE_BOUGHT,
             pricePerEquity: TokenInfoFields.PRICE_PER_EQUITY
         }
-        // tokensBought: 'Tokens bought',
-        // pricePerToken: 'Price per token'
     },
     [StepTypes.SECOND_STEP_BUY]: {
-        // contractSizeToOffer: 'Contract size to offer',
-        // minDealSize: 'Minimum deal size',
-        // targetFDV: 'Target FDV',
-        // pricePerEquity: 'Price per 0,01% equity'
         SAFE: {
             'In Stablecoin': {
                 contractSizeToOffer: 'Contract size to offer',
