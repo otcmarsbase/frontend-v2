@@ -1,6 +1,5 @@
 import {
   Connector,
-  PublicClient,
   useAccount,
   useBalance,
   useConnect,
@@ -12,7 +11,6 @@ import { Button, chakra } from '@chakra-ui/react';
 import { ConnectingBtn } from './ConnectingBtn';
 import { ConnectedWalletBtn } from './ConnectWalletBtn';
 import { DisconnectedWalletBtn } from './DisconnectBtn';
-import { observer } from 'mobx-react-lite';
 
 export const ConnectBtn = () => {
   // const {web3ConnectStore} = useStore();

@@ -1,5 +1,5 @@
-import {memo, useCallback, useRef} from 'react';
-import {Box, Button, HStack, Stack, VStack} from '@chakra-ui/react';
+import {memo, useCallback} from 'react';
+import {Box, Button, HStack, VStack} from '@chakra-ui/react';
 import {Modal} from '@shared/ui-kit/components/Modal';
 import {CloseModalIcon} from "@shared/ui-kit/icons/CloseModalIcon";
 
@@ -10,7 +10,7 @@ export interface PortalProps {
 export interface FormCreatorEditorModalProps extends PortalProps {
 }
 
-export const TypeOfOffer: React.FC<FormCreatorEditorModalProps> = memo(
+export const TypeOfOfferModal: React.FC<FormCreatorEditorModalProps> = memo(
     ({portal}) => {
         const onClose = useCallback(() => {
             if (portal && portal.resolve) portal.resolve(null);

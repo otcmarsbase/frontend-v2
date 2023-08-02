@@ -27,7 +27,7 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
             contractValue: 'Contract value',
             totalEquityBought: 'Total equity bought'
         },
-        'Token Warrant': {
+        'Token warrant': {
             investmentRound: 'Investment round',
             roundFDV: 'Round FDV',
             contractValue: 'Contract value',
@@ -64,7 +64,7 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
                 targetTokenPrice: 'Target token price',
             }
         },
-        'Token Warrant': {
+        'Token warrant': {
             'In Stablecoin': {
                 contractSizeToOffer: 'Contract size to offer',
                 minDealSize: 'Minimum deal size',
@@ -109,7 +109,7 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
                 targetTokenPrice: 'Target token price',
             }
         },
-        'Token Warrant': {
+        'Token warrant': {
             'In Stablecoin': {
                 contractSizeToOffer: 'Contract size to offer',
                 minDealSize: 'Minimum deal size',

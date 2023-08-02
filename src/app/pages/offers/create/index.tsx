@@ -7,13 +7,18 @@ import {FormSection, FormWrapper, useForm} from '@shared/ui-kit';
 import Decimal from "decimal.js";
 import {ProjectInfo, Summary, TokenInfo} from './components';
 import {SellOfferSchema} from './schemas';
-import {getDefaultValues, reorderItems} from './utils';
-import {StepThree} from "../../../../features/StepThree";
+import {getDefaultValues, getRecountedValue, reorderItems} from './utils';
 import {ILotType} from "@app/pages/offers/create/components/ProjectInfo/types";
 import {formDefaultValues} from "@app/pages/offers/create/consts";
 import {useSummaryStepsValidation} from "@app/pages/offers/create/hooks/useSummaryStepsValidation";
 import {useFormStepsValidation} from "@app/pages/offers/create/hooks/useFormStepsValdiation";
+import {ProjectDetails} from "@app/pages/offers/create/components/ProjectDetails";
 
+const StepThreeRecountFieldByLotType = {
+    SAFE: 'totalEquityBought',
+    SAFT: 'tokensBought',
+    'Token warrant': 'tokensShareBought'
+}
 export const CreateOffer: React.FC = observer(() => {
     const {SellOfferStore} = useStore();
 
@@ -30,10 +35,9 @@ export const CreateOffer: React.FC = observer(() => {
 
     const data = form.watch();
 
-    useSummaryStepsValidation({data, typeOfDeal, SellOfferStore});
-
     const {showStepTwo, showStepThree} = useFormStepsValidation({typeOfDeal, SellOfferStore});
 
+    useSummaryStepsValidation({data, typeOfDeal, SellOfferStore});
     useEffect(() => {
         setTypeOfPricingModel('In Stablecoin')
     }, [data.lotType])
@@ -67,61 +71,33 @@ export const CreateOffer: React.FC = observer(() => {
 
     function handleRecountValues({currentID, bindedID, value, pricingModel}) {
         const isCurtargetFDV = currentID === 'targetFDV';
-console.log('{currentID, bindedID, value, pricingModel}',{currentID, bindedID, value, pricingModel});
-        // cv1 =  5,000,000 $
-        // fdv1 = 1,000,000,000 $
+
         const cv1 = Number(form.getValues('contractSizeToOffer'));
         const cv0 = Number(form.getValues('contractValue'));
         const fdv1 = Number(isCurtargetFDV ? value : form.getValues('targetFDV'));
         const fdv0 = Number(form.getValues('roundFDV'));
-        const uq0 = Number(form.getValues('tokensBought'));
         const equityToOffer = Number(form.getValues('equityToOffer'));
-        const totalEquityBought = Number(form.getValues('totalEquityBought'));
-        console.log('totalEquityBought',totalEquityBought);
-        // console.log('cv1',cv1);
-        // console.log('cv0',cv0);
-        // console.log('fdv1',fdv1);
-        // console.log('fdv0',fdv0);
-        // console.log('uq0',uq0);
-        if (pricingModel === 'In Stablecoin') {
-            const share0 = (cv0 * 100) / fdv0;
-            const share1 = (cv1 * 100) / fdv1;
-            const ratio = share1 / share0;
-            const uq1 = uq0 * ratio;
-            if (currentID === 'targetFDV') {
-                const result = cv1 / uq1;
-                // console.log('result',result);
-                form.setValue(bindedID, result);
-                form.setValue('targetFDV', value);
-            } else {
-                const share0 = fdv0 / cv0;
-                const totalTokensForSale = uq0 * share0;
-                const result = totalTokensForSale * value;
-                // console.log('share0',share0, 'totalTokensForSale', totalTokensForSale, 'result', result);
-                form.setValue(bindedID, result);
-                form.setValue(currentID, value);
-            }
-        }else{
-            console.log('fdv1', fdv1)
-            const share0 = (cv0 * 100) / fdv0;
-            console.log('share0', share0)
-            const ratio = equityToOffer/totalEquityBought;
-            console.log('ratio', ratio)
-            const share1 = (ratio * share0)/100;
-            console.log('share1',share1)
-            let cv1 = fdv1 * share1;
-            console.log('cv1',cv1)
-            let result = cv1 / equityToOffer;
-            console.log('result',result)
+        const denom = Number(form.getValues(StepThreeRecountFieldByLotType[data.lotType]));
 
-            if (currentID === 'targetFDV') {
-                form.setValue(bindedID, result);
-                form.setValue('targetFDV', value);
-            } else {
-                form.setValue(bindedID, result);
-                form.setValue(currentID, value);
-            }
+        if (!cv0 || !fdv0 || !denom) {
+            form.setValue(currentID, value);
+            return
         }
+        const {_bindedID, _result, _currentID} = getRecountedValue({
+            cv1,
+            cv0,
+            fdv1,
+            fdv0,
+            equityToOffer,
+            value,
+            denom,
+            pricingModel,
+            currentID,
+            bindedID
+        });
+
+        form.setValue(_bindedID, _result);
+        form.setValue(_currentID, value);
     }
 
     function toggleTypeOfDeal(dealType) {
@@ -212,7 +188,7 @@ console.log('{currentID, bindedID, value, pricingModel}',{currentID, bindedID, v
                                     {typeOfDeal === 'Sell' ? 'Pricing details' : 'Lot info'}
                                 </Text>
                             </HStack>
-                            <StepThree
+                            <ProjectDetails
                                 // @ts-ignore
                                 form={form}
                                 lotType={data.lotType as ILotType}

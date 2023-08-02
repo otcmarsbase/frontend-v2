@@ -47,7 +47,7 @@ export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE = {
             fieldLabel: TokenInfoFields.PRICE_PER_TOKEN,
         },
     ],
-    'Token Warrant': [
+    'Token warrant': [
         {
             id: 'tokensShareBought',
             fieldLabel: TokenInfoFields.TOKENS_SHARE_BOUGHT,

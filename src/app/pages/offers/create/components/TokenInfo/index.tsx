@@ -5,9 +5,7 @@ import {FormBlockElement, FormField, UseFormReturn} from '@shared/ui-kit';
 import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {TokenInfoFields} from './consts';
 import {PriceInfo} from "@app/pages/offers/create/components/PriceInfo";
-// import {RawField} from "@shared/ui-kit/components/RawFIeld/RawField";
-import {DatePickerComp} from "../../../../../../features/DataPicker";
-
+import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 
 export const TokenInfo: FC<{
     form: UseFormReturn,

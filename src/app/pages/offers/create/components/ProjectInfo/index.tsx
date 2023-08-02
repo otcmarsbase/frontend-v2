@@ -8,28 +8,14 @@ import {
     UseFormReturn,
 } from '@shared/ui-kit';
 import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
-import _ from 'lodash';
 import {ProjectInfoFields} from './consts';
 import {ILotType, InvAccTypes, LotTypes} from './types';
-import {DatePickerComp} from "../../../../../../features/DataPicker";
+import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 
 export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (props) => {
     const {form, typeOfDeal} = props;
     const {register, getValues, formState, setValue, isRequired} = form;
     const {errors} = formState;
-
-    const handleSetUniqArrayByValue = (accType, value) => {
-        console.log('value', value)
-        const currentSellerTypes = getValues(accType);
-        console.log('currentSellerTypes', currentSellerTypes, '_.some(currentSellerTypes, value)', _.some(currentSellerTypes, value))
-
-
-        // if (_.some(currentSellerTypes, value)) {
-        //     setValue(accType, _.without(currentSellerTypes, value));
-        // } else {
-        //     setValue(accType, _.concat(currentSellerTypes, value));
-        // }
-    };
 
     return (
         <VStack gap="2.25rem">

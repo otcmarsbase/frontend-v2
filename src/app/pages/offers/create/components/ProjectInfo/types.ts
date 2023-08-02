@@ -29,6 +29,6 @@ export type ProjectInfoShemaTypes =
 export enum ILotType {
   SAFE = 'SAFE',
   SAFT = 'SAFT',
-  TOKEN_WARRANT = 'Token Warrant',
+  TOKEN_WARRANT = 'Token warrant',
 }
 export const LotTypes = [ILotType.SAFE, ILotType.SAFT, ILotType.TOKEN_WARRANT];

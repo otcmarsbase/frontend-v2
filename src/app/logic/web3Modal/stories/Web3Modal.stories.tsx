@@ -1,5 +1,5 @@
 // import type { Meta, StoryObj } from '@storybook/react';
-// import {Web3ModalComponent} from "../ui/Web3Modal";
+// import {Web3ModalComponent} from "../ui/web3Modal";
 //
 // const meta: Meta<typeof Web3ModalComponent> = {
 //     component: Web3ModalComponent,

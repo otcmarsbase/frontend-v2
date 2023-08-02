@@ -16,13 +16,13 @@ export const StepThreeFields = {
 export const STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE = {
     SAFT: {
         leftBtnLabel: 'In Stablecoin',
-        rightBtnLabel: 'In Tokens',
+        rightBtnLabel: 'In Token',
     },
     SAFE: {
         leftBtnLabel: 'In Stablecoin',
         rightBtnLabel: 'In Equity',
     },
-    'Token Warrant': {
+    'Token warrant': {
         leftBtnLabel: 'In Stablecoin',
         rightBtnLabel: 'In Token Shares',
     },
@@ -49,7 +49,7 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
             fieldLabel: StepThreeFields.MIN_TOKEN_BID,
         },
     ],
-    'Token Warrant': [
+    'Token warrant': [
         {
             id: 'tokenShareToOffer',
             fieldLabel: StepThreeFields.TOKEN_SHARE_TO_OFFER,
@@ -71,7 +71,7 @@ export const STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE = {
         id: 'targetTokenPrice',
         fieldLabel: StepThreeFields.TARGET_TOKEN_PRICE,
     },
-    'Token Warrant': {
+    'Token warrant': {
         id: 'pricePerEquity',
         fieldLabel: StepThreeFields.PRICE_PER_EQUITY,
     },

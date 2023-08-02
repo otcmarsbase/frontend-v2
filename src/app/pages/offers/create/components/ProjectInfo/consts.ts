@@ -7,7 +7,7 @@ export const ProjectInfoFields = {
   IS_DIRECT_SELLER: 'I am direct seller',
   NO_LIMITATIONS: 'No limitations',
   IS_PERMANENT: 'Permanent',
-  IS_TOKEN_WARRANT: '+ Token Warrant',
+  IS_TOKEN_WARRANT: '+ Token warrant',
   TYPES_OF_SELLER: 'Type of seller',
   TYPES_OF_BUYER: 'Type of buyer',
   DEADLINE_DATE: 'Deadline',
