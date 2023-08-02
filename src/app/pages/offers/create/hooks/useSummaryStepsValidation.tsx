@@ -1,85 +1,87 @@
-import {useEffect} from "react";
-import {isValidField} from "@app/pages/offers/create/utils";
-// import {observer} from "mobx-react-lite";
-// import {useStore} from "@app/store";
+import { useEffect } from 'react';
+import { isValidField } from '@app/pages/offers/create/utils';
 
 interface IUseCustomFieldValidation {
-    data: any,
-    typeOfDeal: string,
-    SellOfferStore: any
+  data: any;
+  typeOfDeal: string;
+  SellOfferStore: any;
 }
-export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IUseCustomFieldValidation) => {
-    // const {SellOfferStore} = useStore();
+export const useSummaryStepsValidation = ({
+  data,
+  typeOfDeal,
+  SellOfferStore,
+}: IUseCustomFieldValidation) => {
+  const {
+    setStepOneSuccess,
+    setStepOneWasOnSuccess,
+    setStepTwoSuccess,
+    setStepTwoWasOnSuccess,
+    typeOfPricingModel,
+    setStepThreeSuccess,
+    setStepThreeWasOnSuccess,
+    setBasicInfo,
+  } = SellOfferStore;
 
+  useEffect(() => {
     const {
-        setStepOneSuccess,
-        setStepOneWasOnSuccess,
-        setStepTwoSuccess,
-        setStepTwoWasOnSuccess,
-        typeOfPricingModel,
-        setStepThreeSuccess,
-        setStepThreeWasOnSuccess,
-        setBasicInfo
+      projectName,
+      projectWebsite,
+      telegram,
+      investmentRound,
+      roundFDV,
+      contractValue,
+      lotType,
+      contractSizeToOffer,
+      minDealSize,
+      minEquityBid,
+      equityToOffer,
+      minTokenBid,
+      tokensToOffer,
+      minTokenShareBid,
+      tokenShareToOffer,
+      targetFDV,
+      pricePerEquity,
+    } = data;
+    console.log('data', data);
+    const stepOnePassed =
+      isValidField(projectName) &&
+      isValidField(projectWebsite) &&
+      isValidField(telegram) &&
+      isValidField(lotType);
+    setStepOneSuccess(stepOnePassed);
+    if (stepOnePassed) {
+      setStepOneWasOnSuccess(true);
+    }
+    let stepTwoPassed: boolean;
 
-    } = SellOfferStore;
+    stepTwoPassed =
+      isValidField(investmentRound) &&
+      isValidField(roundFDV) &&
+      isValidField(contractValue);
+    setStepTwoSuccess(stepTwoPassed);
+    if (stepTwoPassed) {
+      setStepTwoWasOnSuccess(true);
+    }
 
-    useEffect(() => {
-        const {
-            projectName,
-            projectWebsite,
-            telegram,
-            investmentRound,
-            roundFDV,
-            contractValue,
-            lotType,
-            contractSizeToOffer,
-            minDealSize,
-            minEquityBid,
-            equityToOffer,
-            minTokenBid,
-            tokensToOffer,
-            minTokenShareBid,
-            tokenShareToOffer,
-            targetFDV,
-            pricePerEquity
-        } = data;
-        console.log('data', data)
-        const stepOnePassed = isValidField(projectName) && isValidField(projectWebsite) && isValidField(telegram) && isValidField(lotType);
-        setStepOneSuccess(stepOnePassed)
-        if (stepOnePassed) {
-            setStepOneWasOnSuccess(true);
-        }
-        let stepTwoPassed: boolean;
+    let additionalDep = false;
+    if (typeOfPricingModel === 'In Stablecoin') {
+      additionalDep =
+        isValidField(contractSizeToOffer) && isValidField(minDealSize);
+    } else if (typeOfPricingModel === 'In Equity') {
+      additionalDep = isValidField(equityToOffer) && isValidField(minEquityBid);
+    } else if (typeOfPricingModel === 'In Token') {
+      additionalDep = isValidField(tokensToOffer) && isValidField(minTokenBid);
+    } else if (typeOfPricingModel === 'In Token Shares') {
+      additionalDep =
+        isValidField(tokenShareToOffer) && isValidField(minTokenShareBid);
+    }
+    const stepThreePassed = additionalDep && isValidField(targetFDV);
 
-        stepTwoPassed = isValidField(investmentRound) && isValidField(roundFDV) && isValidField(contractValue);
-        setStepTwoSuccess(stepTwoPassed)
-        if (stepTwoPassed) {
-            setStepTwoWasOnSuccess(true)
-        }
+    setStepThreeSuccess(stepThreePassed);
+    if (stepTwoPassed) {
+      setStepThreeWasOnSuccess(true);
+    }
 
-        let additionalDep = false;
-        if(typeOfPricingModel === 'In Stablecoin'){
-            additionalDep = isValidField(contractSizeToOffer) && isValidField(minDealSize);
-        }else if(typeOfPricingModel === 'In Equity'){
-            additionalDep = isValidField(equityToOffer) && isValidField(minEquityBid);
-        }else if(typeOfPricingModel === 'In Token'){
-            additionalDep = isValidField(tokensToOffer) && isValidField(minTokenBid);
-        }else if(typeOfPricingModel === 'In Token Shares'){
-            additionalDep = isValidField(tokenShareToOffer) && isValidField(minTokenShareBid);
-        }
-        const stepThreePassed = additionalDep && isValidField(targetFDV)
-
-        setStepThreeSuccess(stepThreePassed)
-        if (stepTwoPassed) {
-            setStepThreeWasOnSuccess(true)
-        }
-
-        setBasicInfo(data)
-    }, [data, typeOfDeal])
-
-    // return {
-    //
-    // }
-
-
-}
+    setBasicInfo(data);
+  }, [data, typeOfDeal]);
+};

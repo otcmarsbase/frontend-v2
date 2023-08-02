@@ -1,3 +1,7 @@
+import {FC} from 'react';
+import {UseFormReturn} from 'react-hook-form';
+import {observer} from "mobx-react-lite";
+import {useStore} from "@app/store";
 import {
     Button,
     FormControl,
@@ -6,18 +10,14 @@ import {
     Input,
     VStack,
 } from '@chakra-ui/react';
-import {FC} from 'react';
-import {UseFormReturn} from 'react-hook-form';
+import {FormBlockElement, FormField} from "@shared/ui-kit";
+import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {
     STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE,
     STEP_THREE_FIELDS_BY_LOT_TYPE,
     STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE,
     StepThreeFields,
 } from '../consts';
-import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
-import {FormBlockElement, FormField} from "@shared/ui-kit";
-import {observer} from "mobx-react-lite";
-import {useStore} from "@app/store";
 
 interface IHandleRecount {
     currentID: string,

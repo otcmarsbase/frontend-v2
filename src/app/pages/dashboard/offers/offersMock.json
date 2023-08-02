@@ -1,0 +1,79 @@
+{
+  "offers": [
+    {
+      "id": 32679,
+      "isHot": true,
+      "offerType": "buy",
+      "lotType": "SAFT",
+      "publishedAt": "24/12/2023",
+      "finishedAt": "24/12/2023",
+      "fdv": 100,
+      "totalBidsPlace": 60,
+      "lotValue": 233244,
+      "lotName": "USDT",
+      "lotIconName": "UsdtIcon",
+      "verticalCount": 3,
+      "status": "draft"
+    },
+    {
+      "id": 32680,
+      "isHot": false,
+      "offerType": "sell",
+      "lotType": "SAFT",
+      "publishedAt": "24/12/2023",
+      "finishedAt": "24/12/2023",
+      "fdv": 100,
+      "totalBidsPlace": 60,
+      "lotValue": 233244,
+      "lotName": "USDT",
+      "lotIconName": "UsdtIcon",
+      "verticalCount": 3,
+      "status": "active"
+    },
+    {
+      "id": 32681,
+      "isHot": false,
+      "offerType": "sell",
+      "lotType": "SAFT",
+      "publishedAt": "24/12/2023",
+      "finishedAt": "24/12/2023",
+      "fdv": 100,
+      "totalBidsPlace": 60,
+      "lotValue": 233244,
+      "lotName": "USDT",
+      "lotIconName": "UsdtIcon",
+      "verticalCount": 3,
+      "status": "onModeration"
+    },
+    {
+      "id": 32682,
+      "isHot": false,
+      "offerType": "sell",
+      "lotType": "SAFT",
+      "publishedAt": "24/12/2023",
+      "finishedAt": "24/12/2023",
+      "fdv": 100,
+      "totalBidsPlace": 60,
+      "lotValue": 233244,
+      "lotName": "USDT",
+      "lotIconName": "UsdtIcon",
+      "verticalCount": 3,
+      "status": "halfField"
+    },
+    {
+      "id": 32683,
+      "isHot": false,
+      "offerType": "sell",
+      "lotType": "SAFT",
+      "publishedAt": "24/12/2023",
+      "finishedAt": "24/12/2023",
+      "fdv": 100,
+      "totalBidsPlace": 60,
+      "lotValue": 233244,
+      "lotName": "USDT",
+      "lotIconName": "UsdtIcon",
+      "verticalCount": 3,
+      "status": "ended"
+    }
+  ]
+}

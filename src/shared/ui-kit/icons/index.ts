@@ -8,3 +8,8 @@ export * from './WaitingIcon';
 export * from './CheckmarkIcon';
 export * from './ChevronDownIcon';
 export * from './RequiredIcon';
+export * from './SearchIcon';
+export * from './projects';
+export * as ProjectsIcons from './projects';
+export * from './HotIcon';
+export * from './KebabMenuIcon';

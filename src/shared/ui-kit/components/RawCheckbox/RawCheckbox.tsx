@@ -1,17 +1,17 @@
 import { Checkbox, FormControl, HStack } from '@chakra-ui/react';
-export interface IRawCheckboxProps {
+export interface IRawCheckboxProps<NameType extends string> {
   value: boolean | undefined;
   label: string;
-  id: string;
-  handleChange: (id: string, value: boolean) => void;
+  id: NameType;
+  handleChange: (name: NameType, value: boolean) => void;
 }
 
-export const RawCheckbox = ({
+export const RawCheckbox = <NameType extends string = any>({
   value,
   label,
   id,
   handleChange,
-}: IRawCheckboxProps) => {
+}: IRawCheckboxProps<NameType>) => {
   return (
     <HStack>
       <FormControl>

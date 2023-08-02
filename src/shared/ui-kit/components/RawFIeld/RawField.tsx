@@ -1,3 +1,4 @@
+import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 import {
   Box,
   FormControl,
@@ -6,7 +7,6 @@ import {
   HStack,
   Input,
 } from '@chakra-ui/react';
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 type IFieldErrors<TFieldValues extends FieldValues = FieldValues> = DeepMap<
   TFieldValues,

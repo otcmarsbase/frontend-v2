@@ -1,3 +1,4 @@
-import {Dashboard} from './Dashboard'
+import bids from './bids';
+import offers from './offers';
 
-export default Dashboard;
+export default { offers, bids };

@@ -7,10 +7,10 @@ import {
     Select,
     UseFormReturn,
 } from '@shared/ui-kit';
+import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {ProjectInfoFields} from './consts';
 import {ILotType, InvAccTypes, LotTypes} from './types';
-import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 
 export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (props) => {
     const {form, typeOfDeal} = props;

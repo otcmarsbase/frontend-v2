@@ -19,7 +19,7 @@ export function createPortalController(
     store.destroy(node);
   };
 
-  const create: PortalController['create'] = <Props, Resolve>(
+  const create: PortalController['create'] = <Resolve>(
     component,
     props: PortalProps<Resolve>,
   ): PortalControllerResolver<Resolve> => {

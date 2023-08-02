@@ -1,3 +1,4 @@
+import { Button, chakra } from '@chakra-ui/react';
 import {
   Connector,
   useAccount,
@@ -5,19 +6,13 @@ import {
   useConnect,
   useDisconnect,
 } from 'wagmi';
-import './index.scss';
-import { Button, chakra } from '@chakra-ui/react';
-// import {ConnectButtonProps} from "../types";
 import { ConnectingBtn } from './ConnectingBtn';
 import { ConnectedWalletBtn } from './ConnectWalletBtn';
 import { DisconnectedWalletBtn } from './DisconnectBtn';
+import './index.scss';
 
 export const ConnectBtn = () => {
-  // const {web3ConnectStore} = useStore();
-
   const currentExtensionState = useAccount({
-    // onConnect: () => web3ConnectStore.setExtensionState(currentExtensionState),
-    // onDisconnect: () => web3ConnectStore.setExtensionState(undefined)
     onConnect: () => console.log('metamask connected'),
     onDisconnect: () => console.log('metamask disconnected'),
   });

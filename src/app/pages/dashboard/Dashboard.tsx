@@ -1,8 +1,8 @@
-import {Box, Button, Grid, GridItem, HStack, Input, VStack} from "@chakra-ui/react";
 import {observer} from "mobx-react-lite";
-import {ICreateOffer} from "@app/pages/offers/create/types";
-import {RawCheckbox} from "@shared/ui-kit/components/RawCheckbox/RawCheckbox";
 import {DashboardEditBtn} from "@app/pages/dashboard/assets/DashboardEditBtn";
+import {ICreateOffer} from "@app/pages/offers/create/types";
+import {Box, Button, Grid, GridItem, HStack, Input, VStack} from "@chakra-ui/react";
+import {RawCheckbox} from "@shared/ui-kit/components/RawCheckbox/RawCheckbox";
 
 const DashboardItemSum = () => {
     return (

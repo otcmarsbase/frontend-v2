@@ -1,11 +1,11 @@
 import {FC} from 'react';
 import {observer} from 'mobx-react-lite';
+import {PriceInfo} from "@app/pages/offers/create/components/PriceInfo";
 import {VStack} from '@chakra-ui/react';
 import {FormBlockElement, FormField, UseFormReturn} from '@shared/ui-kit';
+import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {TokenInfoFields} from './consts';
-import {PriceInfo} from "@app/pages/offers/create/components/PriceInfo";
-import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
 
 export const TokenInfo: FC<{
     form: UseFormReturn,
