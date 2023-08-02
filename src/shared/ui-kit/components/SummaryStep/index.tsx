@@ -8,6 +8,7 @@ import {
   Divider,
   Box,
 } from '@chakra-ui/react';
+import { AlertCircle } from '@shared/ui-kit/icons/AlertCurcle';
 import { CheckmarkIcon, ChevronDownIcon, WaitingIcon } from '../../icons';
 
 export interface SummaryStepProps extends Omit<StackProps, 'children'> {
@@ -17,12 +18,14 @@ export interface SummaryStepProps extends Omit<StackProps, 'children'> {
     label: string;
   };
   fields: { name: string; value: any }[];
+  stepWasOpened: boolean;
 }
 
 export const SummaryStep = ({
   stepData,
   isSuccessFilled,
   fields,
+  stepWasOpened,
   ...stackProps
 }: SummaryStepProps) => {
   const [isExpanded, setIsExpanded] = useState(isSuccessFilled);
@@ -30,9 +33,12 @@ export const SummaryStep = ({
   const toggleExpand = () => setIsExpanded((prev) => !prev);
 
   useEffect(() => {
-    setIsExpanded(isSuccessFilled);
+    setIsExpanded(isSuccessFilled || stepWasOpened);
   }, [isSuccessFilled]);
 
+  const isValid = isSuccessFilled;
+  const isDefault = !stepWasOpened;
+  const isInvalid = !isSuccessFilled;
   return (
     <VStack
       alignItems="start"
@@ -49,11 +55,9 @@ export const SummaryStep = ({
             size="1.5rem"
             background={isSuccessFilled ? 'green.500' : 'dark.500'}
           >
-            {!isSuccessFilled ? (
-              <WaitingIcon color="dark.100" />
-            ) : (
-              <CheckmarkIcon />
-            )}
+            {isDefault ? <WaitingIcon color="dark.100" /> : null}
+            {isValid ? <CheckmarkIcon /> : null}
+            {isInvalid ? <AlertCircle /> : null}
           </Circle>
           <Text fontSize="sm" fontWeight="bold">
             Step {stepData.id}
@@ -62,7 +66,7 @@ export const SummaryStep = ({
             {stepData.label}
           </Text>
         </HStack>
-        {isSuccessFilled && (
+        {(isSuccessFilled || stepWasOpened) && (
           <ChevronDownIcon
             opacity="0.6"
             onClick={toggleExpand}
@@ -79,7 +83,9 @@ export const SummaryStep = ({
         opacity={isExpanded ? 1 : 0}
         visibility={isExpanded ? 'visible' : 'hidden'}
       >
-        {isSuccessFilled && <Divider my="3" color="green.500" />}
+        {(isSuccessFilled || stepWasOpened) && (
+          <Divider my="3" color={isSuccessFilled ? 'green.500' : 'dark.100'} />
+        )}
         {fields.length ? (
           <VStack alignItems="start" width="100%">
             {fields.map((field, index) => (

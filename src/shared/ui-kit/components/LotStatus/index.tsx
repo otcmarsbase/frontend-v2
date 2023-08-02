@@ -1,5 +1,4 @@
-import { Box, BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
-import { ChakraStylesConfig } from 'chakra-react-select';
+import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
 
 type LotStatusValue =
   | 'draft'

@@ -1,5 +1,5 @@
+import { SummaryStep } from '@shared/ui-kit';
 import type { Meta, StoryObj } from '@storybook/react';
-import { SummaryStep } from '../components/SummaryStep';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -23,6 +23,7 @@ export const Default: Story = {
     isSuccessFilled: false,
     fields: [],
     width: '200px',
+    stepWasOpened: false
   },
 };
 
@@ -38,5 +39,24 @@ export const SuccessFilled: Story = {
     ],
     isSuccessFilled: true,
     width: '200px',
+    stepWasOpened: false
+
+  },
+};
+
+export const SuccessFilledTouched: Story = {
+  args: {
+    stepData: {
+      id: 1,
+      label: 'Project info',
+    },
+    fields: [
+      { name: 'Name', value: 'Dogecoin' },
+      { name: 'Type', value: 'Equity' },
+    ],
+    isSuccessFilled: true,
+    width: '200px',
+    stepWasOpened: true
+
   },
 };

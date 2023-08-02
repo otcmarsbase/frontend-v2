@@ -3,7 +3,6 @@ import {
   useMultiStyleConfig,
   ThemingProps,
   chakra,
-  SystemStyleObject,
 } from '@chakra-ui/react';
 
 type RadioButtonsValue = string | number;
@@ -31,15 +30,6 @@ export const RadioButtons = <Type extends RadioButtonsValue = any>({
   ...props
 }: RadioButtonsProps<Type>) => {
   const styles = useMultiStyleConfig('RadioButtons', { variant, ...props });
-
-  const solidStyles = {
-    bgGradient: 'linear(203deg, #C74A26 0%, #E24400 45.83%, #981807 100%)',
-    border: 'none',
-  };
-
-  // TODO: Приходится сейчас так костылить, нужно разобраться почему
-  // в `theme/components/radioButtons` не работает стилизация вариантов
-  const buttonCss = variant === 'solid' ? solidStyles : {};
 
   return (
     <Box __css={styles.container}>

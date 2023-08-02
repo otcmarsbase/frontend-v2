@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useBreakpointValue } from '@chakra-ui/react';
 import {
   PaginationView,
   PaginationViewButtonProps,

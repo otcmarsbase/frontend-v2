@@ -44,7 +44,6 @@ const baseStyle = definePartsStyle({
   },
 });
 
-// TODO: разобраться почему эти `variants` не применяются
 const variants = {
   solid: {
     itemActive: defineStyle({

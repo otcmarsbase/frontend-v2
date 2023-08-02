@@ -1,13 +1,9 @@
 import { PropsWithChildren } from 'react';
-import { router } from '@app/logic';
+import { ModalController, router } from '@app/logic';
+import { Web3ModalComponent } from '@app/logic/web3Modal';
 import pages from '@app/pages';
-import {
-  Box,
-  Button,
-  Container,
-  ContainerProps,
-  VStack,
-} from '@chakra-ui/react';
+import { useStore } from '@app/store';
+import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import {
   Header,
   Footer,
@@ -18,6 +14,7 @@ import {
   TwitterIcon,
   MediumIcon,
 } from '@shared/ui-kit';
+import { TypeOfOfferModal } from '@shared/ui-kit/components/Modal/TypeOfOffer/TypeOfOfferModal';
 
 export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
@@ -28,6 +25,17 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
   containerSize = 'md',
 }) => {
   const copyright = `© All Rights Reserved MarsBase, ${new Date().getFullYear()}`;
+  const { SellOfferStore } = useStore();
+  const { setTypeOfDeal } = SellOfferStore;
+
+  async function pushToOffers() {
+    const typeOfDeal: string = await ModalController.create(
+      TypeOfOfferModal,
+      {},
+    );
+    setTypeOfDeal(typeOfDeal);
+    router.navigateComponent(pages.offers.create, {});
+  }
 
   return (
     <VStack minHeight="100vh" width="100%" gap="0">
@@ -43,10 +51,10 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
             },
             {
               label: 'Create offer',
-              onClick: () => router.navigateComponent(pages.offers.create, {}),
+              onClick: pushToOffers,
             },
           ]}
-          rightContent={<Button>MetaMask</Button>}
+          rightContent={<Web3ModalComponent />}
         />
       </Box>
       <Box flex="1" width="100%">

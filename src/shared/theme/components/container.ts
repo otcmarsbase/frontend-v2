@@ -4,7 +4,7 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 const baseStyle = defineStyle({
   maxW: '85rem',
   width: '100%',
-  marginLeft: '7.8rem',
+  // marginLeft: '7.8rem',
 });
 
 // export the component theme

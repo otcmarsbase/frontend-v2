@@ -61,7 +61,12 @@
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "gen:theme-typings": "chakra-cli tokens src/shared/theme/index.ts --out theme-typings.d.ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "// ----- Checks -----": "",
+    "lint:code": "eslint --ext .ts,.tsx ./",
+    "lint:code:fix": "npm run lint:code -- --fix",
+    "typecheck": "tsc --noEmit",
+    "check:full": "npm run lint:code && npm run typecheck"
   },
   "husky": {
     "hooks": {

@@ -1,11 +1,5 @@
 import { PropsWithChildren, useMemo } from 'react';
-import {
-  Button,
-  ButtonGroup,
-  HStack,
-  Text,
-  useMultiStyleConfig,
-} from '@chakra-ui/react';
+import { Button, HStack, Text, useMultiStyleConfig } from '@chakra-ui/react';
 import { useLoadingCallback } from '@shared/ui-kit';
 
 export interface PaginationViewButtonProps {
@@ -90,7 +84,7 @@ export const PaginationViewButtonGroup: React.FC<PaginationViewProps> = ({
           {display}
         </Button>
       )),
-    [onChangePageLoading, buttons],
+    [onChangePageLoading, buttons, styles],
   );
 
   return (

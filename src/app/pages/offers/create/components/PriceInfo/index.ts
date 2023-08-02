@@ -1,1 +1,1 @@
-export * from './SaftPriceInfo';
+export * from './PriceInfo';

@@ -1,10 +1,9 @@
 import { PropsWithChildren } from 'react';
-
-import { Permission } from '../types';
 import {
   PermissionComponent,
   PermissionComponentProps,
 } from '../PermissionComponent';
+import { Permission } from '../types';
 
 export function createComponent(
   permissions: Permission[],

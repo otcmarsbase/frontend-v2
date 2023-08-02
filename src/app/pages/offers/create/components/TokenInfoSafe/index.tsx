@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { VStack } from '@chakra-ui/react';
 import { FormField, UseFormReturn } from '@shared/ui-kit';
-import { SaftPriceInfo } from '../PriceInfo/SaftPriceInfo';
+// import { PriceInfo } from '../PriceInfo/PriceInfo';
 
 export type TokenInfoSafeShemaTypes =
   | 'investment_round'
@@ -30,14 +30,15 @@ export const TokenInfoSafe: FC<{ form: UseFormReturn<any> }> = observer(
           placeholder={TokenInfoSafeFields.INVESTMENT_ROUND}
         />
 
-        <SaftPriceInfo
-          form={form}
-          ids={['round_fdv', 'price_per_equity']}
-          TokenInfoFields={TokenInfoSafeFields}
-          helperText={
-            'You must enter any 3 numbers, then is automatically calculated.'
-          }
-        />
+        {/*<PriceInfo*/}
+        {/*    form={form}*/}
+        {/*    lotType={lotType}*/}
+        {/*    label={'Price info'}*/}
+        {/*    helperText={*/}
+        {/*        'You must enter any 3 numbers, then is automatically calculated.'*/}
+        {/*    }*/}
+        {/*    handleRecountPriceInfoValues={handleRecountPriceInfoValues}*/}
+        {/*/>*/}
       </VStack>
     );
   },

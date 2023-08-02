@@ -1,8 +1,0 @@
-export type TokenInfoShemaTypes =
-  | 'investment_round'
-  | 'round_fdv'
-  | 'contract_value'
-  | 'dates'
-  | 'lockup_period'
-  | 'vesting_period'
-  | 'price_info';
