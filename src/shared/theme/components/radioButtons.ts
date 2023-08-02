@@ -1,4 +1,4 @@
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
+import { createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/react';
 
 export const radioButtonsParts = [
   'container',
@@ -16,6 +16,7 @@ const baseStyle = definePartsStyle({
     borderRadius: '0.5rem',
     display: 'flex',
     py: '0.25rem',
+    px: '0.5rem',
     justifyContent: 'center',
   },
   grid: {
@@ -43,7 +44,24 @@ const baseStyle = definePartsStyle({
   },
 });
 
+// TODO: разобраться почему эти `variants` не применяются
+const variants = {
+  solid: {
+    itemActive: defineStyle({
+      bg: 'orange.500',
+      border: '0.125rem solid',
+      borderColor: 'transparent',
+    }),
+  },
+  outline: {
+    itemActive: defineStyle({
+      borderColor: 'orange.500',
+    }),
+  },
+};
+
 export const RadioButtons = defineMultiStyleConfig({
   baseStyle,
+  variants,
   defaultProps: { size: 'sm' },
 });

@@ -1,7 +1,13 @@
 import { PropsWithChildren } from 'react';
 import { router } from '@app/logic';
 import pages from '@app/pages';
-import { Box, Button, Container, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  ContainerProps,
+  VStack,
+} from '@chakra-ui/react';
 import {
   Header,
   Footer,
@@ -13,7 +19,14 @@ import {
   MediumIcon,
 } from '@shared/ui-kit';
 
-export const AppLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+export interface AppLayoutProps {
+  containerSize?: ContainerProps['size'];
+}
+
+export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = ({
+  children,
+  containerSize = 'md',
+}) => {
   const copyright = `© All Rights Reserved MarsBase, ${new Date().getFullYear()}`;
 
   return (
@@ -22,9 +35,12 @@ export const AppLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         <Header
           onLogoClick={() => router.navigateComponent(pages.home, {})}
           menuItems={[
-            { label: '🔥 ZERO-LOCK OFFERS', href: { url: '#' } },
-            { label: 'BEST BID AUCTION' },
             { label: 'OTC DESK' },
+            {
+              label: 'My Dashboard',
+              onClick: () =>
+                router.navigateComponent(pages.dashboard.offers, {}),
+            },
             {
               label: 'Create offer',
               onClick: () => router.navigateComponent(pages.offers.create, {}),
@@ -34,7 +50,7 @@ export const AppLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         />
       </Box>
       <Box flex="1" width="100%">
-        <Container>{children}</Container>
+        <Container size={containerSize}>{children}</Container>
       </Box>
       <Box width="100%" marginTop="auto">
         <Footer

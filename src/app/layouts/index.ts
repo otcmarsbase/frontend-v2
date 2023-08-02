@@ -1,3 +1,2 @@
-import { AppLayout } from './appLayout';
-
-export default { AppLayout };
+export * from './appLayout';
+export * from './dashboardLayout';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import Layouts from '@app/layouts';
+import * as Layouts from '@app/layouts';
 import { useStore } from '@app/store';
 import { HStack, VStack, Text, Heading, Badge, Box } from '@chakra-ui/react';
 import { FormSection, FormWrapper, useForm } from '@shared/ui-kit';
@@ -126,7 +126,7 @@ export const Create: React.FC = observer(() => {
 });
 
 Create.getLayout = ({ children }) => {
-  return <Layouts.AppLayout>{children}</Layouts.AppLayout>;
+  return <Layouts.AppLayout containerSize="md">{children}</Layouts.AppLayout>;
 };
 
 export default Create;

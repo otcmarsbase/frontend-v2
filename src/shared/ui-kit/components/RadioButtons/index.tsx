@@ -3,26 +3,43 @@ import {
   useMultiStyleConfig,
   ThemingProps,
   chakra,
+  SystemStyleObject,
 } from '@chakra-ui/react';
 
-export interface RadioButtonsItem {
+type RadioButtonsValue = string | number;
+
+export interface RadioButtonsItem<Type extends RadioButtonsValue> {
   label: string;
-  value: string | number;
+  value: Type;
 }
 
-export interface RadioButtonsProps extends ThemingProps<'Box'> {
-  items: RadioButtonsItem[];
-  value: RadioButtonsItem['value'];
-  onChange: (value: RadioButtonsItem['value']) => void;
+export type RadioButtonsVariant = 'solid' | 'outline';
+
+export interface RadioButtonsProps<T extends RadioButtonsValue>
+  extends ThemingProps<'Box'> {
+  items: RadioButtonsItem<T>[];
+  value: T;
+  onChange: (value: T) => void;
+  variant?: RadioButtonsVariant;
 }
 
-export const RadioButtons = ({
+export const RadioButtons = <Type extends RadioButtonsValue = any>({
   items,
   onChange,
   value,
+  variant,
   ...props
-}: RadioButtonsProps) => {
-  const styles = useMultiStyleConfig('RadioButtons', props);
+}: RadioButtonsProps<Type>) => {
+  const styles = useMultiStyleConfig('RadioButtons', { variant, ...props });
+
+  const solidStyles = {
+    bgGradient: 'linear(203deg, #C74A26 0%, #E24400 45.83%, #981807 100%)',
+    border: 'none',
+  };
+
+  // TODO: Приходится сейчас так костылить, нужно разобраться почему
+  // в `theme/components/radioButtons` не работает стилизация вариантов
+  const buttonCss = variant === 'solid' ? solidStyles : {};
 
   return (
     <Box __css={styles.container}>
@@ -34,8 +51,6 @@ export const RadioButtons = ({
       >
         {items.map((item, index) => {
           const isActive = Boolean(value && item.value === value);
-
-          console.log({ isActive, item });
 
           return (
             <Box
