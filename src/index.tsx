@@ -1,7 +1,8 @@
 import React from 'react';
+import { App } from '@app';
+import { RootStore, StoresContext } from '@app/store/rootStore';
 import { override } from '@packages/react-runtime-layout';
 import ReactDOM from 'react-dom/client';
-import { App } from './app';
 import reportWebVitals from './reportWebVitals';
 
 override();
@@ -9,9 +10,13 @@ override();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
+const store = new RootStore();
+
 root.render(
   <React.StrictMode>
-    <App />
+    <StoresContext.Provider value={store}>
+      <App />
+    </StoresContext.Provider>
   </React.StrictMode>,
 );
 

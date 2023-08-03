@@ -1,6 +1,5 @@
+const exec = require('child_process').exec;
 const path = require('path');
-const WebpackShellPlugin = require('webpack-shell-plugin-next');
-const { addPlugins } = require('@craco/craco');
 
 module.exports = {
   webpack: {
@@ -15,5 +14,17 @@ module.exports = {
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@packages': path.resolve(__dirname, 'src/packages'),
     },
+    plugins: [
+      {
+        apply: (compiler) => {
+          compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
+            exec('yarn gen:theme-typings', (err, stdout, stderr) => {
+              if (stdout) process.stdout.write(stdout);
+              if (stderr) process.stderr.write(stderr);
+            });
+          });
+        },
+      },
+    ],
   },
 };

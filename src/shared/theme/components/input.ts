@@ -76,6 +76,12 @@ export const Input = defineMultiStyleConfig({
         border: '2px solid',
       },
     },
+    ghost: {
+      field: {
+        border: 'none',
+        background: 'rgba(255, 255, 255, 0.05)',
+      },
+    },
   },
-  defaultProps: { size: 'md' },
+  defaultProps: { size: 'sm' },
 });

@@ -44,7 +44,7 @@ export const Header = ({
                   _hover={{ textDecoration: 'none' }}
                   textTransform="uppercase"
                   target={href?.target}
-                  fontFamily="menuItem"
+                  fontFamily="promo"
                   onClick={onClick}
                 >
                   {label}

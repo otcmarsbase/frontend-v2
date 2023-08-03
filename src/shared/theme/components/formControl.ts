@@ -29,7 +29,6 @@ const baseStyleHelperText = defineStyle({
 
 const baseStyle = definePartsStyle({
   container: {
-    minW: '10rem',
     label: {
       fontSize: 'sm',
       fontWeight: 400,

@@ -4,7 +4,7 @@ import { ModalProvider, router } from './logic';
 import { onAppLoad } from './onAppLoad';
 import pages from './pages';
 
-export function App() {
+export const App: React.FC = () => {
   return (
     <ThemeProvider>
       <AppLoad loader={GlobalPreload} preload={onAppLoad}>
@@ -13,4 +13,4 @@ export function App() {
       </AppLoad>
     </ThemeProvider>
   );
-}
+};
