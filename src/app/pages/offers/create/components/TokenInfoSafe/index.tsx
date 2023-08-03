@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
-import { VStack } from '@chakra-ui/react';
+import { Input, VStack } from '@chakra-ui/react';
 import { FormField, UseFormReturn } from '@shared/ui-kit';
-// import { PriceInfo } from '../PriceInfo/PriceInfo';
 
-export type TokenInfoSafeShemaTypes =
+export type TokenInfoSafeSchemaTypes =
   | 'investment_round'
   | 'round_fdv'
   | 'price_per_equity';
@@ -25,9 +24,11 @@ export const TokenInfoSafe: FC<{ form: UseFormReturn<any> }> = observer(
         <FormField
           register={register}
           errors={errors}
-          id={'investment_round'}
+          name={'investment_round'}
           value={getValues('investment_round')}
-          placeholder={TokenInfoSafeFields.INVESTMENT_ROUND}
+          component={
+            <Input placeholder={TokenInfoSafeFields.INVESTMENT_ROUND} />
+          }
         />
 
         {/*<PriceInfo*/}

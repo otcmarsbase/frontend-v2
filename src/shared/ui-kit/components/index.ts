@@ -12,3 +12,4 @@ export * from './LotRow';
 export * from './EmptyData';
 export * from './LotStatus';
 export * from './Dropdown';
+export * from './Modal';

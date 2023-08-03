@@ -1,8 +1,9 @@
 import {
   Box,
   useMultiStyleConfig,
-  ThemingProps,
   chakra,
+  ColorProps,
+  BoxProps,
 } from '@chakra-ui/react';
 
 type RadioButtonsValue = string | number;
@@ -15,24 +16,26 @@ export interface RadioButtonsItem<Type extends RadioButtonsValue> {
 export type RadioButtonsVariant = 'solid' | 'outline';
 
 export interface RadioButtonsProps<T extends RadioButtonsValue>
-  extends ThemingProps<'Box'> {
+  extends Omit<BoxProps, 'onChange'> {
   items: RadioButtonsItem<T>[];
   value: T;
   onChange: (value: T) => void;
   variant?: RadioButtonsVariant;
+  mapColorByValue?: (value: T) => ColorProps['color'];
 }
 
 export const RadioButtons = <Type extends RadioButtonsValue = any>({
   items,
-  onChange,
   value,
+  onChange,
   variant,
+  mapColorByValue,
   ...props
 }: RadioButtonsProps<Type>) => {
   const styles = useMultiStyleConfig('RadioButtons', { variant, ...props });
 
   return (
-    <Box __css={styles.container}>
+    <Box __css={styles.container} {...props}>
       <chakra.div
         __css={{
           ...styles.grid,
@@ -42,12 +45,21 @@ export const RadioButtons = <Type extends RadioButtonsValue = any>({
         {items.map((item, index) => {
           const isActive = Boolean(value && item.value === value);
 
+          const color = mapColorByValue
+            ? mapColorByValue(item.value)
+            : undefined;
+
           return (
             <Box
               key={index}
               __css={{
                 ...styles.item,
-                ...(isActive ? styles.itemActive : {}),
+                ...(isActive
+                  ? {
+                      ...styles.itemActive,
+                      ...(color ? { bg: color } : {}),
+                    }
+                  : {}),
               }}
               onClick={() => onChange(item.value)}
             >

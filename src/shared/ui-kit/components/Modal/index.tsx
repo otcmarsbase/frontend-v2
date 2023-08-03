@@ -8,18 +8,24 @@ import {
   ModalCloseButton,
   ModalFooter,
   ModalBody,
+  Text,
+  LayoutProps,
 } from '@chakra-ui/react';
 
 export interface ModalProps extends Omit<ChakraModalProps, 'isOpen'> {
-  header?: React.ReactNode;
+  title: string;
+  description?: string;
   footer?: React.ReactNode;
+  maxW?: LayoutProps['maxW'];
 }
 
 export const Modal: React.FC<ModalProps> = ({
   children,
   onClose,
-  header,
   footer,
+  title,
+  description,
+  maxW,
   ...props
 }) => {
   const [visible, setVisible] = useState(true);
@@ -34,8 +40,25 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <ChakraModal isOpen={visible} onClose={onCancelCallback} {...props}>
       <ModalOverlay />
-      <ModalContent>
-        {header && <ModalHeader>{header}</ModalHeader>}
+      <ModalContent maxW={maxW}>
+        <ModalHeader>
+          {title && (
+            <Text
+              fontFamily="promo"
+              textTransform="uppercase"
+              fontSize="2md"
+              color="white"
+              fontWeight={700}
+            >
+              {title}
+            </Text>
+          )}
+          {description && (
+            <Text fontSize="sm" fontWeight={400} color="dark.50">
+              {description}
+            </Text>
+          )}
+        </ModalHeader>
         <ModalCloseButton />
 
         <ModalBody>{children}</ModalBody>

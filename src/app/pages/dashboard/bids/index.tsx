@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
+import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
 import { EmptyData } from '@shared/ui-kit';
-import pages from '../..';
 import MyOffers from '../offers';
 
 enum BidType {
@@ -20,10 +20,12 @@ export interface MyBidItem {
 const bids = [] as MyBidItem[];
 
 export const MyBids: React.FC = observer(() => {
+  const openCreateOfferModal = useCreateOfferModal();
+
   if (!bids.length)
     return (
       <EmptyData
-        onCreate={() => router.navigateComponent(pages.offers.create, {})}
+        onCreate={openCreateOfferModal}
         createButtonLabel="Create offers"
       />
     );

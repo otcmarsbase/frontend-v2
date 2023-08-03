@@ -18,7 +18,7 @@ export const ConnectBtn = () => {
   });
   const { disconnect } = useDisconnect();
   const { connect, connectors, isLoading } = useConnect({
-    onError: () => console.log('connection error'),
+    onError: () => console.error('connection error'),
   });
   const { data } = useBalance({
     address: currentExtensionState.address,

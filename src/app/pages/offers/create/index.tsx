@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import * as Layouts from '@app/layouts';
-import { ProjectDetails } from '@app/pages/offers/create/components/ProjectDetails';
-import { ILotType } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { formDefaultValues } from '@app/pages/offers/create/consts';
-import { useFormStepsValidation } from '@app/pages/offers/create/hooks/useFormStepsValdiation';
-import { useSummaryStepsValidation } from '@app/pages/offers/create/hooks/useSummaryStepsValidation';
 import { useStore } from '@app/store';
+import { HStack, VStack, Text, Heading, Badge, Box } from '@chakra-ui/react';
 import {
-  HStack,
-  VStack,
-  Text,
-  Heading,
-  Badge,
-  Box,
-  Button,
-} from '@chakra-ui/react';
-import { FormSection, FormWrapper, useForm } from '@shared/ui-kit';
+  FormSection,
+  FormWrapper,
+  RadioButtons,
+  useForm,
+} from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { ProjectInfo, Summary, TokenInfo } from './components';
+import { ProjectDetails } from './components/ProjectDetails';
+import { ILotType } from './components/ProjectInfo/types';
+import { formDefaultValues } from './constants';
+import { useFormStepsValidation } from './hooks/useFormStepsValdiation';
+import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
 import { SellOfferSchema } from './schemas';
 import { getDefaultValues, getRecountedValue, reorderItems } from './utils';
 
@@ -28,9 +25,9 @@ const StepThreeRecountFieldByLotType = {
   'Token warrant': 'tokensShareBought',
 };
 export const CreateOffer: React.FC = observer(() => {
-  const { SellOfferStore } = useStore();
+  const { sellOfferStore } = useStore();
 
-  const { setTypeOfPricingModel, typeOfDeal, setTypeOfDeal } = SellOfferStore;
+  const { setTypeOfPricingModel, typeOfDeal, setTypeOfDeal } = sellOfferStore;
 
   const form = useForm({
     schema: SellOfferSchema,
@@ -41,13 +38,13 @@ export const CreateOffer: React.FC = observer(() => {
 
   const { showStepTwo, showStepThree } = useFormStepsValidation({
     typeOfDeal,
-    SellOfferStore,
+    sellOfferStore,
   });
 
-  useSummaryStepsValidation({ data, typeOfDeal, SellOfferStore });
+  useSummaryStepsValidation({ data, typeOfDeal, sellOfferStore });
   useEffect(() => {
     setTypeOfPricingModel('In Stablecoin');
-  }, [data.lotType]);
+  }, [data.lotType, setTypeOfPricingModel]);
 
   function handleRecountPriceInfoValues(curIds, id, value) {
     if (!value) {
@@ -75,6 +72,7 @@ export const CreateOffer: React.FC = observer(() => {
     form.setValue(fieldOneID, value.toString());
   }
 
+  // TODO:
   function handleRecountValues({ currentID, bindedID, value, pricingModel }) {
     const isCurtargetFDV = currentID === 'targetFDV';
 
@@ -104,8 +102,9 @@ export const CreateOffer: React.FC = observer(() => {
       bindedID,
     });
 
-    form.setValue(_bindedID, _result);
-    form.setValue(_currentID, value);
+    // TODO: Типизировать нормально
+    form.setValue(_bindedID as any, _result);
+    form.setValue(_currentID as any, value);
   }
 
   function toggleTypeOfDeal(dealType) {
@@ -125,32 +124,19 @@ export const CreateOffer: React.FC = observer(() => {
               Set suitable conditions
             </Text>
           </VStack>
-          <HStack>
-            <Button
-              w={'140px'}
-              h={'40px'}
-              id={'Buy'}
-              isActive={typeOfDeal === 'Buy'}
-              _active={{
-                bg: 'var(--ui-kit-green-500, #279783)',
-              }}
-              onClick={() => toggleTypeOfDeal('Buy')}
-            >
-              Buy
-            </Button>
-            <Button
-              w={'140px'}
-              h={'40px'}
-              id={'Sell'}
-              isActive={typeOfDeal === 'Sell'}
-              _active={{
-                bg: 'var(--ui-kit-green-500, #279783)',
-              }}
-              onClick={() => toggleTypeOfDeal('Sell')}
-            >
-              Sell
-            </Button>
-          </HStack>
+          <RadioButtons
+            items={[
+              { label: 'Buy', value: 'Buy' },
+              { label: 'Sell', value: 'Sell' },
+            ]}
+            onChange={toggleTypeOfDeal}
+            variant="solid"
+            value={typeOfDeal}
+            mapColorByValue={(value) => {
+              if (value === 'Sell') return 'red.500';
+              if (value === 'Buy') return 'green.500';
+            }}
+          />
         </HStack>
 
         <VStack gap="1.5rem">

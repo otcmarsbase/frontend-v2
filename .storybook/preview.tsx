@@ -2,8 +2,6 @@ import React from 'react';
 import type { Preview } from '@storybook/react';
 import { ThemeProvider } from '../src/shared/ui-kit';
 
-console.log({ ThemeProvider });
-
 const preview: Preview = {
   decorators: [
     (Story) => (

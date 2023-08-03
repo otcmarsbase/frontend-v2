@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { isValidField } from '@app/pages/offers/create/utils';
+import { isValidField } from '../utils';
 
 interface IUseCustomFieldValidation {
   data: any;
   typeOfDeal: string;
-  SellOfferStore: any;
+  sellOfferStore: any;
 }
 export const useSummaryStepsValidation = ({
   data,
   typeOfDeal,
-  SellOfferStore,
+  sellOfferStore,
 }: IUseCustomFieldValidation) => {
   const {
     setStepOneSuccess,
@@ -20,7 +20,7 @@ export const useSummaryStepsValidation = ({
     setStepThreeSuccess,
     setStepThreeWasOnSuccess,
     setBasicInfo,
-  } = SellOfferStore;
+  } = sellOfferStore;
 
   useEffect(() => {
     const {
@@ -40,9 +40,7 @@ export const useSummaryStepsValidation = ({
       minTokenShareBid,
       tokenShareToOffer,
       targetFDV,
-      pricePerEquity,
     } = data;
-    console.log('data', data);
     const stepOnePassed =
       isValidField(projectName) &&
       isValidField(projectWebsite) &&
@@ -83,5 +81,16 @@ export const useSummaryStepsValidation = ({
     }
 
     setBasicInfo(data);
-  }, [data, typeOfDeal]);
+  }, [
+    data,
+    setBasicInfo,
+    setStepOneSuccess,
+    setStepOneWasOnSuccess,
+    setStepThreeSuccess,
+    setStepThreeWasOnSuccess,
+    setStepTwoSuccess,
+    setStepTwoWasOnSuccess,
+    typeOfDeal,
+    typeOfPricingModel,
+  ]);
 };

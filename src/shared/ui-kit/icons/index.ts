@@ -13,3 +13,5 @@ export * from './projects';
 export * as ProjectsIcons from './projects';
 export * from './HotIcon';
 export * from './KebabMenuIcon';
+export * from './CloseModalIcon';
+export * from './OfferTypeIcon';

@@ -34,11 +34,12 @@ export const SummaryStep = ({
 
   useEffect(() => {
     setIsExpanded(isSuccessFilled || stepWasOpened);
-  }, [isSuccessFilled]);
+  }, [isSuccessFilled, stepWasOpened]);
 
   const isValid = isSuccessFilled;
-  const isDefault = !stepWasOpened;
   const isInvalid = !isSuccessFilled;
+
+  const isDefault = !stepWasOpened;
   return (
     <VStack
       alignItems="start"
@@ -55,9 +56,9 @@ export const SummaryStep = ({
             size="1.5rem"
             background={isSuccessFilled ? 'green.500' : 'dark.500'}
           >
-            {isDefault ? <WaitingIcon color="dark.100" /> : null}
+            {isDefault && !isValid ? <WaitingIcon color="dark.100" /> : null}
             {isValid ? <CheckmarkIcon /> : null}
-            {isInvalid ? <AlertCircle /> : null}
+            {isInvalid && !isDefault ? <AlertCircle /> : null}
           </Circle>
           <Text fontSize="sm" fontWeight="bold">
             Step {stepData.id}

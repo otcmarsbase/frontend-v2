@@ -277,6 +277,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'darkLinearGradientBg'
     | 'orangeGradient'
     | 'darkGradientBordered'
+    | 'brandLinearGradient'
     | (string & {});
   letterSpacings:
     | 'tighter'
@@ -529,7 +530,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: string & {};
     };
     Button: {
-      sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
+      sizes: 'lg' | 'md' | 'sm' | 'xs' | '2xs' | 'xl' | (string & {});
       variants:
         | 'ghost'
         | 'outline'

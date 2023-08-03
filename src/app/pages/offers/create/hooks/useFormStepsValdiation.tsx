@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 interface IUseFormStepsValidation {
   typeOfDeal: string;
-  SellOfferStore: any;
+  sellOfferStore: any;
 }
 export const useFormStepsValidation = ({
   typeOfDeal,
-  SellOfferStore,
+  sellOfferStore,
 }: IUseFormStepsValidation) => {
   const [showStepTwo, setShowStepTwo] = useState(false);
   const [showStepThree, setShowStepThree] = useState(false);
@@ -16,7 +16,7 @@ export const useFormStepsValidation = ({
     stepOneSuccess,
     stepTwoWasOnSuccess,
     stepTwoSuccess,
-  } = SellOfferStore;
+  } = sellOfferStore;
 
   useEffect(() => {
     let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
@@ -35,7 +35,13 @@ export const useFormStepsValidation = ({
     if (typeOfDeal === 'Sell') {
       setShowStepThree((prev) => _showStepThree);
     }
-  }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
+  }, [
+    stepTwoWasOnSuccess,
+    stepTwoSuccess,
+    typeOfDeal,
+    stepOneWasOnSuccess,
+    stepOneSuccess,
+  ]);
 
   return {
     showStepTwo,

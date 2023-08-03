@@ -68,7 +68,6 @@ export function useForm<
       const root = schema.describe({ value: values });
       const propField = _get(root.fields, name);
       if (!propField) return false;
-      // console.log({ propField });
       return (
         propField['tests'].findIndex(({ name }) => name === 'required') >= 0
       );
@@ -80,7 +79,6 @@ export function useForm<
     (child: SubmitHandler<TFieldValues>) => SubmitHandler<TFieldValues>
   >(
     (child) => (data, event) => {
-      console.log({ data, event });
       return child(data, event);
     },
     [],

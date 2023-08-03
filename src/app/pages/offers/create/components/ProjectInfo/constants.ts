@@ -1,7 +1,7 @@
 export const ProjectInfoFields = {
   PROJECT_NAME: 'Project Name',
   PROJECT_WEBSITE: 'Project Website',
-  LOT_TYPE:'Type of lot',
+  LOT_TYPE: 'Type of lot',
   TELEGRAM: 'Telegram',
   IS_RE_ASSIGNED: 'Re-Assign',
   IS_DIRECT_SELLER: 'I am direct seller',
@@ -12,5 +12,5 @@ export const ProjectInfoFields = {
   TYPES_OF_BUYER: 'Type of buyer',
   DEADLINE_DATE: 'Deadline',
   IS_READY_TO_SVP: 'Ready to SPV',
-  NO_LIMITATION: 'No limitation'
-}
+  NO_LIMITATION: 'No limitation',
+};

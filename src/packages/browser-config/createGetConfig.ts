@@ -16,11 +16,24 @@ export function createGetConfig<
   },
 >(params: CreateGetConfigParams<Config>) {
   const NODE_ENV = process.env.NODE_ENV;
-  if (!NODE_ENV) throw new Error('The NODE_ENV environment variable is required but was not specified.');
+  if (!NODE_ENV)
+    throw new Error(
+      'The NODE_ENV environment variable is required but was not specified.',
+    );
 
-  return <T = string>(key: keyof Config & string, parser?: (data: string) => T) => {
-    if (params.withoutPrefix.includes(key)) return getConfig({ prefix: '', from: params.from || ['process'], key }, parser);
+  return <T = string>(
+    key: keyof Config & string,
+    parser?: (data: string) => T,
+  ) => {
+    if (params.withoutPrefix.includes(key))
+      return getConfig(
+        { prefix: '', from: params.from || ['process'], key },
+        parser,
+      );
 
-    return getConfig({ prefix: params.prefix, from: params.from || ['process'], key }, parser);
+    return getConfig(
+      { prefix: params.prefix, from: params.from || ['process'], key },
+      parser,
+    );
   };
 }

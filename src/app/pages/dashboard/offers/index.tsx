@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
-import pages from '@app/pages';
 import { DashboardListType } from '@app/store';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
@@ -13,11 +13,13 @@ import offersMock from './offersMock.json';
 const offers = offersMock.offers as Dashboard.OfferItem[];
 
 export const MyOffers: React.FC = observer(() => {
-  const [paginationOptions, setPaginationOptions] =
-    useState<Paginate.PaginationOptions>({ page: 1, limit: 25 });
-  const [events, setEvents] = useState<
-    Paginate.PaginationItems<Dashboard.OfferItem>
-  >({
+  const openCreateOfferModal = useCreateOfferModal();
+
+  const [paginationOptions] = useState<Paginate.PaginationOptions>({
+    page: 1,
+    limit: 25,
+  });
+  const [events] = useState<Paginate.PaginationItems<Dashboard.OfferItem>>({
     total: 30,
     items: [],
   });
@@ -28,7 +30,7 @@ export const MyOffers: React.FC = observer(() => {
   if (!offers.length)
     return (
       <EmptyData
-        onCreate={() => router.navigateComponent(pages.offers.create, {})}
+        onCreate={openCreateOfferModal}
         createButtonLabel="Create offers"
       />
     );

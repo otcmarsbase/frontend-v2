@@ -23,7 +23,7 @@ export const Default: Story = {
     isSuccessFilled: false,
     fields: [],
     width: '200px',
-    stepWasOpened: false
+    stepWasOpened: false,
   },
 };
 
@@ -39,8 +39,7 @@ export const SuccessFilled: Story = {
     ],
     isSuccessFilled: true,
     width: '200px',
-    stepWasOpened: false
-
+    stepWasOpened: false,
   },
 };
 
@@ -56,7 +55,6 @@ export const SuccessFilledTouched: Story = {
     ],
     isSuccessFilled: true,
     width: '200px',
-    stepWasOpened: true
-
+    stepWasOpened: true,
   },
 };

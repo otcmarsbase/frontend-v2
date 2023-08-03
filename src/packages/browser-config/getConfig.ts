@@ -25,7 +25,13 @@ export function getConfig<
 >(params: GetConfigParams<Config>, parser?: (data: string) => Output) {
   const rawKey = [params.prefix, params.key].filter(Boolean).join('');
   const rawValue = params.from
-    .map((envObject) => (envObject === 'window' ? window[rawKey] : envObject === 'process' ? process.env[rawKey] : void 0))
+    .map((envObject) =>
+      envObject === 'window'
+        ? window[rawKey]
+        : envObject === 'process'
+        ? process.env[rawKey]
+        : void 0,
+    )
     .filter(Boolean)[0];
 
   if (typeof rawValue === 'undefined' || rawValue === null) return null;

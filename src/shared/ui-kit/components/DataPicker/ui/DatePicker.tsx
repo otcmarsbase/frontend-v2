@@ -127,7 +127,7 @@ export const DatePickerComp = ({ handleGetDate, isDatePickerDisabled }) => {
 
   useEffect(() => {
     handleGetDate(startDate);
-  }, [startDate]);
+  }, [startDate, handleGetDate]);
 
   function decreaseMonth() {
     const newMonth = getMonth(startDate) - 1;

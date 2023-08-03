@@ -1,6 +1,5 @@
 import React from 'react';
 import { App } from '@app';
-import {ErrorBoundary} from "@app/layouts/errorBoundary/ErrorBoundary";
 import { RootStore, StoresContext } from '@app/store/rootStore';
 import { override } from '@packages/react-runtime-layout';
 import ReactDOM from 'react-dom/client';
@@ -16,9 +15,7 @@ const store = new RootStore();
 root.render(
   <React.StrictMode>
     <StoresContext.Provider value={store}>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+      <App />
     </StoresContext.Provider>
   </React.StrictMode>,
 );

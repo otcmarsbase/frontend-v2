@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { DashboardListType, useStore } from '@app/store';
 import {
   Box,
+  Checkbox,
   HStack,
   Heading,
   Input,
@@ -10,8 +11,7 @@ import {
   InputLeftElement,
   VStack,
 } from '@chakra-ui/react';
-import { RadioButtons, SearchIcon } from '@shared/ui-kit';
-import { RawCheckbox } from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
+import { FormField, RadioButtons, SearchIcon } from '@shared/ui-kit';
 import { AppLayout } from '../appLayout';
 
 export interface DashboardLayoutProps {
@@ -74,29 +74,60 @@ export const DashboardLayout: React.FC<
             </InputGroup>
           </HStack>
           <HStack gap="1rem">
-            <RawCheckbox
+            <FormField
+              name="showAll"
               value={dashboardStore.filters.showAll}
-              label={'All'}
-              id={'showAll'}
-              handleChange={dashboardStore.changeFilters}
+              component={
+                <Checkbox
+                  onChange={(e) =>
+                    dashboardStore.changeFilters('showAll', e.target.checked)
+                  }
+                >
+                  All
+                </Checkbox>
+              }
             />
-            <RawCheckbox
+            <FormField
+              name="showActive"
               value={dashboardStore.filters.showActive}
-              label={'Active'}
-              id={'showActive'}
-              handleChange={dashboardStore.changeFilters}
+              component={
+                <Checkbox
+                  onChange={(e) =>
+                    dashboardStore.changeFilters('showActive', e.target.checked)
+                  }
+                >
+                  Active
+                </Checkbox>
+              }
             />
-            <RawCheckbox
+            <FormField
+              name="showModerated"
               value={dashboardStore.filters.showModerated}
-              label={'Moderated'}
-              id={'showModerated'}
-              handleChange={dashboardStore.changeFilters}
+              component={
+                <Checkbox
+                  onChange={(e) =>
+                    dashboardStore.changeFilters(
+                      'showModerated',
+                      e.target.checked,
+                    )
+                  }
+                >
+                  Moderated
+                </Checkbox>
+              }
             />
-            <RawCheckbox
+            <FormField
+              name="showDraft"
               value={dashboardStore.filters.showDraft}
-              label={'Draft'}
-              id={'showDraft'}
-              handleChange={dashboardStore.changeFilters}
+              component={
+                <Checkbox
+                  onChange={(e) =>
+                    dashboardStore.changeFilters('showDraft', e.target.checked)
+                  }
+                >
+                  Draft
+                </Checkbox>
+              }
             />
           </HStack>
         </HStack>

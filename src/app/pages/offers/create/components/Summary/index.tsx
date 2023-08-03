@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { PublishLot } from '@app/pages/offers/create/components/PublishLot';
 import { useStore } from '@app/store';
 import { Box, VStack, Heading, Text } from '@chakra-ui/react';
 import { SummaryStep } from '@shared/ui-kit';
+import { PublishLot } from '../PublishLot';
 import { StepLabels, StepTypes, StepsText } from './constants';
 
 interface IStepWrapperProps {
@@ -73,28 +73,23 @@ export interface SummaryProps {
 
 export const Summary = observer(
   ({ onPublishLot, lotType, typeOfDeal }: SummaryProps) => {
-    const { SellOfferStore } = useStore();
+    const { sellOfferStore } = useStore();
     const {
       typeOfPricingModel,
       stepOneSuccess,
       stepThreeSuccess,
       stepTwoSuccess,
       basicInfo,
-      stepOneWasOnSuccess,
       stepTwoWasOnSuccess,
       stepThreeWasOnSuccess,
-    } = SellOfferStore;
+    } = sellOfferStore;
 
     const SellConditionsComplete =
       stepOneSuccess && stepTwoSuccess && stepThreeSuccess;
     const BuyConditionsComplete = stepOneSuccess && stepThreeSuccess;
 
     return (
-      <VStack
-        layerStyle="darkGradientBordered"
-        alignSelf="start"
-        gap={'1.5rem'}
-      >
+      <VStack layerStyle="darkGradientBordered" alignSelf="start" gap="1.5rem">
         <Box alignSelf="start" mb="1.5rem">
           <Heading size="md" fontFamily="promo">
             Final selection
@@ -103,7 +98,7 @@ export const Summary = observer(
             Set suitable conditions
           </Text>
         </Box>
-        <VStack gap={'0.5rem'}>
+        <VStack>
           <StepWrapper
             isSuccessFilled={stepOneSuccess}
             step={StepTypes.FIRST_STEP}
@@ -120,7 +115,7 @@ export const Summary = observer(
                 lotType={lotType}
                 stepWasOpened={stepTwoWasOnSuccess}
                 pricingModel={typeOfPricingModel}
-                data={SellOfferStore.basicInfo}
+                data={sellOfferStore.basicInfo}
               />
               <StepWrapper
                 isSuccessFilled={stepThreeSuccess}
@@ -128,7 +123,7 @@ export const Summary = observer(
                 lotType={lotType}
                 stepWasOpened={stepThreeWasOnSuccess}
                 pricingModel={typeOfPricingModel}
-                data={SellOfferStore.basicInfo}
+                data={sellOfferStore.basicInfo}
               />
             </>
           ) : (

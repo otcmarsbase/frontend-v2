@@ -9,7 +9,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     router.navigateComponent(pages.dashboard.offers, {});
-  }, []);
+  }, [router]);
 
   return (
     <Box>
