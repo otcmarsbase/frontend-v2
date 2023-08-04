@@ -1,3 +1,6 @@
+import {EPricingModel} from "@app/pages/offers/create/types";
+import {ELotType} from "@app/pages/offers/create/components/ProjectInfo/types";
+
 export const StepThreeFields = {
     CONTRACT_SIZE_TO_OFFER: 'Contract size to offer',
     MIN_DEAL_SIZE: 'Minimum deal size, $',
@@ -14,22 +17,22 @@ export const StepThreeFields = {
     OFFER_THE_BEST_BID: 'Offer the best bid',
 };
 export const STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE = {
-    SAFT: {
-        leftBtnLabel: 'In Stablecoin',
-        rightBtnLabel: 'In Token',
+    [ELotType.SAFT]: {
+        leftBtnLabel: EPricingModel.IN_STABLECOIN,
+        rightBtnLabel: EPricingModel.IN_TOKEN,
     },
-    SAFE: {
-        leftBtnLabel: 'In Stablecoin',
-        rightBtnLabel: 'In Equity',
+    [ELotType.SAFE]: {
+        leftBtnLabel: EPricingModel.IN_STABLECOIN,
+        rightBtnLabel: EPricingModel.IN_EQUITY,
     },
-    'Token warrant': {
-        leftBtnLabel: 'In Stablecoin',
-        rightBtnLabel: 'In Token Shares',
+    [ELotType.TOKEN_WARRANT]: {
+        leftBtnLabel: EPricingModel.IN_STABLECOIN,
+        rightBtnLabel: EPricingModel.IN_TOKEN_SHARES,
     },
 };
 
 export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
-    SAFE: [
+    [ELotType.SAFE]: [
         {
             id: 'equityToOffer',
             fieldLabel: StepThreeFields.EQUITY_TO_OFFER,
@@ -39,7 +42,7 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
             fieldLabel: StepThreeFields.MIN_EQUITY_BID,
         },
     ],
-    SAFT: [
+    [ELotType.SAFT]: [
         {
             id: 'tokensToOffer',
             fieldLabel: StepThreeFields.TOKENS_TO_OFFER,
@@ -49,7 +52,7 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
             fieldLabel: StepThreeFields.MIN_TOKEN_BID,
         },
     ],
-    'Token warrant': [
+    [ELotType.TOKEN_WARRANT]: [
         {
             id: 'tokenShareToOffer',
             fieldLabel: StepThreeFields.TOKEN_SHARE_TO_OFFER,
@@ -62,16 +65,16 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
 };
 
 export const STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE = {
-    SAFE: {
+    [ELotType.SAFT]: {
         id: 'pricePerEquity',
         fieldLabel: StepThreeFields.PRICE_PER_EQUITY,
     },
 
-    SAFT: {
+    [ELotType.SAFE]: {
         id: 'targetTokenPrice',
         fieldLabel: StepThreeFields.TARGET_TOKEN_PRICE,
     },
-    'Token warrant': {
+    [ELotType.TOKEN_WARRANT]: {
         id: 'pricePerEquity',
         fieldLabel: StepThreeFields.PRICE_PER_EQUITY,
     },

@@ -7,7 +7,6 @@ import {
     VStack,
 } from '@chakra-ui/react';
 import {FC} from 'react';
-import {UseFormReturn} from 'react-hook-form';
 import {
     STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE,
     STEP_THREE_FIELDS_BY_LOT_TYPE,
@@ -18,21 +17,10 @@ import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {FormBlockElement, FormField} from "@shared/ui-kit";
 import {observer} from "mobx-react-lite";
 import {useStore} from "@app/store";
+import {EPricingModel, ETypeOfDeal, TCreateOfferFieldTypes} from "@app/pages/offers/create/types";
+import {IProjectDetailsProps} from '../types';
 
-interface IHandleRecount {
-    currentID: string,
-    bindedID: string,
-    value: string,
-    pricingModel: string
-}
-
-export const ProjectDetails: FC<{
-    form: UseFormReturn,
-    lotType: any,
-    handleRecountValues: ({}: IHandleRecount) => void,
-    label: string,
-    typeOfDeal: string
-}> = observer((props) => {
+export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
         const {form, lotType, handleRecountValues, typeOfDeal} = props;
         const {getValues, formState, register, setValue} = form;
         const {errors} = formState;
@@ -41,14 +29,14 @@ export const ProjectDetails: FC<{
             typeOfPricingModel
         } = SellOfferStore;
 
-        function switchPricingModel(btnId) {
+        function switchPricingModel(btnId: EPricingModel) {
             SellOfferStore.setTypeOfPricingModel(btnId)
         }
+
         const leftBtnLabel = STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].leftBtnLabel;
         const rightBtnLabel = STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].rightBtnLabel
 
         const bottomFieldID = STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].id;
-
 
         return (
             <FormBlockElement
@@ -73,7 +61,7 @@ export const ProjectDetails: FC<{
                         </Button>
                     </HStack>
 
-                    {typeOfPricingModel === 'In Stablecoin'
+                    {typeOfPricingModel === EPricingModel.IN_STABLECOIN
                         ?
                         <HStack w={'100%'} padding={'24px'}>
                             <FormField
@@ -113,9 +101,7 @@ export const ProjectDetails: FC<{
                             }
 
                         </HStack>
-
                     }
-
                     <HStack w={'100%'}
                             layerStyle="orangeGradient"
                     >
@@ -129,7 +115,7 @@ export const ProjectDetails: FC<{
                                    id={'targetFDV'}
                                    onChange={(e) => handleRecountValues({
                                        currentID: 'targetFDV',
-                                       bindedID: bottomFieldID,
+                                       bindedID: bottomFieldID as TCreateOfferFieldTypes,
                                        value: e.currentTarget.value,
                                        pricingModel: typeOfPricingModel
                                    })}
@@ -143,7 +129,7 @@ export const ProjectDetails: FC<{
                                    type={'number'}
                                    id={STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].id}
                                    onChange={(e) => handleRecountValues({
-                                       currentID: e.currentTarget.id,
+                                       currentID: e.currentTarget.id as TCreateOfferFieldTypes,
                                        bindedID: 'targetFDV',
                                        value: e.currentTarget.value,
                                        pricingModel: typeOfPricingModel
@@ -151,7 +137,7 @@ export const ProjectDetails: FC<{
                             />
                         </FormControl>
                     </HStack>
-                    {typeOfDeal === 'Sell'
+                    {typeOfDeal === ETypeOfDeal.SELL
                         ?
                         <FormControl alignSelf={'flexStart'} paddingTop={'20px'}>
                             <RawCheckbox

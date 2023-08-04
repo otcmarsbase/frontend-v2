@@ -8,11 +8,12 @@ import {
     UseFormReturn,
 } from '@shared/ui-kit';
 import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
-import {ProjectInfoFields} from './consts';
-import {ILotType, InvAccTypes, LotTypes} from './types';
+import {InvAccTypes, LotTypes, ProjectInfoFields} from './consts';
+import {ELotType} from './types';
 import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
 
-export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (props) => {
+export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> = (props) => {
     const {form, typeOfDeal} = props;
     const {register, getValues, formState, setValue, isRequired} = form;
     const {errors} = formState;
@@ -60,14 +61,13 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (pro
             <FormBlockElement
                 grid={{cols: 2}}
             >
-
                 <RawCheckbox
                     handleChange={(id, value) => setValue(id, value)}
                     id={'isReAssigned'}
                     value={getValues('isReAssigned')}
                     label={ProjectInfoFields.IS_RE_ASSIGNED}
                 />
-                {getValues('lotType') === ILotType.SAFE ?
+                {getValues('lotType') === ELotType.SAFE ?
                     <RawCheckbox
                         handleChange={(id, value) => setValue(id, value)}
                         id={'isTokenWarrant'}
@@ -79,7 +79,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (pro
                 }
             </FormBlockElement>
 
-            {typeOfDeal === 'Sell' ?
+            {typeOfDeal === ETypeOfDeal.SELL ?
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_SELLER}
                     isRequired={isRequired('typesOfSeller')}
@@ -140,7 +140,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: string }> = (pro
                 />
             </FormBlockElement>
 
-            {typeOfDeal === 'Sell' ?
+            {typeOfDeal === ETypeOfDeal.SELL ?
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_BUYER}
                     isRequired={isRequired('typesOfBuyer')}

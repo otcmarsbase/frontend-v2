@@ -6,11 +6,12 @@ import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
 import {TokenInfoFields} from './consts';
 import {PriceInfo} from "@app/pages/offers/create/components/PriceInfo";
 import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
+import {ELotType, TLotType} from "@app/pages/offers/create/components/ProjectInfo/types";
 
 export const TokenInfo: FC<{
     form: UseFormReturn,
-    lotType: string,
-    handleRecountPriceInfoValues: (curIds: [], id: string, value: string) => void
+    lotType: TLotType,
+    handleRecountPriceInfoValues: ({curIds, id, value}) => void
 }> = observer((props) => {
     const {lotType, form, handleRecountPriceInfoValues} = props;
     const {register, getValues, formState, setValue, isRequired} = form;
@@ -56,7 +57,7 @@ export const TokenInfo: FC<{
                     placeholder={TokenInfoFields.CONTRACT_VALUE}
                 />
             </FormBlockElement>
-            {lotType !== 'SAFE' && (
+            {lotType !== ELotType.SAFE && (
                 <>
                     <FormBlockElement
                         label={TokenInfoFields.DATES}

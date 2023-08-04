@@ -16,6 +16,7 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "@app/store";
 import {Web3ModalComponent} from "@app/logic/web3Modal";
 import {TypeOfOfferModal} from "@shared/ui-kit/components/Modal/TypeOfOffer/TypeOfOfferModal";
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
 
 export const AppLayout: React.FC<PropsWithChildren<{}>> = observer(({children}) => {
     const copyright = `© All Rights Reserved MarsBase, ${new Date().getFullYear()}`;
@@ -23,7 +24,7 @@ export const AppLayout: React.FC<PropsWithChildren<{}>> = observer(({children}) 
     const {setTypeOfDeal} = SellOfferStore;
 
     async function pushToOffers() {
-        const typeOfDeal: string = await ModalController.create(TypeOfOfferModal, {});
+        const typeOfDeal: ETypeOfDeal = await ModalController.create(TypeOfOfferModal, {});
         setTypeOfDeal(typeOfDeal)
         router.navigateComponent(pages.offers.create, {})
     }

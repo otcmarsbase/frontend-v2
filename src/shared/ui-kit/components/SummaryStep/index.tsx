@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import {
     Circle,
     HStack,
@@ -11,7 +11,7 @@ import {
 import {CheckmarkIcon, ChevronDownIcon, WaitingIcon} from '../../icons';
 import {AlertCircle} from "@shared/ui-kit/icons/AlertCurcle";
 
-export interface SummaryStepProps extends Omit<StackProps, 'children'> {
+export interface ISummaryStepProps extends Omit<StackProps, 'children'> {
     isSuccessFilled: boolean;
     stepData: {
         id: number;
@@ -21,13 +21,13 @@ export interface SummaryStepProps extends Omit<StackProps, 'children'> {
     stepWasOpened: boolean
 }
 
-export const SummaryStep = ({
+export const SummaryStep:FC<ISummaryStepProps> = ({
                                 stepData,
                                 isSuccessFilled,
                                 fields,
                                 stepWasOpened,
                                 ...stackProps
-                            }: SummaryStepProps) => {
+                            }) => {
     const [isExpanded, setIsExpanded] = useState(isSuccessFilled);
 
     const toggleExpand = () => setIsExpanded((prev) => !prev);
@@ -87,7 +87,7 @@ export const SummaryStep = ({
                 {fields.length ? (
                     <VStack alignItems="start" width="100%">
                         {fields.map((field, index) => (
-                            <HStack width="100%" justifyContent="space-between" key={index}>
+                            <HStack width="100%" justifyContent="space-between" key={field.name}>
                                 <Text fontSize="sm" opacity="0.6">
                                     {field.name}
                                 </Text>

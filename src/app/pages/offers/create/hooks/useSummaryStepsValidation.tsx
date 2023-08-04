@@ -1,16 +1,13 @@
 import {useEffect} from "react";
 import {isValidField} from "@app/pages/offers/create/utils";
-// import {observer} from "mobx-react-lite";
-// import {useStore} from "@app/store";
+import {EPricingModel, ETypeOfDeal, ICreateOfferFieldTypes} from "@app/pages/offers/create/types";
 
 interface IUseCustomFieldValidation {
-    data: any,
-    typeOfDeal: string,
+    data: ICreateOfferFieldTypes,
+    typeOfDeal: ETypeOfDeal,
     SellOfferStore: any
 }
 export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IUseCustomFieldValidation) => {
-    // const {SellOfferStore} = useStore();
-
     const {
         setStepOneSuccess,
         setStepOneWasOnSuccess,
@@ -40,10 +37,8 @@ export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IU
             tokensToOffer,
             minTokenShareBid,
             tokenShareToOffer,
-            targetFDV,
-            pricePerEquity
+            targetFDV
         } = data;
-        console.log('data', data)
         const stepOnePassed = isValidField(projectName) && isValidField(projectWebsite) && isValidField(telegram) && isValidField(lotType);
         setStepOneSuccess(stepOnePassed)
         if (stepOnePassed) {
@@ -58,13 +53,13 @@ export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IU
         }
 
         let additionalDep = false;
-        if(typeOfPricingModel === 'In Stablecoin'){
+        if(typeOfPricingModel === EPricingModel.IN_STABLECOIN){
             additionalDep = isValidField(contractSizeToOffer) && isValidField(minDealSize);
-        }else if(typeOfPricingModel === 'In Equity'){
+        }else if(typeOfPricingModel === EPricingModel.IN_EQUITY){
             additionalDep = isValidField(equityToOffer) && isValidField(minEquityBid);
-        }else if(typeOfPricingModel === 'In Token'){
+        }else if(typeOfPricingModel === EPricingModel.IN_TOKEN){
             additionalDep = isValidField(tokensToOffer) && isValidField(minTokenBid);
-        }else if(typeOfPricingModel === 'In Token Shares'){
+        }else if(typeOfPricingModel === EPricingModel.IN_TOKEN_SHARES){
             additionalDep = isValidField(tokenShareToOffer) && isValidField(minTokenShareBid);
         }
         const stepThreePassed = additionalDep && isValidField(targetFDV)
@@ -76,10 +71,4 @@ export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IU
 
         setBasicInfo(data)
     }, [data, typeOfDeal])
-
-    // return {
-    //
-    // }
-
-
 }

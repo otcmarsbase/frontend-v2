@@ -1,53 +1,55 @@
-import { makeAutoObservable } from 'mobx';
+import {makeAutoObservable} from 'mobx';
+import {EPricingModel, ETypeOfDeal} from "@app/pages/offers/create/types";
 
 export class SellOfferStore {
-  public basicInfo: any = {};
-  public stepOneSuccess: boolean = false;
-  public stepOneWasOnSuccess: boolean = false;
+    public basicInfo: any = {};
+    public stepOneSuccess: boolean = false;
+    public stepOneWasOnSuccess: boolean = false;
 
-  public stepTwoSuccess: boolean = false;
-  public stepTwoWasOnSuccess: boolean = false;
+    public stepTwoSuccess: boolean = false;
+    public stepTwoWasOnSuccess: boolean = false;
 
-  public stepThreeSuccess: boolean = false;
-  public stepThreeWasOnSuccess: boolean = false;
-  public typeOfPricingModel: string = 'In Stablecoin';
-  public typeOfDeal: string = 'Sell';
+    public stepThreeSuccess: boolean = false;
+    public stepThreeWasOnSuccess: boolean = false;
+    public typeOfPricingModel: EPricingModel = EPricingModel.IN_STABLECOIN;
+    public typeOfDeal: ETypeOfDeal = ETypeOfDeal.SELL;
 
 
-  constructor() {
-    makeAutoObservable(this, {}, { autoBind: true });
-  }
-  setTypeOfDeal = (payload) => {
-    this.typeOfDeal = payload;
-  };
-  setTypeOfPricingModel = (payload) => {
-    this.typeOfPricingModel = payload;
-  };
-  setBasicInfo = (updatedBasicInfo) => {
-    this.basicInfo = updatedBasicInfo;
-  };
+    constructor() {
+        makeAutoObservable(this, {}, {autoBind: true});
+    }
 
-  setStepOneSuccess = (bool) => {
-    this.stepOneSuccess = bool;
-  };
+    setTypeOfDeal = (payload: ETypeOfDeal) => {
+        this.typeOfDeal = payload;
+    };
+    setTypeOfPricingModel = (payload: EPricingModel) => {
+        this.typeOfPricingModel = payload;
+    };
+    setBasicInfo = (updatedBasicInfo) => {
+        this.basicInfo = updatedBasicInfo;
+    };
 
-  setStepOneWasOnSuccess = (bool) => {
-    this.stepOneWasOnSuccess = bool;
-  };
+    setStepOneSuccess = (bool) => {
+        this.stepOneSuccess = bool;
+    };
 
-  setStepTwoSuccess = (bool) => {
-    this.stepTwoSuccess = bool;
-  };
+    setStepOneWasOnSuccess = (bool) => {
+        this.stepOneWasOnSuccess = bool;
+    };
 
-  setStepTwoWasOnSuccess = (bool) => {
-    this.stepTwoWasOnSuccess = bool;
-  };
+    setStepTwoSuccess = (bool) => {
+        this.stepTwoSuccess = bool;
+    };
 
-  setStepThreeSuccess = (bool) => {
-    this.stepThreeSuccess = bool;
-  };
+    setStepTwoWasOnSuccess = (bool) => {
+        this.stepTwoWasOnSuccess = bool;
+    };
 
-  setStepThreeWasOnSuccess = (bool) => {
-    this.stepThreeWasOnSuccess = bool;
-  };
+    setStepThreeSuccess = (bool) => {
+        this.stepThreeSuccess = bool;
+    };
+
+    setStepThreeWasOnSuccess = (bool) => {
+        this.stepThreeWasOnSuccess = bool;
+    };
 }
