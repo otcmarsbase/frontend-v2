@@ -33,8 +33,22 @@ export const ChooseOfferTypeModal: React.FC<ChooseOfferTypeModalProps> = memo(
 
     return (
       <Modal
-        title="Choose type of offer"
-        description="Choose whether you want to buy or sell your funds"
+        title={
+          <Text
+            fontWeight={700}
+            fontFamily="promo"
+            fontSize="2md"
+            textTransform="uppercase"
+            color="white"
+          >
+            Choose type of offer
+          </Text>
+        }
+        description={
+          <Text fontWeight={400} fontSize="sm" color="dark.50">
+            Choose whether you want to buy or sell your funds
+          </Text>
+        }
         onClose={onClose}
         size="2xl"
         isCentered

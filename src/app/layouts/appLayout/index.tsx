@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import { router } from '@app/logic';
-import { Web3ModalComponent } from '@app/logic/web3Modal';
+import { WalletConnectButton } from '@app/logic/walletConnector';
 import pages from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import {
@@ -26,8 +26,8 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
     const openCreateOfferModal = useCreateOfferModal();
 
     return (
-      <VStack minHeight="100vh" width="100%" gap="0">
-        <Box width="100%" flexShrink="0">
+      <VStack minHeight="100vh" width="full" gap="0">
+        <Box width="full" flexShrink="0">
           <Header
             onLogoClick={() => router.navigateComponent(pages.home, {})}
             menuItems={[
@@ -42,13 +42,13 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
                 onClick: openCreateOfferModal,
               },
             ]}
-            rightContent={<Web3ModalComponent />}
+            rightContent={<WalletConnectButton />}
           />
         </Box>
-        <Box flex="1" width="100%">
+        <Box flex="1" width="full">
           <Container size={containerSize}>{children}</Container>
         </Box>
-        <Box width="100%" marginTop="auto">
+        <Box width="full" marginTop="auto">
           <Footer
             links={[
               { label: 'About', href: { url: '#' } },

@@ -12,7 +12,7 @@ export const EmptyData: React.FC<EmptyDataProps> = ({
 }) => {
   return (
     <VStack
-      width="100%"
+      width="full"
       border="1px solid"
       borderColor="dark.500"
       borderRadius="1rem"

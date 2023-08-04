@@ -277,7 +277,9 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'darkLinearGradientBg'
     | 'orangeGradient'
     | 'darkGradientBordered'
+    | 'brandGradientBordered'
     | 'brandLinearGradient'
+    | 'grayRadiiArea'
     | (string & {});
   letterSpacings:
     | 'tighter'
@@ -314,6 +316,8 @@ export interface ThemeTypings extends BaseThemeTypings {
     | '2xl'
     | '3xl'
     | 'full'
+    | 'xs'
+    | 'circle'
     | (string & {});
   shadows:
     | 'xs'
@@ -537,6 +541,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'solid'
         | 'link'
         | 'unstyled'
+        | 'brand'
         | (string & {});
     };
     Checkbox: {
@@ -632,7 +637,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | '6xl'
         | 'full'
         | (string & {});
-      variants: string & {};
+      variants: 'brightDark' | 'brand' | (string & {});
     };
     NumberInput: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});

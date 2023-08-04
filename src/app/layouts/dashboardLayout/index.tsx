@@ -42,14 +42,14 @@ export const DashboardLayout: React.FC<
       <VStack gap="0.5rem">
         <HStack
           justifyContent="space-between"
-          width="100%"
+          width="full"
           gap="0"
           borderRadius="0.75rem"
           bg="dark.900"
           padding="0.5rem"
           paddingRight="1.25rem"
         >
-          <HStack width="100%" gap="1rem">
+          <HStack width="full" gap="1rem">
             <RadioButtons
               value={listType}
               variant="solid"

@@ -1,7 +1,7 @@
 export function formatAddress(
   address: `0x${string}` | undefined,
-  begin: number = 10,
-  end: number = 10,
+  begin: number = 6,
+  end: number = 4,
 ): string {
   if (!address) return '';
   return `${address.substr(0, begin)}...${address.substr(
@@ -15,8 +15,9 @@ export function formatNumber(amount: number): string {
   const absolute = Math.abs(amount);
   const commaSeparated = commaSeparatedNumber(absolute, 2);
 
-  return isNegative ? `-$${commaSeparated}` : `$${commaSeparated}`;
+  return isNegative ? `-${commaSeparated}` : `${commaSeparated}`;
 }
+
 export function commaSeparatedNumber(
   number: number | string,
   decimalPartLength: number,

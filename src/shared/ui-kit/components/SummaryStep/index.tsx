@@ -50,7 +50,7 @@ export const SummaryStep = ({
       borderRadius="1rem"
       {...stackProps}
     >
-      <HStack justifyContent="space-between" width="100%">
+      <HStack justifyContent="space-between" width="full">
         <HStack>
           <Circle
             size="1.5rem"
@@ -78,7 +78,7 @@ export const SummaryStep = ({
         )}
       </HStack>
       <Box
-        width="100%"
+        width="full"
         transition="opacity 0.3s"
         height={isExpanded ? '100%' : '0'}
         opacity={isExpanded ? 1 : 0}
@@ -88,9 +88,9 @@ export const SummaryStep = ({
           <Divider my="3" color={isSuccessFilled ? 'green.500' : 'dark.100'} />
         )}
         {fields.length ? (
-          <VStack alignItems="start" width="100%">
+          <VStack alignItems="start" width="full">
             {fields.map((field, index) => (
-              <HStack width="100%" justifyContent="space-between" key={index}>
+              <HStack width="full" justifyContent="space-between" key={index}>
                 <Text fontSize="sm" opacity="0.6">
                   {field.name}
                 </Text>
