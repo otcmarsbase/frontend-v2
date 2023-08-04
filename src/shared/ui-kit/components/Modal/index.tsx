@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react';
 
 export interface ModalProps extends Omit<ChakraModalProps, 'isOpen'> {
-  title: string;
-  description?: string;
+  title: React.ReactElement<typeof Text>;
+  description?: React.ReactElement<typeof Text>;
   footer?: React.ReactNode;
   maxW?: LayoutProps['maxW'];
 }
@@ -42,22 +42,8 @@ export const Modal: React.FC<ModalProps> = ({
       <ModalOverlay />
       <ModalContent maxW={maxW}>
         <ModalHeader>
-          {title && (
-            <Text
-              fontFamily="promo"
-              textTransform="uppercase"
-              fontSize="2md"
-              color="white"
-              fontWeight={700}
-            >
-              {title}
-            </Text>
-          )}
-          {description && (
-            <Text fontSize="sm" fontWeight={400} color="dark.50">
-              {description}
-            </Text>
-          )}
+          {title}
+          {description}
         </ModalHeader>
         <ModalCloseButton />
 

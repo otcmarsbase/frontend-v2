@@ -36,7 +36,7 @@ export const FormBlockElement = ({
   };
 
   return (
-    <HStack width="100%" justifyContent="space-between">
+    <HStack width="full" justifyContent="space-between">
       <HStack flexShrink="0" alignSelf="flex-start" mt="0.75rem">
         <Text cursor="default" onClick={onTextClick}>
           {label}
@@ -45,7 +45,7 @@ export const FormBlockElement = ({
       </HStack>
       <Grid
         maxW="33.5rem"
-        width="100%"
+        width="full"
         templateColumns={`repeat(${grid.cols}, 1fr)`}
         gridGap={grid.gap}
         alignItems="center"

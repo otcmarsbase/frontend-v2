@@ -20,9 +20,6 @@ const baseStyle = definePartsStyle({
     p: '2rem',
     bg: `dark.950`,
     zIndex: 'unset',
-    border: '2px solid',
-    borderColor: 'dark.500',
-    borderRadius: '1rem',
   },
   closeButton: {
     top: '2rem',
@@ -31,6 +28,23 @@ const baseStyle = definePartsStyle({
   },
 });
 
+const variants = {
+  brightDark: definePartsStyle({
+    dialog: {
+      layerStyle: 'darkGradientBordered',
+    },
+  }),
+  brand: definePartsStyle({
+    dialog: {
+      layerStyle: 'brandGradientBordered',
+    },
+  }),
+};
+
 export const Modal = defineMultiStyleConfig({
   baseStyle,
+  variants,
+  defaultProps: {
+    variant: 'brightDark',
+  },
 });

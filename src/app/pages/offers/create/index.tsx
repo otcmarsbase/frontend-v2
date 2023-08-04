@@ -114,7 +114,7 @@ export const CreateOffer: React.FC = observer(() => {
 
   return (
     <HStack justifyContent={'center'} mt={'20px'} gap="2rem">
-      <FormWrapper width="100%">
+      <FormWrapper width="full">
         <HStack justifyContent={'space-between'}>
           <VStack gap="0" alignItems="start" marginBottom="1.5rem">
             <Heading size="md" fontFamily="promo">

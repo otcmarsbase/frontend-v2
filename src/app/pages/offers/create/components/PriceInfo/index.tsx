@@ -20,7 +20,7 @@ export const PriceInfo: FC<{
     <VStack layerStyle="orangeGradient">
       <Box>{helperText}</Box>
       <Grid
-        width="100%"
+        width="full"
         templateColumns={`repeat(${curIds.length}, 1fr)`}
         gridGap="1.25rem"
       >

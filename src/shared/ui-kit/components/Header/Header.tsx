@@ -22,7 +22,7 @@ export const Header = ({
   return (
     <VStack gap="0">
       <HStack
-        width="100%"
+        width="full"
         bg="dark.900"
         alignItems="center"
         height="5rem"

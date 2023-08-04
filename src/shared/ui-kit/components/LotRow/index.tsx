@@ -49,7 +49,7 @@ export const LotRow: React.FC<LotRowProps> = ({
     <HStack
       bg="dark.900"
       borderRadius="0.75rem"
-      width="100%"
+      width="full"
       padding="1.5rem"
       paddingRight="6rem"
       justifyContent="space-between"

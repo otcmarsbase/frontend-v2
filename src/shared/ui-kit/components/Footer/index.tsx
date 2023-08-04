@@ -30,8 +30,8 @@ export const Footer: React.FC<FooterProps> = ({
   copyright,
 }) => {
   return (
-    <HStack width="100%" padding="6.5rem 7.87rem">
-      <HStack display="flex" justifyContent="space-between" width="100%">
+    <HStack width="full" padding="6.5rem 7.87rem">
+      <HStack display="flex" justifyContent="space-between" width="full">
         <HStack alignItems="flex-start" gap="8.5rem">
           <Grid
             templateColumns="repeat(2, 1fr)"
