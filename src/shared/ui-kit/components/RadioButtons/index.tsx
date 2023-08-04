@@ -1,31 +1,41 @@
 import {
   Box,
   useMultiStyleConfig,
-  ThemingProps,
   chakra,
+  ColorProps,
+  BoxProps,
 } from '@chakra-ui/react';
 
-export interface RadioButtonsItem {
+type RadioButtonsValue = string | number;
+
+export interface RadioButtonsItem<Type extends RadioButtonsValue> {
   label: string;
-  value: string | number;
+  value: Type;
 }
 
-export interface RadioButtonsProps extends ThemingProps<'Box'> {
-  items: RadioButtonsItem[];
-  value: RadioButtonsItem['value'];
-  onChange: (value: RadioButtonsItem['value']) => void;
+export type RadioButtonsVariant = 'solid' | 'outline';
+
+export interface RadioButtonsProps<T extends RadioButtonsValue>
+  extends Omit<BoxProps, 'onChange'> {
+  items: RadioButtonsItem<T>[];
+  value: T;
+  onChange: (value: T) => void;
+  variant?: RadioButtonsVariant;
+  mapColorByValue?: (value: T) => ColorProps['color'];
 }
 
-export const RadioButtons = ({
+export const RadioButtons = <Type extends RadioButtonsValue = any>({
   items,
-  onChange,
   value,
+  onChange,
+  variant,
+  mapColorByValue,
   ...props
-}: RadioButtonsProps) => {
-  const styles = useMultiStyleConfig('RadioButtons', props);
+}: RadioButtonsProps<Type>) => {
+  const styles = useMultiStyleConfig('RadioButtons', { variant, ...props });
 
   return (
-    <Box __css={styles.container}>
+    <Box __css={styles.container} {...props}>
       <chakra.div
         __css={{
           ...styles.grid,
@@ -35,14 +45,21 @@ export const RadioButtons = ({
         {items.map((item, index) => {
           const isActive = Boolean(value && item.value === value);
 
-          // console.log({ isActive, item });
+          const color = mapColorByValue
+            ? mapColorByValue(item.value)
+            : undefined;
 
           return (
             <Box
               key={index}
               __css={{
                 ...styles.item,
-                ...(isActive ? styles.itemActive : {}),
+                ...(isActive
+                  ? {
+                      ...styles.itemActive,
+                      ...(color ? { bg: color } : {}),
+                    }
+                  : {}),
               }}
               onClick={() => onChange(item.value)}
             >

@@ -4,6 +4,7 @@ export function request<Result>(
   method: string,
   params: Record<string, any>,
   meta?: Record<string, any>,
+  // @ts-ignore
 ): RpcRequest<any, Result> {
   return {
     method,

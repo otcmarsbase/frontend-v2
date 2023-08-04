@@ -1,7 +1,6 @@
 import {EStepTypes, StepsText} from "@app/pages/offers/create/components/Summary/constants";
-import {EPricingModel} from "@app/pages/offers/create/types";
 import {IGetTargetFieldsProps, INormFieldsReturn} from "@app/pages/offers/create/components/Summary/types";
-import {FC} from "react";
+import {EPricingModel} from "@app/pages/offers/create/types";
 
 export const getTargetFields = ({step, lotType, pricingModel}: IGetTargetFieldsProps): Array<string[]> => {
     let targetFields = []

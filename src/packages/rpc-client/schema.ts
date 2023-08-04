@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface RpcRequest<
   Params extends Record<string, any> = Record<string, any>,
-  Result = any,
 > {
   method?: string;
   meta?: Record<string, any>;

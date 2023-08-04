@@ -1,5 +1,5 @@
-import {TokenInfoFields} from "@app/pages/offers/create/components/TokenInfo/consts";
 import {ELotType, TLotType} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {TokenInfoFields} from "@app/pages/offers/create/components/TokenInfo/constants";
 import {ICreateOfferFieldTypes} from "@app/pages/offers/create/types";
 
 export const formDefaultValues: ICreateOfferFieldTypes = {

@@ -1,7 +1,6 @@
-import { formatAddress, formatNumber } from '@shared/lib/utils';
-
+import { ConnectedWalletBtnProps } from '@app/logic/web3Modal/ConnectButton/types';
 import { Box } from '@chakra-ui/react';
-import {ConnectedWalletBtnProps} from "@app/logic/web3Modal/ConnectButton/types";
+import { formatAddress, formatNumber } from '@shared/lib/utils';
 
 export const ConnectedWalletBtn = ({
   address,

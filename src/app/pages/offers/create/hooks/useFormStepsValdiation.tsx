@@ -3,7 +3,7 @@ import {ETypeOfDeal} from "@app/pages/offers/create/types";
 
 interface IUseFormStepsValidationProps {
     typeOfDeal: ETypeOfDeal,
-    SellOfferStore: any
+    sellOfferStore: any
 }
 
 interface IUseFormStepsValidationResult {
@@ -11,16 +11,20 @@ interface IUseFormStepsValidationResult {
     showStepThree: boolean
 }
 
-export const useFormStepsValidation = ({typeOfDeal, SellOfferStore}: IUseFormStepsValidationProps): IUseFormStepsValidationResult => {
+export const useFormStepsValidation = ({
+                                           typeOfDeal,
+                                           sellOfferStore
+                                       }: IUseFormStepsValidationProps): IUseFormStepsValidationResult => {
     const [showStepTwo, setShowStepTwo] = useState(false)
     const [showStepThree, setShowStepThree] = useState(false);
+
 
     const {
         stepOneWasOnSuccess,
         stepOneSuccess,
         stepTwoWasOnSuccess,
-        stepTwoSuccess
-    } = SellOfferStore;
+        stepTwoSuccess,
+    } = sellOfferStore;
 
     useEffect(() => {
         let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
@@ -40,8 +44,24 @@ export const useFormStepsValidation = ({typeOfDeal, SellOfferStore}: IUseFormSte
         }
     }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
 
+
+    useEffect(() => {
+        let _showStepThree =
+            (stepOneWasOnSuccess || stepOneSuccess) &&
+            (stepTwoWasOnSuccess || stepTwoSuccess);
+        if (typeOfDeal === 'Sell') {
+            setShowStepThree((prev) => _showStepThree);
+        }
+    }, [
+        stepTwoWasOnSuccess,
+        stepTwoSuccess,
+        typeOfDeal,
+        stepOneWasOnSuccess,
+        stepOneSuccess,
+    ]);
+
     return {
         showStepTwo,
-        showStepThree
-    }
-}
+        showStepThree,
+    };
+};

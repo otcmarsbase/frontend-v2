@@ -1,13 +1,13 @@
 import {useEffect} from "react";
-import {isValidField} from "@app/pages/offers/create/utils";
 import {EPricingModel, ETypeOfDeal, ICreateOfferFieldTypes} from "@app/pages/offers/create/types";
+import {isValidField} from "@app/pages/offers/create/utils";
 
 interface IUseCustomFieldValidation {
     data: ICreateOfferFieldTypes,
     typeOfDeal: ETypeOfDeal,
-    SellOfferStore: any
+    sellOfferStore: any
 }
-export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IUseCustomFieldValidation) => {
+export const useSummaryStepsValidation = ({data, typeOfDeal, sellOfferStore}: IUseCustomFieldValidation) => {
     const {
         setStepOneSuccess,
         setStepOneWasOnSuccess,
@@ -18,7 +18,7 @@ export const useSummaryStepsValidation = ({data, typeOfDeal, SellOfferStore}: IU
         setStepThreeWasOnSuccess,
         setBasicInfo
 
-    } = SellOfferStore;
+    } = sellOfferStore;
 
     useEffect(() => {
         const {

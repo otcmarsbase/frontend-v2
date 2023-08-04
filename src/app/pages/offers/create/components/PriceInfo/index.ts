@@ -1,1 +1,1 @@
-export * from './ui/PriceInfo';
+export * from './PriceInfo';

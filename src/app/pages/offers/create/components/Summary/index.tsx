@@ -1,19 +1,18 @@
+import {FC} from "react";
 import {observer} from 'mobx-react-lite';
+import {PublishLot} from "@app/pages/offers/create/components/PublishLot";
+import {IStepWrapperProps, ISummaryProps} from "@app/pages/offers/create/components/Summary/types";
+import {getTargetFields, normalizeFields} from "@app/pages/offers/create/components/Summary/utils";
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
 import {useStore} from '@app/store';
 import {Box, VStack, Heading, Text} from '@chakra-ui/react';
 import {SummaryStep} from '@shared/ui-kit';
 import {EStepTypes, StepLabels} from './constants';
-import {PublishLot} from "@app/pages/offers/create/components/PublishLot";
-import { ETypeOfDeal} from "@app/pages/offers/create/types";
-import {IStepWrapperProps, ISummaryProps} from "@app/pages/offers/create/components/Summary/types";
-import {getTargetFields, normalizeFields} from "@app/pages/offers/create/components/Summary/utils";
-import {FC} from "react";
 
-const StepWrapper:FC<IStepWrapperProps> = ({isSuccessFilled, step, data, lotType, pricingModel, stepWasOpened}) => {
+const StepWrapper: FC<IStepWrapperProps> = ({isSuccessFilled, step, data, lotType, pricingModel, stepWasOpened}) => {
     const targetFields = getTargetFields({step, lotType, pricingModel});
 
     const fields = normalizeFields({targetFields, data});
-
     return (
         <SummaryStep
             isSuccessFilled={isSuccessFilled}
@@ -28,8 +27,8 @@ const StepWrapper:FC<IStepWrapperProps> = ({isSuccessFilled, step, data, lotType
 };
 
 
-export const Summary:FC<ISummaryProps> = observer(({onPublishLot, lotType, typeOfDeal}) => {
-    const {SellOfferStore} = useStore();
+export const Summary: FC<ISummaryProps> = observer(({onPublishLot, lotType, typeOfDeal}) => {
+    const {sellOfferStore} = useStore();
     const {
         typeOfPricingModel,
         stepOneSuccess,
@@ -38,7 +37,7 @@ export const Summary:FC<ISummaryProps> = observer(({onPublishLot, lotType, typeO
         basicInfo,
         stepTwoWasOnSuccess,
         stepThreeWasOnSuccess
-    } = SellOfferStore;
+    } = sellOfferStore;
 
     const SellConditionsComplete = stepOneSuccess && stepTwoSuccess && stepThreeSuccess;
     const BuyConditionsComplete = stepOneSuccess && stepThreeSuccess;
@@ -54,43 +53,43 @@ export const Summary:FC<ISummaryProps> = observer(({onPublishLot, lotType, typeO
                 </Text>
             </Box>
             <VStack gap={'0.5rem'}>
-            <StepWrapper
-                isSuccessFilled={stepOneSuccess}
-                step={EStepTypes.FIRST_STEP}
-                lotType={lotType}
-                stepWasOpened={stepTwoWasOnSuccess}
-                pricingModel={typeOfPricingModel}
-                data={basicInfo}
-            />
-            {typeOfDeal === ETypeOfDeal.SELL && typeOfPricingModel ?
-                <>
-                    <StepWrapper
-                        isSuccessFilled={stepTwoSuccess}
-                        step={EStepTypes.SECOND_STEP}
-                        lotType={lotType}
-                        stepWasOpened={stepTwoWasOnSuccess}
-                        pricingModel={typeOfPricingModel}
-                        data={SellOfferStore.basicInfo}
-                    />
-                    <StepWrapper
-                        isSuccessFilled={stepThreeSuccess}
-                        step={EStepTypes.THIRD_STEP}
-                        lotType={lotType}
-                        stepWasOpened={stepThreeWasOnSuccess}
-                        pricingModel={typeOfPricingModel}
-                        data={SellOfferStore.basicInfo}
-                    />
-                </>
-                :
                 <StepWrapper
-                    isSuccessFilled={stepThreeSuccess}
-                    step={EStepTypes.SECOND_STEP_BUY}
+                    isSuccessFilled={stepOneSuccess}
+                    step={EStepTypes.FIRST_STEP}
                     lotType={lotType}
-                    stepWasOpened={stepThreeWasOnSuccess}
+                    stepWasOpened={stepTwoWasOnSuccess}
                     pricingModel={typeOfPricingModel}
                     data={basicInfo}
                 />
-            }
+                {typeOfDeal === ETypeOfDeal.SELL && typeOfPricingModel ?
+                    <>
+                        <StepWrapper
+                            isSuccessFilled={stepTwoSuccess}
+                            step={EStepTypes.SECOND_STEP}
+                            lotType={lotType}
+                            stepWasOpened={stepTwoWasOnSuccess}
+                            pricingModel={typeOfPricingModel}
+                            data={sellOfferStore.basicInfo}
+                        />
+                        <StepWrapper
+                            isSuccessFilled={stepThreeSuccess}
+                            step={EStepTypes.THIRD_STEP}
+                            lotType={lotType}
+                            stepWasOpened={stepThreeWasOnSuccess}
+                            pricingModel={typeOfPricingModel}
+                            data={sellOfferStore.basicInfo}
+                        />
+                    </>
+                    :
+                    <StepWrapper
+                        isSuccessFilled={stepThreeSuccess}
+                        step={EStepTypes.SECOND_STEP_BUY}
+                        lotType={lotType}
+                        stepWasOpened={stepThreeWasOnSuccess}
+                        pricingModel={typeOfPricingModel}
+                        data={basicInfo}
+                    />
+                }
             </VStack>
             <PublishLot
                 onPublishLot={onPublishLot}
@@ -99,6 +98,5 @@ export const Summary:FC<ISummaryProps> = observer(({onPublishLot, lotType, typeO
                 Publish Lot
             </PublishLot>
         </VStack>
-    )
-        ;
+    );
 });

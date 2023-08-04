@@ -1,19 +1,19 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker, { ReactDatePickerCustomHeaderProps } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Box } from '@chakra-ui/react';
-import './index.scss';
-import { range } from 'lodash';
-import { getMonth, getYear, format, addDays } from 'date-fns';
-import 'react-time-picker/dist/TimePicker.css';
 import TimePicker from 'react-time-picker';
-import 'react-clock/dist/Clock.css';
-import { ArrowRight } from '../assets/ArrowRight';
+import { Box } from '@chakra-ui/react';
+import { getMonth, getYear, format } from 'date-fns';
 import { ArrowLeft } from '../assets/ArrowLeft';
+import { ArrowRight } from '../assets/ArrowRight';
 import { DateIcon } from '../assets/DateIcon';
-import { TimeIcon } from '../assets/TimeIcon';
 import { DataPickerInputIcon } from '../assets/DatePickerInputIcon';
+import { TimeIcon } from '../assets/TimeIcon';
 import { Button } from '../button/Button';
+
+import 'react-clock/dist/Clock.css';
+import './index.scss';
+import 'react-time-picker/dist/TimePicker.css';
 
 interface IDataPickerInput {
   value: Date;
@@ -127,7 +127,7 @@ export const DatePickerComp = ({ handleGetDate, isDatePickerDisabled }) => {
 
   useEffect(() => {
     handleGetDate(startDate);
-  }, [startDate]);
+  }, [startDate, handleGetDate]);
 
   function decreaseMonth() {
     const newMonth = getMonth(startDate) - 1;

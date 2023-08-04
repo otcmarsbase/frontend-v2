@@ -1,5 +1,6 @@
-import {FC} from 'react';
-import {VStack} from '@chakra-ui/react';
+import { FC } from 'react';
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
+import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import {
     FormBlockElement,
     FormField,
@@ -7,39 +8,39 @@ import {
     Select,
     UseFormReturn,
 } from '@shared/ui-kit';
-import {RawCheckbox} from '@shared/ui-kit/components/RawCheckbox/RawCheckbox';
-import {InvAccTypes, LotTypes, ProjectInfoFields} from './consts';
-import {ELotType} from './types';
-import {DatePickerComp} from "@shared/ui-kit/components/DataPicker";
-import {ETypeOfDeal} from "@app/pages/offers/create/types";
+import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
+import { ProjectInfoFields } from './constants';
+import {ELotType, InvAccTypes, LotTypes} from './types';
 
-export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> = (props) => {
-    const {form, typeOfDeal} = props;
-    const {register, getValues, formState, setValue, isRequired} = form;
-    const {errors} = formState;
+export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: ETypeOfDeal }> = (
+    props,
+) => {
+    const { form, typeOfDeal } = props;
+    const { register, getValues, formState, setValue, isRequired } = form;
+    const { errors } = formState;
 
     return (
         <VStack gap="2.25rem">
             <FormBlockElement
                 label="Project info"
                 isRequired={isRequired('projectName') || isRequired('projectWebsite')}
-                grid={{cols: 2}}
+                grid={{ cols: 2 }}
             >
                 <FormField
-                    register={{...register('projectName')}}
+                    register={register}
                     errors={errors}
-                    id={'projectName'}
+                    name={"projectName"}
                     value={getValues('projectName')}
                     w="100%"
-                    placeholder={ProjectInfoFields.PROJECT_NAME}
+                    component={<Input placeholder={ProjectInfoFields.PROJECT_NAME} />}
                 />
                 <FormField
-                    register={{...register('projectWebsite')}}
+                    register={register}
                     errors={errors}
                     w="100%"
-                    id={'projectWebsite'}
+                    name={"projectWebsite"}
                     value={getValues('projectWebsite')}
-                    placeholder={ProjectInfoFields.PROJECT_WEBSITE}
+                    component={<Input placeholder={ProjectInfoFields.PROJECT_WEBSITE} />}
                 />
             </FormBlockElement>
 
@@ -55,31 +56,28 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> =
                     value={getValues('lotType')}
                     onChange={(value) => setValue('lotType', value)}
                 />
-
             </FormBlockElement>
 
-            <FormBlockElement
-                grid={{cols: 2}}
-            >
-                <RawCheckbox
-                    handleChange={(id, value) => setValue(id, value)}
-                    id={'isReAssigned'}
+            <FormBlockElement grid={{ cols: 2 }}>
+                <FormField
+                    register={register}
+                    name={"isReAssigned"}
                     value={getValues('isReAssigned')}
-                    label={ProjectInfoFields.IS_RE_ASSIGNED}
+                    component={<Checkbox>{ProjectInfoFields.IS_RE_ASSIGNED}</Checkbox>}
                 />
-                {getValues('lotType') === ELotType.SAFE ?
-                    <RawCheckbox
-                        handleChange={(id, value) => setValue(id, value)}
-                        id={'isTokenWarrant'}
+                {getValues('lotType') === ELotType.SAFE ? (
+                    <FormField
+                        register={register}
+                        name={"isTokenWarrant"}
                         value={getValues('isTokenWarrant')}
-                        label={ProjectInfoFields.IS_TOKEN_WARRANT}
+                        component={
+                            <Checkbox>{ProjectInfoFields.IS_TOKEN_WARRANT}</Checkbox>
+                        }
                     />
-                    :
-                    null
-                }
+                ) : null}
             </FormBlockElement>
 
-            {typeOfDeal === ETypeOfDeal.SELL ?
+            {typeOfDeal === ETypeOfDeal.SELL ? (
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_SELLER}
                     isRequired={isRequired('typesOfSeller')}
@@ -95,14 +93,16 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> =
                             value: sellerType,
                         }))}
                     />
-                    <RawCheckbox
-                        handleChange={(id, value) => setValue(id, value)}
-                        id={'isDirectSeller'}
+                    <FormField
+                        register={register}
+                        name={"isDirectSeller"}
                         value={getValues('isDirectSeller')}
-                        label={ProjectInfoFields.IS_DIRECT_SELLER}
+                        component={
+                            <Checkbox>{ProjectInfoFields.IS_DIRECT_SELLER}</Checkbox>
+                        }
                     />
                 </FormBlockElement>
-                :
+            ) : (
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_BUYER}
                     isRequired={isRequired('typesOfBuyer')}
@@ -118,52 +118,58 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> =
                             value: sellerType,
                         }))}
                     />
-                    <RawCheckbox
+                    <FormField
+                        register={register}
+                        name={"noLimitation"}
                         value={getValues('noLimitation')}
-                        handleChange={(id, value) => setValue(id, value)}
-                        id={'noLimitation'}
-                        label={ProjectInfoFields.NO_LIMITATION}
+                        component={<Checkbox>{ProjectInfoFields.NO_LIMITATION}</Checkbox>}
                     />
                 </FormBlockElement>
-            }
+            )}
 
             <FormBlockElement
                 label={ProjectInfoFields.TELEGRAM}
                 isRequired={isRequired('telegram')}
             >
                 <FormField
-                    register={{...register('telegram')}}
+                    register={register}
                     errors={errors}
-                    id={'telegram'}
+                    name={"telegram"}
+                    component={<Input placeholder="@nickname" />}
                     value={getValues('telegram')}
-                    placeholder="@nickname"
                 />
             </FormBlockElement>
 
-            {typeOfDeal === ETypeOfDeal.SELL ?
+            {typeOfDeal === ETypeOfDeal.SELL ? (
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_BUYER}
                     isRequired={isRequired('typesOfBuyer')}
                 >
-                    <Select
-                        placeholder="Choose type"
-                        size="sm"
-                        isMulti
+                    <FormField
+                        register={register}
+                        errors={errors}
                         value={getValues('typesOfBuyer')}
-                        onChange={(value) => setValue('typesOfBuyer', value)}
-                        options={InvAccTypes.map((sellerType) => ({
-                            label: sellerType,
-                            value: sellerType,
-                        }))}
+                        name="typesOfBuyer"
+                        component={
+                            <Select
+                                placeholder="Choose type"
+                                size="sm"
+                                isMulti
+                                options={InvAccTypes.map((sellerType) => ({
+                                    label: sellerType,
+                                    value: sellerType,
+                                }))}
+                            />
+                        }
                     />
-                    <RawCheckbox
+                    <FormField
+                        register={register}
+                        name={"noLimitation"}
                         value={getValues('noLimitation')}
-                        handleChange={(id, value) => setValue(id, value)}
-                        id={'noLimitation'}
-                        label={ProjectInfoFields.NO_LIMITATION}
+                        component={<Checkbox>{ProjectInfoFields.NO_LIMITATION}</Checkbox>}
                     />
                 </FormBlockElement>
-                :
+            ) : (
                 <FormBlockElement
                     label={ProjectInfoFields.TYPES_OF_SELLER}
                     isRequired={isRequired('typesOfSeller')}
@@ -179,28 +185,30 @@ export const ProjectInfo: FC<{ form: UseFormReturn, typeOfDeal: ETypeOfDeal }> =
                             value: sellerType,
                         }))}
                     />
-                    <RawCheckbox
-                        handleChange={(id, value) => setValue(id, value)}
-                        id={'isDirectSeller'}
+                    <FormField
+                        register={register}
+                        name={"isDirectSeller"}
                         value={getValues('isDirectSeller')}
-                        label={ProjectInfoFields.IS_DIRECT_SELLER}
+                        component={
+                            <Checkbox>{ProjectInfoFields.IS_DIRECT_SELLER}</Checkbox>
+                        }
                     />
                 </FormBlockElement>
-            }
+            )}
 
-            <FormBlockElement
-                label={ProjectInfoFields.DEADLINE_DATE}
-            >
+            <FormBlockElement label={ProjectInfoFields.DEADLINE_DATE}>
                 <DatePickerComp
-                    handleGetDate={(date) => setValue('deadlineDate', date.toLocaleDateString())}
+                    handleGetDate={(date) =>
+                        setValue('deadlineDate', date.toLocaleDateString())
+                    }
                     isDatePickerDisabled={getValues('isPermanent')}
                 />
 
-                <RawCheckbox
-                    handleChange={(id, value) => setValue(id, value)}
-                    id={'isPermanent'}
+                <FormField
+                    register={register}
+                    name="isPermanent"
                     value={getValues('isPermanent')}
-                    label={ProjectInfoFields.IS_PERMANENT}
+                    component={<Checkbox>{ProjectInfoFields.IS_PERMANENT}</Checkbox>}
                 />
             </FormBlockElement>
         </VStack>

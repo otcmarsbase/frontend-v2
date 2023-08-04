@@ -1,9 +1,9 @@
-import * as yup from 'yup';
-import {ObjectSchema} from "yup";
 import {TInvAccType, TLotType} from "@app/pages/offers/create/components/ProjectInfo/types";
 import {ICreateOfferFieldTypes} from "@app/pages/offers/create/types";
+import * as yup from 'yup';
+import {ObjectSchema} from "yup";
 
-export const TokenDetailsShema = yup.object().shape({
+export const TokenDetailsSchema = yup.object().shape({
   contractSizeToOffer: yup.number(),
   minDealSize: yup.number(),
   tokenShareToOffer: yup.number(),
@@ -18,7 +18,6 @@ export const TokenDetailsShema = yup.object().shape({
   targetTokenPrice: yup.number(),
   offerTheBestBid: yup.number(),
 });
-
 
 export const TokenInfoSchema = yup.object().shape({
   investmentRound: yup.string().required(`Investment round is required`),
@@ -36,7 +35,6 @@ export const TokenInfoSchema = yup.object().shape({
   pricePerTokenPriceInfo: yup.number(),
   tokensShareBought: yup.number(),
   pricePerTokensPriceInfo: yup.number(),
-
 });
 
 export const ProjectInfoSchema = yup.object().shape({
@@ -54,7 +52,8 @@ export const ProjectInfoSchema = yup.object().shape({
   noLimitations: yup.boolean(),
   isPermanent: yup.boolean(),
   isTokenWarrant: yup.boolean(),
-  isReadyToSVP: yup.boolean()
+  isReadyToSVP: yup.boolean(),
 });
 
-export const CreateOfferSchema: ObjectSchema<ICreateOfferFieldTypes> = ProjectInfoSchema.concat(TokenInfoSchema).concat(TokenDetailsShema);
+export const CreateOfferSchema: ObjectSchema<ICreateOfferFieldTypes> = ProjectInfoSchema.concat(TokenInfoSchema).concat(TokenDetailsSchema);
+

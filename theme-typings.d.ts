@@ -277,6 +277,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'darkLinearGradientBg'
     | 'orangeGradient'
     | 'darkGradientBordered'
+    | 'brandLinearGradient'
     | (string & {});
   letterSpacings:
     | 'tighter'
@@ -529,7 +530,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: string & {};
     };
     Button: {
-      sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
+      sizes: 'lg' | 'md' | 'sm' | 'xs' | '2xs' | 'xl' | (string & {});
       variants:
         | 'ghost'
         | 'outline'
@@ -593,7 +594,13 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Input: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
-      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | (string & {});
+      variants:
+        | 'outline'
+        | 'filled'
+        | 'flushed'
+        | 'unstyled'
+        | 'ghost'
+        | (string & {});
     };
     Kbd: {
       sizes: string & {};
@@ -714,7 +721,15 @@ export interface ThemeTypings extends BaseThemeTypings {
       sizes: string & {};
       variants: string & {};
     };
+    Pagination: {
+      sizes: string & {};
+      variants: string & {};
+    };
     RadioButtons: {
+      sizes: string & {};
+      variants: 'solid' | 'outline' | (string & {});
+    };
+    paginationAnatomy: {
       sizes: string & {};
       variants: string & {};
     };

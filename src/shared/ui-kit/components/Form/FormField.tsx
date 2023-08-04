@@ -1,43 +1,85 @@
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
+import React, { useMemo } from 'react';
+import {
+  DeepMap,
+  FieldError,
+  FieldValues,
+  Path,
+  UseFormRegister,
+} from 'react-hook-form';
 import {
   FormControl,
   FormControlProps,
   FormErrorMessage,
   FormLabel,
+  InputProps,
+  CheckboxProps,
   Input,
+  Checkbox,
 } from '@chakra-ui/react';
+import { Select, SelectProps } from '../Select';
 
 type IFieldErrors<TFieldValues extends FieldValues = FieldValues> = DeepMap<
   TFieldValues,
   FieldError
 >;
 
-export interface IRawFieldProps extends FormControlProps {
-  value: string | number;
-  id: string;
-  register: any;
+type FormComponent = React.ReactElement<
+  InputProps | CheckboxProps | SelectProps
+>;
+
+export interface FormFieldProps<TFieldValues extends FieldValues = FieldValues>
+  extends Omit<FormControlProps, 'placeholder'> {
+  value: TFieldValues[FormFieldProps<TFieldValues>['name']];
+  name: Path<TFieldValues>;
+  register?: UseFormRegister<TFieldValues>;
   label?: string;
-  errors: IFieldErrors;
-  placeholder: string;
+  errors?: IFieldErrors;
+  component: FormComponent;
 }
 
-export const FormField = ({
+export const FormField = <TFieldValues extends FieldValues = any>({
   value,
-  id,
+  name,
   register,
   label,
-  errors,
-  placeholder,
+  errors = {},
+  component,
   ...props
-}: IRawFieldProps) => {
-  return (
-    <FormControl isInvalid={Boolean(errors[id])} {...props}>
-      {label && <FormLabel>{label}</FormLabel>}
-      <Input placeholder={placeholder} value={value} {...register} />
+}: FormFieldProps<TFieldValues>) => {
+  const renderedFormComponent = useMemo(() => {
+    const registerResult = register ? register(name) : null;
+    if (component.type === Input) {
+      return React.cloneElement(component, {
+        value,
+        name,
+        ...(registerResult || {}),
+      });
+    }
+    if (component.type === Select) {
+      const onChange = registerResult?.onChange;
+      return React.cloneElement(component, {
+        value,
+        name,
+        ...(registerResult || {}),
+        onChange: (value, e) => onChange && onChange(e),
+      });
+    }
+    if (component.type === Checkbox) {
+      return React.cloneElement(component, {
+        isChecked: value,
+        ...(registerResult || {}),
+      });
+    }
+  }, [value, component, register, name]);
 
-      {errors[id] ? (
+  return (
+    <FormControl isInvalid={Boolean(errors[name])} {...props}>
+      {label && <FormLabel>{label}</FormLabel>}
+      {renderedFormComponent}
+
+      {errors[name] ? (
         <FormErrorMessage position="absolute">
-          {errors[id].message}
+          {errors[name].message}
         </FormErrorMessage>
       ) : null}
     </FormControl>

@@ -1,5 +1,5 @@
-import {TokenInfoFields} from "@app/pages/offers/create/components/TokenInfo/consts";
 import {ELotType} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {TokenInfoFields} from "@app/pages/offers/create/components/TokenInfo/constants";
 import {EPricingModel} from "@app/pages/offers/create/types";
 
 export enum EStepTypes {
@@ -125,12 +125,16 @@ export const StepsText: Record<EStepTypes, Record<string, {}>> = {
                 pricePerEquity: 'Price per 0,01% equity',
             }
         }
+
     },
-};
+  }
+
+
 
 export const StepLabels: Record<EStepTypes, { label: string; index: number }> = {
     [EStepTypes.FIRST_STEP]: {label: 'Project info', index: 1},
     [EStepTypes.SECOND_STEP]: {label: 'Details about the token', index: 2},
     [EStepTypes.THIRD_STEP]: {label: 'Pricing details', index: 3},
     [EStepTypes.SECOND_STEP_BUY]: {label: 'Lot info', index: 2}
+
 };

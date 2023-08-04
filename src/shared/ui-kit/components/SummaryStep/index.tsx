@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Circle,
     HStack,
@@ -8,10 +8,10 @@ import {
     Divider,
     Box,
 } from '@chakra-ui/react';
-import {CheckmarkIcon, ChevronDownIcon, WaitingIcon} from '../../icons';
 import {AlertCircle} from "@shared/ui-kit/icons/AlertCurcle";
+import {CheckmarkIcon, ChevronDownIcon, WaitingIcon} from '../../icons';
 
-export interface ISummaryStepProps extends Omit<StackProps, 'children'> {
+export interface SummaryStepProps extends Omit<StackProps, 'children'> {
     isSuccessFilled: boolean;
     stepData: {
         id: number;
@@ -21,13 +21,13 @@ export interface ISummaryStepProps extends Omit<StackProps, 'children'> {
     stepWasOpened: boolean
 }
 
-export const SummaryStep:FC<ISummaryStepProps> = ({
+export const SummaryStep = ({
                                 stepData,
                                 isSuccessFilled,
                                 fields,
                                 stepWasOpened,
                                 ...stackProps
-                            }) => {
+                            }: SummaryStepProps) => {
     const [isExpanded, setIsExpanded] = useState(isSuccessFilled);
 
     const toggleExpand = () => setIsExpanded((prev) => !prev);
@@ -55,9 +55,9 @@ export const SummaryStep:FC<ISummaryStepProps> = ({
                         size="1.5rem"
                         background={isSuccessFilled ? 'green.500' : 'dark.500'}
                     >
-                      {isDefault ? <WaitingIcon color="dark.100"/> : null}
-                      {isValid ? <CheckmarkIcon/> : null}
-                      {isInvalid ? <AlertCircle/> : null}
+                        {isDefault ? <WaitingIcon color="dark.100"/> : null}
+                        {isValid ? <CheckmarkIcon/> : null}
+                        {isInvalid ? <AlertCircle/> : null}
                     </Circle>
                     <Text fontSize="sm" fontWeight="bold">
                         Step {stepData.id}
@@ -87,7 +87,7 @@ export const SummaryStep:FC<ISummaryStepProps> = ({
                 {fields.length ? (
                     <VStack alignItems="start" width="100%">
                         {fields.map((field, index) => (
-                            <HStack width="100%" justifyContent="space-between" key={field.name}>
+                            <HStack width="100%" justifyContent="space-between" key={index}>
                                 <Text fontSize="sm" opacity="0.6">
                                     {field.name}
                                 </Text>
