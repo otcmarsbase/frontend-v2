@@ -3,12 +3,14 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
+import LotView from "@app/pages/dashboard/lotView";
 import { DashboardListType } from '@app/store';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import MyBids from '../bids';
 import offersMock from './offersMock.json';
+
 
 const offers = offersMock.offers as Dashboard.OfferItem[];
 
@@ -27,6 +29,9 @@ export const MyOffers: React.FC = observer(() => {
   const onChangePage = useCallback(async (page: number, limit: number) => {},
   []);
 
+  const handleClickLot = ({lotId}) => {
+    router.navigateComponent(LotView, {lotId});
+  }
   if (!offers.length)
     return (
       <EmptyData
@@ -46,6 +51,7 @@ export const MyOffers: React.FC = observer(() => {
             lotIconName={offer.lotIconName}
             type={offer.offerType}
             isHot={offer.isHot}
+            handleClickLot={handleClickLot}
             status={<LotStatus value={offer.status} />}
             fields={[
               { label: 'Lot type', value: offer.lotType },

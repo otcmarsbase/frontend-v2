@@ -15,7 +15,6 @@ import {
   TwitterIcon,
   MediumIcon,
 } from '@shared/ui-kit';
-
 export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
 }

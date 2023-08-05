@@ -1,50 +1,67 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from "react";
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
 
-interface IUseFormStepsValidation {
-  typeOfDeal: string;
-  sellOfferStore: any;
+interface IUseFormStepsValidationProps {
+    typeOfDeal: ETypeOfDeal,
+    sellOfferStore: any
 }
+
+interface IUseFormStepsValidationResult {
+    showStepTwo: boolean,
+    showStepThree: boolean
+}
+
 export const useFormStepsValidation = ({
-  typeOfDeal,
-  sellOfferStore,
-}: IUseFormStepsValidation) => {
-  const [showStepTwo, setShowStepTwo] = useState(false);
-  const [showStepThree, setShowStepThree] = useState(false);
+                                           typeOfDeal,
+                                           sellOfferStore
+                                       }: IUseFormStepsValidationProps): IUseFormStepsValidationResult => {
+    const [showStepTwo, setShowStepTwo] = useState(false)
+    const [showStepThree, setShowStepThree] = useState(false);
 
-  const {
-    stepOneWasOnSuccess,
-    stepOneSuccess,
-    stepTwoWasOnSuccess,
-    stepTwoSuccess,
-  } = sellOfferStore;
 
-  useEffect(() => {
-    let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
-    if (typeOfDeal === 'Sell') {
-      setShowStepTwo((prev) => _showStepTwo);
-    } else {
-      setShowStepThree((prev) => _showStepTwo);
-      setShowStepTwo((prev) => false);
-    }
-  }, [stepOneWasOnSuccess, stepOneSuccess, typeOfDeal]);
+    const {
+        stepOneWasOnSuccess,
+        stepOneSuccess,
+        stepTwoWasOnSuccess,
+        stepTwoSuccess,
+    } = sellOfferStore;
 
-  useEffect(() => {
-    let _showStepThree =
-      (stepOneWasOnSuccess || stepOneSuccess) &&
-      (stepTwoWasOnSuccess || stepTwoSuccess);
-    if (typeOfDeal === 'Sell') {
-      setShowStepThree((prev) => _showStepThree);
-    }
-  }, [
-    stepTwoWasOnSuccess,
-    stepTwoSuccess,
-    typeOfDeal,
-    stepOneWasOnSuccess,
-    stepOneSuccess,
-  ]);
+    useEffect(() => {
+        let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
+        if (typeOfDeal === ETypeOfDeal.SELL) {
+            setShowStepTwo(prev => _showStepTwo)
+        } else {
+            setShowStepThree(prev => _showStepTwo)
+            setShowStepTwo(prev => false)
+        }
+    }, [stepOneWasOnSuccess, stepOneSuccess, typeOfDeal]);
 
-  return {
-    showStepTwo,
-    showStepThree,
-  };
+
+    useEffect(() => {
+        let _showStepThree = (stepOneWasOnSuccess || stepOneSuccess) && (stepTwoWasOnSuccess || stepTwoSuccess);
+        if (typeOfDeal === ETypeOfDeal.SELL) {
+            setShowStepThree(prev => _showStepThree)
+        }
+    }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
+
+
+    useEffect(() => {
+        let _showStepThree =
+            (stepOneWasOnSuccess || stepOneSuccess) &&
+            (stepTwoWasOnSuccess || stepTwoSuccess);
+        if (typeOfDeal === 'Sell') {
+            setShowStepThree((prev) => _showStepThree);
+        }
+    }, [
+        stepTwoWasOnSuccess,
+        stepTwoSuccess,
+        typeOfDeal,
+        stepOneWasOnSuccess,
+        stepOneSuccess,
+    ]);
+
+    return {
+        showStepTwo,
+        showStepThree,
+    };
 };

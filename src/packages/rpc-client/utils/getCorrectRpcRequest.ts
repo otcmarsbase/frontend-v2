@@ -1,7 +1,9 @@
 import { RpcRequest } from 'src/packages/rpc-client';
 
 export function getCorrectRpcRequest<Params, Result>(
+    // @ts-ignore
   value: RpcRequest<Params, Result>,
+    // @ts-ignore
 ): RpcRequest<Params, Result> {
   if (typeof value !== 'object') return null;
 
