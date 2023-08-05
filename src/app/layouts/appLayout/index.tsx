@@ -31,7 +31,10 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
           <Header
             onLogoClick={() => router.navigateComponent(pages.home, {})}
             menuItems={[
-              { label: 'OTC DESK' },
+              {
+                label: 'OTC DESK',
+                onClick: () => router.navigateComponent(pages.otcDesk.home, {}),
+              },
               {
                 label: 'My Dashboard',
                 onClick: () =>
@@ -46,7 +49,9 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
           />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize}>{children}</Container>
+          <Container size={containerSize} mt="3rem">
+            {children}
+          </Container>
         </Box>
         <Box width="full" marginTop="auto">
           <Footer

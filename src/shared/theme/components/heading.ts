@@ -6,5 +6,11 @@ const md = defineStyle({
 
 export const Heading = defineStyleConfig({
   baseStyle: {},
+  variants: {
+    pageHeader: defineStyle({
+      size: '2md',
+      fontFamily: 'promo',
+    }),
+  },
   sizes: { md },
 });

@@ -16,7 +16,7 @@ import {
 
 export type LotOfferType = 'buy' | 'sell';
 
-export interface LotRowProps extends StackProps {
+export interface OfferRowProps extends StackProps {
   lotId: number;
   lotName: string;
   type: 'buy' | 'sell';
@@ -33,7 +33,7 @@ const listItemTexts = {
   } as Record<LotOfferType, string>,
 };
 
-export const LotRow: React.FC<LotRowProps> = ({
+export const OfferRow: React.FC<OfferRowProps> = ({
   lotId,
   lotName,
   isHot,

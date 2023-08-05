@@ -2,17 +2,15 @@ import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
-import { router } from '@app/logic';
-import { DashboardListType } from '@app/store';
+import { Heading, VStack } from '@chakra-ui/react';
 import { Paginate, Dashboard } from '@shared/types';
 import { OfferRow, EmptyData, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
-import MyBids from '../bids';
 import offersMock from './offersMock.json';
 
 const offers = offersMock.offers as Dashboard.OfferItem[];
 
-export const MyOffers: React.FC = observer(() => {
+export const OtcDesk: React.FC = observer(() => {
   const openCreateOfferModal = useCreateOfferModal();
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
@@ -36,7 +34,8 @@ export const MyOffers: React.FC = observer(() => {
     );
 
   return (
-    <>
+    <VStack alignItems="start">
+      <Heading variant="pageHeader">OTC Desk</Heading>
       {offers.map((offer, index) => {
         return (
           <OfferRow
@@ -65,20 +64,12 @@ export const MyOffers: React.FC = observer(() => {
         page={paginationOptions.page}
         onChange={onChangePage}
       />
-    </>
+    </VStack>
   );
 });
 
-MyOffers.getLayout = ({ children }) => (
-  <Layouts.DashboardLayout
-    onChangeListType={(listType) => {
-      if (listType === DashboardListType.BIDS)
-        router.navigateComponent(MyBids, {});
-    }}
-    listType={DashboardListType.ORDERS}
-  >
-    {children}
-  </Layouts.DashboardLayout>
+OtcDesk.getLayout = ({ children }) => (
+  <Layouts.AppLayout>{children}</Layouts.AppLayout>
 );
 
-export default MyOffers;
+export default OtcDesk;
