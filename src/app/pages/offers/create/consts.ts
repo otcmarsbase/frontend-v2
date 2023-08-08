@@ -28,7 +28,7 @@ export const formDefaultValues: ICreateOfferFieldTypes = {
     totalEquityBought:null
 }
 
-export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE: Record<TLotType, {}> = {
+export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE: Record<TLotType, { id: string; fieldLabel: string; }[]> = {
     [ELotType.SAFE]: [
         {
             id: 'totalEquityBought',
@@ -55,7 +55,7 @@ export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE: Record<TLotType, {}> = {
             fieldLabel: TokenInfoFields.TOKENS_SHARE_BOUGHT,
         },
         {
-            id: 'PRICE_PER_TOKENS',
+            id: 'pricePerTokenPriceInfo',
             fieldLabel: TokenInfoFields.PRICE_PER_TOKENS,
         },
     ],

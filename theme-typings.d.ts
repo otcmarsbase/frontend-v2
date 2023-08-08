@@ -261,6 +261,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | '8xl'
     | '9xl'
     | '2md'
+    | 'xxl'
     | (string & {});
   fontWeights:
     | 'hairline'
@@ -595,7 +596,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'sm'
         | 'xs'
         | (string & {});
-      variants: string & {};
+      variants: 'h3' | 'h4' | 'h5' | (string & {});
     };
     Input: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});

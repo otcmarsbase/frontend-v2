@@ -16,7 +16,6 @@ export const TokenInfo: FC<{
   const { lotType, form, handleRecountPriceInfoValues } = props;
   const { register, getValues, formState, setValue, isRequired } = form;
   const { errors } = formState;
-
   return (
     <VStack gap="2.25rem">
       <FormBlockElement
@@ -67,10 +66,10 @@ export const TokenInfo: FC<{
                         label={TokenInfoFields.DATES}
                         // isRequired={isRequired('lockupPeriod')}
                     >
-                        <DatePickerComp
-                            handleGetDate={(date)=>setValue('dates', date)}
-                            isDatePickerDisabled={false}
-                        />
+                        {/*<DatePickerComp*/}
+                        {/*    handleGetDate={(date)=>setValue('dates', date)}*/}
+                        {/*    isDatePickerDisabled={false}*/}
+                        {/*/>*/}
                     </FormBlockElement>
 
 

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { HStack, Grid, Text } from '@chakra-ui/react';
+import { HStack, Grid, Text, VStack } from '@chakra-ui/react';
 import { RequiredIcon } from '../../icons';
 
 export interface FormBlockElementProps extends React.PropsWithChildren {
@@ -36,7 +36,7 @@ export const FormBlockElement = ({
   };
 
   return (
-    <HStack width="full" justifyContent="space-between">
+    <VStack width="full" justifyContent="space-between">
       <HStack flexShrink="0" alignSelf="flex-start" mt="0.75rem">
         <Text cursor="default" onClick={onTextClick}>
           {label}
@@ -53,6 +53,6 @@ export const FormBlockElement = ({
       >
         {children}
       </Grid>
-    </HStack>
+    </VStack>
   );
 };

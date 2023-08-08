@@ -122,7 +122,7 @@ export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
                                     type="number"
                                     onChange={(e) =>
                                         handleRecountValues({
-                                            currentID: e.currentTarget.id as TCreateOfferFieldTypes,
+                                            currentID: STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].id as TCreateOfferFieldTypes,
                                             bindedID: 'targetFDV',
                                             value: e.currentTarget.value,
                                             pricingModel: typeOfPricingModel,

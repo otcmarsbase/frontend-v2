@@ -32,13 +32,12 @@ export function getDefaultValues({typeOfDeal}: ITypeOfDeal) {
 }
 
 export function getRecountedValue({
-                                      contractSizeToOffer,
+                                      denomByPricingModel,
                                       contractValue,
                                       targetFDV,
                                       roundFDV,
-                                      equityToOffer,
                                       _value,
-                                      denom,
+                                      denomByLotType,
                                       pricingModel,
                                       currentID,
                                       bindedID
@@ -50,28 +49,28 @@ export function getRecountedValue({
 
     if (pricingModel === EPricingModel.IN_STABLECOIN) {
         const share0 = contractValue.mul(100).div(roundFDV);
-        const share1 = contractSizeToOffer.mul(100).div(targetFDV);
+        const share1 = denomByPricingModel.mul(100).div(targetFDV);
         const ratio = share1.div(share0);
-        const uq1 = denom.mul(ratio);
+        const uq1 = denomByLotType.mul(ratio);
         if (currentID === 'targetFDV') {
-            _result = contractSizeToOffer.div(uq1);
+            _result = denomByPricingModel.div(uq1);
         } else {
             const share0 = roundFDV.div(contractValue);
-            const totalTokensForSale = denom.mul(share0);
+            const totalTokensForSale = denomByLotType.mul(share0);
             _result = totalTokensForSale.mul(_value);
         }
 
     } else {
         const share0 = contractValue.mul(100).div(roundFDV);
-        const ratio = equityToOffer.div(denom);
+        const ratio = denomByPricingModel.div(denomByLotType);
         const share1 = ratio.mul(share0).div(100);
         let cv1 = targetFDV.mul(share1);
 
         if (currentID === 'targetFDV') {
-            _result = cv1.div(equityToOffer);
+            _result = cv1.div(denomByPricingModel);
         } else {
             const share0 = roundFDV.div(contractValue);
-            const totalTokensForSale = denom.mul(share0);
+            const totalTokensForSale = denomByLotType.mul(share0);
             _result = totalTokensForSale.mul(_value);
         }
     }

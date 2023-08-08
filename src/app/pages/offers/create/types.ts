@@ -75,13 +75,12 @@ export interface IStepThreeRecountResult {
     _currentID: TCreateOfferFieldTypes
 }
 export interface IStepThreeRecountProps {
-    contractSizeToOffer: Decimal,
+    denomByPricingModel: Decimal,
     contractValue: Decimal ,
     targetFDV: Decimal,
     roundFDV: Decimal,
-    equityToOffer: Decimal,
     _value: Decimal,
-    denom: Decimal,
+    denomByLotType: Decimal,
     pricingModel: EPricingModel,
     currentID: TCreateOfferFieldTypes,
     bindedID: TCreateOfferFieldTypes

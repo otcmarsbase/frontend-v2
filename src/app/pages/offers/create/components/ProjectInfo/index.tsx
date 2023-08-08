@@ -197,12 +197,12 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: ETypeOfDeal }> =
             )}
 
             <FormBlockElement label={ProjectInfoFields.DEADLINE_DATE}>
-                <DatePickerComp
-                    handleGetDate={(date) =>
-                        setValue('deadlineDate', date.toLocaleDateString())
-                    }
-                    isDatePickerDisabled={getValues('isPermanent')}
-                />
+                {/*<DatePickerComp*/}
+                {/*    handleGetDate={(date) =>*/}
+                {/*        setValue('deadlineDate', date.toLocaleDateString())*/}
+                {/*    }*/}
+                {/*    isDatePickerDisabled={getValues('isPermanent')}*/}
+                {/*/>*/}
 
                 <FormField
                     register={register}

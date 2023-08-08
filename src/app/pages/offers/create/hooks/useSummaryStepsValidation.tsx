@@ -68,7 +68,7 @@ export const useSummaryStepsValidation = ({data, typeOfDeal, sellOfferStore}: IU
         if (stepTwoPassed) {
             setStepThreeWasOnSuccess(true)
         }
-
+console.log('data',data)
         setBasicInfo(data)
     }, [data, typeOfDeal])
 }

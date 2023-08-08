@@ -30,8 +30,9 @@ export const PriceInfo: FC<{
                 gridGap="1.25rem"
             >
 
-                {    // @ts-ignore
+                {
                     STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE[lotType].map((item) => {
+                        console.log('item',item)
                         return (
                             <HStack key={item.id}>
                                 <FormField
@@ -45,7 +46,7 @@ export const PriceInfo: FC<{
                                             onChange={(e) =>
                                                 handleRecountPriceInfoValues({
                                                         curIds,
-                                                        id: e.currentTarget.id as unknown as ICreateOfferFieldTypes,
+                                                        id: item.id as unknown as ICreateOfferFieldTypes,
                                                         value: e.currentTarget.value,
                                                     }
                                                 )
