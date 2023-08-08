@@ -1,2 +1,1 @@
-export * as constants from './constants';
-export * from './configuration';
+export * from './app.config';

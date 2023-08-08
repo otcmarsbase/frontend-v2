@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
-import { constants } from '@shared/config';
+import { AppConfig } from '@shared/config';
 import { RootStore } from './rootStore';
 
 export class UserEntityStore {
@@ -12,7 +12,7 @@ export class UserEntityStore {
   constructor({ rootStore }: { rootStore: RootStore }) {
     makeAutoObservable(this, {}, { autoBind: true });
     makePersistable(this, {
-      name: constants.AUTH_META_LOCAL_STORAGE_KEY,
+      name: AppConfig.storage.AUTH_META_LOCAL_STORAGE_KEY,
       properties: ['token', 'expires'],
       storage: localStorage,
     });
