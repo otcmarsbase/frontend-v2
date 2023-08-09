@@ -1,17 +1,31 @@
 import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
-import { Heading, VStack } from '@chakra-ui/react';
+import {
+  Button,
+  Grid,
+  GridItem,
+  HStack,
+  Heading,
+  SimpleGrid,
+  VStack,
+  Text,
+  Box,
+  Skeleton,
+} from '@chakra-ui/react';
 import { Paginate, Dashboard } from '@shared/types';
-import { OfferRow, EmptyData, LotStatus } from '@shared/ui-kit';
+import { LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
-import offersMock from './offersMock.json';
+import { LotItem, LotItemProps, OfferRow } from '@shared/ui-molecules';
+import { motion } from 'framer-motion';
+import { OTCFilters } from './components';
+import lotsMock from './lotsMock.json';
 
-const offers = offersMock.offers as Dashboard.OfferItem[];
+// TODO Так не делать, в будущем появится тип с бэкенда
+const lots = lotsMock.lots as LotItemProps[];
 
 export const OtcDesk: React.FC = observer(() => {
-  const openCreateOfferModal = useCreateOfferModal();
+  const [columnsCount, setColumnsCount] = useState(4);
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
     page: 1,
@@ -25,45 +39,42 @@ export const OtcDesk: React.FC = observer(() => {
   const onChangePage = useCallback(async (page: number, limit: number) => {},
   []);
 
-  if (!offers.length)
-    return (
-      <EmptyData
-        onCreate={openCreateOfferModal}
-        createButtonLabel="Create offers"
-      />
-    );
+  const toggleColumnsCount = () => {
+    setColumnsCount((count) => (count === 3 ? 4 : 3));
+  };
 
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
-      {offers.map((offer, index) => {
-        return (
-          <OfferRow
-            key={index}
-            lotId={offer.id}
-            lotName={offer.lotName}
-            lotIconName={offer.lotIconName}
-            type={offer.offerType}
-            isHot={offer.isHot}
-            status={<LotStatus value={offer.status} />}
-            fields={[
-              { label: 'Lot type', value: offer.lotType },
-              { label: 'Published at', value: offer.publishedAt },
-              { label: 'FDV', value: offer.fdv },
-              { label: 'Lot value', value: offer.lotValue },
-              { label: 'Vertical', value: offer.verticalCount },
-              { label: 'Finished at', value: offer.finishedAt },
-              { label: 'Total Bids Place', value: offer.totalBidsPlace },
-            ]}
-          />
-        );
-      })}
-      <Pagination
-        total={events.total}
-        pageSize={paginationOptions.limit}
-        page={paginationOptions.page}
-        onChange={onChangePage}
-      />
+      <OTCFilters />
+      <Button onClick={toggleColumnsCount}>Toggle sidebar</Button>
+      <HStack alignItems="start" w="full" gap="2rem">
+        {columnsCount === 3 && (
+          <Box w="20rem">
+            <Text color="white">TODO FILTERS SIDEBAR</Text>
+          </Box>
+        )}
+        <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
+          {lots.map((lot) => (
+            <motion.div layout key={lot.id}>
+              <LotItem {...lot} />
+            </motion.div>
+          ))}
+        </SimpleGrid>
+      </HStack>
+
+      {/* <Grid
+        templateColumns="repeat(4, 1fr)"
+        gridColumnGap="2rem"
+        gridRowGap="2rem"
+        w="full"
+      >
+        {lots.map((lot) => (
+          <motion.div layout key={lot.id}>
+            <LotItem {...lot} />
+          </motion.div>
+        ))}
+      </Grid> */}
     </VStack>
   );
 });

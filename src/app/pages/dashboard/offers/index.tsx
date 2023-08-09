@@ -5,8 +5,9 @@ import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
 import { Paginate, Dashboard } from '@shared/types';
-import { OfferRow, EmptyData, LotStatus } from '@shared/ui-kit';
+import { LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
+import { EmptyData, OfferRow } from '@shared/ui-molecules';
 import MyBids from '../bids';
 import offersMock from './offersMock.json';
 

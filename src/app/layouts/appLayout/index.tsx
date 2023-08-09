@@ -6,8 +6,6 @@ import { WalletConnectButton } from '@app/logic/walletConnector';
 import pages from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import {
-  Header,
-  Footer,
   DiscordIcon,
   RedditIcon,
   TelegramIcon,
@@ -15,6 +13,7 @@ import {
   TwitterIcon,
   MediumIcon,
 } from '@shared/ui-kit';
+import { Footer, Header } from '@shared/ui-molecules';
 
 export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];

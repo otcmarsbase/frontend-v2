@@ -1,4 +1,4 @@
-import { LotFlow } from './lot-flow';
+import { LotFlow } from './lotFlow';
 
 export type OTCDeskFilters = Partial<{
   search: string;
@@ -10,5 +10,4 @@ export type OTCDeskFilters = Partial<{
   deadline: string;
   lotType: LotFlow.LotType;
   assetVertical: string;
-  
 }>;
