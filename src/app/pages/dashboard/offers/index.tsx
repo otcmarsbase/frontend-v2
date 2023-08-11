@@ -1,19 +1,54 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
-import { Paginate, Dashboard } from '@shared/types';
-import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
+import { Button, VStack } from '@chakra-ui/react';
+import { PageSchema } from '@packages/router5-react-auto';
+import { Paginate, Dashboard, Common } from '@shared/types';
+import { LotRow, EmptyData, LotStatus, List } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import MyBids from '../bids';
-import offersMock from './offersMock.json';
+import { mockRequest } from './mockRequest';
 
-const offers = offersMock.offers as Dashboard.OfferItem[];
+export interface MyOfferProps {
+  filters?: {
+    search?: string;
+    directions?: string[];
+  };
+}
 
-export const MyOffers: React.FC = observer(() => {
+const MyOffersPageSchema = {
+  filters: {
+    search: PageSchema.stringParser,
+    directions: PageSchema.arrayParser(
+      PageSchema.enumParser<Common.Direction>(['BUY', 'SELL']),
+    ),
+  },
+} satisfies PageSchema<MyOfferProps>;
+
+export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
+  const [offers, setOffers] = useState<Dashboard.OfferItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  console.log(props);
+
   const openCreateOfferModal = useCreateOfferModal();
+
+  const loadOffers = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const offers = await mockRequest({});
+      setOffers(offers);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadOffers();
+  }, [loadOffers]);
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
     page: 1,
@@ -27,47 +62,63 @@ export const MyOffers: React.FC = observer(() => {
   const onChangePage = useCallback(async (page: number, limit: number) => {},
   []);
 
-  if (!offers.length)
-    return (
-      <EmptyData
-        onCreate={openCreateOfferModal}
-        createButtonLabel="Create offers"
-      />
-    );
-
   return (
-    <>
-      {offers.map((offer, index) => {
-        return (
-          <LotRow
-            key={index}
-            lotId={offer.id}
-            lotName={offer.lotName}
-            lotIconName={offer.lotIconName}
-            type={offer.offerType}
-            isHot={offer.isHot}
-            status={<LotStatus value={offer.status} />}
-            fields={[
-              { label: 'Lot type', value: offer.lotType },
-              { label: 'Published at', value: offer.publishedAt },
-              { label: 'FDV', value: offer.fdv },
-              { label: 'Lot value', value: offer.lotValue },
-              { label: 'Vertical', value: offer.verticalCount },
-              { label: 'Finished at', value: offer.finishedAt },
-              { label: 'Total Bids Place', value: offer.totalBidsPlace },
-            ]}
+    <VStack width="full">
+      <Button
+        onClick={() => {
+          router.navigateComponent(
+            MyOffers,
+            { filters: { search: '123', directions: ['BUY', 'SELL'] } },
+            { replace: true },
+          );
+        }}
+      >
+        Click
+      </Button>
+      <List
+        width="full"
+        items={offers}
+        itemKey={(item) => item.id}
+        isLoading={isLoading}
+        emptyText={
+          <EmptyData
+            onCreate={openCreateOfferModal}
+            createButtonLabel="Create offers"
           />
-        );
-      })}
+        }
+        itemRender={(item) => (
+          <LotRow
+            lot={{
+              lotId: item.id,
+              lotName: item.lotName,
+              lotIconName: item.lotIconName,
+              direction: item.offerType,
+              isHot: item.isHot,
+              status: <LotStatus value={item.status} />,
+              fields: [
+                { label: 'Lot type', value: item.lotType },
+                { label: 'Published at', value: item.publishedAt },
+                { label: 'FDV', value: item.fdv },
+                { label: 'Lot value', value: item.lotValue },
+                { label: 'Vertical', value: item.verticalCount },
+                { label: 'Finished at', value: item.finishedAt },
+                { label: 'Total Bids Place', value: item.totalBidsPlace },
+              ],
+            }}
+          />
+        )}
+      />
       <Pagination
         total={events.total}
         pageSize={paginationOptions.limit}
         page={paginationOptions.page}
         onChange={onChangePage}
       />
-    </>
+    </VStack>
   );
 });
+
+MyOffers.pageSchema = MyOffersPageSchema;
 
 MyOffers.getLayout = ({ children }) => (
   <Layouts.DashboardLayout
