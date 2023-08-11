@@ -1,7 +1,7 @@
 import {createIcon} from "@chakra-ui/react";
 
-export const DownloadSm = createIcon({
-    displayName: 'UpDownIcon',
+export const DownloadIcon = createIcon({
+    displayName: 'DownloadIcon',
     viewBox: '0 0 16 16',
     // path can also be an array of elements, if you have multiple paths, lines, shapes, etc.
     path: (

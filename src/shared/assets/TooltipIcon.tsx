@@ -1,7 +1,7 @@
 import {createIcon} from "@chakra-ui/react";
 
 export const TooltipIcon = createIcon({
-    displayName: 'UpDownIcon',
+    displayName: 'TooltipIcon',
     viewBox: '0 0 10 10',
     // path can also be an array of elements, if you have multiple paths, lines, shapes, etc.
     path: (

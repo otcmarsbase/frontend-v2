@@ -11,3 +11,5 @@ export { Menu } from './menu';
 export * from './pagination';
 export { Modal } from './modal';
 export { Table } from './table';
+export { Progress } from './progress';
+export { Select } from './select';

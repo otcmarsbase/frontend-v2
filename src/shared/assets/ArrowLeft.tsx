@@ -1,7 +1,7 @@
 import {createIcon} from "@chakra-ui/react";
 
-export const ArrowLeftSm = createIcon({
-    displayName: 'UpDownIcon',
+export const ArrowLeft = createIcon({
+    displayName: 'ArrowLeft',
     viewBox: '0 0 14 14',
     // path can also be an array of elements, if you have multiple paths, lines, shapes, etc.
     path: (

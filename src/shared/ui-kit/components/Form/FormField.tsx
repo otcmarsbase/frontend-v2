@@ -46,7 +46,6 @@ export const FormField = <TFieldValues extends FieldValues = any>({
   component,
   ...props
 }: FormFieldProps<TFieldValues>) => {
-  console.log('name ',name)
   const renderedFormComponent = useMemo(() => {
     const registerResult = register ? register(name) : null;
     if (component.type === Input) {

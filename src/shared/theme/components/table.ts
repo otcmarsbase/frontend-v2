@@ -22,8 +22,8 @@ const baseStyle = definePartsStyle({
   },
   td:{
     border:'none',
-    paddingInlineStart:0,
-    paddingInlineEnd:0,
+    paddingInlineStart:'0.5rem',
+    paddingInlineEnd:'0.5rem',
     paddingTop:0,
     paddingBottom:0
   },

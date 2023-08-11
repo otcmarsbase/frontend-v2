@@ -81,7 +81,7 @@ export const Input = defineMultiStyleConfig({
         border: 'none',
         background: 'rgba(255, 255, 255, 0.05)',
       },
-    },
+    }
   },
   defaultProps: { size: 'sm' },
 });
