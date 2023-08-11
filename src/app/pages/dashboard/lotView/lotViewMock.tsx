@@ -438,7 +438,7 @@ export const LotViewProjectData: ILotViewProjectData = {
     name: 'World coin',
     description: 'Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving',
     id: 21462,
-    typeOfDeal: ETypeOfDeal.SELL,
+    typeOfDeal: ETypeOfDeal.BUY,
     typeOfLot: ELotType.SAFT,
     userAvatar: <GitHubIcon/>,
     userName: 'Mao',
@@ -452,6 +452,4 @@ export const LotViewProjectData: ILotViewProjectData = {
     socialMediaLinks: socialMediaLinks,
     officialLinks: officialLinks,
     verticalItems: verticalItems,
-
-
 }

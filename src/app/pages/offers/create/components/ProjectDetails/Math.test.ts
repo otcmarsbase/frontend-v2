@@ -1,6 +1,6 @@
-import {getRecountedValue} from "../../utils";
 import Decimal from "decimal.js";
 import {EPricingModel} from "../../../create/types";
+import {getRecountedValue} from "../../utils";
 
 describe('Test Step 3 recount values', () => {
     test('Recounting Target FDV value in Stablecoin price model', () => {

@@ -1,7 +1,9 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
 import {LotViewDefaultValues} from "@app/pages/dashboard/lotView/consts";
 import {LotViewSchema} from "@app/pages/dashboard/lotView/schemas";
+import {ILotView, TLotModalFields} from "@app/pages/dashboard/lotView/types";
 import {InvAccTypes} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {ETypeOfDeal} from "@app/pages/offers/create/types";
 import {
     VStack,
     Text,
@@ -20,16 +22,40 @@ import {TooltipIcon} from "@shared/assets/TooltipIcon";
 import {FormBlockElement, FormField, Modal, RadioButtons, Select, useForm} from '@shared/ui-kit';
 
 export interface ChooseOfferTypeModalProps extends PortalProps {
-
+    typeOfDeal: ETypeOfDeal
 }
+
 //todo
 const LOCATIONS = [
     'Maycop', 'LS', 'LA'
 ]
 
-export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
-    ({portal}) => {
+const BID_MODAL_FIELDS_BY_TYPE_OF_DEAL: Record<ETypeOfDeal, any> = {
+    [ETypeOfDeal.SELL]: [
+        {
+            label: "I Want to Sell",
+            fieldName: 'amountToSell' as TLotModalFields
+        },
+        {
+            label: "I Want to Recive",
+            fieldName: 'getFunds' as TLotModalFields
+        }
+    ],
+    [ETypeOfDeal.BUY]: [
+        {
+            label: "I Want to Buy",
+            fieldName: 'amountToBuy' as TLotModalFields
+        },
+        {
+            label: "I Take funds",
+            fieldName: 'giveFunds' as TLotModalFields
+        }
+    ]
 
+}
+export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
+    ({portal, typeOfDeal}) => {
+console.log('typeOfDeal',typeOfDeal, BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal])
         const form = useForm({
             schema: LotViewSchema,
             defaultValues: LotViewDefaultValues,
@@ -53,13 +79,15 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
         const onSubmit = useCallback(
             (field) => {
                 if (portal && portal.resolve) portal.resolve(field);
+                form.reset()
             },
             [portal],
         );
 
-        const onPlaceBid = ()=>{
+        const onPlaceBid = () => {
             //todo request + close modal
             onSubmit('some field')
+
         }
 
         const [forSaleModel, serForSaleModel] = useState('Entity')
@@ -88,15 +116,14 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 maxW="30rem"
             >
 
-
                 <VStack layerStyle='brandGradientBordered' padding='none' gap='1.5rem' h='100%'>
                     <VStack gap='0.75rem' w='100%'>
                         <HStack w='100%'>
                             <FormBlockElement
                                 label={
                                     <HStack>
-                                        <Heading variant='h5'>I want to sell</Heading>
-                                        <Tooltip label="I want to sell" aria-label='A tooltip'>
+                                        <Heading variant='h5'>{BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].label}</Heading>
+                                        <Tooltip label={BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].label} aria-label='A tooltip'>
                                             <TooltipIcon opacity='0.6' w='0.52081rem' h='0.52081rem'/>
                                         </Tooltip>
                                     </HStack>}
@@ -106,8 +133,8 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                                     <FormField
                                         register={register}
                                         errors={errors}
-                                        name={"amountToSell"}
-                                        value={getValues('amountToSell')}
+                                        name={BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].fieldName}
+                                        value={getValues(BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].fieldName)}
                                         component={
                                             <Input
                                                 type="number"
@@ -124,8 +151,8 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                             <FormBlockElement
                                 label={
                                     <HStack>
-                                        <Heading variant='h5'>I take funds</Heading>
-                                        <Tooltip label="I take funds" aria-label='A tooltip'>
+                                        <Heading variant='h5'>{BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].label}</Heading>
+                                        <Tooltip label={BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].label} aria-label='A tooltip'>
                                             <TooltipIcon opacity='0.6' w='0.52081rem' h='0.52081rem'/>
                                         </Tooltip>
                                     </HStack>
@@ -136,8 +163,8 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                                     <FormField
                                         register={register}
                                         errors={errors}
-                                        name={"giveFunds"}
-                                        value={getValues('giveFunds')}
+                                        name={BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].fieldName}
+                                        value={getValues(BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].fieldName)}
                                         component={
                                             <Input
                                                 type="number"

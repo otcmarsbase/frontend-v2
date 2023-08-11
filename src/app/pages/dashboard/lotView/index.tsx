@@ -15,7 +15,7 @@ import {LotViewDefaultValues} from "@app/pages/dashboard/lotView/consts";
 import {LotViewSchema} from "@app/pages/dashboard/lotView/schemas";
 import {ETypeOfDeal} from "@app/pages/offers/create/types";
 import {
-    Box,
+    Box, Button, Heading,
     HStack,
     VStack
 } from "@chakra-ui/react";
@@ -28,6 +28,11 @@ import {
     LotViewProjectData,
     similarDealsMock
 } from './lotViewMock'
+
+const UserState = {
+    isOfferMaker: true,
+    isBidder:true
+}
 
 export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
     const form = useForm({
@@ -55,6 +60,7 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
         verticalItems
     } = LotViewProjectData;
 
+
     const data = form.watch();
 
     useEffect(() => {
@@ -62,9 +68,9 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
     }, [data]);
 
     const createBid = async () => {
-        const typeOfDeal: ETypeOfDeal = await ModalController.create(
+        const result: ETypeOfDeal = await ModalController.create(
             ChooseBidsModal,
-            {onPlaceBid},
+            {typeOfDeal},
         );
         console.log('createBid')
     }
@@ -75,6 +81,12 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
         console.log('onPlaceBid')
     }
 
+    const handleEditLot = ()=>{
+        console.log('handleEditLot')
+    }
+    const handleUnpublishLot = ()=>{
+        console.log('handleUnpublishLot')
+    }
     return (
         <>
             <StickyContainer
@@ -89,9 +101,9 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
                         <ContentContainer
                             title='Description'
                             children={
-                            <ExpandableText noOfLines={3} gap='0.75rem'>
-                                {description}
-                            </ExpandableText>
+                                <ExpandableText noOfLines={3} gap='0.75rem'>
+                                    {description}
+                                </ExpandableText>
                             }
                         />
                         <ContentContainer
@@ -116,16 +128,36 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
                     </Box>
                 }
                 head={
-                    <HStack
+                    <VStack
                         position='sticky'
                         top={0}
+                        bg='dark.950'
                         w='100%'
-                        justifyContent='space-between'
-                        padding='1rem 1.25rem'
-                        bg='dark.900'
-                        borderRadius='0.75rem'
                         zIndex={999}
                     >
+                        {UserState.isOfferMaker ?
+                            <HStack bg='dark.900' w='100%' padding='1rem 1.25rem' borderRadius='0.75rem' gap='0.75rem'
+                                    justifyContent='space-between'>
+                                {/*//todo add similar text variant*/}
+                                <Heading variant='h3' fontSize='1rem'>
+                                    MY LOT
+                                </Heading>
+
+                                <HStack gap='0.69rem'>
+                                    <Button size='xs' borderRadius='0.375rem' padding='0.5rem 1.5rem' onClick={handleEditLot}>
+                                        <Heading variant='h4'>
+                                            Edit my lot
+                                        </Heading>
+                                    </Button>
+                                    <Button size='xs' borderRadius='0.375rem' padding='0.5rem 1.5rem' onClick={handleUnpublishLot}>
+                                        <Heading variant='h4'>
+                                            Unpublish
+                                        </Heading>
+                                    </Button>
+                                </HStack>
+                            </HStack>
+                            : null
+                        }
                         <LotBasicInfo
                             LotInfoBasicData={{
                                 id,
@@ -136,16 +168,13 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
                                 nameOfSeller
                             }}
                         />
-                    </HStack>
+
+                    </VStack>
                 }
                 main={
                     <>
                         <VStack w='100%' gap='0.75rem'>
-
-
                             <HStack
-                                // columns={5}
-                                // spacing={10}
                                 gap='0.75rem'
                                 w='100%'
                             >
@@ -170,10 +199,11 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
 
                                 </VStack>
                             </HStack>
-                            <RoundInfo roundInfoFields={roundInfoFields}/>
+                            {typeOfDeal === ETypeOfDeal.SELL ? <RoundInfo roundInfoFields={roundInfoFields}/> : null}
                         </VStack>
                         <Bids
                             bids={BIDSmock}
+                            isBidder={UserState.isBidder}
                             createBid={createBid}
                             viewOrderHandler={viewOrderHandler}
                         />

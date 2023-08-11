@@ -14,7 +14,7 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({LotInfoBasicDa
     let nextDate = new Date()
     nextDate.setDate(nextDate.getDate() + 1);
     return (
-        <>
+        <HStack bg='dark.900' w='100%' padding='1rem 1.25rem' borderRadius='0.75rem' gap='0.75rem' justifyContent='space-between'>
             <VStack gap='0.25rem' padding='0 1.5rem 0 0' flex='1' fontWeight='500' alignItems='flex-start'>
                 <HStack gap='0.25rem'>
                     <Heading variant='h5' fontWeight='500' color='dark.50'>
@@ -104,6 +104,6 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({LotInfoBasicDa
                     {/*03:03:52*/}
                 </Box>
             </VStack>
-        </>
+        </HStack>
     )
 }

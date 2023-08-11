@@ -1,6 +1,7 @@
 import {ReactElement, ReactNode} from "react";
 import {ELotType, TInvAccType, TLotType} from "@app/pages/offers/create/components/ProjectInfo/types";
 import {ETypeOfDeal} from "@app/pages/offers/create/types";
+import * as yup from "yup";
 
 export interface ILotView {
     amountToSell: number,
@@ -8,9 +9,11 @@ export interface ILotView {
     typeOfUser: number,
     isUserDirectBuyer: boolean,
     location: string,
-    readyForKYC: boolean
+    readyForKYC: boolean,
+    amountToBuy: number,
+    getFunds: number
 }
-
+export type TLotModalFields = 'amountToSell' | 'giveFunds' | 'typeOfUser' | 'isUserDirectBuyer' | 'location' | 'readyForKYC' | 'amountToBuy' | 'getFunds'
 export interface IRoundInfoFields {
     id: string,
     value: any
@@ -26,7 +29,9 @@ export interface ISimilarDealItem {
     totalAmount: number
 }
 export interface IBidsProps extends IBidsListProps {
-    createBid: (data: any) => void
+    createBid: (data: any) => void,
+    //todo add userstate
+    isBidder: boolean
 }
 
 export type TBidListFilters = 'order' | 'user' | 'bidAmount' | 'location' | 'bidderType' | 'readyForKYC' | 'deadline' | 'status'
@@ -45,7 +50,8 @@ export interface IBid {
 }
 export interface IBidsListProps {
     bids: IBid[],
-    viewOrderHandler: (id: TBidListFilters) => void
+    viewOrderHandler: (id: TBidListFilters) => void,
+    isBidder: boolean
 }
 export interface ILotViewLinks {
     icon: ReactNode,

@@ -1,5 +1,4 @@
 import Decimal from 'decimal.js';
-
 import { ConfigParser } from '../types';
 
 export const decimalParser: ConfigParser<Decimal> = (value: string) => {

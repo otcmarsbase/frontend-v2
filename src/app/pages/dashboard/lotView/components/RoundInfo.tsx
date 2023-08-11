@@ -14,8 +14,8 @@ export const RoundInfo = ({roundInfoFields}) => {
                 Round Info
             </Heading>
 
-            <SimpleGrid borderRadius='0.75rem' bg='dark.900'
-                        columns={1} w='100%' gap={'1.06rem'} spacing={10}>
+            <SimpleGrid borderRadius='0.75rem' bg='dark.900' gridColumnGap='6.5rem'
+                        columns={2} w='100%' gap='1.06rem' spacing={10}>
                 {roundInfoFields.map(field => <RoundInfoItem field={field}/>)}
             </SimpleGrid>
         </VStack>

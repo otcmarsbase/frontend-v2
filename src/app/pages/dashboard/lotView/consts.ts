@@ -2,7 +2,9 @@ import {ILotView} from "@app/pages/dashboard/lotView/types";
 
 export const LotViewDefaultValues: ILotView = {
     amountToSell: null,
+    amountToBuy: null,
     giveFunds: null,
+    getFunds: null,
     typeOfUser: null,
     isUserDirectBuyer: false,
     location: '',

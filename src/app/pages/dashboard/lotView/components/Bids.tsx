@@ -4,7 +4,7 @@ import {IBidsProps} from "@app/pages/dashboard/lotView/types";
 import {Box, Button, Heading, HStack, Select, VStack} from "@chakra-ui/react";
 import {PlusBtnIcon} from "@shared/assets/PlusBtnIcon";
 
-export const Bids: FC<IBidsProps> = ({bids, createBid, viewOrderHandler}) => {
+export const Bids: FC<IBidsProps> = ({bids, createBid, viewOrderHandler, isBidder}) => {
     return (
         <VStack h='100%'
                 w='100%'
@@ -52,6 +52,7 @@ export const Bids: FC<IBidsProps> = ({bids, createBid, viewOrderHandler}) => {
             <Box overflowY="auto" h="100%">
                 <BidsList
                     bids={bids}
+                    isBidder={isBidder}
                     viewOrderHandler={viewOrderHandler}
                 />
             </Box>
