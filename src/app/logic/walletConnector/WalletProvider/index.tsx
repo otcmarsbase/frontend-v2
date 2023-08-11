@@ -1,11 +1,11 @@
-import { configuration } from '@shared/config';
+import { AppConfig } from '@shared/config';
 import { w3mConnectors, w3mProvider } from '@web3modal/ethereum';
 import { WagmiConfig, configureChains, createConfig } from 'wagmi';
 import { arbitrum, mainnet, polygon } from 'wagmi/chains';
 
 export function initWagmiClient() {
   const chains = [arbitrum, mainnet, polygon];
-  const projectId = configuration.WAGMI.WAGMI_PROJECT_ID;
+  const projectId = AppConfig.wagmi.projectId;
 
   const { publicClient } = configureChains(chains, [
     w3mProvider({ projectId }),
