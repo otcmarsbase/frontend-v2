@@ -16,23 +16,30 @@ export interface MyOfferProps {
   filters?: {
     search?: string;
     directions?: string[];
+    test: {
+      type: string;
+      count: number;
+      good: {
+        name: string;
+      };
+    }[];
   };
 }
 
-const MyOffersPageSchema = {
-  filters: {
-    search: PageSchema.stringParser,
-    directions: PageSchema.arrayParser(
-      PageSchema.enumParser<Common.Direction>(['BUY', 'SELL']),
-    ),
-  },
-} satisfies PageSchema<MyOfferProps>;
+// const MyOffersPageSchema = {
+//   filters: {
+//     search: PageSchema.stringParser,
+//     directions: PageSchema.arrayParser(
+//       PageSchema.enumParser<Common.Direction>(['BUY', 'SELL']),
+//     ),
+//   },
+// } satisfies PageSchema<MyOfferProps>;
 
 export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
   const [offers, setOffers] = useState<Dashboard.OfferItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  console.log(props);
+  // console.log(props);
 
   const openCreateOfferModal = useCreateOfferModal();
 
@@ -68,7 +75,16 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
         onClick={() => {
           router.navigateComponent(
             MyOffers,
-            { filters: { search: '123', directions: ['BUY', 'SELL'] } },
+            {
+              filters: {
+                search: '123',
+                directions: ['BUY', 'SELL'],
+                test: [
+                  { type: 'SHORT', count: 1, good: { name: 'L0' } },
+                  { type: 'LONG', count: 5, good: { name: 'Bitoin' } },
+                ],
+              },
+            },
             { replace: true },
           );
         }}
@@ -118,7 +134,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
   );
 });
 
-MyOffers.pageSchema = MyOffersPageSchema;
+// MyOffers.pageSchema = MyOffersPageSchema;
 
 MyOffers.getLayout = ({ children }) => (
   <Layouts.DashboardLayout

@@ -7,14 +7,15 @@ import {
   SERBER_PATH_SYMBOL,
 } from '@berish/serber';
 import { isReactComponentTypeComposite } from '@packages/react-utils';
-import { RouteMap, RouterPath, RouterComponent } from '../../types';
+import { PageComponent, PagePath } from '../core';
+import { AuthRouteMap } from './types';
 
 export const SYMBOL_SERBER_ROUTER5_AUTO_MAP = Symbol('serberRouter5AutoMap');
 export const SYMBOL_SERBER_HOME_PAGE_ITEM = Symbol('serberHomePageItem');
 export const SYMBOL_SERBER_PARAM_PAGE_ITEM = Symbol('serberParamPageItem');
 
 interface ISerberParams {
-  [SYMBOL_SERBER_ROUTER5_AUTO_MAP]: RouteMap<RouterPath, RouterComponent>;
+  [SYMBOL_SERBER_ROUTER5_AUTO_MAP]: AuthRouteMap<PagePath, PageComponent>;
   [SYMBOL_SERBER_HOME_PAGE_ITEM]: string | number;
   [SYMBOL_SERBER_PARAM_PAGE_ITEM]: string;
 }

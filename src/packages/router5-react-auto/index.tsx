@@ -1,9 +1,7 @@
-import './react.extension.d';
-import './router.extension.d';
+import './extensions';
 
+export * from './autoMap';
 export * from './components';
-export * from './create';
-export * from './methods';
-export * from './schema';
-export * from './types';
-export * from './utils';
+export * from './context';
+export * from './core';
+export * from './pageSchema';

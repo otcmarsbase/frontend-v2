@@ -1,8 +1,9 @@
-import { RouteMap, RouterComponent, RouterPath } from '../types';
+import { PageComponent, PagePath } from '../core';
+import { AuthRouteMap } from './types';
 
 export function setHomePage(
-  homeComponent: RouterComponent,
-  pathMap: RouteMap<RouterPath, RouterComponent>,
+  homeComponent: PageComponent,
+  pathMap: AuthRouteMap<PagePath, PageComponent>,
 ) {
   const tuple = pathMap.filter((m) => m[1] === homeComponent)[0];
   if (!tuple)

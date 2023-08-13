@@ -1,15 +1,17 @@
 import LINQ from '@berish/linq';
 
-const regExpForDigits = /^([\d]+)/gm;
+// const regExpForDigits = /^([\d]+)/gm;
+const arrayRegExp = /\*[[0-9]*\]*/gm;
 
 /**
  * Переводит объект с параметрами в объект с автопарсингом примитов (числа, булева)
  * @param params
  * @returns
  */
-export function parseQueryParameters(
+export function deserializeQueryParameters(
   params: Record<string, string>,
 ): Record<string, any> {
+  console.log(params);
   const parseValue = (value: string): any => {
     if (typeof value !== 'string') return value;
     if (!value) return null;
@@ -22,9 +24,10 @@ export function parseQueryParameters(
 
   const parseCurrentPath = (params: { [key: string]: string }) => {
     const allKeys = LINQ.from(Object.keys(params));
+    // console.log(allKeys);
     const currentKeys = allKeys.where((m) => m.indexOf('.') === -1);
-    const out: { [key: string]: any } = allKeys.every(
-      (m) => m.search(regExpForDigits) !== -1,
+    const out: { [key: string]: any } = allKeys.every((m) =>
+      arrayRegExp.test(m),
     )
       ? []
       : {};

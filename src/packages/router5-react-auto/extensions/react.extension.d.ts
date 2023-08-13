@@ -1,7 +1,7 @@
 /// <reference path="@types/react/index.d.ts" />
 
 declare namespace React {
-  import { PageSchema } from './schema';
+  import { PageSchema } from '../schema';
 
   export interface FunctionComponent<P = {}> {
     pageSchema?: PageSchema<P>;

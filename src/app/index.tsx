@@ -11,10 +11,7 @@ export const App: React.FC = () => {
       <ThemeProvider>
         <AppLoad loader={GlobalPreload} preload={onAppLoad}>
           <ModalProvider />
-          <RouterProvider
-            router={router}
-            notFoundComponent={pages.errors._404}
-          />
+          <RouterProvider router={router} notFound={pages.errors._404} />
         </AppLoad>
       </ThemeProvider>
     </WalletProvider>
