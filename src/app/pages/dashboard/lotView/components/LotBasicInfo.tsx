@@ -2,11 +2,11 @@ import {FC} from "react";
 import {Box, Heading, HStack, Tooltip, VStack} from "@chakra-ui/react";
 import {CopyIcon} from "@shared/assets/CopyIcon";
 import {TooltipIcon} from "@shared/assets/TooltipIcon";
-import Countdown from "@shared/ui-kit/components/Timer/Timer";
+import {Countdown} from "@shared/ui-kit/components/Timer/Timer";
 import copyToClipboard from "@shared/utils/copyToClipBoard";
 import { ILotInfo } from "../types";
 export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({LotInfoBasicData}) => {
-    const {id, typeOfDeal, typeOfLot, userAvatar, userName, nameOfSeller,} = LotInfoBasicData;
+    const {id, typeOfDeal, typeOfLot, userAvatar, userName, nameOfSeller, auctionEndDate} = LotInfoBasicData;
     const copyID = () => {
         copyToClipboard(id)
         console.log('copyID')
@@ -95,10 +95,7 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({LotInfoBasicDa
 
                 <Box fontWeight='500' fontSize='sm'>
                     <Countdown
-                        endDate={nextDate}
-                        now={new Date()}
-                        canUseDays={true}
-
+                        endDate={auctionEndDate}
                     />
 
                     {/*03:03:52*/}

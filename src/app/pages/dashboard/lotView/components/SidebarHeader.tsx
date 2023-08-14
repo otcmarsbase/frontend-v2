@@ -3,7 +3,8 @@ import {ISidebarHeader} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack, Image} from "@chakra-ui/react";
 import {DownloadIcon} from "@shared/assets/DownloadIcon";
 
-export const SidebarHeader:FC<ISidebarHeader> = ({icon, name, analitics}) => {
+export const SidebarHeader:FC<ISidebarHeader> = ({Icon, name, analitics}) => {
+
     return (
         <HStack
             w='100%'
@@ -16,7 +17,7 @@ export const SidebarHeader:FC<ISidebarHeader> = ({icon, name, analitics}) => {
             <HStack gap='2.12rem'>
                 <HStack gap='1.5rem'>
                     <Box w='4rem'>
-                        {icon}
+                        <Icon width='4rem' height='4rem'/>
                     </Box>
                     <Heading variant='h4' fontSize={'lg'} fontFamily="promo">
                         {name}

@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import { router } from '@app/logic';
-import { WalletConnectButton } from '@app/logic/walletConnector';
+// import { WalletConnectButton } from '@app/logic/walletConnector';
 import pages from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import {
@@ -41,7 +41,7 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
                 onClick: openCreateOfferModal,
               },
             ]}
-            rightContent={<WalletConnectButton />}
+            rightContent={null}
           />
         </Box>
         <Box flex="1" width="full">

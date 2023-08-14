@@ -7,7 +7,7 @@ import pages from './pages';
 
 export const App: React.FC = () => {
   return (
-    <WalletProvider>
+    // <WalletProvider>
       <ThemeProvider>
         <AppLoad loader={GlobalPreload} preload={onAppLoad}>
           <ModalProvider />
@@ -17,6 +17,6 @@ export const App: React.FC = () => {
           />
         </AppLoad>
       </ThemeProvider>
-    </WalletProvider>
+    // </WalletProvider>
   );
 };

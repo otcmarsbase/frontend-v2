@@ -433,9 +433,11 @@ export const verticalItems: ILotViewLinks[] = [
         href: 'GitHub ref'
     }
 ]
+let date = new Date();
+date.setDate(date.getDate() + 1);
 
 export const LotViewProjectData: ILotViewProjectData = {
-    name: 'World coin',
+    name: 'Worldcoin',
     description: 'Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving Scroll aims to build an EVM-compatible zk-Rollup with a strong proving',
     id: 21462,
     typeOfDeal: ETypeOfDeal.BUY,
@@ -448,7 +450,8 @@ export const LotViewProjectData: ILotViewProjectData = {
     dataFieldsMain: dataFieldsMain,
     roundInfoFields: roundInfoFields,
     analitics: '',
-    icon: <Mock/>,
+    auctionEndDate: date,
+    Icon: Mock,
     socialMediaLinks: socialMediaLinks,
     officialLinks: officialLinks,
     verticalItems: verticalItems,

@@ -1,4 +1,4 @@
-import {ReactElement, ReactNode} from "react";
+import {ComponentType, ReactElement, ReactNode} from "react";
 import {ELotType, TInvAccType, TLotType} from "@app/pages/offers/create/components/ProjectInfo/types";
 import {ETypeOfDeal} from "@app/pages/offers/create/types";
 import * as yup from "yup";
@@ -64,14 +64,15 @@ export interface ILotInfo {
     typeOfLot:ELotType,
     userAvatar: ReactNode,
     userName: string,
-    nameOfSeller: string
+    nameOfSeller: string,
+    auctionEndDate: Date
 }
 export interface IDataFieldsInterface {
     id:string,
     value: string | number
 }
 export interface ISidebarHeader {
-    icon: ReactNode,
+    Icon: ComponentType<{width: string, height: string}>,
     name: string,
     analitics: string
 }
@@ -89,7 +90,8 @@ export interface ILotViewProjectData {
     dataFieldsMain: IDataFieldsInterface[],
     roundInfoFields: IRoundInfoFields[],
     analitics: string,
-    icon: ReactNode,
+    auctionEndDate: Date,
+    Icon: ComponentType<{width: string, height: string}>,
     socialMediaLinks: ILotViewLinks[],
     officialLinks: ILotViewLinks[],
     verticalItems: ILotViewLinks[],

@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useState} from "react";
 import {IBidsListProps, TBidListFilters} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack, Table, Tbody, Td, Th, Thead, Tr, VStack} from "@chakra-ui/react";
 import {DeleteIcon} from "@shared/assets/DeleteIcon";
@@ -6,14 +6,44 @@ import {EditIcon} from "@shared/assets/EditIcon";
 import {EllipseIcon} from "@shared/assets/EllipseIcon";
 import {ValidatedKYCicon} from "@shared/assets/VlidatedKYCicon";
 import {format} from "date-fns";
+import {memoize} from "lodash";
 
+interface IBidsWithHover extends IBidsListProps {
+    isHovered: boolean
+}
+
+const calcOnHover = memoize(({_bids, id}) => {
+    let newArr = []
+    for (let bid of _bids) {
+        newArr.push({...bid, isHovered: +bid.id === +id})
+    }
+    return newArr
+})
 
 export const BidsList: FC<IBidsListProps> = ({bids, viewOrderHandler, isBidder}) => {
+    let normBids = [...bids];
+    console.log('norlBids', normBids)
+//todo
+    for (let item of normBids) {
+        item['isHovered'] = false
+    }
+
+    console.log('norlBids', normBids)
+
+    const [_bids, setBids] = useState<any>(normBids)
+
+    const setShow = (id) => {
+        // @ts-ignore
+        const newArr = calcOnHover({_bids, id})
+
+        console.log('newArr', newArr)
+        setBids(prev => newArr)
+    }
 
     return (
-        <Table>
-            <Thead>
-                <Tr>
+        <Table gridTemplateColumns='repeat(9, minmax(max-content, 2.33fr))' display='grid'>
+            <Thead display='contents'>
+                <Tr display='contents'>
                     <Th>
                         <HStack id={'order'} gap='none'
                                 onClick={(e) => viewOrderHandler(e.currentTarget.id as TBidListFilters)}>
@@ -78,19 +108,30 @@ export const BidsList: FC<IBidsListProps> = ({bids, viewOrderHandler, isBidder})
                     </Th>
                 </Tr>
             </Thead>
-            <Tbody color='dark.50'>
-                {bids.filter(bid => bid).map(({
-                                                  id,
-                                                  userName,
-                                                  bid,
-                                                  bidSize,
-                                                  location,
-                                                  validation,
-                                                  deadline,
-                                                  status,
-                                                  bidderType
-                                              }) => (
-                    <Tr>
+            <Tbody color='dark.50' display='contents'>
+                {_bids.filter(bid => bid).map(({
+                                                   id,
+                                                   userName,
+                                                   bid,
+                                                   bidSize,
+                                                   location,
+                                                   validation,
+                                                   deadline,
+                                                   status,
+                                                   bidderType,
+                                                   isHovered
+                                               }) => (
+                    <Tr
+                        key={id}
+                        display='contents'
+                        id={id.toString()}
+                        onMouseEnter={(e) => setShow(e.currentTarget.id)}
+                    >
+                        {/*//add to each th*/}
+                        {/*padding: 0;*/}
+                        {/*display: flex;*/}
+                        {/*justify-content: center;*/}
+                        {/*align-items: center;*/}
                         <Td border={'none'}>{id}</Td>
                         <Td border={'none'} color='white'>{userName}</Td>
                         <Td border={'none'}>
@@ -112,19 +153,21 @@ export const BidsList: FC<IBidsListProps> = ({bids, viewOrderHandler, isBidder})
                         </Td>
                         <Td border={'none'}>{location}</Td>
                         <Td border={'none'}>{bidderType}</Td>
-                        <Td border={'none'}>{validation ? <ValidatedKYCicon w='1.5rem' h='1.5rem'/> : 'FALSE'}</Td>
+                        <Td border={'none'}>{validation ? <ValidatedKYCicon width='50px' height='24px'/> : 'FALSE'}</Td>
                         <Td border={'none'}>{format(deadline, 'dd.MM.yyyy')}</Td>
-                        <Td border={'none'}>
+                        <Td
+                            border={'none'}
+                        >
                             <HStack color='#34A853'>
                                 <EllipseIcon w='0.5rem' h='0.5rem'/>
                                 {/*//todo statuses*/}
                                 <Heading variant='h5' fontWeight='500' textTransform='capitalize'>
                                     {status}
                                 </Heading>
-                                {isBidder ? <>
-                                    <EditIcon w='1rem' h='1rem'/>
-                                    <DeleteIcon w='1.25rem' h='1.25rem'/>
-                                </>
+                                {isHovered ? <>
+                                        <EditIcon w='1rem' h='1rem'/>
+                                        <DeleteIcon w='1.25rem' h='1.25rem'/>
+                                    </>
                                     : null
                                 }
                             </HStack>

@@ -54,9 +54,10 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
         dataFieldsMain,
         roundInfoFields,
         analitics,
-        icon,
+        Icon,
         socialMediaLinks,
         officialLinks,
+        auctionEndDate,
         verticalItems
     } = LotViewProjectData;
 
@@ -91,9 +92,9 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
         <>
             <StickyContainer
                 sidebar={
-                    <Box position={'sticky'} display='flex' flexDirection='column' top={0} gap='0.75rem'>
+                    <Box position='sticky' display='flex' flexDirection='column' top={0} gap='0.75rem'>
                         <SidebarHeader
-                            icon={icon}
+                            Icon={Icon}
                             name={name}
                             analitics={analitics}
                         />
@@ -165,7 +166,8 @@ export const LotView: FC<{ lotId: number }> = observer(({lotId}) => {
                                 typeOfLot,
                                 userAvatar,
                                 userName,
-                                nameOfSeller
+                                nameOfSeller,
+                                auctionEndDate
                             }}
                         />
 

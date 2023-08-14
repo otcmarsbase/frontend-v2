@@ -2,7 +2,7 @@ import {createIcon} from "@chakra-ui/react";
 
 export const MockIcon = createIcon({
     displayName: 'MockIcon',
-    viewBox: '0 0 24 24',
+    viewBox: '0 0 48 48',
     // path can also be an array of elements, if you have multiple paths, lines, shapes, etc.
     path: (
         <>

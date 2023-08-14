@@ -5,6 +5,7 @@ import {ISimilarDealItem} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack, VStack} from "@chakra-ui/react";
 import {HotChip} from "@shared/ui-kit/components/HotChip/HotChip";
 import {ProgressBar} from "@shared/ui-kit/components/ProgressBar";
+
 export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({item}) => {
     const {dealID, lotType, typeOfDeal, isHot, icon, nameOfAsset, currentAmount, totalAmount} = item
     return (
@@ -14,10 +15,11 @@ export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({item}) => {
                 color='white'
                 position='relative'
                 gap='1.25rem'
+                key={dealID}
         >
             <TypeOfDealChip typeOfDeal={typeOfDeal}/>
             <VStack gap='0.75rem' w='100%'>
-                <HStack w='100%' alignItems='flex-start'>
+                <HStack w='100%' alignItems='center'>
                     <Heading
                         variant='h5'
                         fontWeight='500'

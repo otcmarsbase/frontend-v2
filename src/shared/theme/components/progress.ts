@@ -8,14 +8,13 @@ const baseStyle = definePartsStyle({
     label: {},
     filledTrack: {
         bg: 'orange.400',
-        borderRadius: '0rem'
+        borderRadius: '0rem',
+        transition: 'width 1s ease-in-out'
     },
     track: {
         bg: 'dark.600',
         borderRadius: '6.25rem'
     },
-
-
 });
 
 export const Progress = defineMultiStyleConfig({baseStyle});

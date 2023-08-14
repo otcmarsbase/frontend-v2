@@ -1,69 +1,153 @@
-import React, { Component } from 'react';
+import {useState, useEffect} from 'react';
+import {Box, Container, defineStyle, Heading, HStack, Text} from "@chakra-ui/react";
 
-class Countdown extends Component<any, any> {
-    render() {
-        const { endDate = 0, now = 1, canUseDays } = this.props;
-
-        let differeceInSeconds = (endDate - now) / 1000;
-        let minutes = 0;
-        let hours = 0;
-        let days = 0;
-
-        if (canUseDays && differeceInSeconds / 60 / 60 / 24 > 1) {
-            while (differeceInSeconds / 60 / 60 / 24 > 1) {
-                days += 1;
-                differeceInSeconds -= 60 * 60 * 24;
-            }
-        }
-
-        if (differeceInSeconds / 60 / 60 > 3) {
-            while (differeceInSeconds / 60 / 60 > 1) {
-                hours += 1;
-                differeceInSeconds -= 60 * 60;
-            }
-        }
-
-        while (differeceInSeconds / 60 > 1) {
-            minutes += 1;
-            differeceInSeconds -= 60;
-        }
-
-        return (
-            <div className="Countdown" style={{ minWidth: 100, textAlign: 'right' }}>
-                {days > 0 && (
-                    <>
-                        <span className="Countdown-col">{days.toFixed(0)}</span>
-                        <span className="Countdown-col">d </span>
-                    </>
-                )}
-
-                {hours > 0 && (
-                    <>
-                        <span className="Countdown-col">{hours.toFixed(0)}</span>
-                        <span className="Countdown-col">h </span>
-                    </>
-                )}
-
-                {minutes > 0 && (
-                    <>
-                        <span className="Countdown-col">{minutes.toFixed(0)}</span>
-                        <span className="Countdown-col">m </span>
-                    </>
-                )}
-
-                {hours > 0 ? null : differeceInSeconds < 0 ? (
-                    this.props.withoutTicks ? null : (
-                        <span className="Countdown-col">{'.'.repeat((Math.abs(Math.trunc(differeceInSeconds)) % 3) + 1)}</span>
-                    )
-                ) : (
-                    <>
-                        <span className="Countdown-col">{Math.trunc(differeceInSeconds)}</span>
-                        <span className="Countdown-col">s</span>
-                    </>
-                )}
-            </div>
-        );
-    }
+interface iCountdownProps {
+    endDate: Date
 }
 
-export default Countdown;
+interface iCountdownState {
+    days: string,
+    hours: string
+    minutes: string,
+    seconds: string,
+}
+
+export const Countdown = ({endDate}: iCountdownProps) => {
+    const [state, setState] = useState<iCountdownState>({
+        days: '0',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+    });
+
+    useEffect(() => {
+        const intervalID = setInterval(() => setNewTime(), 1000);
+        return () => clearInterval(intervalID)
+    }, []);
+
+    const setNewTime = () => {
+        const countdownDate = endDate.getTime()
+        if (countdownDate) {
+            const currentTime = new Date().getTime();
+
+            const distanceToDate = endDate.getTime() - currentTime;
+
+            let days = (Math.floor(distanceToDate / (1000 * 60 * 60 * 24))).toString();
+            let hours = (Math.floor((distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).toString();
+            let minutes = (Math.floor((distanceToDate % (1000 * 60 * 60)) / (1000 * 60))).toString();
+            let seconds = (Math.floor((distanceToDate % (1000 * 60)) / 1000)).toString();
+
+            const numbersToAddZeroTo = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+//todo check if 01:00 for exmple
+            days = `${days}`;
+            if (numbersToAddZeroTo.includes(hours)) {
+                hours = `0${hours}`;
+            } else if (numbersToAddZeroTo.includes(minutes)) {
+                minutes = `0${minutes}`;
+            } else if (numbersToAddZeroTo.includes(seconds)) {
+                seconds = `0${seconds}`;
+            }
+
+            setState({days: days, hours: hours, minutes, seconds});
+        }
+    };
+
+    return (
+        <HStack gap='0.19rem' h='2rem' justifyContent='end'>
+            {state.days !== '0'
+                ?
+                <>
+                    {state.days.split('').map(num => {
+                        return <Box
+                            padding='0.25rem'
+                            bg='dark.800'
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
+                            height='100%'
+                            minWidth='1.3625rem'
+                        >
+                            <Heading variant='h2' fontWeight='700' lineHeight='1.5rem'>{num || '00'}</Heading>
+                        </Box>
+                    })}
+                    <Box
+                        padding='0.25rem'
+                        bg='dark.800'
+                        display='flex'
+                        justifyContent='center'
+                        alignItems='center'
+                        height='100%'
+                        maxWidth='0.9375rem'
+                    >
+                        <Heading variant='h2' fontWeight='700' lineHeight='1.5rem' color='orange.400'>:</Heading>
+                    </Box>
+                </>
+                :
+                null
+            }
+            {state.hours.split('').map(num => {
+                return <Box
+                    padding='0.25rem'
+                    bg='dark.800'
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    height='100%'
+                    minWidth='1.3625rem'
+                >
+                    <Heading variant='h2' fontWeight='700' lineHeight='1.5rem'>{num || '00'}</Heading>
+                </Box>
+            })}
+            <Box
+                padding='0.25rem'
+                bg='dark.800'
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                height='100%'
+                maxWidth='0.9375rem'
+            >
+                <Heading variant='h2' fontWeight='700' lineHeight='1.5rem' color='orange.400'>:</Heading>
+            </Box>
+            {state.minutes.split('').map(num => {
+                return <Box
+                    padding='0.25rem'
+                    bg='dark.800'
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    height='100%'
+                    minWidth='1.3625rem'
+                >
+                    <Heading variant='h2' fontWeight='700' lineHeight='1.5rem'>{num || '00'}</Heading>
+                </Box>
+            })}
+            <Box
+                padding='0.25rem'
+                bg='dark.800'
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                height='100%'
+                maxWidth='0.9375rem'
+            >
+                <Heading variant='h2' fontWeight='700' lineHeight='1.5rem' color='orange.400'>:</Heading>
+            </Box>
+            {state.seconds.split('').map(num => {
+                return <Box
+                    padding='0.25rem'
+                    bg='dark.800'
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    height='100%'
+                    minWidth='1.3625rem'
+                >
+                    <Heading variant='h2' fontWeight='700' lineHeight='1.5rem'>{num || '00'}</Heading>
+                </Box>
+            })}
+        </HStack>
+    );
+};
+
+
