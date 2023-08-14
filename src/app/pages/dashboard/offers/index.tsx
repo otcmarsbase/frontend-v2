@@ -39,7 +39,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
   const [offers, setOffers] = useState<Dashboard.OfferItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // console.log(props);
+  console.log(props);
 
   const openCreateOfferModal = useCreateOfferModal();
 

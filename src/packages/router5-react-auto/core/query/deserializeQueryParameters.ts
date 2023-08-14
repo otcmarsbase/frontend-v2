@@ -11,14 +11,10 @@ const arrayRegExp = /\*[[0-9]*\]*/gm;
 export function deserializeQueryParameters(
   params: Record<string, string>,
 ): Record<string, any> {
-  console.log(params);
   const parseValue = (value: string): any => {
-    if (typeof value !== 'string') return value;
-    if (!value) return null;
+    if (typeof value === 'undefined' || value === null) return void 0;
+    if (typeof value !== 'string') return String(value);
     if (value === '[]') return [];
-    if (value.toLowerCase() === 'false') return false;
-    if (value.toLowerCase() === 'true') return true;
-    if (!isNaN(Number(value))) return Number(value);
     return value;
   };
 
@@ -55,3 +51,21 @@ export function deserializeQueryParameters(
   };
   return parseCurrentPath(params);
 }
+
+// console.log(
+//   deserializeQueryParameters({
+//     name: 'Ravil',
+//     'childs.0': 'Azat',
+//     'childs.1': 'Ravil',
+//     'childs.2.name': 'Test',
+//     'filters.search': '123',
+//     'filters.directions.0': 'BUY',
+//     'filters.directions.1': 'SELL',
+//     'filters.test.0.type': 'SHORT',
+//     'filters.test.0.count': '1',
+//     'filters.test.0.good.name': 'L0',
+//     'filters.test.1.type': 'LONG',
+//     'filters.test.1.count': '5',
+//     'filters.test.1.good.name': 'Bitoin',
+//   }),
+// );

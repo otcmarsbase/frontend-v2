@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import { constants } from 'router5';
 import { useRouter } from '../context';
 import {
@@ -47,17 +47,13 @@ export const PageRoute: React.FC<PageRouteProps> = ({
     return registeredRoute;
   }, [router, currentRouteState]);
 
-  useEffect(() => {
-    if (currentRouteState) {
-      currentRouteState.params = deserializeQueryParameters(
-        currentRouteState.params,
-      );
-    }
-  }, [currentRouteState]);
+  const pageProps = useMemo(
+    () => deserializeQueryParameters(currentRouteState.params),
+    [currentRouteState],
+  );
 
   // Default render route
-  if (registeredRoute)
-    return render(registeredRoute.component, currentRouteState.params);
+  if (registeredRoute) return render(registeredRoute.component, pageProps);
 
   // Empty render Route
   if (notFound) return render(notFound, {});

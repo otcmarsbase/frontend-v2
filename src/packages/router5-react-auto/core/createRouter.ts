@@ -10,6 +10,10 @@ export function createRouter(routes: Route[], plugins: PluginFactory[]) {
   const router = createRouter5(routes, {
     allowNotFound: true,
     queryParamsMode: 'loose',
+    queryParams: {
+      nullFormat: 'hidden',
+      booleanFormat: 'string',
+    },
   });
   router.routes = routes;
 
