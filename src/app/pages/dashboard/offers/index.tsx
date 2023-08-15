@@ -6,13 +6,15 @@ import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
+import {LotTypeChip} from "@shared/ui-kit/components/LotTypeChip";
 import { Pagination } from '@shared/ui-logic';
 import MyBids from '../bids';
 import offersMock from './offersMock.json';
 
+
 const offers = offersMock.offers as Dashboard.OfferItem[];
 
-export const MyOffers: React.FC = observer(() => {
+const MyOffers: React.FC = observer(() => {
   const openCreateOfferModal = useCreateOfferModal();
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
@@ -37,10 +39,10 @@ export const MyOffers: React.FC = observer(() => {
 
   return (
     <>
-      {offers.map((offer, index) => {
+      {offers.map(offer => {
         return (
           <LotRow
-            key={index}
+            key={offer.id}
             lotId={offer.id}
             lotName={offer.lotName}
             lotIconName={offer.lotIconName}
@@ -48,7 +50,7 @@ export const MyOffers: React.FC = observer(() => {
             isHot={offer.isHot}
             status={<LotStatus value={offer.status} />}
             fields={[
-              { label: 'Lot type', value: offer.lotType },
+              { label: 'Lot Type', value: <LotTypeChip headingProps={{variant:'h6'}} lotType={offer.lotType}/>},
               { label: 'Published at', value: offer.publishedAt },
               { label: 'FDV', value: offer.fdv },
               { label: 'Lot value', value: offer.lotValue },

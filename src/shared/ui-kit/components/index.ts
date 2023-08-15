@@ -13,3 +13,5 @@ export * from './EmptyData';
 export * from './LotStatus';
 export * from './Dropdown';
 export * from './Modal';
+export * from './UserDataChip';
+export * from './LotTypeChip';

@@ -595,7 +595,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'sm'
         | 'xs'
         | (string & {});
-      variants: string & {};
+      variants: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | (string & {});
     };
     Input: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
