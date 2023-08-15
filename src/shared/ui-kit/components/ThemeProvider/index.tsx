@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     <>
       {FontsInjection}
       {FixFocusVisible}
-      <ChakraBaseProvider theme={theme}>{children}</ChakraBaseProvider>
+      <ChakraBaseProvider toastOptions={{ defaultOptions: { position: 'bottom-left', duration: 3000, isClosable: true } }} theme={theme}>{children}</ChakraBaseProvider>
     </>
   );
 };

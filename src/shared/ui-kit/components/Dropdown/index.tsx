@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {PropsWithChildren, useRef} from 'react';
 import { useClickAway } from 'react-use';
 import {
   Menu,
@@ -9,11 +9,15 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
+interface IDropdownPropsExtended extends MenuItemProps {
+  href?: string
+}
 export interface DropdownProps extends React.PropsWithChildren {
-  items: MenuItemProps[];
+  items: IDropdownPropsExtended[];
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ items, children }) => {
+export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({ items, children }) => {
+  console.log('items, children',items, children, typeof children)
   const {
     isOpen: isDropdownOpen,
     onClose,
@@ -31,11 +35,12 @@ export const Dropdown: React.FC<DropdownProps> = ({ items, children }) => {
       label={
         <Menu isLazy isOpen={isDropdownOpen}>
           <MenuList>
-            {items.map((item, index) => (
+            {items.map((item,index) => (
               <MenuItem key={index} {...item} />
             ))}
           </MenuList>
         </Menu>
+
       }
     >
       {React.cloneElement(children as React.ReactElement, {
