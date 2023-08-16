@@ -1,8 +1,8 @@
-import {getCorrectRpcRequest} from '@packages/rpc-client/utils';
-import {createInterceptor, Interceptor, push, request} from './helpers';
-import {RpcError} from './rpcError';
-import {RpcRequest, RpcResponse} from './schema';
-import {getResponseResult} from './utils';
+import { getCorrectRpcRequest } from '@packages/rpc-client/utils';
+import { createInterceptor, Interceptor, push, request } from './helpers';
+import { RpcError } from './rpcError';
+import { RpcRequest, RpcResponse } from './schema';
+import { getResponseResult } from './utils';
 
 export interface RpcClientOptions {
   send: (request: RpcRequest) => Promise<any>;
@@ -57,9 +57,8 @@ export class RpcClient {
     return response;
   }
 
-
   public async rawSendIntercept<Params, Result>(
-      // @ts-ignore
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ) {
     request = getCorrectRpcRequest(request);
@@ -74,7 +73,7 @@ export class RpcClient {
   }
 
   public async rawSendWithoutIntercept<Params, Result>(
-      // @ts-ignore
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ): Promise<RpcResponse<Result>> {
     request = getCorrectRpcRequest(request);
@@ -92,12 +91,12 @@ export class RpcClient {
 
     const responseBody = await this._options.send(request);
     return this._options.parseRawResponse
-        ? this._options.parseRawResponse(responseBody)
-        : responseBody;
+      ? this._options.parseRawResponse(responseBody)
+      : responseBody;
   }
 
   public async interceptRequest<Params, Result>(
-      // @ts-ignore
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ) {
     if (this._requestInterceptor) {

@@ -5,6 +5,7 @@
     {
       "files": ["**/*.ts?(x)"],
       "rules": {
+        "@typescript-eslint/no-redeclare": "off",
         "import/no-anonymous-default-export": "off",
         "import/order": [
           "error",
@@ -21,7 +22,7 @@
             ],
             "pathGroups": [
               {
-                "pattern": "@/**",
+                "pattern": "@**",
                 "group": "internal"
               },
               {

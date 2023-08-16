@@ -1,2 +1,2 @@
-export * from './PageProvider';
+export * from './PageRoute';
 export * from './RouterProvider';

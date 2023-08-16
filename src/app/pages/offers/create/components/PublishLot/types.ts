@@ -1,7 +1,7 @@
-import {ReactNode} from "react";
+import { ReactNode } from 'react';
 
 export interface IPublishLot {
-  onPublishLot: () => void,
-  children: ReactNode,
-  isActive:boolean
+  onPublishLot: () => void;
+  children: ReactNode;
+  isActive: boolean;
 }

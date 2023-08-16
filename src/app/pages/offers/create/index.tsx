@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import * as Layouts from '@app/layouts';
-import {formDefaultValues} from "@app/pages/offers/create/consts";
+import { formDefaultValues } from '@app/pages/offers/create/consts';
 import {
-    EPricingModel,
-    ETypeOfDeal,
-    IHandleRecountProps,
-    IHandleRecountValue,
-    StepThreeRecountFieldByLotType
-} from "@app/pages/offers/create/types";
+  EPricingModel,
+  ETypeOfDeal,
+  IHandleRecountProps,
+  IHandleRecountValue,
+  StepThreeRecountFieldByLotType,
+} from '@app/pages/offers/create/types';
 import { useStore } from '@app/store';
 import { HStack, VStack, Text, Heading, Badge, Box } from '@chakra-ui/react';
 import {
@@ -20,7 +20,7 @@ import {
 import Decimal from 'decimal.js';
 import { ProjectInfo, Summary, TokenInfo } from './components';
 import { ProjectDetails } from './components/ProjectDetails';
-import {ELotType} from './components/ProjectInfo/types';
+import { ELotType } from './components/ProjectInfo/types';
 import { useFormStepsValidation } from './hooks/useFormStepsValdiation';
 import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
 import { CreateOfferSchema } from './schemas';
@@ -43,82 +43,93 @@ export const CreateOffer: React.FC = observer(() => {
     sellOfferStore,
   });
 
-    useSummaryStepsValidation({data, typeOfDeal, sellOfferStore});
-    useEffect(() => {
-        setTypeOfPricingModel(EPricingModel.IN_STABLECOIN)
-    }, [data.lotType])
+  useSummaryStepsValidation({ data, typeOfDeal, sellOfferStore });
+  useEffect(() => {
+    setTypeOfPricingModel(EPricingModel.IN_STABLECOIN);
+  }, [data.lotType]);
 
-
-    function handleRecountPriceInfoValues({curIds, id, value}:IHandleRecountProps) {
-        if (!value) {
-            // @ts-ignore
-            form.setValue(id, value.toString())
-            return
-        }
-        const orderedArr = reorderItems({curIds, id});
+  function handleRecountPriceInfoValues({
+    curIds,
+    id,
+    value,
+  }: IHandleRecountProps) {
+    if (!value) {
+      // @ts-ignore
+      form.setValue(id, value.toString());
+      return;
+    }
+    const orderedArr = reorderItems({ curIds, id });
     const fieldOneID = orderedArr[0];
     const fieldTwoID = orderedArr[1];
 
     const contractValue = form.getValues('contractValue');
 
-        if (!contractValue) {
-            // @ts-ignore
-            form.setValue(fieldOneID, value.toString())
-            return
-        }
+    if (!contractValue) {
+      // @ts-ignore
+      form.setValue(fieldOneID, value.toString());
+      return;
+    }
     const _contractValue = new Decimal(contractValue);
     const _fieldOneStore = new Decimal(value);
 
-        const recountedValue = _contractValue.div(_fieldOneStore).toString();
-        // @ts-ignore
-        form.setValue(fieldTwoID, recountedValue);
-        // @ts-ignore
-        form.setValue(fieldOneID, value.toString());
+    const recountedValue = _contractValue.div(_fieldOneStore).toString();
+    // @ts-ignore
+    form.setValue(fieldTwoID, recountedValue);
+    // @ts-ignore
+    form.setValue(fieldOneID, value.toString());
+  }
+
+  function handleRecountValues({
+    currentID,
+    bindedID,
+    value,
+    pricingModel,
+  }: IHandleRecountValue) {
+    const isCurtargetFDV = currentID === 'targetFDV';
+
+    const contractValue_ = form.getValues('contractValue');
+    const roundFDV_ = form.getValues('roundFDV');
+    //@ts-ignore
+    const denom_ = form.getValues(StepThreeRecountFieldByLotType[data.lotType]);
+
+    if (!contractValue_ || !roundFDV_ || !denom_) {
+      // @ts-ignore
+      form.setValue(currentID, value);
+      return;
     }
 
-    function handleRecountValues({currentID, bindedID, value, pricingModel}: IHandleRecountValue) {
-        const isCurtargetFDV = currentID === 'targetFDV';
+    const contractSizeToOffer = new Decimal(
+      form.getValues('contractSizeToOffer'),
+    );
+    const contractValue = new Decimal(contractValue_);
+    const targetFDV = new Decimal(
+      isCurtargetFDV ? value : form.getValues('targetFDV'),
+    );
+    const roundFDV = new Decimal(roundFDV_);
+    const equityToOffer = new Decimal(form.getValues('equityToOffer'));
+    const _value = new Decimal(value);
 
-        const contractValue_ = form.getValues('contractValue');
-        const roundFDV_ = form.getValues('roundFDV');
-        //@ts-ignore
-        const denom_ = form.getValues(StepThreeRecountFieldByLotType[data.lotType]);
+    // @ts-ignore
+    const denom = new Decimal(denom_);
 
-        if (!contractValue_ || !roundFDV_ || !denom_) {
-            // @ts-ignore
-            form.setValue(currentID, value);
-            return
-        }
+    const { _bindedID, _result, _currentID } = getRecountedValue({
+      contractSizeToOffer,
+      contractValue,
+      targetFDV,
+      roundFDV,
+      equityToOffer,
+      _value,
+      denom,
+      pricingModel,
+      currentID,
+      bindedID,
+    });
 
-        const contractSizeToOffer = new Decimal(form.getValues('contractSizeToOffer'))
-        const contractValue = new Decimal(contractValue_);
-        const targetFDV = new Decimal(isCurtargetFDV ? value : form.getValues('targetFDV'));
-        const roundFDV = new Decimal(roundFDV_);
-        const equityToOffer = new Decimal(form.getValues('equityToOffer'));
-        const _value = new Decimal(value);
-
-        // @ts-ignore
-        const denom = new Decimal(denom_);
-
-
-        const {_bindedID, _result, _currentID} = getRecountedValue({
-            contractSizeToOffer,
-            contractValue,
-            targetFDV,
-            roundFDV,
-            equityToOffer,
-            _value,
-            denom,
-            pricingModel,
-            currentID,
-            bindedID
-        });
-
-        // @ts-ignore
-        form.setValue(_bindedID, _result);
-        // @ts-ignore
-        form.setValue(_currentID, value);
-    }
+    // @ts-ignore
+    form.setValue(_bindedID, _result);
+    // @ts-ignore
+    form.setValue(_currentID, value);
+  }
 
   function toggleTypeOfDeal(dealType) {
     form.reset(getDefaultValues(dealType));
@@ -127,7 +138,7 @@ export const CreateOffer: React.FC = observer(() => {
 
   return (
     <HStack justifyContent={'center'} mt={'20px'} gap="2rem">
-      <FormWrapper width="100%">
+      <FormWrapper width="full">
         <HStack justifyContent={'space-between'}>
           <VStack gap="0" alignItems="start" marginBottom="1.5rem">
             <Heading size="md" fontFamily="promo">
@@ -140,16 +151,16 @@ export const CreateOffer: React.FC = observer(() => {
           <RadioButtons
             items={[
               { label: 'Buy', value: 'Buy' },
-                // @ts-ignore
+              // @ts-ignore
               { label: 'Sell', value: 'Sell' },
             ]}
             onChange={toggleTypeOfDeal}
             variant="solid"
-              // @ts-ignore
+            // @ts-ignore
             value={typeOfDeal}
             mapColorByValue={(value) => {
               // @ts-ignore
-                if (value === ETypeOfDeal.SELL) return 'red.500';
+              if (value === ETypeOfDeal.SELL) return 'red.500';
               if (value === ETypeOfDeal.BUY) return 'green.500';
             }}
           />
@@ -191,11 +202,13 @@ export const CreateOffer: React.FC = observer(() => {
               <HStack gap="0.5rem" marginBottom="2.5rem">
                 <Badge>{typeOfDeal === ETypeOfDeal.SELL ? 3 : 2} step</Badge>
                 <Text fontSize="sm" fontWeight="bold">
-                  {typeOfDeal === ETypeOfDeal.SELL ? 'Pricing details' : 'Lot info'}
+                  {typeOfDeal === ETypeOfDeal.SELL
+                    ? 'Pricing details'
+                    : 'Lot info'}
                 </Text>
               </HStack>
               <ProjectDetails
-                  // @ts-ignore
+                // @ts-ignore
                 form={form}
                 lotType={data.lotType as ELotType}
                 handleRecountValues={handleRecountValues}

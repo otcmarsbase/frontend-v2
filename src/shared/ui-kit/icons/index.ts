@@ -15,3 +15,4 @@ export * from './HotIcon';
 export * from './KebabMenuIcon';
 export * from './CloseModalIcon';
 export * from './OfferTypeIcon';
+export * from './LinkWalletIcon';

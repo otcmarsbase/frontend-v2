@@ -1,7 +1,3 @@
 export namespace LotFlow {
-  export enum LotType {
-    SAFE = 'SAFE',
-    SAFT = 'SAFT',
-    TOKEN_WARRANT = 'TOKEN_WARRANT',
-  }
+  export type LotType = 'SAFE' | 'SAFT' | 'TOKEN_WARRANT';
 }

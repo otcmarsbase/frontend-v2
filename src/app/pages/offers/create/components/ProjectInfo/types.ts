@@ -5,7 +5,12 @@ export enum IInvAccType {
   FAMILY_OFFICE = 'Family Office',
   DAO = 'DAO',
 }
-export type TInvAccType = 'Individual' | 'VC' | 'Hedge Fund' | 'Family Office' | 'DAO'
+export type TInvAccType =
+  | 'Individual'
+  | 'VC'
+  | 'Hedge Fund'
+  | 'Family Office'
+  | 'DAO';
 export const InvAccTypes: IInvAccType[] = [
   IInvAccType.INDIVIDUAL,
   IInvAccType.VC,
@@ -13,7 +18,7 @@ export const InvAccTypes: IInvAccType[] = [
   IInvAccType.FAMILY_OFFICE,
   IInvAccType.DAO,
 ];
-export type TLotType = 'SAFE' | 'SAFT' | 'Token warrant'
+export type TLotType = 'SAFE' | 'SAFT' | 'Token warrant';
 export enum ELotType {
   SAFE = 'SAFE',
   SAFT = 'SAFT',

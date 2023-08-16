@@ -1,4 +1,7 @@
-import {ELotType, IInvAccType} from "@app/pages/offers/create/components/ProjectInfo/types";
+import {
+  ELotType,
+  IInvAccType,
+} from '@app/pages/offers/create/components/ProjectInfo/types';
 
 export const ProjectInfoFields = {
   PROJECT_NAME: 'Project Name',
@@ -14,8 +17,8 @@ export const ProjectInfoFields = {
   TYPES_OF_BUYER: 'Type of buyer',
   DEADLINE_DATE: 'Deadline',
   IS_READY_TO_SVP: 'Ready to SPV',
-  NO_LIMITATION: 'No limitation'
-}
+  NO_LIMITATION: 'No limitation',
+};
 
 export const LotTypes = [ELotType.SAFE, ELotType.SAFT, ELotType.TOKEN_WARRANT];
 export const InvAccTypes: IInvAccType[] = [
@@ -25,4 +28,3 @@ export const InvAccTypes: IInvAccType[] = [
   IInvAccType.FAMILY_OFFICE,
   IInvAccType.DAO,
 ];
-
