@@ -1,6 +1,12 @@
 {
-  "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:storybook/recommended",
+    "prettier"
+  ],
   "plugins": ["import"],
+  "parser": "@typescript-eslint/parser",
   "overrides": [
     {
       "files": ["**/*.ts?(x)"],
@@ -49,7 +55,7 @@
               "order": "asc",
               "caseInsensitive": true
             },
-            "newlines-between": "never"
+            "newlines-between": "always"
           }
         ]
       }

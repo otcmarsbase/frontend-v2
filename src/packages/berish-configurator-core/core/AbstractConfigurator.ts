@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IConfigurator } from './IConfigurator';
 
 export abstract class AbstractConfigurator<Schema extends Record<string, any>>
@@ -36,7 +38,7 @@ export abstract class AbstractConfigurator<Schema extends Record<string, any>>
 
   use<T, K>(value: T | null | undefined, initCallback: (value: T) => K): K {
     return typeof value === 'undefined' || value === null
-      ? value as undefined
+      ? (value as undefined)
       : initCallback(value);
   }
 

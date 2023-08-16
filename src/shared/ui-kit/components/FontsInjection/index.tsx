@@ -1,4 +1,5 @@
 import { Global } from '@emotion/react';
+
 import '@fontsource-variable/inter';
 import EurofontExtendedCWoff from './fonts/EurofontExtendedC-Bold.woff';
 import EurofontExtendedCWoff2 from './fonts/EurofontExtendedC-Bold.woff2';

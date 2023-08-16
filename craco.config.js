@@ -1,7 +1,8 @@
 const exec = require('child_process').exec;
 const path = require('path');
-const {pathsToModuleNameMapper} = require("ts-jest");
+const { pathsToModuleNameMapper } = require('ts-jest');
 const { compilerOptions } = require('./tsconfig.json');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
   jest: {
@@ -25,6 +26,12 @@ module.exports = {
       '@packages': path.resolve(__dirname, 'src/packages'),
     },
     plugins: [
+      new ESLintPlugin({
+        extensions: ['ts', 'tsx', 'js', 'jsx'],
+        useEslintrc: true,
+        fix: true,
+        fixTypes: ['problem', 'layout', 'suggestion'],
+      }),
       {
         apply: (compiler) => {
           compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {

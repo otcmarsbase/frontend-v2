@@ -1,7 +1,8 @@
 import { ModalController, router } from '@app/logic';
 import { ChooseOfferTypeModal } from '@app/modals';
-import {ETypeOfDeal} from "@app/pages/offers/create/types";
+import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import { useStore } from '@app/store';
+
 import pages from '../pages';
 
 export const useCreateOfferModal = () => {
