@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IConfigurator } from './IConfigurator';
 
 export abstract class AbstractConfigurator<Schema extends Record<string, any>>
