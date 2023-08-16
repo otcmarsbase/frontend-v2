@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import {
   FormBlockElement,
@@ -8,12 +9,16 @@ import {
   UseFormReturn,
 } from '@shared/ui-kit';
 import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
-import { ProjectInfoFields } from './constants';
-import { ILotType, InvAccTypes, LotTypes } from './types';
 
-export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
-  props,
-) => {
+import { ETypeOfDeal } from '../../types';
+
+import { ProjectInfoFields } from './constants';
+import { ELotType, InvAccTypes, LotTypes } from './types';
+
+export const ProjectInfo: FC<{
+  form: UseFormReturn;
+  typeOfDeal: ETypeOfDeal;
+}> = (props) => {
   const { form, typeOfDeal } = props;
   const { register, getValues, formState, setValue, isRequired } = form;
   const { errors } = formState;
@@ -28,7 +33,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
         <FormField
           register={register}
           errors={errors}
-          name="projectName"
+          name={'projectName'}
           value={getValues('projectName')}
           w="100%"
           component={<Input placeholder={ProjectInfoFields.PROJECT_NAME} />}
@@ -37,7 +42,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
           register={register}
           errors={errors}
           w="100%"
-          name="projectWebsite"
+          name={'projectWebsite'}
           value={getValues('projectWebsite')}
           component={<Input placeholder={ProjectInfoFields.PROJECT_WEBSITE} />}
         />
@@ -60,14 +65,14 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
       <FormBlockElement grid={{ cols: 2 }}>
         <FormField
           register={register}
-          name="isReAssigned"
+          name={'isReAssigned'}
           value={getValues('isReAssigned')}
           component={<Checkbox>{ProjectInfoFields.IS_RE_ASSIGNED}</Checkbox>}
         />
-        {getValues('lotType') === ILotType.SAFE ? (
+        {getValues('lotType') === ELotType.SAFE ? (
           <FormField
             register={register}
-            name="isTokenWarrant"
+            name={'isTokenWarrant'}
             value={getValues('isTokenWarrant')}
             component={
               <Checkbox>{ProjectInfoFields.IS_TOKEN_WARRANT}</Checkbox>
@@ -76,7 +81,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
         ) : null}
       </FormBlockElement>
 
-      {typeOfDeal === 'Sell' ? (
+      {typeOfDeal === ETypeOfDeal.SELL ? (
         <FormBlockElement
           label={ProjectInfoFields.TYPES_OF_SELLER}
           isRequired={isRequired('typesOfSeller')}
@@ -94,7 +99,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
           />
           <FormField
             register={register}
-            name="isDirectSeller"
+            name={'isDirectSeller'}
             value={getValues('isDirectSeller')}
             component={
               <Checkbox>{ProjectInfoFields.IS_DIRECT_SELLER}</Checkbox>
@@ -119,7 +124,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
           />
           <FormField
             register={register}
-            name="noLimitation"
+            name={'noLimitation'}
             value={getValues('noLimitation')}
             component={<Checkbox>{ProjectInfoFields.NO_LIMITATION}</Checkbox>}
           />
@@ -133,13 +138,13 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
         <FormField
           register={register}
           errors={errors}
-          name="telegram"
+          name={'telegram'}
           component={<Input placeholder="@nickname" />}
           value={getValues('telegram')}
         />
       </FormBlockElement>
 
-      {typeOfDeal === 'Sell' ? (
+      {typeOfDeal === ETypeOfDeal.SELL ? (
         <FormBlockElement
           label={ProjectInfoFields.TYPES_OF_BUYER}
           isRequired={isRequired('typesOfBuyer')}
@@ -163,7 +168,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
           />
           <FormField
             register={register}
-            name="noLimitation"
+            name={'noLimitation'}
             value={getValues('noLimitation')}
             component={<Checkbox>{ProjectInfoFields.NO_LIMITATION}</Checkbox>}
           />
@@ -186,7 +191,7 @@ export const ProjectInfo: FC<{ form: UseFormReturn; typeOfDeal: string }> = (
           />
           <FormField
             register={register}
-            name="isDirectSeller"
+            name={'isDirectSeller'}
             value={getValues('isDirectSeller')}
             component={
               <Checkbox>{ProjectInfoFields.IS_DIRECT_SELLER}</Checkbox>

@@ -6,6 +6,7 @@ import {
   Path,
   UseFormRegister,
 } from 'react-hook-form';
+
 import {
   FormControl,
   FormControlProps,
@@ -16,6 +17,7 @@ import {
   Input,
   Checkbox,
 } from '@chakra-ui/react';
+
 import { Select, SelectProps } from '../Select';
 
 type IFieldErrors<TFieldValues extends FieldValues = FieldValues> = DeepMap<

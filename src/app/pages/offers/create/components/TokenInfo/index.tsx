@@ -1,15 +1,20 @@
 import { FC } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import { FormBlockElement, FormField, UseFormReturn } from '@shared/ui-kit';
 import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
+
 import { PriceInfo } from '../PriceInfo';
+import { ELotType, TLotType } from '../ProjectInfo/types';
+
 import { TokenInfoFields } from './constants';
 
 export const TokenInfo: FC<{
   form: UseFormReturn;
-  lotType: string;
-  handleRecountPriceInfoValues: (curIds: [], id: string, value: string) => void;
+  lotType: TLotType;
+  handleRecountPriceInfoValues: ({ curIds, id, value }) => void;
 }> = observer((props) => {
   const { lotType, form, handleRecountPriceInfoValues } = props;
   const { register, getValues, formState, setValue, isRequired } = form;
@@ -52,14 +57,14 @@ export const TokenInfo: FC<{
         <FormField
           register={register}
           errors={errors}
-          name="contractValue"
+          name={'contractValue'}
           value={getValues('contractValue')}
           component={
             <Input type="number" placeholder={TokenInfoFields.CONTRACT_VALUE} />
           }
         />
       </FormBlockElement>
-      {lotType !== 'SAFE' && (
+      {lotType !== ELotType.SAFE && (
         <>
           <FormBlockElement
             label={TokenInfoFields.DATES}
@@ -118,6 +123,7 @@ export const TokenInfo: FC<{
         isRequired={isRequired('target_fdv') || isRequired('price_per_equity')}
       >
         <PriceInfo
+          // @ts-ignore
           form={props.form}
           lotType={lotType}
           label="Price info"

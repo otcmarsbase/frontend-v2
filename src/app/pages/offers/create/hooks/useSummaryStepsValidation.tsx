@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+
+import { EPricingModel, ETypeOfDeal, ICreateOfferFieldTypes } from '../types';
 import { isValidField } from '../utils';
 
 interface IUseCustomFieldValidation {
-  data: any;
-  typeOfDeal: string;
+  data: ICreateOfferFieldTypes;
+  typeOfDeal: ETypeOfDeal;
   sellOfferStore: any;
 }
 export const useSummaryStepsValidation = ({
@@ -62,14 +64,14 @@ export const useSummaryStepsValidation = ({
     }
 
     let additionalDep = false;
-    if (typeOfPricingModel === 'In Stablecoin') {
+    if (typeOfPricingModel === EPricingModel.IN_STABLECOIN) {
       additionalDep =
         isValidField(contractSizeToOffer) && isValidField(minDealSize);
-    } else if (typeOfPricingModel === 'In Equity') {
+    } else if (typeOfPricingModel === EPricingModel.IN_EQUITY) {
       additionalDep = isValidField(equityToOffer) && isValidField(minEquityBid);
-    } else if (typeOfPricingModel === 'In Token') {
+    } else if (typeOfPricingModel === EPricingModel.IN_TOKEN) {
       additionalDep = isValidField(tokensToOffer) && isValidField(minTokenBid);
-    } else if (typeOfPricingModel === 'In Token Shares') {
+    } else if (typeOfPricingModel === EPricingModel.IN_TOKEN_SHARES) {
       additionalDep =
         isValidField(tokenShareToOffer) && isValidField(minTokenShareBid);
     }
@@ -83,14 +85,14 @@ export const useSummaryStepsValidation = ({
     setBasicInfo(data);
   }, [
     data,
-    setBasicInfo,
+    typeOfDeal,
     setStepOneSuccess,
     setStepOneWasOnSuccess,
-    setStepThreeSuccess,
-    setStepThreeWasOnSuccess,
-    setStepTwoSuccess,
-    setStepTwoWasOnSuccess,
-    typeOfDeal,
     typeOfPricingModel,
+    setStepTwoSuccess,
+    setStepThreeSuccess,
+    setBasicInfo,
+    setStepTwoWasOnSuccess,
+    setStepThreeWasOnSuccess,
   ]);
 };

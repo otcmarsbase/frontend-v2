@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import {
   Circle,
   HStack,
@@ -8,7 +9,8 @@ import {
   Divider,
   Box,
 } from '@chakra-ui/react';
-import { AlertCircle } from '@shared/ui-kit/icons/AlertCurcle';
+import { AlertCircle } from '@shared/ui-kit';
+
 import { CheckmarkIcon, ChevronDownIcon, WaitingIcon } from '../../icons';
 
 export interface SummaryStepProps extends Omit<StackProps, 'children'> {

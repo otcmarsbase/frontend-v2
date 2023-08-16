@@ -1,39 +1,36 @@
 import { FC } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+
 import { observer } from 'mobx-react-lite';
+
 import { useStore } from '@app/store';
 import { Checkbox, HStack, Input, VStack } from '@chakra-ui/react';
 import { FormBlockElement, FormField, RadioButtons } from '@shared/ui-kit';
+
+import {
+  EPricingModel,
+  ETypeOfDeal,
+  TCreateOfferFieldTypes,
+} from '../../types';
+
 import {
   STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE,
   STEP_THREE_FIELDS_BY_LOT_TYPE,
   STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE,
   StepThreeFields,
-} from './constants';
+} from './consts';
+import { IProjectDetailsProps } from './types';
 
-interface IHandleRecount {
-  currentID: string;
-  bindedID: string;
-  value: string;
-  pricingModel: string;
-}
-
-export const ProjectDetails: FC<{
-  form: UseFormReturn;
-  lotType: any;
-  handleRecountValues: (values: IHandleRecount) => void;
-  label: string;
-  typeOfDeal: string;
-}> = observer((props) => {
+export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
   const { form, lotType, handleRecountValues, typeOfDeal } = props;
   const { getValues, formState, register } = form;
   const { errors } = formState;
   const { sellOfferStore } = useStore();
   const { typeOfPricingModel } = sellOfferStore;
 
-  function switchPricingModel(btnId) {
+  function switchPricingModel(btnId: EPricingModel) {
     sellOfferStore.setTypeOfPricingModel(btnId);
   }
+
   const leftBtnLabel =
     STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].leftBtnLabel;
   const rightBtnLabel =
@@ -50,7 +47,7 @@ export const ProjectDetails: FC<{
       <VStack>
         <HStack w={'100%'}>
           <RadioButtons
-            w="100%"
+            w={'100%'}
             value={sellOfferStore.typeOfPricingModel}
             items={[
               { value: leftBtnLabel, label: leftBtnLabel },
@@ -60,12 +57,12 @@ export const ProjectDetails: FC<{
           />
         </HStack>
 
-        {typeOfPricingModel === 'In Stablecoin' ? (
+        {typeOfPricingModel === EPricingModel.IN_STABLECOIN ? (
           <HStack w={'100%'} padding={'24px'}>
             <FormField
               register={register}
               errors={errors}
-              name="contractSizeToOffer"
+              name={'contractSizeToOffer'}
               value={getValues('contractSizeToOffer')}
               w="100%"
               component={<Input type="number" placeholder="Amount" />}
@@ -74,7 +71,7 @@ export const ProjectDetails: FC<{
             <FormField
               register={register}
               errors={errors}
-              name="minDealSize1"
+              name={'minDealSize'}
               value={getValues('minDealSize')}
               w="100%"
               component={<Input type="number" placeholder="Amount" />}
@@ -98,7 +95,6 @@ export const ProjectDetails: FC<{
             })}
           </HStack>
         )}
-
         <HStack w={'100%'} layerStyle="orangeGradient">
           <FormField
             name="targetFDV"
@@ -111,7 +107,7 @@ export const ProjectDetails: FC<{
                 onChange={(e) =>
                   handleRecountValues({
                     currentID: 'targetFDV',
-                    bindedID: bottomFieldID,
+                    bindedID: bottomFieldID as TCreateOfferFieldTypes,
                     value: e.currentTarget.value,
                     pricingModel: typeOfPricingModel,
                   })
@@ -119,7 +115,6 @@ export const ProjectDetails: FC<{
               />
             }
           />
-
           <FormField
             label={STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].fieldLabel}
             value={getValues(STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].id)}
@@ -130,7 +125,7 @@ export const ProjectDetails: FC<{
                 type="number"
                 onChange={(e) =>
                   handleRecountValues({
-                    currentID: e.currentTarget.id,
+                    currentID: e.currentTarget.id as TCreateOfferFieldTypes,
                     bindedID: 'targetFDV',
                     value: e.currentTarget.value,
                     pricingModel: typeOfPricingModel,
@@ -140,10 +135,10 @@ export const ProjectDetails: FC<{
             }
           />
         </HStack>
-        {typeOfDeal === 'Sell' ? (
+        {typeOfDeal === ETypeOfDeal.SELL ? (
           <FormField
             register={register}
-            name="offerTheBestBid"
+            name={'offerTheBestBid'}
             value={getValues('offerTheBestBid')}
             component={
               <Checkbox>{StepThreeFields.OFFER_THE_BEST_BID}</Checkbox>

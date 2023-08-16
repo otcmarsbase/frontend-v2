@@ -14,6 +14,7 @@ import {
   Dropdown,
 } from '@shared/ui-kit';
 import { Property } from 'csstype';
+
 import { Common } from '../../../types';
 
 export interface LotRowProps extends StackProps {

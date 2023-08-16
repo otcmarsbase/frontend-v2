@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { FilterRenderPayload } from './types';
 
 export interface FilterProps<T> {

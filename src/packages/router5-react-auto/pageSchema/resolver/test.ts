@@ -1,5 +1,6 @@
 import { Common } from '@shared/types';
-import { PageSchema, PageSchemaStringify } from '../pageSchema';
+
+import { PageSchema } from '../pageSchema';
 
 export interface MyOfferProps {
   filters?: {
@@ -17,6 +18,8 @@ export interface MyOfferProps {
   };
 }
 
+// TODO delete this after implementation
+// eslint-disable-next-line
 const props: Record<string, any> = {
   filters: {
     search: '123',

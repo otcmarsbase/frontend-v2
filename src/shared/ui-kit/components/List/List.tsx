@@ -1,5 +1,7 @@
 import { Fragment } from 'react';
+
 import { Stack, StackProps } from '@chakra-ui/react';
+
 import { EmptyData } from '../EmptyData';
 import { Loader } from '../Loader';
 

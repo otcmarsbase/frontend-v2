@@ -1,6 +1,8 @@
 import { Router } from 'router5';
+
 import { RouterContextProvider } from '../context';
 import { PageComponent, PageRenderFunction } from '../core';
+
 import { PageRoute } from './PageRoute';
 
 export interface RouterProviderProps {

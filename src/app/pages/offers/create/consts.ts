@@ -1,13 +1,15 @@
-import { TokenInfoFields } from '@app/pages/offers/create/components/TokenInfo/constants';
+import { ELotType, TLotType } from './components/ProjectInfo/types';
+import { TokenInfoFields } from './components/TokenInfo/constants';
+import { ICreateOfferFieldTypes } from './types';
 
-export const formDefaultValues = {
+export const formDefaultValues: ICreateOfferFieldTypes = {
   typesOfBuyer: [],
   typesOfSeller: [],
   projectName: '',
   projectWebsite: '',
-  lotType: 'SAFE',
+  lotType: ELotType.SAFE,
   telegram: '',
-  deadlineDate: '',
+  deadlineDate: new Date(),
   investmentRound: '',
   targetFDV: null,
   tokensBought: null,
@@ -26,8 +28,8 @@ export const formDefaultValues = {
   totalEquityBought: null,
 };
 
-export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE = {
-  SAFE: [
+export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE: Record<TLotType, {}> = {
+  [ELotType.SAFE]: [
     {
       id: 'totalEquityBought',
       fieldLabel: TokenInfoFields.TOTAL_EQUITY_BOUGHT,
@@ -37,7 +39,7 @@ export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE = {
       fieldLabel: TokenInfoFields.PRICE_PER_EQUITY,
     },
   ],
-  SAFT: [
+  [ELotType.SAFT]: [
     {
       id: 'tokensBought',
       fieldLabel: TokenInfoFields.TOKENS_BOUGHT,
@@ -47,7 +49,7 @@ export const STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE = {
       fieldLabel: TokenInfoFields.PRICE_PER_TOKEN,
     },
   ],
-  'Token warrant': [
+  [ELotType.TOKEN_WARRANT]: [
     {
       id: 'tokensShareBought',
       fieldLabel: TokenInfoFields.TOKENS_SHARE_BOUGHT,

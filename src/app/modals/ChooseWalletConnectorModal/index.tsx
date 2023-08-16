@@ -1,9 +1,11 @@
 import { memo, useCallback } from 'react';
+
 import { VStack, Text, Spinner } from '@chakra-ui/react';
 import { PortalProps } from '@packages/react-portal';
 import { WalletConnectorName } from '@shared/types';
 import { Modal } from '@shared/ui-kit';
 import { useConnect } from 'wagmi';
+
 import { ConnectorItem } from './components';
 
 export interface ChooseWalletConnectorModalProps extends PortalProps<boolean> {}

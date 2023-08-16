@@ -1,5 +1,7 @@
 import { Router } from 'router5';
+
 import { PageComponent } from '../types';
+
 import { findRouteByComponentWrapper } from './findRouteByComponent';
 
 export type IsActiveRouteByComponentFunction = (

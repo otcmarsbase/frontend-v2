@@ -1,6 +1,8 @@
 import { Router } from 'router5';
+
 import { serializeQueryParameters } from '../query';
 import { PageComponent } from '../types';
+
 import { findRouteByComponentWrapper } from './findRouteByComponent';
 
 export type BuildPathByComponentFunction<P> = (

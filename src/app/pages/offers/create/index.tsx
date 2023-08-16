@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import * as Layouts from '@app/layouts';
 import { useStore } from '@app/store';
 import { HStack, VStack, Text, Heading, Badge, Box } from '@chakra-ui/react';
@@ -10,27 +12,30 @@ import {
   useForm,
 } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
+
 import { ProjectInfo, Summary, TokenInfo } from './components';
 import { ProjectDetails } from './components/ProjectDetails';
-import { ILotType } from './components/ProjectInfo/types';
-import { formDefaultValues } from './constants';
+import { ELotType } from './components/ProjectInfo/types';
+import { formDefaultValues } from './consts';
 import { useFormStepsValidation } from './hooks/useFormStepsValdiation';
 import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
-import { SellOfferSchema } from './schemas';
+import { CreateOfferSchema } from './schemas';
+import {
+  EPricingModel,
+  ETypeOfDeal,
+  IHandleRecountProps,
+  IHandleRecountValue,
+  StepThreeRecountFieldByLotType,
+} from './types';
 import { getDefaultValues, getRecountedValue, reorderItems } from './utils';
 
-const StepThreeRecountFieldByLotType = {
-  SAFE: 'totalEquityBought',
-  SAFT: 'tokensBought',
-  'Token warrant': 'tokensShareBought',
-};
 export const CreateOffer: React.FC = observer(() => {
   const { sellOfferStore } = useStore();
 
   const { setTypeOfPricingModel, typeOfDeal, setTypeOfDeal } = sellOfferStore;
 
   const form = useForm({
-    schema: SellOfferSchema,
+    schema: CreateOfferSchema,
     defaultValues: formDefaultValues,
   });
 
@@ -43,16 +48,19 @@ export const CreateOffer: React.FC = observer(() => {
 
   useSummaryStepsValidation({ data, typeOfDeal, sellOfferStore });
   useEffect(() => {
-    setTypeOfPricingModel('In Stablecoin');
-  }, [data.lotType, setTypeOfPricingModel]);
+    setTypeOfPricingModel(EPricingModel.IN_STABLECOIN);
+  }, [data.lotType]);
 
-  function handleRecountPriceInfoValues(curIds, id, value) {
+  function handleRecountPriceInfoValues({
+    curIds,
+    id,
+    value,
+  }: IHandleRecountProps) {
     if (!value) {
       form.setValue(id, value.toString());
       return;
     }
-    const orderedArr = reorderItems(curIds, id);
-
+    const orderedArr = reorderItems({ curIds, id });
     const fieldOneID = orderedArr[0];
     const fieldTwoID = orderedArr[1];
 
@@ -62,49 +70,67 @@ export const CreateOffer: React.FC = observer(() => {
       form.setValue(fieldOneID, value.toString());
       return;
     }
-
     const _contractValue = new Decimal(contractValue);
     const _fieldOneStore = new Decimal(value);
 
     const recountedValue = _contractValue.div(_fieldOneStore).toString();
-
+    // @ts-ignore
     form.setValue(fieldTwoID, recountedValue);
+    // @ts-ignore
     form.setValue(fieldOneID, value.toString());
   }
 
-  // TODO:
-  function handleRecountValues({ currentID, bindedID, value, pricingModel }) {
+  function handleRecountValues({
+    currentID,
+    bindedID,
+    value,
+    pricingModel,
+  }: IHandleRecountValue) {
     const isCurtargetFDV = currentID === 'targetFDV';
 
-    const cv1 = Number(form.getValues('contractSizeToOffer'));
-    const cv0 = Number(form.getValues('contractValue'));
-    const fdv1 = Number(isCurtargetFDV ? value : form.getValues('targetFDV'));
-    const fdv0 = Number(form.getValues('roundFDV'));
-    const equityToOffer = Number(form.getValues('equityToOffer'));
-    const denom = Number(
-      form.getValues(StepThreeRecountFieldByLotType[data.lotType]),
-    );
+    const contractValue_ = form.getValues('contractValue');
+    const roundFDV_ = form.getValues('roundFDV');
+    //@ts-ignore
+    const denom_ = form.getValues(StepThreeRecountFieldByLotType[data.lotType]);
 
-    if (!cv0 || !fdv0 || !denom) {
+    if (!contractValue_ || !roundFDV_ || !denom_) {
+      // @ts-ignore
       form.setValue(currentID, value);
       return;
     }
+
+    const contractSizeToOffer = new Decimal(
+      form.getValues('contractSizeToOffer'),
+    );
+    const contractValue = new Decimal(contractValue_);
+    const targetFDV = new Decimal(
+      isCurtargetFDV ? value : form.getValues('targetFDV'),
+    );
+    const roundFDV = new Decimal(roundFDV_);
+    const equityToOffer = new Decimal(form.getValues('equityToOffer'));
+    const _value = new Decimal(value);
+
+    // @ts-ignore
+    const denom = new Decimal(denom_);
+
     const { _bindedID, _result, _currentID } = getRecountedValue({
-      cv1,
-      cv0,
-      fdv1,
-      fdv0,
+      contractSizeToOffer,
+      contractValue,
+      targetFDV,
+      roundFDV,
       equityToOffer,
-      value,
+      _value,
       denom,
       pricingModel,
       currentID,
+      // @ts-ignore
       bindedID,
     });
 
-    // TODO: Типизировать нормально
-    form.setValue(_bindedID as any, _result);
-    form.setValue(_currentID as any, value);
+    // @ts-ignore
+    form.setValue(_bindedID, _result);
+    // @ts-ignore
+    form.setValue(_currentID, value);
   }
 
   function toggleTypeOfDeal(dealType) {
@@ -127,14 +153,17 @@ export const CreateOffer: React.FC = observer(() => {
           <RadioButtons
             items={[
               { label: 'Buy', value: 'Buy' },
+              // @ts-ignore
               { label: 'Sell', value: 'Sell' },
             ]}
             onChange={toggleTypeOfDeal}
             variant="solid"
+            // @ts-ignore
             value={typeOfDeal}
             mapColorByValue={(value) => {
-              if (value === 'Sell') return 'red.500';
-              if (value === 'Buy') return 'green.500';
+              // @ts-ignore
+              if (value === ETypeOfDeal.SELL) return 'red.500';
+              if (value === ETypeOfDeal.BUY) return 'green.500';
             }}
           />
         </HStack>
@@ -173,17 +202,19 @@ export const CreateOffer: React.FC = observer(() => {
           {showStepThree ? (
             <FormSection>
               <HStack gap="0.5rem" marginBottom="2.5rem">
-                <Badge>{typeOfDeal === 'Sell' ? 3 : 2} step</Badge>
+                <Badge>{typeOfDeal === ETypeOfDeal.SELL ? 3 : 2} step</Badge>
                 <Text fontSize="sm" fontWeight="bold">
-                  {typeOfDeal === 'Sell' ? 'Pricing details' : 'Lot info'}
+                  {typeOfDeal === ETypeOfDeal.SELL
+                    ? 'Pricing details'
+                    : 'Lot info'}
                 </Text>
               </HStack>
               <ProjectDetails
                 // @ts-ignore
                 form={form}
-                lotType={data.lotType as ILotType}
+                lotType={data.lotType as ELotType}
+                // @ts-ignore
                 handleRecountValues={handleRecountValues}
-                label={'Pricing model'}
                 typeOfDeal={typeOfDeal}
               />
             </FormSection>
