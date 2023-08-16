@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { DashboardStore } from './dashboardStore';
-import { SellOfferStore } from './SellOfferStore';
+import { SellOfferStore } from './sellOfferStore';
 
 export class RootStore {
   // readonly web3ConnectStore: Web3ConnectStore;
