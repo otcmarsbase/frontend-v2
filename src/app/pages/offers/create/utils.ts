@@ -75,11 +75,11 @@ export function getRecountedValue({
       const totalTokensForSale = denom.mul(share0);
       _result = totalTokensForSale.mul(_value);
     }
-  }
 
-  return {
-    _bindedID: _bindedID,
-    _result: Number(_result),
-    _currentID: _currentID,
-  };
+    return {
+      _bindedID: _bindedID,
+      _result: Number(_result),
+      _currentID: _currentID,
+    };
+  }
 }

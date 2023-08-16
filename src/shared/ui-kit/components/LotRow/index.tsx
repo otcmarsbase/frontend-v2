@@ -6,6 +6,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { Common } from '@shared/types';
 import {
   Icons,
   HotIcon,
@@ -13,37 +14,42 @@ import {
   KebabMenuIcon,
   Dropdown,
 } from '@shared/ui-kit';
-import { Property } from 'csstype';
-
-import { Common } from '../../../types';
 
 export interface LotRowProps extends StackProps {
   lot: {
     lotId: number;
-    lotName: string;
-    isHot: boolean;
     direction: Common.Direction;
+    lotName: string;
+    // TODO fix this
+    type: any;
+    isHot: boolean;
     lotIconName: keyof typeof Icons.ProjectsIcons;
+    handleClickLot: ({ lotId }: { lotId: number }) => void;
     status: React.ReactElement<typeof LotStatus>;
     fields: { label: string; value: React.ReactNode }[];
   };
 }
 
-export const DIRECTION_LABEL_MAP = new Map<Common.Direction, React.ReactNode>([
-  ['BUY', 'Buy'],
-  ['SELL', 'Sell'],
-]);
-export const DIRECTION_BG_MAP = new Map<Common.Direction, Property.Color>([
-  ['BUY', 'rgba(52, 168, 83, 0.40)'],
-  ['SELL', 'rgba(232, 42, 54, 0.30)'],
-]);
-export const DIRECTION_COLOR_MAP = new Map<Common.Direction, Property.Color>([
-  ['BUY', '#34A853'],
-  ['SELL', '#E82A36'],
-]);
+const listItemTexts = {
+  type: {
+    buy: 'Buy',
+    sell: 'Sell',
+    // TODO fix this shit
+  } as Record<'buy' | 'sell', string>,
+};
 
 export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
-  const { lotId, lotName, isHot, direction, lotIconName, status, fields } = lot;
+  const {
+    lotId,
+    lotName,
+    isHot,
+    type,
+    lotIconName,
+    status,
+    fields,
+    handleClickLot,
+  } = lot;
+
   const LotIcon = Icons[lotIconName];
 
   return (
@@ -61,14 +67,17 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
         bg: 'dark.800',
       }}
       alignItems="start"
+      onClick={() => handleClickLot({ lotId })}
       {...stackProps}
     >
       <Text
         // TODO: Уточнить у дизайнеров почему цвета не из той палитры
-        bg={DIRECTION_BG_MAP.get(direction)}
+        bg={
+          type === 'buy' ? 'rgba(52, 168, 83, 0.40)' : 'rgba(232, 42, 54, 0.30)'
+        }
         padding="0.1rem 1rem"
         borderRadius="0.75rem 0rem"
-        color={DIRECTION_COLOR_MAP.get(direction)}
+        color={type === 'buy' ? '#34A853' : '#E82A36'}
         textTransform="uppercase"
         fontSize="sm"
         fontWeight={600}
@@ -76,7 +85,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
         left={0}
         top={0}
       >
-        {DIRECTION_LABEL_MAP.get(direction)}
+        {listItemTexts.type[type]}
       </Text>
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">

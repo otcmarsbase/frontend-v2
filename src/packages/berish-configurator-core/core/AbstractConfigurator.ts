@@ -36,10 +36,10 @@ export abstract class AbstractConfigurator<Schema extends Record<string, any>>
       : value;
   }
 
-  use<T, K>(value: T | null | undefined, useCallback: (value: T) => K): K {
+  use<T, K>(value: T | null | undefined, initCallback: (value: T) => K): K {
     return typeof value === 'undefined' || value === null
       ? (value as undefined)
-      : useCallback(value);
+      : initCallback(value);
   }
 
   has<Key extends keyof Schema & string>(key: Key): boolean {

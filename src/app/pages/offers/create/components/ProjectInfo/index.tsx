@@ -8,7 +8,6 @@ import {
   Select,
   UseFormReturn,
 } from '@shared/ui-kit';
-import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
 
 import { ETypeOfDeal } from '../../types';
 
@@ -201,12 +200,13 @@ export const ProjectInfo: FC<{
       )}
 
       <FormBlockElement label={ProjectInfoFields.DEADLINE_DATE}>
-        <DatePickerComp
-          handleGetDate={(date) =>
-            setValue('deadlineDate', date.toLocaleDateString())
-          }
-          isDatePickerDisabled={getValues('isPermanent')}
-        />
+        {/* TODO fix this */}
+        {/*<DatePickerComp*/}
+        {/*    handleGetDate={(date) =>*/}
+        {/*        setValue('deadlineDate', date.toLocaleDateString())*/}
+        {/*    }*/}
+        {/*    isDatePickerDisabled={getValues('isPermanent')}*/}
+        {/*/>*/}
 
         <FormField
           register={register}

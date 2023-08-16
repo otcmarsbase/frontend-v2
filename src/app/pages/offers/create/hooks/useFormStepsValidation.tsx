@@ -46,9 +46,9 @@ export const useFormStepsValidation = ({
   }, [
     stepTwoWasOnSuccess,
     stepTwoSuccess,
-    stepOneSuccess,
-    stepOneWasOnSuccess,
     typeOfDeal,
+    stepOneWasOnSuccess,
+    stepOneSuccess,
   ]);
 
   useEffect(() => {

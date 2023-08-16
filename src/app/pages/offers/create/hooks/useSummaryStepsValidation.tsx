@@ -81,18 +81,18 @@ export const useSummaryStepsValidation = ({
     if (stepTwoPassed) {
       setStepThreeWasOnSuccess(true);
     }
-
+    console.log('data', data);
     setBasicInfo(data);
   }, [
     data,
-    typeOfDeal,
+    setBasicInfo,
     setStepOneSuccess,
     setStepOneWasOnSuccess,
-    typeOfPricingModel,
-    setStepTwoSuccess,
     setStepThreeSuccess,
-    setBasicInfo,
-    setStepTwoWasOnSuccess,
     setStepThreeWasOnSuccess,
+    setStepTwoSuccess,
+    setStepTwoWasOnSuccess,
+    typeOfDeal,
+    typeOfPricingModel,
   ]);
 };

@@ -1,12 +1,7 @@
-import {
-  EStepTypes,
-  StepsText,
-} from '@app/pages/offers/create/components/Summary/constants';
-import {
-  IGetTargetFieldsProps,
-  INormFieldsReturn,
-} from '@app/pages/offers/create/components/Summary/types';
-import { EPricingModel } from '@app/pages/offers/create/types';
+import { EPricingModel } from '../../types';
+
+import { EStepTypes, StepsText } from './constants';
+import { IGetTargetFieldsProps, INormFieldsReturn } from './types';
 
 export const getTargetFields = ({
   step,

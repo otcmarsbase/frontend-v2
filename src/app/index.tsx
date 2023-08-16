@@ -8,13 +8,13 @@ import pages from './pages';
 
 export const App: React.FC = () => {
   return (
-    <WalletProvider>
-      <ThemeProvider>
-        <AppLoad loader={GlobalPreload} preload={onAppLoad}>
-          <ModalProvider />
-          <RouterProvider router={router} notFound={pages.errors._404} />
-        </AppLoad>
-      </ThemeProvider>
-    </WalletProvider>
+    // <WalletProvider>
+    <ThemeProvider>
+      <AppLoad loader={GlobalPreload} preload={onAppLoad}>
+        <ModalProvider />
+        <RouterProvider router={router} notFound={pages.errors._404} />
+      </AppLoad>
+    </ThemeProvider>
+    // </WalletProvider>
   );
 };

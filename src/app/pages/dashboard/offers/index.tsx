@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
+import LotView from '@app/pages/dashboard/lotView';
 import { DashboardListType } from '@app/store';
 import { Button, VStack } from '@chakra-ui/react';
 import { Paginate, Dashboard, Common } from '@shared/types';
@@ -108,10 +109,13 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
           <LotRow
             lot={{
               lotId: item.id,
+              type: item.offerType,
               lotName: item.lotName,
               lotIconName: item.lotIconName,
               direction: item.offerType,
               isHot: item.isHot,
+              handleClickLot: ({ lotId }) =>
+                router.navigateComponent(LotView, { lotId }),
               status: <LotStatus value={item.status} />,
               fields: [
                 { label: 'Lot type', value: item.lotType },

@@ -17,7 +17,7 @@ import { ProjectInfo, Summary, TokenInfo } from './components';
 import { ProjectDetails } from './components/ProjectDetails';
 import { ELotType } from './components/ProjectInfo/types';
 import { formDefaultValues } from './consts';
-import { useFormStepsValidation } from './hooks/useFormStepsValdiation';
+import { useFormStepsValidation } from './hooks/useFormStepsValidation';
 import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
 import { CreateOfferSchema } from './schemas';
 import {
@@ -49,7 +49,7 @@ export const CreateOffer: React.FC = observer(() => {
   useSummaryStepsValidation({ data, typeOfDeal, sellOfferStore });
   useEffect(() => {
     setTypeOfPricingModel(EPricingModel.IN_STABLECOIN);
-  }, [data.lotType]);
+  }, [data.lotType, setTypeOfPricingModel]);
 
   function handleRecountPriceInfoValues({
     curIds,

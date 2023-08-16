@@ -2,12 +2,13 @@ import { FC } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { PriceInfo } from '@app/pages/offers/create/components/PriceInfo';
+import {
+  ELotType,
+  TLotType,
+} from '@app/pages/offers/create/components/ProjectInfo/types';
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import { FormBlockElement, FormField, UseFormReturn } from '@shared/ui-kit';
-import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
-
-import { PriceInfo } from '../PriceInfo';
-import { ELotType, TLotType } from '../ProjectInfo/types';
 
 import { TokenInfoFields } from './constants';
 
@@ -19,7 +20,6 @@ export const TokenInfo: FC<{
   const { lotType, form, handleRecountPriceInfoValues } = props;
   const { register, getValues, formState, setValue, isRequired } = form;
   const { errors } = formState;
-
   return (
     <VStack gap="2.25rem">
       <FormBlockElement
@@ -70,10 +70,10 @@ export const TokenInfo: FC<{
             label={TokenInfoFields.DATES}
             // isRequired={isRequired('lockupPeriod')}
           >
-            <DatePickerComp
-              handleGetDate={(date) => setValue('dates', date)}
-              isDatePickerDisabled={false}
-            />
+            {/*<DatePickerComp*/}
+            {/*    handleGetDate={(date)=>setValue('dates', date)}*/}
+            {/*    isDatePickerDisabled={false}*/}
+            {/*/>*/}
           </FormBlockElement>
 
           <FormBlockElement
