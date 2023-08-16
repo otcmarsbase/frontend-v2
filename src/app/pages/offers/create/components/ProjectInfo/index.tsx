@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
+
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import {
   FormBlockElement,
@@ -9,6 +9,9 @@ import {
   UseFormReturn,
 } from '@shared/ui-kit';
 import { DatePickerComp } from '@shared/ui-kit/components/DataPicker';
+
+import { ETypeOfDeal } from '../../types';
+
 import { ProjectInfoFields } from './constants';
 import { ELotType, InvAccTypes, LotTypes } from './types';
 

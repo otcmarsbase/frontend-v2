@@ -1,10 +1,13 @@
 import { UseFormReturn } from 'react-hook-form';
-import { TLotType } from '@app/pages/offers/create/components/ProjectInfo/types';
+
 import {
   EPricingModel,
   ETypeOfDeal,
   TCreateOfferFieldTypes,
-} from '@app/pages/offers/create/types';
+} from '../../types';
+import { TLotType } from '../ProjectInfo/types';
+
+
 
 export interface IHandleRecount {
   currentID: TCreateOfferFieldTypes;

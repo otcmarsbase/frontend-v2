@@ -10,5 +10,5 @@ export type PageParser<Income, Outcome> =
 
 export type PageParserString<Outcome> = PageParser<string, Outcome>;
 
-// export type PageSchemaParser<T> = (value: string) => T;
-// export type PageSchemaArrayParser<T> = (value: string[]) => T[];
+export type PageSchemaParser<T> = (value: string) => T;
+export type PageSchemaArrayParser<T> = (value: string[]) => T[];

@@ -1,9 +1,10 @@
+import Decimal from 'decimal.js';
+
 import {
   ELotType,
   TInvAccType,
   TLotType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
-import Decimal from 'decimal.js';
+} from './components/ProjectInfo/types';
 
 export interface IHandleRecountProps {
   curIds: ICreateOfferFieldTypes[];

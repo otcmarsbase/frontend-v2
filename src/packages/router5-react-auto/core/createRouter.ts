@@ -1,4 +1,5 @@
 import createRouter5, { PluginFactory, Route } from 'router5';
+
 import {
   buildPathByComponentWrapper,
   findRouteByComponentWrapper,

@@ -1,6 +1,6 @@
-import { ELotType } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { TokenInfoFields } from '@app/pages/offers/create/components/TokenInfo/constants';
-import { EPricingModel } from '@app/pages/offers/create/types';
+import { EPricingModel } from '../../types';
+import { ELotType } from '../ProjectInfo/types';
+import { TokenInfoFields } from '../TokenInfo/constants';
 
 export enum EStepTypes {
   FIRST_STEP = 'firstStep',

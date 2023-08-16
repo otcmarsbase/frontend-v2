@@ -1,12 +1,13 @@
-import { formDefaultValues } from '@app/pages/offers/create/consts';
+import Decimal from 'decimal.js';
+
+import { formDefaultValues } from './consts';
 import {
   EPricingModel,
   IReorderItemsProps,
   IStepThreeRecountProps,
   IStepThreeRecountResult,
   ITypeOfDeal,
-} from '@app/pages/offers/create/types';
-import Decimal from 'decimal.js';
+} from './types';
 
 export function reorderItems({ curIds, id }: IReorderItemsProps) {
   const index = curIds.indexOf(id);

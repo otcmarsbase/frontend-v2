@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-import { TLotType } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE } from '@app/pages/offers/create/consts';
-import { ICreateOfferFieldTypes } from '@app/pages/offers/create/types';
+
 import { Box, Grid, HStack, Input, VStack } from '@chakra-ui/react';
 import { FormField } from '@shared/ui-kit';
+
+import { STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE } from '../../consts';
+import { ICreateOfferFieldTypes } from '../../types';
+import { TLotType } from '../ProjectInfo/types';
 
 export const PriceInfo: FC<{
   form: UseFormReturn;

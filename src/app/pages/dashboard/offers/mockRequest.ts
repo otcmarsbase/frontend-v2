@@ -1,4 +1,5 @@
 import { Dashboard } from '@shared/types';
+
 import { OffersMock } from './mock';
 
 export interface MockRequestPayload {

@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import { DashboardListType, useStore } from '@app/store';
 import {
   Box,
@@ -12,6 +14,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { FormField, RadioButtons, SearchIcon } from '@shared/ui-kit';
+
 import { AppLayout } from '../appLayout';
 
 export interface DashboardLayoutProps {

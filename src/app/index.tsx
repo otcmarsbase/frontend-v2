@@ -1,5 +1,6 @@
 import { RouterProvider } from '@packages/router5-react-auto';
 import { AppLoad, GlobalPreload, ThemeProvider } from '@shared/ui-kit';
+
 import { ModalProvider, router } from './logic';
 import { WalletProvider } from './logic/walletConnector';
 import { onAppLoad } from './onAppLoad';

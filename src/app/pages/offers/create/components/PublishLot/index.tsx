@@ -1,6 +1,8 @@
 import { FC } from 'react';
-import { IPublishLot } from '@app/pages/offers/create/components/PublishLot/types';
+
 import { Button } from '@chakra-ui/react';
+
+import { IPublishLot } from '../PublishLot/types';
 
 export const PublishLot: FC<IPublishLot> = ({
   onPublishLot,

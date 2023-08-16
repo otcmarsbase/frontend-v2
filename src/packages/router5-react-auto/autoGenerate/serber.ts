@@ -1,4 +1,5 @@
 import React from 'react';
+
 import LINQ from '@berish/linq';
 import {
   Serber,
@@ -7,7 +8,9 @@ import {
   SERBER_PATH_SYMBOL,
 } from '@berish/serber';
 import { isReactComponentTypeComposite } from '@packages/react-utils';
+
 import { PageComponent, PagePath } from '../core';
+
 import { AuthRouteMap } from './types';
 
 export const SYMBOL_SERBER_ROUTER5_AUTO_MAP = Symbol('serberRouter5AutoMap');

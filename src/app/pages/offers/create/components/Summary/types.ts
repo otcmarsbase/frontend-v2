@@ -1,6 +1,7 @@
-import { TLotType } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { EStepTypes } from '@app/pages/offers/create/components/Summary/constants';
-import { ETypeOfDeal, TPricingModel } from '@app/pages/offers/create/types';
+import { ETypeOfDeal, TPricingModel } from '../../types';
+import { TLotType } from '../ProjectInfo/types';
+
+import { EStepTypes } from './constants';
 
 export interface IStepWrapperProps {
   isSuccessFilled: boolean;

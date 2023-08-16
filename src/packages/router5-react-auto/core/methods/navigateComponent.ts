@@ -1,7 +1,9 @@
 import { Router } from 'router5';
 import { CancelFn, DoneFn, NavigationOptions } from 'router5/dist/types/base';
+
 import { serializeQueryParameters } from '../query';
 import { PageComponent } from '../types';
+
 import { findRouteByComponentWrapper } from './findRouteByComponent';
 
 export type NavigateComponentFunction<Props> = (

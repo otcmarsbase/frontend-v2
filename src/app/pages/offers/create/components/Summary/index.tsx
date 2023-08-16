@@ -1,19 +1,17 @@
 import { FC } from 'react';
+
 import { observer } from 'mobx-react-lite';
-import { PublishLot } from '@app/pages/offers/create/components/PublishLot';
-import {
-  IStepWrapperProps,
-  ISummaryProps,
-} from '@app/pages/offers/create/components/Summary/types';
-import {
-  getTargetFields,
-  normalizeFields,
-} from '@app/pages/offers/create/components/Summary/utils';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
+
 import { useStore } from '@app/store';
 import { Box, VStack, Heading, Text } from '@chakra-ui/react';
 import { SummaryStep } from '@shared/ui-kit';
+
+import { ETypeOfDeal } from '../../types';
+import { PublishLot } from '../PublishLot';
+
 import { EStepTypes, StepLabels } from './constants';
+import { IStepWrapperProps, ISummaryProps } from './types';
+import { getTargetFields, normalizeFields } from './utils';
 
 const StepWrapper: FC<IStepWrapperProps> = ({
   isSuccessFilled,

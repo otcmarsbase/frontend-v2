@@ -1,5 +1,5 @@
 {
-  "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended"],
+  "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended", "prettier"],
   "plugins": ["import"],
   "overrides": [
     {
@@ -49,7 +49,7 @@
               "order": "asc",
               "caseInsensitive": true
             },
-            "newlines-between": "never"
+            "newlines-between": "always"
           }
         ]
       }

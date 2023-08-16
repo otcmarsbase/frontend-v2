@@ -1,13 +1,17 @@
 import { FC } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
+import { useStore } from '@app/store';
+import { Checkbox, HStack, Input, VStack } from '@chakra-ui/react';
+import { FormBlockElement, FormField, RadioButtons } from '@shared/ui-kit';
+
 import {
   EPricingModel,
   ETypeOfDeal,
   TCreateOfferFieldTypes,
-} from '@app/pages/offers/create/types';
-import { useStore } from '@app/store';
-import { Checkbox, HStack, Input, VStack } from '@chakra-ui/react';
-import { FormBlockElement, FormField, RadioButtons } from '@shared/ui-kit';
+} from '../../types';
+
 import {
   STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE,
   STEP_THREE_FIELDS_BY_LOT_TYPE,

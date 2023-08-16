@@ -1,14 +1,8 @@
 import { useEffect } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import * as Layouts from '@app/layouts';
-import { formDefaultValues } from '@app/pages/offers/create/consts';
-import {
-  EPricingModel,
-  ETypeOfDeal,
-  IHandleRecountProps,
-  IHandleRecountValue,
-  StepThreeRecountFieldByLotType,
-} from '@app/pages/offers/create/types';
 import { useStore } from '@app/store';
 import { HStack, VStack, Text, Heading, Badge, Box } from '@chakra-ui/react';
 import {
@@ -18,12 +12,21 @@ import {
   useForm,
 } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
+
 import { ProjectInfo, Summary, TokenInfo } from './components';
 import { ProjectDetails } from './components/ProjectDetails';
 import { ELotType } from './components/ProjectInfo/types';
+import { formDefaultValues } from './consts';
 import { useFormStepsValidation } from './hooks/useFormStepsValdiation';
 import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
 import { CreateOfferSchema } from './schemas';
+import {
+  EPricingModel,
+  ETypeOfDeal,
+  IHandleRecountProps,
+  IHandleRecountValue,
+  StepThreeRecountFieldByLotType,
+} from './types';
 import { getDefaultValues, getRecountedValue, reorderItems } from './utils';
 
 export const CreateOffer: React.FC = observer(() => {

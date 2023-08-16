@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+
 import { EPricingModel, ETypeOfDeal } from '@app/pages/offers/create/types';
 
 export class SellOfferStore {

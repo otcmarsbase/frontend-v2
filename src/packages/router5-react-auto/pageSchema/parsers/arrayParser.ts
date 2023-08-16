@@ -1,4 +1,5 @@
 import { PageSchemaParser } from '../types';
+
 import { stringParser } from './stringParser';
 
 export function arrayParser(): PageSchemaParser<string[]>;

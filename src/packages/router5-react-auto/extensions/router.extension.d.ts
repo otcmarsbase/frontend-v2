@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /// <reference path="router5/dist/types/router.d.ts" />
 import { NavigationOptions } from 'router5';
+
 import type {
   BuildPathByComponentFunction,
   FindRouteByComponentFunction,

@@ -1,10 +1,7 @@
-import {
-  TInvAccType,
-  TLotType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
-import { ICreateOfferFieldTypes } from '@app/pages/offers/create/types';
 import * as yup from 'yup';
-import { ObjectSchema } from 'yup';
+
+import { TInvAccType, TLotType } from './components/ProjectInfo/types';
+import { ICreateOfferFieldTypes } from './types';
 
 export const TokenDetailsSchema = yup.object().shape({
   contractSizeToOffer: yup.number(),
@@ -56,5 +53,5 @@ export const ProjectInfoSchema = yup.object().shape({
   isReadyToSVP: yup.boolean(),
 });
 
-export const CreateOfferSchema: ObjectSchema<ICreateOfferFieldTypes> =
+export const CreateOfferSchema: yup.ObjectSchema<ICreateOfferFieldTypes> =
   ProjectInfoSchema.concat(TokenInfoSchema).concat(TokenDetailsSchema);

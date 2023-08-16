@@ -1,9 +1,6 @@
-import {
-  ELotType,
-  TLotType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
-import { TokenInfoFields } from '@app/pages/offers/create/components/TokenInfo/constants';
-import { ICreateOfferFieldTypes } from '@app/pages/offers/create/types';
+import { ELotType, TLotType } from './components/ProjectInfo/types';
+import { TokenInfoFields } from './components/TokenInfo/constants';
+import { ICreateOfferFieldTypes } from './types';
 
 export const formDefaultValues: ICreateOfferFieldTypes = {
   typesOfBuyer: [],

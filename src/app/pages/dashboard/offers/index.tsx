@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
@@ -9,7 +11,9 @@ import { PageSchema } from '@packages/router5-react-auto';
 import { Paginate, Dashboard, Common } from '@shared/types';
 import { LotRow, EmptyData, LotStatus, List } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
+
 import MyBids from '../bids';
+
 import { mockRequest } from './mockRequest';
 
 export interface MyOfferProps {
@@ -21,6 +25,7 @@ export interface MyOfferProps {
   };
 }
 
+// TODO Fix problem
 // const MyOffersPageSchema = {
 //   filters: {
 //     search: PageSchema.stringParser,

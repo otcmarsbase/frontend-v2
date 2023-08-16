@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
+
 import { AppConfig } from '@shared/config';
+
 import { RootStore } from './rootStore';
 
 export enum DashboardListType {

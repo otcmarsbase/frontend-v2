@@ -1,4 +1,5 @@
 import { Common } from '@shared/types';
+
 import { PageSchema, PageSchemaStringify } from '../pageSchema';
 
 export interface MyOfferProps {

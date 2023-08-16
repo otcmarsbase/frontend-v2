@@ -1,7 +1,7 @@
 import {
   ELotType,
   IInvAccType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
+} from '../ProjectInfo/types';
 
 export const ProjectInfoFields = {
   PROJECT_NAME: 'Project Name',

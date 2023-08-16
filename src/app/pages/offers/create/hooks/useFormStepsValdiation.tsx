@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
+
+import { ETypeOfDeal } from '../types';
 
 interface IUseFormStepsValidationProps {
   typeOfDeal: ETypeOfDeal;

@@ -1,5 +1,5 @@
-import { ELotType } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { EPricingModel } from '@app/pages/offers/create/types';
+import { EPricingModel } from '../../types';
+import { ELotType } from '../ProjectInfo/types';
 
 export const StepThreeFields = {
   CONTRACT_SIZE_TO_OFFER: 'Contract size to offer',

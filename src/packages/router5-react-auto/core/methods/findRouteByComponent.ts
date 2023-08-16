@@ -1,4 +1,5 @@
 import { Route, Router } from 'router5';
+
 import { PageComponent } from '../types';
 
 export type FindRouteByComponentFunction = (

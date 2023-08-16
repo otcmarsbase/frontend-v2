@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
-import {
-  EPricingModel,
-  ETypeOfDeal,
-  ICreateOfferFieldTypes,
-} from '@app/pages/offers/create/types';
-import { isValidField } from '@app/pages/offers/create/utils';
+
+import { EPricingModel, ETypeOfDeal, ICreateOfferFieldTypes } from '../types';
+import { isValidField } from '../utils';
 
 interface IUseCustomFieldValidation {
   data: ICreateOfferFieldTypes;
