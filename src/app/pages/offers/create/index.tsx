@@ -57,7 +57,6 @@ export const CreateOffer: React.FC = observer(() => {
     value,
   }: IHandleRecountProps) {
     if (!value) {
-      // @ts-ignore
       form.setValue(id, value.toString());
       return;
     }
@@ -68,7 +67,6 @@ export const CreateOffer: React.FC = observer(() => {
     const contractValue = form.getValues('contractValue');
 
     if (!contractValue) {
-      // @ts-ignore
       form.setValue(fieldOneID, value.toString());
       return;
     }
@@ -125,6 +123,7 @@ export const CreateOffer: React.FC = observer(() => {
       denom,
       pricingModel,
       currentID,
+      // @ts-ignore
       bindedID,
     });
 
@@ -214,6 +213,7 @@ export const CreateOffer: React.FC = observer(() => {
                 // @ts-ignore
                 form={form}
                 lotType={data.lotType as ELotType}
+                // @ts-ignore
                 handleRecountValues={handleRecountValues}
                 typeOfDeal={typeOfDeal}
               />

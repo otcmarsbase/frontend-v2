@@ -7,8 +7,8 @@ import {
 } from './components/ProjectInfo/types';
 
 export interface IHandleRecountProps {
-  curIds: ICreateOfferFieldTypes[];
-  id: ICreateOfferFieldTypes;
+  curIds: (keyof ICreateOfferFieldTypes)[];
+  id: keyof ICreateOfferFieldTypes;
   value: string;
 }
 export interface ITypeOfDeal {
@@ -98,14 +98,14 @@ export interface IStepThreeRecountProps {
 
 export interface IHandleRecountValue {
   currentID: TCreateOfferFieldTypes;
-  bindedID: TCreateOfferFieldTypes;
+  bindedID: keyof TCreateOfferFieldTypes;
   value: string;
   pricingModel: EPricingModel;
 }
 
 export interface IReorderItemsProps {
-  curIds: ICreateOfferFieldTypes[];
-  id: ICreateOfferFieldTypes;
+  curIds: (keyof ICreateOfferFieldTypes)[];
+  id: keyof ICreateOfferFieldTypes;
 }
 
 export interface ICreateOfferFieldTypes {

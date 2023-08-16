@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 
 import {
   VStack,
@@ -9,7 +9,7 @@ import {
   Spinner,
 } from '@chakra-ui/react';
 import { PortalProps } from '@packages/react-portal';
-import { WalletConnectorName, WalletSignResult } from '@shared/types';
+import { WalletSignResult } from '@shared/types';
 import { LinkWalletIcon, Modal } from '@shared/ui-kit';
 import { useSignMessage } from 'wagmi';
 

@@ -43,7 +43,7 @@ export const useFormStepsValidation = ({
     if (typeOfDeal === ETypeOfDeal.SELL) {
       setShowStepThree((prev) => _showStepThree);
     }
-  }, [stepTwoWasOnSuccess, stepTwoSuccess, typeOfDeal]);
+  }, [stepTwoWasOnSuccess, stepTwoSuccess, stepOneSuccess, stepOneWasOnSuccess, typeOfDeal]);
 
   useEffect(() => {
     let _showStepThree =

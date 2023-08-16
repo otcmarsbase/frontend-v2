@@ -7,7 +7,6 @@ import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
 import { Button, VStack } from '@chakra-ui/react';
-import { PageSchema } from '@packages/router5-react-auto';
 import { Paginate, Dashboard, Common } from '@shared/types';
 import { LotRow, EmptyData, LotStatus, List } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';

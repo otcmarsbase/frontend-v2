@@ -18,6 +18,6 @@ export interface IHandleRecount {
 export interface IProjectDetailsProps {
   form: UseFormReturn;
   lotType: TLotType;
-  handleRecountValues: ({}: IHandleRecount) => void;
+  handleRecountValues: (params: IHandleRecount) => void;
   typeOfDeal: ETypeOfDeal;
 }

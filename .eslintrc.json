@@ -1,6 +1,7 @@
 {
   "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended", "prettier"],
   "plugins": ["import"],
+  "parser": "@typescript-eslint/parser",
   "overrides": [
     {
       "files": ["**/*.ts?(x)"],
