@@ -7,8 +7,6 @@ import {
 } from '../../types';
 import { TLotType } from '../ProjectInfo/types';
 
-
-
 export interface IHandleRecount {
   currentID: TCreateOfferFieldTypes;
   bindedID: TCreateOfferFieldTypes;

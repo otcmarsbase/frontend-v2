@@ -20,7 +20,7 @@ module.exports = {
         extensions: ['ts', 'tsx', 'js', 'jsx'],
         useEslintrc: true,
         fix: true,
-        fixTypes: ["problem", "layout", "suggestion"]
+        fixTypes: ['problem', 'layout', 'suggestion'],
       }),
       {
         apply: (compiler) => {

@@ -83,5 +83,16 @@ export const useSummaryStepsValidation = ({
     }
 
     setBasicInfo(data);
-  }, [data, typeOfDeal, setStepOneSuccess, setStepOneWasOnSuccess, typeOfPricingModel, setStepTwoSuccess, setStepThreeSuccess, setBasicInfo, setStepTwoWasOnSuccess, setStepThreeWasOnSuccess]);
+  }, [
+    data,
+    typeOfDeal,
+    setStepOneSuccess,
+    setStepOneWasOnSuccess,
+    typeOfPricingModel,
+    setStepTwoSuccess,
+    setStepThreeSuccess,
+    setBasicInfo,
+    setStepTwoWasOnSuccess,
+    setStepThreeWasOnSuccess,
+  ]);
 };

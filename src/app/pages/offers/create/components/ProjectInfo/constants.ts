@@ -1,7 +1,4 @@
-import {
-  ELotType,
-  IInvAccType,
-} from '../ProjectInfo/types';
+import { ELotType, IInvAccType } from '../ProjectInfo/types';
 
 export const ProjectInfoFields = {
   PROJECT_NAME: 'Project Name',

@@ -16,4 +16,4 @@ export * from './KebabMenuIcon';
 export * from './CloseModalIcon';
 export * from './OfferTypeIcon';
 export * from './LinkWalletIcon';
-export * from './AlertCircle'
+export * from './AlertCircle';
