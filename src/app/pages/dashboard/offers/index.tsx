@@ -15,14 +15,9 @@ import { mockRequest } from './mockRequest';
 export interface MyOfferProps {
   filters?: {
     search?: string;
-    directions?: string[];
-    test: {
-      type: string;
-      count: number;
-      good: {
-        name: string;
-      };
-    }[];
+    directions?: Common.Direction[];
+    minValue?: number;
+    maxValue?: number;
   };
 }
 
@@ -32,6 +27,8 @@ export interface MyOfferProps {
 //     directions: PageSchema.arrayParser(
 //       PageSchema.enumParser<Common.Direction>(['BUY', 'SELL']),
 //     ),
+//     minValue: PageSchema.numberParser,
+//     maxValue: PageSchema.numberParser,
 //   },
 // } satisfies PageSchema<MyOfferProps>;
 
@@ -39,7 +36,8 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
   const [offers, setOffers] = useState<Dashboard.OfferItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  console.log(props);
+  // console.log(props);
+  // const parsedProps = PageSchema.resolve(props, MyOffersPageSchema);
 
   const openCreateOfferModal = useCreateOfferModal();
 

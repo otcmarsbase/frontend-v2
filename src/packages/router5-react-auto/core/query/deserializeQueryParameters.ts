@@ -1,7 +1,8 @@
 import LINQ from '@berish/linq';
 
-// const regExpForDigits = /^([\d]+)/gm;
-const arrayRegExp = /\*[[0-9]*\]*/gm;
+const regExpForDigits = /^([\d]+)/gm;
+const OBJ_SEPARATOR = '.';
+// const arrayRegExp = /\*[[0-9]*\]*/gm;
 
 /**
  * Переводит объект с параметрами в объект с автопарсингом примитов (числа, булева)
@@ -15,15 +16,15 @@ export function deserializeQueryParameters(
     if (typeof value === 'undefined' || value === null) return void 0;
     if (typeof value !== 'string') return String(value);
     if (value === '[]') return [];
+
     return value;
   };
 
   const parseCurrentPath = (params: { [key: string]: string }) => {
     const allKeys = LINQ.from(Object.keys(params));
-    // console.log(allKeys);
-    const currentKeys = allKeys.where((m) => m.indexOf('.') === -1);
-    const out: { [key: string]: any } = allKeys.every((m) =>
-      arrayRegExp.test(m),
+    const currentKeys = allKeys.where((m) => m.indexOf(OBJ_SEPARATOR) === -1);
+    const out: { [key: string]: any } = allKeys.every(
+      (m) => m.search(regExpForDigits) !== -1,
     )
       ? []
       : {};
@@ -33,7 +34,9 @@ export function deserializeQueryParameters(
     }
 
     const allSubKeys = allKeys.except(currentKeys);
-    const subKeys = allSubKeys.select((m) => m.split('.')[0]).distinct();
+    const subKeys = allSubKeys
+      .select((m) => m.split(OBJ_SEPARATOR)[0])
+      .distinct();
 
     for (const subKey of subKeys) {
       const currentSubKeys = allSubKeys
@@ -42,7 +45,8 @@ export function deserializeQueryParameters(
       const newParams: { [key: string]: any } = {};
 
       for (const currentSubKey of currentSubKeys) {
-        newParams[currentSubKey] = params[subKey + '.' + currentSubKey];
+        newParams[currentSubKey] =
+          params[subKey + OBJ_SEPARATOR + currentSubKey];
       }
 
       out[subKey] = parseCurrentPath(newParams);
@@ -51,21 +55,3 @@ export function deserializeQueryParameters(
   };
   return parseCurrentPath(params);
 }
-
-// console.log(
-//   deserializeQueryParameters({
-//     name: 'Ravil',
-//     'childs.0': 'Azat',
-//     'childs.1': 'Ravil',
-//     'childs.2.name': 'Test',
-//     'filters.search': '123',
-//     'filters.directions.0': 'BUY',
-//     'filters.directions.1': 'SELL',
-//     'filters.test.0.type': 'SHORT',
-//     'filters.test.0.count': '1',
-//     'filters.test.0.good.name': 'L0',
-//     'filters.test.1.type': 'LONG',
-//     'filters.test.1.count': '5',
-//     'filters.test.1.good.name': 'Bitoin',
-//   }),
-// );
