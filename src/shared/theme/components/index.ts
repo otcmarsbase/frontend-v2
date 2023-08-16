@@ -13,4 +13,3 @@ export { Modal } from './modal';
 export { Table } from './table';
 export { Progress } from './progress';
 export { Select } from './select';
-

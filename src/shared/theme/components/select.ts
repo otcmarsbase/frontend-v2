@@ -5,12 +5,10 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(selectAnatomy.keys);
 
 const baseStyle = definePartsStyle({
-  icon:{
-    fill:'red'
+  icon: {
+    fill: 'red',
   },
-  field: {
-
-  }
+  field: {},
 });
 
 export const Select = defineMultiStyleConfig({ baseStyle });
