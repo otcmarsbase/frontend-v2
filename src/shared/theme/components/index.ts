@@ -10,3 +10,4 @@ export { Button } from './button';
 export { Menu } from './menu';
 export * from './pagination';
 export { Modal } from './modal';
+export { Tabs } from './tabs';
