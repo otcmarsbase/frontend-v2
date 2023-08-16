@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+
 import {Box, Heading, HStack, Progress, VStack} from "@chakra-ui/react";
 
 export const ProgressBar = ({title, currentAmount, totalAmount}) => {

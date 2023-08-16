@@ -1,4 +1,5 @@
 import {FC, PropsWithChildren} from "react";
+
 import {Heading, HStack, VStack} from "@chakra-ui/react";
 
 interface IContentContainerProps {

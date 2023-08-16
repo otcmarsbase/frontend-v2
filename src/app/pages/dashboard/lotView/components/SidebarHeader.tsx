@@ -1,4 +1,5 @@
 import {FC} from "react";
+
 import {ISidebarHeader} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack, Image} from "@chakra-ui/react";
 import {DownloadIcon} from "@shared/assets/DownloadIcon";

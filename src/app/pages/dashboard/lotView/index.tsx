@@ -1,5 +1,7 @@
 import {FC, useEffect} from "react";
+
 import {observer} from 'mobx-react-lite';
+
 import * as Layouts from "@app/layouts";
 import {ModalController} from "@app/logic";
 import {ChooseBidsModal} from "@app/modals/CreateBidsModal";
@@ -23,6 +25,7 @@ import {useForm} from "@shared/ui-kit";
 import {ExpandableText} from "@shared/ui-kit/components/ExpandableText";
 import {ProgressBar} from "@shared/ui-kit/components/ProgressBar";
 import {StickyContainer} from "@shared/ui-kit/components/StickyContainer";
+
 import {
     BIDSmock,
     LotViewProjectData,

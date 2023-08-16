@@ -1,4 +1,5 @@
 import {FC} from "react";
+
 import {SimilarDealsItem} from "@app/pages/dashboard/lotView/components/SilimarDealsItem";
 import {ISimilarDealItem} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, SimpleGrid, VStack} from "@chakra-ui/react";

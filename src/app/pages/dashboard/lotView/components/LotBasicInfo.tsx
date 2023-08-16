@@ -1,9 +1,11 @@
 import {FC} from "react";
+
 import {Box, Heading, HStack, Tooltip, VStack} from "@chakra-ui/react";
 import {CopyIcon} from "@shared/assets/CopyIcon";
 import {TooltipIcon} from "@shared/assets/TooltipIcon";
 import {Countdown} from "@shared/ui-kit/components/Timer/Timer";
 import copyToClipboard from "@shared/utils/copyToClipBoard";
+
 import { ILotInfo } from "../types";
 export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({LotInfoBasicData}) => {
     const {id, typeOfDeal, typeOfLot, userAvatar, userName, nameOfSeller, auctionEndDate} = LotInfoBasicData;

@@ -559,7 +559,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Container: {
       sizes: string & {};
-      variants: 'timer' | (string & {});
+      variants: string & {};
     };
     Divider: {
       sizes: string & {};

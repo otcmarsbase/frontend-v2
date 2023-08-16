@@ -1,4 +1,5 @@
 import {FC} from "react";
+
 import {BidsList} from "@app/pages/dashboard/lotView/components/BidsList";
 import {IBidsProps} from "@app/pages/dashboard/lotView/types";
 import {Box, Button, Heading, HStack, Select, VStack} from "@chakra-ui/react";

@@ -1,4 +1,5 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
+
 import {LotViewDefaultValues} from "@app/pages/dashboard/lotView/consts";
 import {LotViewSchema} from "@app/pages/dashboard/lotView/schemas";
 import {ILotView, TLotModalFields} from "@app/pages/dashboard/lotView/types";

@@ -1,4 +1,5 @@
 import {FC, useState} from "react";
+
 import {IBidsListProps, TBidListFilters} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack, Table, Tbody, Td, Th, Thead, Tr, VStack} from "@chakra-ui/react";
 import {DeleteIcon} from "@shared/assets/DeleteIcon";

@@ -1,4 +1,5 @@
 import {FC} from "react";
+
 import {LotTypeChip} from "@app/pages/dashboard/lotView/components/LotTypeChip";
 import {TypeOfDealChip} from "@app/pages/dashboard/lotView/components/TypeOfDealChip";
 import {ISimilarDealItem} from "@app/pages/dashboard/lotView/types";

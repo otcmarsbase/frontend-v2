@@ -1,4 +1,5 @@
 import {FC} from "react";
+
 import {ILotViewLinks} from "@app/pages/dashboard/lotView/types";
 import {Box, Heading, HStack} from "@chakra-ui/react";
 
