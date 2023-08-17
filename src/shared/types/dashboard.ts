@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import { Icons } from '@shared/ui-kit';
+
 import { Common } from './common';
 import { LotFlow } from './lotFlow';
 
