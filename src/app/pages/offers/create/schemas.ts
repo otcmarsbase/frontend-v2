@@ -1,5 +1,8 @@
 import * as yup from 'yup';
 
+import { TInvAccType, TLotType } from './components/ProjectInfo/types';
+import { ICreateOfferFieldTypes } from './types';
+
 export const TokenDetailsSchema = yup.object().shape({
   contractSizeToOffer: yup.number(),
   minDealSize: yup.number(),
@@ -37,12 +40,12 @@ export const TokenInfoSchema = yup.object().shape({
 export const ProjectInfoSchema = yup.object().shape({
   projectName: yup.string().required(`Project Name is required`),
   projectWebsite: yup.string().required(`Project Website is required`),
-  lotType: yup.string().required(`Need to select at least one`),
-  typesOfSeller: yup.array(),
-  typesOfBuyer: yup.array(),
+  lotType: yup.mixed<TLotType>().required(`Need to select at least one`),
+  typesOfSeller: yup.mixed<TInvAccType[]>(),
+  typesOfBuyer: yup.mixed<TInvAccType[]>(),
   telegram: yup.string().required(`Telegram is required`),
   isReAssigned: yup.boolean(),
-  deadlineDate: yup.string(),
+  deadlineDate: yup.date(),
   isDirectSeller: yup.boolean(),
   noLimitations: yup.boolean(),
   isPermanent: yup.boolean(),
@@ -50,5 +53,5 @@ export const ProjectInfoSchema = yup.object().shape({
   isReadyToSVP: yup.boolean(),
 });
 
-export const SellOfferSchema =
+export const CreateOfferSchema: yup.ObjectSchema<ICreateOfferFieldTypes> =
   ProjectInfoSchema.concat(TokenInfoSchema).concat(TokenDetailsSchema);

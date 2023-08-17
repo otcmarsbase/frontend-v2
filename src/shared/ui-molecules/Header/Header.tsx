@@ -1,6 +1,7 @@
 import { HTMLAttributeAnchorTarget } from 'react';
+
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
-import { Logo } from '../../ui-kit/components/Logo';
+import { Logo } from '@shared/ui-kit';
 
 export type HeaderMenuItem = {
   label: string;
@@ -39,6 +40,7 @@ export const Header = ({
               const { label, onClick, href } = item;
               return (
                 <Link
+                  key={id}
                   href={href?.url}
                   fontSize="0.6875rem"
                   _hover={{ textDecoration: 'none' }}

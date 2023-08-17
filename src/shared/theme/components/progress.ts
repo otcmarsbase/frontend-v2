@@ -14,6 +14,9 @@ const baseStyle = definePartsStyle({
   filledTrack: {
     borderTopRightRadius: '0 !important',
     borderBottomRightRadius: '0 !important',
+    bg: 'orange.400',
+    borderRadius: '0rem',
+    transition: 'width 1s ease-in-out',
   },
 });
 

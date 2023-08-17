@@ -1,4 +1,5 @@
 import { memo, useCallback } from 'react';
+
 import { VStack, Text, Circle, HStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/react-portal';
 import { Modal, OfferTypeIcon } from '@shared/ui-kit';

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+
 import * as Layouts from '@app/layouts';
 import { Box, Heading } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
+
 import pages from '..';
 
 const Home: React.FC = () => {

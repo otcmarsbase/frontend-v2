@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
-import { constants } from '@shared/config';
+
+import { AppConfig } from '@shared/config';
+
 import { RootStore } from './rootStore';
 
 export enum DashboardListType {
@@ -30,7 +32,7 @@ export class DashboardStore {
   constructor({ rootStore }: { rootStore: RootStore }) {
     makeAutoObservable(this, {}, { autoBind: true });
     makePersistable(this, {
-      name: constants.DASHBOARD_LOCAL_STORAGE_KEY,
+      name: AppConfig.storage.DASHBOARD_LOCAL_STORAGE_KEY,
       properties: ['filters'],
       storage: localStorage,
     });

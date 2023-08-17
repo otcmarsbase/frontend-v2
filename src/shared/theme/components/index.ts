@@ -12,4 +12,6 @@ export * from './pagination';
 export { Modal } from './modal';
 export { Tag } from './tag';
 export { Divider } from './divider';
+export { Table } from './table';
 export { Progress } from './progress';
+export { Select } from './select';

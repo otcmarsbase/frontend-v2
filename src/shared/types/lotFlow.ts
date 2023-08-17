@@ -1,14 +1,7 @@
 export namespace LotFlow {
   export type LotId = number;
 
-  export enum LotType {
-    SAFE = 'SAFE',
-    SAFT = 'SAFT',
-    TOKEN_WARRANT = 'TOKEN_WARRANT',
-  }
+  export type DealType = 'BUY' | 'SELL';
 
-  export enum TypeOfDeal {
-    BUY = 'BUY',
-    SELL = 'SELL',
-  }
+  export type LotType = 'SAFE' | 'SAFT' | 'TOKEN_WARRANT';
 }
