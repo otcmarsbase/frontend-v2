@@ -1,4 +1,5 @@
 import { PageComponent, PagePath } from '../core';
+
 import { AuthRouteMap } from './types';
 
 export function setHomePage(

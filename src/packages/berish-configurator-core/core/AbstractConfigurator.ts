@@ -38,7 +38,7 @@ export abstract class AbstractConfigurator<Schema extends Record<string, any>>
 
   use<T, K>(value: T | null | undefined, initCallback: (value: T) => K): K {
     return typeof value === 'undefined' || value === null
-      ? value as undefined
+      ? (value as undefined)
       : initCallback(value);
   }
 

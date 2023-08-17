@@ -3,15 +3,10 @@ import { PropsWithChildren } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useCreateOfferModal } from '@app/hooks';
-import {HeaderRightContent} from "@app/layouts/appLayout/HeaderRightContent";
+import { HeaderRightContent } from '@app/layouts/appLayout/HeaderRightContent';
 import { router } from '@app/logic';
 import pages from '@app/pages';
-import {
-    Box,
-    Container,
-    ContainerProps,
-    VStack
-} from '@chakra-ui/react';
+import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import {
   DiscordIcon,
   RedditIcon,
@@ -21,7 +16,6 @@ import {
   MediumIcon,
 } from '@shared/ui-kit';
 import { Footer, Header } from '@shared/ui-molecules';
-
 
 export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
@@ -51,7 +45,7 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
                 onClick: openCreateOfferModal,
               },
             ]}
-            rightContent={<HeaderRightContent/>}
+            rightContent={<HeaderRightContent />}
           />
         </Box>
         <Box flex="1" width="full">

@@ -141,9 +141,9 @@ export const LotRow: React.FC<LotRowProps> = ({
         }
         <Dropdown
           items={[
-            { children: 'Edit' },
-            { children: 'Duplicate' },
-            { children: 'Delete' },
+            { label: 'Edit' },
+            { label: 'Duplicate' },
+            { label: 'Delete' },
           ]}
         >
           <KebabMenuIcon

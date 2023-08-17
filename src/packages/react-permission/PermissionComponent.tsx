@@ -5,6 +5,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+
 import { combinePermissions, resolve } from './methods';
 import { Permission } from './types';
 
