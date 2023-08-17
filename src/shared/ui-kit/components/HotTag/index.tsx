@@ -1,4 +1,5 @@
 import { HStack, Text } from '@chakra-ui/react';
+
 import { HotIcon } from '../../icons';
 
 export const HotTag = () => {

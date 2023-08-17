@@ -66,7 +66,7 @@ export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
     const result: ETypeOfDeal = await ModalController.create(ChooseBidsModal, {
       typeOfDeal,
     });
-    console.log('createBid');
+    console.log('createBid', result);
   };
   const viewOrderHandler = () => {
     console.log('viewOrderHandler');

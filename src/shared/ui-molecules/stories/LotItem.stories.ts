@@ -17,8 +17,8 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const ForBuy: Story = {
   args: {
-    lotType: LotFlow.LotType.SAFE,
-    dealType: LotFlow.TypeOfDeal.BUY,
+    lotType: 'SAFE',
+    dealType: 'BUY',
     id: 121212,
     isHot: true,
     fdv: 124738,
@@ -36,8 +36,8 @@ export const ForBuy: Story = {
 
 export const ForSell: Story = {
   args: {
-    lotType: LotFlow.LotType.TOKEN_WARRANT,
-    dealType: LotFlow.TypeOfDeal.SELL,
+    lotType: 'TOKEN_WARRANT',
+    dealType: 'SELL',
     id: 121212,
     isHot: true,
     fdv: 124738,

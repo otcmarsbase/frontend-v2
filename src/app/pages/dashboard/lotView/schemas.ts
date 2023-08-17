@@ -1,5 +1,4 @@
 import { ILotView } from '@app/pages/dashboard/lotView/types';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
 

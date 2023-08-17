@@ -1,23 +1,22 @@
 import { useCallback, useState } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import * as Layouts from '@app/layouts';
 import {
   Button,
-  Grid,
-  GridItem,
   HStack,
   Heading,
   SimpleGrid,
   VStack,
   Text,
   Box,
-  Skeleton,
+  Grid,
 } from '@chakra-ui/react';
 import { Paginate, Dashboard } from '@shared/types';
-import { LotStatus } from '@shared/ui-kit';
-import { Pagination } from '@shared/ui-logic';
-import { LotItem, LotItemProps, OfferRow } from '@shared/ui-molecules';
+import { LotItem, LotItemProps } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';
+
 import { OTCFilters } from './components';
 import lotsMock from './lotsMock.json';
 
@@ -63,7 +62,7 @@ export const OtcDesk: React.FC = observer(() => {
         </SimpleGrid>
       </HStack>
 
-      {/* <Grid
+      <Grid
         templateColumns="repeat(4, 1fr)"
         gridColumnGap="2rem"
         gridRowGap="2rem"
@@ -74,7 +73,7 @@ export const OtcDesk: React.FC = observer(() => {
             <LotItem {...lot} />
           </motion.div>
         ))}
-      </Grid> */}
+      </Grid>
     </VStack>
   );
 });

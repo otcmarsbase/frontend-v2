@@ -1,5 +1,6 @@
 import { HStack, Text } from '@chakra-ui/react';
 import { Assets } from '@shared/types';
+
 import { Icons } from '../..';
 
 export interface AssetNameProps {

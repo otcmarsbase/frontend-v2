@@ -17,7 +17,7 @@ export interface LotItemProps {
   id: LotFlow.LotId;
   lotType: LotFlow.LotType;
   isHot: boolean;
-  dealType: LotFlow.TypeOfDeal;
+  dealType: LotFlow.DealType;
   asset: Assets.Asset;
   fdv: number;
   minBidSize: number;
@@ -27,10 +27,10 @@ export interface LotItemProps {
   availableSum: number;
 }
 
-const lotTypeText = {
-  [LotFlow.LotType.SAFE]: 'SAFE',
-  [LotFlow.LotType.SAFT]: 'SAFT',
-  [LotFlow.LotType.TOKEN_WARRANT]: 'Token warrant',
+const lotTypeText: Record<LotFlow.LotType, string> = {
+  SAFE: 'SAFE',
+  SAFT: 'SAFT',
+  TOKEN_WARRANT: 'Token warrant',
 };
 
 export const LotItem: React.FC<LotItemProps> = ({
