@@ -1,0 +1,180 @@
+{
+  "lots": [
+    {
+      "id": 32679,
+      "isHot": true,
+      "lotType": "SAFT",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 122
+    },
+    {
+      "id": 32680,
+      "isHot": false,
+      "lotType": "TOKEN_WARRANT",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 75000
+    },
+    {
+      "id": 32681,
+      "isHot": false,
+      "lotType": "SAFE",
+      "dealType": "BUY",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 3221
+    },
+    {
+      "id": 32682,
+      "isHot": true,
+      "lotType": "SAFT",
+      "dealType": "BUY",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 1122
+    },
+    {
+      "id": 32683,
+      "isHot": false,
+      "lotType": "TOKEN_WARRANT",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 53223
+    },
+    {
+      "id": 32684,
+      "isHot": true,
+      "lotType": "SAFE",
+      "dealType": "BUY",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 56565
+    },
+    {
+      "id": 32685,
+      "isHot": true,
+      "lotType": "SAFT",
+      "dealType": "BUY",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 12212
+    },
+    {
+      "id": 32686,
+      "isHot": true,
+      "lotType": "TOKEN_WARRANT",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 1000
+    },
+    {
+      "id": 32687,
+      "isHot": true,
+      "lotType": "SAFE",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 14312
+    },
+    {
+      "id": 32688,
+      "isHot": false,
+      "lotType": "SAFE",
+      "dealType": "BUY",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 12232
+    },
+    {
+      "id": 32689,
+      "isHot": false,
+      "lotType": "SAFT",
+      "dealType": "SELL",
+      "asset": {
+        "name": "USDT",
+        "iconName": "UsdtIcon"
+      },
+      "fdv": 100000,
+      "minBidSize": 12121,
+      "totalBidsPlaced": 2323,
+      "deadline": "23/10/2023",
+      "totalSum": 121212,
+      "availableSum": 12212
+    }
+  ]
+}

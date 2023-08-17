@@ -261,6 +261,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | '8xl'
     | '9xl'
     | '2md'
+    | 'xxl'
     | (string & {});
   fontWeights:
     | 'hairline'
@@ -316,6 +317,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | '2xl'
     | '3xl'
     | 'full'
+    | 'micro'
     | 'xs'
     | 'circle'
     | (string & {});
@@ -541,6 +543,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'solid'
         | 'link'
         | 'unstyled'
+        | 'darkOutline'
         | 'brand'
         | (string & {});
     };
@@ -704,7 +707,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Tag: {
       sizes: 'sm' | 'md' | 'lg' | (string & {});
-      variants: 'subtle' | 'solid' | 'outline' | (string & {});
+      variants: 'subtle' | 'solid' | 'outline' | 'petal' | (string & {});
     };
     Textarea: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});

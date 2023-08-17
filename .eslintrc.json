@@ -5,7 +5,6 @@
     {
       "files": ["**/*.ts?(x)"],
       "rules": {
-        "@typescript-eslint/no-redeclare": "off",
         "import/no-anonymous-default-export": "off",
         "import/order": [
           "error",
@@ -49,7 +48,7 @@
               "order": "asc",
               "caseInsensitive": true
             },
-            "newlines-between": "never"
+            "newlines-between": "always"
           }
         ]
       }

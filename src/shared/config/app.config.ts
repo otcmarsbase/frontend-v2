@@ -1,7 +1,8 @@
 import { NODE_ENV } from '@packages/berish-configurator-core';
+
 import { configurator } from './configurator';
 
-export interface AppConfig {
+export interface AppConfigType {
   environment: NODE_ENV;
   isDevelopment: boolean;
 
@@ -19,7 +20,7 @@ export interface AppConfig {
   };
 }
 
-export const AppConfig: AppConfig = {
+export const AppConfig: AppConfigType = {
   environment: NODE_ENV,
   isDevelopment: NODE_ENV === 'development',
 

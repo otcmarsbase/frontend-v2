@@ -1,4 +1,5 @@
 import { Image } from '@chakra-ui/react';
+
 import LogoPng from './logo.png';
 
 export const Logo = () => {

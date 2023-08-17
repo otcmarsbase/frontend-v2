@@ -1,8 +1,9 @@
+import { getCorrectRpcRequest } from '@packages/rpc-client/utils';
+
 import { createInterceptor, Interceptor, push, request } from './helpers';
 import { RpcError } from './rpcError';
 import { RpcRequest, RpcResponse } from './schema';
 import { getResponseResult } from './utils';
-import { getCorrectRpcRequest } from './utils/getCorrectRpcRequest';
 
 export interface RpcClientOptions {
   send: (request: RpcRequest) => Promise<any>;
@@ -12,6 +13,7 @@ export interface RpcClientOptions {
 
 export class RpcClient {
   private _options: RpcClientOptions = null;
+  // @ts-ignore
   private _requestInterceptor: Interceptor<RpcRequest<any, any>> = null;
   private _responseInterceptor: Interceptor<any> = null;
 
@@ -46,9 +48,10 @@ export class RpcClient {
   ) {
     return this.send(push(method, params, meta));
   }
-
+  // @ts-ignore
   public async send<Result>(request: RpcRequest<any, Result>): Promise<Result> {
     const rawResponse = await this.rawSendIntercept(request);
+    // @ts-ignore
     const response = getResponseResult<Result>(rawResponse);
 
     if (response instanceof RpcError) throw response;
@@ -56,6 +59,7 @@ export class RpcClient {
   }
 
   public async rawSendIntercept<Params, Result>(
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ) {
     request = getCorrectRpcRequest(request);
@@ -70,6 +74,7 @@ export class RpcClient {
   }
 
   public async rawSendWithoutIntercept<Params, Result>(
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ): Promise<RpcResponse<Result>> {
     request = getCorrectRpcRequest(request);
@@ -86,14 +91,13 @@ export class RpcClient {
     }
 
     const responseBody = await this._options.send(request);
-    const rpcResponse = this._options.parseRawResponse
+    return this._options.parseRawResponse
       ? this._options.parseRawResponse(responseBody)
       : responseBody;
-
-    return rpcResponse;
   }
 
   public async interceptRequest<Params, Result>(
+    // @ts-ignore
     request: RpcRequest<Params, Result>,
   ) {
     if (this._requestInterceptor) {

@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react';
+
 import { observer } from 'mobx-react-lite';
+
 import { useCreateOfferModal } from '@app/hooks';
 import {HeaderRightContent} from "@app/layouts/appLayout/HeaderRightContent";
 import { router } from '@app/logic';
@@ -11,8 +13,6 @@ import {
     VStack
 } from '@chakra-ui/react';
 import {
-  Header,
-  Footer,
   DiscordIcon,
   RedditIcon,
   TelegramIcon,
@@ -20,6 +20,7 @@ import {
   TwitterIcon,
   MediumIcon,
 } from '@shared/ui-kit';
+import { Footer, Header } from '@shared/ui-molecules';
 
 
 export interface AppLayoutProps {
@@ -36,7 +37,10 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
           <Header
             onLogoClick={() => router.navigateComponent(pages.home, {})}
             menuItems={[
-              { label: 'OTC DESK' },
+              {
+                label: 'OTC DESK',
+                onClick: () => router.navigateComponent(pages.otcDesk.home, {}),
+              },
               {
                 label: 'My Dashboard',
                 onClick: () =>
@@ -51,7 +55,9 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
           />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize}>{children}</Container>
+          <Container size={containerSize} mt="3rem">
+            {children}
+          </Container>
         </Box>
         <Box width="full" marginTop="auto">
           <Footer

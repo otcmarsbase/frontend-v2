@@ -1,30 +1,24 @@
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
+import { Dashboard } from '@shared/types';
 
-type LotStatusValue =
-  | 'draft'
-  | 'onModeration'
-  | 'active'
-  | 'ended'
-  | 'halfField';
-
-const lotStatusTexts: Record<LotStatusValue, string> = {
-  draft: 'Draft',
-  onModeration: 'On Moderation',
-  active: 'Active',
-  ended: 'Ended',
-  halfField: 'Half-field',
+const lotStatusTexts: Record<Dashboard.OfferStatus, string> = {
+  DRAFT: 'Draft',
+  ON_MODERATION: 'On Moderation',
+  ACTIVE: 'Active',
+  ENDED: 'Ended',
+  HALF_FIELD: 'Half-field',
 };
 
-const lotStatusColors: Record<LotStatusValue, string> = {
-  draft: 'dark.50',
-  onModeration: '#F9C409',
-  active: '#34A853',
-  ended: 'red.500',
-  halfField: '#FF5B37',
+const lotStatusColors: Record<Dashboard.OfferStatus, string> = {
+  DRAFT: 'dark.50',
+  ON_MODERATION: '#F9C409',
+  ACTIVE: '#34A853',
+  ENDED: 'red.500',
+  HALF_FIELD: '#FF5B37',
 };
 
 export interface LotStatusProps extends BoxProps {
-  value: LotStatusValue;
+  value: Dashboard.OfferStatus;
 }
 
 export const LotStatus = ({ value, ...boxProps }: LotStatusProps):JSX.Element => {

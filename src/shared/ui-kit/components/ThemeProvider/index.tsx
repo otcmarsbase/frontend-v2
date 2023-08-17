@@ -1,5 +1,6 @@
 import { ChakraBaseProvider } from '@chakra-ui/react';
 import theme from '@shared/theme';
+
 import { FixFocusVisible } from '../FixFocusVisible';
 import { FontsInjection } from '../FontsInjection';
 
