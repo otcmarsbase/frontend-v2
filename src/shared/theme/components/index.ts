@@ -11,3 +11,6 @@ export { Menu } from './menu';
 export * from './pagination';
 export { Modal } from './modal';
 export { Tabs } from './tabs';
+export { Tag } from './tag';
+export { Divider } from './divider';
+export { Progress } from './progress';

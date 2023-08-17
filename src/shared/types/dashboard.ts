@@ -1,5 +1,5 @@
 import { Icons } from '@shared/ui-kit';
-import { LotFlow } from './lot-flow';
+import { LotFlow } from './lotFlow';
 
 export namespace Dashboard {
   export enum OfferType {

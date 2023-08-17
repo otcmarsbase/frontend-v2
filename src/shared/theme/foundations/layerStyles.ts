@@ -17,7 +17,7 @@ export default defineStyle({
     background: 'dark.900',
     backgroundClip: 'padding-box',
     padding: '2rem',
-    zIndex: 0,
+    zIndex: 'initial',
     ':after': {
       position: 'absolute',
       left: '-0.125rem',
@@ -37,7 +37,7 @@ export default defineStyle({
     background: 'dark.900',
     backgroundClip: 'padding-box',
     padding: '2rem',
-    zIndex: 0,
+    zIndex: 'initial',
     ':after': {
       position: 'absolute',
       left: '-0.125rem',

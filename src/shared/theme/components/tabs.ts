@@ -20,8 +20,11 @@ const variants = {
         },
         tablist: {
         },
-        tabpanel: {},
-        tabpanels: {},
+        tabpanel: {
+            padding: 'none !important'
+        },
+        tabpanels: {
+        },
         indicator: {
 
         },

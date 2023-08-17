@@ -1,6 +1,6 @@
 import { HTMLAttributeAnchorTarget } from 'react';
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
-import { Logo } from '../Logo';
+import { Logo } from '../../ui-kit/components/Logo';
 
 export type HeaderMenuItem = {
   label: string;

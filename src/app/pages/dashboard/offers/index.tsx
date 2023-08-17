@@ -5,8 +5,9 @@ import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
 import { Paginate, Dashboard } from '@shared/types';
-import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
+import { LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
+import { EmptyData, OfferRow } from '@shared/ui-molecules';
 import MyBids from '../bids';
 import offersMock from './offersMock.json';
 
@@ -39,7 +40,7 @@ export const MyOffers: React.FC = observer(() => {
     <>
       {offers.map((offer, index) => {
         return (
-          <LotRow
+          <OfferRow
             key={index}
             lotId={offer.id}
             lotName={offer.lotName}
