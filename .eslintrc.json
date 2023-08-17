@@ -1,17 +1,10 @@
 {
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "plugin:storybook/recommended",
-    "prettier"
-  ],
+  "extends": ["react-app", "react-app/jest", "plugin:storybook/recommended"],
   "plugins": ["import"],
-  "parser": "@typescript-eslint/parser",
   "overrides": [
     {
       "files": ["**/*.ts?(x)"],
       "rules": {
-        "@typescript-eslint/no-redeclare": "off",
         "import/no-anonymous-default-export": "off",
         "import/order": [
           "error",

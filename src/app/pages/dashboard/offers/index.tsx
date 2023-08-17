@@ -11,7 +11,7 @@ import { Button, VStack } from '@chakra-ui/react';
 import { Paginate, Dashboard, Common } from '@shared/types';
 import { List, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
-import { EmptyData, OfferRow } from '@shared/ui-molecules';
+import { EmptyData, LotRow } from '@shared/ui-molecules';
 
 import MyBids from '../bids';
 
@@ -107,7 +107,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
           />
         }
         itemRender={(item) => (
-          <OfferRow
+          <LotRow
             lot={{
               id: item.id,
               lotName: item.lotName,
@@ -125,9 +125,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
                 { label: 'Total Bids Place', value: item.totalBidsPlace },
               ],
             }}
-            handleClickLot={({ id }) =>
-              router.navigateComponent(LotView, { id })
-            }
+            onClick={({ id }) => router.navigateComponent(LotView, { id })}
           />
         )}
       />

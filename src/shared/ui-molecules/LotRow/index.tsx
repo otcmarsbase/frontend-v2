@@ -10,14 +10,12 @@ import { Common } from '@shared/types';
 import {
   Icons,
   HotIcon,
-  LotStatus,
   KebabMenuIcon,
   Dropdown,
+  LotStatus,
 } from '@shared/ui-kit';
 
-export type LotOfferType = 'buy' | 'sell';
-
-export interface OfferRowProps extends Omit<StackProps, 'direction'> {
+export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: {
     id: number;
     lotName: string;
@@ -27,7 +25,7 @@ export interface OfferRowProps extends Omit<StackProps, 'direction'> {
     status: React.ReactElement<typeof LotStatus>;
     fields: { label: string; value: React.ReactNode }[];
   };
-  handleClickLot: (params: { id: OfferRowProps['lot']['id'] }) => void;
+  onClick: (params: { id: LotRowProps['lot']['id'] }) => void;
 }
 
 const listItemTexts = {
@@ -37,9 +35,9 @@ const listItemTexts = {
   } as Record<Common.Direction, string>,
 };
 
-export const OfferRow: React.FC<OfferRowProps> = ({
+export const LotRow: React.FC<LotRowProps> = ({
   lot,
-  handleClickLot,
+  onClick,
   ...stackProps
 }) => {
   const { id, lotName, isHot, direction, lotIconName, status, fields } = lot;
@@ -61,7 +59,7 @@ export const OfferRow: React.FC<OfferRowProps> = ({
         bg: 'dark.800',
       }}
       alignItems="start"
-      onClick={() => handleClickLot({ id })}
+      onClick={() => onClick({ id })}
       {...stackProps}
     >
       <Text
@@ -103,7 +101,7 @@ export const OfferRow: React.FC<OfferRowProps> = ({
           )}
         </HStack>
         <HStack gap="0.5rem" alignItems="center" my="1.25rem">
-          <LotIcon w="1.875rem" h="1.875rem" />
+          {LotIcon && <LotIcon w="1.875rem" h="1.875rem" />}
           <Text fontWeight="semibold">{lotName}</Text>
         </HStack>
         {status}
@@ -126,14 +124,21 @@ export const OfferRow: React.FC<OfferRowProps> = ({
               }}
             >
               <VStack alignItems="start" maxW="8rem" w="full">
-                <Text fontWeight={600} color="dark.50">
+                <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
                   {field.label}
                 </Text>
-                <Text fontWeight={600}>{field.value}</Text>
+                {typeof field.value === 'string' ? (
+                  <Text fontWeight={600}>{field.value}</Text>
+                ) : (
+                  <>{field.value}</>
+                )}
               </VStack>
             </GridItem>
           ))}
         </Grid>
+        {
+          // TODO fix stopPropagate on row clicking
+        }
         <Dropdown
           items={[
             { children: 'Edit' },
@@ -150,6 +155,10 @@ export const OfferRow: React.FC<OfferRowProps> = ({
             transition="all 0.3s"
             _hover={{ color: 'orange.500' }}
             h="2rem"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
           />
         </Dropdown>
       </HStack>

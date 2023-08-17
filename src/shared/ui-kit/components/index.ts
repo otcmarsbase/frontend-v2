@@ -12,6 +12,8 @@ export * from './Loader';
 export * from './Logo';
 export * from './LotStatus';
 export * from './Modal';
+export * from './UserDataChip';
+export * from './LotTypeChip';
 export * from './RadioButtons';
 export * from './Select';
 export * from './DealType';

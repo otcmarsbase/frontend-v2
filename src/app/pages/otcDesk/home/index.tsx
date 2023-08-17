@@ -11,7 +11,6 @@ import {
   VStack,
   Text,
   Box,
-  Grid,
 } from '@chakra-ui/react';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotItem, LotItemProps } from '@shared/ui-molecules';
@@ -61,19 +60,6 @@ export const OtcDesk: React.FC = observer(() => {
           ))}
         </SimpleGrid>
       </HStack>
-
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        gridColumnGap="2rem"
-        gridRowGap="2rem"
-        w="full"
-      >
-        {lots.map((lot) => (
-          <motion.div layout key={lot.id}>
-            <LotItem {...lot} />
-          </motion.div>
-        ))}
-      </Grid>
     </VStack>
   );
 });

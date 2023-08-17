@@ -16,20 +16,21 @@ export const StickyContainer: React.FC<StickyContainerProps> = ({
   main,
   footer,
 }) => {
-  return (
-    <VStack marginTop="2rem" alignItems={'flex-start'}>
-      <HStack w={'100%'} color={'#888D9B'}>
+
+    return (
+    <VStack marginTop="2rem" alignItems='flex-start'>
+      <HStack w='100%' color='#888D9B' cursor='pointer'>
         <Arrow />
         <Box>Back to OTC Desk</Box>
       </HStack>
       <HStack
-        alignItems={'flex-start'}
-        w={'100%'}
+        alignItems='flex-start'
+        w='100%'
         position="relative"
         gap="2rem"
       >
         {sidebar}
-        <VStack w={'100%'} h="fit-content" gap="1.5rem">
+        <VStack w='100%' h="fit-content" gap="1.5rem">
           {head}
           {main}
         </VStack>
