@@ -15,6 +15,7 @@ const CommunityMock = [
     }
 ]
 export function HeaderRightContent() {
+    let commun = 'Community'
     return (
         <HStack>
             <Dropdown
@@ -24,7 +25,9 @@ export function HeaderRightContent() {
                     {children: 'Facebook', as: 'a', href: '#'},
                 ]}
             >
-                Community
+                <HStack>
+                    Community
+                </HStack>
             </Dropdown>
 
             <Heading variant='h4' fontWeight='400' color='dark.50' whiteSpace='nowrap'>

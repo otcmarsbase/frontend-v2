@@ -17,7 +17,6 @@ export interface DropdownProps extends React.PropsWithChildren {
 }
 
 export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({ items, children }) => {
-  console.log('items, children',items, children, typeof children)
   const {
     isOpen: isDropdownOpen,
     onClose,
