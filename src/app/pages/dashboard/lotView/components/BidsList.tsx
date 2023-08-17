@@ -23,10 +23,6 @@ import { ValidatedKYCicon } from '@shared/assets/VlidatedKYCicon';
 import { format } from 'date-fns';
 import { memoize } from 'lodash';
 
-interface IBidsWithHover extends IBidsListProps {
-  isHovered: boolean;
-}
-
 const calcOnHover = memoize(({ _bids, id }) => {
   let newArr = [];
   for (let bid of _bids) {

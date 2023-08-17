@@ -1,7 +1,7 @@
+import { ReactNode } from 'react';
 import { Icons } from '@shared/ui-kit';
 import { Common } from './common';
-import { LotFlow } from './lot-flow';
-import {ReactNode} from "react";
+import { LotFlow } from './lotFlow';
 
 export namespace Dashboard {
   export type OfferStatus =
@@ -34,14 +34,13 @@ export namespace Dashboard {
     isHot: boolean;
     publishedAt: Date;
     fdv: number;
-    offerMaker: 'Some user',
-    offerMakerIcon: ReactNode,
-    isDirectSeller: boolean,
-    location: string,
+    offerMaker: 'Some user';
+    offerMakerIcon: ReactNode;
+    isDirectSeller: boolean;
+    location: string;
     lotName: string;
     lotIconName: keyof typeof Icons.ProjectsIcons;
     bidSize: number;
     status: Dashboard.OfferStatus;
   }
 }
-

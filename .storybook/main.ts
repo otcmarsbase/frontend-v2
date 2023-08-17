@@ -5,6 +5,8 @@ const config: StorybookConfig = {
   stories: [
     '../src/shared/ui-kit/stories/**/*.mdx',
     '../src/shared/ui-kit/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../src/shared/ui-molecules/stories/**/*.mdx',
+    '../src/shared/ui-molecules/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',

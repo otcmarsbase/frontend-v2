@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+
 import { Box, HStack, VStack } from '@chakra-ui/react';
 import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
 
