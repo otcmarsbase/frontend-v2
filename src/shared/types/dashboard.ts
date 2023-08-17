@@ -1,6 +1,7 @@
 import { Icons } from '@shared/ui-kit';
+
 import { Common } from './common';
-import { LotFlow } from './lot-flow';
+import { LotFlow } from './lotFlow';
 
 export namespace Dashboard {
   export type OfferStatus =

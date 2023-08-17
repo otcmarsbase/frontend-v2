@@ -1,13 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-import {
-  Box,
-  Container,
-  defineStyle,
-  Heading,
-  HStack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 
 interface iCountdownProps {
   endDate: Date;
@@ -28,12 +21,7 @@ export const Countdown = ({ endDate }: iCountdownProps) => {
     seconds: '00',
   });
 
-  useEffect(() => {
-    const intervalID = setInterval(() => setNewTime(), 1000);
-    return () => clearInterval(intervalID);
-  }, []);
-
-  const setNewTime = () => {
+  const setNewTime = useCallback(() => {
     const countdownDate = endDate.getTime();
     if (countdownDate) {
       const currentTime = new Date().getTime();
@@ -75,7 +63,12 @@ export const Countdown = ({ endDate }: iCountdownProps) => {
 
       setState({ days: days, hours: hours, minutes, seconds });
     }
-  };
+  }, [endDate]);
+
+  useEffect(() => {
+    const intervalID = setInterval(() => setNewTime(), 1000);
+    return () => clearInterval(intervalID);
+  }, [setNewTime]);
 
   return (
     <HStack gap="0.19rem" h="2rem" justifyContent="end">

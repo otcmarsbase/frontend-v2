@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 
 import { LotViewDefaultValues } from '@app/pages/dashboard/lotView/consts';
 import { LotViewSchema } from '@app/pages/dashboard/lotView/schemas';
-import { ILotView, TLotModalFields } from '@app/pages/dashboard/lotView/types';
+import { TLotModalFields } from '@app/pages/dashboard/lotView/types';
 import { InvAccTypes } from '@app/pages/offers/create/components/ProjectInfo/types';
 import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import {
@@ -79,9 +79,9 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
         dirtyFields.hasOwnProperty('giveFunds') &&
         dirtyFields.hasOwnProperty('amountToSell');
       setIsValid(validFrom);
-    }, [data]);
+    }, [data, form.formState]);
 
-    const { register, getValues, formState, setValue, isRequired } = form;
+    const { register, getValues, formState, setValue } = form;
     const { errors } = formState;
     const onClose = useCallback(() => {
       if (portal && portal.resolve) portal.resolve(null);
@@ -92,7 +92,7 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
         if (portal && portal.resolve) portal.resolve(field);
         form.reset();
       },
-      [portal],
+      [form, portal],
     );
 
     const onPlaceBid = () => {

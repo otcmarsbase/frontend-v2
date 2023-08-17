@@ -4,7 +4,7 @@ import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
 import { DashboardListType } from '@app/store';
-import { EmptyData } from '@shared/ui-kit';
+import { EmptyData } from '@shared/ui-molecules';
 
 import MyOffers from '../offers';
 

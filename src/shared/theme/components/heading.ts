@@ -41,6 +41,8 @@ const variants = {
 
 export const Heading = defineStyleConfig({
   variants,
-  baseStyle: {},
+  baseStyle: {
+    fontFamily: 'promo',
+  },
   sizes: { md },
 });

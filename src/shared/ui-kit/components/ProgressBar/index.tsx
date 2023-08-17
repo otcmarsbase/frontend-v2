@@ -14,7 +14,7 @@ export const ProgressBar = ({ title, currentAmount, totalAmount }) => {
       }
     }, 0);
     return () => clearTimeout(timeout);
-  }, [value]);
+  }, [currentAmount, value]);
 
   return (
     <VStack w="100%" gap="0.31rem">

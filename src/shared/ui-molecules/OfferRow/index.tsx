@@ -15,40 +15,34 @@ import {
   Dropdown,
 } from '@shared/ui-kit';
 
-export interface LotRowProps extends StackProps {
+export type LotOfferType = 'buy' | 'sell';
+
+export interface OfferRowProps extends Omit<StackProps, 'direction'> {
   lot: {
-    lotId: number;
-    direction: Common.Direction;
+    id: number;
     lotName: string;
-    // TODO fix this
-    type: any;
     isHot: boolean;
+    direction: Common.Direction;
     lotIconName: keyof typeof Icons.ProjectsIcons;
-    handleClickLot: ({ lotId }: { lotId: number }) => void;
     status: React.ReactElement<typeof LotStatus>;
     fields: { label: string; value: React.ReactNode }[];
   };
+  handleClickLot: (params: { id: OfferRowProps['lot']['id'] }) => void;
 }
 
 const listItemTexts = {
   type: {
-    buy: 'Buy',
-    sell: 'Sell',
-    // TODO fix this shit
-  } as Record<'buy' | 'sell', string>,
+    BUY: 'Buy',
+    SELL: 'Sell',
+  } as Record<Common.Direction, string>,
 };
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
-  const {
-    lotId,
-    lotName,
-    isHot,
-    type,
-    lotIconName,
-    status,
-    fields,
-    handleClickLot,
-  } = lot;
+export const OfferRow: React.FC<OfferRowProps> = ({
+  lot,
+  handleClickLot,
+  ...stackProps
+}) => {
+  const { id, lotName, isHot, direction, lotIconName, status, fields } = lot;
 
   const LotIcon = Icons[lotIconName];
 
@@ -67,17 +61,19 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
         bg: 'dark.800',
       }}
       alignItems="start"
-      onClick={() => handleClickLot({ lotId })}
+      onClick={() => handleClickLot({ id })}
       {...stackProps}
     >
       <Text
         // TODO: Уточнить у дизайнеров почему цвета не из той палитры
         bg={
-          type === 'buy' ? 'rgba(52, 168, 83, 0.40)' : 'rgba(232, 42, 54, 0.30)'
+          direction === 'BUY'
+            ? 'rgba(52, 168, 83, 0.40)'
+            : 'rgba(232, 42, 54, 0.30)'
         }
         padding="0.1rem 1rem"
         borderRadius="0.75rem 0rem"
-        color={type === 'buy' ? '#34A853' : '#E82A36'}
+        color={direction === 'BUY' ? '#34A853' : '#E82A36'}
         textTransform="uppercase"
         fontSize="sm"
         fontWeight={600}
@@ -85,11 +81,11 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
         left={0}
         top={0}
       >
-        {listItemTexts.type[type]}
+        {listItemTexts.type[direction]}
       </Text>
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
-          <Text color="dark.200">#{lotId}</Text>
+          <Text color="dark.200">#{id}</Text>
           {isHot && (
             <HStack
               borderRadius="0.25rem"

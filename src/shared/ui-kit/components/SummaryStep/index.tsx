@@ -36,7 +36,7 @@ export const SummaryStep = ({
 
   useEffect(() => {
     setIsExpanded(isSuccessFilled || stepWasOpened);
-  }, [isSuccessFilled]);
+  }, [isSuccessFilled, stepWasOpened]);
 
   const isValid = isSuccessFilled;
   const isDefault = !stepWasOpened;
