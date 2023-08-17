@@ -1,13 +1,24 @@
-import { memo } from 'react';
-import { ROUTER_CONTEXT } from '../context';
-import { PageProvider, PageProviderProps } from './PageProvider';
+import { Router } from 'router5';
 
-export const RouterProvider: React.FC<PageProviderProps> = memo(
-  ({ router, ...props }) => {
-    return (
-      <ROUTER_CONTEXT.Provider value={router}>
-        <PageProvider router={router} {...props} />
-      </ROUTER_CONTEXT.Provider>
-    );
-  },
-);
+import { RouterContextProvider } from '../context';
+import { PageComponent, PageRenderFunction } from '../core';
+
+import { PageRoute } from './PageRoute';
+
+export interface RouterProviderProps {
+  router: Router;
+  notFound?: PageComponent;
+  render?: PageRenderFunction;
+}
+
+export const RouterProvider: React.FC<RouterProviderProps> = ({
+  router,
+  notFound,
+  render,
+}) => {
+  return (
+    <RouterContextProvider value={router}>
+      <PageRoute render={render} notFound={notFound} />
+    </RouterContextProvider>
+  );
+};

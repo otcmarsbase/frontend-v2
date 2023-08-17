@@ -37,7 +37,6 @@ const variants = {
     lineHeight: '1rem',
     letterSpacing: '-0.00625rem'
   }),
-
 };
 
 export const Heading = defineStyleConfig({

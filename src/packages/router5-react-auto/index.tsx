@@ -1,7 +1,7 @@
-import './extension.d';
+import './extensions';
 
+export * from './autoGenerate';
 export * from './components';
-export * from './create';
-export * from './methods';
-export * from './types';
-export * from './utils';
+export * from './context';
+export * from './core';
+export * from './pageSchema';

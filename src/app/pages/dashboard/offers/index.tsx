@@ -1,21 +1,60 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
+import LotView from '@app/pages/dashboard/lotView';
 import { DashboardListType } from '@app/store';
-import { Paginate, Dashboard } from '@shared/types';
-import { LotRow, EmptyData, LotStatus } from '@shared/ui-kit';
-import {LotTypeChip} from "@shared/ui-kit/components/LotTypeChip";
+import { Button, VStack } from '@chakra-ui/react';
+import { Paginate, Dashboard, Common } from '@shared/types';
+import { LotRow, EmptyData, LotStatus, List } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import MyBids from '../bids';
-import offersMock from './offersMock.json';
+import { mockRequest } from './mockRequest';
 
+export interface MyOfferProps {
+  filters?: {
+    search?: string;
+    directions?: Common.Direction[];
+    minValue?: number;
+    maxValue?: number;
+  };
+}
 
-const offers = offersMock.offers as Dashboard.OfferItem[];
+// TODO Fix problem
+// const MyOffersPageSchema = {
+//   filters: {
+//     search: PageSchema.stringParser,
+//     directions: PageSchema.arrayParser(
+//       PageSchema.enumParser<Common.Direction>(['BUY', 'SELL']),
+//     ),
+//     minValue: PageSchema.numberParser,
+//     maxValue: PageSchema.numberParser,
+//   },
+// } satisfies PageSchema<MyOfferProps>;
 
-const MyOffers: React.FC = observer(() => {
+export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
+  const [offers, setOffers] = useState<Dashboard.OfferItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // console.log(props);
+  // const parsedProps = PageSchema.resolve(props, MyOffersPageSchema);
+
   const openCreateOfferModal = useCreateOfferModal();
+
+  const loadOffers = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const offers = await mockRequest({});
+      setOffers(offers);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadOffers();
+  }, [loadOffers]);
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
     page: 1,
@@ -27,60 +66,68 @@ const MyOffers: React.FC = observer(() => {
   });
 
   const onChangePage = useCallback(async (page: number, limit: number) => {},
-  []);
-
-  if (!offers.length)
-    return (
-      <EmptyData
-        onCreate={openCreateOfferModal}
-        createButtonLabel="Create offers"
-      />
-    );
+      []);
 
   return (
-    <>
-      {offers.map(offer => {
-        return (
-          <LotRow
-            key={offer.id}
-            lotId={offer.id}
-            lotName={offer.lotName}
-            lotIconName={offer.lotIconName}
-            type={offer.offerType}
-            isHot={offer.isHot}
-            status={<LotStatus value={offer.status} />}
-            fields={[
-              { label: 'Lot Type', value: <LotTypeChip headingProps={{variant:'h6'}} lotType={offer.lotType}/>},
-              { label: 'Published at', value: offer.publishedAt },
-              { label: 'FDV', value: offer.fdv },
-              { label: 'Lot value', value: offer.lotValue },
-              { label: 'Vertical', value: offer.verticalCount },
-              { label: 'Finished at', value: offer.finishedAt },
-              { label: 'Total Bids Place', value: offer.totalBidsPlace },
-            ]}
-          />
-        );
-      })}
-      <Pagination
-        total={events.total}
-        pageSize={paginationOptions.limit}
-        page={paginationOptions.page}
-        onChange={onChangePage}
-      />
-    </>
+      <VStack width="full">
+        <List
+            width="full"
+            items={offers}
+            itemKey={(item) => item.id}
+            isLoading={isLoading}
+            emptyText={
+              <EmptyData
+                  onCreate={openCreateOfferModal}
+                  createButtonLabel="Create offers"
+              />
+            }
+            itemRender={(item) => (
+                <LotRow
+                    lot={{
+                      lotId: item.id,
+                      type: item.offerType,
+                      lotName: item.lotName,
+                      lotIconName: item.lotIconName,
+                      direction: item.offerType,
+                      isHot: item.isHot,
+                      handleClickLot: ({ lotId }) =>
+                          router.navigateComponent(LotView, { lotId }),
+                      status: <LotStatus value={item.status} />,
+                      fields: [
+                        { label: 'Lot type', value: item.lotType },
+                        { label: 'Published at', value: item.publishedAt },
+                        { label: 'FDV', value: item.fdv },
+                        { label: 'Lot value', value: item.lotValue },
+                        { label: 'Vertical', value: item.verticalCount },
+                        { label: 'Finished at', value: item.finishedAt },
+                        { label: 'Total Bids Place', value: item.totalBidsPlace },
+                      ],
+                    }}
+                />
+            )}
+        />
+        <Pagination
+            total={events.total}
+            pageSize={paginationOptions.limit}
+            page={paginationOptions.page}
+            onChange={onChangePage}
+        />
+      </VStack>
   );
 });
 
+// MyOffers.pageSchema = MyOffersPageSchema;
+
 MyOffers.getLayout = ({ children }) => (
-  <Layouts.DashboardLayout
-    onChangeListType={(listType) => {
-      if (listType === DashboardListType.BIDS)
-        router.navigateComponent(MyBids, {});
-    }}
-    listType={DashboardListType.ORDERS}
-  >
-    {children}
-  </Layouts.DashboardLayout>
+    <Layouts.DashboardLayout
+        onChangeListType={(listType) => {
+          if (listType === DashboardListType.BIDS)
+            router.navigateComponent(MyBids, {});
+        }}
+        listType={DashboardListType.ORDERS}
+    >
+      {children}
+    </Layouts.DashboardLayout>
 );
 
 export default MyOffers;

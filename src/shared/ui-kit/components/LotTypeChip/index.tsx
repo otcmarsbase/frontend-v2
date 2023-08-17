@@ -1,13 +1,13 @@
 import {Box, Heading} from "@chakra-ui/react";
-import {LotFlow} from "@shared/types";
+// import {LotFlow} from "@shared/types";
 
 export const getTypeOfDealChipColors = ({lotType}) => {
     switch (lotType) {
-        case LotFlow.LotType.SAFE:
+        case "SAFE":
             return '#EF5DA8'
-        case LotFlow.LotType.SAFT:
+        case 'SAFT':
             return "#5D5FEF"
-        case LotFlow.LotType.TOKEN_WARRANT:
+        case 'Token warrant':
             return "#FF5B37"
         default:
             return '#EF5DA8'

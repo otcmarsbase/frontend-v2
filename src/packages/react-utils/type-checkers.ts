@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { isExtends } from '@berish/class';
 
 export function isReactComponentClass(

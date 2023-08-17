@@ -1,4 +1,5 @@
 import { NODE_ENV } from '@packages/berish-configurator-core';
+
 import { configurator } from './configurator';
 
 export interface AppConfig {

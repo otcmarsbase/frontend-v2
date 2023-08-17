@@ -1,33 +1,35 @@
+import { EPricingModel } from '../../types';
+import { ELotType } from '../ProjectInfo/types';
 import { TokenInfoFields } from '../TokenInfo/constants';
 
-export enum StepTypes {
-  'FIRST_STEP' = 'firstStep',
-  'SECOND_STEP' = 'secondStep',
-  'THIRD_STEP' = 'thirdStep',
-  'SECOND_STEP_BUY' = 'secondStepBuy',
+export enum EStepTypes {
+  FIRST_STEP = 'firstStep',
+  SECOND_STEP = 'secondStep',
+  THIRD_STEP = 'thirdStep',
+  SECOND_STEP_BUY = 'secondStepBuy',
 }
 
-export const StepsText: Record<StepTypes, Record<string, {}>> = {
-  [StepTypes.FIRST_STEP]: {
+export const StepsText: Record<EStepTypes, Record<string, {}>> = {
+  [EStepTypes.FIRST_STEP]: {
     projectName: 'Name',
     typeOfDeal: 'Direction',
     lotType: 'Type',
     deadlineDate: 'Deadline',
   },
-  [StepTypes.SECOND_STEP]: {
-    SAFT: {
+  [EStepTypes.SECOND_STEP]: {
+    [ELotType.SAFE]: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
       totalEquityBought: 'Total equity bought',
     },
-    SAFE: {
+    [ELotType.SAFT]: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
       totalEquityBought: 'Total equity bought',
     },
-    'Token warrant': {
+    [ELotType.TOKEN_WARRANT]: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
@@ -35,43 +37,43 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
       pricePerEquity: TokenInfoFields.PRICE_PER_EQUITY,
     },
   },
-  [StepTypes.SECOND_STEP_BUY]: {
-    SAFE: {
-      'In Stablecoin': {
+  [EStepTypes.SECOND_STEP_BUY]: {
+    [ELotType.SAFE]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      'In Equity': {
+      [EPricingModel.IN_EQUITY]: {
         equityToOffer: 'Equity to offer',
         minEquityBid: 'Minimum equity bid',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
     },
-    SAFT: {
-      'In Stablecoin': {
+    [ELotType.SAFT]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
-      'In Token': {
+      [EPricingModel.IN_TOKEN]: {
         tokensToOffer: 'Tokens to offer',
         minTokenBid: 'Minimum token bid',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
     },
-    'Token warrant': {
-      'In Stablecoin': {
+    [ELotType.TOKEN_WARRANT]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      'In Token Shares': {
+      [EPricingModel.IN_TOKEN_SHARES]: {
         tokenShareToOffer: 'Token share to offer',
         minTokenShareBid: 'Minimum token share bid',
         targetFDV: 'Target FDV',
@@ -79,43 +81,43 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
       },
     },
   },
-  [StepTypes.THIRD_STEP]: {
-    SAFE: {
-      'In Stablecoin': {
+  [EStepTypes.THIRD_STEP]: {
+    [ELotType.SAFE]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      'In Equity': {
+      [EPricingModel.IN_EQUITY]: {
         equityToOffer: 'Equity to offer',
         minEquityBid: 'Minimum equity bid',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
     },
-    SAFT: {
-      'In Stablecoin': {
+    [ELotType.SAFT]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
-      'In Token': {
+      [EPricingModel.IN_TOKEN]: {
         tokensToOffer: 'Tokens to offer',
         minTokenBid: 'Minimum token bid',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
     },
-    'Token warrant': {
-      'In Stablecoin': {
+    [ELotType.TOKEN_WARRANT]: {
+      [EPricingModel.IN_STABLECOIN]: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      'In Token Shares': {
+      [EPricingModel.IN_TOKEN_SHARES]: {
         tokenShareToOffer: 'Token share to offer',
         minTokenShareBid: 'Minimum token share bid',
         targetFDV: 'Target FDV',
@@ -125,9 +127,10 @@ export const StepsText: Record<StepTypes, Record<string, {}>> = {
   },
 };
 
-export const StepLabels: Record<StepTypes, { label: string; index: number }> = {
-  [StepTypes.FIRST_STEP]: { label: 'Project info', index: 1 },
-  [StepTypes.SECOND_STEP]: { label: 'Details about the token', index: 2 },
-  [StepTypes.THIRD_STEP]: { label: 'Pricing details', index: 3 },
-  [StepTypes.SECOND_STEP_BUY]: { label: 'Lot info', index: 2 },
-};
+export const StepLabels: Record<EStepTypes, { label: string; index: number }> =
+  {
+    [EStepTypes.FIRST_STEP]: { label: 'Project info', index: 1 },
+    [EStepTypes.SECOND_STEP]: { label: 'Details about the token', index: 2 },
+    [EStepTypes.THIRD_STEP]: { label: 'Pricing details', index: 3 },
+    [EStepTypes.SECOND_STEP_BUY]: { label: 'Lot info', index: 2 },
+  };

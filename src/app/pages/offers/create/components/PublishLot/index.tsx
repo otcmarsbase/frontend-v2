@@ -1,11 +1,14 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
+
 import { Button } from '@chakra-ui/react';
 
-export const PublishLot: FC<{
-  onPublishLot: () => void;
-  children: ReactNode;
-  isActive: boolean;
-}> = ({ onPublishLot, children, isActive }) => {
+import { IPublishLot } from '../PublishLot/types';
+
+export const PublishLot: FC<IPublishLot> = ({
+  onPublishLot,
+  children,
+  isActive,
+}) => {
   return (
     <Button
       onClick={onPublishLot}

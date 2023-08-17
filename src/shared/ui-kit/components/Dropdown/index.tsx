@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useClickAway } from 'react-use';
+
 import {
   Menu,
   MenuItem,

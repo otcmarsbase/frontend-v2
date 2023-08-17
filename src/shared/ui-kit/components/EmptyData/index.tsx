@@ -1,4 +1,5 @@
 import { Button, Circle, VStack, Image, Text } from '@chakra-ui/react';
+
 import WorriedEmojiPng from './assets/worried-emoji.png';
 
 export interface EmptyDataProps {

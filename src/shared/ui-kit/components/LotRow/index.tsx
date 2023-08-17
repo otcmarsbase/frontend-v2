@@ -1,4 +1,3 @@
-import {ComponentType, ReactNode} from "react";
 import {
     Grid,
     GridItem,
@@ -7,6 +6,7 @@ import {
     Text,
     VStack,
 } from '@chakra-ui/react';
+import {Common} from "@shared/types";
 import {
     Icons,
     HotIcon,
@@ -17,35 +17,42 @@ import {
 export type LotOfferType = 'buy' | 'sell';
 
 export interface LotRowProps extends StackProps {
-    lotId: number;
-    lotName: string;
-    type: 'buy' | 'sell';
-    isHot: boolean;
-    lotIconName: keyof typeof Icons.ProjectsIcons;
-    status: ReactNode;
-    fields: { label: string; value: ReactNode }[];
-    bidSize?: number;
+    lot: {
+        lotId: number;
+        direction: Common.Direction;
+        lotName: string;
+        // TODO fix this
+        type: any;
+        isHot: boolean;
+        lotIconName: keyof typeof Icons.ProjectsIcons;
+        handleClickLot: ({ lotId }: { lotId: number }) => void;
+        status: React.ReactElement<typeof LotStatus>;
+        fields: { label: string; value: React.ReactNode }[];
+    };
 }
 
 const listItemTexts = {
     type: {
         buy: 'Buy',
         sell: 'Sell',
-    } as Record<LotOfferType, string>,
+        // TODO fix this
+    } as Record<'buy' | 'sell', string>,
 };
 
-export const LotRow: React.FC<LotRowProps> = ({
-                                                  lotId,
-                                                  lotName,
-                                                  isHot,
-                                                  type,
-                                                  lotIconName,
-                                                  status,
-                                                  fields,
-                                                  ...stackProps
-                                              }) => {
+export const LotRow: React.FC<LotRowProps> = ({ lot, ...stackProps }) => {
+    const {
+        lotId,
+        lotName,
+        isHot,
+        type,
+        lotIconName,
+        status,
+        fields,
+        handleClickLot,
+    } = lot;
 
     const LotIcon = Icons[lotIconName];
+
     return (
         <HStack
             bg="dark.900"
@@ -61,6 +68,7 @@ export const LotRow: React.FC<LotRowProps> = ({
                 bg: 'dark.800',
             }}
             alignItems="start"
+            onClick={() => handleClickLot({ lotId })}
             {...stackProps}
         >
             <Text

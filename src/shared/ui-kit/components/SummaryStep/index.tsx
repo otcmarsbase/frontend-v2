@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import {
   Circle,
   HStack,
@@ -8,7 +9,8 @@ import {
   Divider,
   Box,
 } from '@chakra-ui/react';
-import { AlertCircle } from '@shared/ui-kit/icons/AlertCurcle';
+import { AlertCircle } from '@shared/ui-kit';
+
 import { CheckmarkIcon, ChevronDownIcon, WaitingIcon } from '../../icons';
 
 export interface SummaryStepProps extends Omit<StackProps, 'children'> {
@@ -34,12 +36,11 @@ export const SummaryStep = ({
 
   useEffect(() => {
     setIsExpanded(isSuccessFilled || stepWasOpened);
-  }, [isSuccessFilled, stepWasOpened]);
+  }, [isSuccessFilled]);
 
   const isValid = isSuccessFilled;
-  const isInvalid = !isSuccessFilled;
-
   const isDefault = !stepWasOpened;
+  const isInvalid = !isSuccessFilled;
   return (
     <VStack
       alignItems="start"
@@ -50,15 +51,15 @@ export const SummaryStep = ({
       borderRadius="1rem"
       {...stackProps}
     >
-      <HStack justifyContent="space-between" width="full">
+      <HStack justifyContent="space-between" width="100%">
         <HStack>
           <Circle
             size="1.5rem"
             background={isSuccessFilled ? 'green.500' : 'dark.500'}
           >
-            {isDefault && !isValid ? <WaitingIcon color="dark.100" /> : null}
+            {isDefault ? <WaitingIcon color="dark.100" /> : null}
             {isValid ? <CheckmarkIcon /> : null}
-            {isInvalid && !isDefault ? <AlertCircle /> : null}
+            {isInvalid ? <AlertCircle /> : null}
           </Circle>
           <Text fontSize="sm" fontWeight="bold">
             Step {stepData.id}
@@ -78,7 +79,7 @@ export const SummaryStep = ({
         )}
       </HStack>
       <Box
-        width="full"
+        width="100%"
         transition="opacity 0.3s"
         height={isExpanded ? '100%' : '0'}
         opacity={isExpanded ? 1 : 0}
@@ -88,9 +89,9 @@ export const SummaryStep = ({
           <Divider my="3" color={isSuccessFilled ? 'green.500' : 'dark.100'} />
         )}
         {fields.length ? (
-          <VStack alignItems="start" width="full">
+          <VStack alignItems="start" width="100%">
             {fields.map((field, index) => (
-              <HStack width="full" justifyContent="space-between" key={index}>
+              <HStack width="100%" justifyContent="space-between" key={index}>
                 <Text fontSize="sm" opacity="0.6">
                   {field.name}
                 </Text>
