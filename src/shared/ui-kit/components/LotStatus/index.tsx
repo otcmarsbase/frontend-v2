@@ -21,7 +21,10 @@ export interface LotStatusProps extends BoxProps {
   value: Dashboard.OfferStatus;
 }
 
-export const LotStatus = ({ value, ...boxProps }: LotStatusProps):JSX.Element => {
+export const LotStatus = ({
+  value,
+  ...boxProps
+}: LotStatusProps): JSX.Element => {
   const color = lotStatusColors[value];
 
   return (

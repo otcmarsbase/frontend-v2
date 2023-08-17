@@ -98,7 +98,12 @@ export const WalletConnectButton = () => {
             alt={connectorName}
           />
         </Circle>
-        <Text fontSize="sm" color="orange.500" fontWeight={600}>
+        <Text
+          fontSize="sm"
+          color="orange.500"
+          whiteSpace="nowrap"
+          fontWeight={600}
+        >
           {balanceWithCommas} {data?.symbol}
         </Text>
         <Text
