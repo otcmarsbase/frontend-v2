@@ -1,11 +1,6 @@
-import {ComponentWithAs, IconProps} from "@chakra-ui/react";
-import {GitHubIcon as Mock} from './GithubIcon'
-
-export interface ILotViewLinks {
-    icon: ComponentWithAs<"svg", IconProps>,
-    text: string,
-    href: string
-}
+import {HEADER_FIELD_TITLES_BY_PARAM} from "@app/pages/dashboard/assets/constants";
+import {ILotViewLinks} from "@app/pages/dashboard/assets/types";
+import {GitHubIcon as Mock} from '@shared/assets/GithubIcon'
 
 export const officialLinks: ILotViewLinks[] = [
     {
@@ -79,13 +74,14 @@ export const verticalItems: ILotViewLinks[] = [
 ]
 
 interface IHeaderFields {
-    param: string
+    param: keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
     value: number
 }
 
 interface IAsset {
     icon: string,
     name: string,
+    assetResearch: string,
     title: string,
     description: string,
     headerFields: IHeaderFields[],
@@ -95,41 +91,42 @@ interface IAsset {
 export const AssetMock: IAsset = {
     icon: 'icon',
     name: 'Asset Name',
+    assetResearch:'assetResearch',
     description: 'Scroll aims to build an EVM-compatible zk-Rollup with a strong proving asdasa  nScroll aims to build an EVM-compatible zk-Rollup with a strong proving n Scroll aims to bui ssss ld an EVM-compatible zk-Rollup with a strong proving n Scroll aims to build an EVM-compatible zk-Rollup with a strong proving n Scroll aims to build an EVM-compatible zk-Rollup with a strong proving n Scroll aims to build an EVM-compatible zk-Rollup with a strong proving n',
     title: 'Scroll aims to build an EVM-compatible zk-Rollup with aasd asdasd',
     officialLinks: officialLinks,
     verticalItems: verticalItems,
     headerFields: [
         {
-            param: 'averagePerPurchase',
+            param: 'averagePerPurchase' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'averagBidsFDV',
+            param: 'averagBidsFDV' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'averageLotFDV',
+            param: 'averageLotFDV' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'marketPrice',
+            param: 'marketPrice' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'offersOnSell',
+            param: 'offersOnSell' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'offersOnBuy',
+            param: 'offersOnBuy' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'lotValueOnSell',
+            param: 'lotValueOnSell' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         },
         {
-            param: 'lotValueOnBuy',
+            param: 'lotValueOnBuy' as keyof typeof HEADER_FIELD_TITLES_BY_PARAM,
             value: 124563
         }
     ]

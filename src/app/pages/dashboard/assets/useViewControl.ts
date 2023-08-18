@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "@shared/ui-kit";
 
 const fetchJson = async (url) => {
@@ -9,11 +9,6 @@ export const useViewControl = ({schema, defaultValues, url = 'https://api.github
 
     const [state, setState] = useState({data: [], loading:false,error:null});
 
-    // const [data, setData] = useState(null);
-    // const loading = useRef(false);
-    // const error = useRef(null);
-    // const [error, setError] = useState(null);
-
     const form = useForm({
         schema: schema,
         defaultValues: defaultValues,
@@ -21,14 +16,11 @@ export const useViewControl = ({schema, defaultValues, url = 'https://api.github
 
     useEffect(() => {
         const {unsubscribe} = form.watch((formState) => {
-            console.log('formState', formState);
             setState(prev => {
                 return {...prev, loading: true}
             });
-            console.log('loading');
             fetchJson(url)
                 .then((data) => {
-                    console.log('datttt', data)
                     setState(prev => {
                         return {...prev, data: data}
                     });

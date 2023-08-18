@@ -8,7 +8,7 @@ import { Paginate, Dashboard } from '@shared/types';
 import { LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, OfferRow } from '@shared/ui-molecules';
-import MyBids from '../bids';
+import MyBids from '../assets';
 import offersMock from './offersMock.json';
 
 const offers = offersMock.offers as Dashboard.OfferItem[];

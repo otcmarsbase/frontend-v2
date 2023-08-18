@@ -67,7 +67,7 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
             about={{
               title: 'MARSBASE dOTC Desk',
               description:
-                'A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.',
+                'A perfect place for crypto whales and retail investors to trade large volumes of any digital assets with no price slippage or market impact.',
             }}
             socials={[
               {
