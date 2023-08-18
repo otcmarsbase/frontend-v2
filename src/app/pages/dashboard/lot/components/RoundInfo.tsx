@@ -1,4 +1,4 @@
-import { RoundInfoItem } from '@app/pages/dashboard/lotView/components/RoundInfoItem';
+import { RoundInfoItem } from '@app/pages/dashboard/lot/components/RoundInfoItem';
 import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
 
 export const RoundInfo = ({ roundInfoFields }) => {

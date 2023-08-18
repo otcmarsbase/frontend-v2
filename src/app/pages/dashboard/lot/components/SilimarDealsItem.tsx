@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { LotTypeChip } from '@app/pages/dashboard/lotView/components/LotTypeChip';
-import { TypeOfDealChip } from '@app/pages/dashboard/lotView/components/TypeOfDealChip';
-import { ISimilarDealItem } from '@app/pages/dashboard/lotView/types';
+import { LotTypeChip } from '@app/pages/dashboard/lot/components/LotTypeChip';
+import { TypeOfDealChip } from '@app/pages/dashboard/lot/components/TypeOfDealChip';
+import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
 import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
 import { HotChip } from '@shared/ui-kit/components/HotChip/HotChip';
 import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';

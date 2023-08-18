@@ -5,7 +5,7 @@ import {
   ILotViewProjectData,
   IRoundInfoFields,
   ISimilarDealItem,
-} from '@app/pages/dashboard/lotView/types';
+} from '@app/pages/dashboard/lot/types';
 import { ELotType } from '@app/pages/offers/create/components/ProjectInfo/types';
 import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import { MockIcon as Mock } from '@shared/assets/mocks/MockIcon';

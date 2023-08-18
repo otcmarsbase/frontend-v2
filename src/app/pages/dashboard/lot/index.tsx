@@ -5,16 +5,16 @@ import { observer } from 'mobx-react-lite';
 import * as Layouts from '@app/layouts';
 import { ModalController } from '@app/logic';
 import { ChooseBidsModal } from '@app/modals/CreateBidsModal';
-import { Bids } from '@app/pages/dashboard/lotView/components/Bids';
-import { ContentContainer } from '@app/pages/dashboard/lotView/components/ContentContainer';
-import { LinksContainer } from '@app/pages/dashboard/lotView/components/LinkContainer';
-import { LotBasicInfo } from '@app/pages/dashboard/lotView/components/LotBasicInfo';
-import { LotViewMainChip } from '@app/pages/dashboard/lotView/components/LotViewMainChip';
-import { RoundInfo } from '@app/pages/dashboard/lotView/components/RoundInfo';
-import { SidebarHeader } from '@app/pages/dashboard/lotView/components/SidebarHeader';
-import { SimilarDeals } from '@app/pages/dashboard/lotView/components/SimilarDeals';
-import { LotViewDefaultValues } from '@app/pages/dashboard/lotView/consts';
-import { LotViewSchema } from '@app/pages/dashboard/lotView/schemas';
+import { Bids } from '@app/pages/dashboard/lot/components/Bids';
+import { ContentContainer } from '@app/pages/dashboard/lot/components/ContentContainer';
+import { LinksContainer } from '@app/pages/dashboard/lot/components/LinkContainer';
+import { LotBasicInfo } from '@app/pages/dashboard/lot/components/LotBasicInfo';
+import { LotViewMainChip } from '@app/pages/dashboard/lot/components/LotViewMainChip';
+import { RoundInfo } from '@app/pages/dashboard/lot/components/RoundInfo';
+import { SidebarHeader } from '@app/pages/dashboard/lot/components/SidebarHeader';
+import { SimilarDeals } from '@app/pages/dashboard/lot/components/SimilarDeals';
+import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
+import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
 import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import { Box, Button, Heading, HStack, VStack } from '@chakra-ui/react';
 import { useForm } from '@shared/ui-kit';
@@ -29,7 +29,7 @@ const UserState = {
   isBidder: true,
 };
 
-export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
+export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   const form = useForm({
     schema: LotViewSchema,
     defaultValues: LotViewDefaultValues,
@@ -212,7 +212,7 @@ export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
     </>
   );
 });
-LotView.getLayout = ({ children }) => (
+Lot.getLayout = ({ children }) => (
   <Layouts.AppLayout>{children}</Layouts.AppLayout>
 );
-export default LotView;
+export default Lot;

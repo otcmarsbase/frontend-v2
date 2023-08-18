@@ -1,4 +1,4 @@
-import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lotView/consts';
+import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lot/consts';
 import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
 
 export const LotViewMainChip = ({ field }) => {

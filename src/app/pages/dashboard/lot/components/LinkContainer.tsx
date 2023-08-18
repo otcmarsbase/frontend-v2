@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ILotViewLinks } from '@app/pages/dashboard/lotView/types';
+import { ILotViewLinks } from '@app/pages/dashboard/lot/types';
 import { Box, Heading, HStack } from '@chakra-ui/react';
 
 export const LinksContainer: FC<ILotViewLinks> = ({ icon, text, href }) => {

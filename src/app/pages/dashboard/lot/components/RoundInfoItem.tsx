@@ -1,4 +1,4 @@
-import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lotView/consts';
+import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lot/consts';
 import { Box, Heading, HStack, Tooltip } from '@chakra-ui/react';
 import { TooltipIcon } from '@shared/assets/TooltipIcon';
 import { format } from 'date-fns';

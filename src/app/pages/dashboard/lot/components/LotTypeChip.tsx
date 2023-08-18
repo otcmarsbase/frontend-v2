@@ -1,4 +1,4 @@
-import { getTypeOfDealChipColors } from '@app/pages/dashboard/lotView/utils';
+import { getTypeOfDealChipColors } from '@app/pages/dashboard/lot/utils';
 import { Box, Heading } from '@chakra-ui/react';
 
 export const LotTypeChip = ({ lotType }) => {

@@ -1,4 +1,4 @@
-import { ILotView } from '@app/pages/dashboard/lotView/types';
+import { ILotView } from '@app/pages/dashboard/lot/types';
 
 export const LotViewDefaultValues: ILotView = {
   amountToSell: null,

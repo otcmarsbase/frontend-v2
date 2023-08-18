@@ -1,8 +1,8 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 
-import { LotViewDefaultValues } from '@app/pages/dashboard/lotView/consts';
-import { LotViewSchema } from '@app/pages/dashboard/lotView/schemas';
-import { TLotModalFields } from '@app/pages/dashboard/lotView/types';
+import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
+import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
+import { TLotModalFields } from '@app/pages/dashboard/lot/types';
 import { InvAccTypes } from '@app/pages/offers/create/components/ProjectInfo/types';
 import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import {
