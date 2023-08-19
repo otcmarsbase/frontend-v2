@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { ETypeOfDeal } from '../types';
+import { Common } from '@shared/types';
 
 interface IUseFormStepsValidationProps {
-  typeOfDeal: ETypeOfDeal;
+  direction: Common.Direction;
   sellOfferStore: any;
 }
 
@@ -13,7 +13,7 @@ interface IUseFormStepsValidationResult {
 }
 
 export const useFormStepsValidation = ({
-  typeOfDeal,
+  direction,
   sellOfferStore,
 }: IUseFormStepsValidationProps): IUseFormStepsValidationResult => {
   const [showStepTwo, setShowStepTwo] = useState(false);
@@ -28,25 +28,25 @@ export const useFormStepsValidation = ({
 
   useEffect(() => {
     let _showStepTwo = stepOneWasOnSuccess || stepOneSuccess;
-    if (typeOfDeal === ETypeOfDeal.SELL) {
+    if (direction === 'SELL') {
       setShowStepTwo((prev) => _showStepTwo);
     } else {
       setShowStepThree((prev) => _showStepTwo);
       setShowStepTwo((prev) => false);
     }
-  }, [stepOneWasOnSuccess, stepOneSuccess, typeOfDeal]);
+  }, [stepOneWasOnSuccess, stepOneSuccess, direction]);
 
   useEffect(() => {
     let _showStepThree =
       (stepOneWasOnSuccess || stepOneSuccess) &&
       (stepTwoWasOnSuccess || stepTwoSuccess);
-    if (typeOfDeal === ETypeOfDeal.SELL) {
+    if (direction === 'SELL') {
       setShowStepThree((prev) => _showStepThree);
     }
   }, [
     stepTwoWasOnSuccess,
     stepTwoSuccess,
-    typeOfDeal,
+    direction,
     stepOneWasOnSuccess,
     stepOneSuccess,
   ]);
@@ -55,13 +55,13 @@ export const useFormStepsValidation = ({
     let _showStepThree =
       (stepOneWasOnSuccess || stepOneSuccess) &&
       (stepTwoWasOnSuccess || stepTwoSuccess);
-    if (typeOfDeal === 'Sell') {
+    if (direction === 'SELL') {
       setShowStepThree((prev) => _showStepThree);
     }
   }, [
     stepTwoWasOnSuccess,
     stepTwoSuccess,
-    typeOfDeal,
+    direction,
     stepOneWasOnSuccess,
     stepOneSuccess,
   ]);

@@ -1,15 +1,15 @@
 import { FC } from 'react';
 
-import { Box, Heading, HStack } from '@chakra-ui/react';
-import { DownloadIcon } from '@shared/assets/DownloadIcon';
+import { Box, Button, Heading, HStack, Text } from '@chakra-ui/react';
+import { DownloadIcon } from '@shared/ui-kit';
 
-import { ISidebarHeader } from '../types';
+export interface SidebarHeaderProps {
+  Icon: React.ReactNode;
+  name: string;
+  analytics: string;
+}
 
-export const SidebarHeader: FC<ISidebarHeader> = ({
-  Icon,
-  name,
-  analitics,
-}) => {
+export const SidebarHeader: FC<SidebarHeaderProps> = ({ Icon, name }) => {
   return (
     <HStack
       w="100%"
@@ -21,48 +21,17 @@ export const SidebarHeader: FC<ISidebarHeader> = ({
     >
       <HStack gap="2.12rem">
         <HStack gap="1.5rem">
-          <Box w="4rem">
-            <Icon width="4rem" height="4rem" />
-          </Box>
-          <Heading variant="h4" fontSize={'lg'} fontFamily="promo">
+          <Box w="4rem">{Icon}</Box>
+          <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
             {name}
           </Heading>
         </HStack>
-        <HStack
-          padding="0 0.625rem"
-          border="2px solid var(--ui-kit-white-10, rgba(255, 255, 255, 0.10))"
-          borderRadius="0.375"
-          fontFamily="Inter"
-          display="flex"
-          alignItems="center"
-          gap="0.62rem"
-        >
-          <Box>
-            <DownloadIcon />
-          </Box>
-          <Heading variant="h5" fontWeight="842" whiteSpace="nowrap">
-            Get analitics
-          </Heading>
-        </HStack>
-        {/*<Box*/}
-        {/*    borderRadius={'1.875rem'}*/}
-        {/*    background={'#621CBC'}*/}
-        {/*    padding={'0.125rem 0.625rem'}*/}
-        {/*>*/}
-        {/*    {lotType}*/}
-        {/*    <Tooltip label="Hey, I'm here!" aria-label='A tooltip'>*/}
-        {/*        <TooltipIcon/>*/}
-        {/*    </Tooltip>*/}
-        {/*</Box>*/}
+        <Button leftIcon={<DownloadIcon />}>
+          <Text fontWeight="800" whiteSpace="nowrap">
+            Get analytics
+          </Text>
+        </Button>
       </HStack>
-      {/*<VStack border={'2px solid skyblue'}>*/}
-      {/*    <HStack>*/}
-      {/*        {fields.map(field => <SidebarHeader field={field}/>)}*/}
-      {/*    </HStack>*/}
-      {/*    <HStack>*/}
-
-      {/*    </HStack>*/}
-      {/*</VStack>*/}
     </HStack>
   );
 };

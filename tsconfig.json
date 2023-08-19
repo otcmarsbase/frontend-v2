@@ -28,6 +28,7 @@
       "@app/*": ["./src/app/*"],
 
       "@shared/*": ["./src/shared/*"],
+      "@shared/ui-kit": ["./src/shared/ui-kit/index.ts"],
       "@packages/*": ["./src/packages/*"]
     }
   },

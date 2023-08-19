@@ -9,15 +9,15 @@ import {
   Button,
   VStack,
 } from '@chakra-ui/react';
-import { Assets, LotFlow } from '@shared/types';
-import { AssetName, DealType, HotTag } from '@shared/ui-kit';
+import { Assets, Common, LotFlow } from '@shared/types';
+import { AssetName, DealType, HotChip } from '@shared/ui-kit';
 
 export interface LotItemProps {
   onClick: () => void;
   id: LotFlow.LotId;
   lotType: LotFlow.LotType;
   isHot: boolean;
-  dealType: LotFlow.DealType;
+  direction: Common.Direction;
   asset: Assets.Asset;
   fdv: number;
   minBidSize: number;
@@ -37,7 +37,7 @@ export const LotItem: React.FC<LotItemProps> = ({
   id,
   lotType,
   isHot,
-  dealType,
+  direction: dealType,
   asset,
   fdv,
   minBidSize,
@@ -114,7 +114,7 @@ export const LotItem: React.FC<LotItemProps> = ({
         >
           {lotTypeText[lotType]}
         </Text>
-        {isHot && <HotTag />}
+        {isHot && <HotChip />}
       </HStack>
       <AssetName name={asset.name} iconName={asset.iconName} />
       <Divider my="1.25rem" variant="dashed" color="dark.600" />

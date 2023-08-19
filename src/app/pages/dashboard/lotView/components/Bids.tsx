@@ -1,9 +1,11 @@
 import { FC } from 'react';
 
-import { BidsList } from '@app/pages/dashboard/lotView/components/BidsList';
-import { IBidsProps } from '@app/pages/dashboard/lotView/types';
-import { Box, Button, Heading, HStack, Select, VStack } from '@chakra-ui/react';
-import { PlusBtnIcon } from '@shared/assets/PlusBtnIcon';
+import { Box, Button, HStack, Select, VStack, Text } from '@chakra-ui/react';
+import { AddIcon } from '@shared/ui-kit';
+
+import { IBidsProps } from '../types';
+
+import { BidsList } from './BidsList';
 
 export const Bids: FC<IBidsProps> = ({
   bids,
@@ -29,7 +31,7 @@ export const Bids: FC<IBidsProps> = ({
         w={'100%'}
       >
         <HStack flex="1">
-          <Heading variant="h3">Bids</Heading>
+          <Text>Bids</Text>
           <Box
             padding={'0px 0.25rem'}
             bg={'orange.500'}
@@ -61,8 +63,8 @@ export const Bids: FC<IBidsProps> = ({
             onClick={createBid}
           >
             <HStack>
-              <PlusBtnIcon />
-              <Heading variant="h4">Create Bid</Heading>
+              <AddIcon />
+              <Text>Create Bid</Text>
             </HStack>
           </Button>
         </HStack>

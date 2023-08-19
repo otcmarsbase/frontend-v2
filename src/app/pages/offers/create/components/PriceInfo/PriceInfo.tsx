@@ -2,16 +2,16 @@ import { FC } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 import { Box, Grid, HStack, Input, VStack } from '@chakra-ui/react';
+import { LotFlow } from '@shared/types';
 import { FormField } from '@shared/ui-kit';
 
 import { STEP_TWO_PRICE_INFO_LABELS_BY_LOT_TYPE } from '../../consts';
 import { ICreateOfferFieldTypes } from '../../types';
-import { TLotType } from '../ProjectInfo/types';
 
 export const PriceInfo: FC<{
   form: UseFormReturn;
   helperText: string;
-  lotType: TLotType;
+  lotType: LotFlow.LotType;
   label: string;
   handleRecountPriceInfoValues: ({ curIds, id, value }) => void;
 }> = (props) => {

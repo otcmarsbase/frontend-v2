@@ -1,5 +1,4 @@
-import { EPricingModel } from '../../types';
-import { ELotType } from '../ProjectInfo/types';
+import { LotFlow } from '@shared/types';
 
 export const StepThreeFields = {
   CONTRACT_SIZE_TO_OFFER: 'Contract size to offer',
@@ -16,23 +15,53 @@ export const StepThreeFields = {
   PRICE_PER_EQUITY: 'Price per 0,01% equity',
   OFFER_THE_BEST_BID: 'Offer the best bid',
 };
-export const STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE = {
-  [ELotType.SAFT]: {
-    leftBtnLabel: EPricingModel.IN_STABLECOIN,
-    rightBtnLabel: EPricingModel.IN_TOKEN,
+
+type PricingModelButton = {
+  label: string;
+  value: LotFlow.PricingModel;
+};
+
+export const STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE: Record<
+  LotFlow.LotType,
+  { leftButton: PricingModelButton; rightButton: PricingModelButton }
+> = {
+  SAFT: {
+    leftButton: {
+      label: 'In Stablecoin',
+      value: 'IN_STABLECOIN',
+    },
+    rightButton: {
+      label: 'In Token',
+      value: 'IN_TOKEN',
+    },
   },
-  [ELotType.SAFE]: {
-    leftBtnLabel: EPricingModel.IN_STABLECOIN,
-    rightBtnLabel: EPricingModel.IN_EQUITY,
+  SAFE: {
+    leftButton: {
+      label: 'In Stablecoin',
+      value: 'IN_STABLECOIN',
+    },
+    rightButton: {
+      label: 'In Equity',
+      value: 'IN_EQUITY',
+    },
   },
-  [ELotType.TOKEN_WARRANT]: {
-    leftBtnLabel: EPricingModel.IN_STABLECOIN,
-    rightBtnLabel: EPricingModel.IN_TOKEN_SHARES,
+  TOKEN_WARRANT: {
+    leftButton: {
+      label: 'In Stablecoin',
+      value: 'IN_STABLECOIN',
+    },
+    rightButton: {
+      label: 'In Token Shares',
+      value: 'IN_TOKEN_SHARES',
+    },
   },
 };
 
-export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
-  [ELotType.SAFE]: [
+export const STEP_THREE_FIELDS_BY_LOT_TYPE: Record<
+  LotFlow.LotType,
+  { id: string; fieldLabel: string }[]
+> = {
+  SAFE: [
     {
       id: 'equityToOffer',
       fieldLabel: StepThreeFields.EQUITY_TO_OFFER,
@@ -42,7 +71,7 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
       fieldLabel: StepThreeFields.MIN_EQUITY_BID,
     },
   ],
-  [ELotType.SAFT]: [
+  SAFT: [
     {
       id: 'tokensToOffer',
       fieldLabel: StepThreeFields.TOKENS_TO_OFFER,
@@ -52,7 +81,7 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
       fieldLabel: StepThreeFields.MIN_TOKEN_BID,
     },
   ],
-  [ELotType.TOKEN_WARRANT]: [
+  TOKEN_WARRANT: [
     {
       id: 'tokenShareToOffer',
       fieldLabel: StepThreeFields.TOKEN_SHARE_TO_OFFER,
@@ -64,17 +93,19 @@ export const STEP_THREE_FIELDS_BY_LOT_TYPE = {
   ],
 };
 
-export const STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE = {
-  [ELotType.SAFT]: {
+export const STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE: Record<
+  LotFlow.LotType,
+  { id: string; fieldLabel: string }
+> = {
+  SAFT: {
     id: 'pricePerEquity',
     fieldLabel: StepThreeFields.PRICE_PER_EQUITY,
   },
-
-  [ELotType.SAFE]: {
+  SAFE: {
     id: 'targetTokenPrice',
     fieldLabel: StepThreeFields.TARGET_TOKEN_PRICE,
   },
-  [ELotType.TOKEN_WARRANT]: {
+  TOKEN_WARRANT: {
     id: 'pricePerEquity',
     fieldLabel: StepThreeFields.PRICE_PER_EQUITY,
   },

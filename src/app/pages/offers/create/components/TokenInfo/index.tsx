@@ -3,18 +3,15 @@ import { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { PriceInfo } from '@app/pages/offers/create/components/PriceInfo';
-import {
-  ELotType,
-  TLotType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
+import { LotFlow } from '@shared/types';
 import { FormBlockElement, FormField, UseFormReturn } from '@shared/ui-kit';
 
 import { TokenInfoFields } from './constants';
 
 export const TokenInfo: FC<{
   form: UseFormReturn;
-  lotType: TLotType;
+  lotType: LotFlow.LotType;
   handleRecountPriceInfoValues: ({ curIds, id, value }) => void;
 }> = observer((props) => {
   const { lotType, form, handleRecountPriceInfoValues } = props;
@@ -64,7 +61,7 @@ export const TokenInfo: FC<{
           }
         />
       </FormBlockElement>
-      {lotType !== ELotType.SAFE && (
+      {lotType !== 'SAFE' && (
         <>
           <FormBlockElement
             label={TokenInfoFields.DATES}

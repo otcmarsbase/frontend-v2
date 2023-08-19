@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 
-import { EPricingModel, ETypeOfDeal, ICreateOfferFieldTypes } from '../types';
+import { SellOfferStore } from '@app/store';
+import { Common } from '@shared/types';
+
+import { ICreateOfferFieldTypes } from '../types';
 import { isValidField } from '../utils';
 
 interface IUseCustomFieldValidation {
   data: ICreateOfferFieldTypes;
-  typeOfDeal: ETypeOfDeal;
-  sellOfferStore: any;
+  direction: Common.Direction;
+  sellOfferStore: SellOfferStore;
 }
 export const useSummaryStepsValidation = ({
   data,
-  typeOfDeal,
+  direction,
   sellOfferStore,
 }: IUseCustomFieldValidation) => {
   const {
@@ -64,14 +67,14 @@ export const useSummaryStepsValidation = ({
     }
 
     let additionalDep = false;
-    if (typeOfPricingModel === EPricingModel.IN_STABLECOIN) {
+    if (typeOfPricingModel === 'IN_STABLECOIN') {
       additionalDep =
         isValidField(contractSizeToOffer) && isValidField(minDealSize);
-    } else if (typeOfPricingModel === EPricingModel.IN_EQUITY) {
+    } else if (typeOfPricingModel === 'IN_EQUITY') {
       additionalDep = isValidField(equityToOffer) && isValidField(minEquityBid);
-    } else if (typeOfPricingModel === EPricingModel.IN_TOKEN) {
+    } else if (typeOfPricingModel === 'IN_TOKEN') {
       additionalDep = isValidField(tokensToOffer) && isValidField(minTokenBid);
-    } else if (typeOfPricingModel === EPricingModel.IN_TOKEN_SHARES) {
+    } else if (typeOfPricingModel === 'IN_TOKEN_SHARES') {
       additionalDep =
         isValidField(tokenShareToOffer) && isValidField(minTokenShareBid);
     }
@@ -92,7 +95,7 @@ export const useSummaryStepsValidation = ({
     setStepThreeWasOnSuccess,
     setStepTwoSuccess,
     setStepTwoWasOnSuccess,
-    typeOfDeal,
+    direction,
     typeOfPricingModel,
   ]);
 };

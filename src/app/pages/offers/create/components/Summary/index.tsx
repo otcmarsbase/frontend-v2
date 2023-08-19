@@ -4,16 +4,24 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '@app/store';
 import { Box, VStack, Heading, Text } from '@chakra-ui/react';
+import { Common, LotFlow } from '@shared/types';
 import { SummaryStep } from '@shared/ui-kit';
 
-import { ETypeOfDeal } from '../../types';
 import { PublishLot } from '../PublishLot';
 
 import { EStepTypes, StepLabels } from './constants';
-import { IStepWrapperProps, ISummaryProps } from './types';
 import { getTargetFields, normalizeFields } from './utils';
 
-const StepWrapper: FC<IStepWrapperProps> = ({
+export interface StepWrapperProps {
+  isSuccessFilled: boolean;
+  step: EStepTypes;
+  data: any;
+  lotType: LotFlow.LotType;
+  pricingModel: LotFlow.PricingModel;
+  stepWasOpened: boolean;
+}
+
+const StepWrapper: FC<StepWrapperProps> = ({
   isSuccessFilled,
   step,
   data,
@@ -37,8 +45,14 @@ const StepWrapper: FC<IStepWrapperProps> = ({
   );
 };
 
-export const Summary: FC<ISummaryProps> = observer(
-  ({ onPublishLot, lotType, typeOfDeal }) => {
+export interface SummaryProps {
+  onPublishLot: () => void;
+  lotType: LotFlow.LotType;
+  direction: Common.Direction;
+}
+
+export const Summary: FC<SummaryProps> = observer(
+  ({ onPublishLot, lotType, direction }) => {
     const { sellOfferStore } = useStore();
     const {
       typeOfPricingModel,
@@ -77,7 +91,7 @@ export const Summary: FC<ISummaryProps> = observer(
             pricingModel={typeOfPricingModel}
             data={basicInfo}
           />
-          {typeOfDeal === ETypeOfDeal.SELL && typeOfPricingModel ? (
+          {direction === 'SELL' && typeOfPricingModel ? (
             <>
               <StepWrapper
                 isSuccessFilled={stepTwoSuccess}
@@ -110,7 +124,7 @@ export const Summary: FC<ISummaryProps> = observer(
         <PublishLot
           onPublishLot={onPublishLot}
           isActive={
-            typeOfDeal === ETypeOfDeal.SELL
+            direction === 'SELL'
               ? SellConditionsComplete
               : BuyConditionsComplete
           }

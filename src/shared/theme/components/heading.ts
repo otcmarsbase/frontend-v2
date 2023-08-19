@@ -11,7 +11,6 @@ const variants = {
     fontWeight: '600',
     lineHeight: '1.4375rem',
   }),
-
   h3: defineStyle({
     fontSize: '1.125rem',
     fontStyle: 'normal',

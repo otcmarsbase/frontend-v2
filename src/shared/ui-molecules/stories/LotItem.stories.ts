@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const ForBuy: Story = {
   args: {
     lotType: 'SAFE',
-    dealType: 'BUY',
+    direction: 'BUY',
     id: 121212,
     isHot: true,
     fdv: 124738,
@@ -37,7 +37,7 @@ export const ForBuy: Story = {
 export const ForSell: Story = {
   args: {
     lotType: 'TOKEN_WARRANT',
-    dealType: 'SELL',
+    direction: 'SELL',
     id: 121212,
     isHot: true,
     fdv: 124738,

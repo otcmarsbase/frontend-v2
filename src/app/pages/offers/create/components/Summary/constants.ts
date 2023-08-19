@@ -1,5 +1,4 @@
-import { EPricingModel } from '../../types';
-import { ELotType } from '../ProjectInfo/types';
+import { LotFlow } from '../../../../../../shared/types';
 import { TokenInfoFields } from '../TokenInfo/constants';
 
 export enum EStepTypes {
@@ -9,27 +8,32 @@ export enum EStepTypes {
   SECOND_STEP_BUY = 'secondStepBuy',
 }
 
-export const StepsText: Record<EStepTypes, Record<string, {}>> = {
+export const StepsText: Record<
+  EStepTypes,
+  | Record<string, {}>
+  | Record<LotFlow.LotType, {}>
+  | Record<LotFlow.LotType, Record<LotFlow.PricingModel, {}>>
+> = {
   [EStepTypes.FIRST_STEP]: {
     projectName: 'Name',
-    typeOfDeal: 'Direction',
+    direction: 'Direction',
     lotType: 'Type',
     deadlineDate: 'Deadline',
   },
   [EStepTypes.SECOND_STEP]: {
-    [ELotType.SAFE]: {
+    SAFE: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
       totalEquityBought: 'Total equity bought',
     },
-    [ELotType.SAFT]: {
+    SAFT: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
       totalEquityBought: 'Total equity bought',
     },
-    [ELotType.TOKEN_WARRANT]: {
+    TOKEN_WARRANT: {
       investmentRound: 'Investment round',
       roundFDV: 'Round FDV',
       contractValue: 'Contract value',
@@ -38,42 +42,42 @@ export const StepsText: Record<EStepTypes, Record<string, {}>> = {
     },
   },
   [EStepTypes.SECOND_STEP_BUY]: {
-    [ELotType.SAFE]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    SAFE: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      [EPricingModel.IN_EQUITY]: {
+      IN_EQUITY: {
         equityToOffer: 'Equity to offer',
         minEquityBid: 'Minimum equity bid',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
     },
-    [ELotType.SAFT]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    SAFT: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
-      [EPricingModel.IN_TOKEN]: {
+      IN_TOKEN: {
         tokensToOffer: 'Tokens to offer',
         minTokenBid: 'Minimum token bid',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
     },
-    [ELotType.TOKEN_WARRANT]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    TOKEN_WARRANT: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      [EPricingModel.IN_TOKEN_SHARES]: {
+      IN_TOKEN_SHARES: {
         tokenShareToOffer: 'Token share to offer',
         minTokenShareBid: 'Minimum token share bid',
         targetFDV: 'Target FDV',
@@ -82,42 +86,42 @@ export const StepsText: Record<EStepTypes, Record<string, {}>> = {
     },
   },
   [EStepTypes.THIRD_STEP]: {
-    [ELotType.SAFE]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    SAFE: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      [EPricingModel.IN_EQUITY]: {
+      IN_EQUITY: {
         equityToOffer: 'Equity to offer',
         minEquityBid: 'Minimum equity bid',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
     },
-    [ELotType.SAFT]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    SAFT: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
-      [EPricingModel.IN_TOKEN]: {
+      IN_TOKEN: {
         tokensToOffer: 'Tokens to offer',
         minTokenBid: 'Minimum token bid',
         targetFDV: 'Target FDV',
         targetTokenPrice: 'Target token price',
       },
     },
-    [ELotType.TOKEN_WARRANT]: {
-      [EPricingModel.IN_STABLECOIN]: {
+    TOKEN_WARRANT: {
+      IN_STABLECOIN: {
         contractSizeToOffer: 'Contract size to offer',
         minDealSize: 'Minimum deal size',
         targetFDV: 'Target FDV',
         pricePerEquity: 'Price per 0,01% equity',
       },
-      [EPricingModel.IN_TOKEN_SHARES]: {
+      IN_TOKEN_SHARES: {
         tokenShareToOffer: 'Token share to offer',
         minTokenShareBid: 'Minimum token share bid',
         targetFDV: 'Target FDV',

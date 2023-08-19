@@ -3,8 +3,6 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { LotViewDefaultValues } from '@app/pages/dashboard/lotView/consts';
 import { LotViewSchema } from '@app/pages/dashboard/lotView/schemas';
 import { TLotModalFields } from '@app/pages/dashboard/lotView/types';
-import { InvAccTypes } from '@app/pages/offers/create/components/ProjectInfo/types';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
 import {
   VStack,
   Text,
@@ -19,26 +17,31 @@ import {
   InputRightElement,
 } from '@chakra-ui/react';
 import { PortalProps } from '@packages/react-portal';
-import { PercentsIcon } from '@shared/assets/PercentsIcon';
-import { TooltipIcon } from '@shared/assets/TooltipIcon';
+import { Common } from '@shared/types';
 import {
   FormBlockElement,
   FormField,
+  InfoIcon,
   Modal,
   RadioButtons,
   Select,
   useForm,
 } from '@shared/ui-kit';
 
+import {
+  AccountTypes,
+  AccountTypesKeys,
+} from '../../pages/offers/create/components/ProjectInfo/types';
+
 export interface ChooseOfferTypeModalProps extends PortalProps {
-  typeOfDeal: ETypeOfDeal;
+  direction: Common.Direction;
 }
 
 //todo
 const LOCATIONS = ['Maycop', 'LS', 'LA'];
 
-const BID_MODAL_FIELDS_BY_TYPE_OF_DEAL: Record<ETypeOfDeal, any> = {
-  [ETypeOfDeal.SELL]: [
+const BID_MODAL_FIELDS_BY_TYPE_OF_DEAL: Record<Common.Direction, any> = {
+  SELL: [
     {
       label: 'I Want to Sell',
       fieldName: 'amountToSell' as TLotModalFields,
@@ -48,7 +51,7 @@ const BID_MODAL_FIELDS_BY_TYPE_OF_DEAL: Record<ETypeOfDeal, any> = {
       fieldName: 'getFunds' as TLotModalFields,
     },
   ],
-  [ETypeOfDeal.BUY]: [
+  BUY: [
     {
       label: 'I Want to Buy',
       fieldName: 'amountToBuy' as TLotModalFields,
@@ -60,11 +63,11 @@ const BID_MODAL_FIELDS_BY_TYPE_OF_DEAL: Record<ETypeOfDeal, any> = {
   ],
 };
 export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
-  ({ portal, typeOfDeal }) => {
+  ({ portal, direction }) => {
     console.log(
-      'typeOfDeal',
-      typeOfDeal,
-      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal],
+      'direction',
+      direction,
+      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction],
     );
     const form = useForm({
       schema: LotViewSchema,
@@ -137,19 +140,15 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 label={
                   <HStack>
                     <Heading variant="h5">
-                      {BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].label}
+                      {BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][0].label}
                     </Heading>
                     <Tooltip
                       label={
-                        BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].label
+                        BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][0].label
                       }
                       aria-label="A tooltip"
                     >
-                      <TooltipIcon
-                        opacity="0.6"
-                        w="0.52081rem"
-                        h="0.52081rem"
-                      />
+                      <InfoIcon bg="dark.50" w="0.52081rem" h="0.52081rem" />
                     </Tooltip>
                   </HStack>
                 }
@@ -160,15 +159,15 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                     register={register}
                     errors={errors}
                     name={
-                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].fieldName
+                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][0].fieldName
                     }
                     value={getValues(
-                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][0].fieldName,
+                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][0].fieldName,
                     )}
                     component={<Input type="number" placeholder={'Amount'} />}
                   />
                   <InputRightElement>
-                    <PercentsIcon w="1.25rem" h="1.25rem" fill="orange.500" />
+                    <Text color="orange.500">$</Text>
                   </InputRightElement>
                 </InputGroup>
               </FormBlockElement>
@@ -177,19 +176,15 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 label={
                   <HStack>
                     <Heading variant="h5">
-                      {BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].label}
+                      {BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][1].label}
                     </Heading>
                     <Tooltip
                       label={
-                        BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].label
+                        BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][1].label
                       }
                       aria-label="A tooltip"
                     >
-                      <TooltipIcon
-                        opacity="0.6"
-                        w="0.52081rem"
-                        h="0.52081rem"
-                      />
+                      <InfoIcon bg="dark.50" w="0.52081rem" h="0.52081rem" />
                     </Tooltip>
                   </HStack>
                 }
@@ -200,10 +195,10 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                     register={register}
                     errors={errors}
                     name={
-                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].fieldName
+                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][1].fieldName
                     }
                     value={getValues(
-                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[typeOfDeal][1].fieldName,
+                      BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction][1].fieldName,
                     )}
                     component={<Input type="number" placeholder={'Amount'} />}
                   />
@@ -225,8 +220,8 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 value={getValues('typeOfUser')}
                 // @ts-ignore
                 onChange={(value) => setValue('typeOfUser', value)}
-                options={InvAccTypes.map((sellerType) => ({
-                  label: sellerType,
+                options={AccountTypesKeys.map((sellerType) => ({
+                  label: AccountTypes[sellerType],
                   value: sellerType,
                 }))}
               />
@@ -261,7 +256,7 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 component={<Checkbox>{'Ready for KYC&KYB'}</Checkbox>}
               />
               {/*<Tooltip label="Ready for KYC&KYB" aria-label='A tooltip'>*/}
-              {/*    <TooltipIcon opacity='0.6' w='1rem' h='1rem'/>*/}
+              {/*    <InfoIcon opacity='0.6' w='1rem' h='1rem'/>*/}
               {/*</Tooltip>*/}
             </FormBlockElement>
             <HStack w={'100%'}>

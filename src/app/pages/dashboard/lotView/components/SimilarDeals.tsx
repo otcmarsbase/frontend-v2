@@ -1,8 +1,10 @@
 import { FC } from 'react';
 
-import { SimilarDealsItem } from '@app/pages/dashboard/lotView/components/SilimarDealsItem';
-import { ISimilarDealItem } from '@app/pages/dashboard/lotView/types';
 import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+
+import { ISimilarDealItem } from '../types';
+
+import { SimilarDealsItem } from './SimilarDealsItem';
 
 export const SimilarDeals: FC<{ similarDeals: ISimilarDealItem[] }> = ({
   similarDeals,

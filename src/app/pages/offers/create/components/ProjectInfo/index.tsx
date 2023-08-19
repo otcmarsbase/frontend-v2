@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
+import { Common } from '@shared/types';
 import {
   FormBlockElement,
   FormField,
@@ -9,18 +10,31 @@ import {
   UseFormReturn,
 } from '@shared/ui-kit';
 
-import { ETypeOfDeal } from '../../types';
-
 import { ProjectInfoFields } from './constants';
-import { ELotType, InvAccTypes, LotTypes } from './types';
+import {
+  AccountTypes,
+  AccountTypesKeys,
+  LotTypesKeys,
+  LotTypes,
+} from './types';
 
 export const ProjectInfo: FC<{
   form: UseFormReturn;
-  typeOfDeal: ETypeOfDeal;
+  direction: Common.Direction;
 }> = (props) => {
-  const { form, typeOfDeal } = props;
+  const { form, direction } = props;
   const { register, getValues, formState, setValue, isRequired } = form;
   const { errors } = formState;
+
+  const accountTypesOptions = AccountTypesKeys.map((sellerType) => ({
+    label: AccountTypes[sellerType],
+    value: sellerType,
+  }));
+
+  const lotTypesOptions = LotTypesKeys.map((lotType) => ({
+    label: LotTypes[lotType],
+    value: lotType,
+  }));
 
   return (
     <VStack gap="2.25rem">
@@ -52,10 +66,7 @@ export const ProjectInfo: FC<{
         isRequired={isRequired('lotType')}
       >
         <RadioButtons
-          items={LotTypes.map((lotType) => ({
-            value: lotType,
-            label: lotType,
-          }))}
+          items={lotTypesOptions}
           value={getValues('lotType')}
           onChange={(value) => setValue('lotType', value)}
         />
@@ -68,7 +79,7 @@ export const ProjectInfo: FC<{
           value={getValues('isReAssigned')}
           component={<Checkbox>{ProjectInfoFields.IS_RE_ASSIGNED}</Checkbox>}
         />
-        {getValues('lotType') === ELotType.SAFE ? (
+        {getValues('lotType') === 'SAFE' ? (
           <FormField
             register={register}
             name={'isTokenWarrant'}
@@ -80,7 +91,7 @@ export const ProjectInfo: FC<{
         ) : null}
       </FormBlockElement>
 
-      {typeOfDeal === ETypeOfDeal.SELL ? (
+      {direction === 'SELL' ? (
         <FormBlockElement
           label={ProjectInfoFields.TYPES_OF_SELLER}
           isRequired={isRequired('typesOfSeller')}
@@ -91,10 +102,7 @@ export const ProjectInfo: FC<{
             isMulti
             value={getValues('typesOfSeller')}
             onChange={(value) => setValue('typesOfSeller', value)}
-            options={InvAccTypes.map((sellerType) => ({
-              label: sellerType,
-              value: sellerType,
-            }))}
+            options={accountTypesOptions}
           />
           <FormField
             register={register}
@@ -116,10 +124,7 @@ export const ProjectInfo: FC<{
             isMulti
             value={getValues('typesOfBuyer')}
             onChange={(value) => setValue('typesOfBuyer', value)}
-            options={InvAccTypes.map((sellerType) => ({
-              label: sellerType,
-              value: sellerType,
-            }))}
+            options={accountTypesOptions}
           />
           <FormField
             register={register}
@@ -143,7 +148,7 @@ export const ProjectInfo: FC<{
         />
       </FormBlockElement>
 
-      {typeOfDeal === ETypeOfDeal.SELL ? (
+      {direction === 'SELL' ? (
         <FormBlockElement
           label={ProjectInfoFields.TYPES_OF_BUYER}
           isRequired={isRequired('typesOfBuyer')}
@@ -158,10 +163,7 @@ export const ProjectInfo: FC<{
                 placeholder="Choose type"
                 size="sm"
                 isMulti
-                options={InvAccTypes.map((sellerType) => ({
-                  label: sellerType,
-                  value: sellerType,
-                }))}
+                options={accountTypesOptions}
               />
             }
           />
@@ -183,10 +185,7 @@ export const ProjectInfo: FC<{
             isMulti
             value={getValues('typesOfSeller')}
             onChange={(value) => setValue('typesOfSeller', value)}
-            options={InvAccTypes.map((sellerType) => ({
-              label: sellerType,
-              value: sellerType,
-            }))}
+            options={accountTypesOptions}
           />
           <FormField
             register={register}

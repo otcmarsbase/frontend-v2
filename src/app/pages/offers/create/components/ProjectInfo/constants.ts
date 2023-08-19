@@ -1,5 +1,3 @@
-import { ELotType, IInvAccType } from '../ProjectInfo/types';
-
 export const ProjectInfoFields = {
   PROJECT_NAME: 'Project Name',
   PROJECT_WEBSITE: 'Project Website',
@@ -16,12 +14,3 @@ export const ProjectInfoFields = {
   IS_READY_TO_SVP: 'Ready to SPV',
   NO_LIMITATION: 'No limitation',
 };
-
-export const LotTypes = [ELotType.SAFE, ELotType.SAFT, ELotType.TOKEN_WARRANT];
-export const InvAccTypes: IInvAccType[] = [
-  IInvAccType.INDIVIDUAL,
-  IInvAccType.VC,
-  IInvAccType.HEDGE_FUND,
-  IInvAccType.FAMILY_OFFICE,
-  IInvAccType.DAO,
-];

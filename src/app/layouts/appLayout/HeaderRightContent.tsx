@@ -1,8 +1,11 @@
-import { WalletConnectButton } from '@app/logic/walletConnector';
+import { WalletConnectButton } from '@app/logic';
 import { HStack, Box, Square, Text, Link } from '@chakra-ui/react';
-import { EnglishIcon } from '@shared/assets/lang/EnglishIcon';
-import { NotifsIcon } from '@shared/assets/NotifsIcon';
-import { Dropdown, KebabMenuIcon } from '@shared/ui-kit';
+import {
+  Dropdown,
+  KebabMenuIcon,
+  LanguageIcons,
+  NotificationIcon,
+} from '@shared/ui-kit';
 
 export function HeaderRightContent() {
   return (
@@ -36,10 +39,10 @@ export function HeaderRightContent() {
       </Box>
       <HStack gap="0.6rem">
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
-          <NotifsIcon w="1.125rem" h="1.125rem" />
+          <NotificationIcon w="1.125rem" h="1.125rem" />
         </Square>
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
-          <EnglishIcon w="1.125rem" h="1.125rem" />
+          <LanguageIcons.EnglishIcon w="1.125rem" h="1.125rem" />
         </Square>
       </HStack>
 

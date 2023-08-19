@@ -1,8 +1,8 @@
 import { ModalController, router } from '@app/logic';
-import { ChooseOfferTypeModal } from '@app/modals';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
+import { ChooseDirectionModal } from '@app/modals';
 import { useStore } from '@app/store';
 
+import { Common } from '../../shared/types';
 import pages from '../pages';
 
 export const useCreateOfferModal = () => {
@@ -10,12 +10,12 @@ export const useCreateOfferModal = () => {
   const { setTypeOfDeal } = sellOfferStore;
 
   async function onCreateOffer() {
-    const typeOfDeal: ETypeOfDeal = await ModalController.create(
-      ChooseOfferTypeModal,
+    const direction: Common.Direction = await ModalController.create(
+      ChooseDirectionModal,
       {},
     );
-    if (typeOfDeal) {
-      setTypeOfDeal(typeOfDeal);
+    if (direction) {
+      setTypeOfDeal(direction);
       router.navigateComponent(pages.offers.create, {});
     }
   }
