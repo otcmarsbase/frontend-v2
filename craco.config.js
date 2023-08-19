@@ -24,6 +24,7 @@ module.exports = {
       '@app': path.resolve(__dirname, 'src/app'),
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@packages': path.resolve(__dirname, 'src/packages'),
+      '@services': path.resolve(__dirname, 'src/services'),
     },
     plugins: [
       new ESLintPlugin({

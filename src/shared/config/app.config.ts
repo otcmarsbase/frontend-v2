@@ -5,6 +5,11 @@ import { configurator } from './configurator';
 export interface AppConfigType {
   environment: NODE_ENV;
   isDevelopment: boolean;
+  debug: boolean;
+
+  backend: {
+    apiGatewayUrl: string;
+  };
 
   links: {
     docsURL: string;
@@ -23,10 +28,16 @@ export interface AppConfigType {
 export const AppConfig: AppConfigType = {
   environment: NODE_ENV,
   isDevelopment: NODE_ENV === 'development',
+  debug: !!configurator.get('DEBUG_MODE'),
+
+  backend: {
+    apiGatewayUrl: configurator.get('BACKEND_API_GATEWAY_URL'),
+  },
 
   links: {
     docsURL: configurator.get('DOCS_BASE_URL'),
   },
+
   wagmi: {
     projectId: configurator.get('WAGMI_PROJECT_ID'),
   },
