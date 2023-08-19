@@ -6,6 +6,7 @@ import {useCreateOfferModal} from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import {router} from '@app/logic';
 import MyBids from "@app/pages/dashboard/bids";
+import Deal from "@app/pages/dashboard/deals/deal";
 import {dealsMock} from "@app/pages/dashboard/deals/dealsMock";
 import {DashboardListType} from '@app/store';
 import {HStack, Text, VStack} from '@chakra-ui/react';
@@ -16,7 +17,6 @@ import {Pagination} from '@shared/ui-logic';
 import {EmptyData, LotRow} from '@shared/ui-molecules';
 import {format} from 'date-fns';
 
-import LotView from '../lot';
 import MyOffers from '../offers';
 
 const DealsArr = dealsMock as unknown as Dashboard.IDealItem[];
@@ -78,7 +78,7 @@ const MyDeals: React.FC<IMyDealsrProps> = observer(() => {
                 }
                 itemRender={(item) => (
                     <LotRow
-                        onClick={({id}) => router.navigateComponent(LotView, {id})}
+                        onClick={({id}) => router.navigateComponent(Deal, {id})}
                         lot={{
                             id: item.id,
                             lotName: item.lotName,

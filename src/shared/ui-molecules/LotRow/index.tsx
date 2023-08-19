@@ -28,7 +28,7 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   onClick: (params: { id: LotRowProps['lot']['id'] }) => void;
 }
 
-const listItemTexts = {
+export const listItemTexts = {
   type: {
     BUY: 'Buy',
     SELL: 'Sell',

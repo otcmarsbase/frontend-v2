@@ -1,4 +1,7 @@
 import {Dashboard} from "@shared/types";
+
+
+
 export const dealsMock: Dashboard.IDealItem[] = [
   {
     id: 32679,

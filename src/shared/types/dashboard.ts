@@ -28,7 +28,30 @@ export namespace Dashboard {
     dealFDV: number,
     createdAt: Date,
     status: TDealStatus,
-    lotIconName: keyof typeof Icons.ProjectsIcons
+    lotIconName: keyof typeof Icons.ProjectsIcons,
+  }
+  export interface IDealItemExtended {
+    id:number,
+    lotName: string;
+    offerType: Common.Direction;
+    lotType: LotFlow.LotType;
+    lotId: number,
+    dealSize: number,
+    dealFDV: number,
+    createdAt: Date,
+    status: TDealStatus,
+    lotIconName: string,
+    //todo check types above
+    offerMakerName: string,
+    offerMakerIcon: string,
+    offerMakerWallet: string,
+    moderatorName: string,
+    moderatorIcon: string,
+    moderatorWallet: string,
+    bidMakerName: string,
+    bidMakerIcon: string,
+    bidMakerWallet: string,
+    telegramChatLink: string
   }
   export interface OfferItem {
     id: number;

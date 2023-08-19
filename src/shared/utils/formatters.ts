@@ -1,5 +1,5 @@
 export function formatAddress(
-  address: `0x${string}` | undefined,
+  address: `0x${string}` | string | undefined,
   begin: number = 6,
   end: number = 4,
 ): string {
