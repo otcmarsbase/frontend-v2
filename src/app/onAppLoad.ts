@@ -1,4 +1,5 @@
 import { createAppManager } from './logic';
+import { authLocalStore, instanceStore } from './store';
 
 export async function onAppLoad() {
   const appManager = createAppManager();
@@ -8,5 +9,17 @@ export async function onAppLoad() {
     serviceManager: { backendApiService },
   } = appManager;
 
-  // Здесь первоначальная прогрузка приложения
+  if (authLocalStore.authToken) {
+    try {
+      // TODO: implement checking of authToken and getting current user
+      // await backendApiService.rpcClient.send(
+      //   backendApiService.siteApi.auth.checkToken({}),
+      // );
+      // instanceStore.user = await backendApiService.rpcClient.send(
+      //   backendApiService.siteApi.auth.account.current({}),
+      // );
+    } catch (err) {
+      authLocalStore.authToken = null;
+    }
+  }
 }
