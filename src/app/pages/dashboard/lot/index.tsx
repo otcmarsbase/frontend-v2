@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
@@ -16,9 +16,10 @@ import { SimilarDeals } from '@app/pages/dashboard/lot/components/SimilarDeals';
 import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
 import {BIDSmock, LotViewProjectData, similarDealsMock} from "@app/pages/dashboard/lot/lotViewMock";
 import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
-import { Box, Button, Grid, GridItem, Heading, HStack, VStack } from '@chakra-ui/react';
+import { Button, Grid, GridItem, Heading, HStack, VStack } from '@chakra-ui/react';
+import {ArrowLeft as Arrow} from "@shared/assets/ArrowLeft";
 import {Common} from "@shared/types";
-import {LeftIcon, useForm} from '@shared/ui-kit';
+import { useForm } from '@shared/ui-kit';
 import { ExpandableText } from '@shared/ui-kit/components/ExpandableText';
 import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
@@ -83,8 +84,8 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
       <HStack w="100%" color="#888D9B" cursor="pointer">
-        <LeftIcon w="1rem" h="1rem" />
-        <Box>Back to OTC Desk</Box>
+        <Arrow />
+        <Heading variant='h5' fontSize='1.25rem' fontWeight={600}>Back to Dashboard</Heading>
       </HStack>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
         <GridItem

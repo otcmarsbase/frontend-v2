@@ -601,7 +601,16 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'sm'
         | 'xs'
         | (string & {});
-      variants: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | (string & {});
+      variants:
+        | 'h2'
+        | 'h3m'
+        | 'h3'
+        | 'h4m'
+        | 'h4'
+        | 'h5'
+        | 'h6'
+        | 'pageHeader'
+        | (string & {});
     };
     Input: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
@@ -706,6 +715,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'soft-rounded'
         | 'solid-rounded'
         | 'unstyled'
+        | 'asset'
         | (string & {});
     };
     Tag: {

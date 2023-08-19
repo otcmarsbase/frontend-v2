@@ -39,7 +39,7 @@ const Deal: React.FC = observer(() => {
         <VStack gap='1.75rem'>
             <HStack w="100%" color="#888D9B" cursor="pointer">
                 <Arrow />
-                <Heading variant='h5' fontWeight={600}>Back to Lot View</Heading>
+                <Heading variant='h5' fontWeight={600}>Back to Dashboard</Heading>
             </HStack>
             <HStack width="full">
                 <VStack gap='1.25rem' flex='1.5'>

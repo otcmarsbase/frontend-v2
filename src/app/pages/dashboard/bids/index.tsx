@@ -177,3 +177,4 @@ MyBids.getLayout = ({children}) => (
 );
 
 export default MyBids;
+
