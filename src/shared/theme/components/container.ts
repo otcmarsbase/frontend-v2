@@ -2,8 +2,9 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 // define the base component styles
 const baseStyle = defineStyle({
-  maxW: '85rem',
+  maxWidth: '85%',
   width: '100%',
+  margin: '0 auto',
   // marginLeft: '7.8rem',
 });
 

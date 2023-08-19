@@ -9,7 +9,7 @@ interface Props extends BoxProps {
 }
 
 export const ExpandableText = forwardRef<HTMLDivElement, Props>(
-  ({ children, noOfLines, ...rest }, ref) => {
+  ({ children, noOfLines, ...boxProps }, ref) => {
     const [expandedCount, setExpandedCount] = useState<number | undefined>(
       noOfLines,
     );
@@ -26,10 +26,10 @@ export const ExpandableText = forwardRef<HTMLDivElement, Props>(
         (inputRef.current?.clientHeight as number) || isClicked;
 
     return (
-      <Box ref={ref} {...rest}>
-        <Box ref={inputRef} noOfLines={expandedCount}>
+      <Box ref={ref} {...boxProps}>
+        <Text fontSize="sm" ref={inputRef} noOfLines={expandedCount}>
           {children}
-        </Box>
+        </Text>
         <Button
           display={isTextClamped ? 'block' : 'none'}
           size="sm"

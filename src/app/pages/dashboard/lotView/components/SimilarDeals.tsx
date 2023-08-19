@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 
 import { ISimilarDealItem } from '../types';
 
@@ -20,18 +20,12 @@ export const SimilarDeals: FC<{ similarDeals: ISimilarDealItem[] }> = ({
         <Heading variant="h3" textTransform="uppercase">
           Similar deals
         </Heading>
-        <Heading variant="h4" opacity="0.6" fontWeight="400">
+        <Text color="dark.50" fontSize="sm" fontWeight="400">
           Set the parameters you need to suggest the best trading conditions
-        </Heading>
+        </Text>
       </VStack>
 
-      <SimpleGrid
-        columns={4}
-        spacing="0.75rem"
-        w="100%"
-        fontFamily="promo"
-        marginTop={'1.5rem'}
-      >
+      <SimpleGrid columns={4} spacing="0.75rem" w="100%" marginTop={'1.5rem'}>
         {similarDeals.map((item) => (
           <SimilarDealsItem item={item} />
         ))}
