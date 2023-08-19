@@ -1,6 +1,12 @@
+import { createAppManager } from './logic';
+
 export async function onAppLoad() {
-  console.log('app load start');
-  await new Promise((resolve) => setTimeout(resolve, 200));
-  console.log('app loaded');
+  const appManager = createAppManager();
+  await appManager.start();
+
+  const {
+    serviceManager: { backendApiService },
+  } = appManager;
+
   // Здесь первоначальная прогрузка приложения
 }

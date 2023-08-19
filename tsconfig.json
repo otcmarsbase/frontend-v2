@@ -28,8 +28,10 @@
       "@app/*": ["./src/app/*"],
 
       "@shared/*": ["./src/shared/*"],
-      "@shared/ui-kit": ["./src/shared/ui-kit/index.ts"],
-      "@packages/*": ["./src/packages/*"]
+      "@shared/ui-kit": ["./src/shared/ui-kit"],
+      "@packages/*": ["./src/packages/*"],
+
+      "@services/backend-api-service": ["./src/services/backend-api-service"]
     }
   },
   "include": ["src"],
