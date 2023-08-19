@@ -1,10 +1,5 @@
+import { Common, LotFlow } from '@shared/types';
 import Decimal from 'decimal.js';
-
-import {
-  ELotType,
-  TInvAccType,
-  TLotType,
-} from './components/ProjectInfo/types';
 
 export interface IHandleRecountProps {
   curIds: (keyof ICreateOfferFieldTypes)[];
@@ -12,7 +7,7 @@ export interface IHandleRecountProps {
   value: string;
 }
 export interface ITypeOfDeal {
-  typeOfDeal: ETypeOfDeal;
+  direction: Common.Direction;
 }
 
 export type TPricingModel =
@@ -20,6 +15,7 @@ export type TPricingModel =
   | 'In Token Shares'
   | 'In Token'
   | 'In Equity';
+
 export enum EPricingModel {
   IN_STABLECOIN = 'In Stablecoin',
   IN_TOKEN_SHARES = 'In Token Shares',
@@ -27,15 +23,10 @@ export enum EPricingModel {
   IN_EQUITY = 'In Equity',
 }
 
-export enum ETypeOfDeal {
-  SELL = 'Sell',
-  BUY = 'Buy',
-}
-
-export const StepThreeRecountFieldByLotType: Record<TLotType, string> = {
-  [ELotType.SAFE]: 'totalEquityBought',
-  [ELotType.SAFT]: 'tokensBought',
-  [ELotType.TOKEN_WARRANT]: 'tokensShareBought',
+export const StepThreeRecountFieldByLotType: Record<LotFlow.LotType, string> = {
+  SAFE: 'totalEquityBought',
+  SAFT: 'tokensBought',
+  TOKEN_WARRANT: 'tokensShareBought',
 };
 
 export type TCreateOfferFieldTypes =
@@ -109,11 +100,11 @@ export interface IReorderItemsProps {
 }
 
 export interface ICreateOfferFieldTypes {
-  typesOfBuyer: TInvAccType[];
-  typesOfSeller: TInvAccType[];
+  typesOfBuyer: Common.AccountType[];
+  typesOfSeller: Common.AccountType[];
   projectName: string;
   projectWebsite: string;
-  lotType: TLotType;
+  lotType: LotFlow.LotType;
   telegram: string;
   deadlineDate: Date;
   investmentRound: string;

@@ -5,17 +5,20 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
-import { bidsMock } from '@app/pages/dashboard/bids/bidsMock';
 import { DashboardListType } from '@app/store';
 import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { Dashboard, Paginate } from '@shared/types';
-import { List, LotStatus, LotTypeChip, UserDataChip } from '@shared/ui-kit';
+import { List, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, LotRow } from '@shared/ui-molecules';
 import { format } from 'date-fns';
 
+import { LotTypeChip } from '../components';
 import LotView from '../lotView';
 import MyOffers from '../offers';
+
+import { bidsMock } from './bidsMock';
+import { UserDataChip } from './components';
 
 const BidsArr = bidsMock as unknown as Dashboard.IBidItem[];
 

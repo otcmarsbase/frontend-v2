@@ -15,3 +15,4 @@ export { Divider } from './divider';
 export { Table } from './table';
 export { Progress } from './progress';
 export { Select } from './select';
+export { Tooltip } from './tooltip';

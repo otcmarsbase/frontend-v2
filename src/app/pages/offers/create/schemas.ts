@@ -1,6 +1,6 @@
+import { Common, LotFlow } from '@shared/types';
 import * as yup from 'yup';
 
-import { TInvAccType, TLotType } from './components/ProjectInfo/types';
 import { ICreateOfferFieldTypes } from './types';
 
 export const TokenDetailsSchema = yup.object().shape({
@@ -40,9 +40,9 @@ export const TokenInfoSchema = yup.object().shape({
 export const ProjectInfoSchema = yup.object().shape({
   projectName: yup.string().required(`Project Name is required`),
   projectWebsite: yup.string().required(`Project Website is required`),
-  lotType: yup.mixed<TLotType>().required(`Need to select at least one`),
-  typesOfSeller: yup.mixed<TInvAccType[]>(),
-  typesOfBuyer: yup.mixed<TInvAccType[]>(),
+  lotType: yup.mixed<LotFlow.LotType>().required(`Need to select at least one`),
+  typesOfSeller: yup.mixed<Common.AccountType[]>(),
+  typesOfBuyer: yup.mixed<Common.AccountType[]>(),
   telegram: yup.string().required(`Telegram is required`),
   isReAssigned: yup.boolean(),
   deadlineDate: yup.date(),

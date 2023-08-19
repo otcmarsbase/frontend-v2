@@ -1,7 +1,11 @@
 export namespace LotFlow {
   export type LotId = number;
 
-  export type DealType = 'BUY' | 'SELL';
-
   export type LotType = 'SAFE' | 'SAFT' | 'TOKEN_WARRANT';
+
+  export type PricingModel =
+    | 'IN_STABLECOIN'
+    | 'IN_TOKEN_SHARES'
+    | 'IN_TOKEN'
+    | 'IN_EQUITY';
 }

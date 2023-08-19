@@ -1,7 +1,8 @@
-import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lotView/consts';
 import { Box, Heading, HStack, Tooltip } from '@chakra-ui/react';
-import { TooltipIcon } from '@shared/assets/TooltipIcon';
+import { InfoIcon } from '@shared/ui-kit';
 import { format } from 'date-fns';
+
+import { LOT_VIEW_MAIN_CHIP_FIELDS } from '../consts';
 
 export const RoundInfoItem = ({ field }) => {
   return (
@@ -11,7 +12,7 @@ export const RoundInfoItem = ({ field }) => {
           {LOT_VIEW_MAIN_CHIP_FIELDS[field.id]}
         </Heading>
         <Tooltip label="Hey, I'm here!" aria-label="A tooltip">
-          <TooltipIcon w="1rem" h="1rem" />
+          <InfoIcon w="1rem" h="1rem" />
         </Tooltip>
       </HStack>
       {formatView(field)}

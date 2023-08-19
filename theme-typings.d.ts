@@ -222,6 +222,8 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'chakra-subtle-text._dark'
     | 'chakra-placeholder-color._light'
     | 'chakra-placeholder-color._dark'
+    | 'promo'
+    | 'done'
     | (string & {});
   colorSchemes:
     | 'whiteAlpha'
@@ -318,6 +320,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | '3xl'
     | 'full'
     | 'micro'
+    | 'light'
     | 'xs'
     | 'circle'
     | (string & {});

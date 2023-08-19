@@ -1,30 +1,26 @@
 import { FC } from 'react';
+import { useCopyToClipboard } from 'react-use';
 
-import { Box, Heading, HStack, Tooltip, VStack } from '@chakra-ui/react';
-import { CopyIcon } from '@shared/assets/CopyIcon';
-import { TooltipIcon } from '@shared/assets/TooltipIcon';
-import { Countdown } from '@shared/ui-kit/components/Timer/Timer';
-import copyToClipboard from '@shared/utils/copyToClipBoard';
+import { Box, Heading, Text, HStack, Tooltip, VStack } from '@chakra-ui/react';
+import { CopyIcon, Countdown, InfoIcon } from '@shared/ui-kit';
 
 import { ILotInfo } from '../types';
-export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
-  LotInfoBasicData,
+
+export const LotBasicInfo: FC<{ lotInfoBasicData: ILotInfo }> = ({
+  lotInfoBasicData,
 }) => {
   const {
     id,
-    typeOfDeal,
+    direction,
     typeOfLot,
     userAvatar,
     userName,
     nameOfSeller,
     auctionEndDate,
-  } = LotInfoBasicData;
-  const copyID = () => {
-    copyToClipboard(id);
-    console.log('copyID');
-  };
-  let nextDate = new Date();
-  nextDate.setDate(nextDate.getDate() + 1);
+  } = lotInfoBasicData;
+
+  const [copyState, copyToClipboard] = useCopyToClipboard();
+
   return (
     <HStack
       bg="dark.900"
@@ -42,17 +38,26 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
         alignItems="flex-start"
       >
         <HStack gap="0.25rem">
-          <Heading variant="h5" fontWeight="500" color="dark.50">
+          <Text fontWeight="500" color="dark.50">
             ID
-          </Heading>
+          </Text>
           <Tooltip label="Hey, I'm here!" aria-label="A tooltip">
-            <TooltipIcon opacity="0.6" w="1rem" h="1rem" />
+            <InfoIcon color="dark.50" w="1rem" h="1rem" />
           </Tooltip>
         </HStack>
-        <HStack fontWeight="500" gap="0.25rem" fontSize="sm" onClick={copyID}>
+        <HStack fontWeight="500" gap="0.25rem" fontSize="sm">
           <Box>{id}</Box>
-          <Box onClick={copyID}>
-            <CopyIcon />
+          <Box onClick={() => copyToClipboard(id.toString())}>
+            <Tooltip
+              hasArrow
+              isOpen={!!copyState.value}
+              closeOnPointerDown
+              placement="bottom-start"
+              offset={[-10, 10]}
+              label={<Text fontSize="sm">ID Copied</Text>}
+            >
+              <CopyIcon />
+            </Tooltip>
           </Box>
         </HStack>
       </VStack>
@@ -65,10 +70,10 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
         <Heading
           variant="h5"
           fontWeight="500"
-          color={typeOfDeal === 'Sell' ? 'red.400' : 'green.400'}
+          color={direction === 'SELL' ? 'red.400' : 'green.400'}
           textTransform="uppercase"
         >
-          {typeOfDeal}
+          {direction}
         </Heading>
       </VStack>
       <VStack gap="0.25rem" padding="0 1.5rem" flex="2" alignItems="flex-start">
@@ -77,7 +82,7 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
             Type
           </Heading>
           <Tooltip label="Hey, I'm here!" aria-label="A tooltip">
-            <TooltipIcon opacity="0.6" w="1rem" h="1rem" />
+            <InfoIcon color="dark.50" w="1rem" h="1rem" />
           </Tooltip>
         </HStack>
         <Box fontWeight="500" fontSize="sm">
@@ -90,7 +95,7 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
             Account
           </Heading>
           <Tooltip label="Hey, I'm here!" aria-label="A tooltip">
-            <TooltipIcon opacity="0.6" w="1rem" h="1rem" />
+            <InfoIcon color="dark.50" w="1rem" h="1rem" />
           </Tooltip>
         </HStack>
         <HStack gap="0.25rem">
@@ -104,7 +109,7 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
         <HStack gap="0.25rem" color="dark.50">
           <Heading variant="h5">Seller</Heading>
           <Tooltip label="Hey, I'm here!" aria-label="A tooltip">
-            <TooltipIcon opacity="0.6" w="1rem" h="1rem" />
+            <InfoIcon color="dark.50" w="1rem" h="1rem" />
           </Tooltip>
         </HStack>
         <Box fontWeight="500" fontSize="sm">
@@ -123,8 +128,6 @@ export const LotBasicInfo: FC<{ LotInfoBasicData: ILotInfo }> = ({
 
         <Box fontWeight="500" fontSize="sm">
           <Countdown endDate={auctionEndDate} />
-
-          {/*03:03:52*/}
         </Box>
       </VStack>
     </HStack>

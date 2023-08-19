@@ -7,14 +7,6 @@ import { HeaderRightContent } from '@app/layouts/appLayout/HeaderRightContent';
 import { router } from '@app/logic';
 import pages from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
-import {
-  DiscordIcon,
-  RedditIcon,
-  TelegramIcon,
-  LinktreeIcon,
-  TwitterIcon,
-  MediumIcon,
-} from '@shared/ui-kit';
 import { Footer, Header } from '@shared/ui-molecules';
 
 export interface AppLayoutProps {
@@ -72,17 +64,23 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(
             }}
             socials={[
               {
-                icon: DiscordIcon,
+                iconName: 'DiscordIcon',
                 href: 'https://discord.com/channels/889519633890177074/892286634224132106',
               },
               {
-                icon: RedditIcon,
+                iconName: 'RedditIcon',
                 href: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
               },
-              { icon: TelegramIcon, href: 'https://t.me/otcmarsbase' },
-              { icon: LinktreeIcon, href: 'https://linktr.ee/MARSBASE' },
-              { icon: TwitterIcon, href: 'https://twitter.com/MARSBASEio' },
-              { icon: MediumIcon, href: 'https://marsbaseotc.medium.com/' },
+              { iconName: 'TelegramIcon', href: 'https://t.me/otcmarsbase' },
+              { iconName: 'LinktreeIcon', href: 'https://linktr.ee/MARSBASE' },
+              {
+                iconName: 'TwitterIcon',
+                href: 'https://twitter.com/MARSBASEio',
+              },
+              {
+                iconName: 'MediumIcon',
+                href: 'https://marsbaseotc.medium.com/',
+              },
             ]}
             copyright={copyright}
           />

@@ -4,13 +4,15 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '@app/store';
 import { Checkbox, HStack, Input, VStack } from '@chakra-ui/react';
-import { FormBlockElement, FormField, RadioButtons } from '@shared/ui-kit';
-
+import { Common, LotFlow } from '@shared/types';
 import {
-  EPricingModel,
-  ETypeOfDeal,
-  TCreateOfferFieldTypes,
-} from '../../types';
+  FormBlockElement,
+  FormField,
+  RadioButtons,
+  UseFormReturn,
+} from '@shared/ui-kit';
+
+import { TCreateOfferFieldTypes } from '../../types';
 
 import {
   STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE,
@@ -18,23 +20,34 @@ import {
   STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE,
   StepThreeFields,
 } from './consts';
-import { IProjectDetailsProps } from './types';
 
-export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
-  const { form, lotType, handleRecountValues, typeOfDeal } = props;
+interface HandleRecountParams {
+  currentID: TCreateOfferFieldTypes;
+  bindedID: TCreateOfferFieldTypes;
+  value: string;
+  pricingModel: LotFlow.PricingModel;
+}
+
+export interface ProjectDetailsProps {
+  form: UseFormReturn;
+  lotType: LotFlow.LotType;
+  handleRecountValues: (params: HandleRecountParams) => void;
+  direction: Common.Direction;
+}
+
+export const ProjectDetails: FC<ProjectDetailsProps> = observer((props) => {
+  const { form, lotType, handleRecountValues, direction } = props;
   const { getValues, formState, register } = form;
   const { errors } = formState;
   const { sellOfferStore } = useStore();
   const { typeOfPricingModel } = sellOfferStore;
 
-  function switchPricingModel(btnId: EPricingModel) {
+  function switchPricingModel(btnId: LotFlow.PricingModel) {
     sellOfferStore.setTypeOfPricingModel(btnId);
   }
 
-  const leftBtnLabel =
-    STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].leftBtnLabel;
-  const rightBtnLabel =
-    STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].rightBtnLabel;
+  const leftButton = STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].leftButton;
+  const rightButton = STEP_THREE_BUTTON_LABELS_BY_LOT_TYPE[lotType].rightButton;
 
   const bottomFieldID = STEP_THREE_TOTAL_FIELDS_BY_LOT_TYPE[lotType].id;
 
@@ -50,14 +63,14 @@ export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
             w={'100%'}
             value={sellOfferStore.typeOfPricingModel}
             items={[
-              { value: leftBtnLabel, label: leftBtnLabel },
-              { value: rightBtnLabel, label: rightBtnLabel },
+              { value: leftButton.value, label: leftButton.value },
+              { value: rightButton.value, label: rightButton.label },
             ]}
             onChange={switchPricingModel}
           />
         </HStack>
 
-        {typeOfPricingModel === EPricingModel.IN_STABLECOIN ? (
+        {typeOfPricingModel === 'IN_STABLECOIN' ? (
           <HStack w={'100%'} padding={'24px'}>
             <FormField
               register={register}
@@ -135,7 +148,7 @@ export const ProjectDetails: FC<IProjectDetailsProps> = observer((props) => {
             }
           />
         </HStack>
-        {typeOfDeal === ETypeOfDeal.SELL ? (
+        {direction === 'SELL' ? (
           <FormField
             register={register}
             name={'offerTheBestBid'}

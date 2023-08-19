@@ -23,9 +23,9 @@ export function isValidField(field: string | number) {
   return field && field.toString().length > 0;
 }
 
-export function getDefaultValues({ typeOfDeal }: ITypeOfDeal) {
+export function getDefaultValues({ direction }: ITypeOfDeal) {
   const draftByTypeOfDeal = JSON.parse(
-    localStorage.getItem(`${typeOfDeal}Draft`),
+    localStorage.getItem(`${direction}Draft`),
   );
 
   if (!draftByTypeOfDeal) {

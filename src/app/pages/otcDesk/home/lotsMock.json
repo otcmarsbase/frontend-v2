@@ -4,7 +4,7 @@
       "id": 32679,
       "isHot": true,
       "lotType": "SAFT",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -20,7 +20,7 @@
       "id": 32680,
       "isHot": false,
       "lotType": "TOKEN_WARRANT",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -36,7 +36,7 @@
       "id": 32681,
       "isHot": false,
       "lotType": "SAFE",
-      "dealType": "BUY",
+      "direction": "BUY",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -52,7 +52,7 @@
       "id": 32682,
       "isHot": true,
       "lotType": "SAFT",
-      "dealType": "BUY",
+      "direction": "BUY",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -68,7 +68,7 @@
       "id": 32683,
       "isHot": false,
       "lotType": "TOKEN_WARRANT",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -84,7 +84,7 @@
       "id": 32684,
       "isHot": true,
       "lotType": "SAFE",
-      "dealType": "BUY",
+      "direction": "BUY",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -100,7 +100,7 @@
       "id": 32685,
       "isHot": true,
       "lotType": "SAFT",
-      "dealType": "BUY",
+      "direction": "BUY",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -116,7 +116,7 @@
       "id": 32686,
       "isHot": true,
       "lotType": "TOKEN_WARRANT",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -132,7 +132,7 @@
       "id": 32687,
       "isHot": true,
       "lotType": "SAFE",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -148,7 +148,7 @@
       "id": 32688,
       "isHot": false,
       "lotType": "SAFE",
-      "dealType": "BUY",
+      "direction": "BUY",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"
@@ -164,7 +164,7 @@
       "id": 32689,
       "isHot": false,
       "lotType": "SAFT",
-      "dealType": "SELL",
+      "direction": "SELL",
       "asset": {
         "name": "USDT",
         "iconName": "UsdtIcon"

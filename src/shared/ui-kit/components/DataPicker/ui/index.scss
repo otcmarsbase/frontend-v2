@@ -23,7 +23,7 @@
 .react-datepicker__header--custom {
   background: #2a2a2c;
   fill: var(--ui-kit-white, #fff);
-  stroke-width: 1px;
+  strokewidth: 1px;
   stroke: var(--colors-grey-grey-4, #e1e4eb);
   //opacity: 0.20000000298023224;
 }
@@ -31,7 +31,7 @@
   display: flex;
   justify-content: space-between;
   padding: 11px 60px 9px 60px;
-  stroke-width: 1px;
+  strokewidth: 1px;
   stroke: #e1e4eb;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;

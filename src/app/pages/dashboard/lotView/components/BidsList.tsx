@@ -6,8 +6,10 @@ import {
 } from '@app/pages/dashboard/lotView/types';
 import {
   Box,
-  Heading,
+  Circle,
+  Text,
   HStack,
+  Square,
   Table,
   Tbody,
   Td,
@@ -16,10 +18,7 @@ import {
   Tr,
   VStack,
 } from '@chakra-ui/react';
-import { DeleteIcon } from '@shared/assets/DeleteIcon';
-import { EditIcon } from '@shared/assets/EditIcon';
-import { EllipseIcon } from '@shared/assets/EllipseIcon';
-import { ValidatedKYCicon } from '@shared/assets/VlidatedKYCicon';
+import { CloseIcon, SecurityIcon, EditIcon } from '@shared/ui-kit';
 import { format } from 'date-fns';
 import { memoize } from 'lodash';
 
@@ -64,7 +63,7 @@ export const BidsList: FC<IBidsListProps> = ({
         <Tr display="contents">
           <Th>
             <HStack
-              id={'order'}
+              id="order"
               gap="none"
               onClick={(e) =>
                 viewOrderHandler(e.currentTarget.id as TBidListFilters)
@@ -256,30 +255,18 @@ export const BidsList: FC<IBidsListProps> = ({
                 id={id.toString()}
                 onMouseEnter={(e) => setShow(e.currentTarget.id)}
               >
-                {/*//add to each th*/}
-                {/*padding: 0;*/}
-                {/*display: flex;*/}
-                {/*justify-content: center;*/}
-                {/*align-items: center;*/}
                 <Td border={'none'}>{id}</Td>
                 <Td border={'none'} color="white">
                   {userName}
                 </Td>
                 <Td border={'none'}>
                   <VStack gap={'none'} alignItems={'flexStart'}>
-                    <Box
-                      fontWeight={'842'}
-                      lineHeight={'1.5rem'}
-                      fontSize={'sm'}
-                    >
+                    <Box fontWeight="800" lineHeight="1.5rem" fontSize="sm">
                       {Number(bid).toLocaleString('en-US', {
                         maximumFractionDigits: 0,
                       })}{' '}
                       $
                     </Box>
-                    {/*<Box fontSize={'3xs'}>*/}
-                    {/*    ~{recountToUSD({amount})} $*/}
-                    {/*</Box>*/}
                   </VStack>
                 </Td>
                 <Td border={'none'}>
@@ -299,40 +286,38 @@ export const BidsList: FC<IBidsListProps> = ({
                 <Td border={'none'}>{location}</Td>
                 <Td border={'none'}>{bidderType}</Td>
                 <Td border={'none'}>
-                  {validation ? (
-                    <ValidatedKYCicon width="50px" height="24px" />
-                  ) : (
-                    'FALSE'
-                  )}
+                  {validation ? <SecurityIcon color="promo" /> : 'FALSE'}
                 </Td>
                 <Td border={'none'}>{format(deadline, 'dd.MM.yyyy')}</Td>
                 <Td border={'none'}>
                   <HStack color="#34A853">
-                    <EllipseIcon w="0.5rem" h="0.5rem" />
-                    {/*//todo statuses*/}
-                    <Heading
-                      variant="h5"
-                      fontWeight="500"
-                      textTransform="capitalize"
-                    >
+                    <Circle size="0.5rem" bg="done" />
+                    {/* TODO statuses */}
+                    <Text fontWeight="500" textTransform="capitalize">
                       {status}
-                    </Heading>
+                    </Text>
                     {isHovered ? (
-                      <>
-                        <EditIcon w="1rem" h="1rem" />
-                        <DeleteIcon w="1.25rem" h="1.25rem" />
-                      </>
+                      <HStack>
+                        <Square
+                          size="1.25rem"
+                          borderRadius="0.15rem"
+                          cursor="pointer"
+                          bg="done"
+                        >
+                          <EditIcon w="1rem" h="1rem" />
+                        </Square>
+                        <Square
+                          size="1.25rem"
+                          borderRadius="0.15rem"
+                          cursor="pointer"
+                          bg="dark.700"
+                        >
+                          <CloseIcon w="1rem" h="1rem" />
+                        </Square>
+                      </HStack>
                     ) : null}
                   </HStack>
                 </Td>
-                {/*<Td fontWeight={'842'}*/}
-                {/*    lineHeight={'1.5rem'} border={'none'}><Box padding={'0.125rem 0.75rem'}*/}
-                {/*                                               borderRadius={'1.5rem'}*/}
-                {/*                                               background={'rgba(78, 209, 250, 0.15)'}*/}
-                {/*                                               color={'#4ED1FA'} fontSize={'sm'}>*/}
-                {/*    {status}*/}
-                {/*</Box>*/}
-                {/*</Td>*/}
               </Tr>
             ),
           )}

@@ -1,14 +1,7 @@
 import { HTMLAttributeAnchorTarget } from 'react';
 
-import {
-  Grid,
-  GridItem,
-  HStack,
-  Link,
-  Text,
-  VStack,
-  Icon,
-} from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Link, Text, VStack } from '@chakra-ui/react';
+import { SocialsIcons } from '@shared/ui-kit';
 
 export interface FooterProps {
   links: {
@@ -20,7 +13,7 @@ export interface FooterProps {
     title: string;
     description: string;
   };
-  socials: { icon: typeof Icon; href: string }[];
+  socials: { iconName: keyof typeof SocialsIcons; href: string }[];
   copyright: string;
 }
 
@@ -68,7 +61,9 @@ export const Footer: React.FC<FooterProps> = ({
         <VStack gap="1.5rem" alignItems="flex-end">
           <Grid templateColumns="repeat(6, 1fr)" columnGap="1.75rem">
             {socials.map((social, index) => {
-              const { href, icon: SocialIcon } = social;
+              const { href, iconName } = social;
+              const SocialIcon = SocialsIcons[iconName];
+
               return (
                 <GridItem key={index}>
                   <Link target="_blank" href={href}>

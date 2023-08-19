@@ -1,12 +1,6 @@
 import { ComponentType, ReactElement, ReactNode } from 'react';
 
-import {
-  ELotType,
-  TInvAccType,
-  TLotType,
-} from '@app/pages/offers/create/components/ProjectInfo/types';
-import { ETypeOfDeal } from '@app/pages/offers/create/types';
-import * as yup from 'yup';
+import { Common, LotFlow } from '@shared/types';
 
 export interface ILotView {
   amountToSell: number;
@@ -18,6 +12,7 @@ export interface ILotView {
   amountToBuy: number;
   getFunds: number;
 }
+
 export type TLotModalFields =
   | 'amountToSell'
   | 'giveFunds'
@@ -27,15 +22,16 @@ export type TLotModalFields =
   | 'readyForKYC'
   | 'amountToBuy'
   | 'getFunds';
+
 export interface IRoundInfoFields {
   id: string;
   value: any;
 }
 export interface ISimilarDealItem {
   dealID: number;
-  lotType: TLotType;
+  lotType: LotFlow.LotType;
   nameOfAsset: string;
-  typeOfDeal: ETypeOfDeal;
+  direction: Common.Direction;
   icon: ReactElement;
   isHot: boolean;
   currentAmount: number;
@@ -65,7 +61,7 @@ export interface IBid {
   userName: string;
   location: string;
   validation: boolean;
-  bidderType: TInvAccType;
+  bidderType: Common.AccountType;
   deadline: Date;
   status: TStatus;
 }
@@ -81,8 +77,8 @@ export interface ILotViewLinks {
 }
 export interface ILotInfo {
   id: number;
-  typeOfDeal: ETypeOfDeal;
-  typeOfLot: ELotType;
+  direction: Common.Direction;
+  typeOfLot: LotFlow.LotType;
   userAvatar: ReactNode;
   userName: string;
   nameOfSeller: string;
@@ -92,17 +88,13 @@ export interface IDataFieldsInterface {
   id: string;
   value: string | number;
 }
-export interface ISidebarHeader {
-  Icon: ComponentType<{ width: string; height: string }>;
-  name: string;
-  analitics: string;
-}
+
 export interface ILotViewProjectData {
   id: number;
   name: string;
   description: string;
-  typeOfDeal: ETypeOfDeal;
-  typeOfLot: ELotType;
+  direction: Common.Direction;
+  typeOfLot: LotFlow.LotType;
   userAvatar: ReactNode;
   userName: string;
   nameOfSeller: string;
@@ -110,9 +102,9 @@ export interface ILotViewProjectData {
   totalAmount: number;
   dataFieldsMain: IDataFieldsInterface[];
   roundInfoFields: IRoundInfoFields[];
-  analitics: string;
+  analytics: string;
   auctionEndDate: Date;
-  Icon: ComponentType<{ width: string; height: string }>;
+  Icon: React.ReactNode;
   socialMediaLinks: ILotViewLinks[];
   officialLinks: ILotViewLinks[];
   verticalItems: ILotViewLinks[];

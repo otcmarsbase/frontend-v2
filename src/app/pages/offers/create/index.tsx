@@ -15,14 +15,11 @@ import Decimal from 'decimal.js';
 
 import { ProjectInfo, Summary, TokenInfo } from './components';
 import { ProjectDetails } from './components/ProjectDetails';
-import { ELotType } from './components/ProjectInfo/types';
 import { formDefaultValues } from './consts';
 import { useFormStepsValidation } from './hooks/useFormStepsValidation';
 import { useSummaryStepsValidation } from './hooks/useSummaryStepsValidation';
 import { CreateOfferSchema } from './schemas';
 import {
-  EPricingModel,
-  ETypeOfDeal,
   IHandleRecountProps,
   IHandleRecountValue,
   StepThreeRecountFieldByLotType,
@@ -32,7 +29,7 @@ import { getDefaultValues, getRecountedValue, reorderItems } from './utils';
 export const CreateOffer: React.FC = observer(() => {
   const { sellOfferStore } = useStore();
 
-  const { setTypeOfPricingModel, typeOfDeal, setTypeOfDeal } = sellOfferStore;
+  const { setTypeOfPricingModel, direction, setTypeOfDeal } = sellOfferStore;
 
   const form = useForm({
     schema: CreateOfferSchema,
@@ -42,13 +39,13 @@ export const CreateOffer: React.FC = observer(() => {
   const data = form.watch();
 
   const { showStepTwo, showStepThree } = useFormStepsValidation({
-    typeOfDeal,
+    direction,
     sellOfferStore,
   });
 
-  useSummaryStepsValidation({ data, typeOfDeal, sellOfferStore });
+  useSummaryStepsValidation({ data, direction, sellOfferStore });
   useEffect(() => {
-    setTypeOfPricingModel(EPricingModel.IN_STABLECOIN);
+    setTypeOfPricingModel('IN_STABLECOIN');
   }, [data.lotType, setTypeOfPricingModel]);
 
   function handleRecountPriceInfoValues({
@@ -152,18 +149,17 @@ export const CreateOffer: React.FC = observer(() => {
           </VStack>
           <RadioButtons
             items={[
-              { label: 'Buy', value: 'Buy' },
-              // @ts-ignore
-              { label: 'Sell', value: 'Sell' },
+              { label: 'Buy', value: 'BUY' },
+              { label: 'Sell', value: 'SELL' },
             ]}
             onChange={toggleTypeOfDeal}
             variant="solid"
             // @ts-ignore
-            value={typeOfDeal}
+            value={direction}
             mapColorByValue={(value) => {
               // @ts-ignore
-              if (value === ETypeOfDeal.SELL) return 'red.500';
-              if (value === ETypeOfDeal.BUY) return 'green.500';
+              if (value === 'SELL') return 'red.500';
+              if (value === 'BUY') return 'green.500';
             }}
           />
         </HStack>
@@ -179,7 +175,7 @@ export const CreateOffer: React.FC = observer(() => {
             <ProjectInfo
               // @ts-ignore
               form={form}
-              typeOfDeal={typeOfDeal}
+              direction={direction}
             />
           </FormSection>
 
@@ -202,20 +198,18 @@ export const CreateOffer: React.FC = observer(() => {
           {showStepThree ? (
             <FormSection>
               <HStack gap="0.5rem" marginBottom="2.5rem">
-                <Badge>{typeOfDeal === ETypeOfDeal.SELL ? 3 : 2} step</Badge>
+                <Badge>{direction === 'SELL' ? 3 : 2} step</Badge>
                 <Text fontSize="sm" fontWeight="bold">
-                  {typeOfDeal === ETypeOfDeal.SELL
-                    ? 'Pricing details'
-                    : 'Lot info'}
+                  {direction === 'SELL' ? 'Pricing details' : 'Lot info'}
                 </Text>
               </HStack>
               <ProjectDetails
                 // @ts-ignore
                 form={form}
-                lotType={data.lotType as ELotType}
+                lotType={data.lotType}
                 // @ts-ignore
                 handleRecountValues={handleRecountValues}
-                typeOfDeal={typeOfDeal}
+                direction={direction}
               />
             </FormSection>
           ) : null}
@@ -224,7 +218,7 @@ export const CreateOffer: React.FC = observer(() => {
       <Box position="sticky" top="0" right="0" alignSelf="start">
         <Summary
           onPublishLot={() => {}}
-          typeOfDeal={typeOfDeal}
+          direction={direction}
           lotType={data.lotType}
         />
       </Box>

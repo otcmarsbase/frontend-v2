@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { EPricingModel, ETypeOfDeal } from '@app/pages/offers/create/types';
+import { Common, LotFlow } from '@shared/types';
 
 export class SellOfferStore {
   public basicInfo: any = {};
@@ -12,17 +12,17 @@ export class SellOfferStore {
 
   public stepThreeSuccess: boolean = false;
   public stepThreeWasOnSuccess: boolean = false;
-  public typeOfPricingModel: EPricingModel = EPricingModel.IN_STABLECOIN;
-  public typeOfDeal: ETypeOfDeal = ETypeOfDeal.SELL;
+  public typeOfPricingModel: LotFlow.PricingModel = 'IN_STABLECOIN';
+  public direction: Common.Direction = 'SELL';
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setTypeOfDeal = (payload: ETypeOfDeal) => {
-    this.typeOfDeal = payload;
+  setTypeOfDeal = (payload: Common.Direction) => {
+    this.direction = payload;
   };
-  setTypeOfPricingModel = (payload: EPricingModel) => {
+  setTypeOfPricingModel = (payload: LotFlow.PricingModel) => {
     this.typeOfPricingModel = payload;
   };
   setBasicInfo = (updatedBasicInfo) => {
