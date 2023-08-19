@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Box, Heading, HStack } from '@chakra-ui/react';
+import { Box, Text, HStack } from '@chakra-ui/react';
 
 import { ILotViewLinks } from '../types';
 
@@ -13,9 +13,9 @@ export const LinksContainer: FC<ILotViewLinks> = ({ icon, text, href }) => {
       onClick={() => console.log('href', href)}
     >
       <Box color="white">{icon}</Box>
-      <Heading variant="h5" fontWeight="500" color="dark.50">
+      <Text fontWeight="500" fontSize="sm" color="dark.50">
         {text}
-      </Heading>
+      </Text>
     </HStack>
   );
 };

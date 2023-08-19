@@ -21,3 +21,4 @@ export * from './EditIcon';
 export * from './CopyIcon';
 export * from './InfoIcon';
 export * from './DownloadIcon';
+export * from './LeftIcon';

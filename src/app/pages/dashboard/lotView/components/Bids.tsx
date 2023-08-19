@@ -69,13 +69,11 @@ export const Bids: FC<IBidsProps> = ({
           </Button>
         </HStack>
       </HStack>
-      <Box overflowY="auto" h="100%">
-        <BidsList
-          bids={bids}
-          isBidder={isBidder}
-          viewOrderHandler={viewOrderHandler}
-        />
-      </Box>
+      <BidsList
+        bids={bids}
+        isBidder={isBidder}
+        viewOrderHandler={viewOrderHandler}
+      />
     </VStack>
   );
 };

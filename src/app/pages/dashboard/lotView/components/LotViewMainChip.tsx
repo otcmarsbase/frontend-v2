@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import { Box, HStack, VStack, Text } from '@chakra-ui/react';
 
 import { LOT_VIEW_MAIN_CHIP_FIELDS } from '../consts';
 
@@ -14,18 +14,18 @@ export const LotViewMainChip = ({ field }) => {
       gap="0.25rem"
       flex={1}
     >
-      <Heading variant="h5" color="dark.50" fontWeight="600">
+      <Text color="dark.50" fontSize="sm" fontWeight="600">
         {LOT_VIEW_MAIN_CHIP_FIELDS[field.id]}
-      </Heading>
+      </Text>
       {field.id === 'typeOfBidder' ? (
-        <Heading variant="h5" color="orange.400">
+        <Text fontSize="sm" color="orange.400">
           {field.value}
-        </Heading>
+        </Text>
       ) : (
         <HStack alignItems="baseline">
-          <Heading variant="h5" fontWeight="500">
+          <Text fontSize="sm" variant="h5" fontWeight="500">
             {field.value.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-          </Heading>
+          </Text>
           <Box color="dark.50">$</Box>
         </HStack>
       )}

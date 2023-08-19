@@ -8,6 +8,7 @@ const sizes = {
   xs: defineStyle({
     h: '2rem',
     fontSize: 'xs',
+    borderRadius: 'light',
   }),
   sm: defineStyle({
     h: '2.5rem',

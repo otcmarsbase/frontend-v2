@@ -17,7 +17,12 @@ export const ContentContainer: FC<
       gap="0.75rem"
       alignItems="baseline"
     >
-      <Heading variant="h3" fontSize="1rem" color="white">
+      <Heading
+        variant="h3"
+        textTransform="uppercase"
+        fontSize="1rem"
+        color="white"
+      >
         {title}
       </Heading>
       <HStack flexWrap="wrap" gap="0.75rem">

@@ -55,10 +55,7 @@ export const BidsList: FC<IBidsListProps> = ({
   };
 
   return (
-    <Table
-      gridTemplateColumns="repeat(9, minmax(max-content, 2.33fr))"
-      display="grid"
-    >
+    <Table gridTemplateColumns="repeat(9, 1fr)" display="grid">
       <Thead display="contents">
         <Tr display="contents">
           <Th>

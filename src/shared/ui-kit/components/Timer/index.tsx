@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-import { Box, Heading, HStack } from '@chakra-ui/react';
+import { Box, HStack, Text } from '@chakra-ui/react';
 
 interface iCountdownProps {
   endDate: Date;
@@ -12,6 +12,42 @@ interface iCountdownState {
   minutes: string;
   seconds: string;
 }
+
+const CountdownElement: React.FC<React.PropsWithChildren> = ({ children }) => {
+  return (
+    <Box
+      padding="0.25rem"
+      bg="dark.800"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+      minWidth="1.3625rem"
+    >
+      <Text fontWeight="700" lineHeight="1.5rem">
+        {children || '00'}
+      </Text>
+    </Box>
+  );
+};
+
+const CountdownDivider = () => {
+  return (
+    <Box
+      padding="0.25rem"
+      bg="dark.800"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+      maxWidth="0.9375rem"
+    >
+      <Text fontWeight="700" lineHeight="1.5rem" color="orange.400">
+        :
+      </Text>
+    </Box>
+  );
+};
 
 export const Countdown = ({ endDate }: iCountdownProps) => {
   const [state, setState] = useState<iCountdownState>({
@@ -75,128 +111,21 @@ export const Countdown = ({ endDate }: iCountdownProps) => {
       {state.days !== '0' ? (
         <>
           {state.days.split('').map((num) => {
-            return (
-              <Box
-                padding="0.25rem"
-                bg="dark.800"
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                height="100%"
-                minWidth="1.3625rem"
-              >
-                <Heading variant="h2" fontWeight="700" lineHeight="1.5rem">
-                  {num || '00'}
-                </Heading>
-              </Box>
-            );
+            return <CountdownElement>{num}</CountdownElement>;
           })}
-          <Box
-            padding="0.25rem"
-            bg="dark.800"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-            maxWidth="0.9375rem"
-          >
-            <Heading
-              variant="h2"
-              fontWeight="700"
-              lineHeight="1.5rem"
-              color="orange.400"
-            >
-              :
-            </Heading>
-          </Box>
+          <CountdownDivider />
         </>
       ) : null}
       {state.hours.split('').map((num) => {
-        return (
-          <Box
-            padding="0.25rem"
-            bg="dark.800"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-            minWidth="1.3625rem"
-          >
-            <Heading variant="h2" fontWeight="700" lineHeight="1.5rem">
-              {num || '00'}
-            </Heading>
-          </Box>
-        );
+        return <CountdownElement>{num}</CountdownElement>;
       })}
-      <Box
-        padding="0.25rem"
-        bg="dark.800"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100%"
-        maxWidth="0.9375rem"
-      >
-        <Heading
-          variant="h2"
-          fontWeight="700"
-          lineHeight="1.5rem"
-          color="orange.400"
-        >
-          :
-        </Heading>
-      </Box>
+      <CountdownDivider />
       {state.minutes.split('').map((num) => {
-        return (
-          <Box
-            padding="0.25rem"
-            bg="dark.800"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-            minWidth="1.3625rem"
-          >
-            <Heading variant="h2" fontWeight="700" lineHeight="1.5rem">
-              {num || '00'}
-            </Heading>
-          </Box>
-        );
+        return <CountdownElement>{num}</CountdownElement>;
       })}
-      <Box
-        padding="0.25rem"
-        bg="dark.800"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100%"
-        maxWidth="0.9375rem"
-      >
-        <Heading
-          variant="h2"
-          fontWeight="700"
-          lineHeight="1.5rem"
-          color="orange.400"
-        >
-          :
-        </Heading>
-      </Box>
+      <CountdownDivider />
       {state.seconds.split('').map((num) => {
-        return (
-          <Box
-            padding="0.25rem"
-            bg="dark.800"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            height="100%"
-            minWidth="1.3625rem"
-          >
-            <Heading variant="h2" fontWeight="700" lineHeight="1.5rem">
-              {num || '00'}
-            </Heading>
-          </Box>
-        );
+        return <CountdownElement>{num}</CountdownElement>;
       })}
     </HStack>
   );

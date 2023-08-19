@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import { Box, HStack, VStack, Text } from '@chakra-ui/react';
 import { HotChip } from '@shared/ui-kit';
 
 import { LotTypeChip } from '../../components/LotTypeChip';
@@ -38,27 +38,21 @@ export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
         right={0}
         bg={direction === 'BUY' ? 'rgba(52, 168, 83, 0.30)' : 'red'}
       >
-        <Heading variant="h5" fontWeight="600">
-          {direction}
-        </Heading>
+        <Text fontWeight="600">{direction}</Text>
       </Box>
       <VStack gap="0.75rem" w="100%">
-        <HStack>
-          <Heading variant="h5" fontWeight="500" color="dark.200">
+        <HStack alignSelf="start">
+          <Text variant="h5" fontWeight="500" color="dark.200">
             #{dealID}
-          </Heading>
+          </Text>
           <LotTypeChip lotType={lotType} />
           {isHot ? <HotChip /> : null}
         </HStack>
-        <HStack w="100%" alignItems="flex-start">
+        <HStack w="100%" alignItems="center">
           <Box>{icon}</Box>
-          <Heading
-            variant="h2"
-            letterSpacing="-0.0125rem"
-            textTransform="capitalize"
-          >
+          <Text fontSize="lg" fontWeight="600">
             {nameOfAsset}
-          </Heading>
+          </Text>
         </HStack>
       </VStack>
       <ProgressBar

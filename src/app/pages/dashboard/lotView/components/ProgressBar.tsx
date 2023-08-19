@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Heading, HStack, Progress, VStack } from '@chakra-ui/react';
+import { HStack, Progress, VStack, Text } from '@chakra-ui/react';
 
 export const ProgressBar = ({ title, currentAmount, totalAmount }) => {
   const [value, setValue] = useState(0);
@@ -23,16 +23,26 @@ export const ProgressBar = ({ title, currentAmount, totalAmount }) => {
         justifyContent="space-between"
         onClick={() => console.log('value', value)}
       >
-        <Heading variant="h5" color="dark.50" fontWeight="600">
+        <Text fontSize="sm" variant="h5" color="dark.50" fontWeight="600">
           {title}
-        </Heading>
-        <Heading display="flex" variant="h5" fontWeight="500" color="white">
+        </Text>
+        <Text
+          fontSize="sm"
+          display="flex"
+          variant="h5"
+          fontWeight="500"
+          color="white"
+        >
           {currentAmount.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-          <Box color="dark.50">$</Box>
+          <Text fontSize="sm" as="span" color="dark.50">
+            $
+          </Text>
           &nbsp; / &nbsp;
           {totalAmount.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-          <Box color="dark.50">$</Box>
-        </Heading>
+          <Text fontSize="sm" as="span" color="dark.50">
+            $
+          </Text>
+        </Text>
       </HStack>
       <Progress h="1rem" w="100%" value={value} max={totalAmount} />
     </VStack>

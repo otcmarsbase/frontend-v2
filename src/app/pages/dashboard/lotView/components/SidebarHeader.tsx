@@ -26,7 +26,7 @@ export const SidebarHeader: FC<SidebarHeaderProps> = ({ Icon, name }) => {
             {name}
           </Heading>
         </HStack>
-        <Button leftIcon={<DownloadIcon />}>
+        <Button size="xs" variant="darkOutline" leftIcon={<DownloadIcon />}>
           <Text fontWeight="800" whiteSpace="nowrap">
             Get analytics
           </Text>
