@@ -1,8 +1,12 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 
-import { LotViewDefaultValues } from '@app/pages/dashboard/lotView/consts';
-import { LotViewSchema } from '@app/pages/dashboard/lotView/schemas';
-import { TLotModalFields } from '@app/pages/dashboard/lotView/types';
+import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
+import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
+import { TLotModalFields } from '@app/pages/dashboard/lot/types';
+import {
+  AccountTypes,
+  AccountTypesKeys,
+} from '@app/pages/offers/create/components/ProjectInfo/types';
 import {
   VStack,
   Text,
@@ -27,11 +31,6 @@ import {
   Select,
   useForm,
 } from '@shared/ui-kit';
-
-import {
-  AccountTypes,
-  AccountTypesKeys,
-} from '../../pages/offers/create/components/ProjectInfo/types';
 
 export interface ChooseOfferTypeModalProps extends PortalProps {
   direction: Common.Direction;

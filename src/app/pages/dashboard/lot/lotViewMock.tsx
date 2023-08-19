@@ -1,14 +1,15 @@
-import { Circle } from '@chakra-ui/react';
-import { SocialsIcons } from '@shared/ui-kit';
-
 import {
   IBid,
   IDataFieldsInterface,
   ILotViewLinks,
   ILotViewProjectData,
   IRoundInfoFields,
-  ISimilarDealItem,
-} from './types';
+  ISimilarDealItem
+} from '@app/pages/dashboard/lot/types';
+import { Circle } from '@chakra-ui/react';
+import { SocialsIcons } from '@shared/ui-kit';
+
+
 
 export const roundInfoFields: IRoundInfoFields[] = [
   { id: 'investmentRound', value: 'Presale' },

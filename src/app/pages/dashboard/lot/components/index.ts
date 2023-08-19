@@ -9,4 +9,4 @@ export * from './RoundInfo';
 export * from './RoundInfoItem';
 export * from './SidebarHeader';
 export * from './SimilarDeals';
-export * from './SimilarDealsItem';
+export * from './SilimarDealsItem';

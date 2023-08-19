@@ -1,7 +1,9 @@
+import {FC} from "react";
+
 import { Text, TextProps } from '@chakra-ui/react';
 import { LotFlow } from '@shared/types';
 
-export const getTypeOfDealChipColors = (lotType: LotFlow.LotType) => {
+export const getTypeOfDealChipColors = ({lotType}: {lotType:LotFlow.LotType}) => {
   switch (lotType) {
     case 'SAFE':
       return '#EF5DA8';

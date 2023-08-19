@@ -1,4 +1,4 @@
-import { ILotView } from '@app/pages/dashboard/lotView/types';
+import { ILotView } from '@app/pages/dashboard/lot/types';
 import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
 

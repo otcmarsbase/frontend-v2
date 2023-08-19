@@ -1,12 +1,10 @@
 import { FC } from 'react';
 
-import { Box, HStack, VStack, Text } from '@chakra-ui/react';
-import { HotChip } from '@shared/ui-kit';
-
-import { LotTypeChip } from '../../components/LotTypeChip';
-import { ISimilarDealItem } from '../types';
-
-import { ProgressBar } from './ProgressBar';
+import { LotTypeChip } from '@app/pages/dashboard/lot/components/LotTypeChip';
+import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
+import {Box, Heading, HStack, VStack} from '@chakra-ui/react';
+import {HotChip} from "@shared/ui-kit";
+import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
 export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
   const {
@@ -38,21 +36,21 @@ export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
         right={0}
         bg={direction === 'BUY' ? 'rgba(52, 168, 83, 0.30)' : 'red'}
       >
-        <Text fontWeight="600">{direction}</Text>
+        <Heading variant='h5' fontWeight="600">{direction}</Heading>
       </Box>
       <VStack gap="0.75rem" w="100%">
         <HStack alignSelf="start">
-          <Text variant="h5" fontWeight="500" color="dark.200">
+          <Heading variant="h5" fontWeight="500" color="dark.200">
             #{dealID}
-          </Text>
+          </Heading>
           <LotTypeChip lotType={lotType} />
           {isHot ? <HotChip /> : null}
         </HStack>
         <HStack w="100%" alignItems="center">
           <Box>{icon}</Box>
-          <Text fontSize="lg" fontWeight="600">
+          <Heading fontSize="lg" fontWeight="600">
             {nameOfAsset}
-          </Text>
+          </Heading>
         </HStack>
       </VStack>
       <ProgressBar
