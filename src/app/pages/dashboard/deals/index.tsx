@@ -6,13 +6,12 @@ import {useCreateOfferModal} from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import {router} from '@app/logic';
 import MyBids from "@app/pages/dashboard/bids";
-import {LotTypeChip} from "@app/pages/dashboard/components";
 import Deal from "@app/pages/dashboard/deals/deal";
 import {dealsMock} from "@app/pages/dashboard/deals/dealsMock";
 import {DashboardListType} from '@app/store';
 import {HStack, Text, VStack} from '@chakra-ui/react';
 import {Common, Dashboard, Paginate} from '@shared/types';
-import {List} from '@shared/ui-kit';
+import {List, LotTypeChip} from '@shared/ui-kit';
 import {DealStatus} from "@shared/ui-kit/components/DealStatus";
 import {Pagination} from '@shared/ui-logic';
 import {EmptyData, LotRow} from '@shared/ui-molecules';
@@ -100,7 +99,7 @@ const MyDeals: React.FC<IMyDealsrProps> = observer(() => {
                                 {
                                     label: 'Lot ID',
                                     value: <HStack fontWeight={600}>
-                                        <Text whiteSpace="nowrap">
+                                        <Text variant='h1' whiteSpace="nowrap">
                                             #{item.lotId}
                                         </Text>
 

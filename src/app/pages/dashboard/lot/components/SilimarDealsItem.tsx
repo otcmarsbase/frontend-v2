@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
-import { LotTypeChip } from '@app/pages/dashboard/lot/components/LotTypeChip';
 import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
 import {Box, Heading, HStack, VStack} from '@chakra-ui/react';
-import {HotChip} from "@shared/ui-kit";
+import {HotChip, LotTypeChip} from "@shared/ui-kit";
 import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
 export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {

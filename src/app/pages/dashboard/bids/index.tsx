@@ -10,12 +10,11 @@ import Lot from "@app/pages/dashboard/lot";
 import { DashboardListType } from '@app/store';
 import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { Dashboard, Paginate } from '@shared/types';
-import { List, LotStatus } from '@shared/ui-kit';
+import {List, LotStatus, LotTypeChip} from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, LotRow } from '@shared/ui-molecules';
 import { format } from 'date-fns';
 
-import { LotTypeChip } from '../components';
 import MyOffers from '../offers';
 
 import { bidsMock } from './bidsMock';
