@@ -16,10 +16,8 @@ export abstract class RuntimeError<Params extends Record<string, any> = {}>
   }
 
   static resolveError(name: string, params: Record<string, any>): RuntimeError {
-    console.log(this.registrator, name);
     if (RuntimeError.registrator.isRegisteredName(name)) {
       const cls = RuntimeError.registrator.getClassesByClassName(name)[0];
-      console.log({ cls });
       if (cls) {
         return RuntimeError.registrator.getInstanceByClass(
           { name, params },

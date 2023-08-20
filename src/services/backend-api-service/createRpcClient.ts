@@ -21,14 +21,11 @@ export function createRpcClient(service: BackendApiService) {
   });
 
   client.responseInterceptor.use(async (response) => {
-    console.log({ response });
     if (RpcError.isExtends(response)) {
       const runtimeError = RuntimeError.resolveError(
         response.name,
         response.data,
       );
-
-      console.log(runtimeError);
 
       const error = runtimeError || response;
 
