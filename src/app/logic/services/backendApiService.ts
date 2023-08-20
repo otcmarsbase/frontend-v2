@@ -1,10 +1,7 @@
 import pages from '@app/pages';
 import { instanceStore, authLocalStore } from '@app/store';
 import { createService, ServiceManager } from '@packages/service-manager';
-import {
-  BackendApiService,
-  NotAuthorizedError,
-} from '@services/backend-api-service';
+import { BackendApiService } from '@services/backend-api-service';
 import { AppConfig } from '@shared/config';
 
 import { appManager, ServiceMap } from '../createAppManager';
@@ -25,23 +22,22 @@ export function backendApiService(serviceManager: ServiceManager<ServiceMap>) {
     getMeta: async () => ({
       token: authLocalStore.authToken,
     }),
-    onLogout: async () => {
-      authLocalStore.authToken = null;
+    // onLogout: async () => {
+    //   authLocalStore.authToken = null;
 
-      instanceStore.user = null;
+    //   instanceStore.user = null;
 
-      router.navigateComponent(pages.home, {});
-    },
-
-    errorRegistrator: appManager.errorRegistrator,
-    errorHandlers: [
-      {
-        errors: [NotAuthorizedError],
-        handler: (service, err) => {
-          return service.siteApi.auth.logOut();
-        },
-      },
-    ],
+    //   router.navigateComponent(pages.home, {});
+    // },
+    // errorHandlers: [
+    //   {
+    //     errors: [NotAuthorizedError],
+    //     handler: (service, err) => {
+    //       return service.siteApi.auth.logOut();
+    //     },
+    //   },
+    // ],
+    errorHandlers: [],
   });
 }
 
