@@ -12,7 +12,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": true,
     "jsx": "react-jsx",
 
@@ -31,7 +31,11 @@
       "@shared/ui-kit": ["./src/shared/ui-kit"],
       "@packages/*": ["./src/packages/*"],
 
-      "@services/backend-api-service": ["./src/services/backend-api-service"]
+      "@services/backend-api-service": ["./src/services/backend-api-service"],
+
+      "@ddd/errors": ["./src/shared/ddd-errors"],
+      "@schema/common": ["./src/shared/schema/common"],
+      "@schema/api-gateway": ["./src/shared/schema/api-gateway"]
     }
   },
   "include": ["src"],

@@ -25,6 +25,12 @@ module.exports = {
       '@shared': path.resolve(__dirname, 'src/shared'),
       '@packages': path.resolve(__dirname, 'src/packages'),
       '@services': path.resolve(__dirname, 'src/services'),
+      '@ddd/errors': path.resolve(__dirname, 'src/shared/ddd-errors'),
+      '@schema/common': path.resolve(__dirname, 'src/shared/schema/common'),
+      '@schema/api-gateway': path.resolve(
+        __dirname,
+        'src/shared/schema/api-gateway',
+      ),
     },
     plugins: [
       new ESLintPlugin({

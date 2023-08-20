@@ -1,26 +1,29 @@
+import { RuntimeError } from '@ddd/errors';
+import { RpcClient, RpcError } from '@packages/berish-rpc-client';
+import { RPC } from '@shared/schema/api-gateway';
 import { Service } from 'src/packages/service-manager';
-import { Registrator } from '@berish/class';
-import { RpcClient, RpcError } from 'src/packages/rpc-client';
 
-import { createRawApiRPC } from './createRawApiRPC';
-import { createSiteApiRPC } from './createSiteApiRPC';
-import { AxiosInstance, createAxios } from './createAxios';
-import { siteApi } from './api';
+import { createRpcAxiosAdapter } from './createRpcAxiosAdapter';
+import { createRpcClient } from './createRpcClient';
+import { createRpcSchemaClient } from './createRpcSchemaClient';
 
 export interface BackendApiServiceParams {
   baseURL: string;
-  getMeta: () => Record<string, string> | Promise<Record<string, string>>;
-  onLogout: () => void | Promise<void>;
+  getMeta: () => RPC.Meta | Promise<RPC.Meta>;
 
-  errorRegistrator?: Registrator;
-  errorHandlers: { errors: typeof RpcError[]; handler: (service: BackendApiService, error: RpcError) => void | Promise<void> }[];
+  errorHandlers: {
+    errors: (typeof RpcError | typeof RuntimeError)[];
+    handler: (
+      service: BackendApiService,
+      error: RpcError | RuntimeError,
+    ) => void | Promise<void>;
+  }[];
 }
 
 export class BackendApiService extends Service<BackendApiServiceParams> {
-  axios: AxiosInstance = createAxios(this);
+  rpcAxiosAdapter = createRpcAxiosAdapter(this);
 
-  rpcClient: RpcClient = createSiteApiRPC(this);
-  apiRpcClient: RpcClient = createRawApiRPC(this);
+  rpcClient: RpcClient = createRpcClient(this);
 
-  public siteApi = siteApi(this);
+  schema = createRpcSchemaClient(this);
 }

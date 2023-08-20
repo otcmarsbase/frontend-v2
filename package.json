@@ -2,6 +2,7 @@
   "name": "@otcmarsbase/frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://f579-2a03-d000-1404-297a-ac07-a0b7-fdd9-c804.ngrok.io",
   "dependencies": {
     "@berish/class": "^1.0.2",
     "@berish/linq": "^1.2.0",
@@ -21,6 +22,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@web3modal/ethereum": "^2.7.0",
+    "axios": "^1.4.0",
     "browserify-zlib": "^0.2.0",
     "chakra-react-select": "^4.7.0",
     "crypto-browserify": "^3.12.0",
