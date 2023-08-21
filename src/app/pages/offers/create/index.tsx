@@ -38,6 +38,10 @@ export const CreateOffer: React.FC = observer(() => {
 
   const data = form.watch();
 
+  useEffect(()=>{
+    console.log('data',data)
+
+  },[data])
   const { showStepTwo, showStepThree } = useFormStepsValidation({
     direction,
     sellOfferStore,

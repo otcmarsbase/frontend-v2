@@ -18,4 +18,4 @@ export const LotTypes: Record<LotFlow.LotType, string> = {
   TOKEN_WARRANT: 'Token warrant',
 };
 
-export const LotTypesKeys = Object.keys(AccountTypes) as LotFlow.LotType[];
+export const LotTypesKeys = Object.keys(LotTypes) as LotFlow.LotType[];
