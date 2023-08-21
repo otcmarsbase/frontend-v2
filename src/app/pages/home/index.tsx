@@ -21,11 +21,15 @@ const Home: React.FC = () => {
   }, [router]);
 
   const onClick = async () => {
-    const response = await backendApiService.schema.send('test.hello', {
-      firstName: '123',
-      lastName: 'Akhmetshin',
-    });
-    console.log({ response });
+    try {
+      const response = await backendApiService.schema.send('test.hello', {
+        firstName: '123',
+        lastName: 'Akhmetshin',
+      });
+      console.log({ response });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return <Button onClick={onClick}>TestHello</Button>;

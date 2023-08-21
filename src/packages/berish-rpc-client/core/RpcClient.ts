@@ -15,8 +15,8 @@ export interface RpcClientOptions {
 
 export class RpcClient {
   private readonly adapter: IRpcClientAdapter;
-  private _requestInterceptor: Interceptor<RpcRequest<any, any>> = null;
-  private _responseInterceptor: Interceptor<any> = null;
+  private _requestInterceptor: Interceptor<RpcRequest, RpcRequest> = null;
+  private _responseInterceptor: Interceptor<RpcResponse<any>, any> = null;
 
   constructor(options: RpcClientOptions) {
     if (isNil(options) || typeof options !== 'object')
@@ -56,56 +56,81 @@ export class RpcClient {
   }
 
   public async send<Result>(request: RpcRequest<any, Result>): Promise<Result> {
-    const rawResponse = await this.rawSendIntercept(request);
+    const rawResponse = await this.rawSend(request);
+
+    if (request.push) return void 0;
     if (!rawResponse) throw RpcError.ParseError();
 
     const response = responseResolve<Result>(rawResponse);
-    if (response instanceof RpcError) throw response;
-
-    return response;
+    return this.interceptResponse(rawResponse, response);
   }
 
-  public async rawSendIntercept<Params, Result>(
-    request: RpcRequest<Params, Result>,
+  public async rawSend<Result>(
+    request: RpcRequest<any, Result>,
   ): Promise<RpcResponse<Result> | void> {
-    request = requestResolve(request);
-    if (!request) throw RpcError.InvalidRequest();
+    let rpcResponse: RpcResponse<Result>;
+    try {
+      request = requestResolve(request);
+      if (!request) throw RpcError.InvalidRequest(); // Переделать на передачу объекта
 
-    const requestIntercepted = await this.interceptRequest(request);
+      const requestIntercepted = await this.interceptRequest(request);
+      if (requestIntercepted.push) return this._requestPush(requestIntercepted);
 
-    const rpcResponse = await this.rawSendWithoutIntercept(requestIntercepted);
-    if (requestIntercepted.push && !rpcResponse) return void 0;
+      rpcResponse = await this._requestSend(request);
+      if (request.push && !rpcResponse) return void 0;
 
-    if (!rpcResponse) throw RpcError.ParseError();
-    const rpcResponseIntercepted = await this.interceptResponse(rpcResponse);
+      if (!rpcResponse) throw RpcError.ParseError();
+      return rpcResponse;
+    } catch (err) {
+      if (RpcError.isExtends(err)) {
+        return Object.assign<RpcResponse<Result>, Partial<RpcResponse<Result>>>(
+          {
+            status: 'error',
+            error: err.toJSON(),
+          },
+          rpcResponse
+            ? {
+                warnings: rpcResponse.warnings,
+                meta: rpcResponse.meta,
+              }
+            : {},
+        );
+      }
 
-    return rpcResponseIntercepted;
-  }
-
-  public async rawSendWithoutIntercept<Params, Result>(
-    request: RpcRequest<Params, Result>,
-  ): Promise<RpcResponse<Result> | void> {
-    request = requestResolve(request);
-    if (!request) throw RpcError.InvalidRequest();
-
-    if (request.push) return this._requestPush(request);
-    return this._requestSend(request);
+      throw err;
+    }
   }
 
   public async interceptRequest<Params, Result>(
     request: RpcRequest<Params, Result>,
   ) {
+    const nextCallback = () => Promise.resolve(request);
     if (this._requestInterceptor) {
-      request = await this._requestInterceptor.call(request);
+      request = (await this._requestInterceptor.call(
+        request,
+        nextCallback,
+      )) as RpcRequest<Params, Result>;
     }
     return request;
   }
 
-  public async interceptResponse<Result>(response: RpcResponse<Result>) {
+  public async interceptResponse<Result>(
+    rpcResponse: RpcResponse<Result>,
+    response: Result | RpcError,
+  ) {
+    const nextCallback = () =>
+      RpcError.isExtends(response)
+        ? Promise.reject(response)
+        : Promise.resolve(response);
+
+    let _response: any = response;
     if (this._responseInterceptor) {
-      response = await this._responseInterceptor.call(response);
+      _response = await this._responseInterceptor.call(
+        rpcResponse,
+        nextCallback,
+      );
     }
-    return response;
+    return _response;
   }
 
   // Raw adapter PUSH request

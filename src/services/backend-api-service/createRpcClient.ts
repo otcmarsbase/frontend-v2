@@ -16,25 +16,32 @@ export function createRpcClient(service: BackendApiService) {
 
   client.requestInterceptor.use(async (request) => {
     const meta = await getMeta();
-    Object.assign(request.meta, meta);
-    return request;
+    if (!meta) return request;
+
+    return {
+      ...request,
+      meta: {
+        ...meta,
+        ...request.meta,
+      },
+    };
   });
 
-  client.responseInterceptor.use(async (response) => {
-    if (RpcError.isExtends(response)) {
-      const runtimeError = RuntimeError.resolveError(
-        response.name,
-        response.data,
-      );
+  client.responseInterceptor.use(async (response, next) => {
+    try {
+      return await next();
+    } catch (err) {
+      if (RpcError.isExtends(err)) {
+        const runtimeError = RuntimeError.resolveError(err.name, err.data);
 
-      const error = runtimeError || response;
+        const error = runtimeError || err;
 
-      const handler = getErrorHandler(service, error);
-      if (handler) await handler(service, error);
+        const handler = getErrorHandler(service, error);
+        if (handler) await handler(service, error);
 
-      throw error;
+        throw error;
+      }
     }
-    return response;
   });
   return client;
 }
