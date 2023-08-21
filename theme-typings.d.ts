@@ -546,6 +546,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'solid'
         | 'link'
         | 'unstyled'
+        | 'darkSolid'
         | 'darkOutline'
         | 'brand'
         | (string & {});

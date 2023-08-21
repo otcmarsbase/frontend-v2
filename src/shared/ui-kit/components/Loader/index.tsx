@@ -1,12 +1,14 @@
 import { PropsWithChildren } from 'react';
 
 import {
-  Center,
   CenterProps,
-  chakra,
+  Text,
   omitThemingProps,
   ThemingProps,
   useMultiStyleConfig,
+  Spinner,
+  VStack,
+  Center,
 } from '@chakra-ui/react';
 
 export interface LoaderProps extends ThemingProps<'Loader'>, CenterProps {
@@ -20,17 +22,12 @@ export const Loader: React.FC<PropsWithChildren<LoaderProps>> = ({
   children,
   ...props
 }) => {
-  const styles = useMultiStyleConfig('Loader', props);
-  const centerBoxProps = omitThemingProps(props);
-
   if (isLoading)
     return (
-      <Center __css={styles.container} gap="4" {...centerBoxProps}>
-        {loadingText && (
-          <chakra.div __css={styles.text}>{loadingText}</chakra.div>
-        )}
-        {/* <Icon as={CgSpinnerTwo} __css={styles.loader} /> */}
-      </Center>
+      <VStack h="25rem" justifyContent="center">
+        <Spinner size="lg" color="orange.500" />
+        {loadingText && <Text>{loadingText}</Text>}
+      </VStack>
     );
   return <>{children}</>;
 };

@@ -8,6 +8,7 @@ import { RootStore } from './rootStore';
 export enum DashboardListType {
   ORDERS = 'orders',
   BIDS = 'bids',
+  DEALS = 'deals',
 }
 
 export interface DashboardFilters {

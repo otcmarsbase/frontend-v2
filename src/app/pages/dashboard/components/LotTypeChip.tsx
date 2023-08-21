@@ -24,7 +24,7 @@ export const LotTypeChip = ({ lotType, ...textProps }) => {
       textTransform="uppercase"
       padding="0.125rem 0.5rem"
       borderRadius="6.25rem"
-      fontSize="sm"
+      fontSize="2xs"
       color="white"
       fontWeight="600"
       bg={getTypeOfDealChipColors(lotType)}

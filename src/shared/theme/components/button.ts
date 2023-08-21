@@ -12,7 +12,7 @@ const sizes = {
   }),
   sm: defineStyle({
     h: '2.5rem',
-    fontSize: 'xs',
+    fontSize: 'sm',
   }),
   md: defineStyle({
     h: '3rem',
@@ -30,7 +30,7 @@ const sizes = {
 
 // define the base component styles
 const baseStyle = defineStyle({
-  borderRadius: 'base',
+  borderRadius: 'light',
   fontSize: 'sm',
   fontWeight: 600,
   _disabled: {
@@ -41,6 +41,11 @@ const baseStyle = defineStyle({
 const variants = {
   solid: defineStyle({
     background: 'orange.500',
+  }),
+  darkSolid: defineStyle({
+    color: 'dark.50',
+    bg: 'rgba(255, 255, 255, 0.10)',
+    fontWeight: 500,
   }),
   darkOutline: defineStyle({
     border: '2px solid',

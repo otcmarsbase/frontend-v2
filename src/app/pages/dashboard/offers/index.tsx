@@ -75,26 +75,6 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
 
   return (
     <VStack width="full">
-      <Button
-        onClick={() => {
-          router.navigateComponent(
-            MyOffers,
-            {
-              filters: {
-                search: '123',
-                directions: ['BUY', 'SELL'],
-                test: [
-                  { type: 'SHORT', count: 1, good: { name: 'L0' } },
-                  { type: 'LONG', count: 5, good: { name: 'Bitoin' } },
-                ],
-              },
-            },
-            { replace: true },
-          );
-        }}
-      >
-        Click
-      </Button>
       <List
         width="full"
         items={offers}

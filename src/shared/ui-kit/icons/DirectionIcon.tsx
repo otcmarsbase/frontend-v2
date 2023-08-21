@@ -1,8 +1,11 @@
 import { createIcon } from '@chakra-ui/react';
 
-export const OfferTypeIcon = createIcon({
-  displayName: 'OfferTypeIcon',
+export const DirectionIcon = createIcon({
+  displayName: 'DirectionIcon',
   viewBox: '0 0 24 24',
+  defaultProps: {
+    fill: 'transparent',
+  },
   path: [
     <path
       d="M19 5L5 19"
