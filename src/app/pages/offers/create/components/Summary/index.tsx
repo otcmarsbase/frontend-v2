@@ -69,69 +69,69 @@ export const Summary: FC<SummaryProps> = observer(
     const BuyConditionsComplete = stepOneSuccess && stepThreeSuccess;
 
     return (
-      <VStack
-        layerStyle="darkGradientBordered"
-        alignSelf="start"
-        gap={'1.5rem'}
-      >
-        <Box alignSelf="start" mb="1.5rem">
-          <Heading size="md" fontFamily="promo">
-            Final selection
-          </Heading>
-          <Text fontSize="sm" color="dark.50">
-            Set suitable conditions
-          </Text>
-        </Box>
-        <VStack gap={'0.5rem'}>
-          <StepWrapper
-            isSuccessFilled={stepOneSuccess}
-            step={EStepTypes.FIRST_STEP}
-            lotType={lotType}
-            stepWasOpened={stepTwoWasOnSuccess}
-            pricingModel={typeOfPricingModel}
-            data={basicInfo}
-          />
-          {direction === 'SELL' && typeOfPricingModel ? (
-            <>
+      <Box layerStyle="darkGradientBordered">
+        <Box data-gradient-content>
+          <VStack alignSelf="start" gap={'1.5rem'}>
+            <Box alignSelf="start">
+              <Heading size="md" fontFamily="promo">
+                Final selection
+              </Heading>
+              <Text fontSize="sm" color="dark.50">
+                Set suitable conditions
+              </Text>
+            </Box>
+            <VStack gap={'0.5rem'}>
               <StepWrapper
-                isSuccessFilled={stepTwoSuccess}
-                step={EStepTypes.SECOND_STEP}
+                isSuccessFilled={stepOneSuccess}
+                step={EStepTypes.FIRST_STEP}
                 lotType={lotType}
                 stepWasOpened={stepTwoWasOnSuccess}
                 pricingModel={typeOfPricingModel}
-                data={sellOfferStore.basicInfo}
+                data={basicInfo}
               />
-              <StepWrapper
-                isSuccessFilled={stepThreeSuccess}
-                step={EStepTypes.THIRD_STEP}
-                lotType={lotType}
-                stepWasOpened={stepThreeWasOnSuccess}
-                pricingModel={typeOfPricingModel}
-                data={sellOfferStore.basicInfo}
-              />
-            </>
-          ) : (
-            <StepWrapper
-              isSuccessFilled={stepThreeSuccess}
-              step={EStepTypes.SECOND_STEP_BUY}
-              lotType={lotType}
-              stepWasOpened={stepThreeWasOnSuccess}
-              pricingModel={typeOfPricingModel}
-              data={basicInfo}
-            />
-          )}
-        </VStack>
-        <PublishLot
-          onPublishLot={onPublishLot}
-          isActive={
-            direction === 'SELL'
-              ? SellConditionsComplete
-              : BuyConditionsComplete
-          }
-        >
-          Publish Lot
-        </PublishLot>
-      </VStack>
+              {direction === 'SELL' && typeOfPricingModel ? (
+                <>
+                  <StepWrapper
+                    isSuccessFilled={stepTwoSuccess}
+                    step={EStepTypes.SECOND_STEP}
+                    lotType={lotType}
+                    stepWasOpened={stepTwoWasOnSuccess}
+                    pricingModel={typeOfPricingModel}
+                    data={sellOfferStore.basicInfo}
+                  />
+                  <StepWrapper
+                    isSuccessFilled={stepThreeSuccess}
+                    step={EStepTypes.THIRD_STEP}
+                    lotType={lotType}
+                    stepWasOpened={stepThreeWasOnSuccess}
+                    pricingModel={typeOfPricingModel}
+                    data={sellOfferStore.basicInfo}
+                  />
+                </>
+              ) : (
+                <StepWrapper
+                  isSuccessFilled={stepThreeSuccess}
+                  step={EStepTypes.SECOND_STEP_BUY}
+                  lotType={lotType}
+                  stepWasOpened={stepThreeWasOnSuccess}
+                  pricingModel={typeOfPricingModel}
+                  data={basicInfo}
+                />
+              )}
+            </VStack>
+            <PublishLot
+              onPublishLot={onPublishLot}
+              isActive={
+                direction === 'SELL'
+                  ? SellConditionsComplete
+                  : BuyConditionsComplete
+              }
+            >
+              Publish Lot
+            </PublishLot>
+          </VStack>
+        </Box>
+      </Box>
     );
   },
 );

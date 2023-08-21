@@ -3,7 +3,7 @@ import { memo, useCallback } from 'react';
 import { VStack, Text, Circle, HStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/react-portal';
 import { Common } from '@shared/types';
-import { Modal, OfferTypeIcon } from '@shared/ui-kit';
+import { Modal, DirectionIcon } from '@shared/ui-kit';
 
 export interface ChooseOfferTypeModalProps extends PortalProps {}
 
@@ -80,7 +80,7 @@ export const ChooseDirectionModal: React.FC<ChooseOfferTypeModalProps> = memo(
                 size="2.5rem"
                 bg={button.direction === 'SELL' ? 'red.500' : 'green.500'}
               >
-                <OfferTypeIcon color="white" />
+                <DirectionIcon color="white" />
               </Circle>
               <Text fontWeight={600}>{button.label}</Text>
             </HStack>

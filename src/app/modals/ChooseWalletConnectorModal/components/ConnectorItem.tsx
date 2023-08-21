@@ -32,11 +32,20 @@ const connectorNameImages: Record<WalletConnectorName, string> = {
   MetaMask: MetaMaskLogoPng,
 };
 
+const connectorInstallLinks: Record<WalletConnectorName, string> = {
+  MetaMask: 'https://metamask.io/download/',
+};
+
+const connectorSupportLinks: Record<WalletConnectorName, string> = {
+  MetaMask: 'https://support.metamask.io/hc/en-us/articles/360015489531',
+};
+
 export const ConnectorItem: React.FC<ConnectorItemProps> = ({
   connectorName,
   onClick,
 }) => {
   const checkInstall = (connectorName: WalletConnectorName) => {
+    if (!window.ethereum) return false;
     if (connectorName === 'MetaMask') return window.ethereum['isMetaMask'];
   };
 
@@ -49,6 +58,8 @@ export const ConnectorItem: React.FC<ConnectorItemProps> = ({
             color="orange.500"
             fontSize="sm"
             _hover={{ textDecoration: 'none' }}
+            target="_blank"
+            href={connectorSupportLinks[connectorName]}
           >
             How it works
           </Link>
@@ -63,6 +74,8 @@ export const ConnectorItem: React.FC<ConnectorItemProps> = ({
                 color="orange.500"
                 fontSize="sm"
                 _hover={{ textDecoration: 'none' }}
+                target="_blank"
+                href={connectorInstallLinks[connectorName]}
               >
                 Install
               </Link>

@@ -152,6 +152,7 @@ export const CreateOffer: React.FC = observer(() => {
               { label: 'Buy', value: 'BUY' },
               { label: 'Sell', value: 'SELL' },
             ]}
+            maxW="18rem"
             onChange={toggleTypeOfDeal}
             variant="solid"
             // @ts-ignore
