@@ -21,3 +21,4 @@ export * from './SummaryStep';
 export * from './Timer';
 export * from './ExpandableText';
 export * from './LotTypeChip';
+export * from './NumberText';

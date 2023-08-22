@@ -7,31 +7,31 @@ import {
   Grid,
   GridItem,
   HStack,
-  Progress,
   Text,
   Button,
   VStack,
 } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { AssetName, DealType, HotChip, LotTypeChip } from '@shared/ui-kit';
+import {
+  AssetName,
+  DealType,
+  HotChip,
+  LotTypeChip,
+  NumberText,
+} from '@shared/ui-kit';
+import { formatDate } from '@shared/utils';
 import Decimal from 'decimal.js';
+import { format } from 'numerable';
 
 type FieldType = {
   name: string;
-  value: any;
-  formatter?: (val: FieldType['value']) => React.ReactNode;
+  value: React.ReactNode;
 };
 
 export interface LotCardProps {
   onClick: () => void;
   lot: Resource.Lot.Lot;
 }
-
-const lotTypeText: Record<Resource.Lot.LotType, string> = {
-  SAFE: 'SAFE',
-  SAFT: 'SAFT',
-  TOKEN_WARRANT: 'Token warrant',
-};
 
 export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
   const schema = useRPCSchema();
@@ -40,7 +40,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
 
   const formatDollars = (val: number) => (
     <Text>
-      {val.toLocaleString('en')}&nbsp;
+      {format(val, '0.00a')}&nbsp;
       <Text as="span" color="dark.50">
         $
       </Text>
@@ -57,35 +57,64 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
       .toDecimalPlaces(2)
       .toString();
 
+    console.log({ lot });
+
     return [
       {
         name: 'FDV',
-        value: new Decimal(lot.valuation_info.fdv_quantity.quote || 0)
-          .toDecimalPlaces(2)
-          .toString(),
-        formatter: formatDollars,
+        value: (
+          <NumberText
+            value={lot.valuation_info.fdv_quantity.quote || 0}
+            abbreviated
+            addon={
+              <Text as="span" color="dark.50">
+                $
+              </Text>
+            }
+          />
+        ),
       },
       {
         name: 'Minimal Bid Size',
-        value: minSizeDea,
-        formatter: formatDollars,
+        value: (
+          <NumberText
+            value={minSizeDea || 0}
+            abbreviated
+            addon={
+              <Text as="span" color="dark.50">
+                $
+              </Text>
+            }
+          />
+        ),
       },
       {
         name: 'Total Bids Placed',
-        value: new Decimal(lot.execution_quantity_info.total.quote || 0)
-          .toDecimalPlaces(2)
-          .toString(),
-        formatter: formatDollars,
+        value: (
+          <NumberText
+            value={lot.execution_quantity_info.total.quote || 0}
+            abbreviated
+            addon={
+              <Text as="span" color="dark.50">
+                $
+              </Text>
+            }
+          />
+        ),
       },
-      {
-        name: 'Lot Deadline',
-        value: '',
-      },
+      lot.deadline
+        ? {
+            name: 'Lot Deadline',
+            value: (
+              <Text>{formatDate(new Date(lot.deadline), 'dd/MM/yyyy')}</Text>
+            ),
+          }
+        : null,
       {
         name: 'Vertical',
         value: 'TODO',
       },
-    ];
+    ].filter(Boolean);
   }, [lot]);
 
   const loadAsset = useCallback(async () => {
@@ -139,11 +168,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
               <Text fontWeight={600} fontSize="sm" color="dark.50">
                 {field.name}
               </Text>
-              {field.formatter ? (
-                field.formatter(field.value)
-              ) : (
-                <Text>{field.value}</Text>
-              )}
+              {field.value}
             </VStack>
           </GridItem>
         ))}

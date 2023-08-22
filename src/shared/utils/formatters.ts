@@ -1,3 +1,5 @@
+export { format as formatDate } from 'date-fns';
+
 export function formatAddress(
   address: `0x${string}` | string | undefined,
   begin: number = 6,
