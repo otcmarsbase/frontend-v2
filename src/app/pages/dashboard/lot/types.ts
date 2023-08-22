@@ -71,7 +71,7 @@ export interface IBidsListProps {
   isBidder: boolean;
 }
 export interface ILotViewLinks {
-  icon: ReactNode;
+  icon: ReactElement;
   text: string;
   href: string;
 }

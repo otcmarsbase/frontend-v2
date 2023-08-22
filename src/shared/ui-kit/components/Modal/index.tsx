@@ -11,6 +11,7 @@ import {
   ModalBody,
   Text,
   LayoutProps,
+  Box,
 } from '@chakra-ui/react';
 
 export interface ModalProps extends Omit<ChakraModalProps, 'isOpen'> {
@@ -42,15 +43,17 @@ export const Modal: React.FC<ModalProps> = ({
     <ChakraModal isOpen={visible} onClose={onCancelCallback} {...props}>
       <ModalOverlay />
       <ModalContent maxW={maxW}>
-        <ModalHeader>
-          {title}
-          {description}
-        </ModalHeader>
-        <ModalCloseButton />
+        <Box data-gradient-content>
+          <ModalHeader>
+            {title}
+            {description}
+          </ModalHeader>
+          <ModalCloseButton />
 
-        <ModalBody>{children}</ModalBody>
+          <ModalBody>{children}</ModalBody>
 
-        {footer && <ModalFooter>{footer}</ModalFooter>}
+          {footer && <ModalFooter>{footer}</ModalFooter>}
+        </Box>
       </ModalContent>
     </ChakraModal>
   );

@@ -1,8 +1,8 @@
 import {
   Box,
   useMultiStyleConfig,
-  chakra,
   ColorProps,
+  SimpleGrid,
   BoxProps,
 } from '@chakra-ui/react';
 
@@ -30,18 +30,16 @@ export const RadioButtons = <Type extends RadioButtonsValue = any>({
   onChange,
   variant,
   mapColorByValue,
-  ...props
+  ...boxProps
 }: RadioButtonsProps<Type>) => {
-  const styles = useMultiStyleConfig('RadioButtons', { variant, ...props });
+  const styles = useMultiStyleConfig('RadioButtons', {
+    variant,
+    ...boxProps,
+  });
 
   return (
-    <Box __css={styles.container} {...props}>
-      <chakra.div
-        __css={{
-          ...styles.grid,
-          gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-        }}
-      >
+    <Box __css={styles.container} {...boxProps}>
+      <SimpleGrid columns={items.length}>
         {items.map((item, index) => {
           const isActive = Boolean(value && item.value === value);
 
@@ -67,7 +65,7 @@ export const RadioButtons = <Type extends RadioButtonsValue = any>({
             </Box>
           );
         })}
-      </chakra.div>
+      </SimpleGrid>
     </Box>
   );
 };

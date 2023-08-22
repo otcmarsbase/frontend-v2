@@ -1,13 +1,19 @@
+import { observer } from 'mobx-react-lite';
+
 import { WalletConnectButton } from '@app/logic';
-import { HStack, Box, Square, Text, Link } from '@chakra-ui/react';
+import { useStore } from '@app/store';
+import { HStack, Box, Square, Text, Link, Button } from '@chakra-ui/react';
 import {
+  DownIcon,
   Dropdown,
   KebabMenuIcon,
   LanguageIcons,
   NotificationIcon,
 } from '@shared/ui-kit';
 
-export function HeaderRightContent() {
+export const HeaderRightContent = observer(() => {
+  const { instanceStore } = useStore();
+
   return (
     <HStack>
       <HStack gap="2.5rem" mr="1.7rem">
@@ -19,9 +25,17 @@ export function HeaderRightContent() {
             { label: 'Facebook', as: 'a', href: '#' },
           ]}
         >
-          <Text fontSize="xs" color="dark.50">
+          <Button
+            fontSize="xs"
+            variant="link"
+            _hover={{
+              textDecor: 'none',
+            }}
+            color="dark.50"
+            rightIcon={<DownIcon />}
+          >
             Community
-          </Text>
+          </Button>
         </Dropdown>
 
         <Link
@@ -46,23 +60,25 @@ export function HeaderRightContent() {
         </Square>
       </HStack>
 
-      <HStack>
-        <Dropdown
-          items={[
-            { label: 'Account' },
-            { label: 'Settings' },
-            { label: 'Log out' },
-          ]}
-        >
-          <KebabMenuIcon
-            w="2rem"
-            color="dark.200"
-            transition="all 0.3s"
-            _hover={{ color: 'orange.500' }}
-            h="2rem"
-          />
-        </Dropdown>
-      </HStack>
+      {instanceStore.isUserLoggedIn && (
+        <HStack>
+          <Dropdown
+            items={[
+              { label: 'Account' },
+              { label: 'Settings' },
+              { label: 'Log out' },
+            ]}
+          >
+            <KebabMenuIcon
+              w="2rem"
+              color="dark.200"
+              transition="all 0.3s"
+              _hover={{ color: 'orange.500' }}
+              h="2rem"
+            />
+          </Dropdown>
+        </HStack>
+      )}
     </HStack>
   );
-}
+});

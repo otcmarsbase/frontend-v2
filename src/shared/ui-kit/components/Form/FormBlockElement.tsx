@@ -38,7 +38,7 @@ export const FormBlockElement = ({
   };
 
   return (
-    <VStack width="full" justifyContent="space-between">
+    <HStack width="full" justifyContent="space-between">
       <HStack flexShrink="0" alignSelf="flex-start" mt="0.75rem">
         <Text cursor="default" onClick={onTextClick}>
           {label}
@@ -55,6 +55,6 @@ export const FormBlockElement = ({
       >
         {children}
       </Grid>
-    </VStack>
+    </HStack>
   );
 };

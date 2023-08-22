@@ -126,13 +126,9 @@ export const ChooseBidsModal: React.FC<ChooseOfferTypeModalProps> = memo(
         size="2xl"
         isCentered
         maxW="30rem"
+        variant="brand"
       >
-        <VStack
-          layerStyle="brandGradientBordered"
-          padding="none"
-          gap="1.5rem"
-          h="100%"
-        >
+        <VStack padding="none" gap="1.5rem" h="100%">
           <VStack gap="0.75rem" w="100%">
             <HStack w="100%">
               <FormBlockElement
