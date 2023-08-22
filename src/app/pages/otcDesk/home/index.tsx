@@ -3,6 +3,8 @@ import { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
+import {router} from "@app/logic";
+import Asset from "@app/pages/dashboard/asset";
 import {
   Button,
   HStack,
@@ -55,7 +57,7 @@ export const OtcDesk: React.FC = observer(() => {
         <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
           {lots.map((lot) => (
             <motion.div layout key={lot.id}>
-              <LotItem {...lot} />
+              <LotItem {...lot} onClick={()=>router.navigateComponent(Asset, {lot})} />
             </motion.div>
           ))}
         </SimpleGrid>

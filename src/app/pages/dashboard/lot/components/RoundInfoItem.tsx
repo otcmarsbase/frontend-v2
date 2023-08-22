@@ -1,8 +1,7 @@
+import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lot/consts';
 import { Box, Heading, HStack, Tooltip } from '@chakra-ui/react';
 import { InfoIcon } from '@shared/ui-kit';
 import { format } from 'date-fns';
-
-import { LOT_VIEW_MAIN_CHIP_FIELDS } from '../consts';
 
 export const RoundInfoItem = ({ field }) => {
   return (

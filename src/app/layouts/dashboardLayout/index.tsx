@@ -57,7 +57,6 @@ export const DashboardLayout: React.FC<
             <RadioButtons
               value={listType}
               variant="solid"
-              maxW="33rem"
               onChange={onChangeListType}
               items={(Object.keys(listTypeTexts) as DashboardListType[]).map(
                 (value) => ({

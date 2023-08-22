@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import {
   IBidsListProps,
   TBidListFilters,
-} from '@app/pages/dashboard/lotView/types';
+} from '@app/pages/dashboard/lot/types';
 import {
   Box,
   Circle,

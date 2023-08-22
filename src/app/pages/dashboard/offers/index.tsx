@@ -5,13 +5,14 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
-import LotView from '@app/pages/dashboard/lotView';
+import MyDeals from '@app/pages/dashboard/deals';
 import { DashboardListType } from '@app/store';
 import { Button, VStack } from '@chakra-ui/react';
 import { Paginate, Dashboard, Common } from '@shared/types';
 import { List, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, LotRow } from '@shared/ui-molecules';
+import Lot from 'src/app/pages/dashboard/lot';
 
 import MyBids from '../bids';
 
@@ -75,6 +76,26 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
 
   return (
     <VStack width="full">
+      <Button
+        onClick={() => {
+          router.navigateComponent(
+            MyOffers,
+            {
+              filters: {
+                search: '123',
+                directions: ['BUY', 'SELL'],
+                test: [
+                  { type: 'SHORT', count: 1, good: { name: 'L0' } },
+                  { type: 'LONG', count: 5, good: { name: 'Bitoin' } },
+                ],
+              },
+            },
+            { replace: true },
+          );
+        }}
+      >
+        Click
+      </Button>
       <List
         width="full"
         items={offers}
@@ -105,7 +126,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
                 { label: 'Total Bids Place', value: item.totalBidsPlace },
               ],
             }}
-            onClick={({ id }) => router.navigateComponent(LotView, { id })}
+            onClick={({ id }) => router.navigateComponent(Lot, { id })}
           />
         )}
       />
@@ -124,6 +145,10 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
 MyOffers.getLayout = ({ children }) => (
   <Layouts.DashboardLayout
     onChangeListType={(listType) => {
+      if (listType === DashboardListType.ORDERS)
+        router.navigateComponent(MyOffers, {});
+      if (listType === DashboardListType.DEALS)
+        router.navigateComponent(MyDeals, {});
       if (listType === DashboardListType.BIDS)
         router.navigateComponent(MyBids, {});
     }}

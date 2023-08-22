@@ -1,43 +1,35 @@
-import { FC, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
 import { ModalController } from '@app/logic';
-import { ChooseBidsModal } from '@app/modals';
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Heading,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
-import { Common } from '@shared/types';
-import { useForm, ExpandableText, LeftIcon } from '@shared/ui-kit';
+import { ChooseBidsModal } from '@app/modals/CreateBidsModal';
+import { Bids } from '@app/pages/dashboard/lot/components/Bids';
+import { ContentContainer } from '@app/pages/dashboard/lot/components/ContentContainer';
+import { LinksContainer } from '@app/pages/dashboard/lot/components/LinkContainer';
+import { LotBasicInfo } from '@app/pages/dashboard/lot/components/LotBasicInfo';
+import { LotViewMainChip } from '@app/pages/dashboard/lot/components/LotViewMainChip';
+import { RoundInfo } from '@app/pages/dashboard/lot/components/RoundInfo';
+import { SidebarHeader } from '@app/pages/dashboard/lot/components/SidebarHeader';
+import { SimilarDeals } from '@app/pages/dashboard/lot/components/SimilarDeals';
+import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
+import {BIDSmock, LotViewProjectData, similarDealsMock} from "@app/pages/dashboard/lot/lotViewMock";
+import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
+import { Button, Grid, GridItem, Heading, HStack, VStack } from '@chakra-ui/react';
+import {ArrowLeft as Arrow} from "@shared/assets/ArrowLeft";
+import {Common} from "@shared/types";
+import { useForm } from '@shared/ui-kit';
+import { ExpandableText } from '@shared/ui-kit/components/ExpandableText';
+import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
-import {
-  Bids,
-  ContentContainer,
-  LinksContainer,
-  LotBasicInfo,
-  LotViewMainChip,
-  RoundInfo,
-  SidebarHeader,
-  SimilarDeals,
-} from './components';
-import { ProgressBar } from './components/ProgressBar';
-import { LotViewDefaultValues } from './consts';
-import { BIDSmock, LotViewProjectData, similarDealsMock } from './lotViewMock';
-import { LotViewSchema } from './schemas';
 
 const UserState = {
   isOfferMaker: true,
   isBidder: true,
 };
 
-export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
+export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   const form = useForm({
     schema: LotViewSchema,
     defaultValues: LotViewDefaultValues,
@@ -92,8 +84,8 @@ export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
       <HStack w="100%" color="#888D9B" cursor="pointer">
-        <LeftIcon w="1rem" h="1rem" />
-        <Box>Back to OTC Desk</Box>
+        <Arrow />
+        <Heading variant='h5' fontSize='1.25rem' fontWeight={600}>Back to Dashboard</Heading>
       </HStack>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
         <GridItem
@@ -225,8 +217,7 @@ export const LotView: FC<{ lotId: number }> = observer(({ lotId }) => {
   );
 });
 
-LotView.getLayout = ({ children }) => (
+Lot.getLayout = ({ children }) => (
   <Layouts.AppLayout>{children}</Layouts.AppLayout>
 );
-
-export default LotView;
+export default Lot;
