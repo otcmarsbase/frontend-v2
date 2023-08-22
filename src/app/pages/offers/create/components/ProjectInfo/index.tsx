@@ -9,10 +9,9 @@ import {
     Select,
     UseFormReturn,
 } from '@shared/ui-kit';
+import {AsyncCreatableSelect} from '@shared/ui-logic/Select';
 
-import {Selector} from './AsyncCreatebleSelect';
 import {ProjectInfoFields} from './constants';
-// import AsyncCreatableSelectComponent from "./SelectAsync";
 import {
     AccountTypes,
     AccountTypesKeys,
@@ -59,7 +58,7 @@ export const ProjectInfo: FC<{
                 {/*    component={<Input placeholder={ProjectInfoFields.PROJECT_NAME}/>}*/}
                 {/*/>*/}
 
-                <Selector<IOption>
+                <AsyncCreatableSelect<IOption>
                     control={control}
                     name={'projectName'}
                     url={'someUrl'}

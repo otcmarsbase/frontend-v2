@@ -1,9 +1,9 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 
 import {observer} from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
-import {AssetsSchema} from "@app/pages/dashboard/asset/constants";
+import {AssetsFiltersSchema} from "@app/pages/dashboard/asset/constants";
 import {HeaderItemChip} from "@app/pages/dashboard/asset/HeaderItemChip";
 import {HeaderTitleChip} from "@app/pages/dashboard/asset/HeaderTitleChip";
 import {AssetMock} from "@app/pages/dashboard/asset/mocks";
@@ -22,7 +22,7 @@ import {
     Tabs, VStack
 } from "@chakra-ui/react";
 import {ArrowLeft as Arrow} from "@shared/assets/ArrowLeft";
-import {Dropdown, HotIcon, LeftIcon, SearchIcon, Select} from "@shared/ui-kit";
+import {Dropdown, HotIcon, SearchIcon, Select} from "@shared/ui-kit";
 import {ContentContainer} from "@shared/ui-kit/components/ContentContainer/ContentContainer";
 import {LinksContainer} from "@shared/ui-kit/components/LinkContainer";
 import {Pagination} from "@shared/ui-logic";
@@ -35,6 +35,17 @@ interface IMyDibsPageParams {
     lot: number
 }
 
+export const DefaultFilterValues = {
+    sortBy: 'byAlphabetic',
+    onlyReAssigned: false,
+    onlyValidated: false,
+    directlyByDealType: false,
+    pagination: {
+        page: 1,
+        limit: 10
+    }
+}
+
 const {icon, name, assetResearch, headerFields, description, officialLinks, verticalItems} = AssetMock;
 
 //todo decompose filters
@@ -45,29 +56,27 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({lot}) => {
         data,
         loading,
         error,
+        onChangePage,
         form
-    } = useViewControl({schema: AssetsSchema, defaultValues: {sortBy: 'byAlphabetic'}});
+    } = useViewControl({
+        schema: AssetsFiltersSchema,
+        defaultValues: DefaultFilterValues
+    });
 
-    console.log('data', data, loading)
+    const dat = form.watch();
+    console.log('data', dat)
     const toggleColumnsCount = () => {
         setColumnsCount((count) => (count === 3 ? 4 : 3));
     };
-    const [paginationOptions] = useState({
-        page: 1,
-        limit: 25,
-    });
-    const [events] = useState({
-        total: 30,
-        items: [],
-    });
 
-    const onChangePage = useCallback(async (page: number, limit: number) => {
-    }, []);
+    const [events] = useState({
+        total: lots.length
+    });
 
     return (
         <VStack padding='2rem' gap='2rem'>
             <HStack w="100%" color="#888D9B" cursor="pointer">
-                <Arrow />
+                <Arrow/>
                 <Heading variant='h5' fontWeight={600}>Back to OTC Desk</Heading>
             </HStack>
             <HeaderTitleChip
@@ -172,58 +181,60 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({lot}) => {
                             <VStack gap="1.5rem" w="full">
                                 <HStack w='100%'>
                                     <motion.div layout>
-                                <SimpleGrid
-                                    maxWidth='40.375rem'
-                                    alignSelf='baseline'
-                                    columns={4}
-                                    spacing="0.75rem"
-                                    gridTemplateColumns='1fr 2fr 2fr 1fr'
-                                >
-
-                                        <Button
-                                            w='100%'
-                                            onClick={toggleColumnsCount}
+                                        <SimpleGrid
+                                            maxWidth='40.375rem'
+                                            alignSelf='baseline'
+                                            columns={4}
+                                            spacing="0.75rem"
+                                            gridTemplateColumns='1fr 2fr 2fr 1fr'
                                         >
-                                            Filters
-                                        </Button>
-                                        <InputGroup>
-                                            <InputLeftElement>
-                                                <SearchIcon/>
-                                            </InputLeftElement>
-                                            <Input placeholder="Search"/>
-                                        </InputGroup>
-                                        <Select
-                                            isClearable
-                                            placeholder="Sort by"
-                                            value={form.getValues('sortBy')}
-                                            onChange={(value) => form.setValue('sortBy', value)}
-                                            options={[
-                                                {label: 'From A to Z', value: 'byAlphabetic'},
-                                                {label: 'Last added', value: 'byLast'},
-                                                {label: 'Popularity', value: 'byPopularity'},
-                                            ]}
-                                        />
-                                        <Button variant="darkOutline">
-                                            <HotIcon/>
-                                            &nbsp; HOT!
-                                        </Button>
-                                </SimpleGrid>
-                            </motion.div>
+
+                                            <Button
+                                                w='100%'
+                                                onClick={toggleColumnsCount}
+                                            >
+                                                Filters
+                                            </Button>
+                                            <InputGroup>
+                                                <InputLeftElement>
+                                                    <SearchIcon/>
+                                                </InputLeftElement>
+                                                <Input placeholder="Search"/>
+                                            </InputGroup>
+                                            <Select
+                                                isClearable
+                                                placeholder="Sort by"
+                                                value={form.getValues('sortBy')}
+                                                onChange={(value) => form.setValue('sortBy', value)}
+                                                options={[
+                                                    {label: 'From A to Z', value: 'byAlphabetic'},
+                                                    {label: 'Last added', value: 'byLast'},
+                                                    {label: 'Popularity', value: 'byPopularity'},
+                                                ]}
+                                            />
+                                            <Button variant="darkOutline">
+                                                <HotIcon/>
+                                                &nbsp; HOT!
+                                            </Button>
+                                        </SimpleGrid>
+                                    </motion.div>
                                 </HStack>
-                                <VStack>
-                                    {loading ? <Box w='1232px' h='1500px'>Loading...</Box> :
+                                <VStack w='100%' alignItems='flex-start'>
+                                    {loading ?
+                                        <Box w='1232px' h='1500px' padding='2rem'>Loading...</Box>
+                                        :
                                         <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
                                             {lots.map((lot) => (
-                                                <motion.div layout key={lot.id}>
-                                                    <LotItem {...lot} />
-                                                </motion.div>
-                                            ))}
+                                                    <motion.div layout key={lot.id}>
+                                                        <LotItem {...lot} />
+                                                    </motion.div>
+                                                ))}
                                         </SimpleGrid>
                                     }
                                     <Pagination
                                         total={events.total}
-                                        pageSize={paginationOptions.limit}
-                                        page={paginationOptions.page}
+                                        pageSize={form.getValues('pagination').limit}
+                                        page={form.getValues('pagination').page}
                                         onChange={onChangePage}
                                     />
                                 </VStack>

@@ -29,11 +29,11 @@ export interface PaginationProps {
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
-  total = 0,
-  pageSize = 25,
+  total = 10,
+  pageSize = 5,
   page = 1,
   centerPageGroupNumber = 5,
-  showCaption,
+  showCaption = true,
   onChange,
   renderView = PaginationView,
 }) => {

@@ -16,9 +16,10 @@ export const HEADER_FIELD_TITLES_BY_PARAM = {
     lotValueOnBuy: 'Lot value on buy'
 }
 
-export const AssetsSchema = yup.object().shape({
+export const AssetsFiltersSchema = yup.object().shape({
     sortBy: yup.string(),
     onlyReAssigned: yup.boolean(),
     onlyValidated: yup.boolean(),
-    directlyByDealType: yup.boolean()
+    directlyByDealType: yup.boolean(),
+    pagination: yup.object()
 });

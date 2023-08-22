@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 
 import {useForm} from "@shared/ui-kit";
 
@@ -14,6 +14,13 @@ export const useViewControl = ({schema, defaultValues, url = 'https://api.github
         schema: schema,
         defaultValues: defaultValues,
     });
+    const onChangePage = useCallback(async (page: number, limit: number) => {
+        form.setValue('pagination',{
+            page,
+            limit
+        })
+        console.log(page,limit)
+    }, []);
 
     useEffect(() => {
         const {unsubscribe} = form.watch((formState) => {
@@ -42,6 +49,7 @@ export const useViewControl = ({schema, defaultValues, url = 'https://api.github
         data: state.data,
         loading: state.loading,
         error: state.error,
+        onChangePage,
         form
     }
 }

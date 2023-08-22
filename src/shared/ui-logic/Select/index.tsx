@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Controller} from "react-hook-form";
 
 import {FormControl} from "@chakra-ui/react";
-import {AsyncCreatableSelect, GroupBase} from "chakra-react-select";
+import {AsyncCreatableSelect as AsyncCreatableSelector, GroupBase} from "chakra-react-select";
 import lodash from 'lodash'
 
 const colourOptions:any = [
@@ -35,7 +35,9 @@ interface ISelect {
     url:string,
     placeholder: string
 }
-export function Selector<T>({control, name, url, placeholder}: ISelect){
+export function AsyncCreatableSelect<T>({control, name, url, placeholder}: ISelect){
+
+    //todo delete filter
     function filterItems<T>(inputValue: string) {
         let result = colourOptions.filter((i) =>
             i.label.toLowerCase().includes(inputValue.toLowerCase())
@@ -61,7 +63,7 @@ export function Selector<T>({control, name, url, placeholder}: ISelect){
                          fieldState: { error }
                      }) => (
                 <FormControl py={4} isInvalid={!!error} id={name}>
-                    <AsyncCreatableSelect<T, true, GroupBase<T>>
+                    <AsyncCreatableSelector<T, true, GroupBase<T>>
                         cacheOptions
                         defaultOptions
                         name={name}
