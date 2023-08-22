@@ -14,11 +14,11 @@ import { LinkWalletIcon, Modal } from '@shared/ui-kit';
 import { useSignMessage } from 'wagmi';
 
 export interface SignWalletModalProps extends PortalProps<WalletSignResult> {
-  getMessage: () => Promise<string>;
+  message: string;
 }
 
 export const SignWalletModal: React.FC<SignWalletModalProps> = memo(
-  ({ portal, getMessage }) => {
+  ({ portal, message }) => {
     const onClose = useCallback(() => {
       if (portal && portal.resolve) portal.resolve(null);
     }, [portal]);
@@ -29,10 +29,9 @@ export const SignWalletModal: React.FC<SignWalletModalProps> = memo(
 
     const onVerifyClick = useCallback(async () => {
       if (portal && portal.resolve) {
-        const message = await getMessage();
         signMessage({ message });
       }
-    }, [getMessage, portal, signMessage]);
+    }, [message, portal, signMessage]);
 
     return (
       <Modal

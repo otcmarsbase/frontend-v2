@@ -28,6 +28,13 @@ export function createRpcClient(service: BackendApiService) {
   });
 
   client.responseInterceptor.use(async (response, next) => {
+    if (response.meta) {
+      await service.params.setMeta(response.meta);
+    }
+    return next();
+  });
+
+  client.responseInterceptor.use(async (response, next) => {
     try {
       return await next();
     } catch (err) {

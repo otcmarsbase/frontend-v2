@@ -1,3 +1,6 @@
+import { useCallback, useEffect, useState } from 'react';
+
+import { useRPCSchema } from '@app/hooks';
 import { ModalController } from '@app/logic/modal';
 import { ChooseWalletConnectorModal } from '@app/modals';
 import { SignWalletModal } from '@app/modals';
@@ -11,6 +14,7 @@ import {
   Text,
   ColorProps,
 } from '@chakra-ui/react';
+import { Resource } from '@schema/api-gateway';
 import MetaMaskLogoPng from '@shared/assets/metaMask.png';
 import { WalletConnectorName } from '@shared/types';
 import { formatAddress, formatNumber } from '@shared/utils';
@@ -25,11 +29,14 @@ const connectorColors: Record<WalletConnectorName, ColorProps['color']> = {
 };
 
 export const WalletConnectButton = () => {
-  const { userEntityStore } = useStore();
+  const schema = useRPCSchema();
+  const [message, setMessage] =
+    useState<Resource.Auth.AuthGeneratedMessage>(null);
+  const { authLocalStore } = useStore();
 
   const { isConnected, address, connector } = useAccount({
     onConnect: () => console.log('metamask connected'),
-    onDisconnect: () => userEntityStore.clearAuthMeta(),
+    onDisconnect: () => (authLocalStore.authToken = null),
   });
 
   const { disconnect } = useDisconnect();
@@ -42,44 +49,40 @@ export const WalletConnectButton = () => {
     address,
   });
 
-  const handleToggleConnection = async () => {
+  const handleToggleConnection = useCallback(async () => {
     if (!isLoading && isConnected) {
       disconnect();
     } else {
-      const successConnection = await ModalController.create(
-        ChooseWalletConnectorModal,
-        {},
-      );
-      if (successConnection) {
-        const publicKey = await ModalController.create(SignWalletModal, {
-          // Тут получаем подпись с бэка
-          getMessage: () =>
-            new Promise<string>((resolve) => {
-              setTimeout(() => {
-                resolve('blablabla');
-              }, 500);
-            }),
-        });
-        // Получив publicKey, отправляем его на бэк для получения токена
-        if (publicKey) {
-          const { token, expires } = await new Promise<{
-            token: string;
-            expires: number;
-          }>((resolve) => {
-            setTimeout(() => {
-              resolve({ token: 'asasasasasas', expires: 12121 });
-            }, 500);
-          });
-          userEntityStore.setAuthMeta(token, expires);
-        }
-      }
+      await ModalController.create(ChooseWalletConnectorModal, {});
     }
-  };
+  }, [message, address, isLoading, isConnected]);
 
   const balanceWithCommas = formatNumber(Number(data?.formatted));
   const formattedAddress = formatAddress(address);
 
   const connectorName = connector?.name as WalletConnectorName;
+
+  const fetchSignature = async (address: string) => {
+    const generatedMessage = await schema.send('auth.generateMessage', {
+      domain: window.location.host,
+      uri: window.location.origin,
+      address,
+    });
+    const signature = await ModalController.create(SignWalletModal, {
+      message: generatedMessage.message,
+    });
+    if (signature) {
+      await schema.send('auth.signIn', {
+        message: generatedMessage.message,
+        signatureHash: generatedMessage.signature_hash,
+        signature,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (address) fetchSignature(address);
+  }, [address]);
 
   return isConnected && data ? (
     <Box

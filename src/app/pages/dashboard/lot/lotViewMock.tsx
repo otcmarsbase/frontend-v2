@@ -4,12 +4,10 @@ import {
   ILotViewLinks,
   ILotViewProjectData,
   IRoundInfoFields,
-  ISimilarDealItem
+  ISimilarDealItem,
 } from '@app/pages/dashboard/lot/types';
 import { Circle } from '@chakra-ui/react';
-import { SocialsIcons } from '@shared/ui-kit';
-
-
+// import { SocialsIcons } from '@shared/ui-kit';
 
 export const roundInfoFields: IRoundInfoFields[] = [
   { id: 'investmentRound', value: 'Presale' },
@@ -339,52 +337,52 @@ export const BIDSmock: IBid[] = [
 
 export const socialMediaLinks: ILotViewLinks[] = [
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
   {
-    icon: <SocialsIcons.TwitterIcon />,
+    icon: <></>,
     text: 'Twitter',
     href: 'Twitter ref',
   },
@@ -392,17 +390,17 @@ export const socialMediaLinks: ILotViewLinks[] = [
 
 export const officialLinks: ILotViewLinks[] = [
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'GitHub',
     href: 'GitHub ref',
   },
@@ -410,22 +408,22 @@ export const officialLinks: ILotViewLinks[] = [
 
 export const verticalItems: ILotViewLinks[] = [
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'Metavers',
     href: 'GitHub ref',
   },
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'GameFi',
     href: 'GitHub ref',
   },
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'NFT',
     href: 'GitHub ref',
   },
   {
-    icon: <SocialsIcons.GithubIcon />,
+    icon: <></>,
     text: 'Social',
     href: 'GitHub ref',
   },
@@ -440,7 +438,7 @@ export const LotViewProjectData: ILotViewProjectData = {
   id: 21462,
   direction: 'BUY',
   typeOfLot: 'SAFT',
-  userAvatar: <SocialsIcons.GithubIcon />,
+  userAvatar: <></>,
   userName: 'Mao',
   currentAmount: 12122,
   totalAmount: 22333,

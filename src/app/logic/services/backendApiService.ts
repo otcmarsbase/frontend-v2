@@ -22,6 +22,11 @@ export function backendApiService(serviceManager: ServiceManager<ServiceMap>) {
     getMeta: async () => ({
       token: authLocalStore.authToken,
     }),
+    setMeta: async (meta) => {
+      if (meta.authToken) {
+        authLocalStore.authToken = meta.authToken;
+      }
+    },
     // onLogout: async () => {
     //   authLocalStore.authToken = null;
 

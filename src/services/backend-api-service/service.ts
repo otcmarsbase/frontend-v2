@@ -9,7 +9,8 @@ import { createRpcSchemaClient } from './createRpcSchemaClient';
 
 export interface BackendApiServiceParams {
   baseURL: string;
-  getMeta: () => RPC.Meta | Promise<RPC.Meta>;
+  getMeta: () => RPC.ClientMeta | Promise<RPC.ClientMeta>;
+  setMeta: (meta: RPC.ServerMeta) => void | Promise<void>;
 
   errorHandlers: {
     errors: (typeof RpcError | typeof RuntimeError)[];

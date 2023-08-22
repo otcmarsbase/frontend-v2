@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { useRPCSchema } from '@app/hooks';
 import * as Layouts from '@app/layouts';
-import {router} from "@app/logic";
-import Asset from "@app/pages/dashboard/asset";
+import { appManager, router } from '@app/logic';
+import Asset from '@app/pages/dashboard/asset';
 import {
   Button,
   HStack,
@@ -14,18 +15,20 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react';
+import { RPC } from '@shared/schema/api-gateway';
 import { Paginate, Dashboard } from '@shared/types';
-import { LotItem, LotItemProps } from '@shared/ui-molecules';
+import { LotCard } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';
 
 import { OTCFilters } from './components';
-import lotsMock from './lotsMock.json';
-
-// TODO Так не делать, в будущем появится тип с бэкенда
-const lots = lotsMock.lots as LotItemProps[];
 
 export const OtcDesk: React.FC = observer(() => {
+  const schema = useRPCSchema();
   const [columnsCount, setColumnsCount] = useState(4);
+  const [lots, setLots] = useState<RPC.DTO.LotListActive.Result>({
+    items: [],
+    total: 0,
+  });
 
   const [paginationOptions] = useState<Paginate.PaginationOptions>({
     page: 1,
@@ -43,6 +46,15 @@ export const OtcDesk: React.FC = observer(() => {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
   };
 
+  const loadLots = useCallback(async () => {
+    const lots = await schema.send('lot.listActive', {});
+    setLots(lots);
+  }, []);
+
+  useEffect(() => {
+    loadLots();
+  }, [loadLots]);
+
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
@@ -55,9 +67,12 @@ export const OtcDesk: React.FC = observer(() => {
           </Box>
         )}
         <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-          {lots.map((lot) => (
+          {lots.items.map((lot) => (
             <motion.div layout key={lot.id}>
-              <LotItem {...lot} onClick={()=>router.navigateComponent(Asset, {lot})} />
+              <LotCard
+                lot={lot}
+                onClick={() => router.navigateComponent(Asset, { lot })}
+              />
             </motion.div>
           ))}
         </SimpleGrid>

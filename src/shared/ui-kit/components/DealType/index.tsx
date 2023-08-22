@@ -1,8 +1,8 @@
 import { TagProps, Tag } from '@chakra-ui/react';
-import { Common } from '@shared/types';
+import { Resource } from '@schema/api-gateway';
 
 export interface DealTypeProps extends Omit<TagProps, 'variant' | 'invert'> {
-  value: Common.Direction;
+  value: Resource.Common.TradeDirection;
   invert?: boolean;
 }
 

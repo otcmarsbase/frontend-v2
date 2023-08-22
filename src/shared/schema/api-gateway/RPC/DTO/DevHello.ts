@@ -1,4 +1,4 @@
-export namespace TestHelloCommand {
+export namespace DevHello {
   export type Payload = {
     firstName: string;
     lastName: string;

@@ -4,19 +4,18 @@ import { AuthLocalStore, authLocalStore } from './authLocalStore';
 import { DashboardStore } from './dashboardStore';
 import { InstanceStore, instanceStore } from './instanceStore';
 import { SellOfferStore } from './sellOfferStore';
-import { UserEntityStore } from './userEntityStore';
 
 export class RootStore {
   readonly sellOfferStore: SellOfferStore;
   readonly dashboardStore: DashboardStore;
-  readonly userEntityStore: UserEntityStore;
   readonly instanceStore: InstanceStore = instanceStore;
   readonly authLocalStore: AuthLocalStore = authLocalStore;
 
   constructor() {
     this.sellOfferStore = new SellOfferStore();
     this.dashboardStore = new DashboardStore({ rootStore: this });
-    this.userEntityStore = new UserEntityStore({ rootStore: this });
+    this.instanceStore = new InstanceStore();
+    this.authLocalStore = new AuthLocalStore();
   }
 }
 

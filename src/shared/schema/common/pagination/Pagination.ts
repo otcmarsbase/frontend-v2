@@ -1,8 +1,9 @@
-export namespace Pagination {
-  export interface Params {}
+export interface PaginationPayload {
+  skip: number;
+  limit: number;
+}
 
-  export interface Result<T> {
-    items: T[];
-    total: number;
-  }
+export interface Pagination<T> {
+  items: T[];
+  total: number;
 }

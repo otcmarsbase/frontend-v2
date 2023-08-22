@@ -1,15 +1,12 @@
-export namespace User {
-  export interface User {
-    resource: 'user';
-    id: string;
+import { Resource, ResourceOmit } from '@schema/common';
 
-    created_at: number;
-    profile: UserProfile;
+export namespace User {
+  export interface UserKey extends Resource<'user_key'> {
+    nickname: string;
   }
 
-  export interface UserProfile {
-    resource: 'user_profile';
-
-    nickname: string;
+  export interface User extends Resource<'user'>, ResourceOmit<UserKey> {
+    registered_at: number;
+    is_verified: boolean;
   }
 }

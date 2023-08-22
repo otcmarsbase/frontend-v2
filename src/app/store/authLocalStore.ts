@@ -4,7 +4,7 @@ import { makePersistable } from 'mobx-persist-store';
 import { AppConfig } from '@shared/config';
 
 export class AuthLocalStore {
-  authToken: string = null;
+  authToken: string;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });

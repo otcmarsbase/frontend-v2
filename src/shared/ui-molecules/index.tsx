@@ -2,4 +2,4 @@ export * from './EmptyData';
 export * from './Footer';
 export * from './LotRow';
 export * from './Header';
-export * from './LotItem';
+export * from './LotCard';
