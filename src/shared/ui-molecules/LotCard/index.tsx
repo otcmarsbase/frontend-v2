@@ -92,6 +92,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
         name: 'Total Bids Placed',
         value: (
           <NumberText
+            // TODO тут другое поле будет
             value={lot.execution_quantity_info.total.quote || 0}
             abbreviated
             addon={
@@ -129,51 +130,58 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
   if (!asset) return;
 
   return (
-    <Box
+    <VStack
       onClick={onClick}
       cursor="pointer"
       p="1.5rem 1.25rem"
       position="relative"
       borderRadius="sm"
       bg="dark.900"
+      gap={0}
+      alignItems="start"
+      h="full"
       transition="all 0.3s"
       _hover={{
         bg: 'dark.800',
       }}
     >
-      <DealType
-        invert
-        value={lot.direction}
-        position="absolute"
-        top="0"
-        right="0"
-      />
-      <HStack gap="0.6rem" mt="0.1rem">
-        <Text color="dark.200" fontSize="sm">
-          #{lot.id.slice(0, 5)}
-        </Text>
-        <LotTypeChip lotType={lot.type} />
-        {lot.score >= 70 && <HotChip />}
-      </HStack>
-      <AssetName name={asset.id} logo={asset.info.logo_url} />
-      <Divider my="1.25rem" variant="dashed" color="dark.600" />
-      <Grid
-        templateColumns="repeat(2, 1fr)"
-        gridColumnGap="1rem"
-        gridRowGap="0.75rem"
-      >
-        {fields.map((field, index) => (
-          <GridItem key={index}>
-            <VStack gap="0.25rem" alignItems="start">
-              <Text fontWeight={600} fontSize="sm" color="dark.50">
-                {field.name}
-              </Text>
-              {field.value}
-            </VStack>
-          </GridItem>
-        ))}
-      </Grid>
-      <Divider variant="dashed" my="1.25rem" color="dark.600" />
+      <Box flexShrink="0">
+        <DealType
+          invert
+          value={lot.direction}
+          position="absolute"
+          top="0"
+          right="0"
+        />
+        <HStack gap="0.6rem" mt="0.1rem">
+          <Text color="dark.200" fontSize="sm">
+            #{lot.id.slice(0, 5)}
+          </Text>
+          <LotTypeChip lotType={lot.type} />
+          {lot.score >= 70 && <HotChip />}
+        </HStack>
+        <AssetName name={asset.info.title} logo={asset.info.logo_url} />
+      </Box>
+      <Divider variant="dashed" color="dark.600" />
+      <Box flex="1" py="1rem">
+        <Grid
+          templateColumns="repeat(2, 1fr)"
+          gridColumnGap="1rem"
+          gridRowGap="0.75rem"
+        >
+          {fields.map((field, index) => (
+            <GridItem key={index}>
+              <VStack gap="0.25rem" alignItems="start">
+                <Text fontWeight={600} fontSize="sm" color="dark.50">
+                  {field.name}
+                </Text>
+                {field.value}
+              </VStack>
+            </GridItem>
+          ))}
+        </Grid>
+      </Box>
+      <Divider variant="dashed" mb="1rem" color="dark.600" />
       <VStack width="full" alignItems="start">
         <HStack width="full" justifyContent="space-between">
           <Text fontWeight={600} fontSize="sm" color="dark.50">
@@ -190,6 +198,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
       <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
         Place bid
       </Button>
-    </Box>
+    </VStack>
   );
 };

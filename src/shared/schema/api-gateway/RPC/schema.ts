@@ -34,6 +34,7 @@ export type Schema = {
   };
 
   dev: {
+    generateJwtToken(payload: DTO.DevGenerateJwtToken.Payload): DTO.DevGenerateJwtToken.Result;
     hello(payload: DTO.DevHello.Payload): DTO.DevHello.Result;
   };
 };

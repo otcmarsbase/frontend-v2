@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+import { Interceptor, InterceptorCallback } from './helpers';
+
 export type RpcResponseStatus = 'success' | 'error';
 
 export interface RpcRequest<Params extends Record<string, any> = Record<string, any>, Result = any> {
@@ -24,3 +26,9 @@ export interface RpcResponseError {
   message: string;
   data?: Record<string, any>;
 }
+
+export type RpcRequestInterceptor = Interceptor<RpcRequest, RpcRequest>;
+export type RpcRequestInterceptorCallback = InterceptorCallback<RpcRequest, RpcRequest>;
+
+export type RpcResponseInterceptor = Interceptor<RpcResponse<any>, any>;
+export type RpcResponseInterceptorCallback = InterceptorCallback<RpcResponse<any>, any>;

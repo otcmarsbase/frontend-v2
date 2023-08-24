@@ -14,15 +14,25 @@ import { RoundInfo } from '@app/pages/dashboard/lot/components/RoundInfo';
 import { SidebarHeader } from '@app/pages/dashboard/lot/components/SidebarHeader';
 import { SimilarDeals } from '@app/pages/dashboard/lot/components/SimilarDeals';
 import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
-import {BIDSmock, LotViewProjectData, similarDealsMock} from "@app/pages/dashboard/lot/lotViewMock";
+import {
+  BIDSmock,
+  LotViewProjectData,
+  similarDealsMock,
+} from '@app/pages/dashboard/lot/lotViewMock';
 import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
-import { Button, Grid, GridItem, Heading, HStack, VStack } from '@chakra-ui/react';
-import {ArrowLeft as Arrow} from "@shared/assets/ArrowLeft";
-import {Common} from "@shared/types";
+import {
+  Button,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  VStack,
+} from '@chakra-ui/react';
+import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
+import { Common } from '@shared/types';
 import { useForm } from '@shared/ui-kit';
 import { ExpandableText } from '@shared/ui-kit/components/ExpandableText';
 import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
-
 
 const UserState = {
   isOfferMaker: true,
@@ -85,7 +95,9 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
     <VStack marginTop="2rem" alignItems="flex-start">
       <HStack w="100%" color="#888D9B" cursor="pointer">
         <Arrow />
-        <Heading variant='h5' fontSize='1.25rem' fontWeight={600}>Back to Dashboard</Heading>
+        <Heading variant="h5" fontSize="1.25rem" fontWeight={600}>
+          Back to Dashboard
+        </Heading>
       </HStack>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
         <GridItem
@@ -202,12 +214,12 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
                 <RoundInfo roundInfoFields={roundInfoFields} />
               ) : null}
             </VStack>
-            <Bids
+            {/* <Bids
               bids={BIDSmock}
               isBidder={UserState.isBidder}
               createBid={createBid}
               viewOrderHandler={viewOrderHandler}
-            />
+            /> */}
           </VStack>
         </GridItem>
       </Grid>

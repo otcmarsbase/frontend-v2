@@ -60,25 +60,23 @@ export const HeaderRightContent = observer(() => {
         </Square>
       </HStack>
 
-      {instanceStore.isUserLoggedIn && (
-        <HStack>
-          <Dropdown
-            items={[
-              { label: 'Account' },
-              { label: 'Settings' },
-              { label: 'Log out' },
-            ]}
-          >
-            <KebabMenuIcon
-              w="2rem"
-              color="dark.200"
-              transition="all 0.3s"
-              _hover={{ color: 'orange.500' }}
-              h="2rem"
-            />
-          </Dropdown>
-        </HStack>
-      )}
+      <HStack>
+        <Dropdown
+          items={[
+            { label: 'Account' },
+            { label: 'Settings' },
+            { label: 'Log out' },
+          ]}
+        >
+          <KebabMenuIcon
+            w="2rem"
+            color="dark.200"
+            transition="all 0.3s"
+            _hover={{ color: 'orange.500' }}
+            h="2rem"
+          />
+        </Dropdown>
+      </HStack>
     </HStack>
   );
 });

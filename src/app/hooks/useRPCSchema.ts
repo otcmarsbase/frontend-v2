@@ -5,11 +5,11 @@ import { appManager } from '../logic';
 export const useRPCSchema = () => {
   const {
     serviceManager: {
-      backendApiService: { schema: backendSchema },
+      backendApiService: { schema },
     },
   } = appManager;
 
-  const rpcSchema = useRef<typeof backendSchema>(backendSchema);
+  const rpcSchema = useRef<typeof schema>(schema);
 
   return rpcSchema.current;
 };

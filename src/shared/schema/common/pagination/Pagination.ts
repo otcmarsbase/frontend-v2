@@ -1,6 +1,6 @@
 export interface PaginationPayload {
-  skip: number;
-  limit: number;
+  skip?: number;
+  limit?: number;
 }
 
 export interface Pagination<T> {

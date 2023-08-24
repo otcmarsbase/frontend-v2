@@ -81,7 +81,7 @@ export const WalletConnectButton = () => {
   };
 
   useEffect(() => {
-    if (address) fetchSignature(address);
+    // if (address) fetchSignature(address);
   }, [address]);
 
   return isConnected && data ? (

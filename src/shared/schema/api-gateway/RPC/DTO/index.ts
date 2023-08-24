@@ -9,6 +9,7 @@ export * from './BidsGetById';
 export * from './BidsListMy';
 export * from './DealsGetById';
 export * from './DealsListMy';
+export * from './DevGenerateJwtToken';
 export * from './DevHello';
 export * from './LotGetById';
 export * from './LotList';
