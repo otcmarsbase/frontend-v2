@@ -1,4 +1,4 @@
-import { Resource } from '@schema/common';
+import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
 
 import { Asset } from './Asset';
 import { Common } from './Common';
@@ -8,32 +8,26 @@ export namespace Lot {
   export const LotType = ['SAFE', 'SAFT', 'TOKEN_WARRANT'] as const;
   export type LotType = (typeof LotType)[number];
 
-  export const LotStatus = [
-    'DRAFT',
-    'ON_MODERATE',
-    'REJECTED',
-    'ACTIVE',
-    'PARTIALLY_COMPLETED',
-    'COMPLETED',
-    'UNPUBLISHED',
-    'ARCHIVED',
-  ] as const;
+  export const LotStatus = ['DRAFT', 'ON_MODERATE', 'REJECTED', 'ACTIVE', 'PARTIALLY_COMPLETED', 'COMPLETED', 'UNPUBLISHED', 'ARCHIVED'] as const;
   export type LotStatus = (typeof LotStatus)[number];
 
-  export interface Lot extends Resource<'lot'> {
+  export interface LotKey extends ResourceKey<'lot'> {
     id: string;
+  }
 
-    score: number;
+  export interface Lot extends Resource<'lot'>, ResourceOmit<LotKey> {
     type: LotType;
     with_token_warrant?: boolean; // Only for SAFE when SELL
     owner: User.UserKey;
+    ownerType: Common.ParticipantType[] | 'NO_LIMIT';
     asset: Asset.AssetKey;
     direction: Common.TradeDirection;
     status: LotStatus;
     isDirect: boolean;
     deadline?: number;
     execution_quantity_info: LotExecutionQuantityInfo;
-    valuation_info: LotValuationInfo;
+    valuation_info: Common.ValuationInfo;
+    score: number; // Only for ACTIVE
 
     // Only for direction: SELL
     round_info?: LotRoundInfo;
@@ -45,20 +39,14 @@ export namespace Lot {
     reserved: Common.UnitFullQuantity;
     available: Common.UnitFullQuantity;
     total: Common.UnitFullQuantity;
+
+    total_bids: number;
   }
 
   export interface LotRoundInfo {
     type: Common.RoundType;
-    valuation_info: LotValuationInfo;
+    valuation_info: Common.ValuationInfo;
   }
-
-  export interface LotValuationInfo {
-    fdv_quantity: Common.UnitFullQuantity; // All of Asset
-    price: string; // price = fdv_quantity.asset / fdv_quantity.quote
-    share: string; // in percents (contract_quantity / fdv_quantity)
-    lot_quantity: Common.UnitFullQuantity; // All of Lot
-  }
-
   // Filters
 
   export type LotFilter = LotUnitSizeFilter | LotUnitSizeMultiplierFilter;

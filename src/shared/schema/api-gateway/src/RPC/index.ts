@@ -1,9 +1,4 @@
-import {
-  RpcApiMethod,
-  RpcApiMethodName,
-  RpcApiPayload,
-  RpcApiResult,
-} from '@packages/berish-rpc-client-schema';
+import { RpcApiMethod, RpcApiMethodName, RpcApiPayload, RpcApiResult } from '@packages/berish-rpc-client-schema';
 import { RpcSchemaClientCommon } from '@schema/common';
 
 import * as _DTO from './DTO';
@@ -31,9 +26,5 @@ export namespace RPC {
     authToken?: string;
   }
 
-  export class Client extends RpcSchemaClientCommon<
-    Schema,
-    ClientMeta,
-    ServerMeta
-  > {}
+  export class Client extends RpcSchemaClientCommon<Schema, ClientMeta, ServerMeta> {}
 }

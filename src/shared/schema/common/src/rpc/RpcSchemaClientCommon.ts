@@ -1,21 +1,10 @@
 import { RuntimeError } from '@ddd/errors';
-import {
-  RpcApiSchema,
-  RpcSchemaClient,
-} from '@packages/berish-rpc-client-schema';
-import {
-  RpcClient,
-  RpcError,
-  RpcRequestInterceptorCallback,
-  RpcResponseInterceptorCallback,
-} from 'src/packages/berish-rpc-client';
+import { RpcClient, RpcError, RpcRequestInterceptorCallback, RpcResponseInterceptorCallback } from '@packages/berish-rpc-client';
+import { RpcApiSchema, RpcSchemaClient } from '@packages/berish-rpc-client-schema';
 
 import { RpcClientErrorTrigger } from './RpcClientErrorTrigger';
 
-export interface RpcSchemaClientCommonOptions<
-  ClientMeta extends Record<string, any>,
-  ServerMeta extends Record<string, any>,
-> {
+export interface RpcSchemaClientCommonOptions<ClientMeta extends Record<string, any>, ServerMeta extends Record<string, any>> {
   /** Default true */
   includeRuntimeErrorInterceptor?: boolean;
   globalErrorTriggers?: RpcClientErrorTrigger[];
@@ -31,26 +20,16 @@ export class RpcSchemaClientCommon<
 > extends RpcSchemaClient<Schema, ClientMeta> {
   readonly options: RpcSchemaClientCommonOptions<ClientMeta, ServerMeta>;
 
-  constructor(
-    client: RpcClient,
-    options: RpcSchemaClientCommonOptions<ClientMeta, ServerMeta>,
-  ) {
+  constructor(client: RpcClient, options: RpcSchemaClientCommonOptions<ClientMeta, ServerMeta>) {
     super(client);
 
     this.options = options;
-    this.options.includeRuntimeErrorInterceptor =
-      this.options.includeRuntimeErrorInterceptor ?? true;
+    this.options.includeRuntimeErrorInterceptor = this.options.includeRuntimeErrorInterceptor ?? true;
     this.options.globalErrorTriggers = this.options.globalErrorTriggers || [];
 
-    this.client.requestInterceptor.use(
-      this.createClientMetaRequestInterceptor(),
-    );
-    this.client.responseInterceptor.use(
-      this.createServerMetaResponseInterceptor(),
-    );
-    this.client.responseInterceptor.use(
-      this.createRuntimeErrorResponseInterceptor(),
-    );
+    this.client.requestInterceptor.use(this.createClientMetaRequestInterceptor());
+    this.client.responseInterceptor.use(this.createServerMetaResponseInterceptor());
+    this.client.responseInterceptor.use(this.createRuntimeErrorResponseInterceptor());
   }
 
   private createClientMetaRequestInterceptor(): RpcRequestInterceptorCallback {
@@ -74,8 +53,7 @@ export class RpcSchemaClientCommon<
     return async (response, next) => {
       if (!this.options.setMeta) return next();
 
-      if (response.meta)
-        await this.options.setMeta(response.meta as ServerMeta);
+      if (response.meta) await this.options.setMeta(response.meta as ServerMeta);
       return next();
     };
   }
@@ -102,9 +80,7 @@ export class RpcSchemaClientCommon<
   private executeErrorTrigger(error: RpcError | RuntimeError) {
     const triggers = this.options.globalErrorTriggers;
 
-    const trigger = triggers.find((m) =>
-      (m.errors || []).find((k) => error instanceof k),
-    );
+    const trigger = triggers.find((m) => (m.errors || []).find((k) => error instanceof k));
     const triggerFunction = trigger?.trigger;
     if (!triggerFunction) return void 0;
 

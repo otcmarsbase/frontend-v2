@@ -34,8 +34,8 @@
       "@services/backend-api-service": ["./src/services/backend-api-service"],
 
       "@ddd/errors": ["./src/shared/ddd-errors"],
-      "@schema/common": ["./src/shared/schema/common"],
-      "@schema/api-gateway": ["./src/shared/schema/api-gateway"]
+      "@schema/common": ["./src/shared/schema/common/src"],
+      "@schema/api-gateway": ["./src/shared/schema/api-gateway/src"]
     }
   },
   "include": ["src"],

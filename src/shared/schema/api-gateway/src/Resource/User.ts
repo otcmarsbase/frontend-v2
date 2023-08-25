@@ -1,7 +1,7 @@
-import { Resource, ResourceOmit } from '@schema/common';
+import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
 
 export namespace User {
-  export interface UserKey extends Resource<'user_key'> {
+  export interface UserKey extends ResourceKey<'user'> {
     nickname: string;
   }
 

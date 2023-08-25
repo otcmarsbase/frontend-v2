@@ -1,5 +1,5 @@
 import { RuntimeError } from '@ddd/errors';
-import { RpcError } from 'src/packages/berish-rpc-client';
+import { RpcError } from '@packages/berish-rpc-client';
 
 export type RpcClientErrorTrigger = {
   errors: (typeof RpcError | typeof RuntimeError)[];

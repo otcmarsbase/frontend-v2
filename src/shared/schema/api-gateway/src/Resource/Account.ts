@@ -1,11 +1,11 @@
-import { Resource, ResourceOmit } from '@schema/common';
-
-import { User } from './User';
+import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
 
 export namespace Account {
-  export interface Account
-    extends Resource<'account'>,
-      ResourceOmit<User.UserKey> {
+  export interface AccountKey extends ResourceKey<'account'> {
+    nickname: string;
+  }
+
+  export interface Account extends Resource<'account'>, ResourceOmit<AccountKey> {
     registered_at: number;
 
     profile: Profile;

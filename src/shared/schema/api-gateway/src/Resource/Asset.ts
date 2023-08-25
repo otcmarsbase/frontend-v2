@@ -20,15 +20,7 @@ export namespace Asset {
   export const AssetLinkGroup = ['OFFICIAL', 'SOCIAL', 'OTHER'];
   export type AssetLinkGroup = (typeof AssetLinkGroup)[number];
 
-  export const AssetLinkType = [
-    'SITE',
-    'WHITE_PAPER',
-    'GITHUB',
-    'TWITTER',
-    'REDDIT',
-    'DISCORD',
-    'OTHER',
-  ] as const;
+  export const AssetLinkType = ['SITE', 'WHITE_PAPER', 'GITHUB', 'TWITTER', 'REDDIT', 'DISCORD', 'OTHER'] as const;
   export type AssetLinkType = (typeof AssetLinkType)[number];
 
   export interface AssetKey extends Resource<'asset_key'> {

@@ -1,4 +1,4 @@
-import { RPC } from '@shared/schema/api-gateway';
+import { RPC } from '@schema/api-gateway';
 
 import { BackendApiService } from './service';
 

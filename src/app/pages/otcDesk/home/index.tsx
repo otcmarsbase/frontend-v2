@@ -15,7 +15,7 @@ import {
   Text,
   Box,
 } from '@chakra-ui/react';
-import { RPC } from '@shared/schema/api-gateway';
+import { RPC } from '@schema/api-gateway';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotCard } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';

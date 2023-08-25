@@ -3,9 +3,7 @@ import * as DTO from './DTO';
 export type Schema = {
   account: {
     me(payload: DTO.AccountMe.Payload): DTO.AccountMe.Result;
-    saveProfile(
-      payload: DTO.AccountSaveProfile.Payload,
-    ): DTO.AccountSaveProfile.Result;
+    saveProfile(payload: DTO.AccountSaveProfile.Payload): DTO.AccountSaveProfile.Result;
   };
   asset: {
     getById(payload: DTO.AssetGetById.Payload): DTO.AssetGetById.Result;
@@ -13,15 +11,11 @@ export type Schema = {
   };
   auth: {
     signIn(payload: DTO.AuthSignIn.Payload): DTO.AuthSignIn.Result;
-    generateMessage(
-      payload: DTO.AuthGenerateMessage.Payload,
-    ): DTO.AuthGenerateMessage.Result;
+    generateMessage(payload: DTO.AuthGenerateMessage.Payload): DTO.AuthGenerateMessage.Result;
   };
 
   user: {
-    getByNickname(
-      payload: DTO.UserGetByNickname.Payload,
-    ): DTO.UserGetByNickname.Result;
+    getByNickname(payload: DTO.UserGetByNickname.Payload): DTO.UserGetByNickname.Result;
   };
 
   lot: {
@@ -40,9 +34,7 @@ export type Schema = {
   };
 
   dev: {
-    generateJwtToken(
-      payload: DTO.DevGenerateJwtToken.Payload,
-    ): DTO.DevGenerateJwtToken.Result;
+    generateJwtToken(payload: DTO.DevGenerateJwtToken.Payload): DTO.DevGenerateJwtToken.Result;
     hello(payload: DTO.DevHello.Payload): DTO.DevHello.Result;
   };
 };

@@ -26,10 +26,10 @@ module.exports = {
       '@packages': path.resolve(__dirname, 'src/packages'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@ddd/errors': path.resolve(__dirname, 'src/shared/ddd-errors'),
-      '@schema/common': path.resolve(__dirname, 'src/shared/schema/common'),
+      '@schema/common': path.resolve(__dirname, 'src/shared/schema/common/src'),
       '@schema/api-gateway': path.resolve(
         __dirname,
-        'src/shared/schema/api-gateway',
+        'src/shared/schema/api-gateway/src',
       ),
     },
     plugins: [

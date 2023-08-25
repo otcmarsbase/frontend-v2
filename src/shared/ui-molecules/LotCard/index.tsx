@@ -64,7 +64,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
         name: 'FDV',
         value: (
           <NumberText
-            value={lot.valuation_info.fdv_quantity.quote || 0}
+            value={lot.valuation_info.fdv.quote || 0}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
