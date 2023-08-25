@@ -1,4 +1,4 @@
-import {defineStyle, defineStyleConfig} from '@chakra-ui/react';
+import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const md = defineStyle({
   fontSize: '2md',
@@ -16,7 +16,7 @@ const variants = {
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: '2rem',
-    letterSpacing: '-0.015rem'
+    letterSpacing: '-0.015rem',
   }),
   h3: defineStyle({
     fontSize: '1.125rem',
@@ -35,20 +35,19 @@ const variants = {
     fontStyle: 'normal',
     fontWeight: '600',
     lineHeight: '1.25rem',
-
   }),
   h5: defineStyle({
     fontSize: '0.875rem',
     fontStyle: 'normal',
     fontWeight: '400',
-    lineHeight: '1.5rem'
+    lineHeight: '1.5rem',
   }),
   h6: defineStyle({
     fontSize: '0.625rem',
     fontStyle: 'normal',
     fontWeight: '600',
     lineHeight: '1rem',
-    letterSpacing: '-0.00625rem'
+    letterSpacing: '-0.00625rem',
   }),
   pageHeader: defineStyle({
     size: '2md',

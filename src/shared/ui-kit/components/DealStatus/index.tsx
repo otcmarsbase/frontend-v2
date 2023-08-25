@@ -5,11 +5,11 @@ const DEAL_STATUS_TEXTS: Record<Dashboard.TDealStatus, string> = {
   COMPLETED: 'Completed',
   NEGOTIATION: 'Negotiation',
   ENDED: 'Ended',
-}
+};
 const DEAL_STATUS_COLORS: Record<Dashboard.TDealStatus, string> = {
   COMPLETED: '#34A853',
   NEGOTIATION: '#F9C409',
-  ENDED: 'red.500'
+  ENDED: 'red.500',
 };
 
 export interface DealStatusProps extends BoxProps {

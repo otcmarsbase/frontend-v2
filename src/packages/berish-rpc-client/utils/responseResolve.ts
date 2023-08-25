@@ -1,7 +1,9 @@
 import { RpcError } from '../core';
 import { RpcResponse } from '../external.types';
 
-export function responseResolve<Result>(data: RpcResponse<Result> | RpcError): Result | RpcError {
+export function responseResolve<Result>(
+  data: RpcResponse<Result> | RpcError,
+): Result | RpcError {
   if (RpcError.isExtends(data)) return data;
 
   try {

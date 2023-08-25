@@ -4,7 +4,10 @@ import { Interceptor, InterceptorCallback } from './helpers';
 
 export type RpcResponseStatus = 'success' | 'error';
 
-export interface RpcRequest<Params extends Record<string, any> = Record<string, any>, Result = any> {
+export interface RpcRequest<
+  Params extends Record<string, any> = Record<string, any>,
+  Result = any,
+> {
   method?: string;
   meta?: Record<string, any>;
   params?: Params;
@@ -28,7 +31,13 @@ export interface RpcResponseError {
 }
 
 export type RpcRequestInterceptor = Interceptor<RpcRequest, RpcRequest>;
-export type RpcRequestInterceptorCallback = InterceptorCallback<RpcRequest, RpcRequest>;
+export type RpcRequestInterceptorCallback = InterceptorCallback<
+  RpcRequest,
+  RpcRequest
+>;
 
 export type RpcResponseInterceptor = Interceptor<RpcResponse<any>, any>;
-export type RpcResponseInterceptorCallback = InterceptorCallback<RpcResponse<any>, any>;
+export type RpcResponseInterceptorCallback = InterceptorCallback<
+  RpcResponse<any>,
+  any
+>;

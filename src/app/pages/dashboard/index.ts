@@ -1,4 +1,4 @@
-import Asset from "./asset";
+import Asset from './asset';
 import bids from './bids';
 import deals from './deals';
 import deal from './deals/deal';

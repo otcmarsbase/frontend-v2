@@ -3,7 +3,9 @@ import { Resource, ResourceOmit } from '@schema/common';
 import { User } from './User';
 
 export namespace Account {
-  export interface Account extends Resource<'account'>, ResourceOmit<User.UserKey> {
+  export interface Account
+    extends Resource<'account'>,
+      ResourceOmit<User.UserKey> {
     registered_at: number;
 
     profile: Profile;

@@ -1,6 +1,4 @@
-import {Dashboard} from "@shared/types";
-
-
+import { Dashboard } from '@shared/types';
 
 export const dealsMock: Dashboard.IDealItem[] = [
   {
@@ -13,7 +11,7 @@ export const dealsMock: Dashboard.IDealItem[] = [
     dealFDV: 124532,
     createdAt: new Date(),
     status: 'COMPLETED',
-    lotIconName: 'UsdtIcon'
+    lotIconName: 'UsdtIcon',
   },
   {
     id: 3269,
@@ -25,7 +23,7 @@ export const dealsMock: Dashboard.IDealItem[] = [
     dealFDV: 124532,
     createdAt: new Date(),
     status: 'ENDED',
-    lotIconName: 'UsdtIcon'
+    lotIconName: 'UsdtIcon',
   },
   {
     id: 3267,
@@ -37,7 +35,7 @@ export const dealsMock: Dashboard.IDealItem[] = [
     dealFDV: 124532,
     createdAt: new Date(),
     status: 'COMPLETED',
-    lotIconName: 'UsdtIcon'
+    lotIconName: 'UsdtIcon',
   },
   {
     id: 312679,
@@ -49,7 +47,7 @@ export const dealsMock: Dashboard.IDealItem[] = [
     dealFDV: 124532,
     createdAt: new Date(),
     status: 'NEGOTIATION',
-    lotIconName: 'UsdtIcon'
+    lotIconName: 'UsdtIcon',
   },
   {
     id: 326379,
@@ -61,6 +59,6 @@ export const dealsMock: Dashboard.IDealItem[] = [
     dealFDV: 124532,
     createdAt: new Date(),
     status: 'ENDED',
-    lotIconName: 'UsdtIcon'
+    lotIconName: 'UsdtIcon',
   },
 ];

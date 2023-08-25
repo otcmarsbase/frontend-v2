@@ -1,7 +1,11 @@
 import { SYMBOL_SERVICE_DEBUG, SYMBOL_SERVICE_NAME } from './const';
 import { Service } from './service';
 
-export type ServiceParamsType<T extends Service<any>> = T extends Service<infer Params> ? Params : T;
+export type ServiceParamsType<T extends Service<any>> = T extends Service<
+  infer Params
+>
+  ? Params
+  : T;
 
 export interface BaseParams {
   /**

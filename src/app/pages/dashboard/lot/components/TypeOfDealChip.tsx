@@ -9,7 +9,7 @@ export const TypeOfDealChip = ({ typeOfDeal }) => {
       position="absolute"
       top={0}
       right={0}
-      bg={typeOfDeal === "BUY" ? 'rgba(52, 168, 83, 0.30)' : 'red'}
+      bg={typeOfDeal === 'BUY' ? 'rgba(52, 168, 83, 0.30)' : 'red'}
     >
       <Heading variant="h5" fontWeight="600">
         {typeOfDeal}

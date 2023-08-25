@@ -107,7 +107,7 @@ export const LotRow: React.FC<LotRowProps> = ({
         {status ? status : null}
       </VStack>
       <HStack>
-        <Grid templateColumns={"repeat(4, 13rem)"} gridRowGap="1.5rem">
+        <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">
           {fields.map((field, index) => (
             <GridItem
               w="100%"

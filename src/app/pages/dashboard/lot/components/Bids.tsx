@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { BidsList } from '@app/pages/dashboard/lot/components/BidsList';
 import { IBidsProps } from '@app/pages/dashboard/lot/types';
 import { Box, Button, HStack, Select, VStack, Text } from '@chakra-ui/react';
-import {AddIcon} from "@shared/ui-kit";
+import { AddIcon } from '@shared/ui-kit';
 
 export const Bids: FC<IBidsProps> = ({
   bids,
@@ -11,7 +11,6 @@ export const Bids: FC<IBidsProps> = ({
   viewOrderHandler,
   isBidder,
 }) => {
-
   return (
     <VStack
       h="100%"

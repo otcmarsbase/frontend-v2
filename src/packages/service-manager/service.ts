@@ -1,4 +1,8 @@
-import { SYMBOL_SERVICE_DEBUG, SYMBOL_SERVICE_IS_STARTED, SYMBOL_SERVICE_NAME } from './const';
+import {
+  SYMBOL_SERVICE_DEBUG,
+  SYMBOL_SERVICE_IS_STARTED,
+  SYMBOL_SERVICE_NAME,
+} from './const';
 
 export class Service<Params extends Record<string, any> = {}> {
   public [SYMBOL_SERVICE_NAME]: string = null;
@@ -8,7 +12,8 @@ export class Service<Params extends Record<string, any> = {}> {
   private _params: Params = {} as any;
 
   constructor(params: Params) {
-    if (typeof params !== 'object' || !params || Array.isArray(params)) throw new TypeError('params is not correct');
+    if (typeof params !== 'object' || !params || Array.isArray(params))
+      throw new TypeError('params is not correct');
 
     this._params = params;
   }

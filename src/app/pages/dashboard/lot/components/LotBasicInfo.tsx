@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { Box, Text, HStack, Tooltip, VStack, Divider } from '@chakra-ui/react';
-import {CopyIcon, Countdown, InfoIcon, LotTypeChip} from '@shared/ui-kit';
+import { CopyIcon, Countdown, InfoIcon, LotTypeChip } from '@shared/ui-kit';
 
 import { ILotInfo } from '../types';
 

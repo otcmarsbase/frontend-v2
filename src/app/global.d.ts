@@ -1,4 +1,4 @@
-declare module "*.svg" {
-    const ReactComponent: any;
-    export { ReactComponent };
+declare module '*.svg' {
+  const ReactComponent: any;
+  export { ReactComponent };
 }

@@ -6,7 +6,5 @@ export interface AssetVerticalProps {
 }
 
 export const AssetVertical: React.FC<AssetVerticalProps> = ({ value }) => {
-  return <Square>
-    
-  </Square>;
+  return <Square></Square>;
 };

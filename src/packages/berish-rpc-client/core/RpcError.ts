@@ -4,7 +4,13 @@ export class RpcError extends Error {
   public readonly name: string = null;
   public readonly data: { [key: string]: any } = null;
 
-  static readonly SystemList = ['ConnectionError', 'InternalError', 'ParseError', 'InvalidRequest', 'MethodNotFound'] as const;
+  static readonly SystemList = [
+    'ConnectionError',
+    'InternalError',
+    'ParseError',
+    'InvalidRequest',
+    'MethodNotFound',
+  ] as const;
 
   static isExtends(error: any): error is RpcError {
     return error instanceof RpcError;
@@ -29,18 +35,30 @@ export class RpcError extends Error {
   }
 
   static ParseError() {
-    return RpcError.Custom('ParseError', 'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text');
+    return RpcError.Custom(
+      'ParseError',
+      'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text',
+    );
   }
 
   static InvalidRequest() {
-    return RpcError.Custom('InvalidRequest', 'The JSON sent is not a valid Request object');
+    return RpcError.Custom(
+      'InvalidRequest',
+      'The JSON sent is not a valid Request object',
+    );
   }
 
   static MethodNotFound(method?: string) {
     if ((method ?? null) !== null) {
-      return RpcError.Custom('MethodNotFound', `The method '${String(method)}' does not exist / is not available`);
+      return RpcError.Custom(
+        'MethodNotFound',
+        `The method '${String(method)}' does not exist / is not available`,
+      );
     }
-    return RpcError.Custom('MethodNotFound', 'The method does not exist / is not available');
+    return RpcError.Custom(
+      'MethodNotFound',
+      'The method does not exist / is not available',
+    );
   }
 
   static fromJSON(json: RpcResponseError) {

@@ -32,6 +32,7 @@
     "focus-visible": "^5.2.0",
     "framer-motion": "^10.12.21",
     "https-browserify": "^1.0.0",
+    "husky": "^8.0.3",
     "i18next": "^23.4.4",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
@@ -64,32 +65,34 @@
     "yup": "^1.2.0"
   },
   "scripts": {
+    "clean": "rm -f tsconfig.tsbuildinfo && rm -rf dist",
+    "clean:full": "rm -rf node_modules && rm -f yarn.lock && npm run clean",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "clean": "rm -f tsconfig.tsbuildinfo && rm -rf dist",
-    "clean:full": "rm -rf node_modules && rm -f yarn.lock && npm run clean",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
     "gen:theme-typings": "chakra-cli tokens src/shared/theme/index.ts --out theme-typings.d.ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook:build": "storybook build",
     "// ----- Checks -----": "",
-    "lint:code": "eslint --ext .ts,.tsx ./",
-    "lint:code:fix": "npm run lint:code -- --fix",
+    "lint": "eslint \"src/**/*.+(ts|js|tsx|jsx|json|css|scss|md)\"",
+    "lint:fix": "yarn lint --fix",
+    "prettier": "prettier --write \"src/**/*.+(ts|js|tsx|jsx|json|css|scss|md)\"",
+    "format": "yarn prettier && yarn lint:fix",
     "typecheck": "tsc --noEmit",
-    "check:full": "npm run lint:code && npm run typecheck"
+    "check:full": "npm run lint:code && npm run typecheck",
+    "precommit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "**/*.+(ts|js|tsx|jsx|json|css|scss|md)": [
+      "npm run format"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run precommit"
     }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   },
   "browserslist": {
     "production": [

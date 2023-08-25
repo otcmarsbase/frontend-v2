@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
-import {Box, Heading, HStack, VStack} from '@chakra-ui/react';
-import {HotChip, LotTypeChip} from "@shared/ui-kit";
+import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
+import { HotChip, LotTypeChip } from '@shared/ui-kit';
 import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
 export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
@@ -35,7 +35,9 @@ export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
         right={0}
         bg={direction === 'BUY' ? 'rgba(52, 168, 83, 0.30)' : 'red'}
       >
-        <Heading variant='h5' fontWeight="600">{direction}</Heading>
+        <Heading variant="h5" fontWeight="600">
+          {direction}
+        </Heading>
       </Box>
       <VStack gap="0.75rem" w="100%">
         <HStack alignSelf="start">
