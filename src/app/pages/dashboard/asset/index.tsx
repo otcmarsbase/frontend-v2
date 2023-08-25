@@ -3,12 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
-import { AssetsSchema } from '@app/pages/dashboard/asset/constants';
-import { HeaderItemChip } from '@app/pages/dashboard/asset/HeaderItemChip';
-import { HeaderTitleChip } from '@app/pages/dashboard/asset/HeaderTitleChip';
-import { AssetMock } from '@app/pages/dashboard/asset/mocks';
-import { useViewControl } from '@app/pages/dashboard/asset/useViewControl';
-import lotsMock from '@app/pages/otcDesk/home/lotsMock.json';
+// import lotsMock from '@app/pages/otcDesk/home/lotsMock.json';
 import {
   Box,
   Button,
@@ -28,35 +23,25 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react';
-import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
-import {
-  Dropdown,
-  HotIcon,
-  LeftIcon,
-  SearchIcon,
-  Select,
-} from '@shared/ui-kit';
-import { ContentContainer } from '@shared/ui-kit/components/ContentContainer/ContentContainer';
-import { LinksContainer } from '@shared/ui-kit/components/LinkContainer';
+import { ArrowLeft } from '@shared/assets';
+import { Dropdown, HotIcon, SearchIcon, Select } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
-import { LotCard, LotCardProps } from '@shared/ui-molecules';
+import { LotCard } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';
 
-const lots = lotsMock.lots as any;
+import { ContentContainer, LinksContainer } from '../lot/components';
+
+import { AssetsSchema } from './constants';
+import { HeaderItemChip } from './HeaderItemChip';
+import { HeaderTitleChip } from './HeaderTitleChip';
+import { AssetMock } from './mocks';
+import { useViewControl } from './useViewControl';
 
 interface IMyDibsPageParams {
   lot: number;
 }
 
-const {
-  icon,
-  name,
-  assetResearch,
-  headerFields,
-  description,
-  officialLinks,
-  verticalItems,
-} = AssetMock;
+const { icon, name, assetResearch, headerFields, description, officialLinks, verticalItems } = AssetMock;
 
 //todo decompose filters
 export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
@@ -80,13 +65,12 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
     items: [],
   });
 
-  const onChangePage = useCallback(async (page: number, limit: number) => {},
-  []);
+  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
 
   return (
     <VStack padding="2rem" gap="2rem">
       <HStack w="100%" color="#888D9B" cursor="pointer">
-        <Arrow />
+        <ArrowLeft />
         <Heading variant="h5" fontWeight={600}>
           Back to OTC Desk
         </Heading>
@@ -97,22 +81,18 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
           <HeaderItemChip param={param} value={value} />
         ))}
       </HStack>
-      <SimpleGrid
-        gridTemplateColumns="1fr 2fr"
-        gap="1.5rem"
-        alignItems="flex-start"
-      >
+      <SimpleGrid gridTemplateColumns="1fr 2fr" gap="1.5rem" alignItems="flex-start">
         <VStack>
           <ContentContainer
             title="PROJECT LINKS"
             children={officialLinks.map((props) => (
-              <LinksContainer {...props} />
+              <LinksContainer icon={props.icon} text={props.text} href={props.href} />
             ))}
           />
           <ContentContainer
             title="VERTICAL"
             children={verticalItems.map((props) => (
-              <LinksContainer {...props} />
+              <LinksContainer icon={props.icon} text={props.text} href={props.href} />
             ))}
           />
         </VStack>
@@ -127,13 +107,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
           <Heading variant="h3" fontSize="1rem" textTransform="uppercase">
             Description
           </Heading>
-          <Heading
-            w="80%"
-            variant="h5"
-            fontWeight="500"
-            color="dark.50"
-            whiteSpace="pre-line"
-          >
+          <Heading w="80%" variant="h5" fontWeight="500" color="dark.50" whiteSpace="pre-line">
             {description}
           </Heading>
         </VStack>
@@ -159,12 +133,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
               spacing="0.75rem"
             >
               {columnsCount === 3 && (
-                <VStack
-                  w="20rem"
-                  paddingTop="10px"
-                  gap="1.25rem"
-                  alignItems="flex-start"
-                >
+                <VStack w="20rem" paddingTop="10px" gap="1.25rem" alignItems="flex-start">
                   <HStack w="100%">
                     <Heading display="flex" variant="h3m">
                       FILTER
@@ -174,9 +143,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
                     <FormControl
                       display="flex"
                       justifyContent="space-between"
-                      isInvalid={Boolean(
-                        form.formState.errors['onlyReAssigned'],
-                      )}
+                      isInvalid={Boolean(form.formState.errors['onlyReAssigned'])}
                     >
                       <FormLabel>Re-assign</FormLabel>
                       <Checkbox {...form.register('onlyReAssigned')} />
@@ -184,9 +151,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
                     <FormControl
                       display="flex"
                       justifyContent="space-between"
-                      isInvalid={Boolean(
-                        form.formState.errors['onlyValidated'],
-                      )}
+                      isInvalid={Boolean(form.formState.errors['onlyValidated'])}
                     >
                       <FormLabel>Only validated offers</FormLabel>
                       <Checkbox {...form.register('onlyValidated')} />
@@ -194,9 +159,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
                     <FormControl
                       display="flex"
                       justifyContent="space-between"
-                      isInvalid={Boolean(
-                        form.formState.errors['directlyByDealType'],
-                      )}
+                      isInvalid={Boolean(form.formState.errors['directlyByDealType'])}
                     >
                       <FormLabel>Only directly seller/buyer</FormLabel>
                       <Checkbox {...form.register('directlyByDealType')} />
@@ -273,7 +236,7 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
                     </Box>
                   ) : (
                     <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-                      {lots.map((lot) => (
+                      {[].map((lot) => (
                         <motion.div layout key={lot.lot.id}>
                           <LotCard {...lot} />
                         </motion.div>
@@ -299,8 +262,6 @@ export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
   );
 });
 
-Asset.getLayout = ({ children }) => (
-  <Layouts.AppLayout>{children}</Layouts.AppLayout>
-);
+Asset.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 
 export default Asset;

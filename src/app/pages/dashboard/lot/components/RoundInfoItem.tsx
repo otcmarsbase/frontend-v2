@@ -1,7 +1,9 @@
-import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lot/consts';
+// import { LOT_VIEW_MAIN_CHIP_FIELDS } from '@app/pages/dashboard/lot/consts';
 import { Box, Heading, HStack, Tooltip } from '@chakra-ui/react';
 import { InfoIcon } from '@shared/ui-kit';
 import { format } from 'date-fns';
+
+import { LOT_VIEW_MAIN_CHIP_FIELDS } from '../consts';
 
 export const RoundInfoItem = ({ field }) => {
   return (
@@ -23,13 +25,7 @@ const formatView = ({ id, value }) => {
   switch (id) {
     case 'investmentRound':
       return (
-        <Heading
-          variant="h5"
-          padding="0 0.5rem"
-          fontWeight="842"
-          borderRadius="6.25rem"
-          bg="orange.400"
-        >
+        <Heading variant="h5" padding="0 0.5rem" fontWeight="842" borderRadius="6.25rem" bg="orange.400">
           {value}
         </Heading>
       );

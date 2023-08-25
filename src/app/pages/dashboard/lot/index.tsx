@@ -4,35 +4,30 @@ import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
 import { ModalController } from '@app/logic';
-import { ChooseBidsModal } from '@app/modals/CreateBidsModal';
-import { Bids } from '@app/pages/dashboard/lot/components/Bids';
-import { ContentContainer } from '@app/pages/dashboard/lot/components/ContentContainer';
-import { LinksContainer } from '@app/pages/dashboard/lot/components/LinkContainer';
-import { LotBasicInfo } from '@app/pages/dashboard/lot/components/LotBasicInfo';
-import { LotViewMainChip } from '@app/pages/dashboard/lot/components/LotViewMainChip';
-import { RoundInfo } from '@app/pages/dashboard/lot/components/RoundInfo';
-import { SidebarHeader } from '@app/pages/dashboard/lot/components/SidebarHeader';
-import { SimilarDeals } from '@app/pages/dashboard/lot/components/SimilarDeals';
-import { LotViewDefaultValues } from '@app/pages/dashboard/lot/consts';
-import {
-  BIDSmock,
-  LotViewProjectData,
-  similarDealsMock,
-} from '@app/pages/dashboard/lot/lotViewMock';
-import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
-import {
-  Button,
-  Grid,
-  GridItem,
-  Heading,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
-import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
+// import { BIDSmock, LotViewProjectData, similarDealsMock } from '@app/pages/dashboard/lot/lotViewMock';
+// import { LotViewSchema } from '@app/pages/dashboard/lot/schemas';
+import { ChooseBidsModal } from '@app/modals';
+import { Button, Grid, GridItem, Heading, HStack, VStack } from '@chakra-ui/react';
+// import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
+import { ArrowLeft } from '@shared/assets';
 import { Common } from '@shared/types';
-import { useForm } from '@shared/ui-kit';
-import { ExpandableText } from '@shared/ui-kit/components/ExpandableText';
-import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
+import { ExpandableText, useForm } from '@shared/ui-kit';
+
+import {
+  ContentContainer,
+  LinksContainer,
+  LotBasicInfo,
+  LotViewMainChip,
+  ProgressBar,
+  RoundInfo,
+  SidebarHeader,
+  SimilarDeals,
+} from './components';
+import { LotViewDefaultValues } from './consts';
+import { LotViewProjectData, similarDealsMock } from './lotViewMock';
+import { LotViewSchema } from './schemas';
+// import { ExpandableText } from '@shared/ui-kit/components/ExpandableText';
+// import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
 const UserState = {
   isOfferMaker: true,
@@ -73,12 +68,9 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   }, [data]);
 
   const createBid = async () => {
-    const result: Common.Direction = await ModalController.create(
-      ChooseBidsModal,
-      {
-        direction,
-      },
-    );
+    const result: Common.Direction = await ModalController.create(ChooseBidsModal, {
+      direction,
+    });
     console.log('createBid', result);
   };
   const viewOrderHandler = () => {
@@ -94,19 +86,13 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
       <HStack w="100%" color="#888D9B" cursor="pointer">
-        <Arrow />
+        <ArrowLeft />
         <Heading variant="h5" fontSize="1.25rem" fontWeight={600}>
           Back to Dashboard
         </Heading>
       </HStack>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
-        <GridItem
-          position="sticky"
-          display="flex"
-          flexDirection="column"
-          top={0}
-          gap="0.75rem"
-        >
+        <GridItem position="sticky" display="flex" flexDirection="column" top={0} gap="0.75rem">
           <SidebarHeader Icon={Icon} name={name} analytics={analytics} />
           <ContentContainer
             title="Description"
@@ -148,28 +134,15 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
                   justifyContent="space-between"
                 >
                   {/*//todo add similar text variant*/}
-                  <Heading
-                    textTransform="uppercase"
-                    variant="h3"
-                    fontSize="1rem"
-                  >
+                  <Heading textTransform="uppercase" variant="h3" fontSize="1rem">
                     My lot
                   </Heading>
 
                   <HStack gap="0.69rem">
-                    <Button
-                      size="xs"
-                      padding="0.5rem 1.5rem"
-                      onClick={handleEditLot}
-                    >
+                    <Button size="xs" padding="0.5rem 1.5rem" onClick={handleEditLot}>
                       Edit my lot
                     </Button>
-                    <Button
-                      size="xs"
-                      variant="darkOutline"
-                      padding="0.5rem 1.5rem"
-                      onClick={handleUnPublishLot}
-                    >
+                    <Button size="xs" variant="darkOutline" padding="0.5rem 1.5rem" onClick={handleUnPublishLot}>
                       Un publish
                     </Button>
                   </HStack>
@@ -203,16 +176,10 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
                   gap="0.25rem"
                   flex={2}
                 >
-                  <ProgressBar
-                    title={'Available'}
-                    currentAmount={currentAmount}
-                    totalAmount={totalAmount}
-                  />
+                  <ProgressBar title={'Available'} currentAmount={currentAmount} totalAmount={totalAmount} />
                 </VStack>
               </HStack>
-              {direction === 'SELL' ? (
-                <RoundInfo roundInfoFields={roundInfoFields} />
-              ) : null}
+              {direction === 'SELL' ? <RoundInfo roundInfoFields={roundInfoFields} /> : null}
             </VStack>
             {/* <Bids
               bids={BIDSmock}
@@ -229,7 +196,5 @@ export const Lot: FC<{ lotId: number }> = observer(({ lotId }) => {
   );
 });
 
-Lot.getLayout = ({ children }) => (
-  <Layouts.AppLayout>{children}</Layouts.AppLayout>
-);
+Lot.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 export default Lot;

@@ -24,18 +24,41 @@
     "incremental": true,
 
     "paths": {
-      "@app": ["./src/app"],
-      "@app/*": ["./src/app/*"],
+      "@app/hooks": ["src/app/hooks"],
+      "@app/layouts": ["src/app/layouts"],
+      "@app/logic": ["src/app/logic"],
+      "@app/modals": ["src/app/modals"],
+      "@app/pages": ["src/app/pages"],
+      "@app/store": ["src/app/store"],
 
-      "@shared/*": ["./src/shared/*"],
-      "@shared/ui-kit": ["./src/shared/ui-kit"],
-      "@packages/*": ["./src/packages/*"],
-      "@services/backend-api-service": ["./src/services/backend-api-service"],
+      "@packages/berish-configurator-core": ["src/packages/berish-configurator-core"],
+      "@packages/berish-configurator-cra": ["src/packages/berish-configurator-cra"],
+      "@packages/berish-rpc-axios": ["src/packages/berish-rpc-axios"],
+      "@packages/berish-rpc-client": ["src/packages/berish-rpc-client"],
+      "@packages/berish-rpc-client-schema": ["src/packages/berish-rpc-client-schema"],
+      "@packages/react-permission": ["src/packages/react-permission"],
+      "@packages/react-portal": ["src/packages/react-portal"],
+      "@packages/react-runtime-layout": ["src/packages/react-runtime-layout"],
+      "@packages/react-utils": ["src/packages/react-utils"],
+      "@packages/router5-react-auto": ["src/packages/router5-react-auto"],
+      "@packages/service-manager": ["src/packages/service-manager"],
+
+      "@services/backend-api-service": ["src/services/backend-api-service"],
+
+      "@shared/assets": ["src/shared/assets/src"],
+      "@shared/config": ["src/shared/config"],
 
       "@ddd/errors": ["src/shared/ddd-errors"],
       "@schema/common": ["src/shared/schema/common/src"],
       "@schema/errors": ["src/shared/schema/errors/src"],
-      "@schema/api-gateway": ["src/shared/schema/api-gateway/src"]
+      "@schema/api-gateway": ["src/shared/schema/api-gateway/src"],
+
+      "@shared/theme": ["src/shared/theme"],
+      "@shared/types": ["src/shared/types"],
+      "@shared/ui-kit": ["src/shared/ui-kit"],
+      "@shared/ui-logic": ["src/shared/ui-logic"],
+      "@shared/ui-molecules": ["src/shared/ui-molecules"],
+      "@shared/utils": ["src/shared/utils"]
     }
   },
   "include": ["src"],

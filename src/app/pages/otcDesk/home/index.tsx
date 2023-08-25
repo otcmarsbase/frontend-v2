@@ -5,16 +5,8 @@ import { observer } from 'mobx-react-lite';
 import { useRPCSchema } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { appManager, router } from '@app/logic';
-import Asset from '@app/pages/dashboard/asset';
-import {
-  Button,
-  HStack,
-  Heading,
-  SimpleGrid,
-  VStack,
-  Text,
-  Box,
-} from '@chakra-ui/react';
+import * as pages from '@app/pages';
+import { Button, HStack, Heading, SimpleGrid, VStack, Text, Box } from '@chakra-ui/react';
 import { RPC } from '@schema/api-gateway';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotCard } from '@shared/ui-molecules';
@@ -39,8 +31,7 @@ export const OtcDesk: React.FC = observer(() => {
     items: [],
   });
 
-  const onChangePage = useCallback(async (page: number, limit: number) => {},
-  []);
+  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
 
   const toggleColumnsCount = () => {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
@@ -69,10 +60,7 @@ export const OtcDesk: React.FC = observer(() => {
         <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
           {lots.items.map((lot) => (
             <motion.div layout key={lot.id}>
-              <LotCard
-                lot={lot}
-                onClick={() => router.navigateComponent(Asset, { lot })}
-              />
+              <LotCard lot={lot} onClick={() => router.navigateComponent(pages.dashboard.Asset, { lot })} />
             </motion.div>
           ))}
         </SimpleGrid>
@@ -81,8 +69,6 @@ export const OtcDesk: React.FC = observer(() => {
   );
 });
 
-OtcDesk.getLayout = ({ children }) => (
-  <Layouts.AppLayout>{children}</Layouts.AppLayout>
-);
+OtcDesk.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 
 export default OtcDesk;

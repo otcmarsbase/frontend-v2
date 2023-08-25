@@ -2,10 +2,11 @@ import { FC } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { PriceInfo } from '@app/pages/offers/create/components/PriceInfo';
 import { Checkbox, Input, VStack } from '@chakra-ui/react';
 import { LotFlow } from '@shared/types';
 import { FormBlockElement, FormField, UseFormReturn } from '@shared/ui-kit';
+
+import { PriceInfo } from '../PriceInfo';
 
 import { TokenInfoFields } from './constants';
 
@@ -19,10 +20,7 @@ export const TokenInfo: FC<{
   const { errors } = formState;
   return (
     <VStack gap="2.25rem">
-      <FormBlockElement
-        label={TokenInfoFields.INVESTMENT_ROUND}
-        isRequired={isRequired('investmentRound')}
-      >
+      <FormBlockElement label={TokenInfoFields.INVESTMENT_ROUND} isRequired={isRequired('investmentRound')}>
         <FormField
           register={register}
           errors={errors}
@@ -32,33 +30,23 @@ export const TokenInfo: FC<{
         />
       </FormBlockElement>
 
-      <FormBlockElement
-        label={TokenInfoFields.ROUND_FDV}
-        isRequired={isRequired('roundFDV')}
-      >
+      <FormBlockElement label={TokenInfoFields.ROUND_FDV} isRequired={isRequired('roundFDV')}>
         <FormField
           register={register}
           errors={errors}
           name="roundFDV"
           value={getValues('roundFDV')}
-          component={
-            <Input type="number" placeholder={TokenInfoFields.ROUND_FDV} />
-          }
+          component={<Input type="number" placeholder={TokenInfoFields.ROUND_FDV} />}
         />
       </FormBlockElement>
 
-      <FormBlockElement
-        label={TokenInfoFields.CONTRACT_VALUE}
-        isRequired={isRequired('contractValue')}
-      >
+      <FormBlockElement label={TokenInfoFields.CONTRACT_VALUE} isRequired={isRequired('contractValue')}>
         <FormField
           register={register}
           errors={errors}
           name={'contractValue'}
           value={getValues('contractValue')}
-          component={
-            <Input type="number" placeholder={TokenInfoFields.CONTRACT_VALUE} />
-          }
+          component={<Input type="number" placeholder={TokenInfoFields.CONTRACT_VALUE} />}
         />
       </FormBlockElement>
       {lotType !== 'SAFE' && (
@@ -74,21 +62,13 @@ export const TokenInfo: FC<{
             {/*/>*/}
           </FormBlockElement>
 
-          <FormBlockElement
-            label={TokenInfoFields.LOOKUP_PERIOD}
-            isRequired={isRequired('lockupPeriod')}
-          >
+          <FormBlockElement label={TokenInfoFields.LOOKUP_PERIOD} isRequired={isRequired('lockupPeriod')}>
             <FormField
               register={register}
               errors={errors}
               name="lockupPeriod"
               value={getValues('lockupPeriod')}
-              component={
-                <Input
-                  type="number"
-                  placeholder={TokenInfoFields.LOOKUP_PERIOD}
-                />
-              }
+              component={<Input type="number" placeholder={TokenInfoFields.LOOKUP_PERIOD} />}
             />
             <FormField
               register={register}
@@ -97,21 +77,13 @@ export const TokenInfo: FC<{
               component={<Checkbox>{TokenInfoFields.ALREADY_OVER}</Checkbox>}
             />
           </FormBlockElement>
-          <FormBlockElement
-            label={TokenInfoFields.VESTING_PERIOD}
-            isRequired={isRequired('vestingPeriod')}
-          >
+          <FormBlockElement label={TokenInfoFields.VESTING_PERIOD} isRequired={isRequired('vestingPeriod')}>
             <FormField
               register={register}
               errors={errors}
               name="vestingPeriod"
               value={getValues('vestingPeriod')}
-              component={
-                <Input
-                  type="number"
-                  placeholder={TokenInfoFields.VESTING_PERIOD}
-                />
-              }
+              component={<Input type="number" placeholder={TokenInfoFields.VESTING_PERIOD} />}
             />
           </FormBlockElement>
         </>

@@ -1,3 +1,5 @@
+import { Circle } from '@chakra-ui/react';
+
 import {
   IBid,
   IDataFieldsInterface,
@@ -5,8 +7,7 @@ import {
   ILotViewProjectData,
   IRoundInfoFields,
   ISimilarDealItem,
-} from '@app/pages/dashboard/lot/types';
-import { Circle } from '@chakra-ui/react';
+} from './types';
 // import { SocialsIcons } from '@shared/ui-kit';
 
 export const roundInfoFields: IRoundInfoFields[] = [

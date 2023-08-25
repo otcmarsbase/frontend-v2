@@ -6,6 +6,7 @@
       "files": ["**/*.ts?(x)"],
       "rules": {
         "import/no-anonymous-default-export": "off",
+        "@typescript-eslint/no-redeclare": "off",
         "import/order": [
           "error",
           {

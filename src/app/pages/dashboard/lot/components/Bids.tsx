@@ -1,25 +1,17 @@
 import { FC } from 'react';
 
-import { BidsList } from '@app/pages/dashboard/lot/components/BidsList';
-import { IBidsProps } from '@app/pages/dashboard/lot/types';
+// import { BidsList } from '@app/pages/dashboard/lot/components/BidsList';
+// import { IBidsProps } from '@app/pages/dashboard/lot/types';
 import { Box, Button, HStack, Select, VStack, Text } from '@chakra-ui/react';
 import { AddIcon } from '@shared/ui-kit';
 
-export const Bids: FC<IBidsProps> = ({
-  bids,
-  createBid,
-  viewOrderHandler,
-  isBidder,
-}) => {
+import { IBidsProps } from '../types';
+
+import { BidsList } from './BidsList';
+
+export const Bids: FC<IBidsProps> = ({ bids, createBid, viewOrderHandler, isBidder }) => {
   return (
-    <VStack
-      h="100%"
-      w="100%"
-      padding="1.5rem 1.25rem"
-      bg="rgba(27, 27, 28, 0.6)"
-      borderRadius="0.5rem"
-      gap="2rem"
-    >
+    <VStack h="100%" w="100%" padding="1.5rem 1.25rem" bg="rgba(27, 27, 28, 0.6)" borderRadius="0.5rem" gap="2rem">
       <HStack
         justifyContent={'space-between'}
         h="2rem"
@@ -30,11 +22,7 @@ export const Bids: FC<IBidsProps> = ({
       >
         <HStack flex="1">
           <Text>Bids</Text>
-          <Box
-            padding={'0px 0.25rem'}
-            bg={'orange.500'}
-            borderRadius="1.6875rem"
-          >
+          <Box padding={'0px 0.25rem'} bg={'orange.500'} borderRadius="1.6875rem">
             <Box fontSize={'0.8125rem'}>{bids && bids.length}</Box>
           </Box>
         </HStack>
@@ -53,13 +41,7 @@ export const Bids: FC<IBidsProps> = ({
             <option value="deadline">Deadline</option>
             <option value="status">Status</option>
           </Select>
-          <Button
-            variant="brand"
-            size="xs"
-            borderRadius="0.375rem"
-            padding="0.5rem 0.75rem"
-            onClick={createBid}
-          >
+          <Button variant="brand" size="xs" borderRadius="0.375rem" padding="0.5rem 0.75rem" onClick={createBid}>
             <HStack>
               <AddIcon />
               <Text>Create Bid</Text>
@@ -67,11 +49,7 @@ export const Bids: FC<IBidsProps> = ({
           </Button>
         </HStack>
       </HStack>
-      <BidsList
-        bids={bids}
-        isBidder={isBidder}
-        viewOrderHandler={viewOrderHandler}
-      />
+      <BidsList bids={bids} isBidder={isBidder} viewOrderHandler={viewOrderHandler} />
     </VStack>
   );
 };

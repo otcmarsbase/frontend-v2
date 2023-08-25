@@ -1,21 +1,16 @@
 import { FC } from 'react';
 
-import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
+// import { ISimilarDealItem } from '@app/pages/dashboard/lot/types';
 import { Box, Heading, HStack, VStack } from '@chakra-ui/react';
 import { HotChip, LotTypeChip } from '@shared/ui-kit';
-import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
+
+import { ISimilarDealItem } from '../types';
+
+import { ProgressBar } from './ProgressBar';
+// import { ProgressBar } from '@shared/ui-kit/components/ProgressBar';
 
 export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
-  const {
-    dealID,
-    lotType,
-    direction,
-    isHot,
-    icon,
-    nameOfAsset,
-    currentAmount,
-    totalAmount,
-  } = item;
+  const { dealID, lotType, direction, isHot, icon, nameOfAsset, currentAmount, totalAmount } = item;
   return (
     <VStack
       borderRadius="0.5rem"
@@ -54,11 +49,7 @@ export const SimilarDealsItem: FC<{ item: ISimilarDealItem }> = ({ item }) => {
           </Heading>
         </HStack>
       </VStack>
-      <ProgressBar
-        title="Available"
-        currentAmount={currentAmount}
-        totalAmount={totalAmount}
-      />
+      <ProgressBar title="Available" currentAmount={currentAmount} totalAmount={totalAmount} />
     </VStack>
   );
 };

@@ -2,16 +2,7 @@
 // npx @chakra-ui/cli tokens path/to/your/theme.(js|ts)
 import { BaseThemeTypings } from './shared.types.js';
 export interface ThemeTypings extends BaseThemeTypings {
-  blur:
-    | 'none'
-    | 'sm'
-    | 'base'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | (string & {});
+  blur: 'none' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | (string & {});
   borders: 'none' | '1px' | '2px' | '4px' | '8px' | (string & {});
   borderStyles: string & {};
   borderWidths: string & {};
@@ -284,14 +275,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'brandLinearGradient'
     | 'grayRadiiArea'
     | (string & {});
-  letterSpacings:
-    | 'tighter'
-    | 'tight'
-    | 'normal'
-    | 'wide'
-    | 'wider'
-    | 'widest'
-    | (string & {});
+  letterSpacings: 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest' | (string & {});
   lineHeights:
     | '3'
     | '4'
@@ -510,24 +494,10 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Alert: {
       sizes: string & {};
-      variants:
-        | 'subtle'
-        | 'left-accent'
-        | 'top-accent'
-        | 'solid'
-        | (string & {});
+      variants: 'subtle' | 'left-accent' | 'top-accent' | 'solid' | (string & {});
     };
     Avatar: {
-      sizes:
-        | '2xs'
-        | 'xs'
-        | 'sm'
-        | 'md'
-        | 'lg'
-        | 'xl'
-        | '2xl'
-        | 'full'
-        | (string & {});
+      sizes: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full' | (string & {});
       variants: string & {};
     };
     Badge: {
@@ -592,36 +562,12 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: string & {};
     };
     Heading: {
-      sizes:
-        | '4xl'
-        | '3xl'
-        | '2xl'
-        | 'xl'
-        | 'lg'
-        | 'md'
-        | 'sm'
-        | 'xs'
-        | (string & {});
-      variants:
-        | 'h2'
-        | 'h3m'
-        | 'h3'
-        | 'h4m'
-        | 'h4'
-        | 'h5'
-        | 'h6'
-        | 'pageHeader'
-        | (string & {});
+      sizes: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs' | (string & {});
+      variants: 'h2' | 'h3m' | 'h3' | 'h4m' | 'h4' | 'h5' | 'h6' | 'pageHeader' | (string & {});
     };
     Input: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
-      variants:
-        | 'outline'
-        | 'filled'
-        | 'flushed'
-        | 'unstyled'
-        | 'ghost'
-        | (string & {});
+      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | 'ghost' | (string & {});
     };
     Kbd: {
       sizes: string & {};
@@ -640,19 +586,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: string & {};
     };
     Modal: {
-      sizes:
-        | 'xs'
-        | 'sm'
-        | 'md'
-        | 'lg'
-        | 'xl'
-        | '2xl'
-        | '3xl'
-        | '4xl'
-        | '5xl'
-        | '6xl'
-        | 'full'
-        | (string & {});
+      sizes: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'full' | (string & {});
       variants: 'brightDark' | 'brand' | (string & {});
     };
     NumberInput: {

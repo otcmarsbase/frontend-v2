@@ -1,19 +1,16 @@
 import React from 'react';
 
-import { RootStore, StoresContext } from '@app/store/rootStore';
+import { RootStore, StoresContext } from '@app/store';
 import { override } from '@packages/react-runtime-layout';
 import '@packages/router5-react-auto';
 import ReactDOM from 'react-dom/client';
 
-import { App } from '@app';
-
+import { App } from './app';
 import reportWebVitals from './reportWebVitals';
 
 override();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const store = new RootStore();
 
 root.render(

@@ -5,16 +5,13 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
-import MyDeals from '@app/pages/dashboard/deals';
+import * as pages from '@app/pages';
 import { DashboardListType } from '@app/store';
 import { Button, VStack } from '@chakra-ui/react';
 import { Paginate, Dashboard, Common } from '@shared/types';
 import { List, LotStatus } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, LotRow } from '@shared/ui-molecules';
-import Lot from 'src/app/pages/dashboard/lot';
-
-import MyBids from '../bids';
 
 import { mockRequest } from './mockRequest';
 
@@ -71,8 +68,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
     items: [],
   });
 
-  const onChangePage = useCallback(async (page: number, limit: number) => {},
-  []);
+  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
 
   return (
     <VStack width="full">
@@ -101,12 +97,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
         items={offers}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={
-          <EmptyData
-            onCreate={openCreateOfferModal}
-            createButtonLabel="Create offers"
-          />
-        }
+        emptyText={<EmptyData onCreate={openCreateOfferModal} createButtonLabel="Create offers" />}
         itemRender={(item) => (
           <LotRow
             lot={{
@@ -126,7 +117,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
                 { label: 'Total Bids Place', value: item.totalBidsPlace },
               ],
             }}
-            onClick={({ id }) => router.navigateComponent(Lot, { id })}
+            onClick={({ id }) => router.navigateComponent(pages.dashboard.lot, { id })}
           />
         )}
       />
@@ -145,12 +136,9 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
 MyOffers.getLayout = ({ children }) => (
   <Layouts.DashboardLayout
     onChangeListType={(listType) => {
-      if (listType === DashboardListType.ORDERS)
-        router.navigateComponent(MyOffers, {});
-      if (listType === DashboardListType.DEALS)
-        router.navigateComponent(MyDeals, {});
-      if (listType === DashboardListType.BIDS)
-        router.navigateComponent(MyBids, {});
+      if (listType === DashboardListType.ORDERS) router.navigateComponent(MyOffers, {});
+      if (listType === DashboardListType.DEALS) router.navigateComponent(pages.dashboard.deals, {});
+      if (listType === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {});
     }}
     listType={DashboardListType.ORDERS}
   >

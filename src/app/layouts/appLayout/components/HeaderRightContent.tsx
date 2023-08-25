@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 
-import { WalletConnectButton } from '@app/logic';
 import { useStore } from '@app/store';
 import { HStack, Box, Square, Text, Link, Button } from '@chakra-ui/react';
 import {
@@ -10,6 +9,9 @@ import {
   LanguageIcons,
   NotificationIcon,
 } from '@shared/ui-kit';
+import { WalletConnectButton } from '@shared/ui-logic';
+
+import { HeaderWalletInfo } from './HeaderWalletInfo';
 
 export const HeaderRightContent = observer(() => {
   const { instanceStore } = useStore();
@@ -49,7 +51,9 @@ export const HeaderRightContent = observer(() => {
       </HStack>
 
       <Box mr="1.5rem">
-        <WalletConnectButton />
+        <WalletConnectButton>
+          <HeaderWalletInfo />
+        </WalletConnectButton>
       </Box>
       <HStack gap="0.6rem">
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">

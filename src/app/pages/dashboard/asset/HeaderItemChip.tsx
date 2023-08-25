@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 
-import { HEADER_FIELD_TITLES_BY_PARAM } from '@app/pages/dashboard/asset/constants';
+// import { HEADER_FIELD_TITLES_BY_PARAM } from '@app/pages/dashboard/asset/constants';
 import { Heading, HStack, VStack } from '@chakra-ui/react';
 import { commaSeparatedNumber } from '@shared/utils';
+
+import { HEADER_FIELD_TITLES_BY_PARAM } from './constants';
 
 export interface IHeaderItemChip {
   param: keyof typeof HEADER_FIELD_TITLES_BY_PARAM;

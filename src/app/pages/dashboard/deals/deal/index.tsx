@@ -3,20 +3,24 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
-import { BaseDealInfo } from '@app/pages/dashboard/deals/deal/components/BaseDealInfo';
-import { DealInfo } from '@app/pages/dashboard/deals/deal/components/DealInfo';
-import { DealParticipants } from '@app/pages/dashboard/deals/deal/components/DealParticipants';
-import { TradeProgressStatuses } from '@app/pages/dashboard/deals/deal/components/TradeProgressStatusses';
-import { dealMock } from '@app/pages/dashboard/deals/deal/dealMock';
+// import { BaseDealInfo } from '@app/pages/dashboard/deals/deal/components/BaseDealInfo';
+// import { DealInfo } from '@app/pages/dashboard/deals/deal/components/DealInfo';
+// import { DealParticipants } from '@app/pages/dashboard/deals/deal/components/DealParticipants';
+// import { TradeProgressStatuses } from '@app/pages/dashboard/deals/deal/components/TradeProgressStatusses';
+// import { dealMock } from '@app/pages/dashboard/deals/deal/dealMock';
 import { HStack, VStack, Text, Heading } from '@chakra-ui/react';
-import { ArrowLeft as Arrow } from '@shared/assets/ArrowLeft';
+import { ArrowLeft } from '@shared/assets';
 import { Dashboard } from '@shared/types';
 import { listItemTexts } from '@shared/ui-molecules';
 
+import { BaseDealInfo } from './components/BaseDealInfo';
+import { DealInfo } from './components/DealInfo';
+import { DealParticipants } from './components/DealParticipants';
+import { TradeProgressStatuses } from './components/TradeProgressStatusses';
+import { dealMock } from './dealMock';
+
 const Deal: React.FC = observer(() => {
-  const [deal, setDeal] = useState<Dashboard.IDealItemExtended>(
-    dealMock as Dashboard.IDealItemExtended,
-  );
+  const [deal, setDeal] = useState<Dashboard.IDealItemExtended>(dealMock as Dashboard.IDealItemExtended);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadDeal = useCallback(async () => {
@@ -40,7 +44,7 @@ const Deal: React.FC = observer(() => {
   return (
     <VStack gap="1.75rem">
       <HStack w="100%" color="#888D9B" cursor="pointer">
-        <Arrow />
+        <ArrowLeft />
         <Heading variant="h5" fontWeight={600}>
           Back to Dashboard
         </Heading>
@@ -64,11 +68,7 @@ const Deal: React.FC = observer(() => {
           >
             <Text
               // TODO: Уточнить у дизайнеров почему цвета не из той палитры
-              bg={
-                'BUY' === 'BUY'
-                  ? 'rgba(52, 168, 83, 0.40)'
-                  : 'rgba(232, 42, 54, 0.30)'
-              }
+              bg={'BUY' === 'BUY' ? 'rgba(52, 168, 83, 0.40)' : 'rgba(232, 42, 54, 0.30)'}
               padding="0.1rem 1rem"
               borderRadius="0.75rem 0rem"
               color={'BUY' === 'BUY' ? '#34A853' : '#E82A36'}
@@ -92,11 +92,7 @@ const Deal: React.FC = observer(() => {
             />
           </VStack>
 
-          <DealInfo
-            price={3235}
-            dealSize={deal.dealSize}
-            dealFDV={deal.dealFDV}
-          />
+          <DealInfo price={3235} dealSize={deal.dealSize} dealFDV={deal.dealFDV} />
 
           <DealParticipants
             offerMakerName={deal.offerMakerName}
@@ -130,8 +126,6 @@ const Deal: React.FC = observer(() => {
   );
 });
 
-Deal.getLayout = ({ children }) => (
-  <Layouts.AppLayout>{children}</Layouts.AppLayout>
-);
+Deal.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;
 
 export default Deal;

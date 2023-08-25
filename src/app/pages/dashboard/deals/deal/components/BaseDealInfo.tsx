@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 
 import { router } from '@app/logic';
-import { RowChip } from '@app/pages/dashboard/deals/deal/components/RowChip';
-import Lot from '@app/pages/dashboard/lot';
+import pages from '@app/pages';
 import { Box, Heading, HStack, Img, VStack } from '@chakra-ui/react';
-import { ArrowUp } from '@shared/assets/ArrowUp';
+import { ArrowUp } from '@shared/assets';
 import { Dashboard } from '@shared/types';
-import { CopyIcon } from '@shared/ui-kit';
-import { DealStatus } from '@shared/ui-kit/components/DealStatus';
+import { CopyIcon, DealStatus } from '@shared/ui-kit';
 import { format } from 'date-fns';
+
+import { RowChip } from './RowChip';
 
 export interface IBaseDealInfo {
   lotName: string;
@@ -19,20 +19,13 @@ export interface IBaseDealInfo {
   lotIconName: string;
 }
 
-export const BaseDealInfo: FC<IBaseDealInfo> = ({
-  lotName,
-  createdAt,
-  id,
-  status,
-  lotId,
-  lotIconName,
-}) => {
+export const BaseDealInfo: FC<IBaseDealInfo> = ({ lotName, createdAt, id, status, lotId, lotIconName }) => {
   const copyID = (id) => {
     console.log('copyToClipboard', id);
   };
 
   const pushToLot = () => {
-    router.navigateComponent(Lot, { lotId });
+    router.navigateComponent(pages.dashboard.lot, { lotId });
   };
   return (
     <HStack w="100%" justifyContent="space-between" padding="2rem 1.25rem">

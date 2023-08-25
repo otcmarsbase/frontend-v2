@@ -1,50 +1,52 @@
-import { HEADER_FIELD_TITLES_BY_PARAM } from '@app/pages/dashboard/asset/constants';
-import { ILotViewLinks } from '@app/pages/dashboard/asset/types';
-import { GitHubIcon as Mock } from '@shared/assets/GithubIcon';
+// import { HEADER_FIELD_TITLES_BY_PARAM } from '@app/pages/dashboard/asset/constants';
+// import { ILotViewLinks } from '@app/pages/dashboard/asset/types';
+
+import { HEADER_FIELD_TITLES_BY_PARAM } from './constants';
+import { ILotViewLinks } from './types';
 
 export const officialLinks: ILotViewLinks[] = [
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GitHub',
     href: 'GitHub ref',
   },
@@ -52,22 +54,22 @@ export const officialLinks: ILotViewLinks[] = [
 
 export const verticalItems: ILotViewLinks[] = [
   {
-    icon: Mock,
+    icon: null,
     text: 'Metavers',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'GameFi',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'NFT',
     href: 'GitHub ref',
   },
   {
-    icon: Mock,
+    icon: null,
     text: 'Social',
     href: 'GitHub ref',
   },

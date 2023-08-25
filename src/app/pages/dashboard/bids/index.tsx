@@ -5,8 +5,9 @@ import { observer } from 'mobx-react-lite';
 import { useCreateOfferModal } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { router } from '@app/logic';
-import MyDeals from '@app/pages/dashboard/deals';
-import Lot from '@app/pages/dashboard/lot';
+// import MyDeals from '@app/pages/dashboard/deals';
+// import Lot from '@app/pages/dashboard/lot';
+import pages from '@app/pages';
 import { DashboardListType } from '@app/store';
 import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
 import { Dashboard, Paginate } from '@shared/types';
@@ -14,8 +15,6 @@ import { List, LotStatus, LotTypeChip } from '@shared/ui-kit';
 import { Pagination } from '@shared/ui-logic';
 import { EmptyData, LotRow } from '@shared/ui-molecules';
 import { format } from 'date-fns';
-
-import MyOffers from '../offers';
 
 import { bidsMock } from './bidsMock';
 import { UserDataChip } from './components';
@@ -51,8 +50,7 @@ const MyBids: React.FC = observer(() => {
     items: [],
   });
 
-  const onChangePage = useCallback(async (page: number, limit: number) => {},
-  []);
+  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
 
   return (
     <VStack width="full">
@@ -61,15 +59,10 @@ const MyBids: React.FC = observer(() => {
         items={bids}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={
-          <EmptyData
-            onCreate={openCreateOfferModal}
-            createButtonLabel="Create offers"
-          />
-        }
+        emptyText={<EmptyData onCreate={openCreateOfferModal} createButtonLabel="Create offers" />}
         itemRender={(item) => (
           <LotRow
-            onClick={({ id }) => router.navigateComponent(Lot, { id })}
+            onClick={({ id }) => router.navigateComponent(pages.dashboard.lot, { id })}
             lot={{
               id: item.id,
               lotName: item.lotName,
@@ -80,12 +73,7 @@ const MyBids: React.FC = observer(() => {
               fields: [
                 {
                   label: 'Lot Type',
-                  value: (
-                    <LotTypeChip
-                      headingProps={{ variant: 'h6' }}
-                      lotType={item.lotType}
-                    />
-                  ),
+                  value: <LotTypeChip headingProps={{ variant: 'h6' }} lotType={item.lotType} />,
                 },
                 {
                   label: 'Published at',
@@ -119,12 +107,7 @@ const MyBids: React.FC = observer(() => {
                 },
                 {
                   label: 'Offer Maker',
-                  value: (
-                    <UserDataChip
-                      offerMaker={item.offerMaker}
-                      offerMakerIcon={item.offerMakerIcon}
-                    />
-                  ),
+                  value: <UserDataChip offerMaker={item.offerMaker} offerMakerIcon={item.offerMakerIcon} />,
                 },
                 {
                   label: 'Direct Seller/Or not',
@@ -133,11 +116,7 @@ const MyBids: React.FC = observer(() => {
                 {
                   label: 'Location',
                   value: (
-                    <Heading
-                      fontSize="1rem"
-                      fontWeight="500"
-                      lineHeight="1.5rem"
-                    >
+                    <Heading fontSize="1rem" fontWeight="500" lineHeight="1.5rem">
                       {item.location}
                     </Heading>
                   ),
@@ -161,12 +140,9 @@ const MyBids: React.FC = observer(() => {
 MyBids.getLayout = ({ children }) => (
   <Layouts.DashboardLayout
     onChangeListType={(listType) => {
-      if (listType === DashboardListType.ORDERS)
-        router.navigateComponent(MyOffers, {});
-      if (listType === DashboardListType.DEALS)
-        router.navigateComponent(MyDeals, {});
-      if (listType === DashboardListType.BIDS)
-        router.navigateComponent(MyBids, {});
+      if (listType === DashboardListType.ORDERS) router.navigateComponent(pages.dashboard.offers, {});
+      if (listType === DashboardListType.DEALS) router.navigateComponent(pages.dashboard, {});
+      if (listType === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {});
     }}
     listType={DashboardListType.BIDS}
   >

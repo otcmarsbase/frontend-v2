@@ -1,6 +1,7 @@
-import { ILotView } from '@app/pages/dashboard/lot/types';
 import * as yup from 'yup';
 import { ObjectSchema } from 'yup';
+
+import { ILotView } from './types';
 
 export const LotViewSchema: ObjectSchema<ILotView> = yup.object().shape({
   amountToSell: yup.number(),

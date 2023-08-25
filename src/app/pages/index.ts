@@ -5,3 +5,4 @@ import offers from './offers';
 import otcDesk from './otcDesk';
 
 export default { errors, home, offers, dashboard, otcDesk };
+export { errors, home, offers, dashboard, otcDesk };

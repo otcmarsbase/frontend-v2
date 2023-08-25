@@ -1,10 +1,10 @@
 import { AppConfig } from '@shared/config';
 import { w3mConnectors, w3mProvider } from '@web3modal/ethereum';
-import { WagmiConfig, configureChains, createConfig } from 'wagmi';
-import { arbitrum, mainnet, polygon } from 'wagmi/chains';
+import { configureChains, createConfig } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 export function initWagmiClient() {
-  const chains = [arbitrum, mainnet, polygon];
+  const chains = [mainnet];
   const projectId = AppConfig.wagmi.projectId;
 
   const { publicClient } = configureChains(chains, [
@@ -17,10 +17,3 @@ export function initWagmiClient() {
     publicClient,
   });
 }
-
-export const WalletProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
-  const wagmiConfig = initWagmiClient();
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
-};

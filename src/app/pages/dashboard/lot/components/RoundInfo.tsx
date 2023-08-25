@@ -1,15 +1,11 @@
-import { RoundInfoItem } from '@app/pages/dashboard/lot/components/RoundInfoItem';
+// import { RoundInfoItem } from '@app/pages/dashboard/lot/components/RoundInfoItem';
 import { Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+
+import { RoundInfoItem } from './RoundInfoItem';
 
 export const RoundInfo = ({ roundInfoFields }) => {
   return (
-    <VStack
-      bg="dark.900"
-      padding="1.25rem"
-      gap="1.5rem"
-      borderRadius="0.5rem"
-      w="100%"
-    >
+    <VStack bg="dark.900" padding="1.25rem" gap="1.5rem" borderRadius="0.5rem" w="100%">
       <Heading variant="h3" w="100%">
         Round Info
       </Heading>
