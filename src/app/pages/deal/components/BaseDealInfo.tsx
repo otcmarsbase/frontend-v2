@@ -13,7 +13,7 @@ import { RowChip } from './RowChip';
 export interface IBaseDealInfo {
   lotName: string;
   createdAt: Date;
-  id: number;
+  id: string;
   status: Dashboard.TDealStatus;
   lotId: number;
   lotIconName: string;
@@ -25,7 +25,7 @@ export const BaseDealInfo: FC<IBaseDealInfo> = ({ lotName, createdAt, id, status
   };
 
   const pushToLot = () => {
-    router.navigateComponent(pages.dashboard.lot, { lotId });
+    router.navigateComponent(pages.marketplace.__id, { id: id }, {});
   };
   return (
     <HStack w="100%" justifyContent="space-between" padding="2rem 1.25rem">

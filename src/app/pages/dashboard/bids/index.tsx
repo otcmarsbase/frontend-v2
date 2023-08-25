@@ -62,7 +62,7 @@ const MyBids: React.FC = observer(() => {
         emptyText={<EmptyData onCreate={openCreateOfferModal} createButtonLabel="Create offers" />}
         itemRender={(item) => (
           <LotRow
-            onClick={({ id }) => router.navigateComponent(pages.dashboard.lot, { id })}
+            onClick={({ id }) => router.navigateComponent(pages.marketplace.__id, { id: '' }, {})}
             lot={{
               id: item.id,
               lotName: item.lotName,
@@ -138,16 +138,7 @@ const MyBids: React.FC = observer(() => {
 });
 
 MyBids.getLayout = ({ children }) => (
-  <Layouts.DashboardLayout
-    onChangeListType={(listType) => {
-      if (listType === DashboardListType.ORDERS) router.navigateComponent(pages.dashboard.offers, {});
-      if (listType === DashboardListType.DEALS) router.navigateComponent(pages.dashboard, {});
-      if (listType === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {});
-    }}
-    listType={DashboardListType.BIDS}
-  >
-    {children}
-  </Layouts.DashboardLayout>
+  <Layouts.DashboardLayout listType={DashboardListType.BIDS}>{children}</Layouts.DashboardLayout>
 );
 
 export default MyBids;

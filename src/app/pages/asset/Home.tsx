@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
-// import lotsMock from '@app/pages/otcDesk/home/lotsMock.json';
 import {
   Box,
   Button,
@@ -29,30 +28,23 @@ import { Pagination } from '@shared/ui-logic';
 import { LotCard } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';
 
-import { ContentContainer, LinksContainer } from '../lot/components';
+// import { ContentContainer, LinksContainer } from '../lot/components';
 
 import { AssetsSchema } from './constants';
 import { HeaderItemChip } from './HeaderItemChip';
 import { HeaderTitleChip } from './HeaderTitleChip';
-import { AssetMock } from './mocks';
 import { useViewControl } from './useViewControl';
 
-interface IMyDibsPageParams {
-  lot: number;
+export interface AssetProps {
+  name: string;
 }
 
-const { icon, name, assetResearch, headerFields, description, officialLinks, verticalItems } = AssetMock;
+// const { icon, assetResearch, headerFields, description, officialLinks, verticalItems } = AssetMock;
 
 //todo decompose filters
-export const Asset: React.FC<IMyDibsPageParams> = observer(({ lot }) => {
+export const Asset: React.FC<AssetProps> = observer(({ name }) => {
   const [columnsCount, setColumnsCount] = useState(4);
 
-  const { data, loading, error, form } = useViewControl({
-    schema: AssetsSchema,
-    defaultValues: { sortBy: 'byAlphabetic' },
-  });
-
-  console.log('data', data, loading);
   const toggleColumnsCount = () => {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
   };

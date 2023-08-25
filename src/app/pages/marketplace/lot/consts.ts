@@ -10,6 +10,7 @@ export const LotViewDefaultValues: ILotView = {
   location: '',
   readyForKYC: false,
 };
+
 export const LOT_VIEW_MAIN_CHIP_FIELDS = {
   typeOfBidder: 'Type of bidder',
   roundTokenPrice: 'Round token price',

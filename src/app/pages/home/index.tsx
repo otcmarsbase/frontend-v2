@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigateComponent(pages.otcDesk.home, {});
+    router.navigateComponent(pages.marketplace.home, {}, {});
   }, [router]);
 
   return null;

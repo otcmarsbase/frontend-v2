@@ -4,10 +4,11 @@ import { observer } from 'mobx-react-lite';
 
 import { useRPCSchema } from '@app/hooks';
 import * as Layouts from '@app/layouts';
-import { appManager, router } from '@app/logic';
+import { router } from '@app/logic';
 import * as pages from '@app/pages';
 import { Button, HStack, Heading, SimpleGrid, VStack, Text, Box } from '@chakra-ui/react';
 import { RPC } from '@schema/api-gateway';
+import { PaginationPayload } from '@schema/common';
 import { Paginate, Dashboard } from '@shared/types';
 import { LotCard } from '@shared/ui-molecules';
 import { motion } from 'framer-motion';
@@ -16,16 +17,18 @@ import { OTCFilters } from './components';
 
 export const OtcDesk: React.FC = observer(() => {
   const schema = useRPCSchema();
+
   const [columnsCount, setColumnsCount] = useState(4);
   const [lots, setLots] = useState<RPC.DTO.LotListActive.Result>({
     items: [],
     total: 0,
   });
 
-  const [paginationOptions] = useState<Paginate.PaginationOptions>({
-    page: 1,
+  const [paginationOptions] = useState<PaginationPayload>({
+    skip: 1,
     limit: 25,
   });
+
   const [events] = useState<Paginate.PaginationItems<Dashboard.OfferItem>>({
     total: 30,
     items: [],
@@ -60,7 +63,7 @@ export const OtcDesk: React.FC = observer(() => {
         <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
           {lots.items.map((lot) => (
             <motion.div layout key={lot.id}>
-              <LotCard lot={lot} onClick={() => router.navigateComponent(pages.dashboard.Asset, { lot })} />
+              <LotCard lot={lot} onClick={() => router.navigateComponent(pages.asset, { name: null }, {})} />
             </motion.div>
           ))}
         </SimpleGrid>

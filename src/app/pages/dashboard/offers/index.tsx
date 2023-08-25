@@ -134,16 +134,7 @@ export const MyOffers: React.FC<MyOfferProps> = observer((props) => {
 // MyOffers.pageSchema = MyOffersPageSchema;
 
 MyOffers.getLayout = ({ children }) => (
-  <Layouts.DashboardLayout
-    onChangeListType={(listType) => {
-      if (listType === DashboardListType.ORDERS) router.navigateComponent(MyOffers, {});
-      if (listType === DashboardListType.DEALS) router.navigateComponent(pages.dashboard.deals, {});
-      if (listType === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {});
-    }}
-    listType={DashboardListType.ORDERS}
-  >
-    {children}
-  </Layouts.DashboardLayout>
+  <Layouts.DashboardLayout listType={DashboardListType.ORDERS}>{children}</Layouts.DashboardLayout>
 );
 
 export default MyOffers;

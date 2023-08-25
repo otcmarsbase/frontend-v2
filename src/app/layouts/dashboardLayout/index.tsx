@@ -1,25 +1,17 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useCallback } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { router } from '@app/logic';
+import pages from '@app/pages';
 import { DashboardListType, useStore } from '@app/store';
-import {
-  Box,
-  Checkbox,
-  HStack,
-  Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Checkbox, HStack, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react';
 import { FormField, RadioButtons, SearchIcon } from '@shared/ui-kit';
 
 import { AppLayout } from '../appLayout';
 
 export interface DashboardLayoutProps {
   listType: DashboardListType;
-  onChangeListType: (listType: DashboardListType) => void;
 }
 
 const listTypeTexts = {
@@ -28,19 +20,18 @@ const listTypeTexts = {
   [DashboardListType.DEALS]: 'My deals',
 };
 
-export const DashboardLayout: React.FC<
-  PropsWithChildren<DashboardLayoutProps>
-> = observer(({ children, listType, onChangeListType }) => {
+export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = observer(({ children, listType }) => {
   const { dashboardStore } = useStore();
+
+  const onRoute = useCallback((value: DashboardListType) => {
+    if (value === DashboardListType.ORDERS) router.navigateComponent(pages.dashboard.offers, {}, {});
+    if (value === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {}, {});
+    if (value === DashboardListType.DEALS) router.navigateComponent(pages.dashboard.deals, {}, {});
+  }, []);
 
   return (
     <Box>
-      <Heading
-        fontFamily="promo"
-        fontSize="2rem"
-        marginTop="3rem"
-        marginBottom="2.25rem"
-      >
+      <Heading fontFamily="promo" fontSize="2rem" marginTop="3rem" marginBottom="2.25rem">
         Dashboard
       </Heading>
       <VStack gap="0.5rem">
@@ -57,24 +48,17 @@ export const DashboardLayout: React.FC<
             <RadioButtons
               value={listType}
               variant="solid"
-              onChange={onChangeListType}
-              items={(Object.keys(listTypeTexts) as DashboardListType[]).map(
-                (value) => ({
-                  value,
-                  label: listTypeTexts[value],
-                }),
-              )}
+              onChange={onRoute}
+              items={(Object.keys(listTypeTexts) as DashboardListType[]).map((value) => ({
+                value,
+                label: listTypeTexts[value],
+              }))}
             />
             <InputGroup size="xs">
               <InputLeftElement pointerEvents="none">
                 <SearchIcon color="orange.500" />
               </InputLeftElement>
-              <Input
-                variant="ghost"
-                size="xs"
-                maxW="17rem"
-                placeholder="Search"
-              />
+              <Input variant="ghost" size="xs" maxW="17rem" placeholder="Search" />
             </InputGroup>
           </HStack>
           <HStack gap="1rem">
@@ -82,24 +66,14 @@ export const DashboardLayout: React.FC<
               name="showAll"
               value={dashboardStore.filters.showAll}
               component={
-                <Checkbox
-                  onChange={(e) =>
-                    dashboardStore.changeFilters('showAll', e.target.checked)
-                  }
-                >
-                  All
-                </Checkbox>
+                <Checkbox onChange={(e) => dashboardStore.changeFilters('showAll', e.target.checked)}>All</Checkbox>
               }
             />
             <FormField
               name="showActive"
               value={dashboardStore.filters.showActive}
               component={
-                <Checkbox
-                  onChange={(e) =>
-                    dashboardStore.changeFilters('showActive', e.target.checked)
-                  }
-                >
+                <Checkbox onChange={(e) => dashboardStore.changeFilters('showActive', e.target.checked)}>
                   Active
                 </Checkbox>
               }
@@ -108,14 +82,7 @@ export const DashboardLayout: React.FC<
               name="showModerated"
               value={dashboardStore.filters.showModerated}
               component={
-                <Checkbox
-                  onChange={(e) =>
-                    dashboardStore.changeFilters(
-                      'showModerated',
-                      e.target.checked,
-                    )
-                  }
-                >
+                <Checkbox onChange={(e) => dashboardStore.changeFilters('showModerated', e.target.checked)}>
                   Moderated
                 </Checkbox>
               }
@@ -124,13 +91,7 @@ export const DashboardLayout: React.FC<
               name="showDraft"
               value={dashboardStore.filters.showDraft}
               component={
-                <Checkbox
-                  onChange={(e) =>
-                    dashboardStore.changeFilters('showDraft', e.target.checked)
-                  }
-                >
-                  Draft
-                </Checkbox>
+                <Checkbox onChange={(e) => dashboardStore.changeFilters('showDraft', e.target.checked)}>Draft</Checkbox>
               }
             />
           </HStack>
@@ -141,6 +102,4 @@ export const DashboardLayout: React.FC<
   );
 });
 
-DashboardLayout.getLayout = ({ children }) => (
-  <AppLayout containerSize="md">{children}</AppLayout>
-);
+DashboardLayout.getLayout = ({ children }) => <AppLayout containerSize="md">{children}</AppLayout>;

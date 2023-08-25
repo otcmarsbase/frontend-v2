@@ -10,13 +10,10 @@ export const useCreateOfferModal = () => {
   const { setTypeOfDeal } = sellOfferStore;
 
   async function onCreateOffer() {
-    const direction: Common.Direction = await ModalController.create(
-      ChooseDirectionModal,
-      {},
-    );
+    const direction: Common.Direction = await ModalController.create(ChooseDirectionModal, {});
     if (direction) {
       setTypeOfDeal(direction);
-      router.navigateComponent(pages.offers.create, {});
+      router.navigateComponent(pages.offers.create, {}, {});
     }
   }
 

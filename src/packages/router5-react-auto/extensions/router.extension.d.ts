@@ -2,13 +2,13 @@
 /// <reference path="router5/dist/types/router.d.ts" />
 import { NavigationOptions } from 'router5';
 
+import { PageComponent } from '../core';
 import type {
   BuildPathByComponentFunction,
   FindRouteByComponentFunction,
   IsActiveRouteByComponentFunction,
   NavigateComponentFunction,
 } from '../core/methods';
-import { PageComponent } from '../types';
 
 declare module 'router5/dist/types/router' {
   export interface Router {
@@ -16,13 +16,16 @@ declare module 'router5/dist/types/router' {
 
     isActiveRouteByComponent: IsActiveRouteByComponentFunction;
     findRouteByComponent: FindRouteByComponentFunction;
-    navigateComponent: NavigateComponentFunction;
-    buildPathByComponent: BuildPathByComponentFunction;
+    navigateComponent<Props>(
+      component: PageComponent<Props>,
+      props: Props,
+      options: NavigationOptions,
+      done?: DoneFn,
+    ): CancelFn;
+    buildPathByComponent<Props>(component: PageComponent<Props>, props: Props): string;
   }
 
-  export interface Route<
-    Dependencies extends DefaultDependencies = DefaultDependencies,
-  > {
+  export interface Route<Dependencies extends DefaultDependencies = DefaultDependencies> {
     name: string;
     path: string[];
     component: PageComponent<any>;
