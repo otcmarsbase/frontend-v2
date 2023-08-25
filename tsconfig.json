@@ -30,12 +30,12 @@
       "@shared/*": ["./src/shared/*"],
       "@shared/ui-kit": ["./src/shared/ui-kit"],
       "@packages/*": ["./src/packages/*"],
-
       "@services/backend-api-service": ["./src/services/backend-api-service"],
 
-      "@ddd/errors": ["./src/shared/ddd-errors"],
-      "@schema/common": ["./src/shared/schema/common/src"],
-      "@schema/api-gateway": ["./src/shared/schema/api-gateway/src"]
+      "@ddd/errors": ["src/shared/ddd-errors"],
+      "@schema/common": ["src/shared/schema/common/src"],
+      "@schema/errors": ["src/shared/schema/errors/src"],
+      "@schema/api-gateway": ["src/shared/schema/api-gateway/src"]
     }
   },
   "include": ["src"],

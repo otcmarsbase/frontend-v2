@@ -12,10 +12,6 @@ export class IncorrectParameterError extends RuntimeError<IncorrectParameterErro
   }
 
   get message(): string {
-    return `Parameter '${
-      this.params.paramName
-    }' passed with wrong type or empty. Expected: [${this.params.expected.join(
-      ', ',
-    )}]`;
+    return `Parameter '${this.params.paramName}' passed with wrong type or empty. Expected: [${this.params.expected.join(', ')}]`;
   }
 }
