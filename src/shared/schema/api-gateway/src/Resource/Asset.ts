@@ -17,7 +17,7 @@ export namespace Asset {
   ] as const;
   export type AssetVertical = (typeof AssetVertical)[number];
 
-  export const AssetLinkGroup = ['OFFICIAL', 'SOCIAL', 'OTHER'];
+  export const AssetLinkGroup = ['OFFICIAL', 'SOCIAL', 'OTHER'] as const;
   export type AssetLinkGroup = (typeof AssetLinkGroup)[number];
 
   export const AssetLinkType = ['SITE', 'WHITE_PAPER', 'GITHUB', 'TWITTER', 'REDDIT', 'DISCORD', 'OTHER'] as const;
@@ -52,6 +52,7 @@ export namespace Asset {
 
   export interface AssetLink extends Resource<'asset_link'> {
     type: AssetLinkType;
+    title: string;
     group: AssetLinkGroup;
     url: string;
   }

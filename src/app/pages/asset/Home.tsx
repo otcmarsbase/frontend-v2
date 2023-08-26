@@ -30,6 +30,8 @@ import { motion } from 'framer-motion';
 
 // import { ContentContainer, LinksContainer } from '../lot/components';
 
+import { ContentContainer, LinksContainer } from '../marketplace/lot/components';
+
 import { AssetsSchema } from './constants';
 import { HeaderItemChip } from './HeaderItemChip';
 import { HeaderTitleChip } from './HeaderTitleChip';
