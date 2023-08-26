@@ -1,5 +1,4 @@
 import { Icon, createIcon } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
 
 const METAVERSE = createIcon({
   displayName: 'MetaverseIcon',
@@ -347,7 +346,7 @@ export const DEFI = createIcon({
   ],
 });
 
-export const AssetVerticalIcons: Record<Resource.Asset.AssetVertical, typeof Icon> = {
+export const AssetVerticalIcons: Record<string, typeof Icon> = {
   METAVERSE,
   BLOCKCHAIN_SERVICE,
   LAYER_1,
