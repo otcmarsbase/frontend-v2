@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { Box, HStack, Text } from '@chakra-ui/react';
 
-interface iCountdownProps {
+interface CountdownProps {
   endDate: Date;
 }
 
-interface iCountdownState {
+interface CountdownState {
   days: string;
   hours: string;
   minutes: string;
@@ -49,8 +49,8 @@ const CountdownDivider = () => {
   );
 };
 
-export const Countdown = ({ endDate }: iCountdownProps) => {
-  const [state, setState] = useState<iCountdownState>({
+export const Countdown = ({ endDate }: CountdownProps) => {
+  const [state, setState] = useState<CountdownState>({
     days: '0',
     hours: '00',
     minutes: '00',
