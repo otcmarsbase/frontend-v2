@@ -9,8 +9,6 @@ import { Resource } from '@schema/api-gateway';
 export interface TradeDirectionChooseModalProps extends PortalProps {}
 
 export function TradeDirectionChooseModal({ portal }: TradeDirectionChooseModalProps) {
-  const;
-
   const onClose = useCallback(() => {
     if (portal?.resolve) portal.resolve(null);
   }, [portal]);

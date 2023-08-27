@@ -1,5 +1,4 @@
 import '@packages/router5-react-auto';
-import './extensions';
 
 import React from 'react';
 

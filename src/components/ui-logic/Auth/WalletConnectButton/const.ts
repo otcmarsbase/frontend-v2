@@ -1,4 +1,4 @@
-import MetaMaskLogoPng from '@shared/assets/metaMask.png';
+import MetaMaskLogoPng from '../WalletAccountPanel/metaMask.png';
 
 import { WalletConnectorInfo } from './types';
 

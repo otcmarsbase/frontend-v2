@@ -24,7 +24,7 @@ export function AppLoad({ renderLoader, onAppLoad, children }: AppLoadProps) {
     onLoadApp();
   }, [onLoadApp]);
 
-  if (isLoading) return renderLoader();
+  if (isLoading) return <>{renderLoader()}</>;
 
-  return children();
+  return <>{children()}</>;
 }

@@ -5,8 +5,3 @@ declare global {
     ethereum: WindowProvider;
   }
 }
-
-declare module '*.svg' {
-  const ReactComponent: any;
-  export { ReactComponent };
-}

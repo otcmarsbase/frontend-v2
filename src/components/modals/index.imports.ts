@@ -1,2 +1,2 @@
-export * from './ChooseDirectionModal';
+export * from './TradeDirectionChooseModal';
 export * from './CreateBidsModal';

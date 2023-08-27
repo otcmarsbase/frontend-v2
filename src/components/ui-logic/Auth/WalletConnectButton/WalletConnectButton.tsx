@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { ModalController } from '@app/logic';
 import { Button } from '@chakra-ui/react';

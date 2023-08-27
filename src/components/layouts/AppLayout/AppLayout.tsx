@@ -18,7 +18,7 @@ export interface AppLayoutProps {
 export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(({ children, containerSize = 'md' }) => {
   const onCreateOfferClick = useCallback(async () => {
     // TODO
-    const direction = await ModalController.create(UIModals.ChooseDirectionModal, {});
+    const direction = await ModalController.create(UIModals.TradeDirectionChooseModal, {});
     router.navigateComponent(pages.Home, {}, {});
   }, []);
 
