@@ -8,6 +8,20 @@ function resolvePath(...paths) {
   return path.resolve(__dirname, ...paths);
 }
 
+function resolvePathAliases() {
+  const baseUrl = compilerOptions.baseUrl || '.';
+  const aliasNames = Object.keys(compilerOptions.paths || {});
+  const aliases = aliasNames.map((name) => {
+    const tsPaths = compilerOptions.paths?.[name] || [];
+    const webpackPaths = tsPaths.map((tsPath) => resolvePath(baseUrl, tsPath));
+    if (webpackPaths.length <= 0) return null;
+
+    return { name, path: webpackPaths.length === 1 ? webpackPaths[0] : webpackPaths };
+  });
+
+  return aliases.reduce((out, alias) => ({ ...out, [alias.name]: alias.path }), {});
+}
+
 module.exports = {
   jest: {
     configure: {
@@ -24,43 +38,7 @@ module.exports = {
         loader: 'url-loader?limit=100000',
       },
     ],
-    alias: {
-      '@app/hooks': resolvePath('src/app/hooks'),
-      '@app/layouts': resolvePath('src/app/layouts'),
-      '@app/logic': resolvePath('src/app/logic'),
-      '@app/modals': resolvePath('src/app/modals'),
-      '@app/pages': resolvePath('src/app/pages'),
-      '@app/store': resolvePath('src/app/store'),
-
-      '@packages/berish-configurator-core': resolvePath('src/packages/berish-configurator-core'),
-      '@packages/berish-configurator-cra': resolvePath('src/packages/berish-configurator-cra'),
-      '@packages/berish-rpc-axios': resolvePath('src/packages/berish-rpc-axios'),
-      '@packages/berish-rpc-client': resolvePath('src/packages/berish-rpc-client'),
-      '@packages/berish-rpc-client-schema': resolvePath('src/packages/berish-rpc-client-schema'),
-      '@packages/react-permission': resolvePath('src/packages/react-permission'),
-      '@packages/react-portal': resolvePath('src/packages/react-portal'),
-      '@packages/react-runtime-layout': resolvePath('src/packages/react-runtime-layout'),
-      '@packages/react-utils': resolvePath('src/packages/react-utils'),
-      '@packages/router5-react-auto': resolvePath('src/packages/router5-react-auto'),
-      '@packages/service-manager': resolvePath('src/packages/service-manager'),
-
-      '@services/backend-api-service': resolvePath('src/services/backend-api-service'),
-
-      '@shared/assets': resolvePath('src/shared/assets/src'),
-      '@shared/config': resolvePath('src/shared/config'),
-
-      '@ddd/errors': resolvePath('src/shared/ddd-errors'),
-      '@schema/common': resolvePath('src/shared/schema/common/src'),
-      '@schema/errors': resolvePath('src/shared/schema/errors/src'),
-      '@schema/api-gateway': resolvePath('src/shared/schema/api-gateway/src'),
-
-      '@shared/theme': resolvePath('src/shared/theme'),
-      '@shared/types': resolvePath('src/shared/types'),
-      '@shared/ui-kit': resolvePath('src/shared/ui-kit'),
-      '@shared/ui-logic': resolvePath('src/shared/ui-logic'),
-      '@shared/ui-molecules': resolvePath('src/shared/ui-molecules'),
-      '@shared/utils': resolvePath('src/shared/utils'),
-    },
+    alias: resolvePathAliases(),
     plugins: [
       new ESLintPlugin({
         extensions: ['ts', 'tsx', 'js', 'jsx'],

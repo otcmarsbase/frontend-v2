@@ -8,7 +8,7 @@ const paramsPageItem = '__';
 
 export const routes = autoGenerateRoutes({
   pages,
-  ignorePages: pages.errors,
+  ignorePages: pages.Errors,
   homePageItem,
   paramsPageItem,
 });

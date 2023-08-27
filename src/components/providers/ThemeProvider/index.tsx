@@ -1,8 +1,8 @@
 import { ChakraBaseProvider } from '@chakra-ui/react';
-import theme from '@shared/theme';
+import theme from '@components/theme';
 
-import { FixFocusVisible } from '../FixFocusVisible';
-import { FontsInjection } from '../FontsInjection';
+import { FixFocusVisible } from './FixFocusVisible';
+import { FontsInjection } from './FontsInjection';
 
 export interface ThemeProviderProps extends React.PropsWithChildren {}
 

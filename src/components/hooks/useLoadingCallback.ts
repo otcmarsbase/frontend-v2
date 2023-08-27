@@ -11,17 +11,12 @@ export interface LoadingCallback<T extends (...args: any[]) => any> {
   isLoadingAny: boolean;
 }
 
-export function useLoadingCallback<T extends (...args: any[]) => any>(
-  callback: T,
-): LoadingCallback<T> {
+export function useLoadingCallback<T extends (...args: any[]) => any>(callback: T): LoadingCallback<T> {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [loadingMap, setLoadingMap] = useState(
-    new Map<string | number, boolean>(),
-  );
+  const [loadingMap, setLoadingMap] = useState(new Map<string | number, boolean>());
 
   const updateMap = useCallback(
-    (key: string | number, value: boolean) =>
-      setLoadingMap((map) => new Map(map.set(key, value))),
+    (key: string | number, value: boolean) => setLoadingMap((map) => new Map(map.set(key, value))),
     [],
   );
   const isLoadingAny = useMemo(
@@ -51,10 +46,7 @@ export function useLoadingCallback<T extends (...args: any[]) => any>(
     [callback],
   ) as LoadingCallback<T>;
 
-  const partLoading = useCallback(
-    (key: string | number) => loadingMap.get(key) || false,
-    [loadingMap],
-  );
+  const partLoading = useCallback((key: string | number) => loadingMap.get(key) || false, [loadingMap]);
 
   const keyLoad = useCallback(
     (key: string | number) => {

@@ -1,9 +1,7 @@
+import { IRpcClientAdapter } from '@packages/berish-rpc-client';
 import { AxiosInstance } from 'axios';
-import { IRpcClientAdapter } from 'src/packages/berish-rpc-client';
 
-export function RpcClientAxiosAdapter(
-  axiosClient: AxiosInstance,
-): IRpcClientAdapter {
+export function RpcClientAxiosAdapter(axiosClient: AxiosInstance): IRpcClientAdapter {
   return {
     send: async (request) => {
       const axiosResponse = await axiosClient.request({

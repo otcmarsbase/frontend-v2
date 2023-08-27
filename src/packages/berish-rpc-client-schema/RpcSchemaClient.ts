@@ -1,29 +1,13 @@
-import {
-  push,
-  request,
-  RpcClient,
-  RpcRequest,
-} from 'src/packages/berish-rpc-client';
+import { push, request, RpcClient, RpcRequest } from '@packages/berish-rpc-client';
 
-import {
-  RpcApiMethodName,
-  RpcApiPayload,
-  RpcApiResult,
-  RpcApiSchema,
-} from './schema.types';
+import { RpcApiMethodName, RpcApiPayload, RpcApiResult, RpcApiSchema } from './schema.types';
 
-export interface RpcSchemaSendOptions<
-  Push extends boolean,
-  Meta extends Record<string, any>,
-> {
+export interface RpcSchemaSendOptions<Push extends boolean, Meta extends Record<string, any>> {
   meta?: Meta;
   push?: Push;
 }
 
-export class RpcSchemaClient<
-  ApiSchema extends RpcApiSchema,
-  Meta extends Record<string, any>,
-> {
+export class RpcSchemaClient<ApiSchema extends RpcApiSchema, Meta extends Record<string, any>> {
   protected readonly client: RpcClient;
 
   constructor(rpcClient: RpcClient) {
@@ -40,11 +24,7 @@ export class RpcSchemaClient<
     params: RpcApiPayload<ApiSchema, Method>,
     options?: RpcSchemaSendOptions<true, Meta>,
   ): Promise<void>;
-  send(
-    method: string,
-    params?: Record<string, any>,
-    options?: RpcSchemaSendOptions<boolean, Meta>,
-  ): Promise<any> {
+  send(method: string, params?: Record<string, any>, options?: RpcSchemaSendOptions<boolean, Meta>): Promise<any> {
     return this.custom(method, params, options);
   }
 
@@ -53,11 +33,7 @@ export class RpcSchemaClient<
     params: Record<string, any>,
     options?: RpcSchemaSendOptions<false, Meta>,
   ): Promise<Result>;
-  custom(
-    method: string,
-    params: Record<string, any>,
-    options?: RpcSchemaSendOptions<true, Meta>,
-  ): Promise<void>;
+  custom(method: string, params: Record<string, any>, options?: RpcSchemaSendOptions<true, Meta>): Promise<void>;
   custom<Result>(
     method: string,
     params: Record<string, any>,
