@@ -13,7 +13,9 @@ export interface ServiceBaseManager {
 
 export type ServiceManager<Map extends { [key: string]: any }> = Map & ServiceBaseManager;
 
-export function createServiceManager<Map extends { [key: string]: any }>(map: ServiceConnectMap<Map>): ServiceManager<Map> {
+export function createServiceManager<Map extends { [key: string]: any }>(
+  map: ServiceConnectMap<Map>,
+): ServiceManager<Map> {
   const manager: ServiceManager<Map> = { ...map } as any;
   const entries: [keyof ServiceManager<Map>, any][] = Object.entries(map).filter(([key, value]) => !!value);
 
@@ -28,9 +30,16 @@ export function createServiceManager<Map extends { [key: string]: any }>(map: Se
             if (service.onStart) await service.onStart();
             service[SYMBOL_SERVICE_IS_STARTED] = true;
           }
-          return { serviceName: service.serviceName, started: service[SYMBOL_SERVICE_IS_STARTED] };
+          return {
+            serviceName: service.serviceName,
+            started: service[SYMBOL_SERVICE_IS_STARTED],
+          };
         } catch (err) {
-          return { serviceName: service.serviceName, started: service[SYMBOL_SERVICE_IS_STARTED], error: (err && err['message']) || err };
+          return {
+            serviceName: service.serviceName,
+            started: service[SYMBOL_SERVICE_IS_STARTED],
+            error: (err && err['message']) || err,
+          };
         }
       }),
     );
@@ -46,9 +55,16 @@ export function createServiceManager<Map extends { [key: string]: any }>(map: Se
             if (service.onStop) await service.onStop();
             service[SYMBOL_SERVICE_IS_STARTED] = false;
           }
-          return { serviceName: service.serviceName, stopped: !service[SYMBOL_SERVICE_IS_STARTED] };
+          return {
+            serviceName: service.serviceName,
+            stopped: !service[SYMBOL_SERVICE_IS_STARTED],
+          };
         } catch (err) {
-          return { serviceName: service.serviceName, stopped: !service[SYMBOL_SERVICE_IS_STARTED], error: (err && err['message']) || err };
+          return {
+            serviceName: service.serviceName,
+            stopped: !service[SYMBOL_SERVICE_IS_STARTED],
+            error: (err && err['message']) || err,
+          };
         }
       }),
     );

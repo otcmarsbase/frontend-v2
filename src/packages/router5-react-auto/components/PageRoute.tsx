@@ -3,30 +3,19 @@ import { useLayoutEffect, useMemo, useState } from 'react';
 import { constants } from 'router5';
 
 import { useRouter } from '../context';
-import {
-  PageComponent,
-  PageRenderFunction,
-  deserializeQueryParameters,
-} from '../core';
+import { PageComponent, PageRenderFunction, deserializeQueryParameters } from '../core';
 
 export interface PageRouteProps {
   notFound?: PageComponent;
   render?: PageRenderFunction;
 }
 
-export const PageRoute: React.FC<PageRouteProps> = ({
-  notFound,
-  render = DefaultPageRenderFunction,
-}) => {
+export const PageRoute: React.FC<PageRouteProps> = ({ notFound, render = DefaultPageRenderFunction }) => {
   const router = useRouter();
-  const [currentRouteState, setCurrentRouteState] = useState(() =>
-    router.getState(),
-  );
+  const [currentRouteState, setCurrentRouteState] = useState(() => router.getState());
 
   useLayoutEffect(() => {
-    const subscription = router.subscribe(({ route }) =>
-      setCurrentRouteState(route),
-    );
+    const subscription = router.subscribe(({ route }) => setCurrentRouteState(route));
 
     return () => {
       if (typeof subscription === 'function') return subscription();
@@ -35,24 +24,15 @@ export const PageRoute: React.FC<PageRouteProps> = ({
   }, [router]);
 
   const registeredRoute = useMemo(() => {
-    if (
-      !currentRouteState ||
-      !currentRouteState.name ||
-      currentRouteState.name === constants.UNKNOWN_ROUTE
-    )
+    if (!currentRouteState || !currentRouteState.name || currentRouteState.name === constants.UNKNOWN_ROUTE)
       return null;
 
-    const registeredRoute = router.routes.find(
-      (routerRoute) => routerRoute.name === currentRouteState.name,
-    );
+    const registeredRoute = router.routes.find((routerRoute) => routerRoute.name === currentRouteState.name);
     if (!registeredRoute) return null;
     return registeredRoute;
   }, [router, currentRouteState]);
 
-  const pageProps = useMemo(
-    () => deserializeQueryParameters(currentRouteState.params),
-    [currentRouteState],
-  );
+  const pageProps = useMemo(() => deserializeQueryParameters(currentRouteState.params), [currentRouteState]);
 
   // Default render route
   if (registeredRoute) return render(registeredRoute.component, pageProps);
@@ -62,6 +42,4 @@ export const PageRoute: React.FC<PageRouteProps> = ({
   return <>Route not found: {currentRouteState?.name}</>;
 };
 
-const DefaultPageRenderFunction: PageRenderFunction = (Component, props) => (
-  <Component {...props} />
-);
+const DefaultPageRenderFunction: PageRenderFunction = (Component, props) => <Component {...props} />;

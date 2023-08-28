@@ -1,7 +1,13 @@
-import { RPC } from '@shared/schema/api-gateway';
+import { RPC } from '@schema/api-gateway';
 
 import { BackendApiService } from './service';
 
 export function createRpcSchemaClient(service: BackendApiService) {
-  return new RPC.Client(service.rpcClient);
+  const { getMeta, setMeta, globalErrorTriggers } = service.params;
+
+  return new RPC.Client(service.rpcClient, {
+    getMeta,
+    setMeta,
+    globalErrorTriggers,
+  });
 }

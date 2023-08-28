@@ -9,9 +9,7 @@ const OBJ_SEPARATOR = '.';
  * @param params
  * @returns
  */
-export function deserializeQueryParameters(
-  params: Record<string, string>,
-): Record<string, any> {
+export function deserializeQueryParameters(params: Record<string, string>): Record<string, any> {
   const parseValue = (value: string): any => {
     if (typeof value === 'undefined' || value === null) return void 0;
     if (typeof value !== 'string') return String(value);
@@ -23,20 +21,14 @@ export function deserializeQueryParameters(
   const parseCurrentPath = (params: { [key: string]: string }) => {
     const allKeys = LINQ.from(Object.keys(params));
     const currentKeys = allKeys.where((m) => m.indexOf(OBJ_SEPARATOR) === -1);
-    const out: { [key: string]: any } = allKeys.every(
-      (m) => m.search(regExpForDigits) !== -1,
-    )
-      ? []
-      : {};
+    const out: { [key: string]: any } = allKeys.every((m) => m.search(regExpForDigits) !== -1) ? [] : {};
 
     for (const currentKey of currentKeys) {
       out[currentKey] = parseValue(params[currentKey]);
     }
 
     const allSubKeys = allKeys.except(currentKeys);
-    const subKeys = allSubKeys
-      .select((m) => m.split(OBJ_SEPARATOR)[0])
-      .distinct();
+    const subKeys = allSubKeys.select((m) => m.split(OBJ_SEPARATOR)[0]).distinct();
 
     for (const subKey of subKeys) {
       const currentSubKeys = allSubKeys
@@ -45,8 +37,7 @@ export function deserializeQueryParameters(
       const newParams: { [key: string]: any } = {};
 
       for (const currentSubKey of currentSubKeys) {
-        newParams[currentSubKey] =
-          params[subKey + OBJ_SEPARATOR + currentSubKey];
+        newParams[currentSubKey] = params[subKey + OBJ_SEPARATOR + currentSubKey];
       }
 
       out[subKey] = parseCurrentPath(newParams);

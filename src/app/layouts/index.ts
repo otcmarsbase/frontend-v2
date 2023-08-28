@@ -1,2 +1,2 @@
-export * from './appLayout';
-export * from './dashboardLayout';
+export * as UILayout from './index.imports';
+export * from './index.imports';

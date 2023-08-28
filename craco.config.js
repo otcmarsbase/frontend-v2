@@ -4,6 +4,24 @@ const { pathsToModuleNameMapper } = require('ts-jest');
 const { compilerOptions } = require('./tsconfig.json');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
+function resolvePath(...paths) {
+  return path.resolve(__dirname, ...paths);
+}
+
+function resolvePathAliases() {
+  const baseUrl = compilerOptions.baseUrl || '.';
+  const aliasNames = Object.keys(compilerOptions.paths || {});
+  const aliases = aliasNames.map((name) => {
+    const tsPaths = compilerOptions.paths?.[name] || [];
+    const webpackPaths = tsPaths.map((tsPath) => resolvePath(baseUrl, tsPath));
+    if (webpackPaths.length <= 0) return null;
+
+    return { name, path: webpackPaths.length === 1 ? webpackPaths[0] : webpackPaths };
+  });
+
+  return aliases.reduce((out, alias) => ({ ...out, [alias.name]: alias.path }), {});
+}
+
 module.exports = {
   jest: {
     configure: {
@@ -20,18 +38,7 @@ module.exports = {
         loader: 'url-loader?limit=100000',
       },
     ],
-    alias: {
-      '@app': path.resolve(__dirname, 'src/app'),
-      '@shared': path.resolve(__dirname, 'src/shared'),
-      '@packages': path.resolve(__dirname, 'src/packages'),
-      '@services': path.resolve(__dirname, 'src/services'),
-      '@ddd/errors': path.resolve(__dirname, 'src/shared/ddd-errors'),
-      '@schema/common': path.resolve(__dirname, 'src/shared/schema/common'),
-      '@schema/api-gateway': path.resolve(
-        __dirname,
-        'src/shared/schema/api-gateway',
-      ),
-    },
+    alias: resolvePathAliases(),
     plugins: [
       new ESLintPlugin({
         extensions: ['ts', 'tsx', 'js', 'jsx'],

@@ -1,7 +1,7 @@
-import { RuntimeError } from '@ddd/errors';
-import { RpcClient, RpcError } from '@packages/berish-rpc-client';
-import { RPC } from '@shared/schema/api-gateway';
-import { Service } from 'src/packages/service-manager';
+import { RpcClient } from '@packages/berish-rpc-client';
+import { Service } from '@packages/service-manager';
+import { RPC } from '@schema/api-gateway';
+import { RpcClientErrorTrigger } from '@schema/common';
 
 import { createRpcAxiosAdapter } from './createRpcAxiosAdapter';
 import { createRpcClient } from './createRpcClient';
@@ -9,15 +9,10 @@ import { createRpcSchemaClient } from './createRpcSchemaClient';
 
 export interface BackendApiServiceParams {
   baseURL: string;
-  getMeta: () => RPC.Meta | Promise<RPC.Meta>;
+  getMeta: () => RPC.ClientMeta | Promise<RPC.ClientMeta>;
+  setMeta: (meta: RPC.ServerMeta) => void | Promise<void>;
 
-  errorHandlers: {
-    errors: (typeof RpcError | typeof RuntimeError)[];
-    handler: (
-      service: BackendApiService,
-      error: RpcError | RuntimeError,
-    ) => void | Promise<void>;
-  }[];
+  globalErrorTriggers: RpcClientErrorTrigger[];
 }
 
 export class BackendApiService extends Service<BackendApiServiceParams> {

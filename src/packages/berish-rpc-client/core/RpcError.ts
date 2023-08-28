@@ -4,7 +4,13 @@ export class RpcError extends Error {
   public readonly name: string = null;
   public readonly data: { [key: string]: any } = null;
 
-  static readonly SystemList = ['ConnectionError', 'InternalError', 'ParseError', 'InvalidRequest', 'MethodNotFound'] as const;
+  static readonly SystemList = [
+    'ConnectionError',
+    'InternalError',
+    'ParseError',
+    'InvalidRequest',
+    'MethodNotFound',
+  ] as const;
 
   static isExtends(error: any): error is RpcError {
     return error instanceof RpcError;
@@ -29,7 +35,10 @@ export class RpcError extends Error {
   }
 
   static ParseError() {
-    return RpcError.Custom('ParseError', 'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text');
+    return RpcError.Custom(
+      'ParseError',
+      'Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text',
+    );
   }
 
   static InvalidRequest() {

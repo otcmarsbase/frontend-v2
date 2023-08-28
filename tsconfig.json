@@ -16,28 +16,48 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    "baseUrl": ".",
     "strictNullChecks": false,
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
     "incremental": true,
+    "baseUrl": ".",
 
     "paths": {
-      "@app": ["./src/app"],
-      "@app/*": ["./src/app/*"],
+      "@app/components": ["./src/app/components"],
+      "@app/dictionary": ["./src/app/dictionary"],
+      "@app/hooks": ["./src/app/hooks"],
+      "@app/layouts": ["./src/app/layouts"],
+      "@app/logic": ["./src/app/logic"],
+      "@app/pages": ["./src/app/pages"],
+      "@app/permissions": ["./src/app/permissions"],
+      "@app/store": ["./src/app/store"],
+      "@app/theme": ["./src/app/theme"],
+      "@app/utils": ["./src/app/utils"],
 
-      "@shared/*": ["./src/shared/*"],
-      "@shared/ui-kit": ["./src/shared/ui-kit"],
-      "@packages/*": ["./src/packages/*"],
+      "@packages/berish-configurator-core": ["./src/packages/berish-configurator-core"],
+      "@packages/berish-configurator-cra": ["./src/packages/berish-configurator-cra"],
+      "@packages/berish-rpc-axios": ["./src/packages/berish-rpc-axios"],
+      "@packages/berish-rpc-client": ["./src/packages/berish-rpc-client"],
+      "@packages/berish-rpc-client-schema": ["./src/packages/berish-rpc-client-schema"],
+      "@packages/react-permission": ["./src/packages/react-permission"],
+      "@packages/react-portal": ["./src/packages/react-portal"],
+      "@packages/react-runtime-layout": ["./src/packages/react-runtime-layout"],
+      "@packages/react-utils": ["./src/packages/react-utils"],
+      "@packages/router5-react-auto": ["./src/packages/router5-react-auto"],
+      "@packages/service-manager": ["./src/packages/service-manager"],
 
       "@services/backend-api-service": ["./src/services/backend-api-service"],
 
+      "@shared/config": ["./src/shared/config"],
       "@ddd/errors": ["./src/shared/ddd-errors"],
-      "@schema/common": ["./src/shared/schema/common"],
-      "@schema/api-gateway": ["./src/shared/schema/api-gateway"]
+      "@schema/common": ["./src/shared/schema/common/src"],
+      "@schema/errors": ["./src/shared/schema/errors/src"],
+      "@schema/api-gateway": ["./src/shared/schema/api-gateway/src"],
+      "@shared/ui-icons": ["./src/shared/ui-icons"],
+      "@shared/ui-kit": ["./src/shared/ui-kit"]
     }
   },
-  "include": ["src"],
+  "include": ["./src"],
   "exclude": ["node_modules"]
 }

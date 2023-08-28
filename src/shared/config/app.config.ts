@@ -23,6 +23,16 @@ export interface AppConfigType {
     DASHBOARD_LOCAL_STORAGE_KEY: string;
     AUTH_META_LOCAL_STORAGE_KEY: string;
   };
+
+  socials: {
+    discordUrl: string;
+    twitterUrl: string;
+    githubUrl: string;
+    telegramUrl: string;
+    mediumUrl: string;
+    redditUrl: string;
+    linktreeUrl: string;
+  };
 }
 
 export const AppConfig: AppConfigType = {
@@ -45,5 +55,15 @@ export const AppConfig: AppConfigType = {
   storage: {
     DASHBOARD_LOCAL_STORAGE_KEY: 'OTC_MARSBASE/DASHBOARD',
     AUTH_META_LOCAL_STORAGE_KEY: 'OTC_MARSBASE/AUTH_META',
+  },
+
+  socials: {
+    linktreeUrl: 'https://linktr.ee/MARSBASE/',
+    discordUrl: 'https://discord.com/channels/889519633890177074/892286634224132106/',
+    twitterUrl: 'https://twitter.com/MARSBASEio/',
+    githubUrl: 'https://github.com/otcmarsbase/',
+    telegramUrl: 'https://t.me/otcmarsbase/',
+    mediumUrl: 'https://marsbaseotc.medium.com/',
+    redditUrl: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
   },
 };

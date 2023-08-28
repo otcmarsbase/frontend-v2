@@ -13,9 +13,7 @@ export type NavigateComponentFunction<Props> = (
   done?: DoneFn,
 ) => CancelFn;
 
-export function navigateComponentWrapper<Props>(
-  router: Router,
-): NavigateComponentFunction<Props> {
+export function navigateComponentWrapper<Props>(router: Router): NavigateComponentFunction<Props> {
   const findRouteByComponent = findRouteByComponentWrapper(router);
 
   return (component, props, options, done) => {

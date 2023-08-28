@@ -1,2 +1,2 @@
-export * from './useCreateOfferModal';
-export * from './usePageProps';
+export * as UIHooks from './index.imports';
+export * from './index.imports';

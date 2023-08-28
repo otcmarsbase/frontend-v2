@@ -1,10 +1,4 @@
-import {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { combinePermissions, resolve } from './methods';
 import { Permission } from './types';
@@ -15,18 +9,13 @@ export interface PermissionComponentProps {
   notPermissionComponent?: React.ReactNode;
 }
 
-export const PermissionComponent: React.FC<
-  PropsWithChildren<PermissionComponentProps>
-> = ({
+export const PermissionComponent: React.FC<PropsWithChildren<PermissionComponentProps>> = ({
   permissions,
   notPermissionComponent = <></>,
   loadingComponent = <></>,
   children,
 }) => {
-  const basePermission = useMemo(
-    () => combinePermissions(permissions),
-    [permissions],
-  );
+  const basePermission = useMemo(() => combinePermissions(permissions), [permissions]);
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState<React.ReactNode>(<>{children}</>);
 

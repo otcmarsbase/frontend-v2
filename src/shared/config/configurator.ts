@@ -1,4 +1,4 @@
-import { CraConfigurator } from '../../packages/berish-configurator-cra';
+import { CraConfigurator } from '@packages/berish-configurator-cra';
 
 export interface EnvConfiguration {
   NODE_ENV: string;

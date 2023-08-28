@@ -1,22 +1,16 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
-import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { useRouter } from '@packages/router5-react-auto';
 
-import pages from '..';
+export interface HomeProps {}
 
-const Home: React.FC = () => {
+export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigateComponent(pages.otcDesk.home, {});
+    router.navigateComponent(MBPages.Marketplace.Home, {}, { replace: true });
   }, [router]);
 
-  return null;
-};
-
-Home.getLayout = ({ children }) => {
-  return <Layouts.AppLayout containerSize="md">{children}</Layouts.AppLayout>;
-};
-
-export default Home;
+  return <Fragment />;
+}
