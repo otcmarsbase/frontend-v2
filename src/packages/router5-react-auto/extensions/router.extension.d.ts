@@ -18,7 +18,7 @@ declare module 'router5/dist/types/router' {
     findRouteByComponent: FindRouteByComponentFunction;
     navigateComponent<Props>(
       component: PageComponent<Props>,
-      props: Props,
+      props: Props & {},
       options: NavigationOptions,
       done?: DoneFn,
     ): CancelFn;
