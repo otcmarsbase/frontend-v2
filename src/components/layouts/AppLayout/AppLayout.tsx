@@ -1,44 +1,30 @@
-import { PropsWithChildren, useCallback } from 'react';
-
-import { observer } from 'mobx-react-lite';
+import { useCallback } from 'react';
 
 import { AppConfig } from '@app/config';
-import { ModalController, router } from '@app/logic';
+import { ModalController } from '@app/logic';
 import pages from '@app/pages';
 import { Box, Container, ContainerProps, Link, VStack } from '@chakra-ui/react';
 import { UIModals } from '@components/modals';
-import { Footer, Header, LinkComponent } from '@components/ui-kit';
+import { useRouter } from '@packages/router5-react-auto';
 
-import { HeaderRightContent } from './components';
+import { Header, Footer } from './atoms';
 
 export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
 }
 
-export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer(({ children, containerSize = 'md' }) => {
+export function AppLayout({ children, containerSize = 'md' }) {
+  const router = useRouter();
+
   const onCreateOfferClick = useCallback(async () => {
-    // TODO
     const direction = await ModalController.create(UIModals.TradeDirectionChooseModal, {});
     router.navigateComponent(pages.Home, {}, {});
-  }, []);
+  }, [router]);
 
   return (
     <VStack minHeight="100vh" width="full" gap="0">
       <Box width="full" flexShrink="0">
-        <Header
-          items={[
-            <LinkComponent page={pages.Home} pageProps={{}}>
-              OTC Desk
-            </LinkComponent>,
-            <LinkComponent page={pages.Home} pageProps={{}}>
-              My Dashboard
-            </LinkComponent>,
-            <LinkComponent page={pages.Home} pageProps={{}} onClick={onCreateOfferClick}>
-              Create offer
-            </LinkComponent>,
-          ]}
-          rightContent={<HeaderRightContent />}
-        />
+        <Header onCreateOfferClick={onCreateOfferClick} />
       </Box>
       <Box flex="1" width="full">
         <Container size={containerSize} mt="3rem">
@@ -75,4 +61,4 @@ export const AppLayout: React.FC<PropsWithChildren<AppLayoutProps>> = observer((
       </Box>
     </VStack>
   );
-});
+}

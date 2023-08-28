@@ -25,13 +25,17 @@ export function LinkComponent<Props>({
 
   const onClickCallback = React.useCallback(
     (e: React.MouseEvent) => {
-      if (onClick) return onClick(e, fullHref);
+      if (onClick) {
+        e.preventDefault();
+        return onClick(e, fullHref);
+      }
 
-      e.preventDefault();
       router.navigateComponent(page, pageProps, options ?? {});
     },
     [onClick, fullHref, router, page, pageProps, options],
   );
+
+  console.log(children);
 
   return React.cloneElement(React.Children.only<any>(children), { href: fullHref, onClick: onClickCallback });
 }

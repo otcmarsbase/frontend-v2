@@ -3,14 +3,8 @@ import { Route } from 'router5';
 
 import { PageComponent, PagePath } from '../core';
 
-import {
-  ConvertRouterPathToName,
-  defaultConvertRouterPathToName,
-} from './convertRouterPathToName';
-import {
-  ConvertRouterPathToPath,
-  defaultConvertRouterPathToPath,
-} from './convertRouterPathToPath';
+import { ConvertRouterPathToName, defaultConvertRouterPathToName } from './convertRouterPathToName';
+import { ConvertRouterPathToPath, defaultConvertRouterPathToPath } from './convertRouterPathToPath';
 import {
   serber,
   SYMBOL_SERBER_HOME_PAGE_ITEM,

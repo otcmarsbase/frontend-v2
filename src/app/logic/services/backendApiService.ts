@@ -1,11 +1,9 @@
 import { AppConfig } from '@app/config';
 import { RootStore } from '@app/store';
-import { createService, ServiceManager } from '@packages/service-manager';
+import { createService } from '@packages/service-manager';
 import { BackendApiService } from '@services/backend-api-service';
 
-import { ServiceMap } from '../createAppManager';
-
-export function backendApiService(serviceManager: ServiceManager<ServiceMap>) {
+export function backendApiService() {
   const {
     debug,
     backend: { apiGatewayUrl },

@@ -1,9 +1,8 @@
 import { RootStore } from '../store/rootStore';
 
-import { createAppManager } from './createAppManager';
+import { appManager } from './AppManager';
 
 export async function onAppLoad() {
-  const appManager = createAppManager();
   await appManager.start();
 
   await RootStore.instance.start();

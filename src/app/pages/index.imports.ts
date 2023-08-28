@@ -1,4 +1,5 @@
 import Errors from './_errors';
-import Home from './home';
+import Asset from './Asset';
+import Home from './Home';
 
-export default { Errors, Home };
+export default { Errors, Asset, Home };
