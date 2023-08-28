@@ -7,7 +7,7 @@ import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack } from '@cha
 import { Resource } from '@schema/api-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
-import { format } from 'numerable';
+// import { format } from 'numerable';
 
 type FieldType = {
   name: string;
@@ -25,14 +25,14 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
 
-  const formatDollars = (val: number) => (
-    <Text>
-      {format(val, '0.00a')}&nbsp;
-      <Text as="span" color="dark.50">
-        $
-      </Text>
-    </Text>
-  );
+  // const formatDollars = (val: number) => (
+  //   <Text>
+  //     {format(val, '0.00a')}&nbsp;
+  //     <Text as="span" color="dark.50">
+  //       $
+  //     </Text>
+  //   </Text>
+  // );
 
   const fields: FieldType[] = useMemo(() => {
     const unitSizeFilter = lot.filters.find(
@@ -106,7 +106,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
   const loadAsset = useCallback(async () => {
     const asset = await schema.send('asset.getById', { id: lot.asset.id });
     setAsset(asset);
-  }, [lot.asset.id]);
+  }, [lot, schema]);
 
   useEffect(() => {
     loadAsset();

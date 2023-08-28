@@ -1,8 +1,6 @@
-type PathItem<
-  Key extends string | number,
-  Value,
-  AtomicType,
-> = Value extends AtomicType ? `${Key}` : `${Key}.${Path<Value, AtomicType>}`;
+type PathItem<Key extends string | number, Value, AtomicType> = Value extends AtomicType
+  ? `${Key}`
+  : `${Key}.${Path<Value, AtomicType>}`;
 
 export type Path<T, AtomicType> = {
   [Key in keyof T]-?: PathItem<Key & string, T[Key], AtomicType>;

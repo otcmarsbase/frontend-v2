@@ -10,8 +10,7 @@ declare namespace React {
     routeTemplateFullPath?: string;
   }
 
-  export interface ComponentClass<P = {}, S = ComponentState>
-    extends StaticLifecycle<P, S> {
+  export interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
     routeName?: string;
     routeTemplatePath?: string;
     routeTemplateFullPath?: string;

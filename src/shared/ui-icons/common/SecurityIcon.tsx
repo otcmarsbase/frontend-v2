@@ -11,12 +11,6 @@ export const SecurityIcon = createIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
     />,
-    <path
-      d="M9 12L11 14L15 10"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />,
+    <path d="M9 12L11 14L15 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />,
   ],
 });

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import * as AccountImports from './Account';
 import * as AssetImports from './Asset';
 import * as AuthImports from './Auth';

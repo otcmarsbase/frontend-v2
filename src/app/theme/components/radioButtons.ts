@@ -1,14 +1,8 @@
 import { createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/react';
 
-export const radioButtonsParts = [
-  'container',
-  'item',
-  'itemActive',
-  'grid',
-] as const;
+export const radioButtonsParts = ['container', 'item', 'itemActive', 'grid'] as const;
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(radioButtonsParts);
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(radioButtonsParts);
 
 const baseStyle = definePartsStyle({
   container: {

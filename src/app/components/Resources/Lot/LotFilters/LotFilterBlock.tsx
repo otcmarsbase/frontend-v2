@@ -3,7 +3,7 @@ import { UIKit } from '@shared/ui-kit';
 
 export interface LotFilterBlockProps {}
 
-export function LotFilterBlock({}: LotFilterBlockProps) {
+export function LotFilterBlock(props: LotFilterBlockProps) {
   return (
     <VStack w="20rem" paddingTop="10px" gap="1.25rem" alignItems="flex-start">
       <Heading display="flex" variant="h3m">

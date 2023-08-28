@@ -1,12 +1,7 @@
 import { formAnatomy as parts } from '@chakra-ui/anatomy';
-import {
-  createMultiStyleConfigHelpers,
-  cssVar,
-  defineStyle,
-} from '@chakra-ui/react';
+import { createMultiStyleConfigHelpers, cssVar, defineStyle } from '@chakra-ui/react';
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys);
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(parts.keys);
 
 const $fg = cssVar('form-control-color');
 

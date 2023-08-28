@@ -1,12 +1,8 @@
 import { SYMBOL_SERVICE_IS_STARTED } from './const';
 import { Service } from './service';
 
-export type ServiceConnector<Service> = (
-  manager: ServiceManager<any>,
-) => Service;
-export type ServiceConnectMap<
-  ServiceMap extends { [key: string]: Service<any> },
-> = {
+export type ServiceConnector<Service> = (manager: ServiceManager<any>) => Service;
+export type ServiceConnectMap<ServiceMap extends { [key: string]: Service<any> }> = {
   [P in keyof ServiceMap]: ServiceMap[P] | ServiceConnector<ServiceMap[P]>;
 };
 
@@ -15,16 +11,13 @@ export interface ServiceBaseManager {
   stop: () => Promise<void>;
 }
 
-export type ServiceManager<Map extends { [key: string]: any }> = Map &
-  ServiceBaseManager;
+export type ServiceManager<Map extends { [key: string]: any }> = Map & ServiceBaseManager;
 
 export function createServiceManager<Map extends { [key: string]: any }>(
   map: ServiceConnectMap<Map>,
 ): ServiceManager<Map> {
   const manager: ServiceManager<Map> = { ...map } as any;
-  const entries: [keyof ServiceManager<Map>, any][] = Object.entries(
-    map,
-  ).filter(([key, value]) => !!value);
+  const entries: [keyof ServiceManager<Map>, any][] = Object.entries(map).filter(([key, value]) => !!value);
 
   const getServices = (): Service[] => {
     return Object.values(manager).filter((m) => m instanceof Service);

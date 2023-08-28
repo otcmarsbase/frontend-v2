@@ -2,7 +2,6 @@ import LINQ from '@berish/linq';
 import { AppConfig } from '@shared/config';
 import { w3mProvider } from '@web3modal/ethereum';
 import { configureChains, createConfig } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
 
 import { WalletChainDictionary, WalletConnectorDictionary } from '../info';
 

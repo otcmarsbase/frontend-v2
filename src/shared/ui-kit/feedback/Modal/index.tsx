@@ -21,15 +21,7 @@ export interface ModalProps extends Omit<ChakraModalProps, 'isOpen'> {
   maxW?: LayoutProps['maxW'];
 }
 
-export const Modal: React.FC<ModalProps> = ({
-  children,
-  onClose,
-  footer,
-  title,
-  description,
-  maxW,
-  ...props
-}) => {
+export const Modal: React.FC<ModalProps> = ({ children, onClose, footer, title, description, maxW, ...props }) => {
   const [visible, setVisible] = useState(true);
 
   const onCancelCallback = useCallback(() => {

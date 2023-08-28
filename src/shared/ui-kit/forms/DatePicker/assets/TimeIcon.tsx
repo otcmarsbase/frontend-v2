@@ -1,18 +1,7 @@
 import { SVGProps } from 'react';
 
-export const TimeIcon = ({
-  height = '20px',
-  width = '20px',
-  color = '#FFF',
-  ...props
-}: SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 21 20"
-    fill={color}
-  >
+export const TimeIcon = ({ height = '20px', width = '20px', color = '#FFF', ...props }: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 21 20" fill={color}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

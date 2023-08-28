@@ -1,15 +1,8 @@
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
-export const paginationAnatomy = [
-  'container',
-  'page',
-  'activePage',
-  'pageControl',
-  'buttonGroup',
-] as const;
+export const paginationAnatomy = ['container', 'page', 'activePage', 'pageControl', 'buttonGroup'] as const;
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(paginationAnatomy);
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(paginationAnatomy);
 
 const baseStyle = definePartsStyle({
   container: {

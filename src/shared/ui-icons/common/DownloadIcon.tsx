@@ -21,12 +21,6 @@ export const DownloadIcon = createIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
     />,
-    <path
-      d="M8 10V2"
-      stroke="white"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />,
+    <path d="M8 10V2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />,
   ],
 });

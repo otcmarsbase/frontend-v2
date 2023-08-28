@@ -19,10 +19,7 @@ export abstract class RuntimeError<Params extends Record<string, any> = {}>
     if (RuntimeError.registrator.isRegisteredName(name)) {
       const cls = RuntimeError.registrator.getClassesByClassName(name)[0];
       if (cls) {
-        return RuntimeError.registrator.getInstanceByClass(
-          { name, params },
-          cls,
-        );
+        return RuntimeError.registrator.getInstanceByClass({ name, params }, cls);
       }
     }
     return null;
@@ -37,15 +34,9 @@ export abstract class RuntimeError<Params extends Record<string, any> = {}>
     return !!instance && instance instanceof self;
   }
 
-  static isEquals<T extends RuntimeError<any>>(
-    this: ConstructorType<T, typeof RuntimeError>,
-    first: T,
-    second: T,
-  ) {
-    if (NullableObject.isEmpty(first) && NullableObject.isEmpty(second))
-      return true;
-    if (NullableObject.isEmpty(first) || NullableObject.isEmpty(second))
-      return false;
+  static isEquals<T extends RuntimeError<any>>(this: ConstructorType<T, typeof RuntimeError>, first: T, second: T) {
+    if (NullableObject.isEmpty(first) && NullableObject.isEmpty(second)) return true;
+    if (NullableObject.isEmpty(first) || NullableObject.isEmpty(second)) return false;
 
     if (!this.isExtends(first) || !this.isExtends(second)) return false;
     if (!this.isEqualsTypes(first, second)) return false;
@@ -60,10 +51,8 @@ export abstract class RuntimeError<Params extends Record<string, any> = {}>
     first: T,
     second: T,
   ): boolean {
-    if (NullableObject.isEmpty(first) && NullableObject.isEmpty(second))
-      return true;
-    if (NullableObject.isEmpty(first) || NullableObject.isEmpty(second))
-      return false;
+    if (NullableObject.isEmpty(first) && NullableObject.isEmpty(second)) return true;
+    if (NullableObject.isEmpty(first) || NullableObject.isEmpty(second)) return false;
     if (!this.isExtends(first) || !this.isExtends(second)) return false;
 
     const firstStaticClass = first.constructor as typeof RuntimeError;

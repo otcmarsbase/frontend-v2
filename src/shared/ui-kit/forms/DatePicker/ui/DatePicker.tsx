@@ -109,13 +109,7 @@ const DataPickerInput = ({ value, onClick }: IDataPickerInput) => (
     py={'4px'}
     justifyContent={'flex-start'}
   >
-    <Box
-      _hover={{ color: '#94969A' }}
-      display="flex"
-      gap="10px"
-      alignItems={'center'}
-      justifyContent={'start'}
-    >
+    <Box _hover={{ color: '#94969A' }} display="flex" gap="10px" alignItems={'center'} justifyContent={'start'}>
       <Box>
         <DataPickerInputIcon />
       </Box>

@@ -10,12 +10,6 @@ export const KebabMenuIcon = createIcon({
   path: [
     <circle cx="16" cy="6.66667" r="2.66667" fill="currentColor" />,
     <circle cx="16" cy="16" r="2.66667" fill="currentColor" />,
-    <ellipse
-      cx="16"
-      cy="25.3334"
-      rx="2.66667"
-      ry="2.66667"
-      fill="currentColor"
-    />,
+    <ellipse cx="16" cy="25.3334" rx="2.66667" ry="2.66667" fill="currentColor" />,
   ],
 });

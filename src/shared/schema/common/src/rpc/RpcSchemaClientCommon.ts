@@ -1,10 +1,18 @@
 import { RuntimeError } from '@ddd/errors';
-import { RpcClient, RpcError, RpcRequestInterceptorCallback, RpcResponseInterceptorCallback } from '@packages/berish-rpc-client';
+import {
+  RpcClient,
+  RpcError,
+  RpcRequestInterceptorCallback,
+  RpcResponseInterceptorCallback,
+} from '@packages/berish-rpc-client';
 import { RpcApiSchema, RpcSchemaClient } from '@packages/berish-rpc-client-schema';
 
 import { RpcClientErrorTrigger } from './RpcClientErrorTrigger';
 
-export interface RpcSchemaClientCommonOptions<ClientMeta extends Record<string, any>, ServerMeta extends Record<string, any>> {
+export interface RpcSchemaClientCommonOptions<
+  ClientMeta extends Record<string, any>,
+  ServerMeta extends Record<string, any>,
+> {
   /** Default true */
   includeRuntimeErrorInterceptor?: boolean;
   globalErrorTriggers?: RpcClientErrorTrigger[];

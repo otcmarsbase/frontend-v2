@@ -4,11 +4,7 @@ export function serializeQueryParameters(params: { [key: string]: any }) {
     if (typeof value === 'string') return { [key]: value };
     if (typeof value === 'number') return { [key]: String(value) };
     if (typeof value === 'boolean') return { [key]: value ? '1' : '0' };
-    if (
-      typeof value === 'number' ||
-      typeof value === 'string' ||
-      typeof value === 'boolean'
-    )
+    if (typeof value === 'number' || typeof value === 'string' || typeof value === 'boolean')
       return { [key]: value.toString() };
     if (Array.isArray(value)) {
       if (value.length === 0) return { [key]: '[]' };

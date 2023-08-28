@@ -29,8 +29,7 @@ export default defineStyle({
     padding: '0.125rem',
     border: 'solid 0.125rem transparent',
     backgroundClip: 'padding-box',
-    bgGradient:
-      'linear(129deg, #8A67FF 0%, #49D4FF 31.71%, #FE673C 63.71%, #A6498F 100%)',
+    bgGradient: 'linear(129deg, #8A67FF 0%, #49D4FF 31.71%, #FE673C 63.71%, #A6498F 100%)',
     '& > *[data-gradient-content]': {
       padding: '2rem',
       borderRadius: '0.8rem',

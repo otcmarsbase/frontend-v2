@@ -1,16 +1,8 @@
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 
-export const CustomSelectParts = [
-  'container',
-  'menu',
-  'option',
-  'divider',
-  'menuList',
-  'optionSelected',
-] as const;
+export const CustomSelectParts = ['container', 'menu', 'option', 'divider', 'menuList', 'optionSelected'] as const;
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(CustomSelectParts);
+const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(CustomSelectParts);
 
 const baseStyle = definePartsStyle({
   container: {

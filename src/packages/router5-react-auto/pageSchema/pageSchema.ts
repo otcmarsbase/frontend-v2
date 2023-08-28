@@ -1,10 +1,4 @@
-import {
-  arrayParser,
-  enumParser,
-  stringParser,
-  numberParser,
-  objectParser,
-} from './parsers';
+import { arrayParser, enumParser, stringParser, numberParser, objectParser } from './parsers';
 import { schemaResolver } from './resolver';
 import { PageSchemaParser } from './types';
 
@@ -29,9 +23,7 @@ export type PageSchema<Props> = {
 };
 
 export type PageSchemaStringify<Props extends Record<string, any>> = {
-  [Key in keyof Props]-?: Props[Key] extends Record<string, any>
-    ? PageSchemaStringify<Props[Key]>
-    : string;
+  [Key in keyof Props]-?: Props[Key] extends Record<string, any> ? PageSchemaStringify<Props[Key]> : string;
 };
 
 export const PageSchema = {

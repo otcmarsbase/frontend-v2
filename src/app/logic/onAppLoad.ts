@@ -7,9 +7,9 @@ export async function onAppLoad() {
 
   await RootStore.instance.start();
 
-  const {
-    serviceManager: { backendApiService },
-  } = appManager;
+  // const {
+  //   serviceManager: { backendApiService },
+  // } = appManager;
 
   if (RootStore.instance.authLocalStore.authToken) {
     try {

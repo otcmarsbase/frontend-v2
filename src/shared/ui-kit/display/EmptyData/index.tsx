@@ -7,10 +7,7 @@ export interface EmptyDataProps {
   createButtonLabel: string;
 }
 
-export const EmptyData: React.FC<EmptyDataProps> = ({
-  createButtonLabel,
-  onCreate,
-}) => {
+export const EmptyData: React.FC<EmptyDataProps> = ({ createButtonLabel, onCreate }) => {
   return (
     <VStack
       width="full"
@@ -23,12 +20,7 @@ export const EmptyData: React.FC<EmptyDataProps> = ({
       <Circle size="4rem" bg="dark.600">
         <Image src={WorriedEmojiPng} w="1.5rem" h="1.5rem" />
       </Circle>
-      <Text
-        fontWeight={700}
-        color="gray"
-        fontFamily="promo"
-        lineHeight="1.5rem"
-      >
+      <Text fontWeight={700} color="gray" fontFamily="promo" lineHeight="1.5rem">
         Sorry, no deals.
       </Text>
       <Text textAlign="center" fontSize="sm" color="gray" mb="1rem">

@@ -42,23 +42,14 @@ export class RpcError extends Error {
   }
 
   static InvalidRequest() {
-    return RpcError.Custom(
-      'InvalidRequest',
-      'The JSON sent is not a valid Request object',
-    );
+    return RpcError.Custom('InvalidRequest', 'The JSON sent is not a valid Request object');
   }
 
   static MethodNotFound(method?: string) {
     if ((method ?? null) !== null) {
-      return RpcError.Custom(
-        'MethodNotFound',
-        `The method '${String(method)}' does not exist / is not available`,
-      );
+      return RpcError.Custom('MethodNotFound', `The method '${String(method)}' does not exist / is not available`);
     }
-    return RpcError.Custom(
-      'MethodNotFound',
-      'The method does not exist / is not available',
-    );
+    return RpcError.Custom('MethodNotFound', 'The method does not exist / is not available');
   }
 
   static fromJSON(json: RpcResponseError) {

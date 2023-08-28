@@ -1,5 +1,5 @@
 import pages from '@app/pages';
-import { HStack, Box, Divider, VStack, Link, Text } from '@chakra-ui/react';
+import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
 import { Logo, LinkComponent } from '@shared/ui-kit';
 
 import { RightBlock } from './atoms';

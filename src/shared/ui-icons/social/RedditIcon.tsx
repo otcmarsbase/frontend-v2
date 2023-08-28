@@ -14,13 +14,7 @@ export const RedditIcon = createIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
     />,
-    <path
-      d="M12 8L13 3L19 4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />,
+    <path d="M12 8L13 3L19 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />,
     <path
       d="M18 4C18 4.26522 18.1054 4.51957 18.2929 4.70711C18.4804 4.89464 18.7348 5 19 5C19.2652 5 19.5196 4.89464 19.7071 4.70711C19.8946 4.51957 20 4.26522 20 4C20 3.73478 19.8946 3.48043 19.7071 3.29289C19.5196 3.10536 19.2652 3 19 3C18.7348 3 18.4804 3.10536 18.2929 3.29289C18.1054 3.48043 18 3.73478 18 4Z"
       stroke="currentColor"

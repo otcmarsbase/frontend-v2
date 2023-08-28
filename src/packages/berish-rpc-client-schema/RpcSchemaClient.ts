@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { push, request, RpcClient, RpcRequest } from '@packages/berish-rpc-client';
 
 import { RpcApiMethodName, RpcApiPayload, RpcApiResult, RpcApiSchema } from './schema.types';

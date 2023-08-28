@@ -7,9 +7,7 @@ export interface CraConfiguratorOptions {
   from?: CraConfiguratorFrom | CraConfiguratorFrom[];
 }
 
-export class CraConfigurator<
-  Schema extends Record<string, any>,
-> extends AbstractConfigurator<Schema> {
+export class CraConfigurator<Schema extends Record<string, any>> extends AbstractConfigurator<Schema> {
   private readonly _prefix: string;
   private readonly _from: CraConfiguratorFrom[];
 
@@ -17,22 +15,14 @@ export class CraConfigurator<
     super();
 
     this._prefix = options?.prefix;
-    this._from = options?.from
-      ? Array.isArray(options.from)
-        ? options.from
-        : [options.from]
-      : ['process'];
+    this._from = options?.from ? (Array.isArray(options.from) ? options.from : [options.from]) : ['process'];
   }
 
   protected configResolver(key: string) {
     const rawKey = [this._prefix, key].filter(Boolean).join('');
 
     const values = this._from.map((from) =>
-      from === 'window'
-        ? window[rawKey]
-        : from === 'process'
-        ? process.env[rawKey]
-        : void 0,
+      from === 'window' ? window[rawKey] : from === 'process' ? process.env[rawKey] : void 0,
     );
     return values.find((m) => m !== null && typeof m !== 'undefined');
   }
