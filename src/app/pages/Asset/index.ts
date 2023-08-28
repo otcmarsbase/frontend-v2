@@ -1,5 +1,5 @@
-import View from './View';
+import __id__ from './[id]';
 
 export default {
-  View,
+  __id__,
 };

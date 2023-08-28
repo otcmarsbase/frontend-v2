@@ -61,3 +61,5 @@ export default function View({ id }: ViewProps) {
 View.getLayout = ({ children }) => {
   return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
 };
+
+// View.getSegmentNames
