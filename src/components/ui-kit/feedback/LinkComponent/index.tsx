@@ -19,18 +19,15 @@ export function LinkComponent<Props>({
 }: PropsWithChildren<LinkComponentProps<Props>>) {
   const router = useRouter();
 
-  //   ${window.location.origin}
   const href = useMemo(() => router.buildPathByComponent(page, pageProps) || '#', [router, page, pageProps]);
   const fullHref = useMemo(() => `${window.location.origin}${href}`, [href]);
 
   const onClickCallback = React.useCallback(
     (e: React.MouseEvent) => {
-      if (onClick) {
-        e.preventDefault();
-        return onClick(e, fullHref);
-      }
+      e.preventDefault();
 
-      router.navigateComponent(page, pageProps, options ?? {});
+      if (onClick) return onClick(e, fullHref);
+      else router.navigateComponent(page, pageProps, options ?? {});
     },
     [onClick, fullHref, router, page, pageProps, options],
   );

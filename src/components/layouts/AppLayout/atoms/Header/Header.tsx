@@ -1,7 +1,5 @@
-import React, { useCallback } from 'react';
-
 import pages from '@app/pages';
-import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
+import { HStack, Box, Divider, VStack, Link, Text } from '@chakra-ui/react';
 import { Logo, LinkComponent } from '@components/ui-kit';
 
 import { RightBlock } from './atoms';
@@ -34,15 +32,15 @@ export function Header({ onCreateOfferClick }: HeaderProps) {
             textTransform="uppercase"
             fontFamily="promo"
           >
-            <LinkComponent page={pages.Home} pageProps={{}}>
+            <LinkComponent page={pages.Marketplace.Home} pageProps={{}}>
               <Link>OTC Desk</Link>
             </LinkComponent>
 
-            <LinkComponent page={pages.Home} pageProps={{}}>
+            <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
               <Link>My Dashboard</Link>
             </LinkComponent>
 
-            <LinkComponent page={pages.Home} pageProps={{}} onClick={onCreateOfferClick}>
+            <LinkComponent page={pages.Lot.Create.Home} pageProps={{}} onClick={onCreateOfferClick}>
               <Link>Create offer</Link>
             </LinkComponent>
           </HStack>

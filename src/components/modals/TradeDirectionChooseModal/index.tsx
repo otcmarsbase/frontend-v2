@@ -6,7 +6,7 @@ import { UIKit } from '@components/ui-kit';
 import { PortalProps } from '@packages/react-portal';
 import { Resource } from '@schema/api-gateway';
 
-export interface TradeDirectionChooseModalProps extends PortalProps {}
+export interface TradeDirectionChooseModalProps extends PortalProps<Resource.Common.TradeDirection> {}
 
 export function TradeDirectionChooseModal({ portal }: TradeDirectionChooseModalProps) {
   const onClose = useCallback(() => {
