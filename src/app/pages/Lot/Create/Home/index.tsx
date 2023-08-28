@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { UILayout } from '@components/layouts';
+import { UILayout } from '@app/layouts';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 

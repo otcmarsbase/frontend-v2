@@ -1,10 +1,11 @@
 import { useCallback, useState } from 'react';
 
+import { usePreloadPage, useRPCSchema } from '@app/hooks';
+import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-import { usePreloadPage, useRPCSchema, useLoadingCallback } from '@components/hooks';
-// import { UILayout } from '@components/layouts';
-import { UILayout } from '@components/layouts';
+// import { UILayout } from '@app/layouts';
 import { Resource } from '@schema/api-gateway';
+import { useLoadingCallback } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
 

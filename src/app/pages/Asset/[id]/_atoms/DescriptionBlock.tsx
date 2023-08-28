@@ -1,5 +1,5 @@
 import { Text } from '@chakra-ui/react';
-import { UIKit } from '@components/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 
 export interface DescriptionBlockProps {
   description: string;

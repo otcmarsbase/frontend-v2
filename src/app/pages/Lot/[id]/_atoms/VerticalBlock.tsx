@@ -1,5 +1,5 @@
-import { UIKit } from '@components/ui-kit';
 import { Resource } from '@schema/api-gateway';
+import { UIKit } from '@shared/ui-kit';
 
 export interface VerticalBlockProps {
   verticals: Resource.Asset.AssetVertical[];

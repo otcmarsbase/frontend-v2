@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { PersistStore, makePersistable } from 'mobx-persist-store';
 
-import { AppConfig } from '@app/config';
+import { AppConfig } from '@shared/config';
 
 import { AuthLocalStore, AuthInstanceStore } from './stores';
 

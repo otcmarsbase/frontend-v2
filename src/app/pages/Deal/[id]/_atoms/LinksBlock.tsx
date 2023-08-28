@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
+import { UILogic } from '@app/components';
 import LINQ from '@berish/linq';
 import { HStack, StackDivider, VStack } from '@chakra-ui/react';
-import { UIKit } from '@components/ui-kit';
-import { UILogic } from '@components/ui-logic';
 import { Resource } from '@schema/api-gateway';
+import { UIKit } from '@shared/ui-kit';
 
 export interface LinksBlockProps {
   links: Resource.Asset.AssetLink[];

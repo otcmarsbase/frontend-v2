@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react';
 
+import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { UILayout } from '@components/layouts';
 import { useRouter } from '@packages/router5-react-auto';
 
 export interface HomeProps {}

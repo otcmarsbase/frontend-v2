@@ -24,22 +24,16 @@
     "baseUrl": ".",
 
     "paths": {
-      "@app/config": ["./src/app/config"],
+      "@app/components": ["./src/app/components"],
+      "@app/dictionary": ["./src/app/dictionary"],
+      "@app/hooks": ["./src/app/hooks"],
+      "@app/layouts": ["./src/app/layouts"],
       "@app/logic": ["./src/app/logic"],
       "@app/pages": ["./src/app/pages"],
       "@app/permissions": ["./src/app/permissions"],
       "@app/store": ["./src/app/store"],
-
-      "@components/dictionary": ["./src/components/dictionary"],
-      "@components/hooks": ["./src/components/hooks"],
-      "@components/icons": ["./src/components/icons"],
-      "@components/layouts": ["./src/components/layouts"],
-      "@components/modals": ["./src/components/modals"],
-      "@components/providers": ["./src/components/providers"],
-      "@components/theme": ["./src/components/theme"],
-      "@components/ui-kit": ["./src/components/ui-kit"],
-      "@components/ui-logic": ["./src/components/ui-logic"],
-      "@components/utils": ["./src/components/utils"],
+      "@app/theme": ["./src/app/theme"],
+      "@app/utils": ["./src/app/utils"],
 
       "@packages/berish-configurator-core": ["./src/packages/berish-configurator-core"],
       "@packages/berish-configurator-cra": ["./src/packages/berish-configurator-cra"],
@@ -55,10 +49,13 @@
 
       "@services/backend-api-service": ["./src/services/backend-api-service"],
 
+      "@shared/config": ["./src/shared/config"],
       "@ddd/errors": ["./src/shared/ddd-errors"],
       "@schema/common": ["./src/shared/schema/common/src"],
       "@schema/errors": ["./src/shared/schema/errors/src"],
-      "@schema/api-gateway": ["./src/shared/schema/api-gateway/src"]
+      "@schema/api-gateway": ["./src/shared/schema/api-gateway/src"],
+      "@shared/ui-icons": ["./src/shared/ui-icons"],
+      "@shared/ui-kit": ["./src/shared/ui-kit"]
     }
   },
   "include": ["./src"],

@@ -1,8 +1,8 @@
+import { WalletConnectProvider } from '@app/components';
+import { RpcSchemaProvider, ThemeProvider } from '@app/components';
 import { StoreProvider } from '@app/store';
-import { RpcSchemaProvider, ThemeProvider } from '@components/providers';
-import { AppLoad, GlobalPreload } from '@components/ui-kit';
-import { WalletConnectProvider } from '@components/ui-logic';
 import { RouterProvider } from '@packages/router5-react-auto';
+import { AppLoad, GlobalPreload } from '@shared/ui-kit';
 
 import { onAppLoad, ModalProvider, appManager } from './logic';
 import pages from './pages';

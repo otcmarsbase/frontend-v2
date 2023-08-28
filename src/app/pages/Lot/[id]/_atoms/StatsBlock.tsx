@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/react';
-import { UIKit } from '@components/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 
 export interface StatsBlockProps {
   averageLotsFdv: string;

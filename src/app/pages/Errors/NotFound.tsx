@@ -1,4 +1,4 @@
-import { AppLayout } from '@components/layouts';
+import { AppLayout } from '@app/layouts';
 
 export const NotFound: React.FC = () => {
   return <>Not found</>;

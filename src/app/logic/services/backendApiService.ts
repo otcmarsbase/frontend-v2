@@ -1,7 +1,7 @@
-import { AppConfig } from '@app/config';
 import { RootStore } from '@app/store';
 import { createService } from '@packages/service-manager';
 import { BackendApiService } from '@services/backend-api-service';
+import { AppConfig } from '@shared/config';
 
 export function backendApiService() {
   const {

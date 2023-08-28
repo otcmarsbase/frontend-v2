@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 
+import { UILogic } from '@app/components';
 import { VStack } from '@chakra-ui/react';
-import { UIKit } from '@components/ui-kit';
-import { UILogic } from '@components/ui-logic';
 import { Resource } from '@schema/api-gateway';
+import { UIKit } from '@shared/ui-kit';
 
 const TradeDirectionTitleMap = new Map<Resource.Common.TradeDirection, React.ReactNode>([
   ['BUY', `Lot's to buy`],

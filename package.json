@@ -73,7 +73,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "gen:theme-typings": "chakra-cli tokens src/components/theme/index.ts --out theme-typings.d.ts",
+    "gen:theme-typings": "chakra-cli tokens src/app/theme/index.ts --out theme-typings.d.ts",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "// ----- Checks -----": "",
