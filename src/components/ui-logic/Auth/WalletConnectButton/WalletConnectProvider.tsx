@@ -1,10 +1,18 @@
-import { PropsWithChildren } from 'react';
-
 import { WagmiConfig } from 'wagmi';
 
+import { AuthContext } from './context/AuthContext';
+import { IAuthContext } from './interfaces';
 import { initWagmiClient } from './utils';
 
-export function WalletConnectProvider({ children }: PropsWithChildren) {
+export interface WalletConnectProviderProps extends IAuthContext {
+  children: React.ReactNode;
+}
+
+export function WalletConnectProvider({ children, ...context }: WalletConnectProviderProps) {
   const wagmiConfig = initWagmiClient();
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
+  return (
+    <AuthContext.Provider value={context}>
+      <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
+    </AuthContext.Provider>
+  );
 }

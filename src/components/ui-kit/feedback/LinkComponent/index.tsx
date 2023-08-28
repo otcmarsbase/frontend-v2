@@ -32,7 +32,5 @@ export function LinkComponent<Props>({
     [onClick, fullHref, router, page, pageProps, options],
   );
 
-  console.log(children);
-
   return React.cloneElement(React.Children.only<any>(children), { href: fullHref, onClick: onClickCallback });
 }

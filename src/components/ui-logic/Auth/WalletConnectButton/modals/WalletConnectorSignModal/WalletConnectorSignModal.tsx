@@ -5,49 +5,22 @@ import { useLoadingCallback, useRPCSchema } from '@components/hooks';
 import { UIIcons } from '@components/icons';
 import { UIKit } from '@components/ui-kit';
 import { PortalProps } from '@packages/react-portal';
-import { useSignMessage } from 'wagmi';
 
 export interface WalletConnectorSignModalProps extends PortalProps<void> {
-  address: string;
+  // address: string;
+  onSignIn: () => Promise<void>;
 }
 
-export function WalletConnectorSignModal({ portal, address }: WalletConnectorSignModalProps) {
-  const schema = useRPCSchema();
-  const { signMessageAsync } = useSignMessage();
-
+export function WalletConnectorSignModal({ portal, onSignIn }: WalletConnectorSignModalProps) {
   const onClose = useCallback(() => {
     if (portal && portal.resolve) portal.resolve(null);
   }, [portal]);
 
-  const onAuthGenerateMessage = useCallback(
-    () =>
-      schema.send('auth.generateMessage', {
-        domain: window.location.host,
-        uri: window.location.origin,
-        address,
-      }),
-    [schema, address],
-  );
-
-  const onAuthSignIn = useCallback(
-    (message: string, signatureHash: string, signature: string) =>
-      schema.send('auth.signIn', {
-        message,
-        signatureHash,
-        signature,
-      }),
-    [schema],
-  );
-
   const onVerifyClick = useLoadingCallback(
     useCallback(async () => {
-      const generatedMessage = await onAuthGenerateMessage();
-      const signature = await signMessageAsync({
-        message: generatedMessage.message,
-      });
-      await onAuthSignIn(generatedMessage.message, generatedMessage.signature_hash, signature);
+      await onSignIn();
       onClose();
-    }, [onAuthGenerateMessage, signMessageAsync, onAuthSignIn, onClose]),
+    }, [onSignIn, onClose]),
   );
 
   return (
@@ -83,7 +56,14 @@ export function WalletConnectorSignModal({ portal, address }: WalletConnectorSig
             </Text>
           </VStack>
         </HStack>
-        <Button isDisabled={onVerifyClick.isLoading} size="lg" variant="brand" w="full" onClick={onVerifyClick}>
+        <Button
+          isDisabled={onVerifyClick.isLoading}
+          isLoading={onVerifyClick.isLoading}
+          size="lg"
+          variant="brand"
+          w="full"
+          onClick={onVerifyClick}
+        >
           Verify
         </Button>
       </VStack>

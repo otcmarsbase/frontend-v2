@@ -3,23 +3,16 @@ import { useCallback } from 'react';
 import { VStack, Text, Spinner } from '@chakra-ui/react';
 import { UIKit } from '@components/ui-kit';
 import { PortalProps } from '@packages/react-portal';
-import { Connector, useConnect } from 'wagmi';
+import { useConnect } from 'wagmi';
 
-import { WalletConnectorType } from '../../types';
+import { WalletConnectorType } from '../../info';
 
-import { WalletConnectorRenderItem } from './WalletConnectorRenderItem';
+import { WalletConnectorRenderItem } from './atoms';
 
-export interface WalletConnectorSelectModalProps extends PortalProps<Connector> {}
+export interface WalletConnectorSelectModalProps extends PortalProps<WalletConnectorType> {}
 
 export function WalletConnectorSelectModal({ portal }: WalletConnectorSelectModalProps) {
-  const {
-    connect,
-    connectors: wagmiConnectors,
-    isLoading,
-  } = useConnect({
-    onSuccess: (data) => portal.resolve(data.connector),
-    onError: () => console.error('connection error'),
-  });
+  const { isLoading } = useConnect();
 
   const onClose = useCallback(() => {
     if (portal?.resolve) portal.resolve(null);
@@ -28,11 +21,10 @@ export function WalletConnectorSelectModal({ portal }: WalletConnectorSelectModa
   const onConnectorClick = useCallback(
     (connectorName: WalletConnectorType) => {
       if (portal?.resolve) {
-        const connector = wagmiConnectors.find((connector) => connector.name === connectorName);
-        connect({ connector });
+        portal.resolve(connectorName);
       }
     },
-    [connect, portal, wagmiConnectors],
+    [portal],
   );
 
   return (

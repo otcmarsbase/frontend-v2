@@ -14,7 +14,7 @@ export function App() {
         {() => (
           <>
             <StoreProvider>
-              <WalletConnectProvider>
+              <WalletConnectProvider controller={{}}>
                 <RpcSchemaProvider client={appManager.serviceManager.backendApiService.schema}>
                   <ModalProvider />
                   <RouterProvider router={appManager.router} notFound={pages.Errors.NotFound} />

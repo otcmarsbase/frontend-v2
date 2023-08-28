@@ -1,17 +1,33 @@
 import { AppConfig } from '@app/config';
-import { w3mConnectors, w3mProvider } from '@web3modal/ethereum';
+import LINQ from '@berish/linq';
+import { w3mProvider } from '@web3modal/ethereum';
 import { configureChains, createConfig } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+
+import { WalletChainDictionary, WalletConnectorDictionary } from '../info';
 
 export function initWagmiClient() {
-  const chains = [mainnet];
   const projectId = AppConfig.wagmi.projectId;
+  const walletWagmiChains = WalletChainDictionary.map((m) => m.wagmiInfo)
+    .values()
+    .slice();
 
-  const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
+  const { publicClient, webSocketPublicClient } = configureChains(walletWagmiChains, [w3mProvider({ projectId })]);
 
-  return createConfig({
+  const walletWagmiConnectors = LINQ.from(
+    WalletConnectorDictionary.map((m) => m.connectors)
+      .values()
+      .slice(),
+  )
+    .selectMany((m) => m)
+    .toArray();
+
+  const config = createConfig({
     autoConnect: true,
-    connectors: w3mConnectors({ projectId, chains }),
     publicClient,
+    webSocketPublicClient,
+    connectors: [...walletWagmiConnectors],
   });
+
+  return config;
 }
