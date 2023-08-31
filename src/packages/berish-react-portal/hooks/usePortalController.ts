@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { PortalContext } from './PortalContext';
+import { PortalContext } from '../context';
 
 export function usePortalController() {
   const controller = useContext(PortalContext);

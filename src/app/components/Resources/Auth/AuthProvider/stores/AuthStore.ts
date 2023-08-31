@@ -3,12 +3,13 @@ import { makePersistable } from 'mobx-persist-store';
 
 import { ModalController, appManager } from '@app/logic';
 import { Resource } from '@schema/api-gateway';
+import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { connect, getAccount, signMessage } from '@wagmi/core';
 import { v4 } from 'uuid';
 
 import { AuthSignInModal } from '../../AuthSignInModal';
-import { AuthConnectorDictionary, AuthConnectorInfo, AuthConnectorType } from '../info';
+import { AuthConnectorDictionary, AuthConnectorType } from '../info';
 import { AuthVerifyModal } from '../modals';
 
 import { AuthLocalStore } from './AuthLocalStore';
@@ -87,23 +88,31 @@ export class AuthStore {
   }
 
   async updateAccount(account?: Resource.Account.Account): Promise<void> {
-    if (account) {
+    try {
+      if (account) {
+        this._account = account;
+        return void 0;
+      }
+
+      const needUpdateLoading = !this.token;
+      const { schema } = appManager.serviceManager.backendApiService;
+      account = await (needUpdateLoading
+        ? this._execute(() => schema.send('account.me', {}))
+        : schema.send('account.me', {}, { meta: { token: this.token } }));
+
+      if (!account) {
+        this.clearAuth();
+        return void 0;
+      }
+
       this._account = account;
-      return void 0;
+    } catch (err) {
+      if (AuthNotAuthorizedError.isExtends(err)) {
+        this.clearAuth();
+        return void 0;
+      }
+      throw err;
     }
-
-    const needUpdateLoading = !this.token;
-    const { schema } = appManager.serviceManager.backendApiService;
-    account = await (needUpdateLoading
-      ? this._execute(() => schema.send('account.me', {}))
-      : schema.send('account.me', {}, { meta: { token: this.token } }));
-
-    if (!account) {
-      this.clearAuth();
-      return void 0;
-    }
-
-    this._account = account;
   }
 
   signIn() {
@@ -144,7 +153,7 @@ export class AuthStore {
         signature,
       });
     } finally {
-      resolver.destroy(void 0, true);
+      resolver.forceDestroy();
     }
   }
 

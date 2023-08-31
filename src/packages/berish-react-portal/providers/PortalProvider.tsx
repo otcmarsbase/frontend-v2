@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import { PortalContext } from '../internal';
+import { PortalContext } from '../context';
 import { PortalController } from '../types';
 
 export interface PortalProviderProps extends PropsWithChildren {

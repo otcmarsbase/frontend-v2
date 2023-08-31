@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { Text } from '@chakra-ui/react';
-import { PortalProps } from '@packages/react-portal';
+import { PortalProps } from '@packages/berish-react-portal';
 import { UIKit } from '@shared/ui-kit';
 
 import { useAuth } from '../AuthProvider';

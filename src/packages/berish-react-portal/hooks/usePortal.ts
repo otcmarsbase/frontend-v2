@@ -1,19 +1,22 @@
 import { useCallback, useMemo, useState } from 'react';
 
-import { PortalControllerResolver, PortalProps } from '@packages/react-portal';
+// import { PortalControllerResolver, PortalProps } from '@packages/react-portal';
 
-import { usePortalController } from '../internal';
+import { PortalInstanceControl, PortalProps } from '../types';
+
+import { usePortalController } from './usePortalController';
 
 export function usePortal<Props, Resolve>(component: React.ComponentType<Props & PortalProps<Resolve>>) {
   const controller = usePortalController();
 
-  const [resolver, setResolver] = useState<PortalControllerResolver<any>>();
+  const [resolver, setResolver] = useState<PortalInstanceControl<Props, Resolve>>();
   const isOpened = useMemo(() => !!resolver, [resolver]);
 
   const close = useCallback(
     (reason?: any, isResolved?: boolean) => {
       if (resolver) {
-        resolver.destroy(reason, isResolved);
+        // resolver.forceDestroy(reason, isResolved);
+        resolver.forceDestroy();
         setResolver(null);
       }
     },

@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useObserver } from 'mobx-react-lite';
 
 import { useRpcSchemaClient } from '@app/components';
-import { usePortal } from '@packages/react-portal';
+import { usePortal } from '@packages/berish-react-portal';
 import { Resource } from '@schema/api-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 import { connect, signMessage } from '@wagmi/core';
