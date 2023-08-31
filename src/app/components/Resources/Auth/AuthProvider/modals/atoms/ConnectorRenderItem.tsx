@@ -2,9 +2,7 @@ import { useMemo } from 'react';
 
 import { Box, Divider, HStack, Image, Link, VStack, Text } from '@chakra-ui/react';
 
-import { AuthConnectorInfo } from '../../AuthProvider';
-
-// import { WalletConnectorDictionary, WalletConnectorType } from '../../../info';
+import { AuthConnectorInfo } from '../../info';
 
 export interface ConnectorRenderItemProps {
   authConnectorInfo: AuthConnectorInfo;

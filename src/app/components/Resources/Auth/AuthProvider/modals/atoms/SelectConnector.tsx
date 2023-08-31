@@ -1,6 +1,6 @@
 import { Spinner, VStack, Text } from '@chakra-ui/react';
 
-import { AuthConnectorDictionary, AuthConnectorType } from '../../AuthProvider';
+import { AuthConnectorDictionary, AuthConnectorType } from '../../info';
 
 import { ConnectorRenderItem } from './ConnectorRenderItem';
 

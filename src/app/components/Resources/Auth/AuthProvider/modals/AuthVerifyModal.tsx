@@ -1,10 +1,15 @@
-import { Circle, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Button, Circle, FormErrorMessage, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { PortalProps } from '@packages/berish-react-portal';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-export interface AuthVerifyModalProps {}
+export interface AuthVerifyModalProps extends PortalProps<void> {
+  onTryAgain?: () => any;
+  error?: string;
+}
 
-export function AuthVerifyModal({}: AuthVerifyModalProps) {
+export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalProps) {
+  console.log('AuthVerifyModal', error);
   return (
     <UIKit.Modal
       title={
@@ -12,7 +17,7 @@ export function AuthVerifyModal({}: AuthVerifyModalProps) {
           Verify wallet
         </Text>
       }
-      onClose={() => void 0}
+      onClose={() => portal.resolve()}
       size="2xl"
       isCentered
       variant="brand"
@@ -32,6 +37,12 @@ export function AuthVerifyModal({}: AuthVerifyModalProps) {
             </Text>
           </VStack>
         </HStack>
+        {error && (
+          <VStack width="full">
+            <Text>{error}</Text>
+            {onTryAgain && <Button onClick={onTryAgain}>Try again</Button>}
+          </VStack>
+        )}
       </VStack>
     </UIKit.Modal>
   );

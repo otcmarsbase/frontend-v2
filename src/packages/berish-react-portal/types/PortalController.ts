@@ -11,6 +11,7 @@ export interface PortalInstanceControl<Props, Result>
   extends Promise<Result>,
     PortalInstanceControlMeta<Props, Result>,
     PortalInstance<Result> {
+  readonly isResulted: boolean;
   updateProps(props: Props): void;
   forceDestroy(): void;
 }

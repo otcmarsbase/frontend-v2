@@ -2,19 +2,20 @@ import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
 import { ModalController, appManager } from '@app/logic';
+import { RuntimeError } from '@ddd/errors';
+import { PortalInstanceControl } from '@packages/berish-react-portal';
 import { Resource } from '@schema/api-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { connect, getAccount, signMessage } from '@wagmi/core';
 import { v4 } from 'uuid';
 
-import { AuthSignInModal } from '../../AuthSignInModal';
 import { AuthConnectorDictionary, AuthConnectorType } from '../info';
-import { AuthVerifyModal } from '../modals';
+import { AuthConnectModal, AuthConnectModalProps, AuthVerifyModal, AuthVerifyModalProps } from '../modals';
 
 import { AuthLocalStore } from './AuthLocalStore';
 
-export type AuthStatusType = 'NOT_AUTHORIZED' | 'CONNECTOR_SELECT' | 'VERIFY_WALLET' | 'AUTHORIZED';
+export type AuthStatusType = 'NOT_AUTHORIZED' | 'CONNECT_WALLET' | 'VERIFY_WALLET' | 'AUTHORIZED';
 
 export class AuthStore {
   static _instance: AuthStore;
@@ -29,6 +30,8 @@ export class AuthStore {
 
   private _loadingHashes: string[];
   private _account: Resource.Account.Account;
+  private _connectModalResolver: PortalInstanceControl<AuthConnectModalProps, AuthConnectorType>;
+  private _verifyModalResolver?: PortalInstanceControl<AuthVerifyModalProps, void>;
 
   private constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -59,6 +62,8 @@ export class AuthStore {
 
   get status(): AuthStatusType {
     if (this.isAuthorized) return 'AUTHORIZED';
+    if (this._connectModalResolver && !this._connectModalResolver.isResulted) return 'CONNECT_WALLET';
+    if (this._verifyModalResolver && !this._verifyModalResolver.isResulted) return 'VERIFY_WALLET';
 
     return 'NOT_AUTHORIZED';
   }
@@ -115,52 +120,112 @@ export class AuthStore {
     }
   }
 
-  signIn() {
-    const resolver = ModalController.create(AuthSignInModal, {});
+  async signIn() {
+    const connectorType = await this._connectWallet();
+    console.log('signIn', connectorType);
+
+    if (!connectorType) return void 0;
+
+    await this.signInWithConnector(connectorType);
   }
 
   async signInWithConnector(connectorType: AuthConnectorType): Promise<void> {
-    const resolver = ModalController.create(AuthVerifyModal, {});
+    this.updateConnector(connectorType);
+
+    if (this._verifyModalResolver && !this._verifyModalResolver.isResulted) {
+      // Its already exists, ok - Update initial states
+      this._verifyModalResolver.updateProps({});
+    } else {
+      // Its new, ok - Open Modal
+      this._verifyModalResolver = ModalController.create(AuthVerifyModal, {});
+    }
 
     try {
-      const { schema } = appManager.serviceManager.backendApiService;
+      await this._signInWithConnector(connectorType);
 
-      const connectorInfo = AuthConnectorDictionary.get(connectorType);
-      if (!connectorInfo) return void 0;
+      // All ok, close modal
+      this._verifyModalResolver?.resolve();
+    } catch (err) {
+      const errorString = this._stringifyError(err);
 
-      const wagmiAccount = getAccount();
-
-      const connectedAddress =
-        wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
-          ? wagmiAccount.address
-          : await connect({ connector: connectorInfo.wagmiConnector })
-              .then((result) => result.account)
-              .catch<`0x${string}`>(() => null);
-      if (!connectedAddress) return void 0;
-
-      this.updateConnector(connectorType);
-
-      const generatedMessage = await schema.send('auth.generateMessage', {
-        domain: window.location.host,
-        uri: window.location.origin,
-        address: connectedAddress,
+      this._verifyModalResolver?.updateProps({
+        error: errorString,
+        onTryAgain: () => this.signInWithConnector(connectorType),
       });
-
-      const signature = await signMessage({ message: generatedMessage.message });
-      await schema.send('auth.signIn', {
-        message: generatedMessage.message,
-        signatureHash: generatedMessage.signature_hash,
-        signature,
-      });
-    } finally {
-      resolver.forceDestroy();
     }
+
+    await this._verifyModalResolver;
+    this._verifyModalResolver = null;
   }
 
   clearAuth() {
     this._local.token = null;
     this._local.connectorType = null;
     this._account = null;
+  }
+
+  async _connectWallet(): Promise<AuthConnectorType> {
+    this.updateConnector(null);
+
+    if (this._connectModalResolver && this._connectModalResolver.isResulted) {
+      this._connectModalResolver.updateProps({});
+    } else {
+      this._connectModalResolver = ModalController.create(AuthConnectModal, {});
+    }
+
+    const connectorType = await this._connectModalResolver;
+    this._connectModalResolver = null;
+    if (!connectorType) return void 0;
+
+    const connectorInfo = AuthConnectorDictionary.get(connectorType);
+    if (!connectorInfo) return void 0;
+
+    const wagmiAccount = getAccount();
+    const connectedAddress =
+      wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
+        ? wagmiAccount.address
+        : await connect({ connector: connectorInfo.wagmiConnector })
+            .then((result) => result.account)
+            .catch<`0x${string}`>(() => null);
+    if (!connectedAddress) return void 0;
+
+    return connectorType;
+  }
+
+  async _signInWithConnector(connectorType: AuthConnectorType): Promise<void> {
+    const { schema } = appManager.serviceManager.backendApiService;
+
+    const connectorInfo = AuthConnectorDictionary.get(connectorType);
+    if (!connectorInfo) return void 0;
+
+    const wagmiAccount = getAccount();
+    const connectedAddress =
+      wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
+        ? wagmiAccount.address
+        : await connect({ connector: connectorInfo.wagmiConnector })
+            .then((result) => result.account)
+            .catch<`0x${string}`>(() => null);
+    if (!connectedAddress) return void 0;
+
+    const generatedMessage = await schema.send('auth.generateMessage', {
+      domain: window.location.host,
+      uri: window.location.origin,
+      address: connectedAddress,
+    });
+
+    const signature = await signMessage({ message: generatedMessage.message });
+    await schema.send('auth.signIn', {
+      message: generatedMessage.message,
+      signatureHash: generatedMessage.signature_hash,
+      signature,
+    });
+  }
+
+  private _stringifyError(err: any) {
+    if (err instanceof RuntimeError) return err.message;
+    if (err instanceof Error) return err.message;
+
+    return String(err);
   }
 
   // Execute loading function

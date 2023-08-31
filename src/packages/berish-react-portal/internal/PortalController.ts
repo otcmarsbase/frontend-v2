@@ -37,11 +37,19 @@ export class PortalController implements IPortalController {
     const portalInstance: PortalInstance<Result> = {
       resolve: (value) => {
         this.forceDestroy(instanceControl);
-        promiseResolve(value);
+
+        if (!instanceControl.isResulted) {
+          this._updateIsResulted(instanceControl);
+          promiseResolve(value);
+        }
       },
       reject: (reason) => {
         this.forceDestroy(instanceControl);
-        promiseReject(reason);
+
+        if (!instanceControl.isResulted) {
+          this._updateIsResulted(instanceControl);
+          promiseReject(reason);
+        }
       },
     };
 
@@ -82,17 +90,27 @@ export class PortalController implements IPortalController {
 
   resolve<Props, Result>(instanceControl: PortalInstanceControl<Props, Result>, result: Result): void {
     const instance = this.instanceMap.get(instanceControl);
-    if (instance) instance.resolve(result);
+    if (instance) {
+      instance.resolve(result);
+    }
   }
 
   reject<Props, Result>(instanceControl: PortalInstanceControl<Props, Result>, reason?: any): void {
     const instance = this.instanceMap.get(instanceControl);
-    if (instance) instance.reject(reason);
+    if (instance) {
+      instance.reject(reason);
+    }
   }
 
   forceDestroy<Props, Result>(instanceControl: PortalInstanceControl<Props, Result>): void {
     this.instanceMap.delete(instanceControl);
     this.store.destroy(instanceControl);
+  }
+
+  private _updateIsResulted<Props, Result>(instanceControl: PortalInstanceControl<Props, Result>) {
+    if (instanceControl) {
+      Object.defineProperty(instanceControl, 'isResulted', { get: () => true });
+    }
   }
 
   private _createInstanceControlMeta<Props, Result>(

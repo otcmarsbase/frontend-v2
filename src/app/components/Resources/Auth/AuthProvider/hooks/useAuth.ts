@@ -1,16 +1,11 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
-import { useRpcSchemaClient } from '@app/components';
-import { usePortal } from '@packages/berish-react-portal';
 import { Resource } from '@schema/api-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
-import { connect, signMessage } from '@wagmi/core';
-import { useAccount } from 'wagmi';
 
-import { AuthSignInModal } from '../../AuthSignInModal';
-import { AuthConnectorDictionary, AuthConnectorInfo, AuthConnectorType } from '../info';
+import { AuthConnectorInfo, AuthConnectorType } from '../info';
 import { AuthStatusType, AuthStore } from '../stores';
 
 export interface UseAuth {
@@ -38,22 +33,9 @@ export function useAuth(): UseAuth {
     status: store.status,
   }));
 
-  const signOut = useCallback(async () => {
-    store.clearAuth();
-  }, [store]);
-
-  // Sign in with modal
-
   const signInWithConnector = useLoadingCallback(store.signInWithConnector);
-
-  const { open } = usePortal(AuthSignInModal);
-  const signIn = useLoadingCallback(
-    useCallback(async () => {
-      // setSignInStep('CONNECTOR_SELECT');
-      // await open({});
-      // setSignInStep('NONE');
-    }, [open]),
-  );
+  const signIn = useLoadingCallback(store.signIn);
+  const signOut = useCallback(async () => store.clearAuth(), [store]);
 
   return {
     status,
