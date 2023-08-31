@@ -1,11 +1,11 @@
 import { PortalProps } from './resolver';
 
-export interface PortalProvider {}
+export interface PortalElemenetsProvider extends React.FC<{}> {}
 
 export interface PortalControllerResolver<T> extends Promise<T> {
   id: string;
   node: React.ReactNode;
-  destroy(): void;
+  destroy(reason?: any, isResolved?: boolean): void;
 }
 
 export interface PortalController {
@@ -19,6 +19,6 @@ export interface PortalController {
 }
 
 export interface Portal {
-  Provider: PortalProvider;
+  ElementsProvider: PortalElemenetsProvider;
   Controller: PortalController;
 }

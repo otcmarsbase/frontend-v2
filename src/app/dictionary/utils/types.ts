@@ -5,9 +5,9 @@ export interface ReadonlyDictionary<Key, Value> {
   get(key: Key): Value | undefined;
   getStrict(key: Key): Value | undefined;
   has(key: Key): boolean;
-  keys(): readonly Key[];
-  values(): readonly Value[];
-  entries(): readonly [Key, Value][];
+  keys(): Key[];
+  values(): Value[];
+  entries(): [Key, Value][];
   map<NewValue>(
     callback: (value: Value, key: Key, dictionary: ReadonlyDictionary<Key, Value>) => NewValue,
   ): ReadonlyDictionary<Key, NewValue>;
@@ -20,7 +20,7 @@ export interface Dictionary<Key, Value> extends ReadonlyDictionary<Key, Value> {
 
   set(key: Key, value: Value): this;
   setFromRecord(record: Partial<Record<Key & string, Value>>): this;
-  setFromEntries(entries: readonly (readonly [Key, Value])[]): this;
+  setFromEntries(entries: [Key, Value][]): this;
   setFromDictionary(dictionary: Dictionary<Key, Value> | ReadonlyDictionary<Key, Value>): this;
   setDefault(value: Value): this;
   setDefaultFactory(factoryCallback: (key: Key) => Value): this;

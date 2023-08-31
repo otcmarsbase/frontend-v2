@@ -5,5 +5,7 @@ export function formatAddress(
 ): string {
   if (!address) return '';
 
+  if (address.length <= takeFirst + takeLast) return address;
+
   return `${address.substr(0, takeFirst)}...${address.substr(address.length - takeLast, takeLast)}`;
 }

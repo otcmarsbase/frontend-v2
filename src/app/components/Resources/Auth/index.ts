@@ -1,2 +1,3 @@
-export * from './WalletAccountPanel';
-export * from './WalletConnectButton';
+export * from './AuthAccountPanel';
+export * from './AuthConnectButton';
+export * from './AuthProvider';

@@ -1,7 +1,7 @@
 import { UILogic } from '@app/components';
 import { HStack, Box, Square, Link, Button } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
-import { Dropdown } from '@shared/ui-kit';
+import { Dropdown, UIKit } from '@shared/ui-kit';
 
 export function RightBlock() {
   return (
@@ -34,9 +34,9 @@ export function RightBlock() {
       </HStack>
 
       <Box mr="1.5rem">
-        <UILogic.WalletConnectButton>
-          <UILogic.WalletAccountPanel />
-        </UILogic.WalletConnectButton>
+        <UILogic.AuthConnectButton>
+          <UILogic.AuthAccountPanel />
+        </UILogic.AuthConnectButton>
       </Box>
       <HStack gap="0.6rem">
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">

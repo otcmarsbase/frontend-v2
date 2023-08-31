@@ -89,15 +89,15 @@ class Dictionary<Key, Value> implements IDictionary<Key, Value> {
     return this._map.has(key);
   }
 
-  keys(): readonly Key[] {
+  keys(): Key[] {
     return [...this._map.keys()];
   }
 
-  values(): readonly Value[] {
+  values(): Value[] {
     return [...this._map.values()];
   }
 
-  entries(): readonly [Key, Value][] {
+  entries(): [Key, Value][] {
     return [...this._map.entries()];
   }
 }

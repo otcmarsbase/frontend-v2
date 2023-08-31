@@ -1,2 +1,4 @@
 export * from './createPortalController';
-export * from './createPortalProvider';
+export * from './createPortalElemenetsProvider';
+export * from './PortalContext';
+export * from './usePortalController';

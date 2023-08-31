@@ -37,7 +37,14 @@ export function createPortalController(store: PortalStoreAdapter): PortalControl
 
     promise.id = nodeId;
     promise.node = node;
-    promise.destroy = () => destroy(node);
+
+    promise.destroy = (reason?: any, isResolved?: boolean) => {
+      if (isResolved) {
+        portal.resolve(reason);
+      } else {
+        portal.reject(reason);
+      }
+    };
 
     return promise;
   };
