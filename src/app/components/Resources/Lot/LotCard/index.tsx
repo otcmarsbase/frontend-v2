@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { UILogic } from '@app/components';
-import { useRPCSchema } from '@app/hooks';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import { formatDate } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
@@ -21,7 +20,7 @@ export interface LotCardProps {
 }
 
 export const LotCard: React.FC<LotCardProps> = ({ lot, onClick }) => {
-  const schema = useRPCSchema();
+  const schema = useRpcSchemaClient();
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
 

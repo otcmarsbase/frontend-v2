@@ -1,7 +1,8 @@
-import { RootStore } from '@app/store';
+import { rootStore } from '@app/store';
 import { createService } from '@packages/service-manager';
 import { BackendApiService } from '@services/backend-api-service';
 import { AppConfig } from '@shared/config';
+import { AuthStore } from 'src/app/components/Resources/Auth/AuthProvider/stores';
 
 export function backendApiService() {
   const {
@@ -9,7 +10,7 @@ export function backendApiService() {
     backend: { apiGatewayUrl },
   } = AppConfig;
 
-  const { authLocalStore } = RootStore.instance;
+  // const { authLocalStore } = rootStore;
 
   return createService(BackendApiService, {
     serviceName: 'backend-api-service',
@@ -17,12 +18,17 @@ export function backendApiService() {
     onError: (reason) => console.log(reason),
 
     baseURL: apiGatewayUrl,
-    getMeta: async () => ({
-      token: authLocalStore.authToken,
-    }),
+    getMeta: async () => {
+      const store = AuthStore.getStore();
+      return {
+        token: store.token,
+      };
+    },
     setMeta: async (meta) => {
-      if (meta.authToken) {
-        authLocalStore.authToken = meta.authToken;
+      const store = AuthStore.getStore();
+
+      if (typeof meta.authToken !== 'undefined') {
+        await store.updateToken(meta.authToken);
       }
     },
     globalErrorTriggers: [],

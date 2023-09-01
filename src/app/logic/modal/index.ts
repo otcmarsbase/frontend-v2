@@ -1,3 +1,3 @@
-import { createPortal } from '@packages/react-portal';
+import { createPortal } from '@packages/berish-react-portal';
 
-export const { Provider: ModalProvider, Controller: ModalController } = createPortal();
+export const { RenderProvider: ModalRenderProvider, Controller: ModalController } = createPortal();

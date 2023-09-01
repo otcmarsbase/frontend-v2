@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
-import { usePreloadPage, useRPCSchema } from '@app/hooks';
+import { useRpcSchemaClient } from '@app/components';
+import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 // import { UILayout } from '@app/layouts';
@@ -14,7 +15,7 @@ export interface ViewProps {
 }
 
 export default function View({ id }: ViewProps) {
-  const rpcSchema = useRPCSchema();
+  const rpcSchema = useRpcSchemaClient();
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
   const [direction, setDirection] = useState<Resource.Common.TradeDirection>('BUY');
