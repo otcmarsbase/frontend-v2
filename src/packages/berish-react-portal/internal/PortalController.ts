@@ -8,6 +8,7 @@ import {
   PortalInstanceControl,
   PortalInstanceControlMeta,
   PortalProps,
+  PortalPropsInferResult,
   PortalStore,
   PortalWrapper,
 } from '../types';
@@ -20,10 +21,13 @@ export class PortalController implements IPortalController {
     this.store = store;
   }
 
-  create<Props, Result>(
-    component: React.ComponentType<Props & PortalProps<Result>>,
-    props: Props,
-  ): PortalInstanceControl<Props, Result> {
+  create<Component extends React.ComponentType<any>>(
+    component: Component,
+    props: React.ComponentProps<Component>,
+  ): PortalInstanceControl<React.ComponentProps<Component>, PortalPropsInferResult<React.ComponentProps<Component>>> {
+    type Props = React.ComponentProps<Component>;
+    type Result = PortalPropsInferResult<React.ComponentProps<Component>>;
+
     const id = v4();
 
     let promiseResolve: (value: Result | PromiseLike<Result>) => void = null;

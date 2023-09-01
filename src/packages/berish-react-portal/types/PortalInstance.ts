@@ -1,8 +1,10 @@
-export interface PortalInstance<Response> {
-  resolve(value: Response | PromiseLike<Response>): void;
+export interface PortalInstance<Result> {
+  resolve(value: Result | PromiseLike<Result>): void;
   reject(reason?: any): void;
 }
 
-export interface PortalProps<Response> {
-  portal?: PortalInstance<Response>;
+export interface PortalProps<Result> {
+  portal?: PortalInstance<Result>;
 }
+
+export type PortalPropsInferResult<T> = T extends PortalProps<infer Result> ? Result : never;

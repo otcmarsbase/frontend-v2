@@ -8,18 +8,20 @@ import { AuthConnectorType } from '../info';
 
 import { SelectConnector } from './atoms';
 
-export interface AuthConnectModalProps extends PortalProps<AuthConnectorType> {}
+export interface AuthConnectModalProps extends PortalProps<void> {
+  onSelect?: (type: AuthConnectorType) => any;
+}
 
-export function AuthConnectModal({ portal }: AuthConnectModalProps) {
+export const AuthConnectModal: React.FC<AuthConnectModalProps> = ({ onSelect }: AuthConnectModalProps) => {
   const onClose = useCallback(() => {
-    if (portal?.resolve) portal.resolve(null);
-  }, [portal]);
+    if (onSelect) onSelect(null);
+  }, [onSelect]);
 
   const onResolve = useCallback(
     (connectorType: AuthConnectorType) => {
-      if (portal?.resolve) portal.resolve(connectorType);
+      if (onSelect) onSelect(connectorType);
     },
-    [portal],
+    [onSelect],
   );
 
   return (
@@ -38,4 +40,4 @@ export function AuthConnectModal({ portal }: AuthConnectModalProps) {
       <SelectConnector isLoading={false} onConnectorClick={onResolve} />
     </UIKit.Modal>
   );
-}
+};

@@ -14,13 +14,3 @@ export function AuthThenHidden({ renderLoading, children }: AuthThenHiddenProps)
     </AuthThen>
   );
 }
-
-export function AuthThenHiddenHOC<Props>(ComponentType: React.ComponentType<Props>): React.FC<Props> {
-  return (props) => {
-    return (
-      <AuthThenHidden>
-        <ComponentType {...props} />
-      </AuthThenHidden>
-    );
-  };
-}

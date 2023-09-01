@@ -1,4 +1,4 @@
-import { PortalProps, PortalInstance } from './PortalInstance';
+import { PortalProps, PortalInstance, PortalPropsInferResult } from './PortalInstance';
 
 export interface PortalInstanceControlMeta<Props, Result> {
   readonly id: string;
@@ -25,10 +25,10 @@ export interface PortalWrapper<Props, Result> {
 }
 
 export interface PortalController {
-  create<Props, Result>(
-    instance: React.ComponentType<Props & PortalProps<Result>>,
-    props: Props,
-  ): PortalInstanceControl<Props, Result>;
+  create<Component extends React.ComponentType<any>>(
+    instance: Component,
+    props: React.ComponentProps<Component>,
+  ): PortalInstanceControl<React.ComponentProps<Component>, PortalPropsInferResult<React.ComponentProps<Component>>>;
   wrap<Props, Resolve>(component: React.ComponentType<Props & PortalProps<Resolve>>): PortalWrapper<Props, Resolve>;
 
   updateProps<Props, Result>(instance: PortalInstanceControl<Props, Result>, props: Props): void;

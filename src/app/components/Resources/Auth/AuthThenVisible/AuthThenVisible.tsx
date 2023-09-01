@@ -14,15 +14,3 @@ export function AuthThenVisible({ renderLoading, children }: AuthThenVisibleProp
     </AuthThen>
   );
 }
-
-export function AuthThenVisibleHOC<Props = {}>(
-  ComponentType: React.ComponentType<Props> | ((props?: Props) => JSX.Element),
-): React.FC<Props> {
-  return (props) => {
-    return (
-      <AuthThenVisible>
-        <ComponentType {...props} />
-      </AuthThenVisible>
-    );
-  };
-}
