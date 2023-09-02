@@ -3,6 +3,9 @@ import { createIcon } from '@chakra-ui/react';
 export const LinkWalletIcon = createIcon({
   displayName: 'LinkWalletIcon',
   viewBox: '0 0 24 24',
+  defaultProps: {
+    fill: 'transparent',
+  },
   path: [
     <path
       d="M9.999 7C9.999 8.105 8.432 9 6.499 9C4.566 9 3 8.104 3 7"
@@ -19,8 +22,8 @@ export const LinkWalletIcon = createIcon({
       strokeLinejoin="round"
     />,
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M9.999 4C10 2.895 8.432 2 6.5 2C4.568 2 3.001 2.896 3 4V10C3 11.104 4.566 12 6.499 12C8.432 12 9.999 11.105 9.999 10V4Z"
       stroke="currentColor"
       strokeWidth="1.5"
@@ -28,8 +31,8 @@ export const LinkWalletIcon = createIcon({
       strokeLinejoin="round"
     />,
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M19.545 16.0911H14.454C13.098 16.0911 11.999 17.1901 11.999 18.5461V18.5461C12 19.9011 13.099 21.0001 14.455 21.0001H19.546C20.901 21.0001 22 19.9011 22 18.5451V18.5451C22 17.1901 20.901 16.0911 19.545 16.0911Z"
       stroke="currentColor"
       strokeWidth="1.5"

@@ -22,6 +22,7 @@
 // } from '@chakra-ui/react';
 // import { PortalProps } from '@packages/react-portal';
 // import { Resource } from '@schema/api-gateway';
+// import { RadioButtons } from '@shared/ui-kit';
 // // import { Common } from '@shared/types';
 // // import { FormBlockElement, FormField, InfoIcon, Modal, RadioButtons, Select, useForm } from '@shared/ui-kit';
 // // import { LotViewDefaultValues } from 'src/app/pages/dashboard/lot/consts';
@@ -55,6 +56,7 @@
 //     },
 //   ],
 // };
+
 // export function ChooseBidsModal({ portal, direction }: ChooseBidsModalProps) {
 //   console.log('direction', direction, BID_MODAL_FIELDS_BY_TYPE_OF_DEAL[direction]);
 //   const form = useForm({
@@ -232,5 +234,3 @@
 //     </Modal>
 //   );
 // }
-
-export {};

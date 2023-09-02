@@ -18,7 +18,7 @@ export function AuthConnectButton({ customRender, children }: AuthConnectButtonP
         ) : customRender ? (
           customRender({ isAuthorized, signIn, ...other })
         ) : (
-          <Button isLoading={signIn.isLoading} onClick={signIn}>
+          <Button variant="brand" isLoading={signIn.isLoading} onClick={signIn}>
             Connect wallet
           </Button>
         )

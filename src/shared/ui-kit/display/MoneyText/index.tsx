@@ -1,4 +1,4 @@
-import { TextProps, Text } from '@chakra-ui/react';
+import { TextProps, Text, HStack } from '@chakra-ui/react';
 import { format } from 'numerable';
 
 interface MoneyTextProps extends TextProps {
@@ -7,11 +7,11 @@ interface MoneyTextProps extends TextProps {
   addon?: React.ReactNode;
 }
 
-export function MoneyText({ value, abbreviated, addon, ...textProps }: MoneyTextProps) {
+export function MoneyText({ value, abbreviated, addon, fontSize, ...textProps }: MoneyTextProps) {
   return (
-    <Text {...textProps}>
-      {format(value, `0.00${abbreviated ? 'a' : ''}`)}
+    <HStack gap="0" fontSize={fontSize}>
+      <Text {...textProps}>{format(value, `0.00${abbreviated ? 'a' : ''}`)}</Text>
       {addon && <>&nbsp;{addon}</>}
-    </Text>
+    </HStack>
   );
 }

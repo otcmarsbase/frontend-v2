@@ -2,14 +2,19 @@ import { useEffect, useState } from 'react';
 
 import { HStack, Progress, VStack, Text } from '@chakra-ui/react';
 
-export const ProgressBar = ({ title, currentAmount, totalAmount }) => {
+interface ProgressBarProps {
+  title: string;
+  currentAmount: number;
+  totalAmount: number;
+}
+
+export const ProgressBar: React.FC<ProgressBarProps> = ({ title, currentAmount, totalAmount }) => {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     let step = currentAmount / 10;
     let timeout = setTimeout(() => {
       if (value <= currentAmount) {
-        console.log(value, currentAmount);
         setValue((prev) => (prev += step));
       }
     }, 0);

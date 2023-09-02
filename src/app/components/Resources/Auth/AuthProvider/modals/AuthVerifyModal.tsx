@@ -26,7 +26,7 @@ export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalPr
       <VStack width="full" gap="1.25rem">
         <HStack width="full" gap="1rem">
           <Circle size="3rem" bg="dark.300" position="relative">
-            <UIIcons.Common.LinkWalletIcon color="orange.500" opacity="0.5" />
+            <UIIcons.Common.LinkWalletIcon color="white" opacity="0.5" />
 
             <Spinner color="orange.500" size="3rem" position="absolute" top="0" right="0" bottom="0" left="0" />
           </Circle>

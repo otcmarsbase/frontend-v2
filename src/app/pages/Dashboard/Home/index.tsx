@@ -1,6 +1,5 @@
 import { Fragment, useEffect } from 'react';
 
-import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { useRouter } from '@packages/router5-react-auto';
 
@@ -14,10 +13,6 @@ export const Home: React.FC<HomeProps> = () => {
   }, [router]);
 
   return <Fragment />;
-};
-
-Home.getLayout = ({ children }) => {
-  return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
 };
 
 export default Home;

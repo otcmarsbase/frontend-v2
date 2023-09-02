@@ -1,3 +1,4 @@
+export * from './Account';
 export * from './Asset';
 export * from './Auth';
 export * from './Bid';

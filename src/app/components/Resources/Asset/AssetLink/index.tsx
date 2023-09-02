@@ -10,11 +10,11 @@ export interface AssetLinkProps extends PropsWithChildren {
   url?: string;
 }
 
-export function AssetLink({ type, children }: AssetLinkProps) {
+export function AssetLink({ type, url, children }: AssetLinkProps) {
   const LinkIcon = useMemo(() => AssetLinkTypeIconMap.get(type), [type]);
 
   return (
-    <Button as="a" variant="darkSolid" size="sm" leftIcon={<LinkIcon />}>
+    <Button as="a" href={url} target="_blank" variant="darkSolid" size="xs" leftIcon={<LinkIcon color="white" />}>
       {children}
     </Button>
   );

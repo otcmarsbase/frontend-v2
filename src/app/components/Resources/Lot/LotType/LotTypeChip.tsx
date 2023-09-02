@@ -7,9 +7,10 @@ import { LotTypeColorMap, LotTypeTitleMap } from './const';
 
 export interface LotTypeChipProps extends TextProps {
   value: Resource.Lot.LotType;
+  withTokenWarrant?: boolean;
 }
 
-export function LotTypeChip({ value, ...textProps }: LotTypeChipProps) {
+export function LotTypeChip({ value, withTokenWarrant, ...textProps }: LotTypeChipProps) {
   const color = useMemo(() => LotTypeColorMap.get(value), [value]);
   const title = useMemo(() => LotTypeTitleMap.get(value), [value]);
 
@@ -21,9 +22,11 @@ export function LotTypeChip({ value, ...textProps }: LotTypeChipProps) {
       color="white"
       fontWeight="600"
       bg={color}
+      whiteSpace="nowrap"
       {...textProps}
     >
       {title}
+      {withTokenWarrant && `+${LotTypeTitleMap.get('TOKEN_WARRANT')}`}
     </Text>
   );
 }
