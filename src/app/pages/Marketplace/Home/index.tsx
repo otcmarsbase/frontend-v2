@@ -11,12 +11,19 @@ import { RPC, Resource } from '@schema/api-gateway';
 import { Pagination, PaginationPayload } from '@schema/common';
 import { motion } from 'framer-motion';
 
+import { FiltersBlock, MarketplaceFilters } from './_atoms';
+
 export const OtcDesk: React.FC = observer(() => {
   const schema = useRpcSchemaClient();
   const router = useRouter();
 
   const [columnsCount, setColumnsCount] = useState(4);
-  const [lots, setLots] = useState<RPC.DTO.LotListActive.Result>({
+  const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
+    items: [],
+    total: 0,
+  });
+  const [lots, setLots] = useState<RPC.DTO.LotListActive.Result>(originalLots);
+  const [assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
     items: [],
     total: 0,
   });
@@ -39,17 +46,31 @@ export const OtcDesk: React.FC = observer(() => {
 
   const loadLots = useCallback(async () => {
     const lots = await schema.send('lot.listActive', {});
+    setOriginalLots(lots);
     setLots(lots);
+  }, []);
+
+  const loadAssets = useCallback(async () => {
+    const assets = await schema.send('asset.list', {});
+    setAssets(assets);
   }, []);
 
   useEffect(() => {
     loadLots();
-  }, [loadLots]);
+    loadAssets();
+  }, [loadLots, loadAssets]);
+
+  const onFilter = (filters: MarketplaceFilters) => {
+    setLots((lots) => ({
+      ...lots,
+      items: filters.assetId ? lots.items.filter((lot) => lot.asset.id === filters.assetId) : originalLots.items,
+    }));
+  };
 
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
-      <Text>TODO OTC Filters</Text>
+      <FiltersBlock assets={assets.items} applyFilters={onFilter} />
       <Button onClick={toggleColumnsCount}>Toggle sidebar</Button>
       <HStack alignItems="start" w="full" gap="2rem">
         {columnsCount === 3 && (
@@ -62,7 +83,7 @@ export const OtcDesk: React.FC = observer(() => {
             <motion.div layout key={lot.id}>
               <LotCard
                 lot={lot}
-                asset={{} as any}
+                asset={assets.items.find((asset) => asset.id === lot.asset.id)}
                 onClick={() => router.navigateComponent(MBPages.Lot.__id__ as any, { id: lot.id }, {})}
               />
             </motion.div>

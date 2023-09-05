@@ -45,6 +45,9 @@ export class RpcSchemaClientCommon<
       if (!this.options.getMeta) return next();
 
       const meta = await this.options.getMeta();
+
+      console.log('createClientMetaRequestInterceptor', meta, request);
+
       if (!meta) return request;
 
       return {

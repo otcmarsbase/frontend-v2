@@ -4,36 +4,36 @@ import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-import { LotRowFieldName, LotRowFieldNameTitleMap } from './const';
+import { BidRowFieldName, BidRowFieldNameTitleMap } from './const';
 
-export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  lot: Resource.Lot.Lot;
+export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
+  bid: Resource.Bid.Bid;
   asset: Resource.Asset.Asset;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
+export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackProps }) => {
   const isHot = true;
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     {
-      label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
+      label: BidRowFieldNameTitleMap.get('TYPE'),
       value: <Text>1212</Text>,
     },
     {
-      label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
+      label: BidRowFieldNameTitleMap.get('PUBLISH_DATE'),
       value: <Text>1212</Text>,
     },
     {
-      label: LotRowFieldNameTitleMap.get('FDV'),
+      label: BidRowFieldNameTitleMap.get('BID_FVD'),
       value: <Text>1212</Text>,
     },
     {
-      label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
+      label: BidRowFieldNameTitleMap.get('BID_SIZE'),
       value: <Text>1212</Text>,
     },
     {
-      label: LotRowFieldNameTitleMap.get('VERTICAL'),
+      label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
       value: (
         <HStack>
           {asset.info.verticals.map((vertical) => (
@@ -43,11 +43,11 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       ),
     },
     {
-      label: LotRowFieldNameTitleMap.get('FINISHED_AT'),
+      label: BidRowFieldNameTitleMap.get('DIRECT_SELLER'),
       value: <Text>1212</Text>,
     },
     {
-      label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
+      label: BidRowFieldNameTitleMap.get('LOCATION'),
       value: <Text>1212</Text>,
     },
   ];
@@ -73,7 +73,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
-          <Text color="dark.200">#{lot.id}</Text>
+          <Text color="dark.200">#{bid.id}</Text>
           {isHot && (
             <HStack
               borderRadius="0.25rem"
@@ -93,7 +93,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         <HStack gap="0.5rem" alignItems="center">
           <UILogic.AssetName size="sm" asset={asset} />
         </HStack>
-        <UILogic.LotStatus value={lot.status} />
+        <UILogic.BidStatus value={bid.status} />
       </VStack>
       <HStack>
         <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">

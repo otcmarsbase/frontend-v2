@@ -52,3 +52,12 @@ export const ParticipantTypeTitleMap = new Map<ParticipantType, React.ReactNode>
   ['DAO', 'DAO'],
   ['NO_LIMIT', 'No limit'],
 ]);
+
+export const SortBidsByType = ['BID_FDV', 'BID_SIZE', 'DEADLINE', 'STATUS'] as const;
+export type SortBidsByType = (typeof SortBidsByType)[number];
+export const SortBidsByTypeTitleMap = new Map<SortBidsByType, React.ReactNode>([
+  ['BID_FDV', 'Bid FDV'],
+  ['BID_SIZE', 'Bid size'],
+  ['DEADLINE', 'Deadline'],
+  ['STATUS', 'Status'],
+]);

@@ -1,12 +1,14 @@
 import { FC, useState } from 'react';
 
-import { Box, Button, HStack, Select, VStack, Text, Circle } from '@chakra-ui/react';
+import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
+import { Select } from '@shared/ui-kit';
 
 import { createBids } from '../mock';
 
 import { BidsList } from './BidsList';
+import { SortBidsByType, SortBidsByTypeTitleMap } from './const';
 
 interface BidsProps {}
 
@@ -31,7 +33,7 @@ export const Bids: FC<BidsProps> = ({}) => {
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
-          <Select
+          {/* <Select
             bg="dark.950"
             borderColor="dark.200"
             color="dark.50"
@@ -44,7 +46,18 @@ export const Bids: FC<BidsProps> = ({}) => {
             <option value="bidSize">Bid size</option>
             <option value="deadline">Deadline</option>
             <option value="status">Status</option>
-          </Select>
+          </Select> */}
+          <Box w="11rem">
+            <Select
+              isClearable
+              placeholder="Sort by"
+              options={SortBidsByType.map((type) => ({
+                value: type,
+                label: SortBidsByTypeTitleMap.get(type),
+              }))}
+            />
+          </Box>
+
           <Button variant="brand" size="xs" borderRadius="0.375rem" padding="0.5rem 0.75rem" onClick={() => {}}>
             <HStack>
               <UIIcons.Common.AddIcon />

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { LotRow, useRpcSchemaClient } from '@app/components';
+import { LotRow, useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { VStack } from '@chakra-ui/react';
@@ -20,14 +20,26 @@ export interface LotsProps {
 export const Lots: React.FC<LotsProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
+  const { authToken } = useAuth();
   const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
+  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadLots = useCallback(async () => {
     setIsLoading(true);
     try {
-      const result = await rpcSchema.send('lot.listMy', {});
+      const result = await rpcSchema.send('lot.listActive', {});
       setLots(result.items);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const loadAssets = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const result = await rpcSchema.send('asset.list', {});
+      setAssets(result.items);
     } finally {
       setIsLoading(false);
     }
@@ -35,7 +47,8 @@ export const Lots: React.FC<LotsProps> = (props) => {
 
   useEffect(() => {
     loadLots();
-  }, [loadLots]);
+    loadAssets();
+  }, [loadLots, loadAssets]);
 
   const [paginationOptions] = useState<PaginationProps>({
     page: 1,
@@ -44,6 +57,8 @@ export const Lots: React.FC<LotsProps> = (props) => {
   });
 
   const onChangePage = useCallback(async (page: number, pageSize: number) => {}, []);
+
+  if (!assets.length) return;
 
   return (
     <VStack width="full">
@@ -56,7 +71,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
         itemRender={(item) => (
           <LotRow
             lot={item}
-            asset={{} as any}
+            asset={assets.find((asset) => asset.id === item.asset.id)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

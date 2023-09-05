@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -19,13 +20,14 @@ export interface DealsProps {
 
 const Deals: React.FC<DealsProps> = observer(() => {
   const router = useRouter();
+  const { authToken } = useAuth();
+  const rpcSchema = useRpcSchemaClient();
   const [deals, setDeals] = useState<Resource.Deal.Deal[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadDeals = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       setDeals([]);
     } finally {
       setIsLoading(false);
