@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { IconButton, Image } from '@chakra-ui/react';
+import { Box, Button, Image } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface AssetIconButtonProps {
@@ -16,13 +16,22 @@ export function AssetIconButton({ asset, isSelected, onSelect }: AssetIconButton
   }, [isSelected, onSelect]);
 
   return (
-    <IconButton
+    <Button
       aria-label={asset.id}
-      variant={isSelected ? 'darkOutline' : 'darkSolid'}
+      variant={isSelected ? 'darkSolid' : 'darkOutline'}
       size="lg"
       w="full"
       onClick={onSelectCallback}
-      icon={<Image src={asset.info.logo_url} />}
-    />
+      p="0"
+      sx={{
+        '& .chakra-button__icon': {
+          margin: 0,
+        },
+      }}
+      leftIcon={<Image src={asset.info.logo_url} w="2rem" h="2rem" />}
+    >
+      {/* <Box bg={`url(${asset.info.logo_url})`} w="2rem" h="2rem" /> */}
+      {null}
+    </Button>
   );
 }

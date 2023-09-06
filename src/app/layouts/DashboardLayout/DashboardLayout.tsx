@@ -3,7 +3,9 @@ import { PropsWithChildren, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { AppLayout } from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Box, HStack, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
@@ -14,11 +16,11 @@ export interface DashboardLayoutProps {
 }
 
 export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = observer(({ tabType, children }) => {
+  const router = useRouter();
   const onRoute = useCallback((value: DashboardTabType) => {
-    console.log('route to', value);
-    // if (value === DashboardListType.ORDERS) router.navigateComponent(pages.dashboard.offers, {}, {});
-    // if (value === DashboardListType.BIDS) router.navigateComponent(pages.dashboard.bids, {}, {});
-    // if (value === DashboardListType.DEALS) router.navigateComponent(pages.dashboard.deals, {}, {});
+    if (value === 'MY_LOTS') router.navigateComponent(MBPages.Dashboard.Lots, {}, {});
+    if (value === 'MY_BIDS') router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+    if (value === 'MY_DEALS') router.navigateComponent(MBPages.Dashboard.Deals, {}, {});
   }, []);
 
   return (

@@ -13,8 +13,8 @@ export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) =
   const IconComponent = useMemo(() => AssetVerticalIconMap.get(value), [value]);
 
   return (
-    <Square>
-      <IconComponent />
+    <Square border="0.0625rem solid" borderColor="dark.300" borderRadius="micro" size="1.5rem">
+      <IconComponent w="0.75rem" h="0.75rem" />
     </Square>
   );
 };

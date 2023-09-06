@@ -4,7 +4,6 @@ import { useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-// import { UILayout } from '@app/layouts';
 import { Resource } from '@schema/api-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
@@ -63,5 +62,3 @@ export default function View({ id }: ViewProps) {
 View.getLayout = ({ children }) => {
   return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
 };
-
-// View.getSegmentNames

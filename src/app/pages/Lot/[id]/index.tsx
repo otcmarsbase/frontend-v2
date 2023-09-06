@@ -1,66 +1,118 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
-import { UILayout } from '@app/layouts';
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
+import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
+import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
 
-import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
+import { LotBasicInfo, Bids, Sidebar } from './_atoms';
+import { RoundInfo } from './_atoms/RoundInfo';
+import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
+import { createBids } from './mock';
 
-export interface ViewProps {
+const UserState = {
+  isOfferMaker: true,
+  isBidder: true,
+};
+
+export interface LotProps extends React.PropsWithChildren {
   id: string;
 }
 
-export default function View({ id }: ViewProps) {
+export default function Lot({ id }: LotProps) {
   const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
 
+  const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [direction, setDirection] = useState<Resource.Common.TradeDirection>('BUY');
+  const [bids] = useState<Resource.Bid.Bid[]>(createBids());
 
-  const onPreload = useLoadingCallback(
+  const preload = useLoadingCallback(
     useCallback(async () => {
-      const asset = await rpcSchema.send('asset.getById', { id });
+      const lot = await rpcSchema.send('lot.getById', { id });
+      const asset = await rpcSchema.send('asset.getById', { id: lot.asset.id });
+
+      setLot(lot);
       setAsset(asset);
-    }, [id, rpcSchema]),
+    }, [rpcSchema, id]),
   );
-  usePreloadPage(onPreload);
 
-  const onLotClick = useCallback((lot: Resource.Lot.Lot) => {}, []);
+  usePreloadPage(preload);
 
-  // TODO
-  if (!asset) return <>Empty</>;
+  console.log({ asset });
+
+  const createBid = async () => {
+    console.log('createBid', {});
+  };
+
+  const handleEditLot = () => {
+    console.log('handleEditLot');
+  };
+  const handleUnPublishLot = () => {
+    console.log('handleUnpublishLot');
+  };
+
+  if (!asset || !lot) return;
+
+  console.log({ bids });
 
   return (
-    <VStack padding="2rem" gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={asset.info.logo_url} analyticsUrl="" />
-      <StatsBlock
-        averageLotsFdv={asset.stats.average_fdv}
-        averageBidsFdv={asset.stats.average_fdv}
-        lotSellCount={asset.stats.lot_sell_count}
-        lotBuyCount={asset.stats.lot_buy_count}
-        lotQuantitySummary={asset.stats.lot_buy_cv_sum}
-      />
-      <Grid h="300px" templateRows="repeat(2, 1fr)" templateColumns="repeat(3, 1fr)" gap={4}>
-        <GridItem rowSpan={1} colSpan={1}>
-          <LinksBlock links={asset.info.links} />
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={1}>
-          <VerticalBlock verticals={asset.info.verticals} />
-        </GridItem>
-        <GridItem rowSpan={2} colSpan={2}>
-          <DescriptionBlock description={asset.info.description} />
+    <VStack marginTop="2rem" alignItems="flex-start">
+      <Button
+        variant="ghost"
+        color="#888D9B"
+        cursor="pointer"
+        leftIcon={<UIIcons.Common.ArrowLeft />}
+        onClick={() => router.navigateComponent(MBPages.Marketplace.Home, {}, {})}
+      >
+        <Text fontSize="sm" fontWeight={600}>
+          Back to Marketplace
+        </Text>
+      </Button>
+      <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
+        <Sidebar asset={asset} />
+        <GridItem>
+          <VStack w="full" gap="0.75rem">
+            <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
+              {UserState.isOfferMaker ? (
+                <HStack
+                  bg="dark.900"
+                  w="100%"
+                  padding="1rem 1.25rem"
+                  borderRadius="0.75rem"
+                  gap="0.75rem"
+                  justifyContent="space-between"
+                >
+                  <Heading textTransform="uppercase" variant="h3" fontSize="1rem">
+                    My lot analytics
+                  </Heading>
+
+                  <HStack gap="0.69rem">
+                    <Button size="xs" padding="0.5rem 1.5rem" onClick={handleEditLot}>
+                      Edit my lot
+                    </Button>
+                    <Button size="xs" variant="darkOutline" padding="0.5rem 1.5rem" onClick={handleUnPublishLot}>
+                      Delete
+                    </Button>
+                  </HStack>
+                </HStack>
+              ) : null}
+              <LotBasicInfo lot={lot} />
+            </VStack>
+            <RoundInfo lot={lot} />
+            <Bids />
+          </VStack>
         </GridItem>
       </Grid>
 
-      <LotsBlock direction={direction} onChange={setDirection} onSelect={onLotClick} />
+      <SimilarLotsBlock />
     </VStack>
   );
 }
 
-View.getLayout = ({ children }) => {
-  return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
-};
-
-// View.getSegmentNames
+Lot.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;

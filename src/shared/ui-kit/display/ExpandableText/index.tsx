@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 import type { BoxProps } from '@chakra-ui/react';
 import { Box, Button, Text } from '@chakra-ui/react';
@@ -11,6 +11,7 @@ interface Props extends BoxProps {
 export const ExpandableText = forwardRef<HTMLDivElement, Props>(({ children, noOfLines, ...boxProps }, ref) => {
   const [expandedCount, setExpandedCount] = useState<number | undefined>(noOfLines);
   const [isClicked, setIsClicked] = useState(false);
+  const [isTextClamped, setIsTextClamped] = useState(false);
   const handleToggle = () => {
     setIsClicked(true);
     setExpandedCount(expandedCount ? undefined : noOfLines);
@@ -18,8 +19,12 @@ export const ExpandableText = forwardRef<HTMLDivElement, Props>(({ children, noO
 
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const isTextClamped =
-    (inputRef.current?.scrollHeight as number) > (inputRef.current?.clientHeight as number) || isClicked;
+  useEffect(() => {
+    const inputEl = inputRef.current;
+    if (inputEl) {
+      setIsTextClamped(inputEl.scrollHeight > inputEl.clientHeight || isClicked);
+    }
+  }, [isClicked]);
 
   return (
     <Box ref={ref} {...boxProps}>

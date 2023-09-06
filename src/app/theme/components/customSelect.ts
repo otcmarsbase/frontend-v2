@@ -7,6 +7,8 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 const baseStyle = definePartsStyle({
   container: {
     width: '100%',
+    textTransform: 'initial',
+    fontWeight: '400',
   },
   divider: {
     display: 'none',

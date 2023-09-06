@@ -1,4 +1,5 @@
 export * from './Chip';
+export * from './DateText';
 export * from './Dropdown';
 export * from './EmptyData';
 export * from './ExpandableText';
