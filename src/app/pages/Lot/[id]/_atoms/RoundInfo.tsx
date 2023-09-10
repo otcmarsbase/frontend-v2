@@ -1,6 +1,5 @@
-import { Heading, SimpleGrid, VStack, Text, HStack } from '@chakra-ui/react';
+import { SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { format } from 'date-fns';
 
 import { AvailableBlock } from './AvailableBlock';
 import { RoundInfoItem } from './RoundInfoItem';

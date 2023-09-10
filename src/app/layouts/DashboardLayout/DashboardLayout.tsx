@@ -17,11 +17,14 @@ export interface DashboardLayoutProps {
 
 export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = observer(({ tabType, children }) => {
   const router = useRouter();
-  const onRoute = useCallback((value: DashboardTabType) => {
-    if (value === 'MY_LOTS') router.navigateComponent(MBPages.Dashboard.Lots, {}, {});
-    if (value === 'MY_BIDS') router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
-    if (value === 'MY_DEALS') router.navigateComponent(MBPages.Dashboard.Deals, {}, {});
-  }, []);
+  const onRoute = useCallback(
+    (value: DashboardTabType) => {
+      if (value === 'MY_LOTS') router.navigateComponent(MBPages.Dashboard.Lots, {}, {});
+      if (value === 'MY_BIDS') router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+      if (value === 'MY_DEALS') router.navigateComponent(MBPages.Dashboard.Deals, {}, {});
+    },
+    [router],
+  );
 
   return (
     <Box>
@@ -96,4 +99,4 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
   );
 });
 
-DashboardLayout.getLayout = ({ children }) => <AppLayout containerSize="md">{children}</AppLayout>;
+DashboardLayout.getLayout = ({ children }) => <AppLayout containerSize="lg">{children}</AppLayout>;

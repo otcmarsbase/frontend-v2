@@ -534,7 +534,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: 'solid' | 'subtle' | 'outline' | (string & {});
     };
     Container: {
-      sizes: string & {};
+      sizes: 'md' | 'lg' | (string & {});
       variants: string & {};
     };
     Divider: {

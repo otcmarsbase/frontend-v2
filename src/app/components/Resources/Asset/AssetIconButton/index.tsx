@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Box, Button, Image } from '@chakra-ui/react';
+import { Button, Image } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface AssetIconButtonProps {

@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { Stack, StackProps } from '@chakra-ui/react';
 
-import { EmptyData } from '../EmptyData';
+import { Empty } from '../Empty';
 import { Loader } from '../Loader';
 
 export interface ListProps<T> extends StackProps {
@@ -17,8 +17,14 @@ export function List<T>({
   items = [],
   itemKey = (value, key) => key,
   itemRender = () => <></>,
-  // TODO должен быть общий компонент EmptyData
-  emptyText = <EmptyData onCreate={() => null} createButtonLabel="Create" />,
+  emptyText = (
+    <Empty
+      createButton={{
+        label: 'Create',
+        onCreate: () => {},
+      }}
+    />
+  ),
   isLoading = false,
   ...stackProps
 }: ListProps<T>) {

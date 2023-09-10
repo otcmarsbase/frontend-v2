@@ -1,4 +1,4 @@
-import { Resource } from '@schema/api-gateway';
+import { createDictionary } from '@app/dictionary';
 
 export const MainChipFieldType = [
   'PRICE_PER_EQUITY',
@@ -55,9 +55,22 @@ export const ParticipantTypeTitleMap = new Map<ParticipantType, React.ReactNode>
 
 export const SortBidsByType = ['BID_FDV', 'BID_SIZE', 'DEADLINE', 'STATUS'] as const;
 export type SortBidsByType = (typeof SortBidsByType)[number];
-export const SortBidsByTypeTitleMap = new Map<SortBidsByType, React.ReactNode>([
-  ['BID_FDV', 'Bid FDV'],
-  ['BID_SIZE', 'Bid size'],
-  ['DEADLINE', 'Deadline'],
-  ['STATUS', 'Status'],
-]);
+
+export type SortBidsByTypeDictionaryInfo = {
+  title: string;
+};
+
+export const SortBidsByTypeDictionary = createDictionary<SortBidsByType, SortBidsByTypeDictionaryInfo>().setFromRecord({
+  BID_FDV: {
+    title: 'Bid FDV',
+  },
+  BID_SIZE: {
+    title: 'Bid size',
+  },
+  DEADLINE: {
+    title: 'Deadline',
+  },
+  STATUS: {
+    title: 'Status',
+  },
+});

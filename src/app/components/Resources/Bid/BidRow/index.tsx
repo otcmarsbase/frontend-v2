@@ -4,7 +4,7 @@ import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-import { BidRowFieldName, BidRowFieldNameTitleMap } from './const';
+import { BidRowFieldNameTitleMap } from './const';
 
 export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   bid: Resource.Bid.Bid;

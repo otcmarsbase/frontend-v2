@@ -2,12 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { VStack } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { EmptyData, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 export interface DealsProps {
   filters?: {
@@ -19,9 +17,6 @@ export interface DealsProps {
 }
 
 const Deals: React.FC<DealsProps> = observer(() => {
-  const router = useRouter();
-  const { authToken } = useAuth();
-  const rpcSchema = useRpcSchemaClient();
   const [deals, setDeals] = useState<Resource.Deal.Deal[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -53,7 +48,7 @@ const Deals: React.FC<DealsProps> = observer(() => {
         items={deals}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<EmptyData onCreate={() => {}} createButtonLabel="Create offers" />}
+        emptyText={<Empty createButton={{ label: 'Create deals', onCreate: () => {} }} />}
         itemRender={(item) => (
           // TODO replace to DealRow
           // <LotRow

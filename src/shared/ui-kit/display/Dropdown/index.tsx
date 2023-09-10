@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
   useDisclosure,
   VStack,
-  Box,
   PopoverProps,
   IconProps,
 } from '@chakra-ui/react';

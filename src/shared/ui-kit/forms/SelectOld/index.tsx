@@ -1,7 +1,7 @@
 import { useMultiStyleConfig } from '@chakra-ui/react';
 import { Select as ChakraSelect, Props as ChakraSelectProps } from 'chakra-react-select';
 
-export const Select = (selectProps: ChakraSelectProps) => {
+export const Select: typeof ChakraSelect<any> = (selectProps) => {
   const styles = useMultiStyleConfig('CustomSelect', selectProps);
 
   return (

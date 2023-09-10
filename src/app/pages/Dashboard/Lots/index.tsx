@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { LotRow, useAuth, useRpcSchemaClient } from '@app/components';
+import { LotRow, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { EmptyData, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 export interface LotsProps {
   filters?: {
@@ -20,7 +20,6 @@ export interface LotsProps {
 export const Lots: React.FC<LotsProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const { authToken } = useAuth();
   const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -67,7 +66,14 @@ export const Lots: React.FC<LotsProps> = (props) => {
         items={lots}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<EmptyData onCreate={() => {}} createButtonLabel="Create offers" />}
+        emptyText={
+          <Empty
+            createButton={{
+              label: 'Create offers',
+              onCreate: () => {},
+            }}
+          />
+        }
         itemRender={(item) => (
           <LotRow
             lot={item}

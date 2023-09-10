@@ -15,6 +15,9 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
   const groupedByGroupLinks = new Map(LINQ.from(asset.info.links).groupBy((link) => link.group));
 
+  const officialLinks = groupedByGroupLinks.get('OFFICIAL');
+  const socialLinks = groupedByGroupLinks.get('SOCIAL');
+
   return (
     <GridItem display="flex" h="100%" flexDirection="column" top={0}>
       <VStack top={0} position="sticky" w="full" gap="0.75rem">
@@ -50,22 +53,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
             </ExpandableText>
           }
         />
-        <SidebarBlock
-          title="Official links"
-          children={groupedByGroupLinks.get('OFFICIAL').map((props) => (
-            <AssetLink type={props.type} url={props.url}>
-              {props.title}
-            </AssetLink>
-          ))}
-        />
-        <SidebarBlock
-          title="Social media"
-          children={groupedByGroupLinks.get('SOCIAL').map((props) => (
-            <AssetLink type={props.type} url={props.url}>
-              {props.title}
-            </AssetLink>
-          ))}
-        />
+        {officialLinks && (
+          <SidebarBlock
+            title="Official links"
+            children={officialLinks.map((props) => (
+              <AssetLink type={props.type} url={props.url}>
+                {props.title}
+              </AssetLink>
+            ))}
+          />
+        )}
+        {socialLinks && (
+          <SidebarBlock
+            title="Social media"
+            children={socialLinks.map((props) => (
+              <AssetLink type={props.type} url={props.url}>
+                {props.title}
+              </AssetLink>
+            ))}
+          />
+        )}
         <SidebarBlock
           title="Vertical"
           children={asset.info.verticals.map((type) => (

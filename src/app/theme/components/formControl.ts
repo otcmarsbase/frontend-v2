@@ -24,6 +24,7 @@ const baseStyleHelperText = defineStyle({
 
 const baseStyle = definePartsStyle({
   container: {
+    w: '100%',
     label: {
       fontSize: 'sm',
       fontWeight: 400,

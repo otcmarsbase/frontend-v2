@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { AssetIconButton } from '@app/components';
-import { HStack, Input, SimpleGrid, VStack } from '@chakra-ui/react';
+import { SimpleGrid, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface MarketplaceFilters {

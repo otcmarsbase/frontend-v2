@@ -1,7 +1,7 @@
 import { UILogic } from '@app/components';
 import { HStack, Box, Square, Link, Button } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
-import { Dropdown, UIKit } from '@shared/ui-kit';
+import { Dropdown } from '@shared/ui-kit';
 
 export function RightBlock() {
   return (

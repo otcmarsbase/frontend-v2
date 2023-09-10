@@ -1,19 +1,18 @@
 import { FC, useState } from 'react';
 
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Select } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 
 import { createBids } from '../mock';
 
 import { BidsList } from './BidsList';
-import { SortBidsByType, SortBidsByTypeTitleMap } from './const';
+import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
 interface BidsProps {}
 
 export const Bids: FC<BidsProps> = ({}) => {
-  const [bids, setBids] = useState(createBids(10));
+  const [bids] = useState(createBids(10));
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -48,13 +47,10 @@ export const Bids: FC<BidsProps> = ({}) => {
             <option value="status">Status</option>
           </Select> */}
           <Box w="11rem">
-            <Select
-              isClearable
+            <UIKit.SelectSync<SortBidsByType>
               placeholder="Sort by"
-              options={SortBidsByType.map((type) => ({
-                value: type,
-                label: SortBidsByTypeTitleMap.get(type),
-              }))}
+              items={SortBidsByTypeDictionary.keys()}
+              renderItem={(item) => SortBidsByTypeDictionary.get(item).title}
             />
           </Box>
 

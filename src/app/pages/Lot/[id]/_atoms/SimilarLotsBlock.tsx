@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { LotCard, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
-import { HStack, Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
+import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 

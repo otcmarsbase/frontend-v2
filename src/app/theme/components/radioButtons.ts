@@ -1,19 +1,30 @@
 import { createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/react';
 
-export const radioButtonsParts = ['container', 'item', 'itemActive', 'grid'] as const;
+export const radioButtonsParts = ['container', 'item', 'itemActive', 'isInvalid'] as const;
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(radioButtonsParts);
 
 const baseStyle = definePartsStyle({
   container: {
+    position: 'relative',
     background: 'dark.800',
     borderRadius: '0.5rem',
     w: 'full',
     py: '0.25rem',
     px: '0.5rem',
-  },
-  grid: {
-    gap: '0.125rem',
+    _before: {
+      opacity: '0',
+      transition: 'all 0.4s',
+      content: '""',
+      position: 'absolute',
+      left: '-0.25rem',
+      top: '-0.25rem',
+      right: '-0.25rem',
+      bottom: '-0.25rem',
+      border: '0.25rem solid',
+      borderColor: 'red.500',
+      borderRadius: 'sm',
+    },
   },
   item: {
     textAlign: 'center',
@@ -33,6 +44,21 @@ const baseStyle = definePartsStyle({
   itemActive: {
     color: 'white',
     borderColor: 'orange.500',
+  },
+  isInvalid: {
+    _before: {
+      opacity: '1',
+      transition: 'all 0.4s',
+      content: '""',
+      position: 'absolute',
+      left: '-0.25rem',
+      top: '-0.25rem',
+      right: '-0.25rem',
+      bottom: '-0.25rem',
+      border: '0.25rem solid',
+      borderColor: 'red.500',
+      borderRadius: 'sm',
+    },
   },
 });
 

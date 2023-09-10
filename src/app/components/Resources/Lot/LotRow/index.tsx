@@ -4,7 +4,7 @@ import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-import { LotRowFieldName, LotRowFieldNameTitleMap } from './const';
+import { LotRowFieldNameTitleMap } from './const';
 
 export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: Resource.Lot.Lot;

@@ -44,12 +44,6 @@ export default function Lot({ id }: LotProps) {
 
   usePreloadPage(preload);
 
-  console.log({ asset });
-
-  const createBid = async () => {
-    console.log('createBid', {});
-  };
-
   const handleEditLot = () => {
     console.log('handleEditLot');
   };
