@@ -6,8 +6,17 @@ import { Resource } from '@schema/api-gateway';
 import { Section, Steps } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../_const';
-import ProjectInfoStep, { ProjectInfoStepRef } from '../_steps/PROJECT_INFO';
-import StartInfoStep, { StartInfoStepRef } from '../_steps/START_INFO';
+import {
+  RoundInfoStep,
+  RoundInfoStepRef,
+  ProjectInfoStep,
+  ProjectInfoStepRef,
+  StartInfoStep,
+  StartInfoStepRef,
+  LotInfoStep,
+  LotInfoStepRef,
+  ReviewStep,
+} from '../_steps';
 
 import { CreateLotDictionary, CreateStepDictionary, CreateStepType } from './const';
 
@@ -16,6 +25,8 @@ export interface CreateFormLayoutProps extends React.PropsWithChildren {}
 export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
   const projectInfoStepRef = useRef<ProjectInfoStepRef>();
   const startInfoStepRef = useRef<StartInfoStepRef>();
+  const roundInfoStepRef = useRef<RoundInfoStepRef>();
+  const lotInfoStepRef = useRef<LotInfoStepRef>();
   const [step, setStep] = useState<CreateStepType>('START_INFO');
   const [lot, setLot] = useState<Resource.Lot.Lot>(null);
   const shouldViewStep = useCallback(
@@ -54,14 +65,14 @@ export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
         setStep('ROUND_INFO');
       }
       if (step === 'ROUND_INFO') {
-        // await basicInfoStepRef.current.onSubmit();
+        await roundInfoStepRef.current.onSubmit();
         // onSaveLot()
         setStep('LOT_INFO');
       }
       if (step === 'LOT_INFO') {
-        await projectInfoStepRef.current.onSubmit();
+        await lotInfoStepRef.current.onSubmit();
         // onSaveLot()
-        setStep('ROUND_INFO');
+        setStep('REVIEW');
       }
     } catch (err) {
       if (err === FormInvalidError) return void 0;
@@ -94,7 +105,7 @@ export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
       </HStack>
 
       <Section w="full" p="0" borderRadius="sm">
-        <SimpleGrid gridTemplateColumns="50rem 1fr" w="full" gap="0" alignItems="stretch">
+        <SimpleGrid gridTemplateColumns="50rem 1fr" w="full" gap="0" alignItems="stretch" position="relative">
           <Box borderRight="1px solid" w="full" borderColor="dark.800">
             <VStack alignItems="start" p="2rem" pb="0">
               {stepTitle && (
@@ -110,23 +121,42 @@ export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
             </VStack>
             <StartInfoStep ref={startInfoStepRef} active={step === 'START_INFO'} lot={lot} />
             <ProjectInfoStep ref={projectInfoStepRef} active={step === 'PROJECT_INFO'} lot={lot} />
-          </Box>
-          <Box p="2rem">
-            <Steps
-              value={step}
-              onChange={(step) => setStep(step)}
-              canClickItem={(item) =>
-                CreateStepDictionary.get(step).backSteps.indexOf(item) !== -1 || shouldViewStep(item)
-              }
-              items={CreateStepDictionary.keys()}
-              renderKey={(item) => item}
-              renderTitle={(item) => CreateStepDictionary.get(item).stepTitle}
+            <RoundInfoStep ref={roundInfoStepRef} active={step === 'ROUND_INFO'} lot={lot} />
+            <LotInfoStep ref={lotInfoStepRef} active={step === 'LOT_INFO'} lot={lot} />
+            <ReviewStep
+              active={step === 'REVIEW'}
+              lot={lot}
+              startInfoStepRef={startInfoStepRef}
+              projectInfoStepRef={projectInfoStepRef}
+              roundInfoStepRef={roundInfoStepRef}
+              lotInfoStepRef={lotInfoStepRef}
             />
+          </Box>
+          <Box p="2rem" position="relative" display="flex" flexDirection="column" justifyContent="space-between">
+            <Box position="sticky" top="2rem">
+              <Steps
+                value={step}
+                onChange={(step) => setStep(step)}
+                canClickItem={(item) =>
+                  CreateStepDictionary.get(step).backSteps.indexOf(item) !== -1 || shouldViewStep(item)
+                }
+                items={CreateStepDictionary.keys()}
+                renderKey={(item) => item}
+                renderTitle={(item) => CreateStepDictionary.get(item).stepTitle}
+              />
+            </Box>
+
+            <VStack position="sticky" bottom="2rem" mt="10rem" gap="1rem">
+              <Button w="full" color="white" onClick={onNext}>
+                On next
+              </Button>
+              <Button w="full" variant="darkOutline">
+                Skip
+              </Button>
+            </VStack>
           </Box>
         </SimpleGrid>
       </Section>
-
-      <Button onClick={onNext}>On next</Button>
     </VStack>
   );
 };

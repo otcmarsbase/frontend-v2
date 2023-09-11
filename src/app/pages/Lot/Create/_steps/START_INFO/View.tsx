@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
@@ -6,7 +6,7 @@ import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import { Center, Checkbox, FormControl, FormErrorMessage, HStack, Input } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { RadioButtons, UIKit, VStack, useForm } from '@shared/ui-kit';
+import { RadioButtons, UIKit, UseFormIsRequired, VStack, useForm } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
 
@@ -28,6 +28,8 @@ export type StartInfoModel = {
 
 export interface StartInfoStepRef {
   onSubmit: () => Promise<StartInfoModel>;
+  getValues: () => StartInfoModel;
+  isRequired: UIKit.UseFormIsRequired<StartInfoModel>;
 }
 
 export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({ lot, active }, ref) => {
@@ -37,8 +39,11 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
     control,
     isRequired,
     handleSubmit,
+    setValue,
     formState: { errors },
+    getValues,
   } = useForm({ schema: startInfoSchema, defaultValues: {} });
+  const [projectName, setProjectName] = useState<Resource.Asset.Asset>(null);
 
   // const onSubmit = async (model: any) => {
   //   const lot = await rpcSchema.send('lot.save', { model });
@@ -57,9 +62,16 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
     ref,
     () => ({
       onSubmit,
+      getValues,
+      isRequired,
     }),
-    [onSubmit],
+    [onSubmit, getValues, isRequired],
   );
+
+  const onChangeProjectName = (asset: Resource.Asset.Asset) => {
+    setProjectName(asset);
+    setValue('projectName', asset.id);
+  };
 
   if (!active) return null;
 
@@ -129,17 +141,17 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                   />
                 </FormControl>
 
-                <Controller
-                  control={control}
-                  name="withTokenWarrant"
-                  render={(props) => (
-                    <FormControl>
+                <FormControl>
+                  <Controller
+                    control={control}
+                    name="withTokenWarrant"
+                    render={(props) => (
                       <Checkbox checked={props.field.value} onChange={(e) => props.field.onChange(e.target.checked)}>
                         {StartInfoFieldsDictionary.get('WITH_TOKEN_WARRANT').title}
                       </Checkbox>
-                    </FormControl>
-                  )}
-                />
+                    )}
+                  />
+                </FormControl>
               </HStack>
             </VStack>
           </UIKit.FormElement>
@@ -153,7 +165,12 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                 control={control}
                 name="projectName"
                 render={({ field }) => (
-                  <Input w="full" placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder} {...field} />
+                  <UILogic.AssetSelect
+                    w="full"
+                    placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder}
+                    value={projectName}
+                    onChange={onChangeProjectName}
+                  />
                 )}
               />
               {errors.projectName && <FormErrorMessage>{errors.projectName.message}</FormErrorMessage>}

@@ -5,9 +5,11 @@ import {
   FormControlOptions,
   HStack,
   HTMLChakraProps,
-  Icon,
   Input,
+  InputGroup,
+  InputLeftElement,
   InputProps,
+  InputRightElement,
   omitThemingProps,
   ThemingProps,
   useFormControl,
@@ -16,13 +18,12 @@ import {
   usePopper,
 } from '@chakra-ui/react';
 import { mergeWith } from '@chakra-ui/utils';
+import { UIIcons } from '@shared/ui-icons';
 import { useSelect } from 'downshift'; // using version 6.1.3
-import { CgSpinnerTwo } from 'react-icons/cg';
 
 import { Empty } from '../../display/Empty';
 
 import { SelectOption } from './_Options';
-import { SelectIcon } from './_SelectIcon';
 
 export interface SelectViewProps
   extends FormControlOptions,
@@ -30,13 +31,14 @@ export interface SelectViewProps
     Omit<HTMLChakraProps<'button'>, 'disabled' | 'required' | 'readOnly' | 'size' | 'value' | 'onChange' | 'children'> {
   keys?: string[];
   selectedKey?: string | null | undefined;
-
   loading?: boolean;
   header?: React.ReactNode;
   placeholder?: string;
   empty?: React.ReactNode;
   onChange?: (key: string | null | undefined) => void;
   renderKey?: (key: string, index: number) => React.ReactNode;
+  renderInputValue?: (key: string) => string;
+  renderInputIcon?: (key: string) => React.ReactNode;
   children?: (props: SelectViewChildrenProps) => React.ReactNode;
   size?: InputProps['size'];
 }
@@ -52,6 +54,8 @@ export const SelectView = React.forwardRef<HTMLButtonElement, SelectViewProps>((
     id,
     selectedKey,
     renderKey,
+    renderInputValue,
+    renderInputIcon,
     header,
     placeholder,
     empty = <Empty />,
@@ -89,8 +93,17 @@ export const SelectView = React.forwardRef<HTMLButtonElement, SelectViewProps>((
     const selectedItemIndex = keys.findIndex((m) => m === selectedItem);
     if (selectedItemIndex === -1) return null;
 
-    return renderKey ? renderKey(keys[selectedItemIndex], selectedItemIndex) : String(keys[selectedItemIndex]);
-  }, [keys, selectedItem, renderKey]);
+    return renderInputValue
+      ? renderInputValue(keys[selectedItemIndex])
+      : renderKey(keys[selectedItemIndex], selectedItemIndex);
+  }, [keys, renderInputValue, renderKey, selectedItem]);
+
+  const selectedIcon = React.useMemo(() => {
+    const selectedItemIndex = keys.findIndex((m) => m === selectedItem);
+    if (selectedItemIndex === -1) return null;
+
+    return renderInputIcon ? renderInputIcon(keys[selectedItemIndex]) : null;
+  }, [keys, renderInputIcon, selectedItem]);
 
   const renderOption = React.useCallback(
     (key: string, index: number) => {
@@ -103,15 +116,30 @@ export const SelectView = React.forwardRef<HTMLButtonElement, SelectViewProps>((
     [renderKey, getItemProps, styles],
   );
 
+  const input = (
+    <Input
+      ref={toggleButtonRef}
+      placeholder={placeholder}
+      {...toggleButtonProps}
+      value={selectedInputValue}
+      size={props.size}
+      readOnly
+    />
+  );
+
   return (
     <chakra.div position="relative">
-      <Input
-        ref={toggleButtonRef}
-        placeholder={placeholder}
-        {...toggleButtonProps}
-        value={selectedInputValue}
-        size={props.size}
-      />
+      <InputGroup>
+        {selectedIcon && <InputLeftElement>{selectedIcon}</InputLeftElement>}
+        {input}
+        <InputRightElement>
+          <UIIcons.Common.ArrowDown
+            color="orange.500"
+            transition="all 0.2s"
+            transform={isOpen ? 'rotate(180deg)' : 'initial'}
+          />
+        </InputRightElement>
+      </InputGroup>
       <chakra.div zIndex="1" minW={toggleButtonProps.width} maxW="100%" w="100%" {...popperProps}>
         <chakra.ul __css={styles.menu} data-focus-visible-added={isOpen} {...getMenuProps()}>
           {header && (

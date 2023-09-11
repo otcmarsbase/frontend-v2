@@ -29,6 +29,7 @@ const baseStyle = definePartsStyle({
       fontSize: 'sm',
       fontWeight: 400,
       mb: '0.4',
+      color: 'white',
     },
   },
   requiredIndicator: baseStyleRequiredIndicator,

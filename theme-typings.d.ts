@@ -591,7 +591,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     NumberInput: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});
-      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | (string & {});
+      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | 'ghost' | (string & {});
     };
     PinInput: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
@@ -659,7 +659,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Textarea: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});
-      variants: 'outline' | 'flushed' | 'filled' | 'unstyled' | (string & {});
+      variants: 'outline' | 'flushed' | 'filled' | 'unstyled' | 'ghost' | (string & {});
     };
     Tooltip: {
       sizes: string & {};

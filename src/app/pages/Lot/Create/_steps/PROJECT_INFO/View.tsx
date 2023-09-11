@@ -32,6 +32,8 @@ export type ProjectInfoModel = {
 
 export interface ProjectInfoStepRef {
   onSubmit: () => Promise<ProjectInfoModel>;
+  getValues: () => ProjectInfoModel;
+  isRequired: UIKit.UseFormIsRequired<ProjectInfoModel>;
 }
 
 export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepProps>(({ lot, active }, ref) => {
@@ -42,6 +44,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
     isRequired,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm({ schema: projectInfoSchema, defaultValues: {} });
 
   // const onSubmit = async (model: any) => {
@@ -65,8 +68,10 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
     ref,
     () => ({
       onSubmit,
+      getValues,
+      isRequired,
     }),
-    [onSubmit],
+    [onSubmit, getValues, isRequired],
   );
 
   if (!active) return null;

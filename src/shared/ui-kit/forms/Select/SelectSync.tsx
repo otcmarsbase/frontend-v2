@@ -2,9 +2,12 @@ import { useCallback, useMemo } from 'react';
 
 import { SelectView, SelectViewChildrenProps, SelectViewProps } from './SelectView';
 
-export interface SelectSyncProps<T> extends Omit<SelectViewProps, 'value' | 'onChange' | 'keys' | 'renderItem' | 'children'> {
+export interface SelectSyncProps<T>
+  extends Omit<SelectViewProps, 'value' | 'onChange' | 'keys' | 'renderItem' | 'children'> {
   items: T[];
   renderItem?: (item: T, index: number) => React.ReactNode;
+  renderValue?: (item: T) => string;
+  renderIcon?: (item: T) => React.ReactNode;
   equalsItems?: (item1: T, item2: T) => boolean;
   value?: T;
   onChange?: (item: T) => any;
@@ -20,6 +23,8 @@ export interface SelectSyncChildrenProps<T> extends Omit<SelectViewChildrenProps
 export function SelectSync<T>({
   items,
   renderItem,
+  renderValue,
+  renderIcon,
   equalsItems = (item1, item2) => Object.is(item1, item2),
   value,
   onChange,
@@ -71,6 +76,23 @@ export function SelectSync<T>({
     [renderItem, getItemByKey],
   );
 
+  const renderInputValue = useCallback(
+    (key: string) => {
+      const item = getItemByKey(key);
+      const index = keys.findIndex((k) => k === key);
+      return renderValue ? renderValue(item) : String(renderKey(key, index));
+    },
+    [renderValue, getItemByKey],
+  );
+
+  const renderedIcon = useCallback(
+    (key: string) => {
+      const item = getItemByKey(key);
+      return renderIcon ? renderIcon(item) : null;
+    },
+    [renderIcon, getItemByKey],
+  );
+
   const convertChildren = ({ keys, renderOption, ...other }: SelectViewChildrenProps): SelectSyncChildrenProps<T> => {
     return {
       items: keys.map((key) => getItemByKey(key)),
@@ -85,6 +107,8 @@ export function SelectSync<T>({
       selectedKey={selectedKey}
       onChange={onChangeCallback}
       renderKey={renderKey}
+      renderInputIcon={renderedIcon}
+      renderInputValue={renderInputValue}
       children={children && ((props) => children(convertChildren(props)))}
       {...props}
     />

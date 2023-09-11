@@ -41,3 +41,6 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
     placeholder: '',
   }))
   .asReadonly();
+
+export const StartInfoReviewField = ['STEP_TITLE', 'STEP_INDEX_TITLE'] as const;
+export type StartInfoReviewField = (typeof StartInfoReviewField)[number];

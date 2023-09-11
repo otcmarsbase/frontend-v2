@@ -5,13 +5,16 @@ import {
   NumberInputStepper,
   NumberDecrementStepper,
   NumberIncrementStepper,
+  Input,
 } from '@chakra-ui/react';
 
 import { useInputNumberDecimals, UseInputNumberDecimalsProps } from './hooks';
 
 export interface InputNumberStringProps
   extends Omit<ChakraNumberInputProps, 'value' | 'onChange' | 'format'>,
-    UseInputNumberDecimalsProps {}
+    UseInputNumberDecimalsProps {
+  showStepper?: boolean;
+}
 
 export function InputNumberString({
   decimals,
@@ -21,7 +24,7 @@ export function InputNumberString({
   onFocus,
   formatter,
   precision,
-
+  showStepper = false,
   paddingStart,
   onKeyDown,
   ...props
@@ -43,11 +46,13 @@ export function InputNumberString({
       onChange={handleOnChange}
       {...props}
     >
-      <NumberInputField paddingStart={paddingStart} onKeyDown={onKeyDown} />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
+      <NumberInputField placeholder={props.placeholder} paddingStart={paddingStart} onKeyDown={onKeyDown} />
+      {showStepper && (
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      )}
     </ChakraNumberInput>
   );
 }

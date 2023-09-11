@@ -1,5 +1,6 @@
 export * from './AddIcon';
 export * from './AlertCircle';
+export * from './ArrowDown';
 export * from './ArrowLeft';
 export * from './ArrowUp';
 export * from './CheckmarkIcon';
