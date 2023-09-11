@@ -43,7 +43,7 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
     formState: { errors },
     getValues,
   } = useForm({ schema: startInfoSchema, defaultValues: {} });
-  const [projectName, setProjectName] = useState<Resource.Asset.Asset>(null);
+  const [projectName, setProjectName] = useState<Resource.Asset.Asset | string>(null);
 
   // const onSubmit = async (model: any) => {
   //   const lot = await rpcSchema.send('lot.save', { model });
@@ -68,9 +68,9 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
     [onSubmit, getValues, isRequired],
   );
 
-  const onChangeProjectName = (asset: Resource.Asset.Asset) => {
+  const onChangeProjectName = (asset: Resource.Asset.Asset | string) => {
     setProjectName(asset);
-    setValue('projectName', asset.id);
+    setValue('projectName', typeof asset === 'string' ? asset : asset.id);
   };
 
   if (!active) return null;
@@ -165,8 +165,14 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                 control={control}
                 name="projectName"
                 render={({ field }) => (
-                  <UILogic.AssetSelect
-                    w="full"
+                  // <UILogic.AssetSelect
+                  //   isInvalid={Boolean(errors.projectName)}
+                  //   placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder}
+                  //   value={projectName}
+                  //   onChange={onChangeProjectName}
+                  // />
+                  <UILogic.AssetCreateSelect
+                    isInvalid={Boolean(errors.projectName)}
                     placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder}
                     value={projectName}
                     onChange={onChangeProjectName}

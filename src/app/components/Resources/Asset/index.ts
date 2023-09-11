@@ -1,3 +1,4 @@
+export * from './AssetCreateSelect';
 export * from './AssetIconButton';
 export * from './AssetLink';
 export * from './AssetName';

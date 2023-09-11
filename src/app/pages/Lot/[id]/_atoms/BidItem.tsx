@@ -60,15 +60,15 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">
-          {Array.isArray(bid.ownerType) ? (
-            bid.ownerType.map((type) => (
+          {Array.isArray(bid.owner_type) ? (
+            bid.owner_type.map((type) => (
               <Text fontSize="sm" whiteSpace="nowrap">
                 {ParticipantTypeTitleMap.get(type)}
               </Text>
             ))
           ) : (
             <Text fontSize="sm" whiteSpace="nowrap">
-              {ParticipantTypeTitleMap.get(bid.ownerType)}
+              {ParticipantTypeTitleMap.get(bid.owner_type)}
             </Text>
           )}
         </BidItemColumn>

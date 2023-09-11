@@ -52,8 +52,8 @@ export namespace Asset {
 
   export interface AssetLink extends Resource<'asset_link'> {
     type: AssetLinkType;
-    title: string;
     group: AssetLinkGroup;
     url: string;
+    title?: string; // When type === OTHER
   }
 }

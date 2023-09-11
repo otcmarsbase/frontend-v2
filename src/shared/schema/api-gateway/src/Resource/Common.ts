@@ -11,6 +11,9 @@ export namespace Common {
   export const ParticipantType = ['INDIVIDUAL', 'VC', 'HEDGE_FUND', 'FAMILY_OFFICE', 'DAO'] as const;
   export type ParticipantType = (typeof ParticipantType)[number];
 
+  export const ParticipantTypeNoLimitFlag = 'NO_LIMIT' as const;
+  export type ParticipantTypeNoLimitFlag = typeof ParticipantTypeNoLimitFlag;
+
   export interface UnitFullQuantity {
     asset: string; // in Unit
     quote: string; // in $

@@ -12,6 +12,7 @@ export interface AssetSelectProps extends Omit<UIKit.SelectAsyncProps<SelectType
 export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
 
+  const renderKey = useCallback((item: SelectType) => item.id, []);
   const renderItem = useCallback(
     (item: SelectType) => (
       <HStack>
@@ -21,22 +22,19 @@ export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
     ),
     [],
   );
-  const renderIcon = useCallback(
-    (item: SelectType) => <Image borderRadius="50%" src={item?.info.logo_url} w="1.5rem" h="1.5rem" />,
-    [],
-  );
-  const renderValue = useCallback((item: SelectType) => item?.info.title, []);
+
   const equalsItems = useCallback((item1: SelectType, item2: SelectType) => Object.is(item1?.id, item2?.id), []);
   const load = useCallback(async () => {
-    const pagination = await rpcSchema.send('asset.list', {});
+    const pagination = await rpcSchema.send('asset.list', { limit: 5 });
     return pagination.items;
-  }, []);
+  }, [rpcSchema]);
 
   return (
     <UIKit.SelectAsync
-      renderValue={renderValue}
+      isClearable
+      searchItem={(item, search) => item.info.title.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) !== -1}
+      renderKey={renderKey}
       renderItem={renderItem}
-      renderIcon={renderIcon}
       load={load}
       equalsItems={equalsItems}
       {...props}

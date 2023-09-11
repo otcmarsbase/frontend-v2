@@ -5,9 +5,14 @@ export function createBid(): Resource.Bid.Bid {
   return {
     resource: 'bid',
     id: faker.string.numeric(5),
-    status: faker.helpers.arrayElement(['NEW', 'ON_MODERATE', 'ACTIVE', 'ACCEPTED', 'REJECTED', 'DEAL', 'ARCHIVED']),
+    status: faker.helpers.arrayElement(Resource.Bid.BidStatus),
+    created_at: +new Date(),
+    lot: {
+      resource: 'lot_key',
+      id: '123',
+    },
     owner: { nickname: faker.company.buzzNoun(), resource: 'user_key' },
-    ownerType: faker.helpers.arrayElements(['INDIVIDUAL', 'VC', 'HEDGE_FUND', 'FAMILY_OFFICE', 'DAO'], {
+    owner_type: faker.helpers.arrayElements(Resource.Common.ParticipantType, {
       max: 1,
       min: 1,
     }),
