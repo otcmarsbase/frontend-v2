@@ -40,8 +40,10 @@ export const StartStepReview: React.FC<StartStepReviewProps> = ({ stepRef, ...re
         },
         {
           renderTitle: () => StartInfoFieldsDictionary.get('PROJECT_NAME').title,
-          isRequired: stepRef.current.isRequired('projectName'),
-          renderValue: (model) => <Text color="white">{model.projectName}</Text>,
+          isRequired: stepRef.current.isRequired('asset'),
+          renderValue: (model) => (
+            <Text color="white">{typeof model.asset === 'string' ? model.asset : model.asset.info.title}</Text>
+          ),
         },
       ]}
     />

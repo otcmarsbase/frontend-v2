@@ -5,7 +5,9 @@ import * as yup from 'yup';
 import { StartInfoModel } from './View';
 
 export const startInfoSchema: yup.ObjectSchema<StartInfoModel> = yup.object({
-  projectName: yup.string().required('Project name is required'),
+  // TODO Asset | string (OR)
+  // asset: yup.string().required('Project name is required'),
+  asset: yup.mixed(),
   direction: yup
     .mixed<Resource.Common.TradeDirection>()
     .oneOf(TradeDirectionDictionary.keys())

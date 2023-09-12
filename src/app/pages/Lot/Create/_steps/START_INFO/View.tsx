@@ -19,7 +19,7 @@ export interface StartInfoStepProps {
 }
 
 export type StartInfoModel = {
-  projectName: string;
+  asset: Resource.Asset.Asset | string;
   direction: Resource.Common.TradeDirection;
   type: Resource.Lot.LotType;
   isReassigned: boolean;
@@ -70,7 +70,7 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
 
   const onChangeProjectName = (asset: Resource.Asset.Asset | string) => {
     setProjectName(asset);
-    setValue('projectName', typeof asset === 'string' ? asset : asset.id);
+    setValue('asset', asset);
   };
 
   if (!active) return null;
@@ -157,13 +157,13 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
           </UIKit.FormElement>
           <UIKit.FormElement
             label={StartInfoFieldsDictionary.get('PROJECT_NAME').title}
-            isRequired={isRequired('projectName')}
+            isRequired={isRequired('asset')}
             w="full"
           >
-            <FormControl isRequired={isRequired('projectName')} isInvalid={Boolean(errors.projectName)}>
+            <FormControl isRequired={isRequired('asset')} isInvalid={Boolean(errors.asset)}>
               <Controller
                 control={control}
-                name="projectName"
+                name="asset"
                 render={({ field }) => (
                   // <UILogic.AssetSelect
                   //   isInvalid={Boolean(errors.projectName)}
@@ -172,14 +172,14 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                   //   onChange={onChangeProjectName}
                   // />
                   <UILogic.AssetCreateSelect
-                    isInvalid={Boolean(errors.projectName)}
+                    isInvalid={Boolean(errors.asset)}
                     placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder}
                     value={projectName}
                     onChange={onChangeProjectName}
                   />
                 )}
               />
-              {errors.projectName && <FormErrorMessage>{errors.projectName.message}</FormErrorMessage>}
+              {errors.asset && <FormErrorMessage>{errors.asset.message}</FormErrorMessage>}
             </FormControl>
           </UIKit.FormElement>
         </VStack>
