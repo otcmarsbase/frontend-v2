@@ -5,10 +5,19 @@ import { Common } from './Common';
 import { User } from './User';
 
 export namespace Lot {
-  export const LotType = ['SAFE', 'SAFT', 'TOKEN_WARRANT'] as const;
+  export const LotType = ['SAFE', 'SAFE_TOKEN_WARRANT', 'SAFT', 'TOKEN_WARRANT'] as const;
   export type LotType = (typeof LotType)[number];
 
-  export const LotStatus = ['DRAFT', 'ON_MODERATE', 'REJECTED', 'ACTIVE', 'PARTIALLY_COMPLETED', 'COMPLETED', 'UNPUBLISHED', 'ARCHIVED'] as const;
+  export const LotStatus = [
+    'DRAFT',
+    'ON_MODERATE',
+    'REJECTED',
+    'ACTIVE',
+    'PARTIALLY_COMPLETED',
+    'COMPLETED',
+    'UNPUBLISHED',
+    'ARCHIVED',
+  ] as const;
   export type LotStatus = (typeof LotStatus)[number];
 
   export interface LotKey extends ResourceKey<'lot'> {

@@ -1,6 +1,5 @@
 import { MutableRefObject } from 'react';
 
-import { ParticipantTypeDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
 import { UIKit } from '@shared/ui-kit';
 

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import Calendar from 'react-calendar';
 
-import { Box, BoxProps, Button, Input } from '@chakra-ui/react';
+import { Box, BoxProps, Input } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { Range } from 'react-calendar/dist/cjs/shared/types';
 

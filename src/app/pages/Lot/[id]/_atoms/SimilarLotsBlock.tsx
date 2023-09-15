@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { LotCard, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
@@ -14,20 +14,20 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({}) => {
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
 
-  async function loadAssets() {
+  const loadAssets = useCallback(async () => {
     const assets = await rpcSchema.send('asset.list', {});
     setAssets(assets.items);
-  }
+  }, [rpcSchema]);
 
-  async function loadLots() {
+  const loadLots = useCallback(async () => {
     const lots = await rpcSchema.send('lot.listActive', {});
     setLots(lots.items.slice(0, 4));
-  }
+  }, [rpcSchema]);
 
   useEffect(() => {
     loadAssets();
     loadLots();
-  }, []);
+  }, [loadAssets, loadLots]);
 
   return (
     <VStack mt="2rem" w="full" alignItems="start" layerStyle="darkLinearGradientBg" p="2rem" gap="1.25rem">

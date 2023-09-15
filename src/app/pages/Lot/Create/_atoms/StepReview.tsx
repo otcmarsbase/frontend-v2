@@ -1,6 +1,5 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
-import { List } from '@shared/ui-kit';
 
 type StepReviewField<T> = {
   renderTitle: (item: T) => React.ReactNode;

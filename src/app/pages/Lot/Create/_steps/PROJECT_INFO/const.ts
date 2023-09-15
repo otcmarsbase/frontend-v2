@@ -1,5 +1,7 @@
 import { createDictionary } from '@app/dictionary';
 
+import { StepFieldInfo } from '../../types';
+
 export const ProjectInfoFieldName = [
   'TYPE_OF_SELLER',
   'IS_DIRECT',
@@ -9,15 +11,10 @@ export const ProjectInfoFieldName = [
   'IS_NO_LIMIT',
   'DEADLINE',
   'IS_PERMANENT',
-  'WEBSITE',
 ] as const;
 export type ProjectInfoFieldName = (typeof ProjectInfoFieldName)[number];
-export type ProjectInfoFieldsDictionaryInfo = {
-  title: string;
-  placeholder: string;
-};
 
-export const ProjectInfoFieldsDictionary = createDictionary<ProjectInfoFieldName, ProjectInfoFieldsDictionaryInfo>()
+export const ProjectInfoFieldsDictionary = createDictionary<ProjectInfoFieldName, StepFieldInfo>()
   .setFromRecord({
     DEADLINE: {
       title: 'Deadline',
@@ -50,10 +47,6 @@ export const ProjectInfoFieldsDictionary = createDictionary<ProjectInfoFieldName
     TYPE_OF_BUYER: {
       title: 'Type of buyer',
       placeholder: 'Choose type',
-    },
-    WEBSITE: {
-      title: 'Website',
-      placeholder: 'Website',
     },
   })
   .setDefaultFactory((key) => ({

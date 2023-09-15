@@ -26,7 +26,11 @@ export const StartStepReview: React.FC<StartStepReviewProps> = ({ stepRef, ...re
         {
           renderTitle: () => StartInfoFieldsDictionary.get('LOT_TYPE').title,
           isRequired: stepRef.current.isRequired('type'),
-          renderValue: (model) => <Text color="white">{LotTypeDictionary.get(model.type).title}</Text>,
+          renderValue: (model) => (
+            <Text color="white">
+              {LotTypeDictionary.get(model.withTokenWarrant ? 'SAFE_TOKEN_WARRANT' : model.type).title}
+            </Text>
+          ),
         },
         {
           renderTitle: () => StartInfoFieldsDictionary.get('IS_REASSIGNED').title,
@@ -44,6 +48,11 @@ export const StartStepReview: React.FC<StartStepReviewProps> = ({ stepRef, ...re
           renderValue: (model) => (
             <Text color="white">{typeof model.asset === 'string' ? model.asset : model.asset.info.title}</Text>
           ),
+        },
+        {
+          renderTitle: () => StartInfoFieldsDictionary.get('WEBSITE').title,
+          isRequired: stepRef.current.isRequired('website'),
+          renderValue: (model) => <Text color="white">{model.website}</Text>,
         },
       ]}
     />

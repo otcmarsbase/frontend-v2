@@ -4,9 +4,10 @@ import { AxiosInstance } from 'axios';
 export function RpcClientAxiosAdapter(axiosClient: AxiosInstance): IRpcClientAdapter {
   return {
     send: async (request) => {
-      console.log('axios send request', request);
+      const { method, ...body } = request;
       const axiosResponse = await axiosClient.request({
-        data: request,
+        data: body,
+        url: method,
         method: 'POST',
       });
       return axiosResponse.data;

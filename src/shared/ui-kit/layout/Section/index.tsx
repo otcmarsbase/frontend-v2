@@ -1,4 +1,4 @@
-import { HStack, StackProps, ThemeComponentProps } from '@chakra-ui/react';
+import { HStack, StackProps } from '@chakra-ui/react';
 
 export interface SectionProps extends StackProps {
   children: React.ReactNode;

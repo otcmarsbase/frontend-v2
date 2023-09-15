@@ -32,7 +32,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema]);
 
   const loadAssets = useCallback(async () => {
     setIsLoading(true);
@@ -42,7 +42,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema]);
 
   useEffect(() => {
     loadLots();

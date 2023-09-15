@@ -1,5 +1,3 @@
-import { InvestmentRoundDictionary } from '@app/dictionary';
-import { Resource } from '@schema/api-gateway';
 import * as yup from 'yup';
 
 import { PricingModelType, PricingModelTypeDictionary } from './const';

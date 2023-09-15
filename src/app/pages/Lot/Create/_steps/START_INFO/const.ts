@@ -1,19 +1,18 @@
 import { createDictionary } from '@app/dictionary';
 
+import { StepFieldInfo } from '../../types';
+
 export const StartInfoFieldName = [
   'PROJECT_NAME',
   'DIRECTION',
   'LOT_TYPE',
   'IS_REASSIGNED',
   'WITH_TOKEN_WARRANT',
+  'WEBSITE',
 ] as const;
 export type StartInfoFieldName = (typeof StartInfoFieldName)[number];
-export type StartInfoFieldsDictionaryInfo = {
-  title: string;
-  placeholder: string;
-};
 
-export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, StartInfoFieldsDictionaryInfo>()
+export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, StepFieldInfo>()
   .setFromRecord({
     PROJECT_NAME: {
       title: 'Project info',
@@ -21,19 +20,19 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
     },
     DIRECTION: {
       title: 'Trade direction',
-      placeholder: '',
     },
     LOT_TYPE: {
       title: 'Type of lot',
-      placeholder: '',
     },
     IS_REASSIGNED: {
       title: 'Re-assign',
-      placeholder: '',
     },
     WITH_TOKEN_WARRANT: {
       title: 'Token Warrant',
-      placeholder: '',
+    },
+    WEBSITE: {
+      title: 'Website',
+      placeholder: 'Enter URL',
     },
   })
   .setDefaultFactory((key) => ({

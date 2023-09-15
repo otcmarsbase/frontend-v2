@@ -1,24 +1,21 @@
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useState } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  HStack,
   Text,
   InputGroup,
   InputRightElement,
   SimpleGrid,
   Checkbox,
 } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { UIKit, VStack, useForm } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
+import { StepRef } from '../../types';
 
 import {
   LotInfoFieldsDictionary,
@@ -42,15 +39,9 @@ export type LotInfoModel = {
   isBestBid: boolean;
 };
 
-export interface LotInfoStepRef {
-  onSubmit: () => Promise<LotInfoModel>;
-  getValues: () => LotInfoModel;
-  isRequired: UIKit.UseFormIsRequired<LotInfoModel>;
-}
+export type LotInfoStepRef = StepRef<LotInfoModel>;
 
 export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, active }, ref) => {
-  const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
   const [pricingModelType, setPricingModelType] = useState<PricingModelType>('IN_STABLECOIN');
   const {
     control,
@@ -65,11 +56,6 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
       pricingModel: pricingModelType,
     },
   });
-
-  // const onSubmit = async (model: any) => {
-  //   const lot = await rpcSchema.send('lot.save', { model });
-
-  // }
 
   const onSubmit = useCallback(async () => {
     const validatePromise = new Promise<LotInfoModel>((resolve, reject) => {
@@ -87,12 +73,13 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
       onSubmit,
       getValues,
       isRequired,
+      isSkippable: false,
+      schema: lotInfoSchema,
     }),
     [onSubmit, getValues, isRequired],
   );
 
   const pricingModelTypes: PricingModelType[] = useMemo(() => {
-    return ['IN_STABLECOIN', 'IN_EQUITY'];
     if (lot.type === 'SAFE') {
       return ['IN_STABLECOIN', 'IN_EQUITY'];
     }
@@ -102,6 +89,7 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
     if (lot.type === 'TOKEN_WARRANT') {
       return ['IN_STABLECOIN', 'IN_TOKEN_SHARES'];
     }
+    return ['IN_STABLECOIN', 'IN_EQUITY'];
   }, [lot]);
 
   const setPricingModel = useCallback(

@@ -1,7 +1,8 @@
-import { Text, Image } from '@chakra-ui/react';
+import { Text, Image, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { HStack, MoneyText, VStack } from '@shared/ui-kit';
 
+import { Chart } from './Chart';
 import AvailableGraphicSvg from './images/available_graphic.svg';
 
 interface AvailableBlockProps {
@@ -31,6 +32,9 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
           />
         </HStack>
       </HStack>
+      <Box>
+        <Chart />
+      </Box>
       <Image src={AvailableGraphicSvg} />
     </VStack>
   );

@@ -1,4 +1,4 @@
-import { createMultiStyleConfigHelpers, defineStyle, defineStyleConfig } from '@chakra-ui/react';
+import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const xs = defineStyle({
   fontSize: 'sm',

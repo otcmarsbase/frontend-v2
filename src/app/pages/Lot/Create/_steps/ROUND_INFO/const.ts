@@ -1,5 +1,7 @@
 import { createDictionary } from '@app/dictionary';
 
+import { StepFieldInfo } from '../../types';
+
 export const RoundInfoFieldName = [
   'CONTRACT_VALUE',
   'DESCRIPTION',
@@ -9,14 +11,13 @@ export const RoundInfoFieldName = [
   'TOTAL_EQUITY_BOUGHT',
   'PRICE_PER_EQUITY',
   'PRICE_INFORMATION',
+  'ESTIMATE_TGE_DATE',
+  'TBD',
+  'VESTING_CALENDAR',
 ] as const;
 export type RoundInfoFieldName = (typeof RoundInfoFieldName)[number];
-export type RoundInfoFieldsDictionaryInfo = {
-  title: string;
-  placeholder?: string;
-};
 
-export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, RoundInfoFieldsDictionaryInfo>()
+export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, StepFieldInfo>()
   .setFromRecord({
     DESCRIPTION: {
       title: 'Description',
@@ -48,6 +49,16 @@ export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, Ro
     },
     PRICE_INFORMATION: {
       title: 'Price information',
+    },
+    ESTIMATE_TGE_DATE: {
+      title: 'Estimate TGE Date',
+    },
+    TBD: {
+      title: 'TBD',
+    },
+    VESTING_CALENDAR: {
+      title: 'Vesting calendar',
+      placeholder: 'Enter amount',
     },
   })
   .setDefaultFactory((key) => ({

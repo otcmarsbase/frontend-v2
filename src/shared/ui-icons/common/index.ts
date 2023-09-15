@@ -18,6 +18,7 @@ export * from './KebabMenuIcon';
 export * from './LeftIcon';
 export * from './LinkWalletIcon';
 export * from './NotificationIcon';
+export * from './ProcessingIcon';
 export * from './RequiredIcon';
 export * from './SearchIcon';
 export * from './SecurityIcon';

@@ -1,13 +1,11 @@
 import { createDictionary } from '@app/dictionary';
 
+import { StepFieldInfo } from '../../types';
+
 export const LotInfoFieldName = ['PRICING_MODEL', 'FDV', 'PRICE', 'IS_BEST_BID'] as const;
 export type LotInfoFieldName = (typeof LotInfoFieldName)[number];
-export type LotInfoFieldsDictionaryInfo = {
-  title: string;
-  placeholder?: string;
-};
 
-export const LotInfoFieldsDictionary = createDictionary<LotInfoFieldName, LotInfoFieldsDictionaryInfo>()
+export const LotInfoFieldsDictionary = createDictionary<LotInfoFieldName, StepFieldInfo>()
   .setFromRecord({
     PRICING_MODEL: {
       title: 'Pricing model',
@@ -30,11 +28,8 @@ export const LotInfoFieldsDictionary = createDictionary<LotInfoFieldName, LotInf
 
 export const PricingModelType = ['IN_STABLECOIN', 'IN_EQUITY', 'IN_TOKENS', 'IN_TOKEN_SHARES'] as const;
 export type PricingModelType = (typeof PricingModelType)[number];
-export type PricingModelTypeInfo = {
-  title: string;
-};
 
-export const PricingModelTypeDictionary = createDictionary<PricingModelType, PricingModelTypeInfo>()
+export const PricingModelTypeDictionary = createDictionary<PricingModelType, StepFieldInfo>()
   .setFromRecord({
     IN_STABLECOIN: {
       title: 'In Stablecoin',
@@ -56,13 +51,7 @@ export const PricingModelTypeDictionary = createDictionary<PricingModelType, Pri
 
 export const PricingModelFieldType = ['QUANTITY', 'MIN_SIZE'] as const;
 export type PricingModelFieldType = (typeof PricingModelFieldType)[number];
-export type PricingModelFieldTypeInfo = Record<
-  PricingModelFieldType,
-  {
-    title: string;
-    placeholder?: string;
-  }
->;
+export type PricingModelFieldTypeInfo = Record<PricingModelFieldType, StepFieldInfo>;
 
 export const PricingModelFieldTypeDictionary = createDictionary<PricingModelType, PricingModelFieldTypeInfo>()
   .setFromRecord({

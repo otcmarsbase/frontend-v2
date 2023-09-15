@@ -1,14 +1,13 @@
 import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
-import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
-import { Button, Center, Checkbox, FormControl, FormErrorMessage, HStack, Input } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
+import { UILogic } from '@app/components';
+import { Checkbox, FormControl, FormErrorMessage, HStack, Input } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { RadioButtons, UIKit, VStack, useForm } from '@shared/ui-kit';
+import { UIKit, VStack, useForm } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
+import { StepRef } from '../../types';
 
 import { ProjectInfoFieldsDictionary } from './const';
 import { projectInfoSchema } from './schema';
@@ -19,48 +18,39 @@ export interface ProjectInfoStepProps {
 }
 
 export type ProjectInfoModel = {
-  deadline: Date;
   isDirect: boolean;
   isReadyToSPV: boolean;
   isNoLimit: boolean;
   isPermanent: boolean;
   typeOfSeller: Resource.Common.ParticipantType;
-  typeOfBuyer: Resource.Common.ParticipantType;
+  typeOfBuyer: Resource.Common.ParticipantType | null;
   telegram: string;
-  website: string;
+  deadline: Date;
 };
 
-export interface ProjectInfoStepRef {
-  onSubmit: () => Promise<ProjectInfoModel>;
-  getValues: () => ProjectInfoModel;
-  isRequired: UIKit.UseFormIsRequired<ProjectInfoModel>;
-}
+export type ProjectInfoStepRef = StepRef<ProjectInfoModel>;
 
 export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepProps>(({ lot, active }, ref) => {
-  const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
   const {
     control,
     isRequired,
     handleSubmit,
     formState: { errors },
     getValues,
+    watch,
+    setValue,
   } = useForm({ schema: projectInfoSchema, defaultValues: {} });
 
-  // const onSubmit = async (model: any) => {
-  //   const lot = await rpcSchema.send('lot.save', { model });
-
-  // }
+  const isNoLimit = watch('isNoLimit');
 
   const onSubmit = useCallback(async () => {
     const validatePromise = new Promise<ProjectInfoModel>((resolve, reject) => {
       handleSubmit(resolve, (err) => {
+        console.log('validationError', { err });
         reject(FormInvalidError);
-        console.log({ err });
       })();
     });
     const params = await validatePromise;
-    console.log({ params });
     return params;
   }, [handleSubmit]);
 
@@ -70,9 +60,13 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       onSubmit,
       getValues,
       isRequired,
+      isSkippable: false,
+      schema: projectInfoSchema,
     }),
     [onSubmit, getValues, isRequired],
   );
+
+  console.log({ lot });
 
   if (!active) return null;
 
@@ -113,17 +107,19 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
                 )}
               />
             </FormControl>
-            <FormControl isRequired={isRequired('isReadyToSPV')}>
-              <Controller
-                control={control}
-                name="isReadyToSPV"
-                render={(props) => (
-                  <Checkbox checked={props.field.value} onChange={props.field.onChange}>
-                    {ProjectInfoFieldsDictionary.get('IS_READY_TO_SPV').title}
-                  </Checkbox>
-                )}
-              />
-            </FormControl>
+            {!lot.type.includes('TOKEN_WARRANT') && (
+              <FormControl isRequired={isRequired('isReadyToSPV')}>
+                <Controller
+                  control={control}
+                  name="isReadyToSPV"
+                  render={(props) => (
+                    <Checkbox checked={props.field.value} onChange={props.field.onChange}>
+                      {ProjectInfoFieldsDictionary.get('IS_READY_TO_SPV').title}
+                    </Checkbox>
+                  )}
+                />
+              </FormControl>
+            )}
           </HStack>
         </VStack>
       </UIKit.FormElement>
@@ -156,12 +152,10 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
               control={control}
               name="typeOfBuyer"
               render={(props) => {
-                console.log({
-                  field: props.field,
-                });
                 return (
                   <UILogic.ParticipantTypeSelect
                     {...props.field}
+                    isDisabled={isNoLimit}
                     onChange={(value) => {
                       props.field.onChange(value);
                     }}
@@ -178,7 +172,16 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
               control={control}
               name="isNoLimit"
               render={(props) => (
-                <Checkbox checked={props.field.value} onChange={props.field.onChange}>
+                <Checkbox
+                  checked={props.field.value}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    props.field.onChange(checked);
+                    if (checked) {
+                      setValue('typeOfBuyer', null);
+                    }
+                  }}
+                >
                   {ProjectInfoFieldsDictionary.get('IS_NO_LIMIT').title}
                 </Checkbox>
               )}
@@ -188,24 +191,44 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       </UIKit.FormElement>
 
       <UIKit.FormElement
-        label={ProjectInfoFieldsDictionary.get('WEBSITE').title}
-        isRequired={isRequired('website')}
+        label={ProjectInfoFieldsDictionary.get('DEADLINE').title}
+        isRequired={isRequired('deadline')}
         w="full"
       >
-        <FormControl isRequired={isRequired('website')} isInvalid={Boolean(errors.website)}>
-          <Controller
-            control={control}
-            name="website"
-            render={({ field }) => (
-              <UIKit.InputWebsite
-                w="full"
-                placeholder={ProjectInfoFieldsDictionary.get('WEBSITE').placeholder}
-                {...field}
-              />
-            )}
-          />
-          {errors.website && <FormErrorMessage>{errors.website.message}</FormErrorMessage>}
-        </FormControl>
+        <VStack gap="1.5rem">
+          <FormControl isRequired={isRequired('deadline')} isInvalid={Boolean(errors.deadline)}>
+            <Controller
+              control={control}
+              name="deadline"
+              render={({ field }) => (
+                <UIKit.DatePicker
+                  w="full"
+                  placeholder={ProjectInfoFieldsDictionary.get('DEADLINE').placeholder}
+                  {...field}
+                />
+              )}
+            />
+            {errors.deadline && <FormErrorMessage>{errors.deadline.message}</FormErrorMessage>}
+          </FormControl>
+
+          <FormControl isRequired={isRequired('isPermanent')}>
+            <Controller
+              control={control}
+              name="isPermanent"
+              render={(props) => (
+                <Checkbox
+                  checked={props.field.value}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    props.field.onChange(checked);
+                  }}
+                >
+                  {ProjectInfoFieldsDictionary.get('IS_PERMANENT').title}
+                </Checkbox>
+              )}
+            />
+          </FormControl>
+        </VStack>
       </UIKit.FormElement>
     </VStack>
   );

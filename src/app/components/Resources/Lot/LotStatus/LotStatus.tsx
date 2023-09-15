@@ -1,17 +1,15 @@
 import { useMemo } from 'react';
 
+import { LotStatusDictionary } from '@app/dictionary';
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-
-import { LotStatusColorMap, LotStatusTitleMap } from './const';
 
 export interface LotStatusProps extends BoxProps {
   value: Resource.Lot.LotStatus;
 }
 
 export function LotStatus({ value, ...boxProps }: LotStatusProps) {
-  const color = useMemo(() => LotStatusColorMap.get(value), [value]);
-  const title = useMemo(() => LotStatusTitleMap.get(value), [value]);
+  const { color, title } = useMemo(() => LotStatusDictionary.get(value), [value]);
 
   return (
     <HStack {...boxProps} gap="0.25rem">

@@ -4,6 +4,9 @@ import { UILayout } from '@app/layouts';
 import { Box, Heading, VStack, Text, HStack, Button, Center, SimpleGrid } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { Section, Steps } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
+import { isEmpty } from 'lodash';
+import { NullableObject } from 'src/shared/ddd-errors/NullableObject';
 
 import { FormInvalidError } from '../_const';
 import {
@@ -17,45 +20,63 @@ import {
   LotInfoStepRef,
   ReviewStep,
 } from '../_steps';
+import { StepRef } from '../types';
 
 import { CreateLotDictionary, CreateStepDictionary, CreateStepType } from './const';
 
-export interface CreateFormLayoutProps extends React.PropsWithChildren {}
-
-export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
+export const CreateLot: React.FC<React.PropsWithChildren> = () => {
   const projectInfoStepRef = useRef<ProjectInfoStepRef>();
   const startInfoStepRef = useRef<StartInfoStepRef>();
   const roundInfoStepRef = useRef<RoundInfoStepRef>();
   const lotInfoStepRef = useRef<LotInfoStepRef>();
   const [step, setStep] = useState<CreateStepType>('START_INFO');
-  const [lot, setLot] = useState<Resource.Lot.Lot>(null);
-  const shouldViewStep = useCallback(
-    (step: CreateStepType) => {
-      if (!lot) return false;
-      if (step === 'PROJECT_INFO') {
-        return true;
+  const [lot, setLot] = useState<Resource.Lot.Lot>({
+    resource: 'lot',
+  } as any);
+  const shouldViewStep = useCallback((step: CreateStepType) => {
+    const startInfoStep = startInfoStepRef.current;
+    const projectInfoStep = projectInfoStepRef.current;
+    const roundInfoStep = roundInfoStepRef.current;
+    const lotInfoStep = lotInfoStepRef.current;
+    const refByStep: Record<string, StepRef<any>> = {
+      START_INFO: startInfoStep,
+      PROJECT_INFO: projectInfoStep,
+      ROUND_INFO: roundInfoStep,
+      LOT_INFO: lotInfoStep,
+    };
+    const stepRef = refByStep[step];
+    if (!stepRef) return false;
+    const values = stepRef.getValues();
+    if (isEmpty(values) && stepRef.isSkippable) {
+      return true;
+    } else {
+      try {
+        const validations = stepRef.schema.validateSync(values, {});
+        return !!validations;
+      } catch (err) {
+        return false;
       }
-      if (step === 'ROUND_INFO') {
-        return [lot.round_info?.type, lot.round_info?.valuation_info].some(Boolean);
-      }
-      if (step === 'LOT_INFO') {
-        return [lot.type].some(Boolean);
-      }
-      return false;
-    },
-    [lot],
-  );
+    }
+  }, []);
 
   const onPreviewClick = () => {};
 
-  const onLoadLot = () => {
-    const lot: Resource.Lot.Lot = null;
-  };
+  const onLoadLot = () => {};
 
   const onNext = async () => {
     try {
       if (step === 'START_INFO') {
-        await startInfoStepRef.current.onSubmit();
+        const startInfo = await startInfoStepRef.current.onSubmit();
+        setLot({
+          resource: 'lot',
+          id: '122323',
+          type: startInfo.withTokenWarrant ? 'SAFE_TOKEN_WARRANT' : startInfo.type,
+          direction: startInfo.direction,
+          asset: {
+            resource: 'asset_key',
+            id: typeof startInfo.asset === 'string' ? startInfo.asset : startInfo.asset.id,
+          },
+        } as any);
         // onSaveLot()
         setStep('PROJECT_INFO');
       }
@@ -80,13 +101,24 @@ export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
     }
   };
 
+  function round(precision: number, value: Decimal.Value) {
+    const currentValue = new Decimal(value);
+
+    if (NullableObject.isEmpty(precision)) return value;
+    if (precision >= 0) return currentValue.toDecimalPlaces(precision);
+
+    const pow = new Decimal(10).pow(Decimal.abs(precision));
+    return currentValue.div(pow).toDecimalPlaces(0).mul(pow);
+  }
+
   useEffect(() => {
     onLoadLot();
+    console.log(1, round(2, NaN).toString());
+    console.log(2, round(-2, -Infinity).toString());
+    console.log(3, round(-5, Infinity).toString());
   }, []);
 
   const { title: stepTitle, description: stepDescription } = CreateStepDictionary.get(step);
-
-  console.log({ step });
 
   return (
     <VStack w="full" alignItems="start">
@@ -137,9 +169,10 @@ export const CreateLot: React.FC<CreateFormLayoutProps> = ({ children }) => {
               <Steps
                 value={step}
                 onChange={(step) => setStep(step)}
-                canClickItem={(item) =>
-                  CreateStepDictionary.get(step).backSteps.indexOf(item) !== -1 || shouldViewStep(item)
-                }
+                canClickItem={(item) => {
+                  console.log({ item });
+                  return CreateStepDictionary.get(step).backSteps.indexOf(item) !== -1 || shouldViewStep(item);
+                }}
                 items={CreateStepDictionary.keys()}
                 renderKey={(item) => item}
                 renderTitle={(item) => CreateStepDictionary.get(item).stepTitle}

@@ -12,4 +12,9 @@ export const roundInfoSchema: yup.ObjectSchema<RoundInfoModel> = yup.object({
   totalEquityBought: yup.number().required(),
   pricePerEquity: yup.string().required(),
   description: yup.string(),
+  estimateTGEDate: yup.date().nullable(),
+  TBD: yup.boolean().nullable(),
+  vestingCalendar: yup.string().nullable(),
+  lockupPeriod: yup.string().nullable(),
+  alreadyOver: yup.boolean().nullable(),
 });

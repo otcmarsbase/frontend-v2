@@ -9,7 +9,7 @@ export namespace Deal {
   export const DealStatus = ['NEGOTIATION', 'COMPLETED', 'REJECTED'] as const;
   export type DealStatus = (typeof DealStatus)[number];
 
-  export const DealParticipantType = [] as const;
+  export const DealParticipantType = [''] as const;
   export type DealParticipantType = (typeof DealParticipantType)[number];
 
   export interface DealKey extends ResourceKey<'deal'> {

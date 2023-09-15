@@ -42,9 +42,11 @@ export function useForm<TFieldValues extends FieldValues = FieldValues, TContext
   schemaResolveOptions,
   ...useFormProps
 }: UseFormProps<TFieldValues, TContext>): UseFormReturn<TFieldValues, TContext> {
+  const resolver = schema && yupResolver(schema, schemaResolveOptions);
+
   const { handleSubmit: _handleSubmit, ...props } = useRhfForm<TFieldValues, TContext>({
     mode: 'onTouched',
-    resolver: schema && (yupResolver(schema, schemaResolveOptions) as any),
+    resolver: resolver as any,
     ...useFormProps,
   });
 

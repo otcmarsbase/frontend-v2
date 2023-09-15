@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic } from '@app/components';
 import {
   Checkbox,
   FormControl,
@@ -14,12 +14,12 @@ import {
   SimpleGrid,
   Circle,
 } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit, VStack, useForm } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
+import { StepRef } from '../../types';
 
 import { RoundInfoFieldsDictionary } from './const';
 import { roundInfoSchema } from './schema';
@@ -37,17 +37,17 @@ export type RoundInfoModel = {
   totalEquityBought: number;
   pricePerEquity: string;
   description: string;
+  // Fields for `SAFT | TOKEN_WARRANT`
+  estimateTGEDate: Date | null;
+  TBD: boolean | null;
+  vestingCalendar: string | null;
+  lockupPeriod: string | null;
+  alreadyOver: boolean | null;
 };
 
-export interface RoundInfoStepRef {
-  onSubmit: () => Promise<RoundInfoModel>;
-  getValues: () => RoundInfoModel;
-  isRequired: UIKit.UseFormIsRequired<RoundInfoModel>;
-}
+export type RoundInfoStepRef = StepRef<RoundInfoModel>;
 
 export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({ lot, active }, ref) => {
-  const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
   const {
     control,
     isRequired,
@@ -55,11 +55,6 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
     formState: { errors },
     getValues,
   } = useForm({ schema: roundInfoSchema, defaultValues: {} });
-
-  // const onSubmit = async (model: any) => {
-  //   const lot = await rpcSchema.send('lot.save', { model });
-
-  // }
 
   const onSubmit = useCallback(async () => {
     const validatePromise = new Promise<RoundInfoModel>((resolve, reject) => {
@@ -77,6 +72,8 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
       onSubmit,
       getValues,
       isRequired,
+      isSkippable: true,
+      schema: roundInfoSchema,
     }),
     [onSubmit, getValues, isRequired],
   );

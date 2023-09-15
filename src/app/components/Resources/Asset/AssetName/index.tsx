@@ -8,7 +8,7 @@ export interface AssetNameProps {
 
 export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md' }) => {
   return (
-    <HStack gap="0.5rem" alignItems="center" my="1.25rem">
+    <HStack gap="0.5rem" alignItems="center">
       <Image
         borderRadius="50%"
         objectFit="cover"
@@ -16,7 +16,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md' }) => {
         w={size === 'md' ? '3rem' : '1.875rem'}
         h={size === 'md' ? '3rem' : '1.875rem'}
       />
-      <Text fontWeight="semibold">{asset.info.title}</Text>
+      <Text fontWeight="semibold">{asset?.info.title}</Text>
     </HStack>
   );
 };

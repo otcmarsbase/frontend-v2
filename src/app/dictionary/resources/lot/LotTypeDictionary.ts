@@ -11,6 +11,9 @@ export const LotTypeDictionary = createDictionary<Resource.Lot.LotType, LotTypeD
     SAFE: {
       title: 'SAFE',
     },
+    SAFE_TOKEN_WARRANT: {
+      title: 'SAFE + Token warrant',
+    },
     SAFT: {
       title: 'SAFT',
     },

@@ -13,7 +13,9 @@ export namespace Account {
     auth_data?: AuthData;
   }
 
-  export interface Profile {}
+  export interface Profile {
+    avatarUrl: string;
+  }
 
   export interface Verification {
     is_verified: boolean;

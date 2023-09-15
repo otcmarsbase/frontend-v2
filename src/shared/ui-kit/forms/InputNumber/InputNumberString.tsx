@@ -5,7 +5,6 @@ import {
   NumberInputStepper,
   NumberDecrementStepper,
   NumberIncrementStepper,
-  Input,
 } from '@chakra-ui/react';
 
 import { useInputNumberDecimals, UseInputNumberDecimalsProps } from './hooks';

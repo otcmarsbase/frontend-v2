@@ -1,64 +1,86 @@
-import { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
-import { usePreloadPage } from '@app/hooks';
-import { UILayout } from '@app/layouts';
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { observer } from 'mobx-react-lite';
+
+import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
+import { HStack, VStack, Text } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { useLoadingCallback } from '@shared/ui-kit';
+import { UIIcons } from '@shared/ui-icons';
 
-import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
+import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
+import { BaseDealInfo } from './_atoms/BaseDealInfo';
+import { createAsset, createDeal, createLot, createParticipant } from './mock';
 
-export interface ViewProps {
-  id: string;
-}
+const Deal: React.FC = observer(() => {
+  const router = useRouter();
+  const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
+  const [lot, setLot] = useState<Resource.Lot.Lot>(null);
+  const [asset, setAsset] = useState<Resource.Asset.Asset>(null);
+  const [participants] = useState([
+    createParticipant('OFFER_MAKER'),
+    createParticipant('MODERATOR'),
+    createParticipant('BID_MAKER'),
+    createParticipant('OTC_AGENT'),
+  ]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-export default function View({ id }: ViewProps) {
-  const rpcSchema = useRpcSchemaClient();
+  const loadDeal = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setDeal(createDeal());
+      setAsset(createAsset());
+      setLot(createLot());
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [direction, setDirection] = useState<Resource.Common.TradeDirection>('BUY');
+  useEffect(() => {
+    loadDeal();
+  }, [loadDeal]);
 
-  const onPreload = useLoadingCallback(
-    useCallback(async () => {
-      const asset = await rpcSchema.send('asset.getById', { id });
-      setAsset(asset);
-    }, [id, rpcSchema]),
-  );
-  usePreloadPage(onPreload);
-
-  const onLotClick = useCallback((lot: Resource.Lot.Lot) => {}, []);
-
-  // TODO
-  if (!asset) return <>Empty</>;
+  if (isLoading) {
+    return <HStack>Loading...</HStack>;
+  }
 
   return (
-    <VStack padding="2rem" gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={asset.info.logo_url} analyticsUrl="" />
-      <StatsBlock
-        averageLotsFdv={asset.stats.average_fdv}
-        averageBidsFdv={asset.stats.average_fdv}
-        lotSellCount={asset.stats.lot_sell_count}
-        lotBuyCount={asset.stats.lot_buy_count}
-        lotQuantitySummary={asset.stats.lot_buy_cv_sum}
-      />
-      <Grid h="300px" templateRows="repeat(2, 1fr)" templateColumns="repeat(3, 1fr)" gap={4}>
-        <GridItem rowSpan={1} colSpan={1}>
-          <LinksBlock links={asset.info.links} />
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={1}>
-          <VerticalBlock verticals={asset.info.verticals} />
-        </GridItem>
-        <GridItem rowSpan={2} colSpan={2}>
-          <DescriptionBlock description={asset.info.description} />
-        </GridItem>
-      </Grid>
+    <VStack gap="1.75rem">
+      <HStack w="100%" color="#888D9B" cursor="pointer">
+        <UIIcons.Common.ArrowLeft />
+        <Text fontSize="sm" fontWeight={600} onClick={() => router.navigateComponent(MBPages.Dashboard.Deals, {}, {})}>
+          Back to Dashboard
+        </Text>
+      </HStack>
+      <HStack width="full" gap="2rem" alignItems="start">
+        <VStack gap="1.25rem" flex="1.5">
+          <BaseDealInfo lot={lot} deal={deal} asset={asset} />
 
-      <LotsBlock direction={direction} onChange={setDirection} onSelect={onLotClick} />
+          <DealInfo price={3235} size={2323} fdv={2323} commission={5} />
+
+          <DealParticipants items={participants} telegramChatLink={deal?.communication?.char_url} />
+        </VStack>
+
+        <TradeProgressStatuses
+          chatCreating={'COMPLETED'}
+          offerMakerValidation={'VALIDATED'}
+          bidMakerValidation={'COMPLETED'}
+          kycValidation={'FAILED'}
+          amlValidation={'PENDING'}
+          kybValidation={'VALIDATED'}
+          docOwnership={'COMPLETED'}
+          docResigned={'COMPLETED'}
+          txPayment={'PENDING'}
+          marsbaseCommission={'PENDING'}
+          otcCommission={'PENDING'}
+        />
+      </HStack>
     </VStack>
   );
-}
+});
 
-View.getLayout = ({ children }) => {
-  return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
-};
+Deal.getLayout = ({ children }) => <Layouts.AppLayout>{children}</Layouts.AppLayout>;
+
+export default Deal;

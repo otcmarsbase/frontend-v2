@@ -48,11 +48,6 @@ export const ProjectStepReview: React.FC<ProjectStepReviewProps> = ({ stepRef, .
           isRequired: stepRef.current.isRequired('isNoLimit'),
           renderValue: (model) => <Text color="white">{model.isNoLimit ? 'Yes' : 'No'}</Text>,
         },
-        {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('WEBSITE').title,
-          isRequired: stepRef.current.isRequired('website'),
-          renderValue: (model) => <Text color="white">{model.website}</Text>,
-        },
       ]}
     />
   );

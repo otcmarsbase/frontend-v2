@@ -11,7 +11,7 @@ import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
 interface BidsProps {}
 
-export const Bids: FC<BidsProps> = ({}) => {
+export const Bids: FC<BidsProps> = () => {
   const [bids] = useState(createBids(10));
 
   return (
@@ -32,20 +32,6 @@ export const Bids: FC<BidsProps> = ({}) => {
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
-          {/* <Select
-            bg="dark.950"
-            borderColor="dark.200"
-            color="dark.50"
-            placeholder="Sort by"
-            borderRadius="0.375rem"
-            h="2rem"
-            w="9.375rem"
-          >
-            <option value="option3">Bid FDV</option>
-            <option value="bidSize">Bid size</option>
-            <option value="deadline">Deadline</option>
-            <option value="status">Status</option>
-          </Select> */}
           <Box w="11rem">
             <UIKit.SelectSync<SortBidsByType>
               placeholder="Sort by"

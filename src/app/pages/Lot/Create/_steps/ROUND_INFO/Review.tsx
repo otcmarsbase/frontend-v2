@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 
-import { InvestmentRoundDictionary, LotTypeDictionary } from '@app/dictionary';
+import { InvestmentRoundDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
 import { MoneyText } from '@shared/ui-kit';
 
