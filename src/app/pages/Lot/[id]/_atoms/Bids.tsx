@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
+import { UIModals } from '@app/components';
+import { ModalController } from '@app/logic';
+import { useStore } from '@app/store';
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
-
-import { createBids } from '../mock';
 
 import { BidsList } from './BidsList';
 import { SortBidsByType, SortBidsByTypeDictionary } from './const';
@@ -12,7 +13,13 @@ import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 interface BidsProps {}
 
 export const Bids: FC<BidsProps> = () => {
-  const [bids] = useState(createBids(10));
+  const { mockStore } = useStore();
+  const [bids] = useState(mockStore.bidListLot({}).items);
+
+  const onCreateBidClick = useCallback(async () => {
+    const bid = await ModalController.create(UIModals.CreateBidModal, {});
+    console.log({ bid });
+  }, []);
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -40,11 +47,15 @@ export const Bids: FC<BidsProps> = () => {
             />
           </Box>
 
-          <Button variant="brand" size="xs" borderRadius="0.375rem" padding="0.5rem 0.75rem" onClick={() => {}}>
-            <HStack>
-              <UIIcons.Common.AddIcon />
-              <Text>Create Bid</Text>
-            </HStack>
+          <Button
+            leftIcon={<UIIcons.Common.AddIcon />}
+            variant="brand"
+            size="xs"
+            borderRadius="0.375rem"
+            padding="0.5rem 0.75rem"
+            onClick={onCreateBidClick}
+          >
+            Create Bid
           </Button>
         </HStack>
       </HStack>

@@ -1,3 +1,4 @@
+import { UILogic } from '@app/components';
 import pages from '@app/pages';
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
 import { Logo, LinkComponent } from '@shared/ui-kit';

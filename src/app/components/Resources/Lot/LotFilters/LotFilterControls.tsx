@@ -33,10 +33,6 @@ export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
         items={LotFilterSortByFieldDictionary.keys()}
         renderItem={(item) => LotFilterSortByFieldDictionary.get(item).title}
       />
-      <Button variant="darkOutline">
-        <UIIcons.Common.HotIcon />
-        &nbsp; HOT!
-      </Button>
     </HStack>
   );
 }

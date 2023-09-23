@@ -650,7 +650,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'soft-rounded'
         | 'solid-rounded'
         | 'unstyled'
-        | 'asset'
+        | 'promo'
         | (string & {});
     };
     Tag: {

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import { AuthInstanceStore } from './stores';
+import { AuthInstanceStore, MockStore } from './stores';
 
 export class RootStore {
   static create() {
@@ -9,12 +9,14 @@ export class RootStore {
 
   // public readonly authLocalStore: AuthLocalStore;
   public readonly authInstanceStore: AuthInstanceStore;
+  public readonly mockStore: MockStore;
 
   // private _persistStore: PersistStore<AuthLocalStore, 'authToken'>;
 
   private constructor() {
     // this.authLocalStore = makeAutoObservable(new AuthLocalStore(), {}, { autoBind: true });
     this.authInstanceStore = makeAutoObservable(new AuthInstanceStore(), {}, { autoBind: true });
+    this.mockStore = makeAutoObservable(new MockStore(), {}, { autoBind: true });
   }
 
   async start() {

@@ -1,3 +1,4 @@
+import { ParticipantTypeDictionary } from '@app/dictionary';
 import { faker } from '@faker-js/faker';
 import { Resource } from '@schema/api-gateway';
 
@@ -5,14 +6,14 @@ export function createBid(): Resource.Bid.Bid {
   return {
     resource: 'bid',
     id: faker.string.numeric(5),
-    status: faker.helpers.arrayElement(Resource.Bid.BidStatus),
+    status: faker.helpers.arrayElement(['NEW', 'ON_MODERATE', 'ACTIVE', 'COMPLETED', 'REJECTED', 'ARCHIVED']),
     created_at: +new Date(),
     lot: {
       resource: 'lot_key',
       id: '123',
     },
     owner: { nickname: faker.company.buzzNoun(), resource: 'user_key' },
-    owner_type: faker.helpers.arrayElements(Resource.Common.ParticipantType, {
+    owner_type: faker.helpers.arrayElements(ParticipantTypeDictionary.keys(), {
       max: 1,
       min: 1,
     }),
@@ -35,8 +36,4 @@ export function createBid(): Resource.Bid.Bid {
       telegram: `@${faker.internet.displayName().toLowerCase()}`,
     },
   };
-}
-
-export function createBids(count: number = 10): Resource.Bid.Bid[] {
-  return faker.helpers.multiple(createBid, { count });
 }

@@ -8,6 +8,7 @@ import { HStack, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
+import { UIKit } from '@shared/ui-kit';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
@@ -47,13 +48,10 @@ const Deal: React.FC = observer(() => {
   }
 
   return (
-    <VStack gap="1.75rem">
-      <HStack w="100%" color="#888D9B" cursor="pointer">
-        <UIIcons.Common.ArrowLeft />
-        <Text fontSize="sm" fontWeight={600} onClick={() => router.navigateComponent(MBPages.Dashboard.Deals, {}, {})}>
-          Back to Dashboard
-        </Text>
-      </HStack>
+    <VStack gap="1rem" alignItems="start">
+      <UIKit.BackButton onClick={() => router.navigateComponent(MBPages.Dashboard.Deals, {}, {})}>
+        Back to Dashboard
+      </UIKit.BackButton>
       <HStack width="full" gap="2rem" alignItems="start">
         <VStack gap="1.25rem" flex="1.5">
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />

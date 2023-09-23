@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
+import { UIModals, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
+import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
+import { MockFakers, MockStore, useStore } from '@app/store';
 import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
@@ -13,7 +15,6 @@ import { useLoadingCallback } from '@shared/ui-kit';
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
-import { createBids } from './mock';
 
 const UserState = {
   isOfferMaker: true,
@@ -27,15 +28,16 @@ export interface LotProps extends React.PropsWithChildren {
 export default function Lot({ id }: LotProps) {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
+  const { mockStore } = useStore();
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [bids] = useState<Resource.Bid.Bid[]>(createBids());
+  const [bids] = useState<Resource.Bid.Bid[]>(mockStore.bidListLot({}).items);
 
   const preload = useLoadingCallback(
     useCallback(async () => {
-      const lot = await rpcSchema.send('lot.getById', { id });
-      const asset = await rpcSchema.send('asset.getById', { id: lot.asset.id });
+      const asset = MockFakers.createAsset();
+      const lot = MockFakers.createLot([asset]);
 
       setLot(lot);
       setAsset(asset);

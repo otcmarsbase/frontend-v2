@@ -21,11 +21,9 @@ export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
           </Heading>
         )}
       </HStack>
-      {analyticsUrl && (
-        <Link href={analyticsUrl}>
-          <Button as="a">Download asset research</Button>
-        </Link>
-      )}
+      <Button as="a" href={analyticsUrl} size="xs" variant="darkOutline">
+        Download asset research
+      </Button>
     </HStack>
   );
 }

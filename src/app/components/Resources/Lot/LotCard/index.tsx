@@ -102,7 +102,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
   }, [lot, asset]);
 
   const loadAsset = useCallback(async () => {
-    const asset = await schema.send('asset.getById', { id: lot.asset.id });
+    // const asset = await schema.send('asset.getById', { id: lot.asset.id });
     setAsset(asset);
   }, [lot, schema]);
 
@@ -110,7 +110,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
     loadAsset();
   }, [loadAsset]);
 
-  if (!asset) return;
+  console.log({ asset });
+
+  // if (!asset) return;
 
   return (
     <VStack
@@ -163,9 +165,11 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
           <Text fontWeight={600} fontSize="sm" color="dark.50">
             Available
           </Text>
-          <Text fontWeight={600} color="white" fontSize="xs">
-            {[availableSum, totalSum].map((val) => `${val.toLocaleString('en')}$`).join(' / ')}
-          </Text>
+          <HStack fontWeight={600} color="white" fontSize="xs">
+            <UIKit.MoneyText value={availableSum} abbreviated addon="$" />
+            <Text>/</Text>
+            <UIKit.MoneyText value={totalSum} abbreviated addon="$" />
+          </HStack>
         </HStack>
         <Progress value={(availableSum / totalSum) * 100} colorScheme="green" />
       </VStack>

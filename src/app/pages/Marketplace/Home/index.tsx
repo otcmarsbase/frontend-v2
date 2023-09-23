@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { LotCard, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
+import { useStore } from '@app/store';
 import { Button, HStack, Heading, SimpleGrid, VStack, Text, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/api-gateway';
@@ -14,8 +15,8 @@ import { motion } from 'framer-motion';
 import { FiltersBlock, MarketplaceFilters } from './_atoms';
 
 export const OtcDesk: React.FC = observer(() => {
-  const schema = useRpcSchemaClient();
   const router = useRouter();
+  const { mockStore } = useStore();
 
   const [columnsCount, setColumnsCount] = useState(4);
   const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
@@ -45,20 +46,16 @@ export const OtcDesk: React.FC = observer(() => {
   };
 
   const loadLots = useCallback(async () => {
-    const lots = await schema.send('lot.listActive', {});
+    const assets = mockStore.assetList({});
+    const lots = mockStore.lotListActive(assets.items);
+    setAssets(assets);
     setOriginalLots(lots);
     setLots(lots);
   }, []);
 
-  const loadAssets = useCallback(async () => {
-    const assets = await schema.send('asset.list', {});
-    setAssets(assets);
-  }, []);
-
   useEffect(() => {
     loadLots();
-    loadAssets();
-  }, [loadLots, loadAssets]);
+  }, [loadLots]);
 
   const onFilter = (filters: MarketplaceFilters) => {
     setLots((lots) => ({
@@ -66,6 +63,8 @@ export const OtcDesk: React.FC = observer(() => {
       items: filters.assetId ? lots.items.filter((lot) => lot.asset.id === filters.assetId) : originalLots.items,
     }));
   };
+
+  console.log({ lots });
 
   return (
     <VStack alignItems="start">

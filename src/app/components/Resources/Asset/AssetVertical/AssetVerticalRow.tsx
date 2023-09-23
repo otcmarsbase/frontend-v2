@@ -13,12 +13,10 @@ export interface AssetVerticalRowProps {
 export function AssetVerticalRow({ value }: AssetVerticalRowProps) {
   const title = useMemo(() => AssetVerticalTitleMap.get(value), [value]);
 
-  console.log({ title });
-
   return (
     <HStack>
       <AssetVerticalIcon value={value} />
-      <Text fontSize="sm" color="white">
+      <Text fontSize="sm" color="white" whiteSpace="nowrap">
         {title}
       </Text>
     </HStack>

@@ -9,7 +9,16 @@ export function DescriptionBlock({ description }: DescriptionBlockProps) {
   return (
     <UIKit.Section>
       <UIKit.SectionContent title="Description">
-        <Text w="80%" variant="h5" fontWeight="500" color="dark.50" whiteSpace="pre-line">
+        <Text
+          maxH="19rem"
+          h="full"
+          overflow="auto"
+          w="full"
+          variant="h5"
+          fontWeight="500"
+          color="dark.50"
+          whiteSpace="pre-line"
+        >
           {description}
         </Text>
       </UIKit.SectionContent>

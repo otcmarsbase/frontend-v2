@@ -1,14 +1,14 @@
-import { HStack, Heading, VStack } from '@chakra-ui/react';
+import { HStack, Heading, StackProps, VStack } from '@chakra-ui/react';
 
-export interface SectionContentProps {
+export interface SectionContentProps extends Omit<StackProps, 'title'> {
   children: React.ReactNode;
   full?: boolean;
   title?: React.ReactNode;
 }
 
-export function SectionContent({ title, full = true, children }: SectionContentProps) {
+export function SectionContent({ title, full = true, children, ...stackProps }: SectionContentProps) {
   return (
-    <VStack w={full && 'full'}>
+    <VStack w={full && 'full'} alignItems="start" {...stackProps}>
       {title && (
         <Heading variant="h3" textTransform="uppercase" fontSize="1rem" color="white">
           {title}

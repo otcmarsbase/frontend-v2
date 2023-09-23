@@ -27,10 +27,12 @@ export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
     [onSelect, getAsset],
   );
 
+  console.log({ lots });
+
   return (
     <SimpleGrid w="full" columns={columns} spacing="2rem">
       {lots.map((lot) => (
-        <motion.div layout={true} key={lot.id}>
+        <motion.div layout key={lot.id}>
           <LotCard lot={lot} asset={getAsset(lot)} onClick={() => onSelectCallback(lot)} />
         </motion.div>
       ))}

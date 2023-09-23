@@ -1,15 +1,29 @@
-import { Text, Image, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
-import { HStack, MoneyText, VStack } from '@shared/ui-kit';
+import { useState } from 'react';
 
-import { Chart } from './Chart';
-import AvailableGraphicSvg from './images/available_graphic.svg';
+import { Text, Box } from '@chakra-ui/react';
+import { Resource } from '@schema/api-gateway';
+import { HStack, MoneyText, UIKit, VStack } from '@shared/ui-kit';
 
 interface AvailableBlockProps {
   lot: Resource.Lot.Lot;
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
+  const [chartData, setChartData] = useState<UIKit.ChartPieData[]>([
+    {
+      id: 'total',
+      label: 'Total',
+      value: 12324,
+      color: 'orange.500',
+    },
+    {
+      id: 'reserved',
+      label: 'Reserved',
+      value: 1233,
+      color: 'orange.500',
+    },
+  ]);
+
   return (
     <VStack bg="dark.900" p="1.25rem" borderRadius="sm">
       <HStack w="full" justifyContent="space-between">
@@ -32,10 +46,9 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
           />
         </HStack>
       </HStack>
-      <Box>
-        <Chart />
+      <Box w="full" h="11rem">
+        <UIKit.ChartPie data={chartData} size="sm" />
       </Box>
-      <Image src={AvailableGraphicSvg} />
     </VStack>
   );
 };

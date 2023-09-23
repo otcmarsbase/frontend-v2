@@ -43,14 +43,14 @@ export default function View({ id }: ViewProps) {
         lotBuyCount={asset.stats.lot_buy_count}
         lotQuantitySummary={asset.stats.lot_buy_cv_sum}
       />
-      <Grid h="300px" templateRows="repeat(2, 1fr)" templateColumns="repeat(3, 1fr)" gap={4}>
-        <GridItem rowSpan={1} colSpan={1}>
-          <LinksBlock links={asset.info.links} />
+      <Grid templateColumns="30rem 2fr" gap="2rem">
+        <GridItem h="full">
+          <VStack alignItems="start" gap="0.75rem">
+            <LinksBlock links={asset.info.links} />
+            <VerticalBlock verticals={asset.info.verticals} />
+          </VStack>
         </GridItem>
-        <GridItem rowSpan={1} colSpan={1}>
-          <VerticalBlock verticals={asset.info.verticals} />
-        </GridItem>
-        <GridItem rowSpan={2} colSpan={2}>
+        <GridItem h="full">
           <DescriptionBlock description={asset.info.description} />
         </GridItem>
       </Grid>
