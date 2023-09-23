@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { LotCard, useRpcSchemaClient } from '@app/components';
+import { LotCard } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { useStore } from '@app/store';

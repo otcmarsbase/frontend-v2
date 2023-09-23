@@ -1,11 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
-import { UIModals, useRpcSchemaClient } from '@app/components';
+import { useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
-import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
-import { MockFakers, MockStore, useStore } from '@app/store';
+import { MockFakers, useStore } from '@app/store';
 import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
@@ -54,8 +53,6 @@ export default function Lot({ id }: LotProps) {
   };
 
   if (!asset || !lot) return;
-
-  console.log({ bids });
 
   return (
     <VStack marginTop="2rem" alignItems="flex-start">

@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import { Resource } from '@schema/api-gateway';
-import { HStack, SimpleGrid, UIKit } from '@shared/ui-kit';
+import { SimpleGrid, UIKit } from '@shared/ui-kit';
 
 export interface VerticalBlockProps {
   verticals: Resource.Asset.AssetVertical[];

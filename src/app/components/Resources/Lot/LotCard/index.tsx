@@ -6,7 +6,6 @@ import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } 
 import { Resource } from '@schema/api-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
-// import { format } from 'numerable';
 
 type FieldType = {
   name: string;
@@ -104,7 +103,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
   const loadAsset = useCallback(async () => {
     // const asset = await schema.send('asset.getById', { id: lot.asset.id });
     setAsset(asset);
-  }, [lot, schema]);
+  }, [asset]);
 
   useEffect(() => {
     loadAsset();

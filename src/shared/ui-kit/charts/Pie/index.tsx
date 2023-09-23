@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 
-import { Tooltip, VStack, Text, HStack, Colors, useToken, ChakraProps } from '@chakra-ui/react';
-import { ResponsivePie, Pie } from '@nivo/pie';
-
-import { PieSizeDictionary } from './const';
+import { Tooltip, Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
+import { ResponsivePie } from '@nivo/pie';
 
 export type ChartPieData = {
   id: string;
@@ -18,7 +16,6 @@ export interface ChartPieProps {
 }
 
 export const ChartPie: React.FC<ChartPieProps> = ({ size = 'md', data }) => {
-  const { radius } = PieSizeDictionary.get(size);
   const colors = useToken('colors', data.map((item) => item.color) as any);
 
   const chartData = useMemo(() => {

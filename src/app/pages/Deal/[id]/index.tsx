@@ -4,10 +4,9 @@ import { observer } from 'mobx-react-lite';
 
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { HStack, VStack, Text } from '@chakra-ui/react';
+import { HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';

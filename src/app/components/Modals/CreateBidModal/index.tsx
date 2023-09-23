@@ -38,11 +38,8 @@ export interface CreateBidModalProps extends PortalProps<CreateBidModel> {}
 export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal }) => {
   const {
     control,
-    isRequired,
     handleSubmit,
     formState: { errors, isDirty },
-    setValue,
-    getValues,
   } = useForm({
     schema: createBidSchema,
   });
