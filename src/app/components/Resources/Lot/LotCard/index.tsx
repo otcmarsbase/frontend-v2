@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { AssetVerticalIcon, UILogic, useRpcSchemaClient } from '@app/components';
 import { formatDate } from '@app/utils';
@@ -10,6 +10,7 @@ import Decimal from 'decimal.js';
 type FieldType = {
   name: string;
   value: React.ReactNode;
+  colSpan?: number;
 };
 
 export interface LotCardProps {
@@ -19,10 +20,8 @@ export interface LotCardProps {
   minimalView?: boolean;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
   const schema = useRpcSchemaClient();
-
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
 
   const availableSum = new Decimal(lot.execution_quantity_info.available.quote).toDecimalPlaces(2).toNumber();
   const totalSum = new Decimal(lot.execution_quantity_info.total.quote).toDecimalPlaces(2).toNumber();
@@ -89,8 +88,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
         : null,
       {
         name: 'Vertical',
+        colSpan: 2,
         value: (
-          <HStack>
+          <HStack flexWrap="wrap">
             {asset?.info.verticals.map((vertical) => (
               <AssetVerticalIcon value={vertical} />
             ))}
@@ -99,19 +99,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
       },
     ].filter(Boolean);
   }, [lot, asset]);
-
-  const loadAsset = useCallback(async () => {
-    // const asset = await schema.send('asset.getById', { id: lot.asset.id });
-    setAsset(asset);
-  }, [asset]);
-
-  useEffect(() => {
-    loadAsset();
-  }, [loadAsset]);
-
-  console.log({ asset });
-
-  // if (!asset) return;
 
   return (
     <VStack
@@ -129,23 +116,23 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, minimalView = false, onCl
         bg: minimalView ? 'dark.700' : 'dark.800',
       }}
     >
-      <Box flexShrink="0">
-        <UILogic.TradeDirectionText value={lot.direction} position="absolute" top="0" left="0" />
-        <HStack gap="0.6rem" mt="0.1rem">
+      <Box flexShrink="0" mb="0.75rem">
+        <UILogic.TradeDirectionText value={lot.direction} position="absolute" top="0" right="0" />
+        <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
             #{lot.id.slice(0, 5)}
           </Text>
           <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.with_token_warrant} />
         </HStack>
-        <UILogic.AssetName asset={asset} />
+        {asset && <UILogic.AssetName asset={asset} />}
       </Box>
       {!minimalView && (
         <>
           <Divider variant="dashed" color="dark.600" />
           <Box flex="1" py="1rem">
-            <Grid templateColumns="repeat(2, 1fr)" gridColumnGap="1rem" gridRowGap="0.75rem">
+            <Grid templateColumns="repeat(2, 1fr)" gridColumnGap="2.5rem" gridRowGap="0.75rem">
               {fields.map((field, index) => (
-                <GridItem key={index}>
+                <GridItem key={index} colSpan={field.colSpan}>
                   <VStack gap="0.25rem" alignItems="start">
                     <Text fontWeight={600} fontSize="sm" color="dark.50">
                       {field.name}

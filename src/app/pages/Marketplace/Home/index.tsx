@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { LotCard } from '@app/components';
+import { LotCard, UILogic } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { useStore } from '@app/store';
@@ -10,7 +10,7 @@ import { Button, HStack, Heading, SimpleGrid, VStack, Text, Box } from '@chakra-
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/api-gateway';
 import { Pagination, PaginationPayload } from '@schema/common';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { FiltersBlock, MarketplaceFilters } from './_atoms';
 
@@ -29,6 +29,8 @@ export const OtcDesk: React.FC = observer(() => {
     total: 0,
   });
 
+  const isFiltersOpened = columnsCount === 3;
+
   const [paginationPayload] = useState<PaginationPayload>({
     skip: 1,
     limit: 25,
@@ -41,7 +43,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
 
-  const toggleColumnsCount = () => {
+  const toggleFilters = () => {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
   };
 
@@ -64,30 +66,34 @@ export const OtcDesk: React.FC = observer(() => {
     }));
   };
 
-  console.log({ lots });
-
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
       <FiltersBlock assets={assets.items} applyFilters={onFilter} />
-      <Button onClick={toggleColumnsCount}>Toggle sidebar</Button>
       <HStack alignItems="start" w="full" gap="2rem">
-        {columnsCount === 3 && (
-          <Box w="20rem">
-            <Text color="white">TODO FILTERS SIDEBAR</Text>
-          </Box>
-        )}
-        <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-          {lots.items.map((lot) => (
-            <motion.div layout key={lot.id}>
-              <LotCard
-                lot={lot}
-                asset={assets.items.find((asset) => asset.id === lot.asset.id)}
-                onClick={() => router.navigateComponent(MBPages.Lot.__id__ as any, { id: lot.id }, {})}
-              />
-            </motion.div>
-          ))}
-        </SimpleGrid>
+        {columnsCount === 3 && <UILogic.LotFilterBlock />}
+
+        <VStack w="full" alignItems="start" gap="1.5rem">
+          <motion.div layout initial={{}}>
+            <UILogic.LotFilterControls
+              toggleButton={{
+                isSelected: isFiltersOpened,
+                onSelect: toggleFilters,
+              }}
+            />
+          </motion.div>
+          <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
+            {lots.items.map((lot) => (
+              <motion.div key={lot.id} layout>
+                <LotCard
+                  lot={lot}
+                  asset={assets.items.find((asset) => asset.id === lot.asset.id)}
+                  onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+                />
+              </motion.div>
+            ))}
+          </SimpleGrid>
+        </VStack>
       </HStack>
     </VStack>
   );

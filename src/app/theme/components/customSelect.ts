@@ -16,15 +16,8 @@ const baseStyle = definePartsStyle({
   menu: {
     background: 'dark.700',
     borderRadius: '0.5rem',
-    overflow: 'auto',
     mt: '0.4rem',
     maxH: '15rem',
-    '&::scrollbar, &::scrollbar-thumb': {
-      width: '26px',
-      borderRadius: '13px',
-      backgroundClip: 'padding-box',
-      border: '10px solid transparent',
-    },
   },
   option: {
     background: 'dark.700',

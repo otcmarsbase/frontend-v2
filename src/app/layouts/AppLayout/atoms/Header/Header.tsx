@@ -1,5 +1,6 @@
 import pages from '@app/pages';
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Logo, LinkComponent } from '@shared/ui-kit';
 
 import { RightBlock } from './atoms';
@@ -9,6 +10,8 @@ export interface HeaderProps {
 }
 
 export function Header({ onCreateOfferClick }: HeaderProps) {
+  const router = useRouter();
+
   return (
     <VStack gap="0">
       <HStack
@@ -21,9 +24,7 @@ export function Header({ onCreateOfferClick }: HeaderProps) {
         justifyContent="space-between"
       >
         <HStack gap="4.5rem">
-          <LinkComponent page={pages.Home} pageProps={{}}>
-            <Logo />
-          </LinkComponent>
+          <Logo onClick={() => router.navigateComponent(pages.Home, {}, {})} cursor="pointer" />
           <HStack
             gap="3.75rem"
             color="white"

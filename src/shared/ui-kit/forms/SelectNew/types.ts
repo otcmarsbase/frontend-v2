@@ -12,6 +12,7 @@ export interface SelectViewProps<T> {
   placeholder: React.ReactNode;
   isClearable: boolean;
   isInvalid: boolean;
+
   search: null | {
     onSearch: (text: string) => any;
     value: string;

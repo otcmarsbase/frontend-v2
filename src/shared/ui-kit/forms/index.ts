@@ -10,6 +10,7 @@ export * from './InputNumber';
 export * from './InputWebsite';
 export * from './Radio';
 export * from './RadioButtons';
+export * from './RangeNumberSlider';
 // export * from './Select';
 export * from './SelectNew';
 export * from './Slider';

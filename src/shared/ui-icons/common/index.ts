@@ -12,6 +12,7 @@ export * from './DirectionIcon';
 export * from './DownIcon';
 export * from './DownloadIcon';
 export * from './EditIcon';
+export * from './FilterIcon';
 export * from './HotIcon';
 export * from './InfoIcon';
 export * from './KebabMenuIcon';

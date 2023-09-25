@@ -25,7 +25,7 @@ export const FiltersBlock: React.FC<FiltersBlockProps> = ({ applyFilters, assets
   };
 
   return (
-    <VStack w="full">
+    <VStack w="full" mb="1rem">
       <SimpleGrid columns={20} w="full" gap="0.5rem">
         {assets.slice(0, 20).map((asset) => (
           <AssetIconButton

@@ -5,3 +5,4 @@ export * from './LotHotChip';
 export * from './LotRow';
 export * from './LotStatus';
 export * from './LotType';
+export * from './LotTypeSelect';

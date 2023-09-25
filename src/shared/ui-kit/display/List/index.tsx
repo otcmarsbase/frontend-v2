@@ -11,10 +11,12 @@ export interface ListProps<T> extends StackProps {
   itemKey: (value: T, index: number, data: T[]) => React.Key;
   emptyText?: React.ReactNode;
   isLoading?: boolean;
+  footer?: React.ReactNode;
 }
 
 export function List<T>({
   items = [],
+  footer = null,
   itemKey = (value, key) => key,
   itemRender = () => <></>,
   emptyText = (
@@ -37,6 +39,7 @@ export function List<T>({
             ))
           : emptyText}
       </Stack>
+      {footer}
     </Loader>
   );
 }

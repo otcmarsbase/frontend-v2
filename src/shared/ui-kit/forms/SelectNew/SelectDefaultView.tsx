@@ -37,8 +37,6 @@ export function SelectDefaultView<T>(props: SelectDefaultViewProps<T>) {
     [options, renderOption],
   );
 
-  console.log(chakraOptions);
-
   return (
     <ChakraSelect
       chakraStyles={{

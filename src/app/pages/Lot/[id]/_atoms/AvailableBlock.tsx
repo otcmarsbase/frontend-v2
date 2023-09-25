@@ -11,16 +11,22 @@ interface AvailableBlockProps {
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
   const [chartData, setChartData] = useState<UIKit.ChartPieData[]>([
     {
-      id: 'total',
-      label: 'Total',
-      value: 12324,
-      color: 'orange.500',
-    },
-    {
       id: 'reserved',
       label: 'Reserved',
       value: 1233,
-      color: 'orange.500',
+      color: '#F9C409',
+    },
+    {
+      id: 'available',
+      label: 'Available',
+      value: 1233,
+      color: 'dark.700',
+    },
+    {
+      id: 'executed',
+      label: 'Executed',
+      value: 2500,
+      color: 'orange.300',
     },
   ]);
 
@@ -47,7 +53,22 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
         </HStack>
       </HStack>
       <Box w="full" h="11rem">
-        <UIKit.ChartPie data={chartData} size="sm" />
+        <UIKit.ChartPie
+          data={chartData}
+          size="sm"
+          formatValue={(point) => (
+            <MoneyText
+              fontSize="sm"
+              value={point.datum.formattedValue}
+              abbreviated
+              addon={
+                <Text fontSize="sm" fontWeight={700} color="dark.50">
+                  $
+                </Text>
+              }
+            />
+          )}
+        />
       </Box>
     </VStack>
   );

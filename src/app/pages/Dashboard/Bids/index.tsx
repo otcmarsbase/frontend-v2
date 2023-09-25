@@ -41,6 +41,7 @@ const MyBids: React.FC = observer(() => {
         itemKey={(item) => item.id}
         isLoading={isLoading}
         emptyText={<Empty createButton={{ label: 'Create bids', onCreate: () => {} }} />}
+        footer={bids.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
           // <LotRow
           //   onClick={() => router.navigateComponent(MBPages.Marketplace.Home, { id: '' }, {})}
@@ -109,8 +110,6 @@ const MyBids: React.FC = observer(() => {
           <></>
         )}
       />
-
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 });

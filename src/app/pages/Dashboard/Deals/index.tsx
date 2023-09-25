@@ -118,9 +118,8 @@ const Deals: React.FC<DealsProps> = observer(() => {
           // />
           <></>
         )}
+        footer={deals.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />
-
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 });

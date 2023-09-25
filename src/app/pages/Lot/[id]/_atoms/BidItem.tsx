@@ -31,7 +31,18 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
   const avatar = useRef(faker.image.avatarGitHub());
 
   return (
-    <HStack w="full" justifyContent="space-between" bg="dark.900" borderRadius="sm" p="0.75rem 1.5rem">
+    <HStack
+      w="full"
+      justifyContent="space-between"
+      bg="dark.900"
+      borderRadius="sm"
+      p="0.75rem 1.5rem"
+      cursor="pointer"
+      transition="background 0.4s"
+      _hover={{
+        bg: 'dark.800',
+      }}
+    >
       <VStack alignItems="start">
         <Text color="dark.200" fontSize="sm">
           #{bid.id}

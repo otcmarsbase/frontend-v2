@@ -81,8 +81,8 @@ export const Lots: React.FC<LotsProps> = (props) => {
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}
+        footer={lots.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 };

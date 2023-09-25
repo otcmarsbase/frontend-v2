@@ -18,7 +18,6 @@ export const Bids: FC<BidsProps> = () => {
 
   const onCreateBidClick = useCallback(async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, {});
-    console.log({ bid });
   }, []);
 
   return (
@@ -50,7 +49,7 @@ export const Bids: FC<BidsProps> = () => {
           <Button
             leftIcon={<UIIcons.Common.AddIcon />}
             variant="brand"
-            size="xs"
+            size="md"
             borderRadius="0.375rem"
             padding="0.5rem 0.75rem"
             onClick={onCreateBidClick}

@@ -1,16 +1,8 @@
 import { PropsWithChildren } from 'react';
+import { useToggle } from 'react-use';
 
-import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  BoxProps,
-  HStack,
-  Icon,
-  StackProps,
-} from '@chakra-ui/react';
+import { Box, BoxProps, HStack, Text, Icon, StackProps, VStack } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 import { Loader } from '../Loader';
@@ -18,24 +10,19 @@ import { Loader } from '../Loader';
 export interface KeyValueRowProps extends StackProps {
   keyBoxProps?: BoxProps;
   valueBoxProps?: BoxProps;
-  keyComponent?: React.ReactNode;
   isLoading?: boolean;
 }
 
 export const KeyValueRow: React.FC<PropsWithChildren<KeyValueRowProps>> = ({
   keyBoxProps,
-  keyComponent,
   valueBoxProps,
   isLoading,
   children,
   ...stackProps
 }) => {
   return (
-    <HStack justify="space-between" {...stackProps}>
-      <Box {...keyBoxProps} color="muted">
-        {keyComponent}
-      </Box>
-      <Box {...valueBoxProps}>
+    <HStack justify="space-between" w="full" {...stackProps}>
+      <Box {...valueBoxProps} w="full">
         <Loader isLoading={isLoading} size="xs">
           {children}
         </Loader>
@@ -46,56 +33,40 @@ export const KeyValueRow: React.FC<PropsWithChildren<KeyValueRowProps>> = ({
 
 export interface KeyValueRowAccordionProps {
   keyComponent?: React.ReactNode;
-  keyBoxProps?: BoxProps;
-  valueComponent?: React.ReactNode;
-  valueBoxProps?: BoxProps;
-  accordionHidden?: boolean;
+  isHidden?: boolean;
   isLoading?: boolean;
 }
 
 export const KeyValueRowAccordion: React.FC<PropsWithChildren<KeyValueRowAccordionProps>> = ({
   keyComponent,
-  keyBoxProps,
-  valueComponent,
-  valueBoxProps,
   children,
-  accordionHidden,
+  isHidden,
   isLoading,
 }) => {
+  const [isExpanded, toggle] = useToggle(false);
+
   return (
-    <Accordion allowToggle variant="primary">
-      <AccordionItem border="none">
-        {({ isExpanded }) => (
-          <>
-            <KeyValueRow keyComponent={keyComponent} keyBoxProps={keyBoxProps} valueBoxProps={valueBoxProps}>
-              <HStack spacing="4">
-                <Loader isLoading={isLoading} size="xs">
-                  <Box>{valueComponent}</Box>
-                  {!accordionHidden && (
-                    <AccordionButton _hover={{ bg: 'none' }} p={0}>
-                      <Icon
-                        as={isExpanded ? FiChevronUp : FiChevronDown}
-                        boxSize="8"
-                        fontWeight="light"
-                        color="blue.400"
-                        cursor="pointer"
-                        _hover={{
-                          color: 'blue.600',
-                        }}
-                      />
-                    </AccordionButton>
-                  )}
-                </Loader>
-              </HStack>
-            </KeyValueRow>
-            {!accordionHidden && (
-              <AccordionPanel pl="8" pt="4" pb="0">
-                {children}
-              </AccordionPanel>
-            )}
-          </>
-        )}
-      </AccordionItem>
-    </Accordion>
+    <VStack w="full" alignItems="start" borderTop="0.0625rem solid" borderColor="rgba(255, 255, 255, 0.15)" pt="0.6rem">
+      <HStack userSelect="none" w="full" justifyContent="space-between" cursor="pointer" onClick={toggle}>
+        <Text fontWeight={500}>{keyComponent}</Text>
+        <Icon w="1.25rem" h="1.25rem" as={isExpanded ? FiChevronUp : FiChevronDown} />
+      </HStack>
+      {isExpanded && (
+        <motion.div
+          key="content"
+          initial="collapsed"
+          animate="open"
+          exit="collapsed"
+          variants={{
+            open: { opacity: 1, height: 'auto' },
+            collapsed: { opacity: 0, height: 0 },
+          }}
+          style={{ width: '100%' }}
+          transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+        >
+          {children}
+        </motion.div>
+      )}
+    </VStack>
   );
 };
