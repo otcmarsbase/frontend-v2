@@ -1,9 +1,11 @@
-import { UILogic } from '@app/components';
+import { UILogic, useAuth } from '@app/components';
 import { HStack, Box, Square, Link, Button } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
 import { Dropdown } from '@shared/ui-kit';
 
 export function RightBlock() {
+  const { isAuthorized, signOut } = useAuth();
+
   return (
     <HStack>
       <HStack gap="2.5rem" mr="1.7rem">
@@ -47,8 +49,8 @@ export function RightBlock() {
         </Square>
       </HStack>
 
-      <HStack>
-        <Dropdown items={[{ label: 'Account' }, { label: 'Settings' }, { label: 'Log out' }]}>
+      {isAuthorized && (
+        <Dropdown items={[{ label: 'Account' }, { label: 'Settings' }, { label: 'Log out', onClick: () => signOut() }]}>
           <UIIcons.Common.KebabMenuIcon
             w="2rem"
             color="dark.200"
@@ -57,7 +59,7 @@ export function RightBlock() {
             h="2rem"
           />
         </Dropdown>
-      </HStack>
+      )}
     </HStack>
   );
 }

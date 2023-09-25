@@ -50,6 +50,7 @@ const variants = {
   darkOutline: defineStyle({
     border: '2px solid',
     borderColor: 'dark.700',
+    bg: 'dark.900',
     color: 'white',
     _hover: {
       bg: 'dark.700',

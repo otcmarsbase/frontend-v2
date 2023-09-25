@@ -11,7 +11,7 @@ export interface TradeDirectionTextProps extends Omit<TextProps, 'invert'> {
   invert?: boolean;
 }
 
-export function TradeDirectionText({ value, variant = 'leaf', invert = true, ...textProps }: TradeDirectionTextProps) {
+export function TradeDirectionText({ value, variant = 'leaf', invert, ...textProps }: TradeDirectionTextProps) {
   const backgroundColor = useMemo(() => TradeDirectionBackgroundColorMap.get(value), [value]);
   const color = useMemo(() => TradeDirectionColorMap.get(value), [value]);
   const title = useMemo(() => TradeDirectionTitleMap.get(value), [value]);

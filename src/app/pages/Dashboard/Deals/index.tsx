@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { UILogic } from '@app/components';
 import * as Layouts from '@app/layouts';
-import { VStack } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
@@ -48,7 +49,15 @@ const Deals: React.FC<DealsProps> = observer(() => {
         items={deals}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<Empty createButton={{ label: 'Create deals', onCreate: () => {} }} />}
+        emptyText={
+          <Empty
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => {}}>Create deal</Button>
+              </UILogic.AuthAction>
+            }
+          />
+        }
         itemRender={(item) => (
           // TODO replace to DealRow
           // <LotRow

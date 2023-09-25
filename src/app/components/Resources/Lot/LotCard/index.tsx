@@ -117,7 +117,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       }}
     >
       <Box flexShrink="0" mb="0.75rem">
-        <UILogic.TradeDirectionText value={lot.direction} position="absolute" top="0" right="0" />
+        <UILogic.TradeDirectionText invert value={lot.direction} position="absolute" top="0" right="0" />
         <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
             #{lot.id.slice(0, 5)}
@@ -160,9 +160,11 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         <Progress value={(availableSum / totalSum) * 100} colorScheme="green" />
       </VStack>
       {!minimalView && (
-        <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
-          Place bid
-        </Button>
+        <UILogic.AuthAction>
+          <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
+            Place bid
+          </Button>
+        </UILogic.AuthAction>
       )}
     </VStack>
   );

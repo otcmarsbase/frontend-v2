@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { Stack, StackProps } from '@chakra-ui/react';
+import { Button, Stack, StackProps } from '@chakra-ui/react';
 
 import { Empty } from '../Empty';
 import { Loader } from '../Loader';
@@ -19,14 +19,7 @@ export function List<T>({
   footer = null,
   itemKey = (value, key) => key,
   itemRender = () => <></>,
-  emptyText = (
-    <Empty
-      createButton={{
-        label: 'Create',
-        onCreate: () => {},
-      }}
-    />
-  ),
+  emptyText = <Empty createButton={<Button onClick={() => {}}>Create item</Button>} />,
   isLoading = false,
   ...stackProps
 }: ListProps<T>) {

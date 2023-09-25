@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { UILogic } from '@app/components';
 import * as Layouts from '@app/layouts';
-import { VStack } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
@@ -40,7 +41,15 @@ const MyBids: React.FC = observer(() => {
         items={bids}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<Empty createButton={{ label: 'Create bids', onCreate: () => {} }} />}
+        emptyText={
+          <Empty
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => {}}>Create bid</Button>
+              </UILogic.AuthAction>
+            }
+          />
+        }
         footer={bids.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
           // <LotRow

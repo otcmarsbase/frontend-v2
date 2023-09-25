@@ -9,10 +9,7 @@ export interface EmptyProps extends Omit<StackProps, 'title'> {
   description?: React.ReactNode;
   image?: string | React.ReactNode;
   size?: 'md' | 'lg';
-  createButton?: {
-    label: string;
-    onCreate: () => void;
-  };
+  createButton?: React.ReactNode;
 }
 
 export const Empty: React.FC<PropsWithChildren<EmptyProps>> = ({
@@ -27,10 +24,7 @@ export const Empty: React.FC<PropsWithChildren<EmptyProps>> = ({
   size = 'md',
   image = <Image src={WorriedEmojiPng} w="1.5rem" h="1.5rem" />,
   children,
-  createButton = {
-    label: 'Create',
-    onCreate: () => {},
-  },
+  createButton,
   ...stackProps
 }) => {
   return (
@@ -51,11 +45,7 @@ export const Empty: React.FC<PropsWithChildren<EmptyProps>> = ({
       <Text textAlign="center" fontSize="sm" color="gray" mb="1rem">
         {description}
       </Text>
-      {createButton && (
-        <Button onClick={createButton.onCreate} w="15rem">
-          {createButton.label}
-        </Button>
-      )}
+      {createButton}
     </VStack>
   );
 };

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { LotRow, useRpcSchemaClient } from '@app/components';
+import { LotRow, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { VStack } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
@@ -68,10 +68,11 @@ export const Lots: React.FC<LotsProps> = (props) => {
         isLoading={isLoading}
         emptyText={
           <Empty
-            createButton={{
-              label: 'Create offers',
-              onCreate: () => {},
-            }}
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, {}, {})}>Create offer</Button>
+              </UILogic.AuthAction>
+            }
           />
         }
         itemRender={(item) => (
