@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from 'react';
 export interface LoadingCallback<T extends (...args: any[]) => any> {
   (...args: Parameters<T>): ReturnType<T>;
 
-  keyLoad(key: string | number): {
+  keyLoad(key: React.Key): {
     (...args: Parameters<T>): ReturnType<T>;
     isLoading: boolean;
   };
