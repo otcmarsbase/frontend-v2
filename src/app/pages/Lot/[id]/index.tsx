@@ -32,7 +32,7 @@ export default function Lot({ id }: LotProps) {
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [bids] = useState<Resource.Bid.Bid[]>([]);
+  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
 
   const isOfferMaker = lot?.offerMaker.nickname === account?.nickname;
 
@@ -40,9 +40,11 @@ export default function Lot({ id }: LotProps) {
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
       const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
+      const bids = await rpcSchema.send('bid.listByLot', { lots: [lot.id] } as any);
 
       setLot(lot);
       setAsset(asset);
+      setBids(bids.items);
     }, [rpcSchema, id]),
   );
 
@@ -101,7 +103,7 @@ export default function Lot({ id }: LotProps) {
               <LotBasicInfo lot={lot} />
             </VStack>
             <RoundInfo lot={lot} />
-            <Bids />
+            <Bids bids={bids} />
           </VStack>
         </GridItem>
       </Grid>

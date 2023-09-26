@@ -78,11 +78,13 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
         <BidItemColumn type="LOCATION">
           <Text fontSize="sm">{capitalize(bid.location)}</Text>
         </BidItemColumn>
-        <BidItemColumn type="DEADLINE">
-          <DateText fontSize="sm" value={bid.deadline} />
-        </BidItemColumn>
+        {bid.deadline && (
+          <BidItemColumn type="DEADLINE">
+            <DateText fontSize="sm" value={bid.deadline} />
+          </BidItemColumn>
+        )}
         <BidItemColumn type="STATUS">
-          <Text>Todo</Text>
+          <Text>{bid.status}</Text>
         </BidItemColumn>
       </SimpleGrid>
     </HStack>

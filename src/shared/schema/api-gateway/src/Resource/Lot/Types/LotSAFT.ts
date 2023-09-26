@@ -1,4 +1,5 @@
 import { Common } from '../../Common';
+
 import { LotAbstract, LotBase } from './Abstract';
 import { LotAsset } from './LotAsset';
 

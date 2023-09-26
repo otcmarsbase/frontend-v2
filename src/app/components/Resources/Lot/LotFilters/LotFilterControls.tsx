@@ -9,9 +9,11 @@ export interface LotFilterControlsProps {
     isSelected: boolean;
     onSelect?: (isSelected: boolean) => any;
   };
+  search?: string;
+  onChangeSearch?: (value: string) => any;
 }
 
-export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
+export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotFilterControlsProps) {
   return (
     <HStack>
       <Button
@@ -27,14 +29,14 @@ export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
         <InputLeftElement>
           <UIIcons.Common.SearchIcon />
         </InputLeftElement>
-        <Input placeholder="Search" />
+        <Input placeholder="Search" value={search || ''} onChange={(e) => onChangeSearch(e.target.value)} />
       </InputGroup>
-      <UIKit.SelectSync<LotFilterSortByField>
+      {/* <UIKit.SelectSync<LotFilterSortByField>
         placeholder="Sort by"
         value="BY_ALPHABETIC"
         items={LotFilterSortByFieldDictionary.keys()}
         renderItem={(item) => LotFilterSortByFieldDictionary.get(item).title}
-      />
+      /> */}
     </HStack>
   );
 }

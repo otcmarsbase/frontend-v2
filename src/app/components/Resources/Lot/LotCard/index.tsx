@@ -136,8 +136,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           <UILogic.AssetName
             asset={asset}
             onClick={(e) => {
-              e.stopPropagation();
-              router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {});
+              // e.stopPropagation();
+              // e.preventDefault();
+              // router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {});
             }}
           />
         )}

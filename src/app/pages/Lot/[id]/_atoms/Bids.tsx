@@ -11,11 +11,11 @@ import { UIKit } from '@shared/ui-kit';
 import { BidsList } from './BidsList';
 import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
-interface BidsProps {}
+interface BidsProps {
+  bids: Resource.Bid.Bid[];
+}
 
-export const Bids: FC<BidsProps> = () => {
-  const [bids] = useState<Resource.Bid.Bid[]>([]);
-
+export const Bids: FC<BidsProps> = ({ bids }) => {
   const onCreateBidClick = useCallback(async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, {});
   }, []);

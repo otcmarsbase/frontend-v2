@@ -27,6 +27,7 @@ export const OtcDesk: React.FC = observer(() => {
     items: [],
     total: 0,
   });
+
   const assets = useMemo(() => {
     return _assets.items.slice(0, 20);
   }, [_assets.items]);
@@ -52,10 +53,11 @@ export const OtcDesk: React.FC = observer(() => {
   const loadLots = useCallback(async () => {
     const assets = await rpcSchema.send('asset.list', {}, {});
     const lots = await rpcSchema.send('lot.listActive', {}, {});
+
     setAssets(assets);
     setOriginalLots(lots);
     setLots(lots);
-  }, []);
+  }, [rpcSchema]);
 
   useEffect(() => {
     loadLots();
