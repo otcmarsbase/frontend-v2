@@ -23,7 +23,7 @@ export function Panel({ connectorInfo, nickname, balance, decimals, symbol, onSi
   const formattedNickname = useMemo(() => nickname && formatAddress(nickname, 8, 4), [nickname]);
 
   return (
-    <Box borderRadius="base" bg="dark.800" padding="0.4rem" paddingLeft="0.6rem" cursor="pointer" onClick={onSignOut}>
+    <Box borderRadius="base" bg="dark.800" padding="0.4rem" paddingLeft="0.6rem" userSelect="none">
       <HStack>
         <Circle size="1.125rem">
           <Image w="1.05rem" src={connectorInfo.logoUrl} alt={connectorInfo.title} />

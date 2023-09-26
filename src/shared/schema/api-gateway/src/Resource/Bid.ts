@@ -1,36 +1,31 @@
-import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
+import * as SchemaCommon from '@schema/common';
 
 import { Common } from './Common';
 import { Deal } from './Deal';
 import { User } from './User';
 
 export namespace Bid {
-  export const BidStatus = ['NEW', 'ON_MODERATE', 'ACTIVE', 'ACCEPTED', 'REJECTED', 'DEAL', 'ARCHIVED'] as const;
-  export type BidStatus = (typeof BidStatus)[number];
-
-  export interface BidKey extends ResourceKey<'bid'> {
-    id: string;
+  export namespace Enums {
+    export const BidStatus = ['ON_MODERATION', 'ACTIVE', 'DEAL', 'REJECTED'] as const;
+    export type BidStatus = (typeof BidStatus)[number];
   }
 
-  export interface Bid extends Resource<'bid'>, ResourceOmit<BidKey> {
-    status: BidStatus;
+  export interface BidKey extends SchemaCommon.ResourceKey<'bid'> {
+    id: number;
+  }
 
-    owner: User.UserKey;
-    ownerType: Common.ParticipantType[] | 'NO_LIMIT';
-    location: Common.Location;
-    is_direct: boolean;
+  export interface Bid extends SchemaCommon.Resource<'bid'>, SchemaCommon.ResourceOmit<BidKey> {
+    createdAt: number;
     deadline?: number;
-    deal?: Deal.DealKey; // Only when status === 'DEAL'
+    status: Enums.BidStatus;
 
-    valuation_info: Common.ValuationInfo;
-    contact_info: BidContactInfo;
-  }
-
-  export interface BidContactInfo {
-    telegram?: string;
-  }
-
-  export interface BidVerificationInfo {
-    is_validated: boolean; // Проверен на валидность данных
+    bidMaker: User.UserKey;
+    bidMakerType: Common.Enums.InvestorType;
+    location: Common.Enums.Location;
+    mediatorType: Common.Enums.MediatorType;
+    telegram: Common.Text.Telegram;
+    contractSize: Common.Finances.ContractSize;
+    readyForVerification: boolean;
+    deal?: Deal.DealKey;
   }
 }

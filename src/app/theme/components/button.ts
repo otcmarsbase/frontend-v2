@@ -50,6 +50,7 @@ const variants = {
   darkOutline: defineStyle({
     border: '2px solid',
     borderColor: 'dark.700',
+    bg: 'dark.900',
     color: 'white',
     _hover: {
       bg: 'dark.700',
@@ -57,6 +58,22 @@ const variants = {
   }),
   brand: defineStyle({
     layerStyle: 'brandLinearGradient',
+  }),
+  orange: defineStyle({
+    bg: 'orange.300',
+    border: '0.125rem solid',
+    borderColor: 'orange.200',
+    _hover: {
+      bg: 'orange.200',
+    },
+  }),
+  red: defineStyle({
+    bg: 'red.300',
+    border: '0.125rem solid',
+    borderColor: 'red.200',
+    _hover: {
+      bg: 'red.200',
+    },
   }),
 };
 

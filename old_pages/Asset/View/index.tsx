@@ -16,7 +16,7 @@ export default function View({ id }: ViewProps) {
   const rpcSchema = useRPCSchema();
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [direction, setDirection] = useState<Resource.Common.TradeDirection>('BUY');
+  const [direction, setDirection] = useState<Resource.Common.Enums.TradeDirection>('BUY');
 
   const onPreload = useLoadingCallback(
     useCallback(async () => {

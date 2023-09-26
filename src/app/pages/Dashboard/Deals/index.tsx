@@ -2,26 +2,22 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { useAuth, useRpcSchemaClient } from '@app/components';
+import { UILogic } from '@app/components';
 import * as Layouts from '@app/layouts';
-import { VStack } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
+import { Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { EmptyData, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 export interface DealsProps {
   filters?: {
     search?: string;
-    directions?: Resource.Common.TradeDirection[];
+    directions?: Resource.Common.Enums.TradeDirection[];
     minValue?: number;
     maxValue?: number;
   };
 }
 
 const Deals: React.FC<DealsProps> = observer(() => {
-  const router = useRouter();
-  const { authToken } = useAuth();
-  const rpcSchema = useRpcSchemaClient();
   const [deals, setDeals] = useState<Resource.Deal.Deal[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -53,7 +49,15 @@ const Deals: React.FC<DealsProps> = observer(() => {
         items={deals}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<EmptyData onCreate={() => {}} createButtonLabel="Create offers" />}
+        emptyText={
+          <Empty
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => {}}>Create deal</Button>
+              </UILogic.AuthAction>
+            }
+          />
+        }
         itemRender={(item) => (
           // TODO replace to DealRow
           // <LotRow
@@ -123,9 +127,8 @@ const Deals: React.FC<DealsProps> = observer(() => {
           // />
           <></>
         )}
+        footer={deals.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />
-
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 });

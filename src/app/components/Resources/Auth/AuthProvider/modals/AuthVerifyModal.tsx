@@ -1,4 +1,4 @@
-import { Button, Circle, FormErrorMessage, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Button, Circle, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';

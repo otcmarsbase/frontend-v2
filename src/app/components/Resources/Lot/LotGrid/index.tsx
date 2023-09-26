@@ -15,7 +15,10 @@ export interface LotGripProps {
 }
 
 export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
-  const getAsset = useCallback((lot: Resource.Lot.Lot) => assets.find((m) => m.id === lot?.asset.id), [assets]);
+  const getAsset = useCallback(
+    (lot: Resource.Lot.Lot) => assets.find((m) => m.id === (lot.assetPK as Resource.Asset.AssetKey).id),
+    [assets],
+  );
 
   const onSelectCallback = useCallback(
     (lot: Resource.Lot.Lot) => {
@@ -30,7 +33,7 @@ export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
   return (
     <SimpleGrid w="full" columns={columns} spacing="2rem">
       {lots.map((lot) => (
-        <motion.div layout={true} key={lot.id}>
+        <motion.div layout key={lot.id}>
           <LotCard lot={lot} asset={getAsset(lot)} onClick={() => onSelectCallback(lot)} />
         </motion.div>
       ))}

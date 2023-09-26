@@ -17,7 +17,7 @@ export interface RadioButtonsProps<T> extends Omit<BoxProps, 'onChange'> {
   renderItem: (item: T, index: number) => React.ReactNode;
   renderColorByValue?: (item: T, index: number) => ColorProps['color'];
   isEqualsItems?: (item1: T, item2: T) => boolean;
-
+  isInvalid?: boolean;
   value: T;
   onChange?: (value: T, index: number) => void;
   variant?: RadioButtonsVariant;
@@ -28,6 +28,7 @@ export function RadioButtons<T>({
   renderKey,
   renderItem,
   isEqualsItems = (item1, item2) => Object.is(item1, item2),
+  isInvalid,
   value,
   onChange,
   variant,
@@ -79,8 +80,14 @@ export function RadioButtons<T>({
   );
 
   return (
-    <Box __css={styles.container} {...boxProps}>
-      <SimpleGrid columns={items.length}>
+    <Box
+      __css={{
+        ...styles.container,
+        ...(isInvalid ? styles.isInvalid : {}),
+      }}
+      {...boxProps}
+    >
+      <SimpleGrid columns={items.length} gap="0" zIndex={1} position="relative">
         {items.map((item, index) => {
           const key = _renderKey(item, index);
           const renderItem = _renderItem(item, index);

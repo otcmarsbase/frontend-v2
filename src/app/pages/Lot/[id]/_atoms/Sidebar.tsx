@@ -1,6 +1,6 @@
-import { AssetLink, AssetVerticalRow } from '@app/components';
+import { AssetLink, AssetVerticalRow, UILogic } from '@app/components';
 import LINQ from '@berish/linq';
-import { Button, Heading, Link, Image, Text, VStack } from '@chakra-ui/react';
+import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
@@ -15,6 +15,9 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
   const groupedByGroupLinks = new Map(LINQ.from(asset.info.links).groupBy((link) => link.group));
 
+  const officialLinks = groupedByGroupLinks.get('OFFICIAL');
+  const socialLinks = groupedByGroupLinks.get('SOCIAL');
+
   return (
     <GridItem display="flex" h="100%" flexDirection="column" top={0}>
       <VStack top={0} position="sticky" w="full" gap="0.75rem">
@@ -28,7 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         >
           <HStack gap="2.12rem">
             <HStack gap="1.5rem">
-              <Image w="4rem" src={asset.info.logo_url} borderRadius="light" />
+              <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />
               <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
                 {asset.info.title}
               </Heading>
@@ -50,22 +53,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
             </ExpandableText>
           }
         />
-        <SidebarBlock
-          title="Official links"
-          children={groupedByGroupLinks.get('OFFICIAL').map((props) => (
-            <AssetLink type={props.type} url={props.url}>
-              {props.title}
-            </AssetLink>
-          ))}
-        />
-        <SidebarBlock
-          title="Social media"
-          children={groupedByGroupLinks.get('SOCIAL').map((props) => (
-            <AssetLink type={props.type} url={props.url}>
-              {props.title}
-            </AssetLink>
-          ))}
-        />
+        {officialLinks && (
+          <SidebarBlock
+            title="Official links"
+            children={officialLinks.map((props) => (
+              <AssetLink type={props.type} url={props.url}>
+                {props.title}
+              </AssetLink>
+            ))}
+          />
+        )}
+        {socialLinks && (
+          <SidebarBlock
+            title="Social media"
+            children={socialLinks.map((props) => (
+              <AssetLink type={props.type} url={props.url}>
+                {props.title}
+              </AssetLink>
+            ))}
+          />
+        )}
         <SidebarBlock
           title="Vertical"
           children={asset.info.verticals.map((type) => (

@@ -1,9 +1,11 @@
-import { UILogic } from '@app/components';
+import { UILogic, useAuth } from '@app/components';
 import { HStack, Box, Square, Link, Button } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
-import { Dropdown, UIKit } from '@shared/ui-kit';
+import { Dropdown } from '@shared/ui-kit';
 
 export function RightBlock() {
+  const { isAuthorized, signOut } = useAuth();
+
   return (
     <HStack>
       <HStack gap="2.5rem" mr="1.7rem">
@@ -35,28 +37,24 @@ export function RightBlock() {
 
       <Box mr="1.5rem">
         <UILogic.AuthConnectButton>
-          <UILogic.AuthAccountPanel />
+          <HStack gap="1rem">
+            <UILogic.AuthAccountPanel />
+
+            {isAuthorized && (
+              <Button variant="link" fontSize="sm" onClick={signOut} color="orange.300">
+                Logout
+              </Button>
+            )}
+          </HStack>
         </UILogic.AuthConnectButton>
       </Box>
       <HStack gap="0.6rem">
-        <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
+        {/* <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
           <UIIcons.Common.NotificationIcon w="1.125rem" h="1.125rem" />
-        </Square>
+        </Square> */}
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
           <UIIcons.Language.EnglishIcon w="1.125rem" h="1.125rem" />
         </Square>
-      </HStack>
-
-      <HStack>
-        <Dropdown items={[{ label: 'Account' }, { label: 'Settings' }, { label: 'Log out' }]}>
-          <UIIcons.Common.KebabMenuIcon
-            w="2rem"
-            color="dark.200"
-            transition="all 0.3s"
-            _hover={{ color: 'orange.500' }}
-            h="2rem"
-          />
-        </Dropdown>
       </HStack>
     </HStack>
   );

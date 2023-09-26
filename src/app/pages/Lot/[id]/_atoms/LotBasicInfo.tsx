@@ -30,7 +30,7 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip = 'H
 const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600" />;
 
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
-  const { id, direction, type, asset, deadline, owner } = lot;
+  const { id, direction, type, deadline } = lot;
 
   const [copyState, copyToClipboard] = useCopyToClipboard();
 
@@ -62,7 +62,7 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Type">
-          <LotTypeChip withTokenWarrant={lot.with_token_warrant} value={type} />
+          <LotTypeChip withTokenWarrant={lot.withTokenWarrant} value={type} />
         </InfoElement>
       </HStack>
 

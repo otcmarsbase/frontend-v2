@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { LotRow, useAuth, useRpcSchemaClient } from '@app/components';
+import { LotRow, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { VStack } from '@chakra-ui/react';
+import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
-import { EmptyData, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 export interface LotsProps {
   filters?: {
     search?: string;
-    directions?: Resource.Common.TradeDirection[];
+    directions?: Resource.Common.Enums.TradeDirection[];
     minValue?: number;
     maxValue?: number;
   };
@@ -20,7 +20,6 @@ export interface LotsProps {
 export const Lots: React.FC<LotsProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const { authToken } = useAuth();
   const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,7 +32,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema]);
 
   const loadAssets = useCallback(async () => {
     setIsLoading(true);
@@ -43,7 +42,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema]);
 
   useEffect(() => {
     loadLots();
@@ -67,16 +66,24 @@ export const Lots: React.FC<LotsProps> = (props) => {
         items={lots}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<EmptyData onCreate={() => {}} createButtonLabel="Create offers" />}
+        emptyText={
+          <Empty
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, {}, {})}>Create offer</Button>
+              </UILogic.AuthAction>
+            }
+          />
+        }
         itemRender={(item) => (
           <LotRow
             lot={item}
-            asset={assets.find((asset) => asset.id === item.asset.id)}
+            asset={assets.find((asset) => asset.id === (item.assetPK as Resource.Asset.AssetKey).id)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}
+        footer={lots.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 };

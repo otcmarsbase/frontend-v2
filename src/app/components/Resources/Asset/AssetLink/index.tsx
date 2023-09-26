@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { AssetLinkTypeIconMap } from './AssetLinkTypeIconMap';
 
 export interface AssetLinkProps extends PropsWithChildren {
-  type?: Resource.Asset.AssetLinkType;
+  type?: Resource.Asset.Enums.AssetLinkType;
   url?: string;
 }
 

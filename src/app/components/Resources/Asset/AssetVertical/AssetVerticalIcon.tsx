@@ -3,14 +3,14 @@ import { useMemo } from 'react';
 import { Square } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
-import { AssetVerticalIconMap } from './const';
+import { AssetVerticalIconDictionary } from './const';
 
 export interface AssetVerticalIconProps {
-  value: Resource.Asset.AssetVertical;
+  value: Resource.Asset.Enums.AssetVertical;
 }
 
 export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) => {
-  const IconComponent = useMemo(() => AssetVerticalIconMap.get(value), [value]);
+  const IconComponent = useMemo(() => AssetVerticalIconDictionary.get(value), [value]);
 
   return (
     <Square border="0.0625rem solid" borderColor="dark.300" borderRadius="micro" size="1.5rem">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { AssetIconButton } from '@app/components';
-import { HStack, Input, SimpleGrid, VStack } from '@chakra-ui/react';
+import { SimpleGrid, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface MarketplaceFilters {
@@ -25,7 +25,7 @@ export const FiltersBlock: React.FC<FiltersBlockProps> = ({ applyFilters, assets
   };
 
   return (
-    <VStack w="full">
+    <VStack w="full" mb="1rem">
       <SimpleGrid columns={20} w="full" gap="0.5rem">
         {assets.slice(0, 20).map((asset) => (
           <AssetIconButton

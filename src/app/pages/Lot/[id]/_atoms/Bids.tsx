@@ -1,19 +1,24 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
+import { UIModals } from '@app/components';
+import { ModalController } from '@app/logic';
+import { useStore } from '@app/store';
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Select } from '@shared/ui-kit';
-
-import { createBids } from '../mock';
+import { UIKit } from '@shared/ui-kit';
 
 import { BidsList } from './BidsList';
-import { SortBidsByType, SortBidsByTypeTitleMap } from './const';
+import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
 interface BidsProps {}
 
-export const Bids: FC<BidsProps> = ({}) => {
-  const [bids, setBids] = useState(createBids(10));
+export const Bids: FC<BidsProps> = () => {
+  const [bids] = useState<Resource.Bid.Bid[]>([]);
+
+  const onCreateBidClick = useCallback(async () => {
+    const bid = await ModalController.create(UIModals.CreateBidModal, {});
+  }, []);
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -33,36 +38,23 @@ export const Bids: FC<BidsProps> = ({}) => {
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
-          {/* <Select
-            bg="dark.950"
-            borderColor="dark.200"
-            color="dark.50"
-            placeholder="Sort by"
-            borderRadius="0.375rem"
-            h="2rem"
-            w="9.375rem"
-          >
-            <option value="option3">Bid FDV</option>
-            <option value="bidSize">Bid size</option>
-            <option value="deadline">Deadline</option>
-            <option value="status">Status</option>
-          </Select> */}
           <Box w="11rem">
-            <Select
-              isClearable
+            <UIKit.SelectSync<SortBidsByType>
               placeholder="Sort by"
-              options={SortBidsByType.map((type) => ({
-                value: type,
-                label: SortBidsByTypeTitleMap.get(type),
-              }))}
+              items={SortBidsByTypeDictionary.keys()}
+              renderItem={(item) => SortBidsByTypeDictionary.get(item).title}
             />
           </Box>
 
-          <Button variant="brand" size="xs" borderRadius="0.375rem" padding="0.5rem 0.75rem" onClick={() => {}}>
-            <HStack>
-              <UIIcons.Common.AddIcon />
-              <Text>Create Bid</Text>
-            </HStack>
+          <Button
+            leftIcon={<UIIcons.Common.AddIcon />}
+            variant="brand"
+            size="md"
+            borderRadius="0.375rem"
+            padding="0.5rem 0.75rem"
+            onClick={onCreateBidClick}
+          >
+            Create Bid
           </Button>
         </HStack>
       </HStack>

@@ -24,10 +24,12 @@ const baseStyleHelperText = defineStyle({
 
 const baseStyle = definePartsStyle({
   container: {
+    w: '100%',
     label: {
       fontSize: 'sm',
       fontWeight: 400,
       mb: '0.4',
+      color: 'white',
     },
   },
   requiredIndicator: baseStyleRequiredIndicator,

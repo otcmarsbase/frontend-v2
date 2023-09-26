@@ -3,6 +3,9 @@ import { createIcon } from '@chakra-ui/react';
 export const CheckmarkIcon = createIcon({
   displayName: 'CheckmarkIcon',
   viewBox: '0 0 18 18',
+  defaultProps: {
+    fill: 'transparent',
+  },
   path: (
     <path
       d="M15 4.5L6.75 12.75L3 9"

@@ -2,7 +2,7 @@ import { ComponentWithAs, IconProps } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
-export const AssetLinkTypeIconMap = new Map<Resource.Asset.AssetLinkType, ComponentWithAs<'svg', IconProps>>([
+export const AssetLinkTypeIconMap = new Map<Resource.Asset.Enums.AssetLinkType, ComponentWithAs<'svg', IconProps>>([
   ['DISCORD', UIIcons.Social.DiscordIcon],
   ['GITHUB', UIIcons.Social.GithubIcon],
   ['OTHER', UIIcons.Social.DiscordIcon],

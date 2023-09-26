@@ -519,6 +519,8 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'darkSolid'
         | 'darkOutline'
         | 'brand'
+        | 'orange'
+        | 'red'
         | (string & {});
     };
     Checkbox: {
@@ -534,7 +536,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: 'solid' | 'subtle' | 'outline' | (string & {});
     };
     Container: {
-      sizes: string & {};
+      sizes: 'md' | 'lg' | (string & {});
       variants: string & {};
     };
     Divider: {
@@ -591,7 +593,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     NumberInput: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});
-      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | (string & {});
+      variants: 'outline' | 'filled' | 'flushed' | 'unstyled' | 'ghost' | (string & {});
     };
     PinInput: {
       sizes: 'lg' | 'md' | 'sm' | 'xs' | (string & {});
@@ -615,7 +617,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Skeleton: {
       sizes: string & {};
-      variants: string & {};
+      variants: 'orange' | (string & {});
     };
     SkipLink: {
       sizes: string & {};
@@ -650,7 +652,7 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'soft-rounded'
         | 'solid-rounded'
         | 'unstyled'
-        | 'asset'
+        | 'promo'
         | (string & {});
     };
     Tag: {
@@ -659,7 +661,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Textarea: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});
-      variants: 'outline' | 'flushed' | 'filled' | 'unstyled' | (string & {});
+      variants: 'outline' | 'flushed' | 'filled' | 'unstyled' | 'ghost' | (string & {});
     };
     Tooltip: {
       sizes: string & {};

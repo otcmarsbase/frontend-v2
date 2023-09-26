@@ -1,18 +1,10 @@
 import { RuntimeError } from '@ddd/errors';
-import {
-  RpcClient,
-  RpcError,
-  RpcRequestInterceptorCallback,
-  RpcResponseInterceptorCallback,
-} from '@packages/berish-rpc-client';
+import { RpcClient, RpcError, RpcRequestInterceptorCallback, RpcResponseInterceptorCallback } from '@packages/berish-rpc-client';
 import { RpcApiSchema, RpcSchemaClient } from '@packages/berish-rpc-client-schema';
 
 import { RpcClientErrorTrigger } from './RpcClientErrorTrigger';
 
-export interface RpcSchemaClientCommonOptions<
-  ClientMeta extends Record<string, any>,
-  ServerMeta extends Record<string, any>,
-> {
+export interface RpcSchemaClientCommonOptions<ClientMeta extends Record<string, any>, ServerMeta extends Record<string, any>> {
   /** Default true */
   includeRuntimeErrorInterceptor?: boolean;
   globalErrorTriggers?: RpcClientErrorTrigger[];
@@ -45,9 +37,6 @@ export class RpcSchemaClientCommon<
       if (!this.options.getMeta) return next();
 
       const meta = await this.options.getMeta();
-
-      console.log('createClientMetaRequestInterceptor', meta, request);
-
       if (!meta) return request;
 
       return {
@@ -89,7 +78,7 @@ export class RpcSchemaClientCommon<
   }
 
   private executeErrorTrigger(error: RpcError | RuntimeError) {
-    const triggers = this.options.globalErrorTriggers;
+    const triggers = this.options.globalErrorTriggers || [];
 
     const trigger = triggers.find((m) => (m.errors || []).find((k) => error instanceof k));
     const triggerFunction = trigger?.trigger;

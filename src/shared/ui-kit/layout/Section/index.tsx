@@ -1,10 +1,10 @@
-import { HStack } from '@chakra-ui/react';
+import { HStack, StackProps } from '@chakra-ui/react';
 
-export interface SectionProps {
+export interface SectionProps extends StackProps {
   children: React.ReactNode;
 }
 
-export function Section({ children }: SectionProps) {
+export function Section({ children, ...stackProps }: SectionProps) {
   return (
     <HStack
       color="dark.100"
@@ -13,6 +13,7 @@ export function Section({ children }: SectionProps) {
       bg="dark.900"
       gap="0.75rem"
       alignItems="baseline"
+      {...stackProps}
     >
       {children}
     </HStack>

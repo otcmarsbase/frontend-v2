@@ -2,17 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { LotRow, LotStatus, LotTypeChip } from '@app/components';
+import { UILogic } from '@app/components';
 import * as Layouts from '@app/layouts';
-import { MBPages } from '@app/pages';
-import { Heading, HStack, Text, VStack } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
+import { Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { Chip, EmptyData, List, Pagination, PaginationProps } from '@shared/ui-kit';
-import { format } from 'date-fns';
+import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 const MyBids: React.FC = observer(() => {
-  const router = useRouter();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -45,7 +41,16 @@ const MyBids: React.FC = observer(() => {
         items={bids}
         itemKey={(item) => item.id}
         isLoading={isLoading}
-        emptyText={<EmptyData onCreate={() => {}} createButtonLabel="Create offers" />}
+        emptyText={
+          <Empty
+            createButton={
+              <UILogic.AuthAction>
+                <Button onClick={() => {}}>Create bid</Button>
+              </UILogic.AuthAction>
+            }
+          />
+        }
+        footer={bids.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
           // <LotRow
           //   onClick={() => router.navigateComponent(MBPages.Marketplace.Home, { id: '' }, {})}
@@ -114,8 +119,6 @@ const MyBids: React.FC = observer(() => {
           <></>
         )}
       />
-
-      <Pagination {...paginationOptions} onChange={onChangePage} />
     </VStack>
   );
 });

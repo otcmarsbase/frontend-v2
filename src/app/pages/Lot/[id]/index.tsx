@@ -1,19 +1,20 @@
 import React, { useCallback, useState } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
+import { useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
+import { useStore } from '@app/store';
 import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
+import { toNumber } from 'lodash';
 
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
-import { createBids } from './mock';
 
 const UserState = {
   isOfferMaker: true,
@@ -21,21 +22,24 @@ const UserState = {
 };
 
 export interface LotProps extends React.PropsWithChildren {
-  id: string;
+  id: number;
 }
 
 export default function Lot({ id }: LotProps) {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
+  const { account } = useAuth();
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [bids] = useState<Resource.Bid.Bid[]>(createBids());
+  const [bids] = useState<Resource.Bid.Bid[]>([]);
+
+  const isOfferMaker = lot?.offerMaker.nickname === account?.nickname;
 
   const preload = useLoadingCallback(
     useCallback(async () => {
-      const lot = await rpcSchema.send('lot.getById', { id });
-      const asset = await rpcSchema.send('asset.getById', { id: lot.asset.id });
+      const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
+      const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
 
       setLot(lot);
       setAsset(asset);
@@ -44,12 +48,6 @@ export default function Lot({ id }: LotProps) {
 
   usePreloadPage(preload);
 
-  console.log({ asset });
-
-  const createBid = async () => {
-    console.log('createBid', {});
-  };
-
   const handleEditLot = () => {
     console.log('handleEditLot');
   };
@@ -57,9 +55,7 @@ export default function Lot({ id }: LotProps) {
     console.log('handleUnpublishLot');
   };
 
-  if (!asset || !lot) return;
-
-  console.log({ bids });
+  if (!lot) return;
 
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
@@ -88,7 +84,7 @@ export default function Lot({ id }: LotProps) {
                   gap="0.75rem"
                   justifyContent="space-between"
                 >
-                  <Heading textTransform="uppercase" variant="h3" fontSize="1rem">
+                  <Heading textTransform="uppercase" variant="h3">
                     My lot analytics
                   </Heading>
 
@@ -110,7 +106,7 @@ export default function Lot({ id }: LotProps) {
         </GridItem>
       </Grid>
 
-      <SimilarLotsBlock />
+      <SimilarLotsBlock lot={lot} />
     </VStack>
   );
 }

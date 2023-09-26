@@ -1,4 +1,3 @@
-import { rootStore } from '@app/store';
 import { createService } from '@packages/service-manager';
 import { BackendApiService } from '@services/backend-api-service';
 import { AppConfig } from '@shared/config';

@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { DealStatusColorMap, DealStatusTitleMap } from './const';
 
 export interface DealStatusProps extends BoxProps {
-  value: Resource.Deal.DealStatus;
+  value: Resource.Deal.Enums.DealStatus;
 }
 
 export const DealStatus = ({ value, ...boxProps }: DealStatusProps): JSX.Element => {

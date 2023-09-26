@@ -12,7 +12,6 @@ import {
   PopoverTrigger,
   useDisclosure,
   VStack,
-  Box,
   PopoverProps,
   IconProps,
 } from '@chakra-ui/react';
@@ -21,6 +20,7 @@ export interface DropdownItem {
   href?: string;
   label: string;
   icon?: React.ComponentType<IconProps>;
+  onClick?: () => void;
   as?: MenuItemProps['as'];
 }
 export interface DropdownProps extends React.PropsWithChildren {
@@ -37,8 +37,9 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const onOptionClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onOptionClick = (event: React.MouseEvent<HTMLDivElement>, item: DropdownItem) => {
     event.stopPropagation();
+    item.onClick && item.onClick();
     onClose();
   };
 
@@ -61,7 +62,7 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
                       opacity: 1,
                     },
                   }}
-                  onClick={onOptionClick}
+                  onClick={(e) => onOptionClick(e, item)}
                   position="relative"
                   cursor="pointer"
                   h="2.5rem"
@@ -82,7 +83,7 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
                     bg: 'orange.500',
                   }}
                 >
-                  {Icon && <Icon w="" />}
+                  {Icon && <Icon />}
                   <Text>{item.label}</Text>
                 </HStack>
               );

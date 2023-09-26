@@ -62,8 +62,8 @@ export class RpcClient {
       const requestIntercepted = await this.interceptRequest(request);
       if (requestIntercepted.push) return this._requestPush(requestIntercepted);
 
-      rpcResponse = await this._requestSend(request);
-      if (request.push && !rpcResponse) return void 0;
+      rpcResponse = await this._requestSend(requestIntercepted);
+      if (requestIntercepted.push && !rpcResponse) return void 0;
 
       if (!rpcResponse) throw RpcError.ParseError();
       return rpcResponse;
@@ -127,6 +127,7 @@ export class RpcClient {
   // Raw adapter SEND request
   private async _requestSend<Params, Result>(request: RpcRequest<Params, Result>): Promise<RpcResponse<any>> {
     try {
+      console.log('_requestSend', request);
       const response = await this.adapter.send(request);
       return response;
     } catch (err) {

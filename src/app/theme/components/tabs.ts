@@ -4,20 +4,33 @@ import { createMultiStyleConfigHelpers, defineStyle } from '@chakra-ui/react';
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers(tabsAnatomy.keys);
 
 const variants = {
-  asset: defineStyle({
-    root: {
-      // width: '100%'
-    },
+  promo: defineStyle({
+    root: {},
     tab: {
       color: 'dark.50',
       transitionProperty: 'var(--chakra-transition-property-common)',
       transitionDuration: 'var(--chakra-transition-duration-normal)',
       _selected: {
         color: 'white',
-        borderBottom: '6px solid orange.500',
+        position: 'relative',
+        _before: {
+          content: "''",
+          position: 'absolute',
+          height: '0.375rem',
+          left: 0,
+          right: 0,
+          background: 'orange.500',
+          bottom: '-0.2rem',
+          borderRadius: 'sm',
+        },
       },
     },
-    tablist: {},
+    tablist: {
+      w: 'full',
+      borderBottom: '0.0625rem solid',
+      borderColor: 'dark.300',
+      mb: '1rem',
+    },
     tabpanel: {
       padding: 'none !important',
     },

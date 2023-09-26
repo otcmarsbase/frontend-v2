@@ -5,7 +5,7 @@ import { Circle, HStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface DirectionButtonProps {
-  direction: Resource.Common.TradeDirection;
+  direction: Resource.Common.Enums.TradeDirection;
   onClick: () => any;
 }
 

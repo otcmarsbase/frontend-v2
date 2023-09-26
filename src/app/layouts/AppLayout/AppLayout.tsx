@@ -13,12 +13,12 @@ export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
 }
 
-export function AppLayout({ children, containerSize = 'md' }) {
+export function AppLayout({ children, containerSize = 'lg' }) {
   const router = useRouter();
 
   const onCreateOfferClick = useCallback(async () => {
     const direction = await ModalController.create(UIModals.TradeDirectionChooseModal, {});
-    if (direction) router.navigateComponent(pages.Lot.Create.Home, { direction }, {});
+    if (direction) router.navigateComponent(pages.Lot.Create.Home, {}, {});
   }, [router]);
 
   return (

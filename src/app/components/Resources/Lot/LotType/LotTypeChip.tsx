@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { LotTypeColorMap, LotTypeTitleMap } from './const';
 
 export interface LotTypeChipProps extends TextProps {
-  value: Resource.Lot.LotType;
+  value: Resource.Lot.Enums.LotType;
   withTokenWarrant?: boolean;
 }
 

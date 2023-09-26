@@ -2,6 +2,8 @@ import { Button, HStack, Input, InputGroup, InputLeftElement } from '@chakra-ui/
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
+import { LotFilterSortByField, LotFilterSortByFieldDictionary } from './const';
+
 export interface LotFilterControlsProps {
   toggleButton?: {
     isSelected: boolean;
@@ -13,8 +15,10 @@ export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
   return (
     <HStack>
       <Button
-        w="full"
-        variant={toggleButton?.isSelected ? 'darkSolid' : 'darkOutline'}
+        w="12rem"
+        variant={toggleButton?.isSelected ? 'red' : 'darkOutline'}
+        borderColor={toggleButton?.isSelected ? 'red.200' : 'dark.200'}
+        leftIcon={<UIIcons.Common.FilterIcon />}
         onClick={() => toggleButton?.onSelect?.(!toggleButton?.isSelected)}
       >
         Filters
@@ -25,20 +29,12 @@ export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
         </InputLeftElement>
         <Input placeholder="Search" />
       </InputGroup>
-      <UIKit.Select
-        isClearable
+      <UIKit.SelectSync<LotFilterSortByField>
         placeholder="Sort by"
-        value={'byAlphabetic'}
-        options={[
-          { label: 'From A to Z', value: 'byAlphabetic' },
-          { label: 'Last added', value: 'byLast' },
-          { label: 'Popularity', value: 'byPopularity' },
-        ]}
+        value="BY_ALPHABETIC"
+        items={LotFilterSortByFieldDictionary.keys()}
+        renderItem={(item) => LotFilterSortByFieldDictionary.get(item).title}
       />
-      <Button variant="darkOutline">
-        <UIIcons.Common.HotIcon />
-        &nbsp; HOT!
-      </Button>
     </HStack>
   );
 }
