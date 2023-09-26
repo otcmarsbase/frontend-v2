@@ -1,12 +1,12 @@
 import { RuntimeError } from '@ddd/errors';
 
 export interface LotNotFoundErrorParams {
-  id: string;
+  id: number;
 }
 
 @RuntimeError.RegisterError('LotNotFoundError')
 export class LotNotFoundError extends RuntimeError<LotNotFoundErrorParams> {
-  constructor(id: string) {
+  constructor(id: number) {
     super('LotNotFoundError', { id });
   }
 

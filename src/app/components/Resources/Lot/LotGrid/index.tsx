@@ -15,7 +15,10 @@ export interface LotGripProps {
 }
 
 export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
-  const getAsset = useCallback((lot: Resource.Lot.Lot) => assets.find((m) => m.id === lot?.asset.id), [assets]);
+  const getAsset = useCallback(
+    (lot: Resource.Lot.Lot) => assets.find((m) => m.id === (lot.assetPK as Resource.Asset.AssetKey).id),
+    [assets],
+  );
 
   const onSelectCallback = useCallback(
     (lot: Resource.Lot.Lot) => {
@@ -26,8 +29,6 @@ export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
     },
     [onSelect, getAsset],
   );
-
-  console.log({ lots });
 
   return (
     <SimpleGrid w="full" columns={columns} spacing="2rem">

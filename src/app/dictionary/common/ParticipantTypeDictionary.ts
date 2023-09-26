@@ -7,7 +7,7 @@ export interface ParticipantTypeDictionaryInfo {
 }
 
 export const ParticipantTypeDictionary = createDictionary<
-  Resource.Common.ParticipantType,
+  Resource.Common.Enums.InvestorType,
   ParticipantTypeDictionaryInfo
 >()
   .setFromRecord({

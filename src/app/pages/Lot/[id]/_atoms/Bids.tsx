@@ -4,6 +4,7 @@ import { UIModals } from '@app/components';
 import { ModalController } from '@app/logic';
 import { useStore } from '@app/store';
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
+import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
@@ -13,8 +14,7 @@ import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 interface BidsProps {}
 
 export const Bids: FC<BidsProps> = () => {
-  const { mockStore } = useStore();
-  const [bids] = useState(mockStore.bidListLot({}).items);
+  const [bids] = useState<Resource.Bid.Bid[]>([]);
 
   const onCreateBidClick = useCallback(async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, {});

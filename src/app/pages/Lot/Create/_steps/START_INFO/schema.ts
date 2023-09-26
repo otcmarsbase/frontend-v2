@@ -10,10 +10,10 @@ export const startInfoSchema: yup.ObjectSchema<StartInfoModel> = yup.object({
   // asset: yup.string().required('Project name is required'),
   asset: yup.mixed<Resource.Asset.Asset | string>().required('Project name is required'),
   direction: yup
-    .mixed<Resource.Common.TradeDirection>()
+    .mixed<Resource.Common.Enums.TradeDirection>()
     .oneOf(TradeDirectionDictionary.keys())
     .required('Trade direction is required'),
-  type: yup.mixed<Resource.Lot.LotType>().oneOf(LotTypeDictionary.keys()).required('Type of lot is required'),
+  type: yup.mixed<Resource.Lot.Enums.LotType>().oneOf(LotTypeDictionary.keys()).required('Type of lot is required'),
   isReassigned: yup.boolean(),
   withTokenWarrant: yup.boolean(),
   website: yup

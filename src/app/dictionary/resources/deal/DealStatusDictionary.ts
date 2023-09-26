@@ -6,8 +6,11 @@ export interface DealStatusDictionaryInfo {
   title: string;
 }
 
-export const DealStatusDictionary = createDictionary<Resource.Deal.DealStatus, DealStatusDictionaryInfo>()
+export const DealStatusDictionary = createDictionary<Resource.Deal.Enums.DealStatus, DealStatusDictionaryInfo>()
   .setFromRecord({
+    PREPARE: {
+      title: 'Prepare',
+    },
     NEGOTIATION: {
       title: 'Negotiation',
     },

@@ -21,8 +21,8 @@ export interface StartInfoStepProps {
 
 export type StartInfoModel = {
   asset: Resource.Asset.Asset | string;
-  direction: Resource.Common.TradeDirection;
-  type: Resource.Lot.LotType;
+  direction: Resource.Common.Enums.TradeDirection;
+  type: Resource.Lot.Enums.LotType;
   isReassigned: boolean;
   withTokenWarrant: boolean;
   website: string | null;
@@ -113,7 +113,7 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                         props.field.onChange(lotType);
                       }}
                       renderItem={(item) => LotTypeDictionary.get(item).title}
-                      items={without(LotTypeDictionary.keys(), 'SAFE_TOKEN_WARRANT')}
+                      items={LotTypeDictionary.keys()}
                       isInvalid={Boolean(errors.type)}
                     />
                   )}

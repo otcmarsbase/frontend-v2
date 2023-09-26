@@ -7,7 +7,7 @@ import { AssetVerticalIcon } from './AssetVerticalIcon';
 import { AssetVerticalTitle } from './const';
 
 export interface AssetVerticalRowProps extends StackProps {
-  value: Resource.Asset.AssetVertical;
+  value: Resource.Asset.Enums.AssetVertical;
 }
 
 export function AssetVerticalRow({ value, ...stackProps }: AssetVerticalRowProps) {

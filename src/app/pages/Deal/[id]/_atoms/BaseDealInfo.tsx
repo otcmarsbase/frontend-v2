@@ -78,9 +78,9 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
           label="Created time"
           value={
             <Text fontSize="sm" fontWeight="500">
-              {deal?.created_at ? (
+              {deal?.createdAt ? (
                 <>
-                  {format(deal.created_at, 'dd.mm.yyyy')} {format(deal.created_at, 'hh:mm')}
+                  {format(deal.createdAt, 'dd.mm.yyyy')} {format(deal.createdAt, 'hh:mm')}
                 </>
               ) : (
                 '-'

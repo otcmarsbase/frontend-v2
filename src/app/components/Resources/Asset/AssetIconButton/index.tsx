@@ -3,6 +3,8 @@ import { useCallback } from 'react';
 import { Button, Image } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
+import { AssetImage } from '../AssetImage';
+
 export interface AssetIconButtonProps {
   asset: Resource.Asset.Asset;
 
@@ -28,7 +30,7 @@ export function AssetIconButton({ asset, isSelected, onSelect }: AssetIconButton
           margin: 0,
         },
       }}
-      leftIcon={<Image src={asset.info.logo_url} w="2rem" h="2rem" />}
+      leftIcon={<AssetImage asset={asset} w="2rem" h="2rem" />}
     >
       {/* <Box bg={`url(${asset.info.logo_url})`} w="2rem" h="2rem" /> */}
       {null}

@@ -22,8 +22,8 @@ export type ProjectInfoModel = {
   isReadyToSPV: boolean;
   isNoLimit: boolean;
   isPermanent: boolean;
-  typeOfSeller: Resource.Common.ParticipantType;
-  typeOfBuyer: Resource.Common.ParticipantType | null;
+  typeOfSeller: Resource.Common.Enums.InvestorType;
+  typeOfBuyer: Resource.Common.Enums.InvestorType | null;
   telegram: string;
   deadline: Date;
 };

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import { Button, Circle, Image, StackProps, Text, VStack } from '@chakra-ui/react';
+import { Circle, Image, StackProps, Text, VStack } from '@chakra-ui/react';
 
 import WorriedEmojiPng from './assets/worried-emoji.png';
 

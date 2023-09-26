@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
-import { Text, Image } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
+
+import { AssetImage } from '../AssetImage';
 
 type SelectType = Resource.Asset.Asset;
 
@@ -16,7 +18,7 @@ export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
   const renderItem = useCallback(
     (item: SelectType) => (
       <HStack>
-        <Image borderRadius="50%" src={item?.info.logo_url} w="1.5rem" h="1.5rem" />
+        <AssetImage asset={item} borderRadius="50%" w="1.5rem" h="1.5rem" />
         <Text>{item?.info.title}</Text>
       </HStack>
     ),

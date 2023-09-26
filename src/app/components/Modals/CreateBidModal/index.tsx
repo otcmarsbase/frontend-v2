@@ -26,9 +26,9 @@ export type CreateBidModel = {
   toSellCount: number;
   fundsCount: number;
   deadline: Date;
-  bidderType: Resource.Common.ParticipantType;
+  bidderType: Resource.Common.Enums.InvestorType;
   isDirect: boolean;
-  location: Resource.Common.Location;
+  location: Resource.Common.Enums.Location;
   isReadyForKYC: boolean;
   telegram: string;
 };

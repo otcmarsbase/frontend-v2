@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-export interface TradeDirectionChooseModalProps extends PortalProps<Resource.Common.TradeDirection> {}
+export interface TradeDirectionChooseModalProps extends PortalProps<Resource.Common.Enums.TradeDirection> {}
 
 export function TradeDirectionChooseModal({ portal }: TradeDirectionChooseModalProps) {
   const onClose = useCallback(() => {
@@ -14,7 +14,7 @@ export function TradeDirectionChooseModal({ portal }: TradeDirectionChooseModalP
   }, [portal]);
 
   const onSubmit = useCallback(
-    (direction: Resource.Common.TradeDirection) => {
+    (direction: Resource.Common.Enums.TradeDirection) => {
       if (portal?.resolve) portal.resolve(direction);
     },
     [portal],
@@ -22,7 +22,7 @@ export function TradeDirectionChooseModal({ portal }: TradeDirectionChooseModalP
 
   const modalButtons: {
     label: string;
-    direction: Resource.Common.TradeDirection;
+    direction: Resource.Common.Enums.TradeDirection;
     onClick: () => void;
   }[] = [
     {

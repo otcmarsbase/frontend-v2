@@ -1,6 +1,6 @@
-import { AssetLink, AssetVerticalRow } from '@app/components';
+import { AssetLink, AssetVerticalRow, UILogic } from '@app/components';
 import LINQ from '@berish/linq';
-import { Button, Heading, Link, Image, Text, VStack } from '@chakra-ui/react';
+import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
@@ -31,7 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         >
           <HStack gap="2.12rem">
             <HStack gap="1.5rem">
-              <Image w="4rem" src={asset.info.logo_url} borderRadius="light" />
+              <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />
               <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
                 {asset.info.title}
               </Heading>

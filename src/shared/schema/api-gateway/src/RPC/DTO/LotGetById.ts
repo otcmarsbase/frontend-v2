@@ -2,7 +2,7 @@ import { Resource } from '../../Resource';
 
 export namespace LotGetById {
   export type Payload = {
-    id: string;
+    id: number;
   };
   export type Result = Resource.Lot.Lot;
 }

@@ -2,14 +2,16 @@ import { useMemo } from 'react';
 
 import { Circle, HStack, StackProps, Text } from '@chakra-ui/react';
 
+import defaultAvatar from './images/defaultAvatar.png';
+
 export interface AccountAvatarProps extends StackProps {
-  avatarUrl: string;
+  avatarUrl?: string;
   nickname: string;
   nicknameMaxLength?: number;
 }
 
 export const AccountAvatar: React.FC<AccountAvatarProps> = ({
-  avatarUrl,
+  avatarUrl = defaultAvatar,
   nickname,
   fontSize = 'sm',
   nicknameMaxLength = 10,

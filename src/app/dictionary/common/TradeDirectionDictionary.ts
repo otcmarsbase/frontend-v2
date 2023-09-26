@@ -12,7 +12,10 @@ export interface TradeDirectionDictionaryInfo {
   };
 }
 
-export const TradeDirectionDictionary = createDictionary<Resource.Common.TradeDirection, TradeDirectionDictionaryInfo>({
+export const TradeDirectionDictionary = createDictionary<
+  Resource.Common.Enums.TradeDirection,
+  TradeDirectionDictionaryInfo
+>({
   BUY: {
     title: 'Buy',
     createOfferModal: {

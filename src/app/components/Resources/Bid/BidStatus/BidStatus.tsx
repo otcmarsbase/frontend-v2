@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { BidStatusInfoDictionary } from './const';
 
 export interface BidStatusProps extends BoxProps {
-  value: Resource.Bid.BidStatus;
+  value: Resource.Bid.Enums.BidStatus;
 }
 
 export function BidStatus({ value, ...boxProps }: BidStatusProps) {

@@ -4,7 +4,7 @@ import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 export const AssetVerticalIconDictionary = createDictionary<
-  Resource.Asset.AssetVertical,
+  Resource.Asset.Enums.AssetVertical,
   ComponentWithAs<'svg', IconProps>
 >()
   .setFromEntries([
@@ -23,7 +23,7 @@ export const AssetVerticalIconDictionary = createDictionary<
   ])
   .asReadonly();
 
-export const AssetVerticalTitle = createDictionary<Resource.Asset.AssetVertical, React.ReactNode>()
+export const AssetVerticalTitle = createDictionary<Resource.Asset.Enums.AssetVertical, React.ReactNode>()
   .setFromEntries([
     ['BLOCKCHAIN_SERVICE', 'Blockchain service'],
     ['BRIDGE', 'Bridge'],

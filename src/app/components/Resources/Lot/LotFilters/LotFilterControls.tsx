@@ -16,12 +16,9 @@ export function LotFilterControls({ toggleButton }: LotFilterControlsProps) {
     <HStack>
       <Button
         w="12rem"
-        border="0.125rem solid"
+        variant={toggleButton?.isSelected ? 'red' : 'darkOutline'}
         borderColor={toggleButton?.isSelected ? 'red.200' : 'dark.200'}
         leftIcon={<UIIcons.Common.FilterIcon />}
-        bg={toggleButton?.isSelected && 'red.300'}
-        color={toggleButton?.isSelected && 'white'}
-        variant={toggleButton?.isSelected ? 'darkSolid' : 'darkOutline'}
         onClick={() => toggleButton?.onSelect?.(!toggleButton?.isSelected)}
       >
         Filters

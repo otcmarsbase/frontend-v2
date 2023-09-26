@@ -28,7 +28,7 @@ export const StartStepReview: React.FC<StartStepReviewProps> = ({ stepRef, ...re
           isRequired: stepRef.current.isRequired('type'),
           renderValue: (model) => (
             <Text color="white">
-              {LotTypeDictionary.get(model.withTokenWarrant ? 'SAFE_TOKEN_WARRANT' : model.type).title}
+              {LotTypeDictionary.get(model.type).title} {model.withTokenWarrant && ' + Token warrant'}
             </Text>
           ),
         },

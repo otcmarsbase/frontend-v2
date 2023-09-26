@@ -1,24 +1,25 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { UILogic } from '@app/components';
-import { useStore } from '@app/store';
+import { UILogic, useRpcSchemaClient } from '@app/components';
+import { MBPages } from '@app/pages';
 import { VStack, Text } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 
-const TradeDirectionTitleMap = new Map<Resource.Common.TradeDirection, React.ReactNode>([
+const TradeDirectionTitleMap = new Map<Resource.Common.Enums.TradeDirection, React.ReactNode>([
   ['BUY', `Lot's to buy`],
   ['SELL', `Lot's to sell`],
 ]);
 
 export interface LotsBlockProps {
-  direction: Resource.Common.TradeDirection;
-  onChange: (direction: Resource.Common.TradeDirection) => any;
-  onSelect: (lot: Resource.Lot.Lot) => any;
+  assetId: Resource.Asset.AssetKey['id'];
 }
 
-export function LotsBlock({ direction, onChange, onSelect }: LotsBlockProps) {
-  const { mockStore } = useStore();
+export function LotsBlock({ assetId }: LotsBlockProps) {
+  const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
+  const [direction, setDirection] = useState<Resource.Common.Enums.TradeDirection>('BUY');
   const [lots, setLots] = useState<{
     items: Resource.Lot.Lot[];
     total: number;
@@ -28,19 +29,21 @@ export function LotsBlock({ direction, onChange, onSelect }: LotsBlockProps) {
   });
 
   const loadingCallback = useLoadingCallback(
-    useCallback(async () => {
-      // TODO Delete
-      const assets = mockStore.assetList({});
-      setLots(mockStore.lotListActive(assets.items));
-    }, [mockStore]),
+    useCallback(
+      async (direction: Resource.Common.Enums.TradeDirection) => {
+        const lots = await rpcSchema.send('lot.listActive', { assets: [assetId], direction });
+        setLots(lots);
+      },
+      [assetId, rpcSchema],
+    ),
   );
 
   useEffect(() => {
-    loadingCallback();
-  }, [loadingCallback]);
+    loadingCallback(direction);
+  }, [loadingCallback, direction]);
 
   const renderTab = useCallback(
-    (direction: Resource.Common.TradeDirection) => (
+    (direction: Resource.Common.Enums.TradeDirection) => (
       <Text fontFamily="promo" textTransform="uppercase">
         {TradeDirectionTitleMap.get(direction)}
       </Text>
@@ -48,21 +51,32 @@ export function LotsBlock({ direction, onChange, onSelect }: LotsBlockProps) {
     [],
   );
 
-  console.log({ lots });
+  const onChangeDirection = useCallback(
+    (direction: Resource.Common.Enums.TradeDirection) => {
+      setDirection(direction);
+      loadingCallback(direction);
+    },
+    [loadingCallback],
+  );
 
   return (
-    <UIKit.Tabs<Resource.Common.TradeDirection>
+    <UIKit.Tabs<Resource.Common.Enums.TradeDirection>
       items={['BUY', 'SELL']}
       renderKey={(direction) => direction}
       renderTab={renderTab}
       value={direction}
-      onChange={onChange}
+      onChange={onChangeDirection}
       variant="promo"
     >
       {(direction) => (
         <VStack width="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls />
-          <UILogic.LotGrid columns={4} lots={lots.items} assets={[]} onSelect={onSelect} />
+          <UILogic.LotGrid
+            columns={4}
+            lots={lots.items}
+            assets={[]}
+            onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+          />
         </VStack>
       )}
     </UIKit.Tabs>

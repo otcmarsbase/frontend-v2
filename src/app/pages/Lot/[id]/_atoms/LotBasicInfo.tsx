@@ -62,7 +62,7 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Type">
-          <LotTypeChip withTokenWarrant={lot.with_token_warrant} value={type} />
+          <LotTypeChip withTokenWarrant={lot.withTokenWarrant} value={type} />
         </InfoElement>
       </HStack>
 

@@ -7,6 +7,7 @@ export type Schema = {
   };
   asset: {
     getById(payload: DTO.AssetGetById.Payload): DTO.AssetGetById.Result;
+    getStatsById(payload: DTO.AssetGetStatsById.Payload): DTO.AssetGetStatsById.Result;
     list(payload: DTO.AssetList.Payload): DTO.AssetList.Result;
   };
   auth: {
@@ -23,14 +24,14 @@ export type Schema = {
     listActive(payload: DTO.LotListActive.Payload): DTO.LotListActive.Result;
     listMy(payload: DTO.LotListMy.Payload): DTO.LotListMy.Result;
   };
-  bids: {
-    listLot(payload: DTO.BidListByLot.Payload): DTO.BidListByLot.Result;
-    listMy(payload: DTO.BidsListMy.Payload): DTO.BidsListMy.Result;
-    getById(payload: DTO.BidsGetById.Payload): DTO.BidsGetById.Result;
+  bid: {
+    create(payload: DTO.BidCreate.Payload): DTO.BidCreate.Result;
+    listByLot(payload: DTO.BidListByLot.Payload): DTO.BidListByLot.Result;
+    listMy(payload: DTO.BidListMy.Payload): DTO.BidListMy.Result;
   };
   deals: {
     listMy(payload: DTO.DealsListMy.Payload): DTO.DealsListMy.Result;
-    getById(payload: DTO.DealsGetById.Payload): DTO.DealsGetById.Result;
+    getById(payload: DTO.DealGetById.Payload): DTO.DealGetById.Result;
   };
 
   dev: {

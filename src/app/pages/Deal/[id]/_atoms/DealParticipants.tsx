@@ -50,7 +50,7 @@ export const DealParticipants: FC<DealParticipantsProps> = ({ items, telegramCha
             <VStack w="full" gap="1.5rem">
               <GridParticipantField
                 label={DealParticipantDictionary.get(item.type).title}
-                value={<AccountAvatar avatarUrl={item.account?.profile?.avatarUrl} nickname={item.account?.nickname} />}
+                value={<AccountAvatar avatarUrl={''} nickname={item.account?.nickname} />}
               />
               <GridParticipantField
                 label={DealParticipantDictionary.get(item.type).walletTitle}

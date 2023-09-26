@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
+import { useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
@@ -11,28 +12,35 @@ import { UIKit } from '@shared/ui-kit';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
-import { createAsset, createDeal, createLot, createParticipant } from './mock';
+// import { createAsset, createDeal, createLot, createParticipant } from './mock';
 
-const Deal: React.FC = observer(() => {
+interface DealProps {
+  id: Resource.Deal.DealKey['id'];
+}
+
+const Deal: React.FC<DealProps> = observer(({ id }) => {
   const router = useRouter();
+  const rpcSchema = useRpcSchemaClient();
   const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
   const [lot, setLot] = useState<Resource.Lot.Lot>(null);
   const [asset, setAsset] = useState<Resource.Asset.Asset>(null);
   const [participants] = useState([
-    createParticipant('OFFER_MAKER'),
-    createParticipant('MODERATOR'),
-    createParticipant('BID_MAKER'),
-    createParticipant('OTC_AGENT'),
+    // createParticipant('OFFER_MAKER'),
+    // createParticipant('MODERATOR'),
+    // createParticipant('BID_MAKER'),
+    // createParticipant('OTC_AGENT'),
   ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadDeal = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setDeal(createDeal());
-      setAsset(createAsset());
-      setLot(createLot());
+      const deal = await rpcSchema.send('deals.getById', { id });
+      const lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
+      const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
+      setDeal(deal);
+      setLot(lot);
+      setAsset(asset);
     } finally {
       setIsLoading(false);
     }
@@ -57,7 +65,7 @@ const Deal: React.FC = observer(() => {
 
           <DealInfo price={3235} size={2323} fdv={2323} commission={5} />
 
-          <DealParticipants items={participants} telegramChatLink={deal?.communication?.char_url} />
+          <DealParticipants items={participants} telegramChatLink={'dsd'} />
         </VStack>
 
         <TradeProgressStatuses

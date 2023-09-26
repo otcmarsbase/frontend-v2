@@ -7,7 +7,7 @@ import { Resource } from '@schema/api-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export interface LinksBlockProps {
-  links: Resource.Asset.AssetLink[];
+  links: Resource.Asset.ValueObjects.AssetLink[];
 }
 
 export function LinksBlock({ links }: LinksBlockProps) {

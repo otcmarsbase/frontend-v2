@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { AssetVerticalIconDictionary } from './const';
 
 export interface AssetVerticalIconProps {
-  value: Resource.Asset.AssetVertical;
+  value: Resource.Asset.Enums.AssetVertical;
 }
 
 export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) => {

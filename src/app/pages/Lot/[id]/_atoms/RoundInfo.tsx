@@ -1,5 +1,8 @@
+import { UILogic } from '@app/components';
+import { UIDictionary } from '@app/dictionary';
 import { SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
+import { MoneyText } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';
 import { RoundInfoItem } from './RoundInfoItem';
@@ -14,22 +17,47 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
       <VStack gap="0.75rem">
         <SimpleGrid w="full" borderRadius="0.75rem" gridColumnGap="0.75rem" gridRowGap="0.81rem" columns={3}>
           <RoundInfoItem fieldName="PRICE_PER_EQUITY">
-            <Text>TODO</Text>
+            <MoneyText fontSize="sm" fontWeight={500} value={lot.contractSize.price.value} abbreviated addon="$" />
           </RoundInfoItem>
           <RoundInfoItem fieldName="LOT_FDV">
-            <Text fontWeight="800">TODO</Text>
+            <VStack alignItems="start">
+              <MoneyText
+                fontSize="sm"
+                abbreviated
+                fontWeight={500}
+                value={lot.contractSize.contractShare.fdv.value}
+                addon="$"
+              />
+            </VStack>
           </RoundInfoItem>
           <RoundInfoItem fieldName="CONTRACT_SIZE">
-            <Text fontWeight="800">TODO</Text>
+            <VStack alignItems="start">
+              <MoneyText
+                fontSize="sm"
+                fontWeight={500}
+                value={lot.contractSize.unitQuantity.value}
+                abbreviated
+                addon="%"
+              />
+              <MoneyText
+                fontSize="xs"
+                fontWeight={500}
+                color="dark.50"
+                value={lot.contractSize.price.value}
+                addon="$"
+              />
+            </VStack>
           </RoundInfoItem>
           <RoundInfoItem fieldName="OWNER">
-            <Text fontWeight="800">TODO</Text>
+            <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
           </RoundInfoItem>
           <RoundInfoItem fieldName="SELLER">
-            <Text fontWeight="800">TODO</Text>
+            <Text fontWeight="500" fontSize="sm">
+              {UIDictionary.MediatorTypeDictionary.get(lot.mediatorType).title}
+            </Text>
           </RoundInfoItem>
           <RoundInfoItem fieldName="MIN_BID">
-            <Text fontWeight="800">TODO</Text>
+            <Text fontWeight="500">TODO</Text>
           </RoundInfoItem>
         </SimpleGrid>
         <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">

@@ -11,7 +11,7 @@ import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 export interface LotsProps {
   filters?: {
     search?: string;
-    directions?: Resource.Common.TradeDirection[];
+    directions?: Resource.Common.Enums.TradeDirection[];
     minValue?: number;
     maxValue?: number;
   };
@@ -78,7 +78,7 @@ export const Lots: React.FC<LotsProps> = (props) => {
         itemRender={(item) => (
           <LotRow
             lot={item}
-            asset={assets.find((asset) => asset.id === item.asset.id)}
+            asset={assets.find((asset) => asset.id === (item.assetPK as Resource.Asset.AssetKey).id)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

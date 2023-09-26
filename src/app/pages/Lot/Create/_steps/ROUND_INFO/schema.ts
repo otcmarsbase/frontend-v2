@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { RoundInfoModel } from './View';
 
 export const roundInfoSchema: yup.ObjectSchema<RoundInfoModel> = yup.object({
-  round: yup.mixed<Resource.Common.RoundType>().oneOf(InvestmentRoundDictionary.keys()),
+  round: yup.mixed<Resource.Common.Enums.InvestRound>().oneOf(InvestmentRoundDictionary.keys()),
   roundFDV: yup.string(),
   contractValue: yup.string(),
   isBestBid: yup.boolean(),

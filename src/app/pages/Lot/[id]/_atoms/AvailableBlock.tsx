@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Text, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { HStack, MoneyText, UIKit, VStack } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
   lot: Resource.Lot.Lot;
@@ -13,19 +14,19 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
     {
       id: 'reserved',
       label: 'Reserved',
-      value: 1233,
+      value: new Decimal(lot.reserved?.stablecoinQuantity.value).toNumber(),
       color: '#F9C409',
     },
     {
       id: 'available',
       label: 'Available',
-      value: 1233,
+      value: new Decimal(lot.available?.stablecoinQuantity.value).toNumber(),
       color: 'dark.700',
     },
     {
       id: 'executed',
       label: 'Executed',
-      value: 2500,
+      value: new Decimal(lot.executed?.stablecoinQuantity.value).toNumber(),
       color: 'orange.300',
     },
   ]);
@@ -39,14 +40,14 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
         <HStack>
           <MoneyText
             fontSize="sm"
-            value={lot.execution_quantity_info.available.quote}
+            value={lot.available.unitQuantity.value}
             abbreviated
             addon={<Text color="dark.50">$</Text>}
           />
           <Text fontSize="sm">/</Text>
           <MoneyText
             fontSize="sm"
-            value={lot.execution_quantity_info.total.quote}
+            value={lot.executed.unitQuantity.value}
             abbreviated
             addon={<Text color="dark.50">$</Text>}
           />

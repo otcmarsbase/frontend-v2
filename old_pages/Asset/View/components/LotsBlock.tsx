@@ -5,25 +5,25 @@ import { Resource } from '@schema/api-gateway';
 import { Tabs, LotFilterControls } from 'src/app/my-components';
 import { LotGrid } from 'src/app/my-components/LotGrid';
 
-const TradeDirectionTitleMap = new Map<Resource.Common.TradeDirection, React.ReactNode>([
+const TradeDirectionTitleMap = new Map<Resource.Common.Enums.TradeDirection, React.ReactNode>([
   ['BUY', `Lot's to buy`],
   ['SELL', `Lot's to sell`],
 ]);
 
 export interface LotsBlockProps {
-  direction: Resource.Common.TradeDirection;
-  onChange: (direction: Resource.Common.TradeDirection) => any;
+  direction: Resource.Common.Enums.TradeDirection;
+  onChange: (direction: Resource.Common.Enums.TradeDirection) => any;
   onSelect: (lot: Resource.Lot.Lot) => any;
 }
 
 export function LotsBlock({ direction, onChange, onSelect }: LotsBlockProps) {
   const renderTab = useCallback(
-    (direction: Resource.Common.TradeDirection) => TradeDirectionTitleMap.get(direction),
+    (direction: Resource.Common.Enums.TradeDirection) => TradeDirectionTitleMap.get(direction),
     [],
   );
 
   return (
-    <Tabs<Resource.Common.TradeDirection>
+    <Tabs<Resource.Common.Enums.TradeDirection>
       items={['BUY', 'SELL']}
       renderKey={(direction) => direction}
       renderTab={renderTab}

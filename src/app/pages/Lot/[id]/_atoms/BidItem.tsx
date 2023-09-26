@@ -1,12 +1,11 @@
-import { useRef } from 'react';
-
 import { AccountAvatar } from '@app/components';
+import { ParticipantTypeDictionary } from '@app/dictionary';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
-import { faker } from '@faker-js/faker';
 import { Resource } from '@schema/api-gateway';
 import { DateText, MoneyText } from '@shared/ui-kit';
+import { capitalize } from 'lodash';
 
-import { BidListFieldType, BidListFieldTypeTitleMap, LocationTypeTitleMap, ParticipantTypeTitleMap } from './const';
+import { BidListFieldType, BidListFieldTypeTitleMap, LocationTypeTitleMap } from './const';
 
 interface BidItemColumnProps extends React.PropsWithChildren {
   type: BidListFieldType;
@@ -28,8 +27,6 @@ export interface BidItemProps {
 }
 
 export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
-  const avatar = useRef(faker.image.avatarGitHub());
-
   return (
     <HStack
       w="full"
@@ -47,7 +44,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bid.owner.nickname} avatarUrl={avatar.current} />
+        <AccountAvatar nickname={bid.bidMaker.nickname} />
       </VStack>
       <SimpleGrid w="75%" columns={6} gridColumnGap="1.9rem">
         <BidItemColumn type="AMOUNT">
@@ -56,7 +53,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.valuation_info.quantity.quote}
+            value={bid.contractSize.price.value}
             addon={<Text color="dark.50">$</Text>}
           />
         </BidItemColumn>
@@ -66,25 +63,20 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.valuation_info.price}
+            value={bid.contractSize.unitQuantity.value}
             addon={<Text color="dark.50">%</Text>}
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">
-          {Array.isArray(bid.owner_type) ? (
-            bid.owner_type.map((type) => (
-              <Text fontSize="sm" whiteSpace="nowrap">
-                {ParticipantTypeTitleMap.get(type)}
-              </Text>
-            ))
-          ) : (
-            <Text fontSize="sm" whiteSpace="nowrap">
-              {ParticipantTypeTitleMap.get(bid.owner_type)}
-            </Text>
-          )}
+          <Text fontSize="sm" whiteSpace="nowrap">
+            {ParticipantTypeDictionary.get(bid.bidMakerType).title}
+          </Text>
         </BidItemColumn>
-        <BidItemColumn type="LOCATION">
+        {/* <BidItemColumn type="LOCATION">
           <Text fontSize="sm">{LocationTypeTitleMap.get(bid.location)}</Text>
+        </BidItemColumn> */}
+        <BidItemColumn type="LOCATION">
+          <Text fontSize="sm">{capitalize(bid.location)}</Text>
         </BidItemColumn>
         <BidItemColumn type="DEADLINE">
           <DateText fontSize="sm" value={bid.deadline} />

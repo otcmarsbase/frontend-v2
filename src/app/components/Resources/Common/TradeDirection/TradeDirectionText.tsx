@@ -6,7 +6,7 @@ import { Resource } from '@schema/api-gateway';
 import { TradeDirectionBackgroundColorMap, TradeDirectionColorMap, TradeDirectionTitleMap } from './const';
 
 export interface TradeDirectionTextProps extends Omit<TextProps, 'invert'> {
-  value: Resource.Common.TradeDirection;
+  value: Resource.Common.Enums.TradeDirection;
   variant?: 'leaf' | 'ghost';
   invert?: boolean;
 }

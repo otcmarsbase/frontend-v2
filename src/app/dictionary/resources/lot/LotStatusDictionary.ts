@@ -7,7 +7,7 @@ export interface LotStatusDictionaryInfo {
   color: string;
 }
 
-export const LotStatusDictionary = createDictionary<Resource.Lot.LotStatus, LotStatusDictionaryInfo>()
+export const LotStatusDictionary = createDictionary<Resource.Lot.Enums.LotStatus, LotStatusDictionaryInfo>()
   .setFromRecord({
     COMPLETED: {
       title: 'Completed',
@@ -25,17 +25,9 @@ export const LotStatusDictionary = createDictionary<Resource.Lot.LotStatus, LotS
       title: 'Active',
       color: '#34A853',
     },
-    ON_MODERATE: {
+    ON_MODERATION: {
       title: 'On moderation',
       color: '#F9C409',
-    },
-    PARTIALLY_COMPLETED: {
-      title: 'Partially completed',
-      color: 'blue.30',
-    },
-    UNPUBLISHED: {
-      title: 'Unpublished',
-      color: 'dark.50',
     },
     ARCHIVED: {
       title: 'Archived',

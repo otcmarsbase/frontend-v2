@@ -5,7 +5,7 @@ import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 
 export interface LotStatusProps extends BoxProps {
-  value: Resource.Lot.LotStatus;
+  value: Resource.Lot.Enums.LotStatus;
 }
 
 export function LotStatus({ value, ...boxProps }: LotStatusProps) {

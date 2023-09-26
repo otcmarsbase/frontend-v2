@@ -3,7 +3,7 @@ import { Resource } from '@schema/api-gateway';
 import { SimpleGrid, UIKit } from '@shared/ui-kit';
 
 export interface VerticalBlockProps {
-  verticals: Resource.Asset.AssetVertical[];
+  verticals: Resource.Asset.Enums.AssetVertical[];
 }
 
 export function VerticalBlock({ verticals }: VerticalBlockProps) {

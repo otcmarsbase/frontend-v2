@@ -6,6 +6,8 @@ export namespace AssetList {
   export type Payload = PaginationPayload & {
     search?: string;
     withLots?: boolean;
+    tier?: Resource.Asset.Enums.AssetTier[];
+    verticals?: Resource.Asset.Enums.AssetVertical[];
   };
   export type Result = Pagination<Resource.Asset.Asset>;
 }

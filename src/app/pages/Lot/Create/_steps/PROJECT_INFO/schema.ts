@@ -10,11 +10,11 @@ export const projectInfoSchema: yup.ObjectSchema<ProjectInfoModel> = yup.object(
   isPermanent: yup.boolean(),
   isNoLimit: yup.boolean(),
   typeOfSeller: yup
-    .mixed<Resource.Common.ParticipantType>()
+    .mixed<Resource.Common.Enums.InvestorType>()
     .oneOf(ParticipantTypeDictionary.keys())
     .required('Type of buyer is required'),
   typeOfBuyer: yup
-    .mixed<Resource.Common.ParticipantType>()
+    .mixed<Resource.Common.Enums.InvestorType>()
     .oneOf(ParticipantTypeDictionary.keys())
     .nullable()
     .when('isNoLimit', (isNoLimit, field) => (isNoLimit ? field : field.required('Type of seller is required'))),

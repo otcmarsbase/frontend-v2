@@ -6,9 +6,11 @@ import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 
-export interface SimilarLotsBlockProps {}
+export interface SimilarLotsBlockProps {
+  lot: Resource.Lot.Lot;
+}
 
-export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({}) => {
+export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
@@ -20,14 +22,16 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({}) => {
   }, [rpcSchema]);
 
   const loadLots = useCallback(async () => {
-    const lots = await rpcSchema.send('lot.listActive', {});
-    setLots(lots.items.slice(0, 4));
-  }, [rpcSchema]);
+    const lots = await rpcSchema.send('lot.listActive', { assets: [(lot.assetPK as Resource.Asset.AssetKey).id] });
+    setLots(lots.items.filter((item) => item.id !== lot.id));
+  }, [lot.assetPK, lot.id, rpcSchema]);
 
   useEffect(() => {
     loadAssets();
     loadLots();
   }, [loadAssets, loadLots]);
+
+  if (!lots.length) return null;
 
   return (
     <VStack mt="2rem" w="full" alignItems="start" layerStyle="darkLinearGradientBg" p="2rem" gap="1.25rem">
@@ -45,10 +49,8 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({}) => {
           <LotCard
             minimalView
             lot={lot}
-            asset={assets.find((asset) => asset.id)}
-            onClick={() =>
-              router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, { reload: true, replace: true })
-            }
+            asset={assets.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
+            onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />
         ))}
       </SimpleGrid>

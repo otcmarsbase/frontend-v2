@@ -1,4 +1,4 @@
-import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
+import * as SchemaCommon from '@schema/common';
 
 import { Bid } from './Bid';
 import { Common } from './Common';
@@ -6,58 +6,84 @@ import { Lot } from './Lot';
 import { User } from './User';
 
 export namespace Deal {
-  export const DealStatus = ['NEGOTIATION', 'COMPLETED', 'REJECTED'] as const;
-  export type DealStatus = (typeof DealStatus)[number];
+  export namespace Enums {
+    export const DealStatus = ['PREPARE', 'NEGOTIATION', 'COMPLETED', 'REJECTED'] as const;
+    export type DealStatus = (typeof DealStatus)[number];
 
-  export const DealParticipantType = [''] as const;
-  export type DealParticipantType = (typeof DealParticipantType)[number];
+    export const KeyResultStatus = ['NEW', 'PROCESS', 'COMPLETED', 'FAILED'] as const;
+    export type KeyResultStatus = (typeof KeyResultStatus)[number];
 
-  export interface DealKey extends ResourceKey<'deal'> {
-    id: string;
+    export const KeyResultType = [
+      'TELEGRAM_CHAT',
+      'OFFER_MAKER_VALIDATION',
+      'BID_MAKER_VALIDATION',
+      'AGENT_VALIDATION',
+      'KYC_VALIDATION',
+      'AML_VALIDATION',
+      'KYB_VALIDATION',
+      'DOCUMENT_OWNERSHIP',
+      'DOCUMENT_RESIGNED',
+      'TRANSACTION_PAYMENT',
+      'MARSBASE_COMMISSION',
+      'AGENT_COMMISSION',
+    ] as const;
+    export type KeyResultType = (typeof KeyResultType)[number];
   }
 
-  export interface Deal extends Resource<'deal'>, ResourceOmit<DealKey> {
-    created_at: number;
-    status: DealStatus;
+  export namespace KeyResults {
+    export interface AbstractKeyResult<T extends Enums.KeyResultType> {
+      status: Enums.KeyResultStatus;
+      type: T;
+    }
 
-    lot: Lot.LotKey;
-    bid: Bid.BidKey;
-
-    commission: number;
-    valuation_info: Common.ValuationInfo;
-    communication: DealCommunication;
-    participants: DealParticipant[];
+    export interface AgentCommissionKR extends AbstractKeyResult<'AGENT_COMMISSION'> {}
+    export interface AgentValidationKR extends AbstractKeyResult<'AGENT_VALIDATION'> {}
+    export interface AMLValidationKR extends AbstractKeyResult<'AML_VALIDATION'> {}
+    export interface BidMakerValidationKR extends AbstractKeyResult<'BID_MAKER_VALIDATION'> {}
+    export interface DocumentOwnershipKR extends AbstractKeyResult<'DOCUMENT_OWNERSHIP'> {}
+    export interface DocumentResignedKR extends AbstractKeyResult<'DOCUMENT_RESIGNED'> {}
+    export interface KYBValidationKR extends AbstractKeyResult<'KYB_VALIDATION'> {}
+    export interface KYCValidationKR extends AbstractKeyResult<'KYC_VALIDATION'> {}
+    export interface MarsbaseCommissionKR extends AbstractKeyResult<'MARSBASE_COMMISSION'> {
+      percent: Common.Finances.Percent;
+    }
+    export interface OfferMakerValidationKR extends AbstractKeyResult<'OFFER_MAKER_VALIDATION'> {}
+    export interface TelegramChatKR extends AbstractKeyResult<'TELEGRAM_CHAT'> {
+      url?: string;
+    }
+    export interface TransactionPaymentKR extends AbstractKeyResult<'TRANSACTION_PAYMENT'> {}
   }
 
-  export interface DealCommunication {
-    char_url?: string;
+  export namespace ValueObjects {
+    export interface DealKeyResults {
+      agentCommissionKR: KeyResults.AgentCommissionKR;
+      agentValidationKR: KeyResults.AgentValidationKR;
+      amlValidationKR: KeyResults.AMLValidationKR;
+      bidMakerValidationKR: KeyResults.BidMakerValidationKR;
+      documentOwnershipKR: KeyResults.DocumentOwnershipKR;
+      documentResignedKR: KeyResults.DocumentResignedKR;
+      kybValidationKR: KeyResults.KYBValidationKR;
+      kycValidationKR: KeyResults.KYCValidationKR;
+      marsbaseCommissionKR: KeyResults.MarsbaseCommissionKR;
+      offerMakerValidationKR: KeyResults.OfferMakerValidationKR;
+      telegramChatKR: KeyResults.TelegramChatKR;
+      transactionPaymentKR: KeyResults.TransactionPaymentKR;
+    }
   }
 
-  export interface DealParticipant {
-    type: DealParticipantType;
-    user: User.UserKey;
-    address: string;
+  export interface DealKey extends SchemaCommon.ResourceKey<'deal'> {
+    id: number;
   }
 
-  // TODO доделать модель после согласования
-  // Key results
-  export type DealKeyResult = DealTelegramChatKR | DealOfferMakerKycKR | DealOfferMakerKybKR;
-
-  export const DealKeyResultType = ['TELEGRAM_CHAT', 'OFFER_MAKER_KYC', 'OFFER_MAKER_KYB'] as const;
-  export type DealKeyResultType = (typeof DealKeyResultType)[number];
-
-  export const DealKeyResultGroupType = ['COMMUNICATION', 'OFFER_MAKER', 'BIDDER', 'TRANSACTION'] as const;
-  export type DealKeyResultGroupType = (typeof DealKeyResultGroupType)[number];
-
-  interface DealKRBase<Group extends DealKeyResultGroupType, Type extends DealKeyResultType> {
-    group: Group;
-    type: Type;
+  export interface Deal extends SchemaCommon.Resource<'deal'>, SchemaCommon.ResourceOmit<DealKey> {
+    lotKey: Lot.LotKey;
+    bidKey: Bid.BidKey;
+    createdAt: number;
+    status: Enums.DealStatus;
+    contractSize: Common.Finances.ContractSize;
+    offerMakers: User.UserKey[];
+    bidMakers: User.UserKey[];
+    moderators: User.UserKey[];
+    keyResults: ValueObjects.DealKeyResults;
   }
-
-  export interface DealTelegramChatKR extends DealKRBase<'COMMUNICATION', 'TELEGRAM_CHAT'> {
-    url: string;
-  }
-
-  export interface DealOfferMakerKycKR extends DealKRBase<'OFFER_MAKER', 'OFFER_MAKER_KYC'> {}
-  export interface DealOfferMakerKybKR extends DealKRBase<'OFFER_MAKER', 'OFFER_MAKER_KYB'> {}
 }

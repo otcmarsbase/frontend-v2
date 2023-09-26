@@ -1,6 +1,4 @@
-import React, { Fragment, PropsWithChildren, useCallback } from 'react';
-
-import { Box } from '@chakra-ui/react';
+import React, { Fragment, PropsWithChildren } from 'react';
 
 import { AuthThen } from '../AuthThenVisible';
 

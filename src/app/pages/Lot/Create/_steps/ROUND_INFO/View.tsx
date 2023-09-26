@@ -30,7 +30,7 @@ export interface RoundInfoStepProps {
 }
 
 export type RoundInfoModel = {
-  round: Resource.Common.RoundType;
+  round: Resource.Common.Enums.InvestRound;
   roundFDV: string;
   contractValue: string;
   isBestBid: boolean;

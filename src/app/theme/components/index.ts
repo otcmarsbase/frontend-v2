@@ -18,5 +18,6 @@ export { Divider } from './divider';
 export { Table } from './table';
 export { Progress } from './progress';
 export { Select } from './select';
+export { Skeleton } from './skeleton';
 export { Textarea } from './textarea';
 export { Tooltip } from './tooltip';

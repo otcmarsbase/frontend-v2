@@ -4,7 +4,6 @@ import { useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-// import { UILayout } from '@app/layouts';
 import { Resource } from '@schema/api-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
@@ -18,7 +17,6 @@ export default function View({ id }: ViewProps) {
   const rpcSchema = useRpcSchemaClient();
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [direction, setDirection] = useState<Resource.Common.TradeDirection>('BUY');
 
   const onPreload = useLoadingCallback(
     useCallback(async () => {
@@ -35,13 +33,14 @@ export default function View({ id }: ViewProps) {
 
   return (
     <VStack padding="2rem" gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={asset.info.logo_url} analyticsUrl="" />
+      <TitleBlock title={asset.info.title} logoUrl={''} analyticsUrl="" />
       <StatsBlock
-        averageLotsFdv={asset.stats.average_fdv}
-        averageBidsFdv={asset.stats.average_fdv}
-        lotSellCount={asset.stats.lot_sell_count}
-        lotBuyCount={asset.stats.lot_buy_count}
-        lotQuantitySummary={asset.stats.lot_buy_cv_sum}
+        // TODO
+        averageLotsFdv={'0000'}
+        averageBidsFdv={'0000'}
+        lotSellCount={0}
+        lotBuyCount={0}
+        lotQuantitySummary={'0000'}
       />
       <Grid templateColumns="30rem 2fr" gap="2rem">
         <GridItem h="full">
@@ -55,7 +54,7 @@ export default function View({ id }: ViewProps) {
         </GridItem>
       </Grid>
 
-      <LotsBlock direction={direction} onChange={setDirection} onSelect={onLotClick} />
+      <LotsBlock assetId={id} />
     </VStack>
   );
 }
@@ -63,5 +62,3 @@ export default function View({ id }: ViewProps) {
 View.getLayout = ({ children }) => {
   return <UILayout.AppLayout>{children}</UILayout.AppLayout>;
 };
-
-// View.getSegmentNames

@@ -11,7 +11,7 @@ import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 export interface DealsProps {
   filters?: {
     search?: string;
-    directions?: Resource.Common.TradeDirection[];
+    directions?: Resource.Common.Enums.TradeDirection[];
     minValue?: number;
     maxValue?: number;
   };

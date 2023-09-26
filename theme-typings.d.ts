@@ -519,6 +519,8 @@ export interface ThemeTypings extends BaseThemeTypings {
         | 'darkSolid'
         | 'darkOutline'
         | 'brand'
+        | 'orange'
+        | 'red'
         | (string & {});
     };
     Checkbox: {
@@ -615,7 +617,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Skeleton: {
       sizes: string & {};
-      variants: string & {};
+      variants: 'orange' | (string & {});
     };
     SkipLink: {
       sizes: string & {};

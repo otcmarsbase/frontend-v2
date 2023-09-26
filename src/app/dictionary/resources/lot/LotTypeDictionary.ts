@@ -6,13 +6,10 @@ export interface LotTypeDictionaryInfo {
   title: string;
 }
 
-export const LotTypeDictionary = createDictionary<Resource.Lot.LotType, LotTypeDictionaryInfo>()
+export const LotTypeDictionary = createDictionary<Resource.Lot.Enums.LotType, LotTypeDictionaryInfo>()
   .setFromRecord({
     SAFE: {
       title: 'SAFE',
-    },
-    SAFE_TOKEN_WARRANT: {
-      title: 'SAFE + Token warrant',
     },
     SAFT: {
       title: 'SAFT',

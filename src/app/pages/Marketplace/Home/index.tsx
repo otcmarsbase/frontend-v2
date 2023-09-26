@@ -1,22 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { LotCard, UILogic } from '@app/components';
+import { LotCard, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { useStore } from '@app/store';
-import { Button, HStack, Heading, SimpleGrid, VStack, Text, Box } from '@chakra-ui/react';
+import { HStack, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/api-gateway';
 import { Pagination, PaginationPayload } from '@schema/common';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { FiltersBlock, MarketplaceFilters } from './_atoms';
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-  const { mockStore } = useStore();
+  const rpcSchema = useRpcSchemaClient();
 
   const [columnsCount, setColumnsCount] = useState(4);
   const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
@@ -24,10 +23,13 @@ export const OtcDesk: React.FC = observer(() => {
     total: 0,
   });
   const [lots, setLots] = useState<RPC.DTO.LotListActive.Result>(originalLots);
-  const [assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
+  const [_assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
     items: [],
     total: 0,
   });
+  const assets = useMemo(() => {
+    return _assets.items.slice(0, 20);
+  }, [_assets.items]);
 
   const isFiltersOpened = columnsCount === 3;
 
@@ -48,8 +50,8 @@ export const OtcDesk: React.FC = observer(() => {
   };
 
   const loadLots = useCallback(async () => {
-    const assets = mockStore.assetList({});
-    const lots = mockStore.lotListActive(assets.items);
+    const assets = await rpcSchema.send('asset.list', {}, {});
+    const lots = await rpcSchema.send('lot.listActive', {}, {});
     setAssets(assets);
     setOriginalLots(lots);
     setLots(lots);
@@ -62,14 +64,16 @@ export const OtcDesk: React.FC = observer(() => {
   const onFilter = (filters: MarketplaceFilters) => {
     setLots((lots) => ({
       ...lots,
-      items: filters.assetId ? lots.items.filter((lot) => lot.asset.id === filters.assetId) : originalLots.items,
+      items: filters.assetId
+        ? lots.items.filter((lot) => (lot.assetPK as Resource.Asset.AssetKey).id === filters.assetId)
+        : originalLots.items,
     }));
   };
 
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
-      <FiltersBlock assets={assets.items} applyFilters={onFilter} />
+      <FiltersBlock assets={assets} applyFilters={onFilter} />
       <HStack alignItems="start" w="full" gap="2rem">
         {columnsCount === 3 && <UILogic.LotFilterBlock />}
 
@@ -87,7 +91,7 @@ export const OtcDesk: React.FC = observer(() => {
               <motion.div key={lot.id} layout>
                 <LotCard
                   lot={lot}
-                  asset={assets.items.find((asset) => asset.id === lot.asset.id)}
+                  asset={_assets.items.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
                   onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                 />
               </motion.div>

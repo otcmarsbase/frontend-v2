@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 
 import { AssetVerticalIcon, UILogic, useRpcSchemaClient } from '@app/components';
+import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/api-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
@@ -21,27 +23,33 @@ export interface LotCardProps {
 }
 
 export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
-  const schema = useRpcSchemaClient();
+  const router = useRouter();
 
-  const availableSum = new Decimal(lot.execution_quantity_info.available.quote).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.execution_quantity_info.total.quote).toDecimalPlaces(2).toNumber();
+  const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
+  const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
+    .add(lot.executed.stablecoinQuantity.value)
+    .add(availableSum)
+    .toDecimalPlaces(2)
+    .toNumber();
 
   const fields: FieldType[] = useMemo(() => {
-    const unitSizeFilter = lot.filters.find(
-      (lotFilter) => lotFilter.type === 'UNIT_SIZE_FILTER',
-    ) as Resource.Lot.LotUnitSizeFilter;
+    // const unitSizeFilter = lot.filters.find(
+    //   (lotFilter) => lotFilter.type === 'UNIT_SIZE_FILTER',
+    // ) as Resource.Lot.LotUnitSizeFilter;
 
-    const minSizeDea = new Decimal(unitSizeFilter?.min_size || 0)
-      .mul(lot.valuation_info.price)
-      .toDecimalPlaces(2)
-      .toString();
+    // const minSizeDea = new Decimal(unitSizeFilter?.min_size || 0)
+    //   .mul(lot.valuation_info.price)
+    //   .toDecimalPlaces(2)
+    //   .toString();
+
+    if (lot.status !== 'ACTIVE') return [];
 
     return [
       {
         name: 'FDV',
         value: (
           <UIKit.MoneyText
-            value={lot.valuation_info.fdv.quote || 0}
+            value={lot.contractSize.contractShare.fdv.value || 0}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -55,7 +63,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
-            value={minSizeDea || 0}
+            value={lot.minimumDealSize.stablecoinQuantity.value}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -70,7 +78,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         value: (
           <UIKit.MoneyText
             // TODO тут другое поле будет
-            value={lot.execution_quantity_info.total.quote || 0}
+            value={0}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -120,11 +128,19 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         <UILogic.TradeDirectionText invert value={lot.direction} position="absolute" top="0" right="0" />
         <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
-            #{lot.id.slice(0, 5)}
+            #{lot.id}
           </Text>
-          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.with_token_warrant} />
+          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />
         </HStack>
-        {asset && <UILogic.AssetName asset={asset} />}
+        {asset && (
+          <UILogic.AssetName
+            asset={asset}
+            onClick={(e) => {
+              e.stopPropagation();
+              router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {});
+            }}
+          />
+        )}
       </Box>
       {!minimalView && (
         <>
