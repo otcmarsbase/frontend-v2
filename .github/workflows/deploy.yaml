@@ -8,9 +8,7 @@ on:
     branches:
       - "*"
 
-env:
-  # Setting an environment variable with the value of a configuration variable
-  REACT_APP_BACKEND_API_GATEWAY_URL: ${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }}
+
 
 jobs:
 
@@ -26,6 +24,8 @@ jobs:
       
       - name: Build container image
         run: docker build -t registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7) .
+        env:
+          REACT_APP_BACKEND_API_GATEWAY_URL: ${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }}
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 1200
