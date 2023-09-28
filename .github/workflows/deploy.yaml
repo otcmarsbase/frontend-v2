@@ -8,6 +8,10 @@ on:
     branches:
       - "*"
 
+env:
+  # Setting an environment variable with the value of a configuration variable
+  REACT_APP_BACKEND_API_GATEWAY_URL: ${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }}
+
 jobs:
 
   build:
@@ -15,10 +19,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag berish/frontend
-
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
