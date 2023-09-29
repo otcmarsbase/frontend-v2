@@ -8,8 +8,6 @@ on:
     branches:
       - "*"
 
-
-
 jobs:
 
   build:
@@ -28,19 +26,19 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       
       - name: Build container image
-        run: docker build -t registry.digitalocean.com/marsbase/frontend:latest --build-arg REACT_APP_BACKEND_API_GATEWAY_URL=${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }} .
+        run: docker build -t registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7) --build-arg REACT_APP_BACKEND_API_GATEWAY_URL=${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }} .
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 1200
 
       - name: Push image to DigitalOcean Container Registry
-        run: docker push registry.digitalocean.com/marsbase/frontend:latest
+        run: docker push registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7)
 
       - name: Save DigitalOcean kubeconfig with short-lived credentials
         run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 marsbase
 
       - name: Deploy to DigitalOcean Kubernetes
-        run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment.yaml
+        run: kubectl set image deployment/frontend "frontend=registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7)"
 
       - name: Verify deployment
         run: kubectl rollout status deployment/frontend
