@@ -1,116 +1,128 @@
-import { useCallback, useMemo } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { SelectView, SelectViewChildrenProps, SelectViewProps } from './SelectView';
+import { SelectDefaultView } from './SelectDefaultView';
+import { SelectOption, SelectViewProps } from './types';
 
-export interface SelectSyncProps<T>
-  extends Omit<SelectViewProps, 'value' | 'onChange' | 'keys' | 'renderItem' | 'children'> {
+export interface SelectSyncProps<T> {
   items: T[];
+  renderKey?: (item: T, index: number) => React.Key;
   renderItem?: (item: T, index: number) => React.ReactNode;
-  renderValue?: (item: T) => string;
-  renderIcon?: (item: T) => React.ReactNode;
-  equalsItems?: (item1: T, item2: T) => boolean;
-  value?: T;
-  onChange?: (item: T) => any;
-  children?: (props: SelectSyncChildrenProps<T>) => React.ReactNode;
-}
+  equalsItems?: (first: T, second: T) => boolean;
+  searchItem?: (item: T, search?: string) => boolean;
 
-export interface SelectSyncChildrenProps<T> extends Omit<SelectViewChildrenProps, 'keys' | 'renderOption'> {
-  items: T[];
-  renderOptions: React.ReactNode[];
-  renderOption: (item: T, index: number) => React.ReactNode;
+  value?: T;
+  onChange?: (item: T) => void;
+  onSearch?: (search: string) => void;
+
+  children?: (props: SelectViewProps<T>) => React.ReactNode;
+
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  placeholder?: React.ReactNode;
+  isClearable?: boolean;
+  isInvalid?: boolean;
 }
 
 export function SelectSync<T>({
-  items,
-  renderItem,
-  renderValue,
-  renderIcon,
-  equalsItems = (item1, item2) => Object.is(item1, item2),
+  items = [],
+  renderKey = defaultRenderKey,
+  renderItem = defaultRenderItem,
+  equalsItems = defaultEqualsItems,
+  searchItem,
+
   value,
   onChange,
-  children,
-  ...props
+  onSearch,
+  children = defaultChildren,
+  isDisabled,
+  isLoading,
+  placeholder,
+  isClearable,
+  isInvalid,
 }: SelectSyncProps<T>) {
-  const getItemEquals = useCallback<(item: T) => T>(
-    (item) => {
-      return item && items.find((item2) => equalsItems(item, item2));
-    },
-    [items, equalsItems],
+  const [search, setSearch] = useState<string>(null);
+  const options = useMemo<SelectOption<T>[]>(
+    () =>
+      items
+        .filter((item) => (searchItem && search ? searchItem(item, search) : true))
+        .map((item, index) => ({
+          item,
+          index,
+          key: String(renderKey(item, index)),
+        })),
+    [items, search, searchItem, renderKey],
   );
 
-  const getKeyByItem = useCallback(
+  const getByItem = useCallback(
     (item: T) => {
-      const index = item ? items.indexOf(getItemEquals(item)) : -1;
-      if (index === -1) return null;
-      return String(index);
+      return options.find((infoItem) => equalsItems(infoItem.item, item));
     },
-    [items, getItemEquals],
+    [equalsItems, options],
   );
 
-  const getItemByKey = useCallback(
-    (key: string): T => {
-      if (typeof key === 'undefined' || key === null || key === '-1') return null;
-      return items && items[key];
+  const getByKey = useCallback(
+    (key: string) => {
+      return options.find((infoItem) => infoItem.key === key);
     },
-    [items],
+    [options],
   );
 
-  const keys = useMemo(() => items.map((_, index) => String(index)), [items]);
-  const selectedKey = useMemo(() => getKeyByItem(value), [value, getKeyByItem]);
-
-  const onChangeCallback = useCallback(
-    (indexItem: string) => {
+  const onChangeOptionCallback = useCallback(
+    (key: string) => {
       if (onChange) {
-        const item = getItemByKey(indexItem);
-        onChange?.(item);
+        const infoItem = getByKey(key);
+        if (infoItem) onChange?.(infoItem.item);
       }
     },
-    [onChange, getItemByKey],
+    [onChange, getByKey],
   );
 
-  const renderKey = useCallback(
-    (key: string, index: number) => {
-      const item = getItemByKey(key);
-      return renderItem ? renderItem(item, index) : String(item);
+  const renderOption = useCallback(
+    (option: SelectOption<T>) => {
+      return renderItem(option.item, option.index);
     },
-    [renderItem, getItemByKey],
+    [renderItem],
   );
 
-  const renderInputValue = useCallback(
-    (key: string) => {
-      const item = getItemByKey(key);
-      const index = keys.findIndex((k) => k === key);
-      return renderValue ? renderValue(item) : String(renderKey(key, index));
+  const selectedOption = useMemo(() => getByItem(value), [value, getByItem]);
+  const selectedKey = useMemo(() => selectedOption?.key, [selectedOption]);
+
+  const onSearchCallback = useCallback(
+    (search: string) => {
+      search ||= void 0;
+
+      setSearch(search);
+      if (onSearch) onSearch(search);
     },
-    [renderValue, getItemByKey],
+    [onSearch],
   );
-
-  const renderedIcon = useCallback(
-    (key: string) => {
-      const item = getItemByKey(key);
-      return renderIcon ? renderIcon(item) : null;
-    },
-    [renderIcon, getItemByKey],
-  );
-
-  const convertChildren = ({ keys, renderOption, ...other }: SelectViewChildrenProps): SelectSyncChildrenProps<T> => {
-    return {
-      items: keys.map((key) => getItemByKey(key)),
-      renderOption: (item, index) => renderOption(getKeyByItem(item), index),
-      ...other,
-    };
-  };
 
   return (
-    <SelectView
-      keys={keys}
-      selectedKey={selectedKey}
-      onChange={onChangeCallback}
-      renderKey={renderKey}
-      renderInputIcon={renderedIcon}
-      renderInputValue={renderInputValue}
-      children={children && ((props) => children(convertChildren(props)))}
-      {...props}
-    />
+    <Fragment>
+      {children({
+        options,
+        selectedOption,
+        selectedKey,
+        onChange: onChangeOptionCallback,
+        renderOption,
+        isDisabled: !!isDisabled,
+        isLoading: !!isLoading,
+        placeholder: placeholder,
+        isClearable: !!isClearable,
+        isInvalid: !!isInvalid,
+        search:
+          searchItem || onSearch
+            ? {
+                value: search,
+                onSearch: onSearchCallback,
+              }
+            : void 0,
+      })}
+    </Fragment>
   );
 }
+
+const defaultRenderKey: SelectSyncProps<any>['renderKey'] = (item, index) => String(index);
+const defaultRenderItem: SelectSyncProps<any>['renderItem'] = (item, index) => String(index);
+const defaultEqualsItems: SelectSyncProps<any>['equalsItems'] = (first, second) => Object.is(first, second);
+const defaultChildren: SelectSyncProps<any>['children'] = (props) => <SelectDefaultView {...props} />;

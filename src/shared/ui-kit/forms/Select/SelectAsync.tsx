@@ -8,10 +8,10 @@ import { SelectSync, SelectSyncProps } from './SelectSync';
 export interface SelectAsyncProps<T> extends Omit<SelectSyncProps<T>, 'items'> {
   load: () => T[] | Promise<T[]>;
   unload?: () => any;
-  filterItems?: (items: T[]) => T[];
+  filterItems?: (items: T[], search?: string) => T[];
 }
 
-export function SelectAsync<T>({ load, unload, isDisabled, loading, filterItems, ...props }: SelectAsyncProps<T>) {
+export function SelectAsync<T>({ load, unload, isDisabled, isLoading, filterItems, ...props }: SelectAsyncProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const filteredData = useMemo(() => (filterItems ? filterItems(data) : data), [filterItems, data]);
 
@@ -34,8 +34,8 @@ export function SelectAsync<T>({ load, unload, isDisabled, loading, filterItems,
   return (
     <SelectSync
       items={filteredData}
-      isDisabled={typeof isDisabled === 'boolean' ? isDisabled : loadingCallback.isLoading}
-      loading={typeof loading === 'boolean' ? loading : loadingCallback.isLoading}
+      // isDisabled={typeof isDisabled === 'boolean' ? isDisabled : loadingCallback.isLoading}
+      isLoading={typeof isLoading === 'boolean' ? isLoading : loadingCallback.isLoading}
       {...props}
     />
   );
