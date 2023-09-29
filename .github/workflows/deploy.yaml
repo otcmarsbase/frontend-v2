@@ -22,8 +22,8 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       
-      - name: Build container image
-        run: docker build -t registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7) --file $GITHUB_WORKSPACE/Dockerfile $GITHUB_WORKSPACE
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
         env:
           REACT_APP_BACKEND_API_GATEWAY_URL: ${{ vars.REACT_APP_BACKEND_API_GATEWAY_URL }}
 
