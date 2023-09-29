@@ -1,4 +1,4 @@
-import { AccountAvatar } from '@app/components';
+import { AccountAvatar, UILogic } from '@app/components';
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
@@ -30,6 +30,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
   return (
     <HStack
       w="full"
+      alignItems="flex-start"
       justifyContent="space-between"
       bg="dark.900"
       borderRadius="sm"
@@ -84,7 +85,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
           </BidItemColumn>
         )}
         <BidItemColumn type="STATUS">
-          <Text>{bid.status}</Text>
+          <UILogic.BidStatus value={bid.status} />
         </BidItemColumn>
       </SimpleGrid>
     </HStack>

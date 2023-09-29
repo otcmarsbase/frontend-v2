@@ -1,78 +1,54 @@
-import { useMemo } from 'react';
-
 import { UILogic } from '@app/components';
-import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-import { LotRowFieldNameTitleMap } from './const';
+import { DealRowFieldNameTitleMap } from './const';
 
-interface FieldType {
-  label: React.ReactNode;
-  value: React.ReactNode;
-}
-
-export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  lot: Resource.Lot.Lot;
+export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
+  deal: Resource.Deal.Deal;
   asset: Resource.Asset.Asset;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
-  const isHot = true;
-
-  const fields = useMemo<FieldType[]>(() => {
-    return [
-      {
-        label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
-        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />,
-      },
-      {
-        label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
-        value: <Text>{formatDate(lot.createdAt, 'ONLY_DATE')}</Text>,
-      },
-      {
-        label: LotRowFieldNameTitleMap.get('FDV'),
-        value: (
-          <UIKit.MoneyText
-            value={lot.contractSize.contractShare.fdv.value || 0}
-            abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
-          />
-        ),
-      },
-      {
-        label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value: <Text>1212</Text>,
-      },
-      {
-        label: LotRowFieldNameTitleMap.get('VERTICAL'),
-        value: (
-          <HStack>
-            {asset.info.verticals.map((vertical) => (
-              <UILogic.AssetVerticalIcon value={vertical} />
-            ))}
-          </HStack>
-        ),
-      },
-      lot.deadline
-        ? {
-            label: LotRowFieldNameTitleMap.get('DEADLINE'),
-            value: <Text>{formatDate(lot.deadline, 'ONLY_DATE')}</Text>,
-          }
-        : null,
-      {
-        label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
-        value: <Text>1212</Text>,
-      },
-    ].filter(Boolean);
-  }, [lot, asset]);
+export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stackProps }) => {
+  const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
+    {
+      label: DealRowFieldNameTitleMap.get('TYPE'),
+      value: <Text>1212</Text>,
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('PUBLISH_DATE'),
+      value: <Text>1212</Text>,
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('BID_FVD'),
+      value: <Text>1212</Text>,
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('BID_SIZE'),
+      value: <Text>1212</Text>,
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('OFFER_MAKER'),
+      value: (
+        <HStack>
+          {asset.info.verticals.map((vertical) => (
+            <UILogic.AssetVerticalIcon value={vertical} />
+          ))}
+        </HStack>
+      ),
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('DIRECT_SELLER'),
+      value: <Text>1212</Text>,
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('LOCATION'),
+      value: <Text>1212</Text>,
+    },
+  ];
 
   return (
     <HStack
@@ -95,27 +71,12 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
-          <Text color="dark.200">#{lot.id}</Text>
-          {isHot && (
-            <HStack
-              borderRadius="0.25rem"
-              bg="rgba(207, 79, 41, 0.40)"
-              padding="0.12rem 0.5rem"
-              alignItems="center"
-              gap="0.12rem"
-              justifyContent="center"
-            >
-              <Text fontWeight="semibold" fontSize="2xs">
-                HOT!
-              </Text>
-              <UIIcons.Common.HotIcon w="0.75rem" h="0.75rem" />
-            </HStack>
-          )}
+          <Text color="dark.200">#{deal.id}</Text>
         </HStack>
         <HStack gap="0.5rem" alignItems="center">
           <UILogic.AssetName size="sm" asset={asset} />
         </HStack>
-        <UILogic.LotStatus value={lot.status} />
+        <UILogic.DealStatus value={deal.status} />
       </VStack>
       <HStack>
         <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">

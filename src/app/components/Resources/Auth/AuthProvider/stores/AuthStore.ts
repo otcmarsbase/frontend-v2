@@ -179,6 +179,7 @@ export class AuthStore {
     if (!connectorInfo) return void 0;
 
     const wagmiAccount = getAccount();
+    
     const connectedAddress =
       wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
         ? wagmiAccount.address

@@ -4,7 +4,7 @@ export const LotRowFieldName = [
   'FDV',
   'LOT_VALUE',
   'VERTICAL',
-  'FINISHED_AT',
+  'DEADLINE',
   'TOTAL_BIDS_PLACE',
 ] as const;
 export type LotRowFieldName = (typeof LotRowFieldName)[number];
@@ -15,6 +15,6 @@ export const LotRowFieldNameTitleMap = new Map<LotRowFieldName, React.ReactNode>
   ['FDV', 'FDV'],
   ['LOT_VALUE', 'Lot value'],
   ['VERTICAL', 'Vertical'],
-  ['FINISHED_AT', 'Finished at'],
+  ['DEADLINE', 'Deadline'],
   ['TOTAL_BIDS_PLACE', 'Total bids place'],
 ]);

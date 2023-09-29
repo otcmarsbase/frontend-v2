@@ -2,29 +2,42 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { Button, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 const MyBids: React.FC = observer(() => {
+  const rpcSchema = useRpcSchemaClient();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
+  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadBids = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setBids([]);
+      const result = await rpcSchema.send('bid.listMy', {});
+      setBids(result.items);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema]);
+
+  const loadAssets = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const result = await rpcSchema.send('asset.list', {});
+      setAssets(result.items);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [rpcSchema]);
 
   useEffect(() => {
     loadBids();
-  }, [loadBids]);
+    loadAssets();
+  }, [loadBids, loadAssets]);
 
   const [paginationOptions] = useState<PaginationProps>({
     page: 1,
@@ -33,6 +46,8 @@ const MyBids: React.FC = observer(() => {
   });
 
   const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
+
+  if (!assets.length) return;
 
   return (
     <VStack width="full">
@@ -52,69 +67,9 @@ const MyBids: React.FC = observer(() => {
         }
         footer={bids.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
-          // <LotRow
-          //   onClick={() => router.navigateComponent(MBPages.Marketplace.Home, { id: '' }, {})}
-          //   lot={{
-          //     id: item.id,
-          //     type: item,
-          //     lotName: item.lotName,
-          //     lotIconName: item.lotIconName,
-          //     direction: item.offerType,
-          //     isHot: item.isHot,
-          //     status: <LotStatus value={item.status} />,
-          //     fields: [
-          //       {
-          //         label: 'Lot Type',
-          //         value: <LotTypeChip headingProps={{ variant: 'h6' }} lotType={item.lotType} />,
-          //       },
-          //       {
-          //         label: 'Published at',
-          //         value: format(item.publishedAt, 'dd.MM.yyyy'),
-          //       },
-          //       {
-          //         label: 'Bid FDV',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">
-          //               {item.fdv.toLocaleString('en-US', {
-          //                 maximumFractionDigits: 0,
-          //               })}
-          //             </Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               $
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Bid size',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">{item.bidSize}</Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               %
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Offer Maker',
-          //         value: <Chip offerMaker={item.offerMaker} offerMakerIcon={item.offerMakerIcon} />,
-          //       },
-          //       {
-          //         label: 'Direct Seller/Or not',
-          //         value: item.isDirectSeller ? 'yes' : 'nope',
-          //       },
-          //       {
-          //         label: 'Location',
-          //         value: (
-          //           <Heading fontSize="1rem" fontWeight="500" lineHeight="1.5rem">
-          //             {item.location}
-          //           </Heading>
-          //         ),
-          //       },
-          //     ],
-          //   }}
+          // <UILogic.BidRow
+          //   bid={item}
+          //   asset={assets.find((asset) => asset.id === (item.assetPK as Resource.Asset.AssetKey).id)}
           // />
           <></>
         )}
