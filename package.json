@@ -6,7 +6,7 @@
     "clean": "rm -f tsconfig.tsbuildinfo && rm -rf dist",
     "clean:full": "rm -rf node_modules && rm -f yarn.lock && npm run clean",
     "start": "craco start",
-    "build": "craco build",
+    "build": "yarn run gen:theme-typings && craco build",
     "test": "craco test",
     "eject": "craco eject",
     "gen:theme-typings": "chakra-cli tokens src/app/theme/index.ts --out theme-typings.d.ts",
