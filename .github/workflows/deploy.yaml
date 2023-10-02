@@ -23,17 +23,15 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Build container image
-        run: docker build -t registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7) --file ./docker/Dockerfile ./
-
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 1200
 
-      - name: Push image to DigitalOcean Container Registry
-        run: docker push registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7)
-
       - name: Save DigitalOcean kubeconfig with short-lived credentials
-        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ vars.KUBERNETES_CLUSTER_NAME }}
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.KUBERNETES_CLUSTER_NAME }}
+
+      - name: Build container image
+        run: docker buildx build --cache-to type=gha --cache-from type=gha -t registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7) \
+          --file ./docker/Dockerfile --push ./
 
       - name: Deploy to DigitalOcean Kubernetes
         run: kubectl set image deployment/frontend "frontend=registry.digitalocean.com/marsbase/frontend:$(echo $GITHUB_SHA | head -c7)"
