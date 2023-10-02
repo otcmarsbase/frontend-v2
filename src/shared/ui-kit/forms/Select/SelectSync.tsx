@@ -1,29 +1,30 @@
 import { Fragment, useCallback, useMemo, useState } from 'react';
 
 import { SelectDefaultView } from './SelectDefaultView';
-import { SelectOption, SelectViewProps } from './types';
+import { SelectOption, SelectViewProps, MultiDependentValue } from './types';
 
-export interface SelectSyncProps<T> {
+export interface SelectSyncProps<T, M extends boolean = boolean> {
   items: T[];
   renderKey?: (item: T, index: number) => React.Key;
   renderItem?: (item: T, index: number) => React.ReactNode;
   equalsItems?: (first: T, second: T) => boolean;
   searchItem?: (item: T, search?: string) => boolean;
 
-  value?: T;
-  onChange?: (item: T) => void;
+  value?: MultiDependentValue<T, M>;
+  onChange?: (item: MultiDependentValue<T, M>) => void;
   onSearch?: (search: string) => void;
 
-  children?: (props: SelectViewProps<T>) => React.ReactNode;
+  children?: (props: SelectViewProps<T, M>) => React.ReactNode;
 
   isDisabled?: boolean;
   isLoading?: boolean;
   placeholder?: React.ReactNode;
   isClearable?: boolean;
   isInvalid?: boolean;
+  isMulti?: M;
 }
 
-export function SelectSync<T>({
+export function SelectSync<T, M extends boolean = boolean>({
   items = [],
   renderKey = defaultRenderKey,
   renderItem = defaultRenderItem,
@@ -39,7 +40,8 @@ export function SelectSync<T>({
   placeholder,
   isClearable,
   isInvalid,
-}: SelectSyncProps<T>) {
+  isMulti,
+}: SelectSyncProps<T, M>) {
   const [search, setSearch] = useState<string>(null);
   const options = useMemo<SelectOption<T>[]>(
     () =>
@@ -68,11 +70,18 @@ export function SelectSync<T>({
   );
 
   const onChangeOptionCallback = useCallback(
-    (key: string) => {
-      if (onChange) {
-        const infoItem = getByKey(key);
-        if (infoItem) onChange?.(infoItem.item);
+    (key: string[] | string) => {
+      if (!onChange) return;
+
+      if (key instanceof Array) {
+        const items = key.map((k) => getByKey(k)?.item).filter(Boolean);
+
+        onChange(items as MultiDependentValue<T, M>);
+        return;
       }
+
+      const option = getByKey(key);
+      onChange(option?.item as MultiDependentValue<T, M>);
     },
     [onChange, getByKey],
   );
@@ -84,8 +93,21 @@ export function SelectSync<T>({
     [renderItem],
   );
 
-  const selectedOption = useMemo(() => getByItem(value), [value, getByItem]);
-  const selectedKey = useMemo(() => selectedOption?.key, [selectedOption]);
+  const selectedOption = useMemo(() => {
+    if (Array.isArray(value)) {
+      return value.map((item) => getByItem(item)) as MultiDependentValue<SelectOption<T>, M>;
+    } else {
+      return getByItem(value as T) as MultiDependentValue<SelectOption<T>, M>;
+    }
+  }, [value, getByItem]);
+
+  const selectedKey = useMemo(() => {
+    if (Array.isArray(selectedOption)) {
+      return selectedOption?.map(({ key }) => key) as MultiDependentValue<string, M>;
+    }
+
+    return selectedOption?.key as MultiDependentValue<string, M>;
+  }, [selectedOption]);
 
   const onSearchCallback = useCallback(
     (search: string) => {
@@ -110,6 +132,7 @@ export function SelectSync<T>({
         placeholder: placeholder,
         isClearable: !!isClearable,
         isInvalid: !!isInvalid,
+        isMulti,
         search:
           searchItem || onSearch
             ? {
