@@ -2,7 +2,7 @@ FROM node:18 as builder-image
 
 WORKDIR /usr/project/
 
-COPY package*.json yarn.lock ./
+COPY package*.json ./
 RUN yarn install
 
 COPY .env craco.config.js tsconfig.json .eslintrc.json ./
