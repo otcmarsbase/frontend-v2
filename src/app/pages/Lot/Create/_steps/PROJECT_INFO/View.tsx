@@ -201,11 +201,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
               control={control}
               name="deadline"
               render={({ field }) => (
-                <UIKit.DatePicker
-                  w="full"
-                  placeholder={ProjectInfoFieldsDictionary.get('DEADLINE').placeholder}
-                  {...field}
-                />
+                <UIKit.DatePicker placeholder={ProjectInfoFieldsDictionary.get('DEADLINE').placeholder} {...field} />
               )}
             />
             {errors.deadline && <FormErrorMessage>{errors.deadline.message}</FormErrorMessage>}
