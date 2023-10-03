@@ -1,15 +1,15 @@
 import { useMemo } from 'react';
 
 import { useMultiStyleConfig } from '@chakra-ui/react';
-import { Select as ChakraSelect, Props as ChakraSelectProps } from 'chakra-react-select';
+import { Select as ChakraSelect, Props as ChakraSelectProps, OnChangeValue } from 'chakra-react-select';
 
-import { SelectViewProps } from './types';
+import { SelectViewProps, MultiDependentValue } from './types';
 
-export interface SelectDefaultViewProps<T>
-  extends SelectViewProps<T>,
+export interface SelectDefaultViewProps<T, M extends boolean>
+  extends SelectViewProps<T, M>,
     Omit<
-      ChakraSelectProps<Option>,
-      'options' | 'onChange' | 'isDisabled' | 'isLoading' | 'placeholder' | 'isClearable' | 'isInvalid'
+      ChakraSelectProps<Option, M>,
+      'options' | 'onChange' | 'isDisabled' | 'isLoading' | 'placeholder' | 'isClearable' | 'isInvalid' | 'isMulti'
     > {}
 
 interface Option {
@@ -17,7 +17,7 @@ interface Option {
   value: string;
 }
 
-export function SelectDefaultView<T>(props: SelectDefaultViewProps<T>) {
+export function SelectDefaultView<T, M extends boolean>(props: SelectDefaultViewProps<T, M>) {
   const {
     options,
     onChange,
@@ -28,6 +28,7 @@ export function SelectDefaultView<T>(props: SelectDefaultViewProps<T>) {
     search,
     isClearable,
     isInvalid,
+    isMulti,
     ...selectViewOptions
   } = props;
   const styles = useMultiStyleConfig('CustomSelect', selectViewOptions);
@@ -36,6 +37,16 @@ export function SelectDefaultView<T>(props: SelectDefaultViewProps<T>) {
     () => options.map((option) => ({ value: option.key, label: renderOption(option) })),
     [options, renderOption],
   );
+
+  const handleChange = (newValue: OnChangeValue<Option, M>) => {
+    if (Array.isArray(newValue)) {
+      const values = newValue.map((item) => item?.value).filter(Boolean);
+      onChange(values as MultiDependentValue<string, M>);
+      return;
+    }
+
+    onChange(newValue?.['value'] as MultiDependentValue<string, M>);
+  };
 
   return (
     <ChakraSelect
@@ -66,11 +77,12 @@ export function SelectDefaultView<T>(props: SelectDefaultViewProps<T>) {
       }}
       isInvalid={isInvalid}
       isClearable={isClearable}
+      isMulti={isMulti}
       placeholder={placeholder}
       // Values
       filterOption={defaultFilterOption}
       options={chakraOptions}
-      onChange={onChange && ((newValue) => onChange(newValue?.['value']))}
+      onChange={handleChange}
       // Search
       isSearchable={!!search}
       inputValue={search?.value || ''}

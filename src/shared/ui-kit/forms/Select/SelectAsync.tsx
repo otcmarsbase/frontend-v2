@@ -5,13 +5,20 @@ import { useLoadingCallback } from '@shared/ui-kit';
 
 import { SelectSync, SelectSyncProps } from './SelectSync';
 
-export interface SelectAsyncProps<T> extends Omit<SelectSyncProps<T>, 'items'> {
+export interface SelectAsyncProps<T, M extends boolean = boolean> extends Omit<SelectSyncProps<T, M>, 'items'> {
   load: () => T[] | Promise<T[]>;
   unload?: () => any;
   filterItems?: (items: T[], search?: string) => T[];
 }
 
-export function SelectAsync<T>({ load, unload, isDisabled, isLoading, filterItems, ...props }: SelectAsyncProps<T>) {
+export function SelectAsync<T, M extends boolean = boolean>({
+  load,
+  unload,
+  isDisabled,
+  isLoading,
+  filterItems,
+  ...props
+}: SelectAsyncProps<T, M>) {
   const [data, setData] = useState<T[]>([]);
   const filteredData = useMemo(() => (filterItems ? filterItems(data) : data), [filterItems, data]);
 
