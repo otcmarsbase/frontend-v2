@@ -1,101 +1,106 @@
 import ReactCalendar, { CalendarProps } from 'react-calendar';
 
 import { ChakraProps, chakra, forwardRef } from '@chakra-ui/react';
-import { css } from '@emotion/react';
 import { UIIcons } from '@shared/ui-icons';
-
-const calendarCss = css`
-  .react-calendar {
-    &__navigation {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.6rem 0.5rem;
-      order: 1;
-
-      &__label {
-        font-weight: 500;
-        opacity: 0.5;
-        font-size: 0.875rem;
-      }
-    }
-
-    &__viewContainer {
-      max-width: 14rem;
-      margin: auto;
-      padding: 1rem 0 1.5rem;
-      order: 3;
-    }
-
-    &__tile {
-      --rounded: 0.25rem;
-
-      abbr {
-        min-width: 2rem;
-        height: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
-        font-size: 0.75rem;
-      }
-
-      &:not(&--range) {
-        border-radius: var(--rounded);
-      }
-
-      &--active,
-      &--hasActive {
-        abbr {
-          background: var(--chakra-colors-orange-500);
-        }
-      }
-
-      &--range {
-        &Start {
-          abbr {
-            border-top-left-radius: var(--rounded);
-            border-bottom-left-radius: var(--rounded);
-          }
-        }
-
-        &End {
-          abbr {
-            border-top-right-radius: var(--rounded);
-            border-bottom-right-radius: var(--rounded);
-          }
-        }
-
-        &:not(&End):not(&Start) {
-          abbr {
-            border-radius: 0;
-          }
-        }
-      }
-    }
-
-    &__month-view {
-      &__weekdays {
-        margin-bottom: 1rem;
-
-        &__weekday {
-          text-align: center;
-          opacity: 0.5;
-          font-size: 0.75rem;
-
-          abbr {
-            text-decoration: none;
-          }
-        }
-      }
-    }
-  }
-`;
 
 const ChakraCalendar = chakra(ReactCalendar, {
   baseStyle: {
     display: 'flex',
     flexDirection: 'column',
+    padding: '0 1.25rem',
+    '--column-gap': '0.5rem',
+    '.react-calendar': {
+      '&__navigation': {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '0.75rem 0',
+        borderBottom: '1px solid rgba(225, 228, 235, 0.2)',
+
+        '&__label': {
+          fontWeight: 500,
+          fontSize: 'sm',
+        },
+      },
+      '&__viewContainer': {
+        margin: 'auto',
+        padding: '1.25rem 0',
+        overflow: 'hidden',
+      },
+      '&__month-view': {
+        '&__weekdays': {
+          marginBottom: '1rem',
+          display: 'grid !important',
+          gridTemplateColumns: 'repeat(7, 2rem)',
+          columnGap: 'var(--column-gap)',
+
+          '&__weekday': {
+            textAlign: 'center',
+            opacity: 0.5,
+            fontSize: 'xs',
+            abbr: {
+              textDecoration: 'none',
+            },
+          },
+        },
+        '&__days': {
+          gap: '0.25rem var(--column-gap)',
+          display: 'grid !important',
+          gridTemplateColumns: 'repeat(7, 2rem)',
+        },
+      },
+      '&__tile': {
+        '--rounded': '0.5rem',
+        overflow: 'visible !important',
+        position: 'relative',
+        width: '2rem',
+        height: '2rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 'auto',
+        fontSize: 'xs',
+        fontWeight: '500',
+
+        '&::before': {
+          position: 'absolute',
+          content: '""',
+          inset: 0,
+          left: 'calc(var(--column-gap) * -1)',
+        },
+
+        '&:not(&--range)': {
+          borderRadius: 'var(--rounded)',
+        },
+        '&--active, &--hasActive': {
+          background: 'orange.500',
+        },
+        '&--range': {
+          '&Start': {
+            borderTopLeftRadius: 'var(--rounded)',
+            borderBottomLeftRadius: 'var(--rounded)',
+          },
+          '&End': {
+            borderTopRightRadius: 'var(--rounded)',
+            borderBottomRightRadius: 'var(--rounded)',
+
+            '&::before': {
+              right: '100%',
+            },
+          },
+          '&:not(&End):not(&Start)': {
+            backgroundColor: 'unset',
+            borderRadius: 0,
+          },
+          '&:not(&Start)': {
+            '&::before': {
+              bg: 'dark.50',
+              opacity: 0.1,
+            },
+          },
+        },
+      },
+    },
   },
 });
 
@@ -108,6 +113,5 @@ export const Calendar = forwardRef<CalendarProps & ChakraProps, typeof ChakraCal
     next2Label={null}
     {...props}
     ref={ref}
-    css={calendarCss}
   />
 ));

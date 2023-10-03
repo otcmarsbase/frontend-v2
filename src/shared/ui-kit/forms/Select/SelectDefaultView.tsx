@@ -38,6 +38,16 @@ export function SelectDefaultView<T, M extends boolean>(props: SelectDefaultView
     [options, renderOption],
   );
 
+  const value = useMemo(() => {
+    if (!selectedOption) return;
+
+    if (Array.isArray(selectedOption)) {
+      return selectedOption.map((option) => ({ value: option.key, label: renderOption(option) }));
+    }
+
+    return { value: selectedOption.key, label: renderOption(selectedOption) };
+  }, [selectedOption, renderOption]);
+
   const handleChange = (newValue: OnChangeValue<Option, M>) => {
     if (Array.isArray(newValue)) {
       const values = newValue.map((item) => item?.value).filter(Boolean);
@@ -87,6 +97,7 @@ export function SelectDefaultView<T, M extends boolean>(props: SelectDefaultView
       isSearchable={!!search}
       inputValue={search?.value || ''}
       onInputChange={search?.onSearch}
+      value={value}
       {...selectViewOptions}
     />
   );
