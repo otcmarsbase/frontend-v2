@@ -8,8 +8,8 @@ export interface EmptyActionProps extends Omit<StackProps, 'title'>, ThemingProp
 }
 
 export const EmptyAction: React.FC<PropsWithChildren<EmptyActionProps>> = ({
-  title = 'У вас нет ни одного элемента',
-  description = 'Нет данных',
+  title = 'No items',
+  description = 'No data',
   size = '2xl',
   children,
   ...stackProps
