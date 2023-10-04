@@ -10,7 +10,6 @@ export interface ThemeTypings extends BaseThemeTypings {
   colors:
     | 'transparent'
     | 'current'
-    | 'bbbb'
     | 'black'
     | 'white'
     | 'whiteAlpha.50'
