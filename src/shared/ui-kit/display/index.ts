@@ -15,4 +15,5 @@ export * from './Pagination';
 export * from './ProgressBar';
 export * from './StatsInvert';
 export * from './Steps';
+export * from './SuggestionIcon';
 export * from './Tabs';

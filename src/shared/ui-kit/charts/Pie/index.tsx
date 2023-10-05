@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { Tooltip, Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
+import { Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
 import { PieTooltipProps, ResponsivePie } from '@nivo/pie';
+import { Tooltip } from '@shared/ui-kit';
 
 import theme from './theme';
 

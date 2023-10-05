@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
-import { Box, Text, HStack, Tooltip, VStack, Divider } from '@chakra-ui/react';
+import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Countdown } from '@shared/ui-kit';
+import { Countdown, Tooltip, SuggestionIcon } from '@shared/ui-kit';
 
 interface InfoElementProps {
   label: string;
@@ -13,14 +13,16 @@ interface InfoElementProps {
   tooltip?: string;
 }
 
-const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip = 'Hi!' }) => {
+const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) => {
   return (
     <VStack gap="0.25rem" color="dark.50" flex="2" alignItems="flex-start">
       <HStack gap="0.25rem">
         <Text fontSize="sm">{label}</Text>
-        <Tooltip label={tooltip} aria-label="A tooltip">
-          <UIIcons.Common.InfoIcon w="1rem" h="1rem" />
-        </Tooltip>
+        {tooltip && (
+          <Tooltip label={tooltip} aria-label="A tooltip">
+            <SuggestionIcon />
+          </Tooltip>
+        )}
       </HStack>
       {children}
     </VStack>

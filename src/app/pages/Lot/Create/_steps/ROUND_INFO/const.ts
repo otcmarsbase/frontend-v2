@@ -26,14 +26,17 @@ export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, St
     ROUND: {
       title: 'Investment round',
       placeholder: 'Choose type',
+      tooltip: 'Choose the investment round.',
     },
     ROUND_FDV: {
       title: 'Round FDV',
       placeholder: 'Enter value',
+      tooltip: 'Fully Diluted Valuation - total market capitalization of a cryptocurrency or token in specifitc round',
     },
     CONTRACT_VALUE: {
       title: 'Contract value',
       placeholder: 'Enter value',
+      tooltip: 'What is the contract value($)?',
     },
     IS_BEST_BID: {
       title: 'Offer the best bid',
@@ -42,10 +45,12 @@ export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, St
     TOTAL_EQUITY_BOUGHT: {
       title: 'Total equity bought ',
       placeholder: 'Amount',
+      tooltip: 'Amount of equity share in total equity',
     },
     PRICE_PER_EQUITY: {
       title: 'Price per 0,01% equity',
       placeholder: 'Amount',
+      tooltip: 'The price per 0,01% of equity.',
     },
     PRICE_INFORMATION: {
       title: 'Price information',
@@ -59,10 +64,12 @@ export const RoundInfoFieldsDictionary = createDictionary<RoundInfoFieldName, St
     VESTING_CALENDAR: {
       title: 'Vesting calendar',
       placeholder: 'Enter amount',
+      tooltip: 'Choose the investment round.',
     },
   })
   .setDefaultFactory((key) => ({
     title: key,
     placeholder: '',
+    tooltip: '',
   }))
   .asReadonly();

@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit, VStack, useForm } from '@shared/ui-kit';
+import { UIKit, VStack, useForm, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
 import { StepRef } from '../../types';
@@ -82,7 +82,12 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
 
   return (
     <VStack p="2rem" gap="2rem" alignItems="start">
-      <UIKit.FormElement label={RoundInfoFieldsDictionary.get('ROUND').title} isRequired={isRequired('round')} w="full">
+      <UIKit.FormElement
+        label={RoundInfoFieldsDictionary.get('ROUND').title}
+        info={RoundInfoFieldsDictionary.get('ROUND').tooltip}
+        isRequired={isRequired('round')}
+        w="full"
+      >
         <FormControl isRequired={isRequired('round')} isInvalid={Boolean(errors.round)}>
           <Controller
             control={control}
@@ -103,6 +108,7 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
 
       <UIKit.FormElement
         label={RoundInfoFieldsDictionary.get('ROUND_FDV').title}
+        info={RoundInfoFieldsDictionary.get('ROUND_FDV').tooltip}
         isRequired={isRequired('roundFDV')}
         w="full"
       >
@@ -131,6 +137,7 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
 
       <UIKit.FormElement
         label={RoundInfoFieldsDictionary.get('CONTRACT_VALUE').title}
+        info={RoundInfoFieldsDictionary.get('CONTRACT_VALUE').tooltip}
         isRequired={isRequired('contractValue')}
         w="full"
       >
@@ -173,7 +180,12 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
           </HStack>
           <SimpleGrid columns={2} w="full" gap="1.25rem">
             <FormControl isInvalid={Boolean(errors.totalEquityBought)}>
-              <FormLabel>{RoundInfoFieldsDictionary.get('TOTAL_EQUITY_BOUGHT').title}</FormLabel>
+              <FormLabel display="flex" alignItems="center" gap="0.25rem">
+                {RoundInfoFieldsDictionary.get('TOTAL_EQUITY_BOUGHT').title}
+                <Tooltip label={RoundInfoFieldsDictionary.get('TOTAL_EQUITY_BOUGHT').tooltip}>
+                  <SuggestionIcon />
+                </Tooltip>
+              </FormLabel>
               <Controller
                 control={control}
                 name="totalEquityBought"
@@ -195,7 +207,12 @@ export const RoundInfoStep = forwardRef<RoundInfoStepRef, RoundInfoStepProps>(({
               {errors.totalEquityBought && <FormErrorMessage>{errors.totalEquityBought.message}</FormErrorMessage>}
             </FormControl>
             <FormControl isInvalid={Boolean(errors.pricePerEquity)}>
-              <FormLabel>{RoundInfoFieldsDictionary.get('PRICE_PER_EQUITY').title}</FormLabel>
+              <FormLabel display="flex" alignItems="center" gap="0.25rem">
+                {RoundInfoFieldsDictionary.get('PRICE_PER_EQUITY').title}
+                <Tooltip label={RoundInfoFieldsDictionary.get('PRICE_PER_EQUITY').tooltip}>
+                  <SuggestionIcon />
+                </Tooltip>
+              </FormLabel>
               <Controller
                 control={control}
                 name="pricePerEquity"

@@ -12,4 +12,5 @@ export interface StepRef<ModelType> {
 export interface StepFieldInfo {
   title: string;
   placeholder?: string;
+  tooltip?: string;
 }

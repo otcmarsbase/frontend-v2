@@ -75,6 +75,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       <UIKit.FormElement
         label={ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title}
         isRequired={isRequired('typeOfSeller')}
+        info={ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').tooltip}
         w="full"
       >
         <VStack gap="1.5rem">
@@ -127,6 +128,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       <UIKit.FormElement
         label={ProjectInfoFieldsDictionary.get('TELEGRAM').title}
         isRequired={isRequired('telegram')}
+        info={ProjectInfoFieldsDictionary.get('TELEGRAM').tooltip}
         w="full"
       >
         <FormControl isRequired={isRequired('telegram')} isInvalid={Boolean(errors.telegram)}>
@@ -144,6 +146,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       <UIKit.FormElement
         label={ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title}
         isRequired={isRequired('typeOfBuyer')}
+        info={ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').tooltip}
         w="full"
       >
         <VStack gap="1.5rem">
@@ -193,6 +196,7 @@ export const ProjectInfoStep = forwardRef<ProjectInfoStepRef, ProjectInfoStepPro
       <UIKit.FormElement
         label={ProjectInfoFieldsDictionary.get('DEADLINE').title}
         isRequired={isRequired('deadline')}
+        info={ProjectInfoFieldsDictionary.get('DEADLINE').tooltip}
         w="full"
       >
         <VStack gap="1.5rem">

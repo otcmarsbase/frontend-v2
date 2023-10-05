@@ -3,15 +3,14 @@ import { Controller } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
 import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
-import { Center, Checkbox, FormControl, FormErrorMessage, HStack, SimpleGrid } from '@chakra-ui/react';
+import { Center, Checkbox, Flex, FormControl, FormErrorMessage, HStack, SimpleGrid } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { RadioButtons, UIKit, VStack, useForm } from '@shared/ui-kit';
-import { without } from 'lodash';
+import { RadioButtons, UIKit, VStack, useForm, Tooltip, SuggestionIcon } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
 import { StepRef } from '../../types';
 
-import { StartInfoFieldsDictionary } from './const';
+import { StartInfoFieldsDictionary, StartInfoLotTypeTooltipsDictionary } from './const';
 import { startInfoSchema } from './schema';
 
 export interface StartInfoStepProps {
@@ -74,6 +73,7 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
           <UIKit.FormElement
             label={StartInfoFieldsDictionary.get('DIRECTION').title}
             isRequired={isRequired('direction')}
+            info={StartInfoFieldsDictionary.get('DIRECTION').tooltip}
           >
             <FormControl isRequired={isRequired('direction')} isInvalid={Boolean(errors.direction)}>
               <Controller
@@ -97,7 +97,11 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
               {errors.direction && <FormErrorMessage>{errors.direction.message}</FormErrorMessage>}
             </FormControl>
           </UIKit.FormElement>
-          <UIKit.FormElement label={StartInfoFieldsDictionary.get('LOT_TYPE').title} isRequired={isRequired('type')}>
+          <UIKit.FormElement
+            label={StartInfoFieldsDictionary.get('LOT_TYPE').title}
+            isRequired={isRequired('type')}
+            info={StartInfoLotTypeTooltipsDictionary.get(type)}
+          >
             <VStack alignItems="start" gap="1rem">
               <FormControl isRequired={isRequired('type')} isInvalid={Boolean(errors.type)}>
                 <Controller
@@ -127,7 +131,12 @@ export const StartInfoStep = forwardRef<StartInfoStepRef, StartInfoStepProps>(({
                     name="isReassigned"
                     render={(props) => (
                       <Checkbox checked={props.field.value} onChange={(e) => props.field.onChange(e.target.checked)}>
-                        {StartInfoFieldsDictionary.get('IS_REASSIGNED').title}
+                        <Flex alignItems="center" gap="0.25rem">
+                          {StartInfoFieldsDictionary.get('IS_REASSIGNED').title}
+                          <Tooltip label={StartInfoFieldsDictionary.get('IS_REASSIGNED').tooltip}>
+                            <SuggestionIcon />
+                          </Tooltip>
+                        </Flex>
                       </Checkbox>
                     )}
                   />

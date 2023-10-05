@@ -12,7 +12,7 @@ import {
   Checkbox,
 } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
-import { UIKit, VStack, useForm } from '@shared/ui-kit';
+import { UIKit, VStack, useForm, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';
 import { StepRef } from '../../types';
@@ -108,6 +108,7 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
     <VStack p="2rem" gap="2rem" alignItems="start">
       <UIKit.FormElement
         label={LotInfoFieldsDictionary.get('PRICING_MODEL').title}
+        info={LotInfoFieldsDictionary.get('PRICING_MODEL').tooltip}
         isRequired={isRequired('minSize') || isRequired('quantity') || isRequired('targetFDV') || isRequired('price')}
         w="full"
       >
@@ -124,7 +125,12 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
             />
             <SimpleGrid w="full" columns={2} gap="1.25rem">
               <FormControl isInvalid={Boolean(errors.quantity)}>
-                <FormLabel>{pricingModelFieldDictionary.QUANTITY.title}</FormLabel>
+                <FormLabel display="flex" gap="0.25rem" alignItems="center">
+                  {pricingModelFieldDictionary.QUANTITY.title}
+                  <Tooltip label={pricingModelFieldDictionary.QUANTITY.tooltip}>
+                    <SuggestionIcon />
+                  </Tooltip>
+                </FormLabel>
                 <Controller
                   control={control}
                   name="quantity"
@@ -146,7 +152,12 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
                 {errors.quantity && <FormErrorMessage>{errors.quantity.message}</FormErrorMessage>}
               </FormControl>
               <FormControl isInvalid={Boolean(errors.minSize)}>
-                <FormLabel>{pricingModelFieldDictionary.MIN_SIZE.title}</FormLabel>
+                <FormLabel display="flex" gap="0.25rem" alignItems="center">
+                  {pricingModelFieldDictionary.MIN_SIZE.title}
+                  <Tooltip label={pricingModelFieldDictionary.MIN_SIZE.tooltip}>
+                    <SuggestionIcon />
+                  </Tooltip>
+                </FormLabel>
                 <Controller
                   control={control}
                   name="minSize"
@@ -173,7 +184,12 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
           <VStack w="full" alignItems="start" layerStyle="orangeGradient" gap="1.25rem" borderRadius="sm" p="1.5rem">
             <SimpleGrid w="full" columns={2} gap="1.25rem">
               <FormControl isInvalid={Boolean(errors.targetFDV)}>
-                <FormLabel>{LotInfoFieldsDictionary.get('FDV').title}</FormLabel>
+                <FormLabel display="flex" gap="0.25rem" alignItems="center">
+                  {LotInfoFieldsDictionary.get('FDV').title}
+                  <Tooltip label={LotInfoFieldsDictionary.get('FDV').tooltip}>
+                    <SuggestionIcon />
+                  </Tooltip>
+                </FormLabel>
                 <Controller
                   control={control}
                   name="targetFDV"
@@ -195,7 +211,12 @@ export const LotInfoStep = forwardRef<LotInfoStepRef, LotInfoStepProps>(({ lot, 
                 {errors.targetFDV && <FormErrorMessage>{errors.targetFDV.message}</FormErrorMessage>}
               </FormControl>
               <FormControl isInvalid={Boolean(errors.price)}>
-                <FormLabel>{LotInfoFieldsDictionary.get('PRICE').title}</FormLabel>
+                <FormLabel display="flex" gap="0.25rem" alignItems="center">
+                  {LotInfoFieldsDictionary.get('PRICE').title}
+                  <Tooltip label={LotInfoFieldsDictionary.get('PRICE').tooltip}>
+                    <SuggestionIcon />
+                  </Tooltip>
+                </FormLabel>
                 <Controller
                   control={control}
                   name="price"

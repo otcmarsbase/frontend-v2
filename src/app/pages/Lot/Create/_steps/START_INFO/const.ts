@@ -1,4 +1,5 @@
 import { createDictionary } from '@app/dictionary';
+import { Resource } from '@schema/api-gateway';
 
 import { StepFieldInfo } from '../../types';
 
@@ -17,15 +18,18 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
     PROJECT_NAME: {
       title: 'Project info',
       placeholder: 'Project info',
+      tooltip: 'Please provide the project name.',
     },
     DIRECTION: {
       title: 'Trade direction',
+      tooltip: 'Choose Lot Type: BUY or SELL',
     },
     LOT_TYPE: {
       title: 'Type of lot',
     },
     IS_REASSIGNED: {
       title: 'Re-assign',
+      tooltip: '"Re-assign" means that the offer-maker allows the resale or transfer of their lot.',
     },
     WITH_TOKEN_WARRANT: {
       title: 'Token Warrant',
@@ -43,3 +47,12 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
 
 export const StartInfoReviewField = ['STEP_TITLE', 'STEP_INDEX_TITLE'] as const;
 export type StartInfoReviewField = (typeof StartInfoReviewField)[number];
+
+export const StartInfoLotTypeTooltipsDictionary = createDictionary<Resource.Lot.Enums.LotType, string>()
+  .setFromRecord({
+    SAFE: 'Simple Agreement for Future Equity',
+    SAFT: 'Simple Agreement for Future Tokens',
+    TOKEN_WARRANT:
+      'A financial instrument that grants the holder the right to purchase a specific quantity of tokens at a predetermined price within a specified timeframe.',
+  })
+  .asReadonly();
