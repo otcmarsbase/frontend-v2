@@ -66,13 +66,15 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
         </InfoElement>
       </HStack>
 
-      <VStack gap="0.25rem" padding="0 0 0 1.5rem " flex="2" alignItems="flex-end">
-        <Text fontSize="sm" color="dark.50">
-          Auction ends in:
-        </Text>
+      {deadline && (
+        <VStack gap="0.25rem" padding="0 0 0 1.5rem " flex="2" alignItems="flex-end">
+          <Text fontSize="sm" color="dark.50">
+            Auction ends in:
+          </Text>
 
-        <Countdown endDate={new Date(deadline)} />
-      </VStack>
+          <Countdown expiryTimestamp={new Date(deadline)} />
+        </VStack>
+      )}
     </HStack>
   );
 };

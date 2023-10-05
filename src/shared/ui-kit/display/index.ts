@@ -1,5 +1,6 @@
 export * from './BackButton';
 export * from './Chip';
+export * from './Countdown';
 export * from './DateText';
 export * from './Dropdown';
 export * from './Empty';
@@ -15,4 +16,3 @@ export * from './ProgressBar';
 export * from './StatsInvert';
 export * from './Steps';
 export * from './Tabs';
-export * from './Timer';
