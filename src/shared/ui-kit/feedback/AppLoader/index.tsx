@@ -14,7 +14,7 @@ export function AppLoad({ renderLoader, onAppLoad, children }: AppLoadProps) {
   const onLoadApp = useCallback(async () => {
     setIsLoading(true);
     if (onAppLoad) await onAppLoad();
-    setIsLoading(false);
+    setTimeout(() => setIsLoading(false), 300);
   }, [onAppLoad]);
 
   useEffect(() => {
