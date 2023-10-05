@@ -89,12 +89,13 @@ export const OtcDesk: React.FC = observer(() => {
     setLots(lots);
   }, CHANGE_FILTERS_THROTTLE_DURATION_MS);
 
-  const onChangeFilters = useCallback((filters: UILogic.LotFiltersBlockModel) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      ...filters
-    }));
-    onSubmitFilters(filters);
+  const onChangeFilters = useCallback((nextFilters: UILogic.LotFiltersBlockModel) => {
+    const newFilters = {
+      ...filters,
+      ...nextFilters
+    };
+    setFilters(newFilters);
+    onSubmitFilters(newFilters);
   }, [onSubmitFilters]);
 
   return (
