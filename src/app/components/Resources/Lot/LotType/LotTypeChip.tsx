@@ -26,7 +26,7 @@ export function LotTypeChip({ value, withTokenWarrant, ...textProps }: LotTypeCh
       {...textProps}
     >
       {title}
-      {withTokenWarrant && `+${LotTypeTitleMap.get('TOKEN_WARRANT')}`}
+      {withTokenWarrant && ` + ${LotTypeTitleMap.get('TOKEN_WARRANT')}`}
     </Text>
   );
 }

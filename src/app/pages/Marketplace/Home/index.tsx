@@ -5,18 +5,24 @@ import { observer } from 'mobx-react-lite';
 import { LotCard, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
+import { prepareFiltersParams } from '@app/utils';
 import { HStack, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/api-gateway';
 import { Pagination, PaginationPayload } from '@schema/common';
 import { motion } from 'framer-motion';
+import { throttle } from 'lodash';
 
 import { FiltersBlock, MarketplaceFilters } from './_atoms';
 
+const CHANGE_FILTERS_THROTTLE_DURATION_MS = 500;
+
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
+  
   const rpcSchema = useRpcSchemaClient();
 
+  const [filters, setFilters] = useState<UILogic.LotFiltersBlockModel>({});
   const [columnsCount, setColumnsCount] = useState(4);
   const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
     items: [],
@@ -63,34 +69,55 @@ export const OtcDesk: React.FC = observer(() => {
     loadLots();
   }, [loadLots]);
 
-  const onFilter = (filters: MarketplaceFilters) => {
-    setLots((lots) => ({
-      ...lots,
-      items: filters.assetId
-        ? lots.items.filter((lot) => (lot.assetPK as Resource.Asset.AssetKey).id === filters.assetId)
-        : originalLots.items,
-    }));
+  const onFilterByAsset = async (filters: MarketplaceFilters) => {
+    const lots = await rpcSchema.send('lot.listActive', { assets: [filters.assetId] }, {});
+    setLots(lots);
   };
+
+  const onSubmitFilters = throttle(async (filters: UILogic.LotFiltersBlockModel) => {
+    const minContractValue = filters.bidSize ? filters.bidSize[0] : undefined;
+    const maxContractValue = filters.bidSize ? filters.bidSize[1] : undefined;
+    const lots = await rpcSchema.send('lot.listActive', prepareFiltersParams({
+      direction: filters.direction,
+      minContractValue,
+      maxContractValue,
+      verticals: filters.assetVerticals,
+      type: filters.lotTypes,
+      search: filters.search,
+    }), {});
+    setOriginalLots(lots);
+    setLots(lots);
+  }, CHANGE_FILTERS_THROTTLE_DURATION_MS);
+
+  const onChangeFilters = useCallback((filters: UILogic.LotFiltersBlockModel) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      ...filters
+    }));
+    onSubmitFilters(filters);
+  }, [onSubmitFilters]);
 
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
-      <FiltersBlock assets={assets} applyFilters={onFilter} />
+      <FiltersBlock assets={assets} applyFilters={onFilterByAsset} />
       <HStack alignItems="start" w="full" gap="2rem">
-        {columnsCount === 3 && <UILogic.LotFilterBlock />}
+        {isFiltersOpened && <UILogic.LotFilterBlock filters={filters} onChange={onChangeFilters} />}
 
         <VStack w="full" alignItems="start" gap="1.5rem">
-          <motion.div layout initial={{}}>
+          <motion.div initial={{}} layout animate={isFiltersOpened}>
             <UILogic.LotFilterControls
               toggleButton={{
                 isSelected: isFiltersOpened,
                 onSelect: toggleFilters,
               }}
+              search={filters.search}
+              onChangeSearch={search => onChangeFilters({ search })}
             />
           </motion.div>
           <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
             {lots.items.map((lot) => (
-              <motion.div key={lot.id} layout>
+              <motion.div key={lot.id} layout animate={isFiltersOpened}>
                 <LotCard
                   lot={lot}
                   asset={_assets.items.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
