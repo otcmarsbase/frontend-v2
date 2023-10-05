@@ -77,7 +77,7 @@ export default function Lot({ id }: LotProps) {
         <GridItem>
           <VStack w="full" gap="0.75rem">
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
-              {UserState.isOfferMaker ? (
+              {isOfferMaker ? (
                 <HStack
                   bg="dark.900"
                   w="100%"
@@ -103,7 +103,7 @@ export default function Lot({ id }: LotProps) {
               <LotBasicInfo lot={lot} />
             </VStack>
             <RoundInfo lot={lot} />
-            <Bids bids={bids} />
+            <Bids isOfferMaker={isOfferMaker} bids={bids} />
           </VStack>
         </GridItem>
       </Grid>
