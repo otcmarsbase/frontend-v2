@@ -1,8 +1,5 @@
 import { Button, HStack, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
-
-import { LotFilterSortByField, LotFilterSortByFieldDictionary } from './const';
 
 export interface LotFilterControlsProps {
   toggleButton?: {
@@ -29,7 +26,7 @@ export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotF
         <InputLeftElement>
           <UIIcons.Common.SearchIcon />
         </InputLeftElement>
-        <Input placeholder="Search" value={search || ''} onChange={(e) => onChangeSearch(e.target.value)} />
+        <Input placeholder="Search" value={search} onChange={(e) => onChangeSearch(e.target.value)} />
       </InputGroup>
       {/* <UIKit.SelectSync<LotFilterSortByField>
         placeholder="Sort by"

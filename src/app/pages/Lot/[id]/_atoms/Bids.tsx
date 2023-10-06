@@ -1,8 +1,7 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback } from 'react';
 
-import { UIModals } from '@app/components';
+import { UILogic, UIModals } from '@app/components';
 import { ModalController } from '@app/logic';
-import { useStore } from '@app/store';
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { Resource } from '@schema/api-gateway';
 import { UIIcons } from '@shared/ui-icons';
@@ -13,9 +12,10 @@ import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
 interface BidsProps {
   bids: Resource.Bid.Bid[];
+  isOfferMaker: boolean;
 }
 
-export const Bids: FC<BidsProps> = ({ bids }) => {
+export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
   const onCreateBidClick = useCallback(async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, {});
   }, []);
@@ -46,16 +46,18 @@ export const Bids: FC<BidsProps> = ({ bids }) => {
             />
           </Box>
 
-          <Button
-            leftIcon={<UIIcons.Common.AddIcon />}
-            variant="brand"
-            size="md"
-            borderRadius="0.375rem"
-            padding="0.5rem 0.75rem"
-            onClick={onCreateBidClick}
-          >
-            Create Bid
-          </Button>
+          {!isOfferMaker && <UILogic.AuthAction>
+            <Button
+              leftIcon={<UIIcons.Common.AddIcon />}
+              variant="brand"
+              size="md"
+              borderRadius="0.375rem"
+              padding="0.5rem 0.75rem"
+              onClick={onCreateBidClick}
+            >
+              Create Bid
+            </Button>
+          </UILogic.AuthAction>}
         </HStack>
       </HStack>
       <BidsList bids={bids} />

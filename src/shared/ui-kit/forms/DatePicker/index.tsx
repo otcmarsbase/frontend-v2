@@ -1,62 +1,53 @@
-import { useMemo, useState } from 'react';
-import Calendar from 'react-calendar';
+import { useMemo } from 'react';
 
-import { Box, BoxProps, Input } from '@chakra-ui/react';
-import { format } from 'date-fns';
+import { Popover, PopoverContent, PopoverTrigger, forwardRef, useDisclosure } from '@chakra-ui/react';
+import { format, isDate } from 'date-fns';
 import { Range } from 'react-calendar/dist/cjs/shared/types';
 
-export interface DatePickerProps extends Omit<BoxProps, 'onChange'> {
-  value: Date;
+import { Calendar } from './Calendar';
+import { DateInput } from './DateInput';
+
+export interface DatePickerProps {
+  value: Date | Range<Date>;
   rangeMode?: boolean;
+  withTime?: boolean;
   formatDate?: string;
   placeholder?: string;
   onChange: (value: Date | Range<Date>) => void;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({
-  value,
-  onChange,
-  formatDate = 'dd.MM.yyyy',
-  placeholder,
-  rangeMode,
-  ...boxProps
-}) => {
-  const [isOpened, setIsOpened] = useState(false);
+export const DatePicker = forwardRef<DatePickerProps, 'input'>(
+  ({ value, onChange, formatDate = 'dd.MM.yyyy', placeholder, rangeMode }, ref) => {
+    const { onOpen, onClose, isOpen } = useDisclosure();
 
-  const calendarValue = useMemo(() => new Date(value ?? Date.now()), [value]);
+    const inputValue = useMemo(() => {
+      if (value instanceof Array) {
+        const [start, end] = value;
 
-  const onOpen = () => {
-    setIsOpened(true);
-  };
+        if (!(isDate(start) && isDate(end))) return;
 
-  const onClose = () => {
-    setIsOpened(false);
-  };
+        return `${format(start, formatDate)} - ${format(end, formatDate)}`;
+      }
 
-  return (
-    <Box {...boxProps} w="full" position="relative">
-      <Input
-        onClick={onOpen}
-        onFocus={onOpen}
-        onBlur={onClose}
-        w="full"
-        placeholder={placeholder}
-        value={format(calendarValue, formatDate)}
-      />
-      <Box
-        position="absolute"
-        visibility={isOpened ? 'visible' : 'hidden'}
-        opacity={isOpened ? '1' : '0'}
-        transition="all 0.3s"
-        bg="dark.800"
-      >
-        <Calendar
-          //   tileContent={(props) => <Button>{props.date.getDay()}</Button>}
-          selectRange={rangeMode}
-          value={calendarValue}
-          onChange={onChange}
-        />
-      </Box>
-    </Box>
-  );
-};
+      if (!isDate(value)) return;
+
+      return format(value, formatDate);
+    }, [value, formatDate]);
+
+    const handleChange: typeof onChange = (value) => {
+      onChange(value);
+      onClose();
+    };
+
+    return (
+      <Popover matchWidth isOpen={isOpen} onClose={onClose} onOpen={onOpen}>
+        <PopoverTrigger>
+          <DateInput readOnly value={inputValue} placeholder={placeholder} ref={ref} />
+        </PopoverTrigger>
+        <PopoverContent rounded="0.5rem" bg="dark.800" border="none">
+          <Calendar value={value} selectRange={rangeMode} onChange={handleChange} color="white" minDetail="year" />
+        </PopoverContent>
+      </Popover>
+    );
+  },
+);
