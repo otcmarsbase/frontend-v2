@@ -22,7 +22,7 @@ export interface RangeNumberSliderProps {
 
 export const RangeNumberSlider: React.FC<RangeNumberSliderProps> = ({
   minMax,
-  value = [minMax[0]/2, minMax[1]/2],
+  value = [minMax[0] / 2, minMax[1] / 2],
   defaultValue,
   step = 0,
   onChange,

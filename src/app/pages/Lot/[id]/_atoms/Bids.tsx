@@ -46,18 +46,20 @@ export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
             />
           </Box>
 
-          {!isOfferMaker && <UILogic.AuthAction>
-            <Button
-              leftIcon={<UIIcons.Common.AddIcon />}
-              variant="brand"
-              size="md"
-              borderRadius="0.375rem"
-              padding="0.5rem 0.75rem"
-              onClick={onCreateBidClick}
-            >
-              Create Bid
-            </Button>
-          </UILogic.AuthAction>}
+          {!isOfferMaker && (
+            <UILogic.AuthAction>
+              <Button
+                leftIcon={<UIIcons.Common.AddIcon />}
+                variant="brand"
+                size="md"
+                borderRadius="0.375rem"
+                padding="0.5rem 0.75rem"
+                onClick={onCreateBidClick}
+              >
+                Create Bid
+              </Button>
+            </UILogic.AuthAction>
+          )}
         </HStack>
       </HStack>
       <BidsList bids={bids} />

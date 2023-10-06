@@ -2,7 +2,13 @@ import * as SchemaCommon from '@schema/common';
 
 import { User } from '../User';
 
-import { LotBase as _LotBase, LotCommon as _LotCommon, LotSAFE as _LotSAFE, LotSAFT as _LotSAFT, LotTokenWarrant as _LotTokenWarrant } from './Types';
+import {
+  LotBase as _LotBase,
+  LotCommon as _LotCommon,
+  LotSAFE as _LotSAFE,
+  LotSAFT as _LotSAFT,
+  LotTokenWarrant as _LotTokenWarrant,
+} from './Types';
 
 export namespace Lot {
   export import LotBase = _LotBase;

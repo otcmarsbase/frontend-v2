@@ -19,7 +19,7 @@ const CHANGE_FILTERS_THROTTLE_DURATION_MS = 500;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-  
+
   const rpcSchema = useRpcSchemaClient();
 
   const [filters, setFilters] = useState<UILogic.LotFiltersBlockModel>({});
@@ -70,33 +70,44 @@ export const OtcDesk: React.FC = observer(() => {
   }, [loadLots]);
 
   const onFilterByAsset = async (filters: MarketplaceFilters) => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: filters.assetId ? [filters.assetId] : undefined }, {});
+    const lots = await rpcSchema.send(
+      'lot.listActive',
+      { assets: filters.assetId ? [filters.assetId] : undefined },
+      {},
+    );
     setLots(lots);
   };
 
   const onSubmitFilters = throttle(async (filters: UILogic.LotFiltersBlockModel) => {
     const minContractValue = filters.bidSize ? filters.bidSize[0] : undefined;
     const maxContractValue = filters.bidSize ? filters.bidSize[1] : undefined;
-    const lots = await rpcSchema.send('lot.listActive', prepareFiltersParams({
-      direction: filters.direction,
-      minContractValue,
-      maxContractValue,
-      verticals: filters.assetVerticals,
-      type: filters.lotTypes,
-      search: filters.search,
-    }), {});
+    const lots = await rpcSchema.send(
+      'lot.listActive',
+      prepareFiltersParams({
+        direction: filters.direction,
+        minContractValue,
+        maxContractValue,
+        verticals: filters.assetVerticals,
+        type: filters.lotTypes,
+        search: filters.search,
+      }),
+      {},
+    );
     setOriginalLots(lots);
     setLots(lots);
   }, CHANGE_FILTERS_THROTTLE_DURATION_MS);
 
-  const onChangeFilters = useCallback((nextFilters: UILogic.LotFiltersBlockModel) => {
-    const newFilters = {
-      ...filters,
-      ...nextFilters
-    };
-    setFilters(newFilters);
-    onSubmitFilters(newFilters);
-  }, [onSubmitFilters]);
+  const onChangeFilters = useCallback(
+    (nextFilters: UILogic.LotFiltersBlockModel) => {
+      const newFilters = {
+        ...filters,
+        ...nextFilters,
+      };
+      setFilters(newFilters);
+      onSubmitFilters(newFilters);
+    },
+    [onSubmitFilters],
+  );
 
   return (
     <VStack alignItems="start">
@@ -113,7 +124,7 @@ export const OtcDesk: React.FC = observer(() => {
                 onSelect: toggleFilters,
               }}
               search={filters.search}
-              onChangeSearch={search => onChangeFilters({ search })}
+              onChangeSearch={(search) => onChangeFilters({ search })}
             />
           </motion.div>
           <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
