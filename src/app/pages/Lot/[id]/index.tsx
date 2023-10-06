@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
@@ -34,6 +34,8 @@ export default function Lot({ id }: LotProps) {
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
 
+  console.log({ account })
+
   const isOfferMaker = lot?.offerMaker.nickname === account?.nickname;
 
   const preload = useLoadingCallback(
@@ -48,7 +50,9 @@ export default function Lot({ id }: LotProps) {
     }, [rpcSchema, id]),
   );
 
-  usePreloadPage(preload);
+  useEffect(() => {
+    preload();
+  }, [id]);
 
   const handleEditLot = () => {
     console.log('handleEditLot');
