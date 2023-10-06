@@ -70,7 +70,7 @@ export const OtcDesk: React.FC = observer(() => {
   }, [loadLots]);
 
   const onFilterByAsset = async (filters: MarketplaceFilters) => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: [filters.assetId] }, {});
+    const lots = await rpcSchema.send('lot.listActive', { assets: filters.assetId ? [filters.assetId] : undefined }, {});
     setLots(lots);
   };
 
