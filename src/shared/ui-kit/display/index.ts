@@ -13,6 +13,7 @@ export * from './Logo';
 export * from './MoneyText';
 export * from './Pagination';
 export * from './ProgressBar';
+export * from './SkeletonLoader';
 export * from './StatsInvert';
 export * from './Steps';
 export * from './Tabs';

@@ -55,8 +55,8 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
         value: (
           <HStack>
-            {asset.info.verticals.map((vertical) => (
-              <UILogic.AssetVerticalIcon value={vertical} />
+            {asset.info.verticals.map((vertical, index) => (
+              <UILogic.AssetVerticalIcon value={vertical} key={index} />
             ))}
           </HStack>
         ),
@@ -124,15 +124,9 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
               w="100%"
               key={index}
               borderBottom="1px solid"
-              borderColor="dark.400"
-              marginRight="8rem"
+              borderColor={index > 3 ? 'transparent' : 'dark.400'}
+              marginRight={index > 3 ? 0 : '8rem'}
               pb="0.75rem"
-              __css={{
-                [`:nth-last-child(-n+3)`]: {
-                  marginRight: 'none',
-                  borderColor: 'transparent',
-                },
-              }}
             >
               <VStack alignItems="start" maxW="8rem" w="full">
                 <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">

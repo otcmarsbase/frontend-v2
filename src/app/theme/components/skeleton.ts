@@ -3,6 +3,11 @@ import { defineStyle, defineStyleConfig, cssVar } from '@chakra-ui/react';
 const $startColor = cssVar('skeleton-start-color');
 const $endColor = cssVar('skeleton-end-color');
 
+const gray = defineStyle({
+  [$startColor.variable]: 'rgba(90,90,90,0.05)',
+  [$endColor.variable]: '#323232',
+});
+
 const orange = defineStyle({
   _light: {
     [$startColor.variable]: 'colors.orange.100', //changing startColor to orange.100
@@ -15,8 +20,8 @@ const orange = defineStyle({
 });
 
 export const Skeleton = defineStyleConfig({
-  variants: { orange },
+  variants: { orange, gray },
   defaultProps: {
-    variant: 'orange',
+    variant: 'gray',
   },
 });
