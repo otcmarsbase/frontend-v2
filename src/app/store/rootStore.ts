@@ -13,8 +13,8 @@ export class RootStore {
   // private _persistStore: PersistStore<AuthLocalStore, 'authToken'>;
 
   private constructor() {
-    // this.authLocalStore = makeAutoObservable(new AuthLocalStore(), {}, { autoBind: true });
     this.authInstanceStore = makeAutoObservable(new AuthInstanceStore(), {}, { autoBind: true });
+    // this.authLocalStore = makeAutoObservable(new AuthLocalStore(), {}, { autoBind: true });
   }
 
   async start() {
