@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_REGISTRY: registry.digitalocean.com/marsbase
+  IMAGE_REGISTRY: registry.digitalocean.com/marsbase-registry
   IMAGE_NAME: otc-desk-frontend
   IMAGE_INTERNAL_VERSION:
   IMAGE_VERSION:
