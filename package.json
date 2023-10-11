@@ -1,6 +1,7 @@
 {
   "name": "@otcmarsbase/frontend",
   "version": "0.1.0",
+  "description": "OTC Marsbase",
   "private": true,
   "scripts": {
     "clean": "rm -f tsconfig.tsbuildinfo && rm -rf dist",
