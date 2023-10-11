@@ -9,4 +9,5 @@ export interface CreateStepValue<T> {
 export interface StepFieldInfo {
   title: string;
   placeholder?: string;
+  tooltip?: string;
 }
