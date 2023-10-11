@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
 import { VStack, FormControl, FormErrorMessage, HStack, Checkbox, Input } from '@chakra-ui/react';
-import { UIKit } from '@shared/ui-kit';
+import { UIKit, useIsRequired } from '@shared/ui-kit';
 
 import { useCreateLotContext } from '../../../../../_atoms';
 
@@ -14,9 +14,8 @@ import { ProjectInfoModel } from './types';
 export function ProjectInfoFields() {
   const { setFormSchema } = useCreateLotContext();
   const { watch, formState, control, setValue } = useFormContext<ProjectInfoModel>();
+  const isRequired = useIsRequired(projectInfoSchema);
 
-  // @ts-ignore
-  const withTokenWarrant = watch('withTokenWarrant');
   const isNoLimit = watch('isNoLimit');
   const isPermanent = watch('isPermanent');
 
@@ -28,7 +27,12 @@ export function ProjectInfoFields() {
 
   return (
     <VStack p="2rem" gap="2rem" alignItems="start">
-      <UIKit.FormElement label={ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title} w="full">
+      <UIKit.FormElement
+        label={ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title}
+        info={ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').tooltip}
+        isRequired={isRequired('typeOfSeller')}
+        w="full"
+      >
         <VStack gap="1rem">
           <FormControl isInvalid={Boolean(errors.typeOfSeller)}>
             <Controller
@@ -59,24 +63,16 @@ export function ProjectInfoFields() {
                 )}
               />
             </FormControl>
-            {withTokenWarrant && (
-              <FormControl>
-                <Controller
-                  control={control}
-                  name="isReadyToSPV"
-                  render={(props) => (
-                    <Checkbox checked={props.field.value} onChange={props.field.onChange}>
-                      {ProjectInfoFieldsDictionary.get('IS_READY_TO_SPV').title}
-                    </Checkbox>
-                  )}
-                />
-              </FormControl>
-            )}
           </HStack>
         </VStack>
       </UIKit.FormElement>
 
-      <UIKit.FormElement label={ProjectInfoFieldsDictionary.get('TELEGRAM').title} w="full">
+      <UIKit.FormElement
+        label={ProjectInfoFieldsDictionary.get('TELEGRAM').title}
+        info={ProjectInfoFieldsDictionary.get('TELEGRAM').tooltip}
+        isRequired={isRequired('telegram')}
+        w="full"
+      >
         <FormControl isInvalid={Boolean(errors.telegram)}>
           <Controller
             control={control}
@@ -89,7 +85,12 @@ export function ProjectInfoFields() {
         </FormControl>
       </UIKit.FormElement>
 
-      <UIKit.FormElement label={ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title} w="full">
+      <UIKit.FormElement
+        label={ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title}
+        info={ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').tooltip}
+        isRequired={isRequired('typeOfBuyer')}
+        w="full"
+      >
         <VStack gap="1rem">
           <FormControl isInvalid={Boolean(errors.typeOfBuyer)}>
             <Controller
@@ -132,7 +133,12 @@ export function ProjectInfoFields() {
         </VStack>
       </UIKit.FormElement>
 
-      <UIKit.FormElement label={ProjectInfoFieldsDictionary.get('DEADLINE').title} w="full">
+      <UIKit.FormElement
+        label={ProjectInfoFieldsDictionary.get('DEADLINE').title}
+        info={ProjectInfoFieldsDictionary.get('DEADLINE').tooltip}
+        isRequired={isRequired('deadline')}
+        w="full"
+      >
         <VStack gap="1rem">
           <FormControl isDisabled={isPermanent} isInvalid={Boolean(errors.deadline)}>
             <Controller

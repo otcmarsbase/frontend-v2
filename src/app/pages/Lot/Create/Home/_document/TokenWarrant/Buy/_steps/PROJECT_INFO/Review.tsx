@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
+import { format } from 'date-fns';
 
 import { StepReview } from '../../../../../_atoms';
 import { CreateStepDictionary } from '../../const';
@@ -41,6 +42,10 @@ export const PrjectInfoReview: React.FC = () => {
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('IS_NO_LIMIT').title,
           renderValue: (model) => <Text color="white">{model.isNoLimit ? 'Yes' : 'No'}</Text>,
+        },
+        {
+          renderTitle: () => ProjectInfoFieldsDictionary.get('DEADLINE').title,
+          renderValue: (model) => <Text color="white">{format(model.deadline, 'dd.MM.yyyy')}</Text>,
         },
       ]}
     />

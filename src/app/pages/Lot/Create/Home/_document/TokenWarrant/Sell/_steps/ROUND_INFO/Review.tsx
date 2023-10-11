@@ -16,7 +16,7 @@ export const RoundInfoReview: React.FC = () => {
   return (
     <StepReview<RoundInfoModel>
       stepTitle={CreateStepDictionary.get('ROUND_INFO').title}
-      stepIndexTitle="4 Step"
+      stepIndexTitle="3 Step"
       model={getValues()}
       fields={[
         {

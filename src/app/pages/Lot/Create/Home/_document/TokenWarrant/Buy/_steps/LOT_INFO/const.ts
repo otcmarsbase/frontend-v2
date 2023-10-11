@@ -9,12 +9,15 @@ export const LotInfoFieldsDictionary = createDictionary<LotInfoFieldName, StepFi
   .setFromRecord({
     PRICING_MODEL: {
       title: 'Pricing model',
+      tooltip: 'You can choose the pricing model in a stablecoin or in token shares.',
     },
     FDV: {
       title: 'Target FDV',
+      tooltip: 'FDV = market price * maximum supply',
     },
     PRICE: {
       title: 'Price per 0,01% equity',
+      tooltip: 'The price per 0,01% of equity.',
     },
   })
   .setDefaultFactory((key) => ({

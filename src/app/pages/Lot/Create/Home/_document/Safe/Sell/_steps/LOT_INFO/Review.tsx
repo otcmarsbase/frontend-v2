@@ -16,7 +16,7 @@ export const LotInfoReview: React.FC = () => {
   return (
     <StepReview<LotInfoModel>
       stepTitle={CreateStepDictionary.get('LOT_INFO').title}
-      stepIndexTitle="4 Step"
+      stepIndexTitle="3 Step"
       model={getValues()}
       fields={[
         {

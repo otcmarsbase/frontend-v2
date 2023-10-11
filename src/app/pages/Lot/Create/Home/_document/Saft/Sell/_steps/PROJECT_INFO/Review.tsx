@@ -2,7 +2,6 @@ import { useFormContext } from 'react-hook-form';
 
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
-import { format } from 'date-fns';
 
 import { StepReview } from '../../../../../_atoms';
 import { CreateStepDictionary } from '../../const';
@@ -20,7 +19,7 @@ export const PrjectInfoReview: React.FC = () => {
       model={getValues()}
       fields={[
         {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title,
+          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title,
           renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
         },
         {
@@ -36,18 +35,12 @@ export const PrjectInfoReview: React.FC = () => {
           renderValue: (model) => <Text color="white">{model.telegram}</Text>,
         },
         {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title,
+          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title,
           renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
         },
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('IS_NO_LIMIT').title,
           renderValue: (model) => <Text color="white">{model.isNoLimit ? 'Yes' : 'No'}</Text>,
-        },
-        {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('DEADLINE').title,
-          renderValue: (model) => (
-            <Text color="white">{model.isPermanent ? 'Permanent' : format(model.deadline, 'dd.MM.yyyy')}</Text>
-          ),
         },
       ]}
     />

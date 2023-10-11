@@ -17,15 +17,19 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
     PROJECT_NAME: {
       title: 'Project info',
       placeholder: 'Project info',
+      tooltip: 'Please provide the project name.',
     },
     DIRECTION: {
       title: 'Trade direction',
+      tooltip: 'Choose Lot Type: BUY or SELL',
     },
     LOT_TYPE: {
       title: 'Type of lot',
+      tooltip: 'Simple Agreement for Future Equity',
     },
     IS_REASSIGNED: {
       title: 'Re-assign',
+      tooltip: '"Re-assign" means that the offer-maker allows the resale or transfer of their lot.',
     },
     WITH_TOKEN_WARRANT: {
       title: 'Token Warrant',

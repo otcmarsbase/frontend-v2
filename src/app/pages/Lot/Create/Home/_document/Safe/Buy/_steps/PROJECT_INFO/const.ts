@@ -19,10 +19,12 @@ export const ProjectInfoFieldsDictionary = createDictionary<ProjectInfoFieldName
     DEADLINE: {
       title: 'Deadline',
       placeholder: 'Choose finish day',
+      tooltip: 'Expiration Date for this Lot',
     },
     TYPE_OF_SELLER: {
       title: 'Type of seller',
       placeholder: 'Choose type',
+      tooltip: 'Choose Seller Type',
     },
     IS_DIRECT: {
       title: 'I’m the direct buyer',
@@ -43,10 +45,12 @@ export const ProjectInfoFieldsDictionary = createDictionary<ProjectInfoFieldName
     TELEGRAM: {
       title: 'Telegram',
       placeholder: '@nickname',
+      tooltip: 'Please provide your Telegram account',
     },
     TYPE_OF_BUYER: {
       title: 'Type of buyer',
       placeholder: 'Choose type',
+      tooltip: 'Choose Buyer Type',
     },
   })
   .setDefaultFactory((key) => ({

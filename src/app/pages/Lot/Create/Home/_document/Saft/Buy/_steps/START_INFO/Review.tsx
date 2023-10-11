@@ -29,7 +29,6 @@ export const StartInfoReview = () => {
           renderTitle: () => StartInfoFieldsDictionary.get('IS_REASSIGNED').title,
           renderValue: (model) => <Text color="white">{model.isReassigned ? 'Yes' : 'No'}</Text>,
         },
-
         {
           renderTitle: () => StartInfoFieldsDictionary.get('PROJECT_NAME').title,
           renderValue: (model) => (

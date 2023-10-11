@@ -3,8 +3,9 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary } from '@app/dictionary';
-import { VStack, FormControl, FormErrorMessage, HStack, Checkbox, SimpleGrid } from '@chakra-ui/react';
-import { UIKit, RadioButtons } from '@shared/ui-kit';
+import { VStack, FormControl, FormErrorMessage, HStack, Checkbox, SimpleGrid, Flex, Tooltip } from '@chakra-ui/react';
+import { UIKit, RadioButtons, SuggestionIcon } from '@shared/ui-kit';
+import { useIsRequired } from '@shared/ui-kit';
 
 import { useCreateLotContext } from '../../../../../_atoms';
 
@@ -16,6 +17,7 @@ export function StartInfoFields() {
   const { setFormSchema } = useCreateLotContext();
   const { watch, formState, control } = useFormContext<StartInfoModel>();
   const asset = watch('asset');
+  const isRequired = useIsRequired(startInfoSchema);
 
   const errors = useMemo(() => formState.errors, [formState]);
 
@@ -25,7 +27,11 @@ export function StartInfoFields() {
 
   return (
     <VStack p="2rem" w="full" gap="2rem">
-      <UIKit.FormElement label={StartInfoFieldsDictionary.get('DIRECTION').title}>
+      <UIKit.FormElement
+        label={StartInfoFieldsDictionary.get('DIRECTION').title}
+        info={StartInfoFieldsDictionary.get('DIRECTION').tooltip}
+        isRequired={isRequired('direction')}
+      >
         <FormControl isInvalid={Boolean(errors.direction)}>
           <Controller
             control={control}
@@ -47,7 +53,11 @@ export function StartInfoFields() {
           {errors.direction && <FormErrorMessage>{errors.direction.message}</FormErrorMessage>}
         </FormControl>
       </UIKit.FormElement>
-      <UIKit.FormElement label={StartInfoFieldsDictionary.get('LOT_TYPE').title}>
+      <UIKit.FormElement
+        label={StartInfoFieldsDictionary.get('LOT_TYPE').title}
+        info={StartInfoFieldsDictionary.get('LOT_TYPE').tooltip}
+        isRequired={isRequired('type')}
+      >
         <VStack alignItems="start" gap="1rem">
           <FormControl isInvalid={Boolean(errors.type)}>
             <Controller
@@ -76,7 +86,12 @@ export function StartInfoFields() {
                 name="isReassigned"
                 render={(props) => (
                   <Checkbox checked={props.field.value} onChange={(e) => props.field.onChange(e.target.checked)}>
-                    {StartInfoFieldsDictionary.get('IS_REASSIGNED').title}
+                    <Flex alignItems="center" gap="0.25rem">
+                      {StartInfoFieldsDictionary.get('IS_REASSIGNED').title}
+                      <Tooltip label={StartInfoFieldsDictionary.get('IS_REASSIGNED').tooltip}>
+                        <SuggestionIcon />
+                      </Tooltip>
+                    </Flex>
                   </Checkbox>
                 )}
               />
@@ -84,7 +99,12 @@ export function StartInfoFields() {
           </HStack>
         </VStack>
       </UIKit.FormElement>
-      <UIKit.FormElement label={StartInfoFieldsDictionary.get('PROJECT_NAME').title} w="full">
+      <UIKit.FormElement
+        label={StartInfoFieldsDictionary.get('PROJECT_NAME').title}
+        info={StartInfoFieldsDictionary.get('PROJECT_NAME').tooltip}
+        isRequired={isRequired('asset')}
+        w="full"
+      >
         {typeof asset === 'string' ? (
           <SimpleGrid columns={2} gap="1.25rem">
             <FormControl isInvalid={Boolean(errors.asset)}>

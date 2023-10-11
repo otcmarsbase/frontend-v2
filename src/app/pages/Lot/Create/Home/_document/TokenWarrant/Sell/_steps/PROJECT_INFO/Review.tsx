@@ -19,7 +19,7 @@ export const PrjectInfoReview: React.FC = () => {
       model={getValues()}
       fields={[
         {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title,
+          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title,
           renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
         },
         {
@@ -35,7 +35,7 @@ export const PrjectInfoReview: React.FC = () => {
           renderValue: (model) => <Text color="white">{model.telegram}</Text>,
         },
         {
-          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title,
+          renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title,
           renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
         },
         {
