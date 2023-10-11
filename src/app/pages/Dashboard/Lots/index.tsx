@@ -70,7 +70,9 @@ export const Lots: React.FC<LotsProps> = (props) => {
           <Empty
             createButton={
               <UILogic.AuthAction>
-                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, {}, {})}>Create offer</Button>
+                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, undefined, {})}>
+                  Create offer
+                </Button>
               </UILogic.AuthAction>
             }
           />

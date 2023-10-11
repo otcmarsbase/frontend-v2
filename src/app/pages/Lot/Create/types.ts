@@ -1,12 +1,9 @@
-import { UIKit } from '@shared/ui-kit';
-import { ObjectSchema } from 'yup';
-
-export interface StepRef<ModelType> {
-  getValues: () => ModelType;
-  onSubmit: () => Promise<ModelType>;
-  isRequired: UIKit.UseFormIsRequired<ModelType>;
-  isSkippable?: boolean;
-  schema: ObjectSchema<ModelType>;
+export interface CreateStepValue<T> {
+  title: string;
+  description: string;
+  stepTitle: string;
+  backSteps: T[];
+  skippable: boolean;
 }
 
 export interface StepFieldInfo {
