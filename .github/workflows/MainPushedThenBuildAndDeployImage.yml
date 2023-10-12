@@ -4,15 +4,17 @@ on:
     branches:
       - master
       - main
-  workflow_dispatch:
 
 env:
   IMAGE_REGISTRY: registry.digitalocean.com/marsbase-registry
   IMAGE_NAME: otc-desk-frontend
-  IMAGE_INTERNAL_VERSION:
-  IMAGE_VERSION:
-  IMAGE_DIGEST:
-  IMAGE_TAG:
+  IMAGE_INTERNAL_VERSION: <calculate>
+  IMAGE_VERSION: <calculate>
+  IMAGE_DIGEST: <calculate>
+  IMAGE_TAG: <calculate>
+
+  DEVOPS_REPOSITORY: otcmarsbase/devops
+  DEVOPS_WORKFLOW: OtcDeskInterfaceDispatchedThenUpdateVersion.yml
 
 jobs:
   build-and-push:
@@ -21,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
 
       - name: Calculate IMAGE_DIGEST
         run: echo "IMAGE_DIGEST=${GITHUB_SHA::8}" >> $GITHUB_ENV
@@ -56,3 +60,11 @@ jobs:
           tag: v${{ env.IMAGE_VERSION }}
           prerelease: true
           name: Published new DEV version v${{ env.IMAGE_VERSION }}
+      - name: Dispatch DevOps
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          repo: ${{ env.DEVOPS_REPOSITORY }}
+          workflow: ${{ env.DEVOPS_WORKFLOW }}
+          ref: refs/heads/main
+          inputs: '{ "registry": "${{ env.IMAGE_REGISTRY }}", "imageName": "${{ env.IMAGE_NAME }}", "tag": "${{ env.IMAGE_VERSION }}" }'
