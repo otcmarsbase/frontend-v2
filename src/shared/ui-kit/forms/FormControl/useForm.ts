@@ -11,8 +11,9 @@ import {
 } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import _get from 'lodash/get';
 import * as Yup from 'yup';
+
+import { useIsRequired } from './useIsRequired';
 
 export interface UseFormProps<TFieldValues extends FieldValues = FieldValues, TContext = any>
   extends Omit<RhfUseFormProps<TFieldValues, TContext>, 'resolver'> {
@@ -50,20 +51,7 @@ export function useForm<TFieldValues extends FieldValues = FieldValues, TContext
     ...useFormProps,
   });
 
-  // Утилита для проверки того, что поле действительно обязательно в схеме
-  // Нужно для правильного показа обязательности поля формы в UI
-  const isRequired = useCallback(
-    (name: string) => {
-      // Нужна схема формы, чтобы проверить что поле действительно обязательное
-      if (!schema) return false;
-      const values = props.getValues();
-      const root = schema.describe({ value: values });
-      const propField = _get(root.fields, name);
-      if (!propField) return false;
-      return propField['tests'].findIndex(({ name }) => name === 'required') >= 0;
-    },
-    [props, schema],
-  );
+  const isRequired = useIsRequired(schema);
 
   const _onValid = useCallback<(child: SubmitHandler<TFieldValues>) => SubmitHandler<TFieldValues>>(
     (child) => (data, event) => {
