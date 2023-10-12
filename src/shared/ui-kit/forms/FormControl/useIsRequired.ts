@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import get from 'lodash/get';
 import { ObjectSchema, SchemaDescription } from 'yup';
 
 export function useIsRequired<T extends ObjectSchema<object>>(schema: T) {
@@ -8,7 +9,8 @@ export function useIsRequired<T extends ObjectSchema<object>>(schema: T) {
 
   return useCallback(
     (name: keyof T['fields']) => {
-      const field = schema.describe({ value: methods.getValues() }).fields[name] as SchemaDescription;
+      const { fields } = schema.describe({ value: methods.getValues() });
+      const field = get(fields, name) as SchemaDescription;
       return !field.optional;
     },
     [schema, methods],
