@@ -34,7 +34,15 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   if (!lots.length) return null;
 
   return (
-    <VStack mt="2rem" w="full" alignItems="start" layerStyle="darkLinearGradientBg" p="2rem" gap="1.25rem">
+    <VStack
+      mt="2rem"
+      w="full"
+      alignItems="start"
+      layerStyle="darkLinearGradientBg"
+      p="2rem"
+      gap="1.25rem"
+      rounded="2xl"
+    >
       <VStack alignItems="start" gap="0.25rem">
         <Heading fontSize="lg" textTransform="uppercase">
           Similar lots

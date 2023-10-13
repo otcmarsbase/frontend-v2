@@ -38,13 +38,14 @@ export function StartInfoFields() {
             name="direction"
             render={(props) => (
               <RadioButtons
-                variant="outline"
+                variant="solid"
                 value={props.field.value}
                 renderKey={(item) => item}
                 onChange={(lotType) => {
                   props.field.onChange({ target: { name: props.field.name, value: lotType } });
                 }}
                 renderItem={(item) => TradeDirectionDictionary.get(item).title}
+                renderColorByValue={(item) => (item === 'BUY' ? 'green.500' : 'red.500')}
                 items={TradeDirectionDictionary.keys()}
                 isInvalid={Boolean(errors.direction)}
               />

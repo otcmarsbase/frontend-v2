@@ -21,7 +21,7 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ links, about, socials, copyrightText }) => {
   return (
-    <HStack width="full" padding="6.5rem 7.87rem">
+    <HStack width="full" padding="6rem 0 4rem">
       <HStack display="flex" justifyContent="space-between" width="full">
         <HStack alignItems="flex-start" gap="8.5rem">
           <Grid templateColumns="repeat(2, 1fr)" rowGap="0.75rem" columnGap="3rem">

@@ -47,7 +47,7 @@ const CreateLot: React.FC<React.PropsWithChildren> = () => {
             {CreateLotDictionary.get('HEADER').description}
           </Text>
         </VStack>
-        {onPreviewClick && (
+        {false && (
           <Button onClick={onPreviewClick} size="sm" variant="darkOutline">
             Preview
           </Button>

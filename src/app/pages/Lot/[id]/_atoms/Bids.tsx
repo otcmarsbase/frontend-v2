@@ -24,6 +24,7 @@ export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
     <VStack h="100%" w="100%" gap="1rem">
       <HStack
         justifyContent={'space-between'}
+        alignItems="center"
         fontWeight={'700'}
         lineHeight={'1.5rem'}
         textTransform={'uppercase'}
@@ -51,7 +52,7 @@ export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
               <Button
                 leftIcon={<UIIcons.Common.AddIcon />}
                 variant="brand"
-                size="md"
+                size="sm"
                 borderRadius="0.375rem"
                 padding="0.5rem 0.75rem"
                 onClick={onCreateBidClick}

@@ -13,13 +13,15 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
   return (
     <HStack gap="0.5rem" alignItems="center" onClick={onClick} cursor={onClick && 'pointer'}>
       <AssetImage
-        borderRadius="50%"
+        rounded="full"
         objectFit="cover"
         asset={asset}
-        w={size === 'md' ? '3rem' : '1.875rem'}
-        h={size === 'md' ? '3rem' : '1.875rem'}
+        w={size === 'md' ? '3rem' : '2.25rem'}
+        h={size === 'md' ? '3rem' : '2.25rem'}
       />
-      <Text fontWeight="semibold">{asset?.info.title}</Text>
+      <Text fontWeight="semibold" fontSize="1.25rem">
+        {asset?.info.title}
+      </Text>
     </HStack>
   );
 };

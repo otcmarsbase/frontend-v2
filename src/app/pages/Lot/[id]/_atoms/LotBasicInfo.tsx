@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
@@ -34,7 +34,13 @@ const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600"
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
   const { id, direction, type, deadline } = lot;
 
-  const [copyState, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+
+  const copy = () => {
+    copyToClipboard(id.toString());
+    setTooltipIsOpen(true);
+  };
 
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
@@ -44,11 +50,13 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
             <Text fontSize="sm" fontWeight="500">
               {id}
             </Text>
-            <Box onClick={() => copyToClipboard(id.toString())}>
+            <Box onClick={copy}>
               <Tooltip
                 hasArrow
-                isOpen={!!copyState.value}
                 closeOnPointerDown
+                isOpen={tooltipIsOpen}
+                onClose={() => setTooltipIsOpen(false)}
+                closeDelay={500}
                 placement="bottom-start"
                 offset={[-10, 10]}
                 label={<Text fontSize="sm">ID Copied</Text>}
