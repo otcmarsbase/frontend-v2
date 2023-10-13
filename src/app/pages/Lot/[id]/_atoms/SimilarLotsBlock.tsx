@@ -4,7 +4,7 @@ import { LotCard, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 export interface SimilarLotsBlockProps {
   lot: Resource.Lot.Lot;

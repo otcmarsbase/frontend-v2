@@ -37,7 +37,10 @@ export namespace Lot {
   export type Lot = SchemaCommon.Resource<'lot'> &
     SchemaCommon.ResourceOmit<LotKey> &
     LotContent & {
-      offerMaker: User.UserKey;
+      offerMaker: User.User;
+      totalBids: number;
+      score: number;
+      isHot: boolean;
     };
 
   export type LotContent = SchemaCommon.Merge<

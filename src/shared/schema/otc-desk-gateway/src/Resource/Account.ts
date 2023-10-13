@@ -2,12 +2,12 @@ import { Resource, ResourceKey, ResourceOmit } from '@schema/common';
 
 export namespace Account {
   export interface AccountKey extends ResourceKey<'account'> {
-    nickname: string;
+    id: string;
   }
 
   export interface Account extends Resource<'account'>, ResourceOmit<AccountKey> {
     registered_at: number;
-
+    nickname: string;
     profile: Profile;
     verification: Verification;
     auth_data?: AuthData;

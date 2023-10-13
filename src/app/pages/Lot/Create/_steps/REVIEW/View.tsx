@@ -1,6 +1,6 @@
 import { MutableRefObject, forwardRef, useCallback } from 'react';
 
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { VStack } from '@shared/ui-kit';
 
 import { LotInfoStepRef } from '../LOT_INFO';

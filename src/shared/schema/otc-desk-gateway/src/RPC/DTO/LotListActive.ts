@@ -12,6 +12,7 @@ export namespace LotListActive {
     direction?: Resource.Common.Enums.TradeDirection;
     minContractValue?: number;
     maxContractValue?: number;
+    withReassign?: boolean;
   };
   export type Result = Pagination<Resource.Lot.Lot>;
 }

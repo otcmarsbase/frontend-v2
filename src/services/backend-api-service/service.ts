@@ -1,7 +1,7 @@
 import { RpcClient } from '@packages/berish-rpc-client';
 import { Service } from '@packages/service-manager';
-import { RPC } from '@schema/api-gateway';
 import { RpcClientErrorTrigger } from '@schema/common';
+import { RPC } from '@schema/otc-desk-gateway';
 
 import { createRpcAxiosAdapter } from './createRpcAxiosAdapter';
 import { createRpcClient } from './createRpcClient';

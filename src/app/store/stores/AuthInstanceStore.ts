@@ -1,4 +1,4 @@
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 export class AuthInstanceStore {
   isLoading: boolean;

@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import { VStack, Text, Divider, FormControl, FormLabel, Checkbox } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 

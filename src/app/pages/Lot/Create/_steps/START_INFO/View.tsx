@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import { UILogic } from '@app/components';
 import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import { Center, Checkbox, FormControl, FormErrorMessage, HStack, SimpleGrid } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { RadioButtons, UIKit, VStack, useForm } from '@shared/ui-kit';
 import { without } from 'lodash';
 

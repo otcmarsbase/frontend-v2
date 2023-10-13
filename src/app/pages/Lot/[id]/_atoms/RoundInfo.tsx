@@ -1,7 +1,7 @@
 import { UILogic } from '@app/components';
 import { UIDictionary } from '@app/dictionary';
 import { SimpleGrid, VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { MoneyText } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';

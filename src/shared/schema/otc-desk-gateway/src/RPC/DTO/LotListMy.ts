@@ -13,6 +13,7 @@ export namespace LotListMy {
     direction?: Resource.Common.Enums.TradeDirection;
     minContractValue?: number;
     maxContractValue?: number;
+    withReassign?: boolean;
   };
   export type Result = Pagination<Resource.Lot.Lot>;
 }

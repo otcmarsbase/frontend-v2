@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { VStack, Text, Circle, HStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 

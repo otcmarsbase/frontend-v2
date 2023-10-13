@@ -8,8 +8,8 @@ import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
 import { HStack, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/api-gateway';
 import { Pagination, PaginationPayload } from '@schema/common';
+import { RPC, Resource } from '@schema/otc-desk-gateway';
 import { motion } from 'framer-motion';
 import { throttle } from 'lodash';
 

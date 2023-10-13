@@ -6,16 +6,7 @@ export namespace Common {
     export const ContractSizeFactoryType = ['PRICE', 'UNIT_QUANTITY'] as const;
     export type ContractSizeFactoryType = (typeof ContractSizeFactoryType)[number];
 
-    export const InvestRound = [
-      'PRESALE',
-      'PRESEED',
-      'SEED',
-      'ROUND_A',
-      'ROUND_B',
-      'ROUND_C',
-      'PRIVATE',
-      'FUNDING_ROUND',
-    ] as const;
+    export const InvestRound = ['PRESALE', 'PRESEED', 'SEED', 'ROUND_A', 'ROUND_B', 'ROUND_C', 'PRIVATE', 'FUNDING_ROUND'] as const;
     export type InvestRound = (typeof InvestRound)[number];
 
     export const MediatorType = ['DIRECT', 'OTC_AGENT', 'MARKETPLACE'] as const;
@@ -286,6 +277,18 @@ export namespace Common {
 
     export type VestingPeriod = string;
   }
+
+  export const Location = ['RUSSIA', 'OAE'] as const;
+  export type Location = (typeof Location)[number];
+
+  export const RoundType = ['PRESALE', 'SEED'] as const;
+  export type RoundType = (typeof RoundType)[number];
+
+  export const TradeDirection = ['BUY', 'SELL'] as const;
+  export type TradeDirection = (typeof TradeDirection)[number];
+
+  export const ParticipantType = ['INDIVIDUAL', 'VC', 'HEDGE_FUND', 'FAMILY_OFFICE', 'DAO'] as const;
+  export type ParticipantType = (typeof ParticipantType)[number];
 
   export interface UnitFullQuantity {
     asset: string; // in Unit

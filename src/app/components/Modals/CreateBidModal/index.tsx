@@ -15,7 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { InputNumber, Modal, UIKit, useForm } from '@shared/ui-kit';
 import { isEmpty } from 'lodash';
 

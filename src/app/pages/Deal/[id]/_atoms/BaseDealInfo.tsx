@@ -4,7 +4,7 @@ import { AssetName, DealStatus, TradeDirectionText } from '@app/components';
 import pages from '@app/pages';
 import { Button, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { format } from 'date-fns';
 

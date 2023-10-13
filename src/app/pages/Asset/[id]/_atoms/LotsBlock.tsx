@@ -4,7 +4,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
 import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 
 const TradeDirectionTitleMap = new Map<Resource.Common.Enums.TradeDirection, React.ReactNode>([

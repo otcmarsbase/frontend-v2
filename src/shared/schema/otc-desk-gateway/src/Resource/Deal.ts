@@ -81,9 +81,9 @@ export namespace Deal {
     createdAt: number;
     status: Enums.DealStatus;
     contractSize: Common.Finances.ContractSize;
-    offerMakers: User.UserKey[];
-    bidMakers: User.UserKey[];
-    moderators: User.UserKey[];
+    offerMakers: User.User[];
+    bidMakers: User.User[];
+    moderators: User.User[];
     keyResults: ValueObjects.DealKeyResults;
   }
 }

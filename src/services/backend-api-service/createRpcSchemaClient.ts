@@ -1,4 +1,4 @@
-import { RPC } from '@schema/api-gateway';
+import { RPC } from '@schema/otc-desk-gateway';
 
 import { BackendApiService } from './service';
 

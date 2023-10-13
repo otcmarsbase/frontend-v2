@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { TradeDirectionDictionary } from '@app/dictionary';
 import { Circle, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 export interface DirectionButtonProps {
   direction: Resource.Common.Enums.TradeDirection;

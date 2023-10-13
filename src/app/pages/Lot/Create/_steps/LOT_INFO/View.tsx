@@ -11,7 +11,7 @@ import {
   SimpleGrid,
   Checkbox,
 } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit, VStack, useForm } from '@shared/ui-kit';
 
 import { FormInvalidError } from '../../_const';

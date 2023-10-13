@@ -28,6 +28,9 @@ export type Schema = {
     create(payload: DTO.BidCreate.Payload): DTO.BidCreate.Result;
     listByLot(payload: DTO.BidListByLot.Payload): DTO.BidListByLot.Result;
     listMy(payload: DTO.BidListMy.Payload): DTO.BidListMy.Result;
+    accept(payload: DTO.BidAccept.Payload): DTO.BidAccept.Result;
+    reject(payload: DTO.BidReject.Payload): DTO.BidReject.Result;
+    makeActive(payload: DTO.BidMakeActive.Payload): DTO.BidMakeActive.Result;
   };
   deals: {
     listMy(payload: DTO.DealsListMy.Payload): DTO.DealsListMy.Result;
@@ -37,5 +40,9 @@ export type Schema = {
   dev: {
     generateJwtToken(payload: DTO.DevGenerateJwtToken.Payload): DTO.DevGenerateJwtToken.Result;
     hello(payload: DTO.DevHello.Payload): DTO.DevHello.Result;
+  };
+
+  system: {
+    getVersion(payload: DTO.SystemGetVersion.Payload): DTO.SystemGetVersion.Result;
   };
 };

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { AssetIconButton } from '@app/components';
 import { SimpleGrid, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 export interface MarketplaceFilters {
   assetId: Resource.Asset.Asset['id'];

@@ -5,7 +5,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
 
 export interface LotsProps {

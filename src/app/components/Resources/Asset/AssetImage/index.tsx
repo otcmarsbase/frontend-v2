@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { Image, ImageProps, Skeleton, SkeletonCircle, Spinner } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
 export interface AssetImageProps extends Omit<ImageProps, 'src'> {

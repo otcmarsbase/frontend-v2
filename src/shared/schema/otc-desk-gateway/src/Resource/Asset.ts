@@ -32,8 +32,7 @@ export namespace Asset {
     export interface AssetInfo {
       title: string;
       description: string;
-      // TODO добавить когда будет file server
-      // logoURL: string;
+      logoURL: string;
       tier: Enums.AssetTier;
       links: AssetLink[];
       verticals: Enums.AssetVertical[];

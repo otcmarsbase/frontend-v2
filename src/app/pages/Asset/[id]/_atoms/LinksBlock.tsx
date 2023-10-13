@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { UILogic } from '@app/components';
 import LINQ from '@berish/linq';
 import { HStack, StackDivider, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export interface LinksBlockProps {

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 
 import { AuthConnectorInfo, AuthConnectorType } from '../info';

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { UILayout } from '@app/layouts';
 import { Box, Heading, VStack, Text, HStack, Button, Center, SimpleGrid } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { Section, Steps } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { isEmpty } from 'lodash';

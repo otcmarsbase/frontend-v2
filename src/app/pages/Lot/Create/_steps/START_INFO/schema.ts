@@ -1,5 +1,5 @@
 import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { InputWebsiteRegex } from '@shared/ui-kit';
 import * as yup from 'yup';
 
