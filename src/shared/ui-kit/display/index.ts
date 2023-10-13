@@ -16,4 +16,5 @@ export * from './ProgressBar';
 export * from './SkeletonLoader';
 export * from './StatsInvert';
 export * from './Steps';
+export * from './SuggestionIcon';
 export * from './Tabs';

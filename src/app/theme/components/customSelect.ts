@@ -64,6 +64,23 @@ const baseStyle = definePartsStyle({
       left: 0,
     },
   },
+  control: {
+    _focusVisible: {
+      color: 'none',
+      shadow: 'outline',
+    },
+    _hover: {
+      color: 'white',
+    },
+    _focusWithin: {
+      color: 'white',
+      borderColor: 'orange.500',
+      shadow: 'none !important',
+      _placeholder: {
+        opacity: 0,
+      },
+    },
+  },
 });
 
 export const CustomSelect = defineMultiStyleConfig({

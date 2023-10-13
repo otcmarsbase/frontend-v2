@@ -1,5 +1,5 @@
 import { LotTypeDictionary } from '@app/dictionary';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export type LotTypeSelectProps = Omit<

@@ -7,7 +7,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';

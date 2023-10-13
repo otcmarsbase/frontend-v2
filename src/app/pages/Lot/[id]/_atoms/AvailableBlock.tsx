@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { HStack, MoneyText, UIKit, VStack } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -10,7 +10,7 @@ interface AvailableBlockProps {
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const [chartData, setChartData] = useState<UIKit.ChartPieData[]>([
+  const [chartData] = useState<UIKit.ChartPieData[]>([
     {
       id: 'reserved',
       label: 'Reserved',

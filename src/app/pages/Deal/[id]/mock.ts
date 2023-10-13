@@ -6,7 +6,7 @@
 //   TradeDirectionDictionary,
 // } from '@app/dictionary';
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/api-gateway';
+// import { Resource } from '@schema/otc-desk-gateway';
 
 // import { DealParticipantType } from './_atoms/const';
 // import { DealParticipantItem } from './_atoms/DealParticipants';

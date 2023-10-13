@@ -1,4 +1,4 @@
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { Property } from 'csstype';
 
 // TODO: Уточнить у дизайнеров почему цвета не из той палитры

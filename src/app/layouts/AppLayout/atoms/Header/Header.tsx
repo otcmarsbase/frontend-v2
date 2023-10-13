@@ -1,3 +1,4 @@
+import { UILogic, useAuth } from '@app/components';
 import pages from '@app/pages';
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -5,12 +6,9 @@ import { Logo, LinkComponent } from '@shared/ui-kit';
 
 import { RightBlock } from './atoms';
 
-export interface HeaderProps {
-  onCreateOfferClick: () => any;
-}
-
-export function Header({ onCreateOfferClick }: HeaderProps) {
+export function Header() {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   return (
     <VStack gap="0">
@@ -37,13 +35,17 @@ export function Header({ onCreateOfferClick }: HeaderProps) {
               <Link>OTC Desk</Link>
             </LinkComponent>
 
-            <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
-              <Link>My Dashboard</Link>
-            </LinkComponent>
+            {isAuthorized && (
+              <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
+                <Link>My Dashboard</Link>
+              </LinkComponent>
+            )}
 
-            <LinkComponent page={pages.Lot.Create.Home} pageProps={{}} onClick={onCreateOfferClick}>
-              <Link>Create offer</Link>
-            </LinkComponent>
+            <UILogic.AuthAction>
+              <LinkComponent page={pages.Lot.Create.Home} pageProps={{}}>
+                <Link>Create offer</Link>
+              </LinkComponent>
+            </UILogic.AuthAction>
           </HStack>
         </HStack>
         <Box color="white">

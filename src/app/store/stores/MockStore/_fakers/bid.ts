@@ -1,6 +1,6 @@
 // import { ParticipantTypeDictionary } from '@app/dictionary';
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/api-gateway';
+// import { Resource } from '@schema/otc-desk-gateway';
 
 // export function createBid(): Resource.Bid.Bid {
 //   return {

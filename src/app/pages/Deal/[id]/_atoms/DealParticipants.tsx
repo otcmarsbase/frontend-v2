@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { AccountAvatar } from '@app/components';
 import { formatAddress } from '@app/utils';
 import { Heading, HStack, Text, SimpleGrid, VStack, Button } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 import { DealBlockTypeDictionary, DealParticipantDictionary, DealParticipantType } from './const';
 

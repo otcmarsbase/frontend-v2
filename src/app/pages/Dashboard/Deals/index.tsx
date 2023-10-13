@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { Button, VStack } from '@chakra-ui/react';
-import { Resource, RPC } from '@schema/api-gateway';
+import { Resource, RPC } from '@schema/otc-desk-gateway';
 import { Empty, List, Pagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';

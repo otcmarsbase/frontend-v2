@@ -5,8 +5,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
-import { RPC } from '@schema/api-gateway';
+import { Resource, RPC } from '@schema/otc-desk-gateway';
 import { Empty, List, Pagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
@@ -87,7 +86,9 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
           <Empty
             createButton={
               <UILogic.AuthAction>
-                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, {}, {})}>Create offer</Button>
+                <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, undefined, {})}>
+                  Create offer
+                </Button>
               </UILogic.AuthAction>
             }
           />

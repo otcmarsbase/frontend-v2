@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useTimer, TimerSettings } from 'react-timer-hook';
 
 import { HStack } from '@chakra-ui/react';
-import { Tooltip } from '@chakra-ui/react';
+import { Tooltip } from '@shared/ui-kit';
 
 import { CountdownItem } from './CountdownItem';
 import { CountdownPart } from './CountdownPart';
@@ -26,7 +26,7 @@ export const Countdown: React.FC<CountdownProps> = ({ expiryTimestamp, onExpire,
   );
 
   return (
-    <Tooltip hasArrow label={label}>
+    <Tooltip label={label}>
       <HStack>
         <CountdownPart value={days} />
         <CountdownItem value=":" isTransparent color="orange.500" />

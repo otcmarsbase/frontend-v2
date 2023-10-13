@@ -1,4 +1,4 @@
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import { Location } from 'src/app/components/Modals/CreateBidModal/schema';
 

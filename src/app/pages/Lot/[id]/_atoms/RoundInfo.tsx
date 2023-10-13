@@ -1,7 +1,7 @@
 import { UILogic } from '@app/components';
 import { UIDictionary } from '@app/dictionary';
 import { SimpleGrid, VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { MoneyText } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';
@@ -31,22 +31,14 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             </VStack>
           </RoundInfoItem>
           <RoundInfoItem fieldName="CONTRACT_SIZE">
-            <VStack alignItems="start">
-              <MoneyText
-                fontSize="sm"
-                fontWeight={500}
-                value={lot.contractSize.unitQuantity.value}
-                abbreviated
-                addon="%"
-              />
-              <MoneyText
-                fontSize="xs"
-                fontWeight={500}
-                color="dark.50"
-                value={lot.contractSize.price.value}
-                addon="$"
-              />
-            </VStack>
+            <MoneyText
+              fontSize="sm"
+              fontWeight={500}
+              value={lot.contractSize.unitQuantity.value}
+              abbreviated
+              addon="%"
+            />
+            <MoneyText fontSize="xs" fontWeight={500} color="dark.50" value={lot.contractSize.price.value} addon="$" />
           </RoundInfoItem>
           <RoundInfoItem fieldName="OWNER">
             <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />

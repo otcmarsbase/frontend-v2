@@ -4,7 +4,7 @@ import { LotCard, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 
 export interface SimilarLotsBlockProps {
   lot: Resource.Lot.Lot;
@@ -34,7 +34,15 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   if (!lots.length) return null;
 
   return (
-    <VStack mt="2rem" w="full" alignItems="start" layerStyle="darkLinearGradientBg" p="2rem" gap="1.25rem">
+    <VStack
+      mt="2rem"
+      w="full"
+      alignItems="start"
+      layerStyle="darkLinearGradientBg"
+      p="2rem"
+      gap="1.25rem"
+      rounded="2xl"
+    >
       <VStack alignItems="start" gap="0.25rem">
         <Heading fontSize="lg" textTransform="uppercase">
           Similar lots

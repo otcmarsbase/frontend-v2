@@ -1,11 +1,14 @@
 import { NODE_ENV } from '@packages/berish-configurator-core';
 
+import packageJson from '../../../package.json';
+
 import { configurator } from './configurator';
 
 export interface AppConfigType {
   environment: NODE_ENV;
   isDevelopment: boolean;
   debug: boolean;
+  version: string;
 
   backend: {
     apiGatewayUrl: string;
@@ -39,6 +42,7 @@ export const AppConfig: AppConfigType = {
   environment: NODE_ENV,
   isDevelopment: NODE_ENV === 'development',
   debug: !!configurator.get('DEBUG_MODE'),
+  version: configurator.get('SHARED_VERSION') || packageJson.version,
 
   backend: {
     apiGatewayUrl: configurator.get('BACKEND_API_GATEWAY_URL'),

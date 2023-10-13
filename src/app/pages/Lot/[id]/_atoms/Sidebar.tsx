@@ -1,7 +1,7 @@
 import { AssetLink, AssetVerticalRow, UILogic } from '@app/components';
 import LINQ from '@berish/linq';
 import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
 

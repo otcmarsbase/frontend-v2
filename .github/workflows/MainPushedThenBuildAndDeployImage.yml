@@ -1,0 +1,70 @@
+name: Build image and deploy to Docker registry
+on:
+  push:
+    branches:
+      - master
+      - main
+
+env:
+  IMAGE_REGISTRY: registry.digitalocean.com/marsbase-registry
+  IMAGE_NAME: otc-desk-frontend
+  IMAGE_INTERNAL_VERSION: <calculate>
+  IMAGE_VERSION: <calculate>
+  IMAGE_DIGEST: <calculate>
+  IMAGE_TAG: <calculate>
+
+  DEVOPS_REPOSITORY: otcmarsbase/devops
+  DEVOPS_WORKFLOW: OtcDeskInterfaceDispatchedThenUpdateVersion.yml
+
+jobs:
+  build-and-push:
+    name: Build and Push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+
+      - name: Calculate IMAGE_DIGEST
+        run: echo "IMAGE_DIGEST=${GITHUB_SHA::8}" >> $GITHUB_ENV
+      - name: Calculate IMAGE_INTERNAL_VERSION
+        run: echo "IMAGE_INTERNAL_VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
+      - name: Calculate IMAGE_VERSION
+        run: echo "IMAGE_VERSION=${IMAGE_INTERNAL_VERSION}-${IMAGE_DIGEST}" >> $GITHUB_ENV
+      - name: Calculate IMAGE_TAG
+        run: echo "IMAGE_TAG=${IMAGE_NAME}:${IMAGE_VERSION}" >> $GITHUB_ENV
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_ACCESS_TOKEN }}
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 3600
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          file: docker/Dockerfile
+          tags: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Create Pre-release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: v${{ env.IMAGE_VERSION }}
+          prerelease: true
+          name: Published new DEV version v${{ env.IMAGE_VERSION }}
+      - name: Dispatch DevOps
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          repo: ${{ env.DEVOPS_REPOSITORY }}
+          workflow: ${{ env.DEVOPS_WORKFLOW }}
+          ref: refs/heads/main
+          inputs: '{ "registry": "${{ env.IMAGE_REGISTRY }}", "imageName": "${{ env.IMAGE_NAME }}", "tag": "${{ env.IMAGE_VERSION }}" }'

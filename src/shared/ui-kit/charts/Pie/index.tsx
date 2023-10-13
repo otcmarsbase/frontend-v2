@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
-import { Tooltip, Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
+import { Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
 import { PieTooltipProps, ResponsivePie } from '@nivo/pie';
+import { Tooltip } from '@shared/ui-kit';
 
 import theme from './theme';
 
@@ -63,15 +64,15 @@ export const ChartPie: React.FC<ChartPieProps> = ({ size = 'md', formatValue, da
           anchor: 'right',
           direction: 'column',
           justify: false,
-          translateX: 100,
+          translateX: 120,
           translateY: 0,
-          itemsSpacing: 15,
           itemWidth: 60,
-          itemHeight: 35,
-          itemTextColor: '#999',
-          itemDirection: 'top-to-bottom',
+          itemHeight: 14,
+          itemTextColor: '#94969A',
+          itemDirection: 'left-to-right',
+          itemsSpacing: 15,
           itemOpacity: 1,
-          symbolSize: 15,
+          symbolSize: 14,
           toggleSerie: true,
           symbolShape: 'square',
         },

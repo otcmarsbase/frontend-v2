@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { UILogic } from '@app/components';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/api-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
