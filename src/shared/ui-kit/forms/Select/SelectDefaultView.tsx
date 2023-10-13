@@ -84,6 +84,10 @@ export function SelectDefaultView<T, M extends boolean>(props: SelectDefaultView
           ...css,
           ...styles.menuList,
         }),
+        control: (css) => ({
+          ...css,
+          ...styles.control,
+        }),
       }}
       isInvalid={isInvalid}
       isClearable={isClearable}

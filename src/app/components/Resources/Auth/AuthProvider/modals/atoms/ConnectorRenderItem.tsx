@@ -25,6 +25,7 @@ export function ConnectorRenderItem({ authConnectorInfo, onClick }: ConnectorRen
             _hover={{ textDecoration: 'none' }}
             target="_blank"
             href={authConnectorInfo.supportUrl}
+            onClickCapture={(e) => e.stopPropagation()}
           >
             How it works
           </Link>

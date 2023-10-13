@@ -11,14 +11,20 @@ export namespace LotAsset {
     withReassign?: boolean;
     contractSize?: Common.Finances.ContractSize;
     minimumDealSize?: Common.Finances.TicketQuantity;
-  } & LotBase.LotDirectionModel<{}, { investRound?: Common.Enums.InvestRound; roundContractSize?: Common.Finances.ContractSize }>;
+  } & LotBase.LotDirectionModel<
+      {},
+      { investRound?: Common.Enums.InvestRound; roundContractSize?: Common.Finances.ContractSize }
+    >;
 
   export type OnModeration = LotCommon.OnModeration & {
     assetPK: Asset.AssetKey | Lot.ValueObjects.AssetCreateRequest;
     withReassign: boolean;
     contractSize: Common.Finances.ContractSize;
     minimumDealSize?: Common.Finances.TicketQuantity;
-  } & LotBase.LotDirectionModel<{}, { investRound?: Common.Enums.InvestRound; roundContractSize?: Common.Finances.ContractSize }>;
+  } & LotBase.LotDirectionModel<
+      {},
+      { investRound?: Common.Enums.InvestRound; roundContractSize?: Common.Finances.ContractSize }
+    >;
 
   export type Active = LotCommon.Active & {
     assetPK: Asset.AssetKey;
@@ -29,7 +35,10 @@ export namespace LotAsset {
     executed: Common.Finances.TicketQuantity;
     reserved: Common.Finances.TicketQuantity;
     available: Common.Finances.TicketQuantity;
-  } & LotBase.LotDirectionModel<{}, { investRound: Common.Enums.InvestRound; roundContractSize: Common.Finances.ContractSize }>;
+  } & LotBase.LotDirectionModel<
+      {},
+      { investRound: Common.Enums.InvestRound; roundContractSize: Common.Finances.ContractSize }
+    >;
 
   export type Completed = LotCommon.Completed & {
     assetPK: Asset.AssetKey;
@@ -40,5 +49,8 @@ export namespace LotAsset {
     executed: Common.Finances.TicketQuantity;
     reserved: Common.Finances.TicketQuantity;
     available: Common.Finances.TicketQuantity;
-  } & LotBase.LotDirectionModel<{}, { investRound: Common.Enums.InvestRound; roundContractSize: Common.Finances.ContractSize }>;
+  } & LotBase.LotDirectionModel<
+      {},
+      { investRound: Common.Enums.InvestRound; roundContractSize: Common.Finances.ContractSize }
+    >;
 }

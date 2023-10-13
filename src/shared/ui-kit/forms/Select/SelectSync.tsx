@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useMemo, useState } from 'react';
 
 import { SelectDefaultView } from './SelectDefaultView';
 import { SelectOption, SelectViewProps, MultiDependentValue } from './types';

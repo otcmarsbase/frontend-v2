@@ -3,7 +3,6 @@ import { VStack, Text, Divider, FormControl, FormLabel, Checkbox } from '@chakra
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
-
 export type LotFiltersBlockModel = Partial<{
   search: string;
   direction: Resource.Common.Enums.TradeDirection;
@@ -30,7 +29,7 @@ export function LotFilterBlock({ filters, onChange }: LotFilterBlockProps) {
       <VStack w="100%">
         <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Re-assign</FormLabel>
-          <Checkbox checked={filters.withReassing} onChange={e => onChange({ withReassing: e.target.checked })} />
+          <Checkbox checked={filters.withReassing} onChange={(e) => onChange({ withReassing: e.target.checked })} />
         </FormControl>
         {/* <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Only validated offers</FormLabel>
@@ -43,19 +42,36 @@ export function LotFilterBlock({ filters, onChange }: LotFilterBlockProps) {
       </VStack>
 
       <UIKit.KeyValueRowAccordion keyComponent="Direction">
-        <UILogic.TradeDirectionSelect value={filters.direction} isClearable onChange={direction => onChange({ direction })} placeholder="Choose direction" />
+        <UILogic.TradeDirectionSelect
+          value={filters.direction}
+          isClearable
+          onChange={(direction) => onChange({ direction })}
+          placeholder="Choose direction"
+        />
       </UIKit.KeyValueRowAccordion>
       <UIKit.KeyValueRowAccordion keyComponent="Lot type">
-        <UILogic.LotTypeSelect placeholder="Choose lot type" isClearable isMulti value={filters.lotTypes} onChange={lotTypes => onChange({ lotTypes })} />
+        <UILogic.LotTypeSelect
+          placeholder="Choose lot type"
+          isClearable
+          isMulti
+          value={filters.lotTypes}
+          onChange={(lotTypes) => onChange({ lotTypes })}
+        />
       </UIKit.KeyValueRowAccordion>
       <UIKit.KeyValueRowAccordion keyComponent="Asset vertical">
-        <UILogic.AssetVerticalSelect placeholder="Choose vertical" isClearable isMulti value={filters.assetVerticals} onChange={assetVerticals => onChange({ assetVerticals })} />
+        <UILogic.AssetVerticalSelect
+          placeholder="Choose vertical"
+          isClearable
+          isMulti
+          value={filters.assetVerticals}
+          onChange={(assetVerticals) => onChange({ assetVerticals })}
+        />
       </UIKit.KeyValueRowAccordion>
       <UIKit.KeyValueRowAccordion keyComponent="Size">
         <UIKit.RangeNumberSlider
           minMax={[0, 999999]}
           value={filters.bidSize}
-          onChange={bidSize => onChange({ bidSize })}
+          onChange={(bidSize) => onChange({ bidSize })}
           formatValue={(value) => <UIKit.MoneyText value={value} abbreviated addon="$" />}
           step={20}
         />

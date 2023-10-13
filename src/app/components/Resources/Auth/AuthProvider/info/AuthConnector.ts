@@ -37,20 +37,20 @@ AuthConnectorDictionary.set('metamask', {
   isInstalled: (ethereum?: WindowProvider) => ethereum?.isMetaMask,
 });
 
-if (AppConfig.wagmi.projectId) {
-  AuthConnectorDictionary.set('wallet-connect', {
-    type: 'wallet-connect',
-    title: 'Wallet Connect',
-    description: 'The open source web3 standard to connect blockchain wallets to dapps',
-    logoUrl: walletConnectLogo,
-    supportUrl: 'https://support.metamask.io/hc/en-us/articles/360015489531',
-    wagmiConnector: new WalletConnectConnector({
-      options: {
-        projectId: AppConfig.wagmi.projectId,
-        qrModalOptions: { themeMode: 'dark', themeVariables: { '--wcm-z-index': '9999' } },
-      },
-      chains: AuthChainDictionary.map((m) => m.wagmi).values(),
-    }),
-    isInstalled: () => false,
-  });
-}
+// if (AppConfig.wagmi.projectId) {
+//   AuthConnectorDictionary.set('wallet-connect', {
+//     type: 'wallet-connect',
+//     title: 'Wallet Connect',
+//     description: 'The open source web3 standard to connect blockchain wallets to dapps',
+//     logoUrl: walletConnectLogo,
+//     supportUrl: 'https://support.metamask.io/hc/en-us/articles/360015489531',
+//     wagmiConnector: new WalletConnectConnector({
+//       options: {
+//         projectId: AppConfig.wagmi.projectId,
+//         qrModalOptions: { themeMode: 'dark', themeVariables: { '--wcm-z-index': '9999' } },
+//       },
+//       chains: AuthChainDictionary.map((m) => m.wagmi).values(),
+//     }),
+//     isInstalled: () => false,
+//   });
+// }

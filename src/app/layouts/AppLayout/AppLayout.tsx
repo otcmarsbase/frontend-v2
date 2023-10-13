@@ -14,17 +14,10 @@ export interface AppLayoutProps {
 }
 
 export function AppLayout({ children, containerSize = 'lg' }) {
-  const router = useRouter();
-
-  const onCreateOfferClick = useCallback(async () => {
-    const direction = await ModalController.create(UIModals.TradeDirectionChooseModal, {});
-    if (direction) router.navigateComponent(pages.Lot.Create.Home, {}, {});
-  }, [router]);
-
   return (
     <VStack minHeight="100vh" width="full" gap="0">
       <Box width="full" flexShrink="0">
-        <Header onCreateOfferClick={onCreateOfferClick} />
+        <Header />
       </Box>
       <Box flex="1" width="full">
         <Container size={containerSize} mt="3rem">
@@ -32,32 +25,34 @@ export function AppLayout({ children, containerSize = 'lg' }) {
         </Container>
       </Box>
       <Box width="full" marginTop="auto">
-        <Footer
-          links={[
-            <Link href="#">About</Link>,
-            <Link href="#">Security</Link>,
-            <Link href="#">Fee Structure</Link>,
-            <Link href="#">API Docs</Link>,
-            <Link href="#">Support</Link>,
-            <Link href="#">Cookie Policy</Link>,
-            <Link href="#">Terms Of Use</Link>,
-            <Link href="#">Privacy Policy</Link>,
-          ]}
-          about={{
-            title: 'MARSBASE dOTC Desk',
-            description:
-              'A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.',
-          }}
-          socials={{
-            githubUrl: AppConfig.socials.githubUrl,
-            twitterUrl: AppConfig.socials.twitterUrl,
-            telegramUrl: AppConfig.socials.telegramUrl,
-            discordUrl: AppConfig.socials.discordUrl,
-            mediumUrl: AppConfig.socials.mediumUrl,
-            linktreeUrl: AppConfig.socials.linktreeUrl,
-          }}
-          copyrightText={`© All Rights Reserved MarsBase, ${new Date().getFullYear()}`}
-        />
+        <Container size={containerSize}>
+          <Footer
+            links={[
+              <Link href="#">About</Link>,
+              <Link href="#">Security</Link>,
+              <Link href="#">Fee Structure</Link>,
+              <Link href="#">API Docs</Link>,
+              <Link href="#">Support</Link>,
+              <Link href="#">Cookie Policy</Link>,
+              <Link href="#">Terms Of Use</Link>,
+              <Link href="#">Privacy Policy</Link>,
+            ]}
+            about={{
+              title: 'MARSBASE dOTC Desk',
+              description:
+                'A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.',
+            }}
+            socials={{
+              githubUrl: AppConfig.socials.githubUrl,
+              twitterUrl: AppConfig.socials.twitterUrl,
+              telegramUrl: AppConfig.socials.telegramUrl,
+              discordUrl: AppConfig.socials.discordUrl,
+              mediumUrl: AppConfig.socials.mediumUrl,
+              linktreeUrl: AppConfig.socials.linktreeUrl,
+            }}
+            copyrightText={`© All Rights Reserved MarsBase, ${new Date().getFullYear()}`}
+          />
+        </Container>
       </Box>
     </VStack>
   );

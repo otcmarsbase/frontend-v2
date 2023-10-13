@@ -6,10 +6,11 @@ import { LotCard, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
-import { HStack, Heading, SimpleGrid, VStack } from '@chakra-ui/react';
+import { HStack, Heading, SimpleGrid, VStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Pagination, PaginationPayload } from '@schema/common';
 import { RPC, Resource } from '@schema/otc-desk-gateway';
+import { Empty } from '@shared/ui-kit';
 import { motion } from 'framer-motion';
 import { throttle } from 'lodash';
 
@@ -19,11 +20,11 @@ const CHANGE_FILTERS_THROTTLE_DURATION_MS = 500;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-  
+
   const rpcSchema = useRpcSchemaClient();
 
   const [filters, setFilters] = useState<UILogic.LotFiltersBlockModel>({});
-  const [columnsCount, setColumnsCount] = useState(4);
+  const [columnsCount, setColumnsCount] = useState(3);
   const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
     items: [],
     total: 0,
@@ -33,6 +34,9 @@ export const OtcDesk: React.FC = observer(() => {
     items: [],
     total: 0,
   });
+  const [isLoading, setIsLoading] = useState(true);
+
+  const isEmpty = useMemo(() => !lots.total, [lots]);
 
   const assets = useMemo(() => {
     return _assets.items.slice(0, 20);
@@ -57,12 +61,17 @@ export const OtcDesk: React.FC = observer(() => {
   };
 
   const loadLots = useCallback(async () => {
-    const assets = await rpcSchema.send('asset.list', {}, {});
-    const lots = await rpcSchema.send('lot.listActive', {}, {});
+    try {
+      setIsLoading(true);
+      const assets = await rpcSchema.send('asset.list', {}, {});
+      const lots = await rpcSchema.send('lot.listActive', {}, {});
 
-    setAssets(assets);
-    setOriginalLots(lots);
-    setLots(lots);
+      setAssets(assets);
+      setOriginalLots(lots);
+      setLots(lots);
+    } finally {
+      setIsLoading(false);
+    }
   }, [rpcSchema]);
 
   useEffect(() => {
@@ -70,33 +79,44 @@ export const OtcDesk: React.FC = observer(() => {
   }, [loadLots]);
 
   const onFilterByAsset = async (filters: MarketplaceFilters) => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: filters.assetId ? [filters.assetId] : undefined }, {});
+    const lots = await rpcSchema.send(
+      'lot.listActive',
+      { assets: filters.assetId ? [filters.assetId] : undefined },
+      {},
+    );
     setLots(lots);
   };
 
   const onSubmitFilters = throttle(async (filters: UILogic.LotFiltersBlockModel) => {
     const minContractValue = filters.bidSize ? filters.bidSize[0] : undefined;
     const maxContractValue = filters.bidSize ? filters.bidSize[1] : undefined;
-    const lots = await rpcSchema.send('lot.listActive', prepareFiltersParams({
-      direction: filters.direction,
-      minContractValue,
-      maxContractValue,
-      verticals: filters.assetVerticals,
-      type: filters.lotTypes,
-      search: filters.search,
-    }), {});
+    const lots = await rpcSchema.send(
+      'lot.listActive',
+      prepareFiltersParams({
+        direction: filters.direction,
+        minContractValue,
+        maxContractValue,
+        verticals: filters.assetVerticals,
+        type: filters.lotTypes,
+        search: filters.search,
+      }),
+      {},
+    );
     setOriginalLots(lots);
     setLots(lots);
   }, CHANGE_FILTERS_THROTTLE_DURATION_MS);
 
-  const onChangeFilters = useCallback((nextFilters: UILogic.LotFiltersBlockModel) => {
-    const newFilters = {
-      ...filters,
-      ...nextFilters
-    };
-    setFilters(newFilters);
-    onSubmitFilters(newFilters);
-  }, [onSubmitFilters]);
+  const onChangeFilters = useCallback(
+    (nextFilters: UILogic.LotFiltersBlockModel) => {
+      const newFilters = {
+        ...filters,
+        ...nextFilters,
+      };
+      setFilters(newFilters);
+      onSubmitFilters(newFilters);
+    },
+    [onSubmitFilters],
+  );
 
   return (
     <VStack alignItems="start">
@@ -113,20 +133,38 @@ export const OtcDesk: React.FC = observer(() => {
                 onSelect: toggleFilters,
               }}
               search={filters.search}
-              onChangeSearch={search => onChangeFilters({ search })}
+              onChangeSearch={(search) => onChangeFilters({ search })}
             />
           </motion.div>
-          <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-            {lots.items.map((lot) => (
-              <motion.div key={lot.id} layout animate={isFiltersOpened}>
-                <LotCard
-                  lot={lot}
-                  asset={_assets.items.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
-                  onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+          {isLoading ? (
+            <></>
+          ) : (
+            <>
+              {isEmpty ? (
+                <Empty
+                  createButton={
+                    <UILogic.AuthAction>
+                      <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, undefined, {})}>
+                        Create offer
+                      </Button>
+                    </UILogic.AuthAction>
+                  }
                 />
-              </motion.div>
-            ))}
-          </SimpleGrid>
+              ) : (
+                <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
+                  {lots.items.map((lot) => (
+                    <motion.div key={lot.id} layout animate={isFiltersOpened}>
+                      <LotCard
+                        lot={lot}
+                        asset={_assets.items.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
+                        onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+                      />
+                    </motion.div>
+                  ))}
+                </SimpleGrid>
+              )}
+            </>
+          )}
         </VStack>
       </HStack>
     </VStack>

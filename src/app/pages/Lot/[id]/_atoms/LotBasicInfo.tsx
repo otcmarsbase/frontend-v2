@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
-import { Box, Text, HStack, Tooltip, VStack, Divider } from '@chakra-ui/react';
+import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Countdown } from '@shared/ui-kit';
+import { Countdown, Tooltip, SuggestionIcon } from '@shared/ui-kit';
 
 interface InfoElementProps {
   label: string;
@@ -13,14 +13,16 @@ interface InfoElementProps {
   tooltip?: string;
 }
 
-const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip = 'Hi!' }) => {
+const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) => {
   return (
     <VStack gap="0.25rem" color="dark.50" flex="2" alignItems="flex-start">
       <HStack gap="0.25rem">
         <Text fontSize="sm">{label}</Text>
-        <Tooltip label={tooltip} aria-label="A tooltip">
-          <UIIcons.Common.InfoIcon w="1rem" h="1rem" />
-        </Tooltip>
+        {tooltip && (
+          <Tooltip label={tooltip} aria-label="A tooltip">
+            <SuggestionIcon />
+          </Tooltip>
+        )}
       </HStack>
       {children}
     </VStack>
@@ -32,7 +34,13 @@ const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600"
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
   const { id, direction, type, deadline } = lot;
 
-  const [copyState, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
+
+  const copy = () => {
+    copyToClipboard(id.toString());
+    setTooltipIsOpen(true);
+  };
 
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
@@ -42,11 +50,13 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
             <Text fontSize="sm" fontWeight="500">
               {id}
             </Text>
-            <Box onClick={() => copyToClipboard(id.toString())}>
+            <Box onClick={copy}>
               <Tooltip
                 hasArrow
-                isOpen={!!copyState.value}
                 closeOnPointerDown
+                isOpen={tooltipIsOpen}
+                onClose={() => setTooltipIsOpen(false)}
+                closeDelay={500}
                 placement="bottom-start"
                 offset={[-10, 10]}
                 label={<Text fontSize="sm">ID Copied</Text>}

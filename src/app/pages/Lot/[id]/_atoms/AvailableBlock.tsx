@@ -10,7 +10,7 @@ interface AvailableBlockProps {
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const [chartData, setChartData] = useState<UIKit.ChartPieData[]>([
+  const [chartData] = useState<UIKit.ChartPieData[]>([
     {
       id: 'reserved',
       label: 'Reserved',

@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 
-import { HStack, Text, Box, SimpleGrid, Tooltip, SimpleGridProps } from '@chakra-ui/react';
+import { HStack, Text, Box, SimpleGrid, SimpleGridProps } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
+import { SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 export interface FormElementProps extends React.PropsWithChildren<SimpleGridProps> {
   label: string;
@@ -13,15 +14,15 @@ export const FormElement: React.FC<FormElementProps> = ({ label, info, isRequire
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <SimpleGrid gridTemplateColumns="10rem 2fr" gridColumnGap="3rem" {...gridProps}>
+    <SimpleGrid gridTemplateColumns="10rem 2fr" gridColumnGap="3rem" w="full" {...gridProps}>
       <HStack gap="0.25rem" alignSelf="start" mt="0.7rem">
         <Text fontSize="md" color="white" cursor="default">
           {label}
         </Text>
-        {isRequired && <UIIcons.Common.RequiredIcon />}
+        {isRequired && <UIIcons.Common.RequiredIcon fontSize="0.6rem" />}
         {info ? (
-          <Tooltip hasArrow label={info}>
-            <UIIcons.Common.InfoIcon color="dark.50" />
+          <Tooltip label={info}>
+            <SuggestionIcon />
           </Tooltip>
         ) : null}
       </HStack>

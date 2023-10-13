@@ -34,7 +34,7 @@ export default function Lot({ id }: LotProps) {
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
 
-  console.log({ account })
+  console.log({ account });
 
   const isOfferMaker = lot?.offerMaker.nickname === account?.nickname;
 
