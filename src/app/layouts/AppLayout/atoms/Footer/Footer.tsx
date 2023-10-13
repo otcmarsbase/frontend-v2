@@ -1,4 +1,8 @@
+import { observer } from 'mobx-react-lite';
+
+import { useStore } from '@app/store';
 import { Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { AppConfig } from '@shared/config';
 
 import { SocialBlock } from './atoms';
 
@@ -19,7 +23,9 @@ export interface FooterProps {
   copyrightText: React.ReactNode;
 }
 
-export const Footer: React.FC<FooterProps> = ({ links, about, socials, copyrightText }) => {
+export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, copyrightText }) => {
+  const { systemStore } = useStore();
+
   return (
     <HStack width="full" padding="6rem 0 4rem">
       <HStack display="flex" justifyContent="space-between" width="full">
@@ -58,8 +64,16 @@ export const Footer: React.FC<FooterProps> = ({ links, about, socials, copyright
           <Text fontSize="sm" color="dark.50">
             {copyrightText}
           </Text>
+          <VStack alignItems="flex-end" gap="0.2rem">
+            <Text fontSize="xs" color="dark.50">
+              API Version: {systemStore.apiVersion}
+            </Text>
+            <Text fontSize="xs" color="dark.50">
+              Client Version: {AppConfig.version}
+            </Text>
+          </VStack>
         </VStack>
       </HStack>
     </HStack>
   );
-};
+});

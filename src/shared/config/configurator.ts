@@ -4,6 +4,8 @@ export interface EnvConfiguration {
   NODE_ENV: string;
   DEBUG_MODE: string;
 
+  SHARED_VERSION: string;
+
   DOCS_BASE_URL: string;
   WAGMI_PROJECT_ID: string;
   BACKEND_API_GATEWAY_URL: string;
