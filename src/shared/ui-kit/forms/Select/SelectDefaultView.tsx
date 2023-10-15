@@ -39,7 +39,7 @@ export function SelectDefaultView<T, M extends boolean>(props: SelectDefaultView
   );
 
   const value = useMemo(() => {
-    if (!selectedOption) return;
+    if (!selectedOption) return null;
 
     if (Array.isArray(selectedOption)) {
       return selectedOption.map((option) => ({ value: option.key, label: renderOption(option) }));
