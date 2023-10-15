@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { toast, ToastPosition } from 'react-toastify';
+
+import { useToast, ToastPosition } from '@chakra-ui/react';
 
 export interface UseToastCallbackOptions {
   showWhenOk?: boolean;
@@ -17,11 +18,13 @@ export function useToastOuterCallback({
   okText = 'Success',
   errorText,
 }: UseToastCallbackOptions) {
+  const toast = useToast();
+
   const _onSuccessCallback = useCallback(() => {
     if (showWhenOk) {
-      toast.success(okText, { position });
+      toast({ description: okText, status: 'success', position });
     }
-  }, [position, showWhenOk, okText]);
+  }, [toast, showWhenOk, okText, position]);
 
   const _onErrorCallback = useCallback(
     (err) => {
@@ -34,10 +37,10 @@ export function useToastOuterCallback({
             : 'message' in err
             ? err.message
             : JSON.stringify(err);
-        toast.error(message, { position });
+        toast({ description: message, status: 'error', position });
       }
     },
-    [showWhenError, position, errorText],
+    [showWhenError, errorText, toast, position],
   );
 
   const _onCallback = useCallback<(callback: () => any) => Promise<void>>(

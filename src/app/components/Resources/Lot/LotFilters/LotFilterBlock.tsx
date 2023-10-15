@@ -10,6 +10,7 @@ export type LotFiltersBlockModel = Partial<{
   assetVerticals: Resource.Asset.Enums.AssetVertical[];
   bidSize: [number, number];
   withReassing: boolean;
+  assets: Resource.Asset.Asset[];
 }>;
 
 export interface LotFilterBlockProps {
@@ -29,7 +30,7 @@ export function LotFilterBlock({ filters, onChange }: LotFilterBlockProps) {
       <VStack w="100%">
         <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Re-assign</FormLabel>
-          <Checkbox checked={filters.withReassing} onChange={(e) => onChange({ withReassing: e.target.checked })} />
+          <Checkbox isChecked={!!filters.withReassing} onChange={(e) => onChange({ withReassing: e.target.checked })} />
         </FormControl>
         {/* <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Only validated offers</FormLabel>

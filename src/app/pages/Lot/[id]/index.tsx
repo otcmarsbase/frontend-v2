@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
@@ -32,27 +32,26 @@ export default function Lot({ id }: LotProps) {
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
 
-  console.log({ account });
+  const isOfferMaker = useMemo(() => {
+    if (!(lot && account)) return false;
 
-  const isOfferMaker = lot?.offerMaker.nickname === account?.nickname;
+    return lot.offerMaker.nickname === account.nickname;
+  }, [lot, account]);
 
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
       const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
-      const bids = await rpcSchema.send('bid.listByLot', { lots: [lot.id] } as any);
 
       setLot(lot);
       setAsset(asset);
-      setBids(bids.items);
     }, [rpcSchema, id]),
   );
 
   useEffect(() => {
     preload();
-  }, [id]);
+  }, [preload]);
 
   const handleEditLot = () => {
     console.log('handleEditLot');
@@ -107,7 +106,7 @@ export default function Lot({ id }: LotProps) {
               <LotBasicInfo lot={lot} />
             </VStack>
             <RoundInfo lot={lot} />
-            <Bids isOfferMaker={isOfferMaker} bids={bids} />
+            <Bids isOfferMaker={isOfferMaker} lot={lot} />
           </VStack>
         </GridItem>
       </Grid>

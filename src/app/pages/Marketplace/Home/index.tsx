@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDebounce } from 'react-use';
 
 import { observer } from 'mobx-react-lite';
 
-import { LotCard, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotAssetFilter, LotCard, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
@@ -12,11 +13,10 @@ import { Pagination, PaginationPayload } from '@schema/common';
 import { RPC, Resource } from '@schema/otc-desk-gateway';
 import { Empty } from '@shared/ui-kit';
 import { motion } from 'framer-motion';
-import { throttle } from 'lodash';
 
-import { FiltersBlock, MarketplaceFilters } from './_atoms';
+import { ActiveFilters } from './_atoms/ActiveFilters';
 
-const CHANGE_FILTERS_THROTTLE_DURATION_MS = 500;
+const CHANGE_FILTERS_THROTTLE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
@@ -63,7 +63,7 @@ export const OtcDesk: React.FC = observer(() => {
   const loadLots = useCallback(async () => {
     try {
       setIsLoading(true);
-      const assets = await rpcSchema.send('asset.list', {}, {});
+      const assets = await rpcSchema.send('asset.list', { withLots: true }, {});
       const lots = await rpcSchema.send('lot.listActive', {}, {});
 
       setAssets(assets);
@@ -78,21 +78,15 @@ export const OtcDesk: React.FC = observer(() => {
     loadLots();
   }, [loadLots]);
 
-  const onFilterByAsset = async (filters: MarketplaceFilters) => {
-    const lots = await rpcSchema.send(
-      'lot.listActive',
-      { assets: filters.assetId ? [filters.assetId] : undefined },
-      {},
-    );
-    setLots(lots);
-  };
-
-  const onSubmitFilters = throttle(async (filters: UILogic.LotFiltersBlockModel) => {
+  const onSubmitFilters = async () => {
     const minContractValue = filters.bidSize ? filters.bidSize[0] : undefined;
     const maxContractValue = filters.bidSize ? filters.bidSize[1] : undefined;
+    const assetIds = filters.assets?.map((asset) => asset.id);
+
     const lots = await rpcSchema.send(
       'lot.listActive',
       prepareFiltersParams({
+        assets: assetIds,
         direction: filters.direction,
         minContractValue,
         maxContractValue,
@@ -104,24 +98,23 @@ export const OtcDesk: React.FC = observer(() => {
     );
     setOriginalLots(lots);
     setLots(lots);
-  }, CHANGE_FILTERS_THROTTLE_DURATION_MS);
+  };
 
-  const onChangeFilters = useCallback(
-    (nextFilters: UILogic.LotFiltersBlockModel) => {
-      const newFilters = {
-        ...filters,
-        ...nextFilters,
-      };
-      setFilters(newFilters);
-      onSubmitFilters(newFilters);
-    },
-    [onSubmitFilters],
-  );
+  useDebounce(onSubmitFilters, CHANGE_FILTERS_THROTTLE_DURATION_MS, [filters]);
+
+  const onChangeFilters = (nextFilters: UILogic.LotFiltersBlockModel) => {
+    setFilters((filters) => ({
+      ...filters,
+      ...nextFilters,
+    }));
+  };
+
+  const handleResetFilters = () => setFilters({});
 
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
-      <FiltersBlock assets={assets} applyFilters={onFilterByAsset} />
+      <LotAssetFilter assets={assets} value={filters.assets ?? []} onChange={(assets) => onChangeFilters({ assets })} />
       <HStack alignItems="start" w="full" gap="2rem">
         {isFiltersOpened && <UILogic.LotFilterBlock filters={filters} onChange={onChangeFilters} />}
 
@@ -136,35 +129,40 @@ export const OtcDesk: React.FC = observer(() => {
               onChangeSearch={(search) => onChangeFilters({ search })}
             />
           </motion.div>
-          {isLoading ? (
-            <></>
-          ) : (
-            <>
-              {isEmpty ? (
-                <Empty
-                  createButton={
-                    <UILogic.AuthAction>
-                      <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, undefined, {})}>
-                        Create offer
-                      </Button>
-                    </UILogic.AuthAction>
-                  }
-                />
-              ) : (
-                <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-                  {lots.items.map((lot) => (
-                    <motion.div key={lot.id} layout animate={isFiltersOpened}>
-                      <LotCard
-                        lot={lot}
-                        asset={_assets.items.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
-                        onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
-                      />
-                    </motion.div>
-                  ))}
-                </SimpleGrid>
-              )}
-            </>
-          )}
+          <VStack alignItems="start" spacing="1rem" width="full">
+            <ActiveFilters filters={filters} onReset={handleResetFilters} />
+            {isLoading ? (
+              <></>
+            ) : (
+              <>
+                {isEmpty ? (
+                  <Empty
+                    createButton={
+                      <UILogic.AuthAction>
+                        <Button onClick={() => router.navigateComponent(MBPages.Lot.Create.Home, undefined, {})}>
+                          Create offer
+                        </Button>
+                      </UILogic.AuthAction>
+                    }
+                  />
+                ) : (
+                  <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
+                    {lots.items.map((lot) => (
+                      <motion.div key={lot.id} layout animate={isFiltersOpened}>
+                        <LotCard
+                          lot={lot}
+                          asset={_assets.items.find(
+                            (asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id,
+                          )}
+                          onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+                        />
+                      </motion.div>
+                    ))}
+                  </SimpleGrid>
+                )}
+              </>
+            )}
+          </VStack>
         </VStack>
       </HStack>
     </VStack>
