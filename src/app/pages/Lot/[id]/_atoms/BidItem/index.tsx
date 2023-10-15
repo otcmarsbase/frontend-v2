@@ -5,7 +5,9 @@ import { Resource } from '@schema/otc-desk-gateway';
 import { DateText, MoneyText } from '@shared/ui-kit';
 import { capitalize } from 'lodash';
 
-import { BidListFieldType, BidListFieldTypeTitleMap, LocationTypeTitleMap } from './const';
+import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
+
+import { OfferMakerActions } from './OfferMakerActions';
 
 interface BidItemColumnProps extends React.PropsWithChildren {
   type: BidListFieldType;
@@ -24,9 +26,11 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 
 export interface BidItemProps {
   bid: Resource.Bid.Bid;
+  isOfferMaker: boolean;
+  refreshBids: () => Promise<void>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
+export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids }) => {
   return (
     <HStack
       w="full"
@@ -36,6 +40,8 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
       p="0.75rem 1.5rem"
       cursor="pointer"
       transition="background 0.4s"
+      position="relative"
+      role="group"
       _hover={{
         bg: 'dark.800',
       }}
@@ -78,15 +84,14 @@ export const BidItem: React.FC<BidItemProps> = ({ bid }) => {
         <BidItemColumn type="LOCATION">
           <Text fontSize="sm">{capitalize(bid.location)}</Text>
         </BidItemColumn>
-        {bid.deadline && (
-          <BidItemColumn type="DEADLINE">
-            <DateText fontSize="sm" value={bid.deadline} />
-          </BidItemColumn>
-        )}
+        <BidItemColumn type="DEADLINE">
+          {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}
+        </BidItemColumn>
         <BidItemColumn type="STATUS">
           <Text>{bid.status}</Text>
         </BidItemColumn>
       </SimpleGrid>
+      <OfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />
     </HStack>
   );
 };

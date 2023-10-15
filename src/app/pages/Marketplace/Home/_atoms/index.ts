@@ -1,1 +1,1 @@
-export * from './FiltersBlock';
+export * from './ActiveFilters';

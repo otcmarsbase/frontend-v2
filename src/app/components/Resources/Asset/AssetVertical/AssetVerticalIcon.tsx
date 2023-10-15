@@ -2,8 +2,9 @@ import { useMemo } from 'react';
 
 import { Square } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
+import { Tooltip } from '@shared/ui-kit';
 
-import { AssetVerticalIconDictionary } from './const';
+import { AssetVerticalIconDictionary, AssetVerticalTitle } from './const';
 
 export interface AssetVerticalIconProps {
   value: Resource.Asset.Enums.AssetVertical;
@@ -11,10 +12,13 @@ export interface AssetVerticalIconProps {
 
 export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) => {
   const IconComponent = useMemo(() => AssetVerticalIconDictionary.get(value), [value]);
+  const title = useMemo(() => AssetVerticalTitle.get(value), [value]);
 
   return (
-    <Square border="0.0625rem solid" borderColor="dark.300" borderRadius="micro" size="1.5rem">
-      <IconComponent w="0.75rem" h="0.75rem" />
-    </Square>
+    <Tooltip label={title}>
+      <Square border="0.0625rem solid" borderColor="dark.300" borderRadius="micro" size="1.5rem">
+        <IconComponent w="0.75rem" h="0.75rem" />
+      </Square>
+    </Tooltip>
   );
 };

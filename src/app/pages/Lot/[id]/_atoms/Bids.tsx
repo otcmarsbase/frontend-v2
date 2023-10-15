@@ -1,21 +1,35 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import { UILogic, UIModals } from '@app/components';
+import { UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
 import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
+import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 
 import { BidsList } from './BidsList';
 import { SortBidsByType, SortBidsByTypeDictionary } from './const';
 
 interface BidsProps {
-  bids: Resource.Bid.Bid[];
   isOfferMaker: boolean;
+  lot: Resource.Lot.Lot;
 }
 
-export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
+export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
+  const rpcSchema = useRpcSchemaClient();
+  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
+
+  const loadBinds = useCallback(async () => {
+    const { items } = await rpcSchema.send('bid.listByLot', { lots: [lot.id] });
+    setBids(items);
+  }, [rpcSchema, lot]);
+
+  const preload = useLoadingCallback(loadBinds);
+
+  useEffect(() => {
+    preload();
+  }, [preload]);
+
   const onCreateBidClick = useCallback(async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, {});
   }, []);
@@ -63,7 +77,7 @@ export const Bids: FC<BidsProps> = ({ bids, isOfferMaker }) => {
           )}
         </HStack>
       </HStack>
-      <BidsList bids={bids} />
+      <BidsList isOfferMaker={isOfferMaker} bids={bids} isLoading={preload.isLoading} refreshBids={loadBinds} />
     </VStack>
   );
 };

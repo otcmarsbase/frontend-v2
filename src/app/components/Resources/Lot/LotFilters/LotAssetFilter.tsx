@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { UILogic } from '@app/components';
-import { SimpleGrid } from '@chakra-ui/react';
+import { AssetIconButton } from '@app/components';
+import { SimpleGrid, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 
 export interface LotAssetFilterProps {
@@ -24,8 +24,7 @@ export function LotAssetFilter({ assets, value, onChange }: LotAssetFilterProps)
   const onChangeCallback = useCallback(
     (asset: Resource.Asset.Asset) => {
       return (isSelected: boolean) => {
-        const newValues = isSelected ? value.filter((m) => !isEqualsCallback(m, asset)) : value.concat(asset);
-
+        const newValues = isSelected ? value.concat(asset) : value.filter((m) => !isEqualsCallback(m, asset));
         if (onChange) onChange(newValues);
       };
     },
@@ -33,13 +32,13 @@ export function LotAssetFilter({ assets, value, onChange }: LotAssetFilterProps)
   );
 
   return (
-    <SimpleGrid w="full" columns={20} spacing="0.5rem">
-      {assets.map((asset) => (
-        <UILogic.AssetIconButton
-          key={asset.id}
+    <SimpleGrid columns={20} w="full" gap="0.5rem">
+      {assets.slice(0, 20).map((asset) => (
+        <AssetIconButton
           asset={asset}
+          key={asset.id}
+          onSelect={onChangeCallback(asset)}
           isSelected={isSelectedCallback(asset)}
-          onSelect={() => onChangeCallback(asset)}
         />
       ))}
     </SimpleGrid>
