@@ -11,14 +11,10 @@ import { HStack, Heading, SimpleGrid, VStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Pagination, PaginationPayload } from '@schema/common';
 import { RPC, Resource } from '@schema/otc-desk-gateway';
-import { Empty, UIKit } from '@shared/ui-kit';
+import { Empty } from '@shared/ui-kit';
 import { motion } from 'framer-motion';
-import { range } from 'lodash';
-
-import { ActiveFilters } from './_atoms/ActiveFilters';
 
 const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
-const SKELETON_ITEMS_COUNT = 10;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
@@ -124,20 +120,17 @@ export const OtcDesk: React.FC = observer(() => {
       <LotAssetFilter assets={assets} value={filters.assets ?? []} onChange={(assets) => onChangeFilters({ assets })} />
       <HStack alignItems="start" w="full" gap="2rem">
         {isFiltersOpened && <UILogic.LotFilterBlock filters={filters} onChange={onChangeFilters} />}
-
         <VStack w="full" alignItems="start" gap="1.5rem">
-          <motion.div initial={{}} layout animate={isFiltersOpened}>
-            <UILogic.LotFilterControls
-              toggleButton={{
-                isSelected: isFiltersOpened,
-                onSelect: toggleFilters,
-              }}
-              search={filters.search}
-              onChangeSearch={(search) => onChangeFilters({ search })}
-            />
-          </motion.div>
+          <UILogic.LotFilterControls
+            toggleButton={{
+              isSelected: isFiltersOpened,
+              onSelect: toggleFilters,
+            }}
+            search={filters.search}
+            onChangeSearch={(search) => onChangeFilters({ search })}
+          />
           <VStack alignItems="start" spacing="1rem" width="full">
-            <ActiveFilters filters={filters} onReset={handleResetFilters} />
+            <UILogic.LotActiveFilters filters={filters} onReset={handleResetFilters} />
             {isLoading ? (
               <UILogic.LotGridSkeleton columns={columnsCount} withAnimation={isFiltersOpened} />
             ) : (
@@ -153,19 +146,12 @@ export const OtcDesk: React.FC = observer(() => {
                     }
                   />
                 ) : (
-                  <SimpleGrid w="full" columns={columnsCount} spacing="2rem">
-                    {lots.items.map((lot) => (
-                      <motion.div key={lot.id} layout animate={isFiltersOpened}>
-                        <LotCard
-                          lot={lot}
-                          asset={_assets.items.find(
-                            (asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id,
-                          )}
-                          onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
-                        />
-                      </motion.div>
-                    ))}
-                  </SimpleGrid>
+                  <UILogic.LotGrid
+                    columns={columnsCount}
+                    lots={lots.items}
+                    assets={_assets.items}
+                    onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
+                  />
                 )}
               </>
             )}

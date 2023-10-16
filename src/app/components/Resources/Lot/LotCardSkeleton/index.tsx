@@ -50,7 +50,7 @@ export const LotCardSkeleton: React.FC<LotCardSkeletonProps> = ({ minimalView })
           <HStack
             gap="0.3rem"
             divider={
-              <Text fontSize="sm" color="dark.50">
+              <Text fontSize="sm" color="dark.700">
                 /
               </Text>
             }
