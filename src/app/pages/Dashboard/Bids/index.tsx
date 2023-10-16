@@ -4,7 +4,9 @@ import { observer } from 'mobx-react-lite';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/otc-desk-gateway';
 import { Empty, List, Pagination } from '@shared/ui-kit';
 
@@ -12,6 +14,7 @@ import { ListLoader } from './_atoms';
 
 const MyBids: React.FC = observer(() => {
   const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
   const [items, setItems] = useState<Resource.Bid.Bid[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -37,19 +40,19 @@ const MyBids: React.FC = observer(() => {
   const fetchItems = useCallback(async () => {
     setIsLoading(true);
     try {
-      const { items, total } = await rpcSchema.send('bid.listByLot', fetchPayload);
+      const { items, total } = await rpcSchema.send('bid.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
-      // for (const { assetPK } of items) {
-      //   const asset = await rpcSchema.send('asset.getById', assetPK as Resource.Asset.AssetKey);
-      //   assets.push(asset);
-      // }
+      for (const { assetKey } of items) {
+        const asset = await rpcSchema.send('asset.getById', assetKey);
+        assets.push(asset);
+      }
 
       setItems(items);
       setAssets(assets);
       setTotal(total);
     } finally {
-      setTimeout(() => setIsLoading(false), 200);
+      setIsLoading(false);
     }
   }, [rpcSchema, fetchPayload]);
 
@@ -83,8 +86,17 @@ const MyBids: React.FC = observer(() => {
         }
         footer={items.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
-          <></>
-          // <UILogic.BidRow bid={item} asset={findAsset(item.assetPK as Resource.Asset.AssetKey)} onClick={null} />
+          <UILogic.BidRow
+            bid={item}
+            asset={findAsset(item.assetKey)}
+            onClick={() => {
+              if (item.deal) {
+                router.navigateComponent(MBPages.Deal.__id__, { id: item.deal.id }, {});
+              } else {
+                router.navigateComponent(MBPages.Lot.__id__, { id: item.lotKey.id }, {});
+              }
+            }}
+          />
         )}
       />
     </VStack>

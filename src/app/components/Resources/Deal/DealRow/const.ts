@@ -1,19 +1,11 @@
-export const DelaRowFieldName = [
-  'TYPE',
-  'PUBLISH_DATE',
-  'BID_FVD',
-  'BID_SIZE',
-  'OFFER_MAKER',
-  'DIRECT_SELLER',
-  'LOCATION',
-] as const;
+export const DelaRowFieldName = ['TYPE', 'CREATED_TIME', 'LOT_ID', 'DEAL_SIZE', 'DEAL_FVD', 'STATUS'] as const;
 export type DelaRowFieldName = (typeof DelaRowFieldName)[number];
 
 export const DealRowFieldNameTitleMap = new Map<DelaRowFieldName, React.ReactNode>([
-  ['TYPE', 'Type'],
-  ['PUBLISH_DATE', 'Publish Date'],
-  ['BID_FVD', 'Bid FVD'],
-  ['BID_SIZE', 'Bid size'],
-  ['OFFER_MAKER', 'Offer Maker'],
-  ['DIRECT_SELLER', 'Is direct seller'],
+  ['TYPE', 'Lot Type'],
+  ['CREATED_TIME', 'Created time'],
+  ['LOT_ID', 'Lot ID'],
+  ['DEAL_SIZE', 'Deal size'],
+  ['DEAL_FVD', 'Deal FVD'],
+  ['STATUS', 'Status'],
 ]);

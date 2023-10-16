@@ -51,9 +51,9 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bid.bidMaker.id} />
+        <AccountAvatar nickname={bid.bidMaker.nickname} />
       </VStack>
-      <SimpleGrid w="75%" columns={6} gridColumnGap="1.9rem">
+      <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">
           <MoneyText
             fontSize="sm"

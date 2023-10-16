@@ -1,8 +1,8 @@
 import { UILogic } from '@app/components';
-import { UIDictionary } from '@app/dictionary';
+import { ParticipantTypeDictionary, UIDictionary } from '@app/dictionary';
 import { SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
-import { MoneyText } from '@shared/ui-kit';
+import { MoneyText, UIKit } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';
 import { RoundInfoItem } from './RoundInfoItem';
@@ -49,15 +49,48 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             </Text>
           </RoundInfoItem>
           <RoundInfoItem fieldName="MIN_BID">
-            <Text fontWeight="500">TODO</Text>
+            <MoneyText
+              fontSize="sm"
+              fontWeight={500}
+              value={lot.minimumDealSize.unitQuantity.value}
+              abbreviated
+              addon="%"
+            />
+            <MoneyText
+              fontSize="xs"
+              fontWeight={500}
+              color="dark.50"
+              value={lot.minimumDealSize.price.value}
+              addon="$"
+            />
           </RoundInfoItem>
         </SimpleGrid>
         <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">
           <RoundInfoItem fieldName="TYPE_OF_BIDDER">
-            <Text>TODO</Text>
+            {lot.bidMakerTypes ? (
+              lot.bidMakerTypes.map((type) => (
+                <Text fontSize="sm" color="orange.500">
+                  {ParticipantTypeDictionary.get(type).title}
+                </Text>
+              ))
+            ) : (
+              <Text fontSize="sm" color="dark.50">
+                -
+              </Text>
+            )}
           </RoundInfoItem>
           <RoundInfoItem fieldName="TYPE_OF_SELLER">
-            <Text fontWeight="800">TODO</Text>
+            {lot.offerMakerTypes ? (
+              lot.offerMakerTypes.map((type) => (
+                <Text fontSize="sm" color="orange.500">
+                  {ParticipantTypeDictionary.get(type).title}
+                </Text>
+              ))
+            ) : (
+              <Text fontSize="sm" color="dark.50">
+                -
+              </Text>
+            )}
           </RoundInfoItem>
         </SimpleGrid>
       </VStack>

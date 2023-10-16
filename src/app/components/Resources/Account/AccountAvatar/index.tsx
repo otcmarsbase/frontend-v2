@@ -7,6 +7,7 @@ import defaultAvatar from './images/defaultAvatar.png';
 export interface AccountAvatarProps extends StackProps {
   avatarUrl?: string;
   nickname: string;
+  shortNickname?: boolean;
   nicknameMaxLength?: number;
 }
 
@@ -14,11 +15,12 @@ export const AccountAvatar: React.FC<AccountAvatarProps> = ({
   avatarUrl = defaultAvatar,
   nickname,
   fontSize = 'sm',
+  shortNickname,
   nicknameMaxLength = 10,
   ...stackProps
 }) => {
   const preparedNickname = useMemo(() => {
-    if (nickname.length > nicknameMaxLength) return `${nickname.slice(0, nicknameMaxLength)}...`;
+    if (shortNickname && nickname.length > nicknameMaxLength) return `${nickname.slice(0, nicknameMaxLength)}...`;
     return nickname;
   }, [nickname, nicknameMaxLength]);
 

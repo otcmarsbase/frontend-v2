@@ -4,7 +4,9 @@ import { observer } from 'mobx-react-lite';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/otc-desk-gateway';
 import { Empty, List, Pagination } from '@shared/ui-kit';
 
@@ -21,6 +23,7 @@ export interface DealsProps {
 
 const Deals: React.FC<DealsProps> = observer(() => {
   const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
   const [items, setItems] = useState<Resource.Deal.Deal[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -49,16 +52,16 @@ const Deals: React.FC<DealsProps> = observer(() => {
       const { items, total } = await rpcSchema.send('deals.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
-      // for (const { assetPK } of items) {
-      //   const asset = await rpcSchema.send('asset.getById', assetPK as Resource.Asset.AssetKey);
-      //   assets.push(asset);
-      // }
+      for (const { assetKey } of items) {
+        const asset = await rpcSchema.send('asset.getById', assetKey);
+        assets.push(asset);
+      }
 
       setItems(items);
       setAssets(assets);
       setTotal(total);
     } finally {
-      setTimeout(() => setIsLoading(false), 200);
+      setIsLoading(false);
     }
   }, [rpcSchema, fetchPayload]);
 
@@ -90,12 +93,11 @@ const Deals: React.FC<DealsProps> = observer(() => {
           />
         }
         itemRender={(item) => (
-          // <UILogic.DealRow
-          //   deal={item}
-          //   asset={findAsset(item.assetPK as Resource.Asset.AssetKey)}
-          //   onClick={() => undefined}
-          // />
-          <></>
+          <UILogic.DealRow
+            deal={item}
+            asset={findAsset(item.assetKey)}
+            onClick={() => router.navigateComponent(MBPages.Deal.__id__, { id: item.id }, {})}
+          />
         )}
         footer={items.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />

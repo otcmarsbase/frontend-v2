@@ -1,8 +1,12 @@
 import { UILogic } from '@app/components';
+import { MBPages } from '@app/pages';
+import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
+import { capitalize } from 'lodash';
 
 import { BidRowFieldNameTitleMap } from './const';
 
@@ -13,42 +17,38 @@ export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 }
 
 export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackProps }) => {
-  const isHot = true;
+  const router = useRouter();
+  // TODO replace
+  const isHot = false;
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
-    {
-      label: BidRowFieldNameTitleMap.get('TYPE'),
-      value: <Text>1212</Text>,
-    },
+    // {
+    //   label: BidRowFieldNameTitleMap.get('TYPE'),
+    //   value: <Text>1212</Text>,
+    // },
     {
       label: BidRowFieldNameTitleMap.get('PUBLISH_DATE'),
-      value: <Text>1212</Text>,
+      value: <Text>{formatDate(bid.createdAt, 'ONLY_DATE')}</Text>,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_FVD'),
-      value: <Text>1212</Text>,
+      value: <UIKit.MoneyText value={bid.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_SIZE'),
-      value: <Text>1212</Text>,
+      value: <UIKit.MoneyText value={bid.contractSize.unitQuantity.value} addon="%" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
-      value: (
-        <HStack>
-          {asset.info.verticals.map((vertical) => (
-            <UILogic.AssetVerticalIcon value={vertical} />
-          ))}
-        </HStack>
-      ),
+      value: <UILogic.AccountAvatar nickname={bid.bidMaker.nickname} />,
     },
     {
       label: BidRowFieldNameTitleMap.get('DIRECT_SELLER'),
-      value: <Text>1212</Text>,
+      value: <Text>{bid.mediatorType === 'DIRECT' ? 'Yes' : 'No'}</Text>,
     },
     {
       label: BidRowFieldNameTitleMap.get('LOCATION'),
-      value: <Text>1212</Text>,
+      value: <Text>{capitalize(bid.location)}</Text>,
     },
   ];
 
@@ -91,7 +91,11 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
           )}
         </HStack>
         <HStack gap="0.5rem" alignItems="center">
-          <UILogic.AssetName size="sm" asset={asset} />
+          <UILogic.AssetName
+            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: bid.assetKey.id }, {})}
+            size="sm"
+            asset={asset}
+          />
         </HStack>
         <UILogic.BidStatus value={bid.status} />
       </VStack>
@@ -112,7 +116,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
                 },
               }}
             >
-              <VStack alignItems="start" maxW="8rem" w="full">
+              <VStack alignItems="start" maxW="8rem" w="full" fontSize="sm">
                 <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
                   {field.label}
                 </Text>

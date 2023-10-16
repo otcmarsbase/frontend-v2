@@ -17,6 +17,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
 
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
   const socialLinks = groupedByGroupLinks.get('SOCIAL');
+  const otherLinks = groupedByGroupLinks.get('OTHER');
 
   return (
     <GridItem display="flex" h="100%" flexDirection="column" top={0}>
@@ -67,6 +68,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
           <SidebarBlock
             title="Social media"
             children={socialLinks.map((props) => (
+              <AssetLink type={props.type} url={props.url}>
+                {props.title}
+              </AssetLink>
+            ))}
+          />
+        )}
+        {otherLinks && (
+          <SidebarBlock
+            title="Other links"
+            children={otherLinks.map((props) => (
               <AssetLink type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>

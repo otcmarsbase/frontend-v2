@@ -47,7 +47,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
   const fetchItems = useCallback(async () => {
     setIsLoading(true);
     try {
-      const { items, total } = await rpcSchema.send('lot.listActive', fetchPayload);
+      const { items, total } = await rpcSchema.send('lot.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
       for (const { assetPK } of items) {
@@ -59,7 +59,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
       setAssets(assets);
       setTotal(total);
     } finally {
-      setTimeout(() => setIsLoading(false), 200);
+      setIsLoading(false);
     }
   }, [rpcSchema, fetchPayload]);
 
