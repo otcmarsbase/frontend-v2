@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
@@ -29,13 +29,10 @@ export default function View({ id }: ViewProps) {
   );
   usePreloadPage(onPreload);
 
-  const onLotClick = useCallback((lot: Resource.Lot.Lot) => {}, []);
-
-  // TODO
-  if (!asset || !stats) return <>Empty</>;
+  if (!asset || !stats || onPreload.isLoading) return <UILogic.AssetPageSkeleton />;
 
   return (
-    <VStack padding="2rem" gap="2rem">
+    <VStack gap="2rem">
       <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl="" />
       <StatsBlock
         averageLotsFdv={stats.averageFdv}

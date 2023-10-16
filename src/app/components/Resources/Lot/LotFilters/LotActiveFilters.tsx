@@ -1,17 +1,17 @@
 import { FC, ReactNode, Children, useMemo } from 'react';
 
-import { AssetVerticalTitle, LotFiltersBlockModel } from '@app/components';
+import { AssetVerticalTitle, LotFilterSidebarModel } from '@app/components';
 import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import { isDeeplyEmpty } from '@app/utils';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
 import { MoneyText } from '@shared/ui-kit';
 
 type FormatValue = {
-  [key in keyof LotFiltersBlockModel]: (value: LotFiltersBlockModel[key]) => ReactNode;
+  [key in keyof LotFilterSidebarModel]: (value: LotFilterSidebarModel[key]) => ReactNode;
 };
 
 export interface LotActiveFiltersProps {
-  filters: LotFiltersBlockModel;
+  filters: LotFilterSidebarModel;
   onReset: () => void;
 }
 

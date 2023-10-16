@@ -21,7 +21,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   const rpcSchema = useRpcSchemaClient();
 
-  const [filters, setFilters] = useState<UILogic.LotFiltersBlockModel>({});
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>({});
   const [columnsCount, setColumnsCount] = useState(3);
   const [originalLots, setOriginalLots] = useState<RPC.DTO.LotListActive.Result>({
     items: [],
@@ -105,7 +105,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   useDebounce(onSubmitFilters, CHANGE_FILTERS_DEBOUNCE_DURATION_MS, [filters]);
 
-  const onChangeFilters = (nextFilters: UILogic.LotFiltersBlockModel) => {
+  const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     setFilters((filters) => ({
       ...filters,
       ...nextFilters,
@@ -119,7 +119,7 @@ export const OtcDesk: React.FC = observer(() => {
       <Heading variant="pageHeader">OTC Desk</Heading>
       <LotAssetFilter assets={assets} value={filters.assets ?? []} onChange={(assets) => onChangeFilters({ assets })} />
       <HStack alignItems="start" w="full" gap="2rem">
-        {isFiltersOpened && <UILogic.LotFilterBlock filters={filters} onChange={onChangeFilters} />}
+        {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} onChange={onChangeFilters} />}
         <VStack w="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls
             toggleButton={{
