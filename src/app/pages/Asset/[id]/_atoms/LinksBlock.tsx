@@ -11,25 +11,54 @@ export interface LinksBlockProps {
 }
 
 export function LinksBlock({ links }: LinksBlockProps) {
-  const groupByLinkGroup = useMemo(() => LINQ.from(links).groupBy((m) => m.group), [links]);
+  const groupedByGroupLinks = new Map(LINQ.from(links).groupBy((link) => link.group));
+
+  const officialLinks = groupedByGroupLinks.get('OFFICIAL');
+  const socialLinks = groupedByGroupLinks.get('SOCIAL');
+  const otherLinks = groupedByGroupLinks.get('OTHER');
 
   return (
-    <UIKit.Section w="full">
-      <UIKit.SectionContent title="Project Links">
-        <VStack w="full" divider={<StackDivider borderStyle="dashed" color="dark.600" />} gap="1rem" alignItems="start">
-          {groupByLinkGroup
-            .filter(([group, links]) => links.length)
-            .map(([group, links]) => (
-              <HStack key={group}>
-                {links.map((link) => (
-                  <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                    {link.title}
-                  </UILogic.AssetLink>
-                ))}
-              </HStack>
-            ))}
-        </VStack>
-      </UIKit.SectionContent>
-    </UIKit.Section>
+    <VStack w="full" gap="0.8rem">
+      {officialLinks && (
+        <UIKit.Section w="full">
+          <UIKit.SectionContent title="Project Links">
+            <HStack>
+              {officialLinks.map((link) => (
+                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                  {link.title}
+                </UILogic.AssetLink>
+              ))}
+            </HStack>
+          </UIKit.SectionContent>
+        </UIKit.Section>
+      )}
+
+      {socialLinks && (
+        <UIKit.Section w="full">
+          <UIKit.SectionContent title="Social Links">
+            <HStack>
+              {socialLinks.map((link) => (
+                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                  {link.title}
+                </UILogic.AssetLink>
+              ))}
+            </HStack>
+          </UIKit.SectionContent>
+        </UIKit.Section>
+      )}
+      {otherLinks && (
+        <UIKit.Section w="full">
+          <UIKit.SectionContent title="Other Links">
+            <HStack>
+              {otherLinks.map((link) => (
+                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                  {link.title}
+                </UILogic.AssetLink>
+              ))}
+            </HStack>
+          </UIKit.SectionContent>
+        </UIKit.Section>
+      )}
+    </VStack>
   );
 }

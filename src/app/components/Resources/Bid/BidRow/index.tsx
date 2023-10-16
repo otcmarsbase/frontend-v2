@@ -29,7 +29,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
       value: <Text>{formatDate(bid.createdAt, 'ONLY_DATE')}</Text>,
     },
     {
-      label: BidRowFieldNameTitleMap.get('BID_FVD'),
+      label: BidRowFieldNameTitleMap.get('BID_FDV'),
       value: <UIKit.MoneyText value={bid.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
     },
     {

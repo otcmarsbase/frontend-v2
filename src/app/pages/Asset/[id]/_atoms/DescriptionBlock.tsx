@@ -7,7 +7,7 @@ export interface DescriptionBlockProps {
 
 export function DescriptionBlock({ description }: DescriptionBlockProps) {
   return (
-    <UIKit.Section>
+    <UIKit.Section h="full">
       <UIKit.SectionContent title="Description">
         <Text
           maxH="19rem"

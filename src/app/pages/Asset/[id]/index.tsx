@@ -4,7 +4,7 @@ import { useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { RPC, Resource } from '@schema/otc-desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
@@ -17,11 +17,14 @@ export default function View({ id }: ViewProps) {
   const rpcSchema = useRpcSchemaClient();
 
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [stats, setStats] = useState<RPC.DTO.AssetGetStatsById.Result>();
 
   const onPreload = useLoadingCallback(
     useCallback(async () => {
       const asset = await rpcSchema.send('asset.getById', { id });
+      const stats = await rpcSchema.send('asset.getStatsById', { id });
       setAsset(asset);
+      setStats(stats);
     }, [id, rpcSchema]),
   );
   usePreloadPage(onPreload);
@@ -29,20 +32,19 @@ export default function View({ id }: ViewProps) {
   const onLotClick = useCallback((lot: Resource.Lot.Lot) => {}, []);
 
   // TODO
-  if (!asset) return <>Empty</>;
+  if (!asset || !stats) return <>Empty</>;
 
   return (
     <VStack padding="2rem" gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={''} analyticsUrl="" />
+      <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl="" />
       <StatsBlock
-        // TODO
-        averageLotsFdv={'0000'}
-        averageBidsFdv={'0000'}
-        lotSellCount={0}
-        lotBuyCount={0}
-        lotQuantitySummary={'0000'}
+        averageLotsFdv={stats.averageFdv}
+        lotSellCount={stats.lotSellCount}
+        lotBuyCount={stats.lotBuyCount}
+        lotValueOnBuy={stats.lotBuyCvSum}
+        lotValueOnSell={stats.lotSellCvSum}
       />
-      <Grid templateColumns="30rem 2fr" gap="2rem">
+      <Grid templateColumns="30rem 2fr" gap="2rem" w="full">
         <GridItem h="full">
           <VStack alignItems="start" gap="0.75rem">
             <LinksBlock links={asset.info.links} />
