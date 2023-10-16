@@ -1,6 +1,8 @@
+import { useMemo, useState } from 'react';
+
+import { LocationDictionary } from '@app/dictionary';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
-import { Location } from 'src/app/components/Modals/CreateBidModal/schema';
 
 export type LocationSelectProps = Omit<
   React.ComponentProps<typeof UIKit.SelectSync<Resource.Common.Enums.Location>>,
@@ -8,7 +10,19 @@ export type LocationSelectProps = Omit<
 >;
 
 export const LocationSelect: React.FC<LocationSelectProps> = (props) => {
+  const [search, setSearch] = useState('');
+  const items = useMemo(
+    () =>
+      LocationDictionary.keys().filter((value) => (search ? value.toLowerCase().includes(search.toLowerCase()) : true)),
+    [search],
+  );
+
   return (
-    <UIKit.SelectSync<Resource.Common.Enums.Location> {...props} renderItem={(item) => item} items={Location.slice()} />
+    <UIKit.SelectSync<Resource.Common.Enums.Location>
+      {...props}
+      onSearch={setSearch}
+      renderItem={(item) => item}
+      items={items}
+    />
   );
 };

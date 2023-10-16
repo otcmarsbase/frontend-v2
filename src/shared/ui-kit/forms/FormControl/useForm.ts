@@ -45,13 +45,17 @@ export function useForm<TFieldValues extends FieldValues = FieldValues, TContext
 }: UseFormProps<TFieldValues, TContext>): UseFormReturn<TFieldValues, TContext> {
   const resolver = schema && yupResolver(schema, schemaResolveOptions);
 
-  const { handleSubmit: _handleSubmit, ...props } = useRhfForm<TFieldValues, TContext>({
+  const {
+    handleSubmit: _handleSubmit,
+    getValues,
+    ...props
+  } = useRhfForm<TFieldValues, TContext>({
     mode: 'onTouched',
     resolver: resolver as any,
     ...useFormProps,
   });
 
-  const isRequired = useIsRequired(schema);
+  const isRequired = useIsRequired(schema, getValues);
 
   const _onValid = useCallback<(child: SubmitHandler<TFieldValues>) => SubmitHandler<TFieldValues>>(
     (child) => (data, event) => {
@@ -79,5 +83,5 @@ export function useForm<TFieldValues extends FieldValues = FieldValues, TContext
     [_onValid, _onError, _handleSubmit],
   );
 
-  return { isRequired, handleSubmit, ...props };
+  return { isRequired, handleSubmit, getValues, ...props };
 }

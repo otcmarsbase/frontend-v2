@@ -2,7 +2,9 @@ import { FC, useCallback, useEffect, useState } from 'react';
 
 import { UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
-import { Box, Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
+import { MBPages } from '@app/pages';
+import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
@@ -18,6 +20,7 @@ interface BidsProps {
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const rpcSchema = useRpcSchemaClient();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
+  const router = useRouter();
 
   const loadBinds = useCallback(async () => {
     const { items } = await rpcSchema.send('bid.listByLot', { lots: [lot.id] });
@@ -30,9 +33,13 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
     preload();
   }, [preload]);
 
-  const onCreateBidClick = useCallback(async () => {
-    const bid = await ModalController.create(UIModals.CreateBidModal, {});
-  }, []);
+  const onCreateBidClick = async () => {
+    const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
+
+    if (!bid) return;
+
+    router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+  };
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -53,13 +60,13 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
-          <Box w="11rem">
+          {/* <Box w="11rem">
             <UIKit.SelectSync<SortBidsByType>
               placeholder="Sort by"
               items={SortBidsByTypeDictionary.keys()}
               renderItem={(item) => SortBidsByTypeDictionary.get(item).title}
             />
-          </Box>
+          </Box> */}
 
           {!isOfferMaker && (
             <UILogic.AuthAction>
@@ -77,7 +84,13 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
           )}
         </HStack>
       </HStack>
-      <BidsList isOfferMaker={isOfferMaker} bids={bids} isLoading={preload.isLoading} refreshBids={loadBinds} />
+      <BidsList
+        isOfferMaker={isOfferMaker}
+        bids={bids}
+        isLoading={preload.isLoading}
+        refreshBids={loadBinds}
+        onCreateBid={onCreateBidClick}
+      />
     </VStack>
   );
 };
