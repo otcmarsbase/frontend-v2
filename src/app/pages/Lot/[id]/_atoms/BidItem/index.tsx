@@ -1,4 +1,4 @@
-import { AccountAvatar } from '@app/components';
+import { AccountAvatar, UILogic } from '@app/components';
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -34,6 +34,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
   return (
     <HStack
       w="full"
+      alignItems="flex-start"
       justifyContent="space-between"
       bg="dark.900"
       borderRadius="sm"
@@ -50,9 +51,9 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bid.bidMaker.id} />
+        <AccountAvatar nickname={bid.bidMaker.nickname} />
       </VStack>
-      <SimpleGrid w="75%" columns={6} gridColumnGap="1.9rem">
+      <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">
           <MoneyText
             fontSize="sm"
@@ -88,7 +89,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
           {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}
         </BidItemColumn>
         <BidItemColumn type="STATUS">
-          <Text>{bid.status}</Text>
+          <UILogic.BidStatus value={bid.status} />
         </BidItemColumn>
       </SimpleGrid>
       <OfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />

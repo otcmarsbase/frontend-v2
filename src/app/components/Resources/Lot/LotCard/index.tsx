@@ -88,12 +88,10 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           />
         ),
       },
-      lot.deadline
-        ? {
-            name: 'Lot Deadline',
-            value: <Text>{formatDate(lot.deadline, 'ONLY_DATE')}</Text>,
-          }
-        : null,
+      {
+        name: 'Lot Deadline',
+        value: <Text>{lot.deadline ? formatDate(lot.deadline, 'ONLY_DATE') : '-'}</Text>,
+      },
       {
         name: 'Vertical',
         colSpan: 2,
@@ -135,11 +133,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         {asset && (
           <UILogic.AssetName
             asset={asset}
-            onClick={(e) => {
-              // e.stopPropagation();
-              // e.preventDefault();
-              // router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {});
-            }}
+            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
           />
         )}
       </Box>

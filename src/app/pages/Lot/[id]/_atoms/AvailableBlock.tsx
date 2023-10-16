@@ -31,6 +31,13 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
     },
   ]);
 
+  const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
+  const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
+    .add(lot.executed.stablecoinQuantity.value)
+    .add(availableSum)
+    .toDecimalPlaces(2)
+    .toNumber();
+
   return (
     <VStack bg="dark.900" p="1.25rem" borderRadius="sm">
       <HStack w="full" justifyContent="space-between">
@@ -38,19 +45,9 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
           Available
         </Text>
         <HStack>
-          <MoneyText
-            fontSize="sm"
-            value={lot.available.unitQuantity.value}
-            abbreviated
-            addon={<Text color="dark.50">$</Text>}
-          />
+          <MoneyText fontSize="sm" value={availableSum} abbreviated addon={<Text color="dark.50">$</Text>} />
           <Text fontSize="sm">/</Text>
-          <MoneyText
-            fontSize="sm"
-            value={lot.executed.unitQuantity.value}
-            abbreviated
-            addon={<Text color="dark.50">$</Text>}
-          />
+          <MoneyText fontSize="sm" value={totalSum} abbreviated addon={<Text color="dark.50">$</Text>} />
         </HStack>
       </HStack>
       <Box w="full" h="11rem">

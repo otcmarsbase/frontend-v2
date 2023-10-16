@@ -1,46 +1,80 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
-import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { useRouter } from '@packages/router5-react-auto';
+import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Empty, List, Pagination } from '@shared/ui-kit';
+
+import { ListLoader } from './_atoms';
 
 const MyBids: React.FC = observer(() => {
-  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
+  const [items, setItems] = useState<Resource.Bid.Bid[]>([]);
+  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  const loadBids = useCallback(async () => {
+  const paginationOptions = useMemo(
+    () => ({
+      page,
+      total,
+      pageSize: 10,
+    }),
+    [page, total],
+  );
+
+  const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
+    const { page, pageSize } = paginationOptions;
+    const skip = (page - 1) * pageSize;
+
+    return { skip, limit: pageSize };
+  }, [paginationOptions]);
+
+  const fetchItems = useCallback(async () => {
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setBids([]);
+      const { items, total } = await rpcSchema.send('bid.listMy', fetchPayload);
+      const assets: Resource.Asset.Asset[] = [];
+
+      for (const { assetKey } of items) {
+        const asset = await rpcSchema.send('asset.getById', assetKey);
+        assets.push(asset);
+      }
+
+      setItems(items);
+      setAssets(assets);
+      setTotal(total);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema, fetchPayload]);
+
+  const findAsset = useCallback(
+    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
+    [assets],
+  );
 
   useEffect(() => {
-    loadBids();
-  }, [loadBids]);
+    fetchItems();
+  }, [fetchItems]);
 
-  const [paginationOptions] = useState<PaginationProps>({
-    page: 1,
-    pageSize: 25,
-    total: 30,
-  });
-
-  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
+  const onChangePage = (page: number) => setPage(page);
 
   return (
     <VStack width="full">
       <List
         width="full"
-        items={bids}
+        items={items}
         itemKey={(item) => item.id}
         isLoading={isLoading}
+        loader={ListLoader}
         emptyText={
           <Empty
             createButton={
@@ -50,73 +84,19 @@ const MyBids: React.FC = observer(() => {
             }
           />
         }
-        footer={bids.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
+        footer={items.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
         itemRender={(item) => (
-          // <LotRow
-          //   onClick={() => router.navigateComponent(MBPages.Marketplace.Home, { id: '' }, {})}
-          //   lot={{
-          //     id: item.id,
-          //     type: item,
-          //     lotName: item.lotName,
-          //     lotIconName: item.lotIconName,
-          //     direction: item.offerType,
-          //     isHot: item.isHot,
-          //     status: <LotStatus value={item.status} />,
-          //     fields: [
-          //       {
-          //         label: 'Lot Type',
-          //         value: <LotTypeChip headingProps={{ variant: 'h6' }} lotType={item.lotType} />,
-          //       },
-          //       {
-          //         label: 'Published at',
-          //         value: format(item.publishedAt, 'dd.MM.yyyy'),
-          //       },
-          //       {
-          //         label: 'Bid FDV',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">
-          //               {item.fdv.toLocaleString('en-US', {
-          //                 maximumFractionDigits: 0,
-          //               })}
-          //             </Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               $
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Bid size',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">{item.bidSize}</Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               %
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Offer Maker',
-          //         value: <Chip offerMaker={item.offerMaker} offerMakerIcon={item.offerMakerIcon} />,
-          //       },
-          //       {
-          //         label: 'Direct Seller/Or not',
-          //         value: item.isDirectSeller ? 'yes' : 'nope',
-          //       },
-          //       {
-          //         label: 'Location',
-          //         value: (
-          //           <Heading fontSize="1rem" fontWeight="500" lineHeight="1.5rem">
-          //             {item.location}
-          //           </Heading>
-          //         ),
-          //       },
-          //     ],
-          //   }}
-          // />
-          <></>
+          <UILogic.BidRow
+            bid={item}
+            asset={findAsset(item.assetKey)}
+            onClick={() => {
+              if (item.deal) {
+                router.navigateComponent(MBPages.Deal.__id__, { id: item.deal.id }, {});
+              } else {
+                router.navigateComponent(MBPages.Lot.__id__, { id: item.lotKey.id }, {});
+              }
+            }}
+          />
         )}
       />
     </VStack>

@@ -70,7 +70,7 @@ export const PaginationViewButtonGroup: React.FC<PaginationViewProps> = ({
         <Button
           key={key}
           variant={isSelected ? 'solid' : 'outline'}
-          onClick={() => (page !== key ? onChangePageLoading.keyLoad(key)(page) : null)}
+          onClick={() => onChangePageLoading.keyLoad(key)(page)}
           isLoading={onChangePageLoading.keyLoad(key).isLoading}
           disabled={onChangePageLoading.isLoadingAny}
           __css={{

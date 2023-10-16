@@ -28,6 +28,7 @@ export const ActiveFilters: FC<ActiveFiltersProps> = ({ filters, onReset }) => {
         <MoneyText value={to} abbreviated addon="$" />
       </HStack>
     ),
+    search: (value) => `Search: ${value}`,
     assets: (value) => value.map((asset) => asset.info.title),
   };
 

@@ -14,26 +14,14 @@ export namespace LotSAFT {
   >;
 
   export type Draft = LotAsset.Draft &
-    LotBase.LotDirectionModel<
-      {},
-      { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }
-    >;
+    LotBase.LotDirectionModel<{}, { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }>;
 
   export type OnModeration = LotAsset.OnModeration &
-    LotBase.LotDirectionModel<
-      {},
-      { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }
-    >;
+    LotBase.LotDirectionModel<{}, { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }>;
 
   export type Active = LotAsset.Active &
-    LotBase.LotDirectionModel<
-      {},
-      { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }
-    >;
+    LotBase.LotDirectionModel<{}, { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }>;
 
   export type Completed = LotAsset.Completed &
-    LotBase.LotDirectionModel<
-      {},
-      { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }
-    >;
+    LotBase.LotDirectionModel<{}, { tge?: Common.Dates.TGE; lockupPeriod?: Common.Text.LockupPeriod; vestingPeriod?: Common.Text.VestingPeriod }>;
 }

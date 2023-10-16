@@ -67,6 +67,7 @@ export const OfferMakerActions: FC<OfferMakerActions> = ({ bid, isOfferMaker, re
       justifyContent="flex-end"
       bgGradient="linear-gradient(270deg, #0B0B0B 21.4%, rgba(0, 0, 0, 0) 87.13%);"
       _groupHover={{ opacity: 1 }}
+      px="1rem"
     >
       {canAccept && (
         <Button size="xs" onClickCapture={accept} isLoading={acceptIsLoading} isDisabled={rejectIsLoading}>

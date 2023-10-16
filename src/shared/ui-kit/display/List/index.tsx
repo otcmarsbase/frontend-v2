@@ -1,9 +1,13 @@
-import { Fragment } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 
 import { Button, Stack, StackProps } from '@chakra-ui/react';
 
 import { Empty } from '../Empty';
-import { Loader } from '../Loader';
+import { Loader as DefaultLoader } from '../Loader';
+
+export interface ListLoaderProps {
+  isLoading?: boolean;
+}
 
 export interface ListProps<T> extends StackProps {
   items: T[];
@@ -12,6 +16,7 @@ export interface ListProps<T> extends StackProps {
   emptyText?: React.ReactNode;
   isLoading?: boolean;
   footer?: React.ReactNode;
+  loader?: React.ComponentType<PropsWithChildren<ListLoaderProps>>;
 }
 
 export function List<T>({
@@ -21,6 +26,7 @@ export function List<T>({
   itemRender = () => <></>,
   emptyText = <Empty createButton={<Button onClick={() => {}}>Create item</Button>} />,
   isLoading = false,
+  loader: Loader = DefaultLoader,
   ...stackProps
 }: ListProps<T>) {
   return (

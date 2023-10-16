@@ -1,5 +1,6 @@
 import * as SchemaCommon from '@schema/common';
 
+import { Asset } from './Asset';
 import { Bid } from './Bid';
 import { Common } from './Common';
 import { Lot } from './Lot';
@@ -76,6 +77,7 @@ export namespace Deal {
   }
 
   export interface Deal extends SchemaCommon.Resource<'deal'>, SchemaCommon.ResourceOmit<DealKey> {
+    assetKey: Asset.AssetKey;
     lotKey: Lot.LotKey;
     bidKey: Bid.BidKey;
     createdAt: number;

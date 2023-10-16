@@ -1,12 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
-import { Empty, List, Pagination, PaginationProps } from '@shared/ui-kit';
+import { useRouter } from '@packages/router5-react-auto';
+import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Empty, List, Pagination } from '@shared/ui-kit';
+
+import { ListLoader } from './_atoms';
 
 export interface DealsProps {
   filters?: {
@@ -18,37 +22,67 @@ export interface DealsProps {
 }
 
 const Deals: React.FC<DealsProps> = observer(() => {
-  const [deals, setDeals] = useState<Resource.Deal.Deal[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const rpcSchema = useRpcSchemaClient();
+  const router = useRouter();
+  const [items, setItems] = useState<Resource.Deal.Deal[]>([]);
+  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  const loadDeals = useCallback(async () => {
+  const paginationOptions = useMemo(
+    () => ({
+      page,
+      total,
+      pageSize: 10,
+    }),
+    [page, total],
+  );
+
+  const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
+    const { page, pageSize } = paginationOptions;
+    const skip = (page - 1) * pageSize;
+
+    return { skip, limit: pageSize };
+  }, [paginationOptions]);
+
+  const fetchItems = useCallback(async () => {
     setIsLoading(true);
     try {
-      setDeals([]);
+      const { items, total } = await rpcSchema.send('deals.listMy', fetchPayload);
+      const assets: Resource.Asset.Asset[] = [];
+
+      for (const { assetKey } of items) {
+        const asset = await rpcSchema.send('asset.getById', assetKey);
+        assets.push(asset);
+      }
+
+      setItems(items);
+      setAssets(assets);
+      setTotal(total);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [rpcSchema, fetchPayload]);
+
+  const findAsset = useCallback(
+    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
+    [assets],
+  );
 
   useEffect(() => {
-    loadDeals();
-  }, [loadDeals]);
+    fetchItems();
+  }, [fetchItems]);
 
-  const [paginationOptions] = useState<PaginationProps>({
-    page: 1,
-    pageSize: 25,
-    total: 30,
-  });
-
-  const onChangePage = useCallback(async (page: number, limit: number) => {}, []);
-
+  const onChangePage = (page: number) => setPage(page);
   return (
     <VStack width="full">
       <List
         width="full"
-        items={deals}
+        items={items}
         itemKey={(item) => item.id}
         isLoading={isLoading}
+        loader={ListLoader}
         emptyText={
           <Empty
             createButton={
@@ -59,75 +93,13 @@ const Deals: React.FC<DealsProps> = observer(() => {
           />
         }
         itemRender={(item) => (
-          // TODO replace to DealRow
-          // <LotRow
-          //   onClick={() => router.navigateComponent(MBPages.Deal.__id__ as any, { id: item.id }, {})}
-          //   lot={{
-          //     id: item.id,
-          //     lotName: item.lotName,
-          //     lotIconName: item.lotIconName,
-          //     direction: item.offerType,
-          //     isHot: null,
-          //     status: null,
-          //     fields: [
-          //       {
-          //         label: 'Lot Type',
-          //         value: <LotTypeChip headingProps={{ variant: 'h6' }} lotType={item.lotType} />,
-          //       },
-          //       {
-          //         label: 'Lot ID',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text variant="h1" whiteSpace="nowrap">
-          //               #{item.lotId}
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Deal size',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">
-          //               {item.dealSize.toLocaleString('en-US', {
-          //                 maximumFractionDigits: 0,
-          //               })}
-          //             </Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               $
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Deal FDV',
-          //         value: (
-          //           <HStack fontWeight={600}>
-          //             <Text whiteSpace="nowrap">
-          //               {item.dealFDV.toLocaleString('en-US', {
-          //                 maximumFractionDigits: 0,
-          //               })}
-          //             </Text>
-          //             <Text whiteSpace="nowrap" color="dark.50">
-          //               $
-          //             </Text>
-          //           </HStack>
-          //         ),
-          //       },
-          //       {
-          //         label: 'Created time',
-          //         value: format(item.createdAt, 'dd.mm.yyyy'),
-          //       },
-          //       {
-          //         label: 'Status',
-          //         value: <DealStatus value={item.status} />,
-          //       },
-          //     ],
-          //   }}
-          // />
-          <></>
+          <UILogic.DealRow
+            deal={item}
+            asset={findAsset(item.assetKey)}
+            onClick={() => router.navigateComponent(MBPages.Deal.__id__, { id: item.id }, {})}
+          />
         )}
-        footer={deals.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
+        footer={items.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
       />
     </VStack>
   );

@@ -617,7 +617,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Skeleton: {
       sizes: string & {};
-      variants: 'orange' | (string & {});
+      variants: 'orange' | 'gray' | (string & {});
     };
     SkipLink: {
       sizes: string & {};

@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import { HStack, Image, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 
@@ -10,8 +12,24 @@ export interface AssetNameProps {
 }
 
 export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClick }) => {
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
+      onClick && onClick(e);
+    },
+    [onClick],
+  );
+
   return (
-    <HStack gap="0.5rem" alignItems="center" onClick={onClick} cursor={onClick && 'pointer'}>
+    <HStack
+      gap="0.5rem"
+      alignItems="center"
+      onClick={handleClick}
+      cursor={onClick && 'pointer'}
+      _hover={{
+        textDecoration: onClick && 'underline',
+      }}
+    >
       <AssetImage
         rounded="full"
         objectFit="cover"

@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useAuth, useRpcSchemaClient } from '@app/components';
-import { usePreloadPage } from '@app/hooks';
+import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { useStore } from '@app/store';
 import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -15,11 +13,6 @@ import { toNumber } from 'lodash';
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
-
-const UserState = {
-  isOfferMaker: true,
-  isBidder: true,
-};
 
 export interface LotProps extends React.PropsWithChildren {
   id: number;
@@ -46,7 +39,7 @@ export default function Lot({ id }: LotProps) {
 
       setLot(lot);
       setAsset(asset);
-    }, [rpcSchema, id]),
+    }, [id, rpcSchema]),
   );
 
   useEffect(() => {
@@ -59,6 +52,8 @@ export default function Lot({ id }: LotProps) {
   const handleUnPublishLot = () => {
     console.log('handleUnpublishLot');
   };
+
+  if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
   if (!lot) return;
 

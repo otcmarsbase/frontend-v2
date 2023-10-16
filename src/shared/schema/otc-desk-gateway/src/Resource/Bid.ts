@@ -1,7 +1,9 @@
 import * as SchemaCommon from '@schema/common';
 
+import { Asset } from './Asset';
 import { Common } from './Common';
 import { Deal } from './Deal';
+import { Lot } from './Lot';
 import { User } from './User';
 
 export namespace Bid {
@@ -18,8 +20,9 @@ export namespace Bid {
     createdAt: number;
     deadline?: number;
     status: Enums.BidStatus;
-
-    bidMaker: User.UserKey;
+    lotKey: Lot.LotKey;
+    assetKey: Asset.AssetKey;
+    bidMaker: User.User;
     bidMakerType: Common.Enums.InvestorType;
     location: Common.Enums.Location;
     mediatorType: Common.Enums.MediatorType;

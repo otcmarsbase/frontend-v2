@@ -1,10 +1,18 @@
+import { useMemo } from 'react';
+
 import { UILogic } from '@app/components';
+import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
 import { LotRowFieldNameTitleMap } from './const';
+
+interface FieldType {
+  label: React.ReactNode;
+  value: React.ReactNode;
+}
 
 export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: Resource.Lot.Lot;
@@ -15,42 +23,56 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
   const isHot = true;
 
-  const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
-    {
-      label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
-      value: <Text>1212</Text>,
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
-      value: <Text>1212</Text>,
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('FDV'),
-      value: <Text>1212</Text>,
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-      value: <Text>1212</Text>,
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('VERTICAL'),
-      value: (
-        <HStack>
-          {asset.info.verticals.map((vertical) => (
-            <UILogic.AssetVerticalIcon value={vertical} />
-          ))}
-        </HStack>
-      ),
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('FINISHED_AT'),
-      value: <Text>1212</Text>,
-    },
-    {
-      label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
-      value: <Text>1212</Text>,
-    },
-  ];
+  const fields = useMemo<FieldType[]>(() => {
+    return [
+      {
+        label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
+        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />,
+      },
+      {
+        label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
+        value: <Text>{formatDate(lot.createdAt, 'ONLY_DATE')}</Text>,
+      },
+      {
+        label: LotRowFieldNameTitleMap.get('FDV'),
+        value: (
+          <UIKit.MoneyText
+            value={lot.contractSize.contractShare.fdv.value || 0}
+            abbreviated
+            addon={
+              <Text as="span" color="dark.50">
+                $
+              </Text>
+            }
+          />
+        ),
+      },
+      {
+        label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
+        value: <Text>1212</Text>,
+      },
+      {
+        label: LotRowFieldNameTitleMap.get('VERTICAL'),
+        value: (
+          <HStack>
+            {asset.info.verticals.map((vertical, index) => (
+              <UILogic.AssetVerticalIcon value={vertical} key={index} />
+            ))}
+          </HStack>
+        ),
+      },
+      lot.deadline
+        ? {
+            label: LotRowFieldNameTitleMap.get('DEADLINE'),
+            value: <Text>{formatDate(lot.deadline, 'ONLY_DATE')}</Text>,
+          }
+        : null,
+      {
+        label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
+        value: <Text>1212</Text>,
+      },
+    ].filter(Boolean);
+  }, [lot, asset]);
 
   return (
     <HStack
@@ -102,15 +124,9 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
               w="100%"
               key={index}
               borderBottom="1px solid"
-              borderColor="dark.400"
-              marginRight="8rem"
+              borderColor={index > 3 ? 'transparent' : 'dark.400'}
+              marginRight={index > 3 ? 0 : '8rem'}
               pb="0.75rem"
-              __css={{
-                [`:nth-last-child(-n+3)`]: {
-                  marginRight: 'none',
-                  borderColor: 'transparent',
-                },
-              }}
             >
               <VStack alignItems="start" maxW="8rem" w="full">
                 <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
