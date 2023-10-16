@@ -18,8 +18,6 @@ export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 
 export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackProps }) => {
   const router = useRouter();
-  // TODO replace
-  const isHot = false;
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     // {
@@ -50,6 +48,10 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
       label: BidRowFieldNameTitleMap.get('LOCATION'),
       value: <Text>{capitalize(bid.location)}</Text>,
     },
+    {
+      label: BidRowFieldNameTitleMap.get('DEADLINE'),
+      value: <Text>{bid.deadline ? formatDate(bid.deadline, 'ONLY_DATE') : '-'}</Text>,
+    },
   ];
 
   return (
@@ -74,21 +76,6 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
           <Text color="dark.200">#{bid.id}</Text>
-          {isHot && (
-            <HStack
-              borderRadius="0.25rem"
-              bg="rgba(207, 79, 41, 0.40)"
-              padding="0.12rem 0.5rem"
-              alignItems="center"
-              gap="0.12rem"
-              justifyContent="center"
-            >
-              <Text fontWeight="semibold" fontSize="2xs">
-                HOT!
-              </Text>
-              <UIIcons.Common.HotIcon w="0.75rem" h="0.75rem" />
-            </HStack>
-          )}
         </HStack>
         <HStack gap="0.5rem" alignItems="center">
           <UILogic.AssetName

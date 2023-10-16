@@ -77,9 +77,12 @@ const MyBids: React.FC = observer(() => {
         loader={ListLoader}
         emptyText={
           <Empty
+            description="Unfortunately, you don't have any bids yet. You can go to the marketplace and view the lots of interest"
             createButton={
               <UILogic.AuthAction>
-                <Button onClick={() => {}}>Create bid</Button>
+                <Button onClick={() => router.navigateComponent(MBPages.Marketplace.Home, {}, {})}>
+                  Go to marketplace
+                </Button>
               </UILogic.AuthAction>
             }
           />

@@ -35,11 +35,11 @@ export function Header() {
               <Link>OTC Desk</Link>
             </LinkComponent>
 
-            {isAuthorized && (
+            <UILogic.AuthAction>
               <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
                 <Link>My Dashboard</Link>
               </LinkComponent>
-            )}
+            </UILogic.AuthAction>
 
             <UILogic.AuthAction>
               <LinkComponent page={pages.Lot.Create.Home} pageProps={{}}>

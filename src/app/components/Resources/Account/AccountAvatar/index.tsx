@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { formatAddress } from '@app/utils';
 import { Circle, HStack, StackProps, Text } from '@chakra-ui/react';
 
 import defaultAvatar from './images/defaultAvatar.png';
@@ -20,9 +21,10 @@ export const AccountAvatar: React.FC<AccountAvatarProps> = ({
   ...stackProps
 }) => {
   const preparedNickname = useMemo(() => {
+    if (nickname.startsWith('0x')) return formatAddress(nickname, 8, 4);
     if (shortNickname && nickname.length > nicknameMaxLength) return `${nickname.slice(0, nicknameMaxLength)}...`;
     return nickname;
-  }, [nickname, nicknameMaxLength]);
+  }, [nickname, nicknameMaxLength, shortNickname]);
 
   return (
     <HStack {...stackProps}>

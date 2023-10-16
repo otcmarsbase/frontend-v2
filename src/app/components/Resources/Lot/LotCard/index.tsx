@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { AssetVerticalIcon, UILogic, useRpcSchemaClient } from '@app/components';
+import { AssetVerticalIcon, LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
@@ -75,18 +75,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       },
       {
         name: 'Total Bids Placed',
-        value: (
-          <UIKit.MoneyText
-            // TODO тут другое поле будет
-            value={0}
-            abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
-          />
-        ),
+        value: <Text>{lot.totalBids}</Text>,
       },
       {
         name: 'Lot Deadline',
@@ -129,6 +118,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
             #{lot.id}
           </Text>
           <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />
+          {lot.isHot && <LotHotChip />}
         </HStack>
         {asset && (
           <UILogic.AssetName
