@@ -22,6 +22,7 @@ export interface DropdownItem {
   icon?: React.ComponentType<IconProps>;
   onClick?: () => void;
   as?: MenuItemProps['as'];
+  target?: string;
 }
 export interface DropdownProps extends React.PropsWithChildren {
   trigger?: PopoverProps['trigger'];
@@ -38,8 +39,10 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const onOptionClick = (event: React.MouseEvent<HTMLDivElement>, item: DropdownItem) => {
-    event.stopPropagation();
-    item.onClick && item.onClick();
+    if (item.onClick) {
+      event.stopPropagation();
+      item.onClick();
+    }
     onClose();
   };
 
@@ -51,7 +54,8 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
         <PopoverBody p="1rem 0">
           <VStack gap="0">
             {items.map((item, index) => {
-              const Icon = item.icon || null;
+              const { icon, as, label, ...itemProps } = item;
+              const Icon = icon || null;
 
               return (
                 <HStack
@@ -69,7 +73,7 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
                   w="full"
                   px="1rem"
                   fontSize="sm"
-                  as={item.as}
+                  as={as}
                   transition="background 0.3s"
                   _before={{
                     position: 'absolute',
@@ -82,9 +86,10 @@ export const Dropdown: React.FC<PropsWithChildren<DropdownProps>> = ({
                     bottom: 0,
                     bg: 'orange.500',
                   }}
+                  {...itemProps}
                 >
                   {Icon && <Icon />}
-                  <Text>{item.label}</Text>
+                  <Text>{label}</Text>
                 </HStack>
               );
             })}

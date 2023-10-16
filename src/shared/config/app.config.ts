@@ -16,6 +16,11 @@ export interface AppConfigType {
 
   links: {
     docsURL: string;
+    howItWorksURL: string;
+    aboutURL: string;
+    supportURL: string;
+    termsOfUseURL: string;
+    privacyPolicyURL: string;
   };
 
   wagmi: {
@@ -28,13 +33,15 @@ export interface AppConfigType {
   };
 
   socials: {
-    discordUrl: string;
+    linkedinUrl: string;
     twitterUrl: string;
     githubUrl: string;
     telegramUrl: string;
     mediumUrl: string;
     redditUrl: string;
     linktreeUrl: string;
+    youtubeUrl: string;
+    instagramUrl: string;
   };
 }
 
@@ -50,6 +57,11 @@ export const AppConfig: AppConfigType = {
 
   links: {
     docsURL: configurator.get('DOCS_BASE_URL'),
+    howItWorksURL: ' https://otc-marsbase-1.gitbook.io/marsbase/',
+    aboutURL: 'https://otc-marsbase-1.gitbook.io/marsbase/about-us/about-marsbase',
+    supportURL: 'https://t.me/marsbase_saft_bot',
+    termsOfUseURL: 'https://drive.google.com/file/d/1PlJSXdu7b8dH3EAY7XY7NPSsB9YZS6Pg/view',
+    privacyPolicyURL: 'https://drive.google.com/file/d/1mHwB3uSvzpRFOQftK8EOTmxMRX2LVfq8/view',
   },
 
   wagmi: {
@@ -62,12 +74,14 @@ export const AppConfig: AppConfigType = {
   },
 
   socials: {
+    linkedinUrl: 'https://www.linkedin.com/company/marsbase/',
     linktreeUrl: 'https://linktr.ee/MARSBASE/',
-    discordUrl: 'https://discord.com/channels/889519633890177074/892286634224132106/',
     twitterUrl: 'https://twitter.com/MARSBASEio/',
     githubUrl: 'https://github.com/otcmarsbase/',
     telegramUrl: 'https://t.me/otcmarsbase/',
     mediumUrl: 'https://marsbaseotc.medium.com/',
     redditUrl: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
+    youtubeUrl: 'https://www.youtube.com/channel/UCmtM-VPNiLLQljTEJAd0PHg',
+    instagramUrl: 'https://www.instagram.com/marsbase.io/',
   },
 };
