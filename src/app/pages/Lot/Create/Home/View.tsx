@@ -15,6 +15,7 @@ import { CreateLotDictionary } from './const';
 const CreateLot: React.FC<React.PropsWithChildren> = () => {
   const { formContext } = useCreateLotContext();
   const formMethods = useForm<Resource.Lot.Lot, FormContext>({
+    mode: 'onTouched',
     defaultValues: {
       resource: 'lot',
       type: 'SAFE',

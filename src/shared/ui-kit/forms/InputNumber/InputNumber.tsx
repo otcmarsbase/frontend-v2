@@ -19,6 +19,10 @@ export function InputNumber({ value, onChange, ...props }: InputNumberProps) {
 
   const onChangeString = useCallback(
     (value: string) => {
+      if (!value) {
+        return onChange?.(null, null);
+      }
+
       if (isValidNumber(value)) {
         const valueNumber = new Decimal(normalizeNumber(value)).toNumber();
         if (onChange) {
