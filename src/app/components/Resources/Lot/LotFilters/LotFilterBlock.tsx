@@ -30,7 +30,10 @@ export function LotFilterBlock({ filters, onChange }: LotFilterBlockProps) {
       <VStack w="100%">
         <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Re-assign</FormLabel>
-          <Checkbox isChecked={!!filters.withReassing} onChange={(e) => onChange({ withReassing: e.target.checked })} />
+          <Checkbox
+            isChecked={!!filters.withReassing}
+            onChange={(e) => onChange({ withReassing: e.target.checked ? true : undefined })}
+          />
         </FormControl>
         {/* <FormControl display="flex" justifyContent="space-between">
           <FormLabel>Only validated offers</FormLabel>

@@ -14,8 +14,8 @@ export const projectInfoSchema: yup.ObjectSchema<ProjectInfoModel> = yup.object(
     .oneOf(ParticipantTypeDictionary.keys())
     .required('Type of buyer is required'),
   typeOfSeller: yup
-    .mixed<Resource.Common.Enums.InvestorType>()
-    .oneOf(ParticipantTypeDictionary.keys())
+    .array()
+    .of(yup.string().oneOf(ParticipantTypeDictionary.keys()))
     .nullable()
     .when('isNoLimit', ([isNoLimit], field) => (isNoLimit ? field : field.required('Type of seller is required'))),
   telegram: yup.string().required('Telegram is required'),

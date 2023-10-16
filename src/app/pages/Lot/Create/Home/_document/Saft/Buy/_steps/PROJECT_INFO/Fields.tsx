@@ -57,7 +57,7 @@ export function ProjectInfoFields() {
                 control={control}
                 name="isDirect"
                 render={(props) => (
-                  <Checkbox checked={props.field.value} onChange={props.field.onChange}>
+                  <Checkbox isChecked={!!props.field.value} onChange={props.field.onChange}>
                     {ProjectInfoFieldsDictionary.get('IS_DIRECT').title}
                   </Checkbox>
                 )}
@@ -116,7 +116,7 @@ export function ProjectInfoFields() {
               name="isNoLimit"
               render={(props) => (
                 <Checkbox
-                  checked={props.field.value}
+                  isChecked={!!props.field.value}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     props.field.onChange(checked);
@@ -157,7 +157,7 @@ export function ProjectInfoFields() {
               name="isPermanent"
               render={(props) => (
                 <Checkbox
-                  checked={props.field.value}
+                  isChecked={!!props.field.value}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     props.field.onChange(checked);

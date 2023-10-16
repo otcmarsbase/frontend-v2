@@ -18,7 +18,8 @@ export const StartInfoFieldsDictionary = createDictionary<StartInfoFieldName, St
     },
     LOT_TYPE: {
       title: 'Type of lot',
-      tooltip: 'Simple Agreement for Future Equity',
+      tooltip:
+        'A financial instrument that grants the holder the right to purchase a specific quantity of tokens at a predetermined price within a specified timeframe.',
     },
     IS_REASSIGNED: {
       title: 'Re-assign',

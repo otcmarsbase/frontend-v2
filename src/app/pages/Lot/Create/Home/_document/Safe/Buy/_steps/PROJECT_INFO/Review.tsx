@@ -21,7 +21,13 @@ export const PrjectInfoReview: React.FC = () => {
       fields={[
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_SELLER').title,
-          renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
+          renderValue: (model) => (
+            <Text color="white">
+              {model.typeOfSeller
+                ? model.typeOfSeller.map((type) => ParticipantTypeDictionary.get(type).title).join(', ')
+                : 'No limitations'}
+            </Text>
+          ),
         },
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('IS_DIRECT').title,
@@ -37,7 +43,7 @@ export const PrjectInfoReview: React.FC = () => {
         },
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('TYPE_OF_BUYER').title,
-          renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfSeller).title}</Text>,
+          renderValue: (model) => <Text color="white">{ParticipantTypeDictionary.get(model.typeOfBuyer).title}</Text>,
         },
         {
           renderTitle: () => ProjectInfoFieldsDictionary.get('IS_NO_LIMIT').title,

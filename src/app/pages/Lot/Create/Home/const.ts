@@ -103,3 +103,25 @@ export const PricingModelFieldTypeDictionary = createDictionary<PricingModelType
     },
   }))
   .asReadonly();
+
+export const PricingModelFieldUnitDictionary = createDictionary<
+  PricingModelType,
+  Record<PricingModelFieldType, string>
+>().setFromRecord({
+  IN_EQUITY: {
+    QUANTITY: '%',
+    MIN_SIZE: '%',
+  },
+  IN_STABLECOIN: {
+    QUANTITY: '$',
+    MIN_SIZE: '$',
+  },
+  IN_TOKENS: {
+    QUANTITY: '',
+    MIN_SIZE: '',
+  },
+  IN_TOKEN_SHARES: {
+    QUANTITY: '%',
+    MIN_SIZE: '%',
+  },
+});

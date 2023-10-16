@@ -1,9 +1,8 @@
-import isEmpty from 'lodash/isEmpty';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 
 export function isDeeplyEmpty<T>(value: T) {
-  if (isEmpty(value)) return true;
+  if (value === undefined || value === null) return true;
 
   if (isObject(value)) {
     if (Object.keys(value).length === 0) return true;
