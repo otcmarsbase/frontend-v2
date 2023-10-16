@@ -14,7 +14,12 @@ import {
 import { SuggestionIcon, Tooltip, UIKit, useIsRequired } from '@shared/ui-kit';
 
 import { useCreateLotContext } from '../../../../../_atoms';
-import { PricingModelFieldTypeDictionary, PricingModelType, PricingModelTypeDictionary } from '../../../../../const';
+import {
+  PricingModelFieldTypeDictionary,
+  PricingModelFieldUnitDictionary,
+  PricingModelType,
+  PricingModelTypeDictionary,
+} from '../../../../../const';
 
 import { LotInfoFieldsDictionary } from './const';
 import { lotInfoSchema } from './schema';
@@ -31,6 +36,11 @@ export function LotInfoFields() {
   const pricingModelTypes = useMemo<PricingModelType[]>(() => ['IN_STABLECOIN', 'IN_TOKEN_SHARES'], []);
   const pricingModelFieldDictionary = useMemo(
     () => PricingModelFieldTypeDictionary.get(pricingModelType),
+    [pricingModelType],
+  );
+
+  const pricingModelFieldUnitDictionary = useMemo(
+    () => PricingModelFieldUnitDictionary.get(pricingModelType),
     [pricingModelType],
   );
 
@@ -83,7 +93,7 @@ export function LotInfoFields() {
                       />
                       <InputRightElement>
                         <Text color="orange.500" fontSize="sm">
-                          %
+                          {pricingModelFieldUnitDictionary?.QUANTITY}
                         </Text>
                       </InputRightElement>
                     </InputGroup>
@@ -112,7 +122,7 @@ export function LotInfoFields() {
                       />
                       <InputRightElement>
                         <Text color="orange.500" fontSize="sm">
-                          %
+                          {pricingModelFieldUnitDictionary?.MIN_SIZE}
                         </Text>
                       </InputRightElement>
                     </InputGroup>

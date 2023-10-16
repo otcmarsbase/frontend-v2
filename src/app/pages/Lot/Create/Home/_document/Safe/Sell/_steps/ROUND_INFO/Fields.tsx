@@ -133,7 +133,7 @@ export function RoundInfoFields() {
               <UIIcons.Common.InfoIcon color="white" />
             </Circle>
             <Text fontWeight={800} fontSize="sm" color="orange.500">
-              You must enter any 3 numbers, then is automatically calculated.
+              Automatically calculated
             </Text>
           </HStack>
           <SimpleGrid columns={2} w="full" gap="1.25rem">
@@ -158,7 +158,7 @@ export function RoundInfoFields() {
                     />
                     <InputRightElement>
                       <Text color="orange.500" fontSize="sm">
-                        $
+                        %
                       </Text>
                     </InputRightElement>
                   </InputGroup>

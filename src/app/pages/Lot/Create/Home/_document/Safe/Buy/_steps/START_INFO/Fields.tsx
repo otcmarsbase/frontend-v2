@@ -86,7 +86,7 @@ export function StartInfoFields() {
                 control={control}
                 name="isReassigned"
                 render={(props) => (
-                  <Checkbox checked={props.field.value} onChange={(e) => props.field.onChange(e.target.checked)}>
+                  <Checkbox isChecked={!!props.field.value} onChange={(e) => props.field.onChange(e.target.checked)}>
                     <Flex alignItems="center" gap="0.25rem">
                       {StartInfoFieldsDictionary.get('IS_REASSIGNED').title}
                       <Tooltip label={StartInfoFieldsDictionary.get('IS_REASSIGNED').tooltip}>
@@ -104,7 +104,7 @@ export function StartInfoFields() {
                 name="withTokenWarrant"
                 render={(props) => (
                   <Checkbox
-                    checked={props.field.value}
+                    isChecked={!!props.field.value}
                     onChange={(e) => {
                       const { checked } = e.target;
                       props.field.onChange(checked);

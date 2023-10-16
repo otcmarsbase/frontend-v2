@@ -20,7 +20,7 @@ export const ActiveFilters: FC<ActiveFiltersProps> = ({ filters, onReset }) => {
     direction: (value) => (value ? TradeDirectionDictionary.get(value).title : null),
     lotTypes: (value) => value.map((type) => LotTypeDictionary.get(type).title),
     assetVerticals: (value) => value.map((vertical) => AssetVerticalTitle.get(vertical)),
-    withReassing: () => 'Re-assign',
+    withReassing: (value) => (value ? 'Re-assign' : null),
     bidSize: ([from, to]) => (
       <HStack spacing=".5rem">
         <MoneyText value={from} abbreviated addon="$" />

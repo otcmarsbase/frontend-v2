@@ -153,7 +153,7 @@ export function RoundInfoFields() {
               name="isTBD"
               render={(props) => (
                 <Checkbox
-                  checked={props.field.value}
+                  isChecked={!!props.field.value}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     props.field.onChange(checked);
@@ -204,7 +204,7 @@ export function RoundInfoFields() {
               name="alreadyOver"
               render={(props) => (
                 <Checkbox
-                  checked={props.field.value}
+                  isChecked={!!props.field.value}
                   onChange={(e) => {
                     const checked = e.target.checked;
                     props.field.onChange(checked);
@@ -287,11 +287,6 @@ export function RoundInfoFields() {
                       }}
                       placeholder={RoundInfoFieldsDictionary.get('TOTAL_EQUITY_BOUGHT').placeholder}
                     />
-                    <InputRightElement>
-                      <Text color="orange.500" fontSize="sm">
-                        $
-                      </Text>
-                    </InputRightElement>
                   </InputGroup>
                 )}
               />
