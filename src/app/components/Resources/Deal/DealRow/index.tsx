@@ -1,5 +1,6 @@
 import { UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
+import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -36,13 +37,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
     },
     {
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),
-      value: (
-        <HStack>
-          {asset.info.verticals.map((vertical) => (
-            <UILogic.AssetVerticalIcon value={vertical} />
-          ))}
-        </HStack>
-      ),
+      value: <Text>{formatDate(deal.createdAt, 'DATE_AND_TIME')}</Text>,
     },
     {
       label: DealRowFieldNameTitleMap.get('STATUS'),
