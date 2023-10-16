@@ -5,3 +5,6 @@ export * from './MediumIcon';
 export * from './RedditIcon';
 export * from './TelegramIcon';
 export * from './TwitterIcon';
+export * from './LinkedinIcon';
+export * from './InstagramIcon';
+export * from './YoutubeIcon';

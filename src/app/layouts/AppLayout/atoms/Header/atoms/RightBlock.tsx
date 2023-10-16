@@ -1,5 +1,6 @@
 import { UILogic, useAuth } from '@app/components';
 import { HStack, Box, Square, Link, Button } from '@chakra-ui/react';
+import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import { Dropdown } from '@shared/ui-kit';
 
@@ -12,9 +13,62 @@ export function RightBlock() {
         <Dropdown
           trigger="hover"
           items={[
-            { label: 'Dev', as: 'a', href: '#' },
-            { label: 'Twitter', as: 'a', href: '#' },
-            { label: 'Facebook', as: 'a', href: '#' },
+            {
+              label: 'Twitter',
+              as: 'a',
+              href: AppConfig.socials.twitterUrl,
+              icon: UIIcons.Social.TwitterIcon,
+              target: '_blank',
+            },
+            {
+              label: 'LinkedIn',
+              as: 'a',
+              href: AppConfig.socials.linkedinUrl,
+              icon: UIIcons.Social.LinkedinIcon,
+              target: '_blank',
+            },
+            {
+              label: 'Telegram',
+              as: 'a',
+              href: AppConfig.socials.telegramUrl,
+              icon: UIIcons.Social.TelegramIcon,
+              target: '_blank',
+            },
+            {
+              label: 'Medium',
+              as: 'a',
+              href: AppConfig.socials.mediumUrl,
+              icon: UIIcons.Social.MediumIcon,
+              target: '_blank',
+            },
+            {
+              label: 'Linktree',
+              as: 'a',
+              href: AppConfig.socials.linktreeUrl,
+              icon: UIIcons.Social.LinktreeIcon,
+              target: '_blank',
+            },
+            {
+              label: 'Github',
+              as: 'a',
+              href: AppConfig.socials.githubUrl,
+              icon: UIIcons.Social.GithubIcon,
+              target: '_blank',
+            },
+            {
+              label: 'Instagram',
+              as: 'a',
+              href: AppConfig.socials.instagramUrl,
+              icon: UIIcons.Social.InstagramIcon,
+              target: '_blank',
+            },
+            {
+              label: 'YouTube',
+              as: 'a',
+              href: AppConfig.socials.youtubeUrl,
+              icon: UIIcons.Social.YoutubeIcon,
+              target: '_blank',
+            },
           ]}
         >
           <Button
@@ -30,7 +84,14 @@ export function RightBlock() {
           </Button>
         </Dropdown>
 
-        <Link fontWeight="400" color="dark.50" whiteSpace="nowrap" fontSize="xs">
+        <Link
+          href={AppConfig.links.howItWorksURL}
+          target="_blank"
+          fontWeight="400"
+          color="dark.50"
+          whiteSpace="nowrap"
+          fontSize="xs"
+        >
           How it works?
         </Link>
       </HStack>

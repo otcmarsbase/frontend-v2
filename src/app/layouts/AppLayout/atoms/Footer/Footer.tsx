@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '@app/store';
 import { Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
-import { AppConfig } from '@shared/config';
+import { AppConfig, AppConfigType } from '@shared/config';
 
 import { SocialBlock } from './atoms';
 
@@ -12,14 +12,7 @@ export interface FooterProps {
     title: React.ReactNode;
     description: React.ReactNode;
   };
-  socials: {
-    linktreeUrl?: string;
-    twitterUrl?: string;
-    githubUrl?: string;
-    discordUrl?: string;
-    mediumUrl?: string;
-    telegramUrl?: string;
-  };
+  socials: AppConfigType['socials'];
   copyrightText: React.ReactNode;
 }
 
@@ -59,7 +52,10 @@ export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, 
             twitter={socials.twitterUrl}
             telegram={socials.telegramUrl}
             medium={socials.mediumUrl}
-            discord={socials.discordUrl}
+            linkedin={socials.linkedinUrl}
+            linktree={socials.linktreeUrl}
+            youtube={socials.youtubeUrl}
+            instagram={socials.instagramUrl}
           />
           <Text fontSize="sm" color="dark.50">
             {copyrightText}
