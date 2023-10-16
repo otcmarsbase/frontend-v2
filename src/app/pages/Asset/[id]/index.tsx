@@ -29,8 +29,6 @@ export default function View({ id }: ViewProps) {
   );
   usePreloadPage(onPreload);
 
-  const onLotClick = useCallback((lot: Resource.Lot.Lot) => {}, []);
-
   if (!asset || !stats || onPreload.isLoading) return <UILogic.AssetPageSkeleton />;
 
   return (
