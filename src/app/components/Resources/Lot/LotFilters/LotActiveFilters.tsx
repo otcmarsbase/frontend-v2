@@ -10,12 +10,12 @@ type FormatValue = {
   [key in keyof LotFiltersBlockModel]: (value: LotFiltersBlockModel[key]) => ReactNode;
 };
 
-export interface ActiveFiltersProps {
+export interface LotActiveFiltersProps {
   filters: LotFiltersBlockModel;
   onReset: () => void;
 }
 
-export const ActiveFilters: FC<ActiveFiltersProps> = ({ filters, onReset }) => {
+export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }) => {
   const formatValue: FormatValue = {
     direction: (value) => (value ? TradeDirectionDictionary.get(value).title : null),
     lotTypes: (value) => value.map((type) => LotTypeDictionary.get(type).title),

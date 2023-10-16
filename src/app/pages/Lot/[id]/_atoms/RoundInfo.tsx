@@ -38,7 +38,14 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               abbreviated
               addon="%"
             />
-            <MoneyText fontSize="xs" fontWeight={500} color="dark.50" value={lot.contractSize.price.value} addon="$" />
+            <MoneyText
+              fontSize="xs"
+              abbreviated
+              fontWeight={500}
+              color="dark.50"
+              value={lot.contractSize.price.value}
+              addon="$"
+            />
           </RoundInfoItem>
           <RoundInfoItem fieldName="OWNER">
             <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
@@ -60,6 +67,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               fontSize="xs"
               fontWeight={500}
               color="dark.50"
+              abbreviated
               value={lot.minimumDealSize.price.value}
               addon="$"
             />
