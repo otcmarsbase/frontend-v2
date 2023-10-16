@@ -24,7 +24,7 @@ export interface LotsBlockProps {
 export function LotsBlock({ assetId }: LotsBlockProps) {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const [filters, setFilters] = useState<UILogic.LotFiltersBlockModel>({});
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>({});
   const [columnsCount, setColumnsCount] = useState(3);
   const [direction, setDirection] = useState<Resource.Common.Enums.TradeDirection>('BUY');
   const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +87,7 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
   };
 
-  const onChangeFilters = (nextFilters: UILogic.LotFiltersBlockModel) => {
+  const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     setFilters((filters) => ({
       ...filters,
       ...nextFilters,
@@ -105,7 +105,7 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
         'lot.listActive',
         prepareFiltersParams({
           assets: [assetId],
-          direction: filters.direction,
+          direction,
           minContractValue,
           maxContractValue,
           withReassign: filters.withReassing,
@@ -135,7 +135,13 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
       {(direction) => (
         <VStack width="full" alignItems="start" gap="1.5rem">
           <HStack alignItems="start" w="full" gap="2rem">
-            {isFiltersOpened && <UILogic.LotFilterBlock filters={filters} onChange={onChangeFilters} />}
+            {isFiltersOpened && (
+              <UILogic.LotFilterSidebar
+                visibility={{ direction: false }}
+                filters={filters}
+                onChange={onChangeFilters}
+              />
+            )}
             <VStack w="full" alignItems="start" gap="1.5rem">
               <UILogic.LotFilterControls
                 toggleButton={{
