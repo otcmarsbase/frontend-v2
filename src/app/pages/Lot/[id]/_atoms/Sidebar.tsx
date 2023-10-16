@@ -1,6 +1,8 @@
 import { AssetLink, AssetVerticalRow, UILogic } from '@app/components';
+import { MBPages } from '@app/pages';
 import LINQ from '@berish/linq';
 import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
@@ -13,6 +15,7 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
+  const router = useRouter();
   const groupedByGroupLinks = new Map(LINQ.from(asset.info.links).groupBy((link) => link.group));
 
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
@@ -31,7 +34,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
           borderRadius="0.75rem"
         >
           <HStack gap="2.12rem">
-            <HStack gap="1.5rem">
+            <HStack
+              gap="1.5rem"
+              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+              cursor="pointer"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+            >
               <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />
               <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
                 {asset.info.title}

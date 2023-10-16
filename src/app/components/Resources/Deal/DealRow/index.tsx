@@ -31,7 +31,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
       value: <UIKit.MoneyText value={deal.contractSize.unitQuantity.value} abbreviated addon="$" />,
     },
     {
-      label: DealRowFieldNameTitleMap.get('DEAL_FVD'),
+      label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
       value: <UIKit.MoneyText value={deal.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
     },
     {

@@ -10,11 +10,7 @@ export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
   return (
     <HStack w="100%" gap="1.5rem">
       <HStack gap="0.5rem">
-        {logoUrl && (
-          <Box>
-            <Image src={logoUrl} />
-          </Box>
-        )}
+        {logoUrl && <Image borderRadius="sm" w="4rem" h="4rem" src={logoUrl} />}
         {title && (
           <Heading variant="h2" fontWeight="500">
             {title}
