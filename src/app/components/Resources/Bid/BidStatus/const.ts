@@ -7,7 +7,7 @@ export const BidStatusInfoDictionary = createDictionary<
   { title: React.ReactNode; color: Property.Color }
 >({
   ACTIVE: { title: 'Archived', color: 'green.50' },
-  DEAL: { title: 'Archived', color: 'dark.50' },
+  DEAL: { title: 'Deal', color: 'dark.50' },
   ON_MODERATION: { title: 'On moderation', color: '#F9C409' },
   REJECTED: {
     title: 'Rejected',

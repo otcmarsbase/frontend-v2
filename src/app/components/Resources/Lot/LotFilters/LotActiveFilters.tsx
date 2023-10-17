@@ -1,21 +1,21 @@
 import { FC, ReactNode, Children, useMemo } from 'react';
 
-import { AssetVerticalTitle, LotFiltersBlockModel } from '@app/components';
+import { AssetVerticalTitle, LotFilterSidebarModel } from '@app/components';
 import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import { isDeeplyEmpty } from '@app/utils';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
 import { MoneyText } from '@shared/ui-kit';
 
 type FormatValue = {
-  [key in keyof LotFiltersBlockModel]: (value: LotFiltersBlockModel[key]) => ReactNode;
+  [key in keyof LotFilterSidebarModel]: (value: LotFilterSidebarModel[key]) => ReactNode;
 };
 
-export interface ActiveFiltersProps {
-  filters: LotFiltersBlockModel;
+export interface LotActiveFiltersProps {
+  filters: LotFilterSidebarModel;
   onReset: () => void;
 }
 
-export const ActiveFilters: FC<ActiveFiltersProps> = ({ filters, onReset }) => {
+export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }) => {
   const formatValue: FormatValue = {
     direction: (value) => (value ? TradeDirectionDictionary.get(value).title : null),
     lotTypes: (value) => value.map((type) => LotTypeDictionary.get(type).title),

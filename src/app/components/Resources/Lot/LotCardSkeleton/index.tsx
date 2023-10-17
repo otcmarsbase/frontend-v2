@@ -11,17 +11,7 @@ export interface LotCardSkeletonProps {
 export const LotCardSkeleton: React.FC<LotCardSkeletonProps> = ({ minimalView }) => {
   return (
     <VStack p="1.5rem 1.25rem" position="relative" borderRadius="sm" bg="dark.900" gap={0} alignItems="start" h="full">
-      <TradeDirectionText
-        invert
-        position="absolute"
-        top="0"
-        right="0"
-        color="dark.800"
-        bg="dark.800"
-        value={faker.helpers.arrayElement(['BUY', 'SELL'])}
-      >
-        <Skeleton w="3rem" h="1rem" />
-      </TradeDirectionText>
+      <TradeDirectionText invert position="absolute" top="0" right="0" color="dark.800" bg="dark.800" value="BUY" />
       <HStack mb="1rem">
         <Skeleton w="1rem" h="1rem" />
         <Skeleton w={faker.helpers.arrayElement(['5.3rem', '3.5rem'])} h="1.2rem" />
@@ -50,7 +40,7 @@ export const LotCardSkeleton: React.FC<LotCardSkeletonProps> = ({ minimalView })
           <HStack
             gap="0.3rem"
             divider={
-              <Text fontSize="sm" color="dark.50">
+              <Text fontSize="sm" color="dark.700">
                 /
               </Text>
             }

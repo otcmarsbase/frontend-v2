@@ -1,23 +1,22 @@
 import React, { FC } from 'react';
 
 import { Circle, Heading, HStack, VStack, Text } from '@chakra-ui/react';
-
-import { TradeValidationStatus } from '../types';
+import { Resource } from '@schema/otc-desk-gateway';
 
 import { DealBlockTypeDictionary, TradeProgressStatusDictionary, TradeValidationStatusDictionary } from './const';
 
 export interface TradeProgressStatusesProps {
-  chatCreating: TradeValidationStatus;
-  offerMakerValidation: TradeValidationStatus;
-  bidMakerValidation: TradeValidationStatus;
-  kycValidation: TradeValidationStatus;
-  amlValidation: TradeValidationStatus;
-  kybValidation: TradeValidationStatus;
-  docOwnership: TradeValidationStatus;
-  docResigned: TradeValidationStatus;
-  txPayment: TradeValidationStatus;
-  marsbaseCommission: TradeValidationStatus;
-  otcCommission: TradeValidationStatus;
+  chatCreating: Resource.Deal.Enums.KeyResultStatus;
+  offerMakerValidation: Resource.Deal.Enums.KeyResultStatus;
+  bidMakerValidation: Resource.Deal.Enums.KeyResultStatus;
+  kycValidation: Resource.Deal.Enums.KeyResultStatus;
+  amlValidation: Resource.Deal.Enums.KeyResultStatus;
+  kybValidation: Resource.Deal.Enums.KeyResultStatus;
+  docOwnership: Resource.Deal.Enums.KeyResultStatus;
+  docResigned: Resource.Deal.Enums.KeyResultStatus;
+  txPayment: Resource.Deal.Enums.KeyResultStatus;
+  marsbaseCommission: Resource.Deal.Enums.KeyResultStatus;
+  agentCommission: Resource.Deal.Enums.KeyResultStatus;
 }
 
 export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
@@ -31,7 +30,7 @@ export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
   docResigned,
   txPayment,
   marsbaseCommission,
-  otcCommission,
+  agentCommission,
 }) => {
   return (
     <VStack flex="1" padding="1.5rem 1.25rem" gap="1rem" bg="dark.900" borderRadius="0.75rem">
@@ -103,7 +102,7 @@ export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
           />
           <TradeProgressField
             label={TradeProgressStatusDictionary.get('OTC_AGENT_COMMISSION')}
-            status={otcCommission}
+            status={agentCommission}
           />
         </VStack>
       </VStack>
@@ -113,7 +112,7 @@ export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
 
 export interface TradeProgressFieldProps {
   label: string;
-  status: TradeValidationStatus;
+  status: Resource.Deal.Enums.KeyResultStatus;
 }
 
 export const TradeProgressField: React.FC<TradeProgressFieldProps> = ({ label, status }) => {
@@ -125,7 +124,7 @@ export const TradeProgressField: React.FC<TradeProgressFieldProps> = ({ label, s
         {label}
       </Text>
       <Circle size="1.25rem" bg={color}>
-        <Icon color={status === 'PENDING' ? 'dark.50' : 'inherit'} />
+        <Icon color={status === 'PROCESS' ? 'dark.50' : 'inherit'} />
       </Circle>
     </HStack>
   );

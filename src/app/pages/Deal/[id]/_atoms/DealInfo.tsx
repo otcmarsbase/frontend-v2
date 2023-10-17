@@ -24,13 +24,13 @@ const DealInfoField: React.FC<DealInfoFieldProps> = ({ label, value }) => {
 };
 
 export interface DealInfoProps {
-  price: number;
-  fdv: number;
-  size: number;
-  commission: number;
+  price: string;
+  fdv: string;
+  size: string;
+  marsbaseCommission: string;
 }
 
-export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, commission }) => {
+export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, marsbaseCommission }) => {
   return (
     <VStack gap="1.5rem" padding="1.5rem 1.25rem" bg="dark.900" flex="2" borderRadius="0.75rem" width="full">
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
@@ -39,19 +39,19 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, commission }) =>
       <SimpleGrid columns={2} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
-          value={<MoneyText value={price} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={price} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('SIZE')}
-          value={<MoneyText value={size} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={size} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('FDV')}
-          value={<MoneyText value={fdv} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={fdv} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
-          label={DealInfoFieldDictionary.get('COMMISSION')}
-          value={<MoneyText value={commission} addon={<Text color="dark.50">%</Text>} />}
+          label={DealInfoFieldDictionary.get('MARSBASE_COMMISSION')}
+          value={<MoneyText abbreviated value={marsbaseCommission} addon={<Text color="dark.50">%</Text>} />}
         />
       </SimpleGrid>
     </VStack>

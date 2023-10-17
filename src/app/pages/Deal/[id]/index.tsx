@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit } from '@shared/ui-kit';
+import { toNumber } from 'lodash';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
-// import { createAsset, createDeal, createLot, createParticipant } from './mock';
 
 interface DealProps {
   id: Resource.Deal.DealKey['id'];
@@ -24,18 +24,12 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
   const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
   const [lot, setLot] = useState<Resource.Lot.Lot>(null);
   const [asset, setAsset] = useState<Resource.Asset.Asset>(null);
-  const [participants] = useState([
-    // createParticipant('OFFER_MAKER'),
-    // createParticipant('MODERATOR'),
-    // createParticipant('BID_MAKER'),
-    // createParticipant('OTC_AGENT'),
-  ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadDeal = useCallback(async () => {
     setIsLoading(true);
     try {
-      const deal = await rpcSchema.send('deals.getById', { id });
+      const deal = await rpcSchema.send('deals.getById', { id: toNumber(id) });
       const lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
       const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
       setDeal(deal);
@@ -50,8 +44,8 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     loadDeal();
   }, [loadDeal]);
 
-  if (isLoading) {
-    return <HStack>Loading...</HStack>;
+  if (!asset || !deal || !lot || isLoading) {
+    return <UILogic.DealPageSkeleton />;
   }
 
   return (
@@ -63,23 +57,33 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
         <VStack gap="1.25rem" flex="1.5">
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />
 
-          <DealInfo price={3235} size={2323} fdv={2323} commission={5} />
+          <DealInfo
+            price={deal.contractSize.price.value}
+            size={deal.contractSize.unitQuantity.value}
+            fdv={deal.contractSize.contractShare.fdv.value}
+            marsbaseCommission={deal.keyResults.marsbaseCommissionKR.percent.value}
+          />
 
-          <DealParticipants items={participants} telegramChatLink={'dsd'} />
+          <DealParticipants
+            offerMakers={deal.offerMakers}
+            bidMakers={deal.bidMakers}
+            moderators={deal.moderators}
+            telegramChatLink={deal.keyResults.telegramChatKR.url}
+          />
         </VStack>
 
         <TradeProgressStatuses
-          chatCreating={'COMPLETED'}
-          offerMakerValidation={'VALIDATED'}
-          bidMakerValidation={'COMPLETED'}
-          kycValidation={'FAILED'}
-          amlValidation={'PENDING'}
-          kybValidation={'VALIDATED'}
-          docOwnership={'COMPLETED'}
-          docResigned={'COMPLETED'}
-          txPayment={'PENDING'}
-          marsbaseCommission={'PENDING'}
-          otcCommission={'PENDING'}
+          chatCreating={deal.keyResults.telegramChatKR.status}
+          offerMakerValidation={deal.keyResults.offerMakerValidationKR.status}
+          bidMakerValidation={deal.keyResults.bidMakerValidationKR.status}
+          kycValidation={deal.keyResults.kycValidationKR.status}
+          amlValidation={deal.keyResults.amlValidationKR.status}
+          kybValidation={deal.keyResults.kybValidationKR.status}
+          docOwnership={deal.keyResults.documentOwnershipKR.status}
+          docResigned={deal.keyResults.documentResignedKR.status}
+          txPayment={deal.keyResults.transactionPaymentKR.status}
+          marsbaseCommission={deal.keyResults.marsbaseCommissionKR.status}
+          agentCommission={deal.keyResults.agentCommissionKR.status}
         />
       </HStack>
     </VStack>

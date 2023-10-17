@@ -28,39 +28,55 @@ const GridParticipantField: React.FC<GridParticipantFieldProps> = ({ label, valu
   );
 };
 
+interface DealParticipantProps {
+  user: Resource.User.User;
+  type: DealParticipantType;
+}
+
+const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
+  return (
+    <VStack w="full" gap="1.5rem">
+      <GridParticipantField
+        label={DealParticipantDictionary.get(type).title}
+        value={<AccountAvatar nickname={user.nickname} />}
+      />
+      <GridParticipantField
+        label={DealParticipantDictionary.get(type).walletTitle}
+        value={<Text fontSize="sm">{formatAddress(user.address || '0x0001020120')}</Text>}
+      />
+    </VStack>
+  );
+};
+
 export interface DealParticipantsProps {
-  items: DealParticipantItem[];
+  moderators: Resource.User.User[];
+  bidMakers: Resource.User.User[];
+  offerMakers: Resource.User.User[];
   telegramChatLink: string;
 }
 
-export const DealParticipants: FC<DealParticipantsProps> = ({ items, telegramChatLink }) => {
+export const DealParticipants: FC<DealParticipantsProps> = ({
+  offerMakers,
+  bidMakers,
+  moderators,
+  telegramChatLink,
+}) => {
   return (
     <VStack gap="1.5rem" padding="1.5rem 1.25rem" bg="dark.900" flex="2" borderRadius="0.75rem" width="full">
       <HStack justifyContent="space-between" w="full">
         <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
           {DealBlockTypeDictionary.get('DEAL_PARTICIPANTS').title}
         </Heading>
-        <Button variant="darkOutline" size="xs" as="a" href={telegramChatLink} target="_blank">
-          Telegram chat
-        </Button>
+        {telegramChatLink && (
+          <Button variant="darkOutline" size="xs" as="a" href={telegramChatLink} target="_blank">
+            Telegram chat
+          </Button>
+        )}
       </HStack>
       <SimpleGrid w="full" columns={4} gridColumnGap="4.2rem">
-        {items.map((item) => {
-          return (
-            <VStack w="full" gap="1.5rem">
-              <GridParticipantField
-                label={DealParticipantDictionary.get(item.type).title}
-                value={<AccountAvatar avatarUrl={''} nickname={item.account?.nickname} />}
-              />
-              <GridParticipantField
-                label={DealParticipantDictionary.get(item.type).walletTitle}
-                value={
-                  <Text fontSize="sm">{formatAddress(item?.account?.auth_data?.walletAddress || '0x0001020120')}</Text>
-                }
-              />
-            </VStack>
-          );
-        })}
+        {!!offerMakers.length && offerMakers.map((user) => <DealParticipant type="OFFER_MAKER" user={user} />)}
+        {!!bidMakers.length && bidMakers.map((user) => <DealParticipant type="BID_MAKER" user={user} />)}
+        {!!moderators.length && moderators.map((user) => <DealParticipant type="MODERATOR" user={user} />)}
       </SimpleGrid>
     </VStack>
   );

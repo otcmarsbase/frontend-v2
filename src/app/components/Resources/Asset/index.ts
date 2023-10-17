@@ -3,6 +3,7 @@ export * from './AssetIconButton';
 export * from './AssetImage';
 export * from './AssetLink';
 export * from './AssetName';
+export * from './AssetPageSkeleton';
 export * from './AssetSelect';
 export * from './AssetTitle';
 export * from './AssetVertical';

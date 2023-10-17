@@ -8,6 +8,7 @@ export namespace User {
   export interface User extends Resource<'user'>, ResourceOmit<UserKey> {
     registered_at: number;
     nickname: string;
+    address: string;
     is_verified: boolean;
   }
 }
