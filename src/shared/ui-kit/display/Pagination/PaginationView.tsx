@@ -2,6 +2,7 @@ import { PropsWithChildren, useMemo } from 'react';
 
 import { Button, HStack, Text, useMultiStyleConfig } from '@chakra-ui/react';
 
+import { SelectSync } from '../../forms';
 import { useLoadingCallback } from '../Loader';
 
 export interface PaginationViewButtonProps {
@@ -16,6 +17,10 @@ export interface PaginationViewProps {
   page: number;
   lastPage: number;
 
+  showPageSize?: boolean;
+  pageSize?: number;
+  pageSizeOptions?: number[];
+
   currentPageFromItem: number;
   currentPageToItem: number;
 
@@ -23,14 +28,16 @@ export interface PaginationViewProps {
 
   buttons: PaginationViewButtonProps[];
   onChangePage?: (page: number) => void;
+  onShowSizeChange?: (size: number) => void;
 }
 
 export const PaginationView: React.FC<PaginationViewProps> = (props) => {
-  const { showCaption } = props;
+  const { showCaption, showPageSize } = props;
   return (
     <PaginationViewContainer {...props}>
       {showCaption && <PaginationViewCaption {...props} />}
       <PaginationViewButtonGroup {...props} />
+      {showPageSize && <PaginationViewPageSize {...props} />}
     </PaginationViewContainer>
   );
 };
@@ -46,9 +53,29 @@ export const PaginationViewCaption: React.FC<PaginationViewProps> = ({
   totalItems,
 }) => {
   return (
-    <Text color="muted" fontSize="sm">
-      Showing {currentPageFromItem} to {currentPageToItem} of {totalItems} results
+    <Text color="dark.50" fontSize="sm" fontWeight="500">
+      Showing {currentPageFromItem} - {currentPageToItem} out of {totalItems}
     </Text>
+  );
+};
+
+export const PaginationViewPageSize: React.FC<PaginationViewProps> = ({
+  pageSize,
+  onShowSizeChange,
+  pageSizeOptions,
+}) => {
+  return (
+    <HStack spacing="0.75rem" flexShrink="0">
+      <Text fontSize="sm" color="dark.50" fontWeight="500" whiteSpace="nowrap">
+        Show records
+      </Text>
+      <SelectSync<number, false>
+        value={pageSize}
+        onChange={onShowSizeChange ?? undefined}
+        items={pageSizeOptions}
+        renderItem={(item) => item}
+      />
+    </HStack>
   );
 };
 
@@ -85,7 +112,7 @@ export const PaginationViewButtonGroup: React.FC<PaginationViewProps> = ({
   );
 
   return (
-    <HStack spacing="3" justifyContent="space-between" width={{ base: 'full', md: 'auto' }} __css={styles.buttonGroup}>
+    <HStack spacing="3" __css={styles.buttonGroup}>
       <Button
         isDisabled={currentPageFromItem <= 1 || onChangePageLoading.isLoadingAny}
         onClick={() => onChangePageLoading.keyLoad('prev')(page - 1)}
