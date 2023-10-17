@@ -1,8 +1,7 @@
 import { createDictionary } from '@app/dictionary';
 import { IconProps } from '@chakra-ui/react';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-
-import { TradeValidationStatus } from '../types';
 
 export const TradeProgressStatusField = [
   'CHAT_CREATING',
@@ -55,7 +54,7 @@ export const DealBlockTypeDictionary = createDictionary<DealBlockType, { title: 
   .asReadonly();
 
 export const TradeValidationStatusDictionary = createDictionary<
-  TradeValidationStatus,
+  Resource.Deal.Enums.KeyResultStatus,
   { title: string; color: string; icon: React.FC<IconProps> }
 >()
   .setFromRecord({
@@ -69,12 +68,12 @@ export const TradeValidationStatusDictionary = createDictionary<
       color: '#E82A36',
       icon: UIIcons.Common.InfoIcon,
     },
-    PENDING: {
+    PROCESS: {
       title: 'Pending',
       color: '#2C2C2E',
       icon: UIIcons.Common.CloseModalIcon,
     },
-    VALIDATED: {
+    NEW: {
       title: 'Validated',
       color: '#FF5B37',
       icon: UIIcons.Common.ProcessingIcon,

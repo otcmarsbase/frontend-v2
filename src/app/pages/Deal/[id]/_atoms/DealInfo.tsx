@@ -24,9 +24,9 @@ const DealInfoField: React.FC<DealInfoFieldProps> = ({ label, value }) => {
 };
 
 export interface DealInfoProps {
-  price: number;
-  fdv: number;
-  size: number;
+  price: string;
+  fdv: string;
+  size: string;
   commission: number;
 }
 
@@ -39,19 +39,19 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, commission }) =>
       <SimpleGrid columns={2} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
-          value={<MoneyText value={price} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={price} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('SIZE')}
-          value={<MoneyText value={size} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={size} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('FDV')}
-          value={<MoneyText value={fdv} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={fdv} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('COMMISSION')}
-          value={<MoneyText value={commission} addon={<Text color="dark.50">%</Text>} />}
+          value={<MoneyText abbreviated value={commission} addon={<Text color="dark.50">%</Text>} />}
         />
       </SimpleGrid>
     </VStack>

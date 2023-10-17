@@ -1,7 +1,7 @@
 import { FC, useCallback } from 'react';
 
 import { AssetName, DealStatus, TradeDirectionText } from '@app/components';
-import pages from '@app/pages';
+import pages, { MBPages } from '@app/pages';
 import { Button, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -57,7 +57,7 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
     >
       <TradeDirectionText position="absolute" left="0" top="0" value={lot?.direction} />
       <VStack alignItems="start">
-        <AssetName asset={asset} />
+        <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />
         <Button p="0" onClick={pushToLot} variant="ghost" color="dark.50" rightIcon={<UIIcons.Common.ArrowUp />}>
           Go to lot
         </Button>
