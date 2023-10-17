@@ -1,4 +1,4 @@
-import { UILogic, useAuth } from '@app/components';
+import { UILogic } from '@app/components';
 import pages from '@app/pages';
 import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -8,7 +8,6 @@ import { RightBlock } from './atoms';
 
 export function Header() {
   const router = useRouter();
-  const { isAuthorized } = useAuth();
 
   return (
     <VStack gap="0">

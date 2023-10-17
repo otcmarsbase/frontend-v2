@@ -10,3 +10,4 @@ export * from './LotRowSkeleton';
 export * from './LotStatus';
 export * from './LotType';
 export * from './LotTypeSelect';
+export * from './LotWizard';
