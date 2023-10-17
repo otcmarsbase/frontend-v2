@@ -1,23 +1,26 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { observer } from 'mobx-react-lite';
-
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/otc-desk-gateway';
-import { Empty, List, Pagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, useLoadingCallback } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
-const MyBids: React.FC = observer(() => {
+interface MyBidsProps {
+  filters: {
+    status?: Resource.Bid.Enums.BidStatus[];
+  };
+}
+
+const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [items, setItems] = useState<Resource.Bid.Bid[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -31,15 +34,13 @@ const MyBids: React.FC = observer(() => {
   );
 
   const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
-    const { page, pageSize } = paginationOptions;
-    const skip = (page - 1) * pageSize;
+    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
 
-    return { skip, limit: pageSize };
-  }, [paginationOptions]);
+    return { skip, limit: paginationOptions.pageSize, ...filters };
+  }, [paginationOptions.page, paginationOptions.pageSize, filters]);
 
-  const fetchItems = useCallback(async () => {
-    setIsLoading(true);
-    try {
+  const fetchItems = useLoadingCallback(
+    useCallback(async () => {
       const { items, total } = await rpcSchema.send('bid.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
@@ -51,10 +52,9 @@ const MyBids: React.FC = observer(() => {
       setItems(items);
       setAssets(assets);
       setTotal(total);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [rpcSchema, fetchPayload]);
+    }, [rpcSchema, fetchPayload]),
+    true,
+  );
 
   const findAsset = useCallback(
     (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
@@ -73,7 +73,7 @@ const MyBids: React.FC = observer(() => {
         width="full"
         items={items}
         itemKey={(item) => item.id}
-        isLoading={isLoading}
+        isLoading={fetchItems.isLoading}
         loader={ListLoader}
         emptyText={
           <Empty
@@ -104,7 +104,7 @@ const MyBids: React.FC = observer(() => {
       />
     </VStack>
   );
-});
+};
 
 MyBids.getLayout = ({ children }) => <Layouts.DashboardLayout tabType="MY_BIDS">{children}</Layouts.DashboardLayout>;
 
