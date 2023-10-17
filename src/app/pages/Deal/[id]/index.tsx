@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
@@ -13,7 +13,6 @@ import { toNumber } from 'lodash';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
-// import { createAsset, createDeal, createLot, createParticipant } from './mock';
 
 interface DealProps {
   id: Resource.Deal.DealKey['id'];
@@ -25,12 +24,6 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
   const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
   const [lot, setLot] = useState<Resource.Lot.Lot>(null);
   const [asset, setAsset] = useState<Resource.Asset.Asset>(null);
-  const [participants] = useState([
-    // createParticipant('OFFER_MAKER'),
-    // createParticipant('MODERATOR'),
-    // createParticipant('BID_MAKER'),
-    // createParticipant('OTC_AGENT'),
-  ]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loadDeal = useCallback(async () => {
@@ -52,7 +45,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
   }, [loadDeal]);
 
   if (!asset || !deal || !lot || isLoading) {
-    return <HStack>Loading...</HStack>;
+    return <UILogic.DealPageSkeleton />;
   }
 
   return (
@@ -68,7 +61,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
             price={deal.contractSize.price.value}
             size={deal.contractSize.unitQuantity.value}
             fdv={deal.contractSize.contractShare.fdv.value}
-            commission={5}
+            marsbaseCommission={deal.keyResults.marsbaseCommissionKR.percent.value}
           />
 
           <DealParticipants
