@@ -27,10 +27,10 @@ export interface DealInfoProps {
   price: string;
   fdv: string;
   size: string;
-  commission: number;
+  marsbaseCommission: string;
 }
 
-export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, commission }) => {
+export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, marsbaseCommission }) => {
   return (
     <VStack gap="1.5rem" padding="1.5rem 1.25rem" bg="dark.900" flex="2" borderRadius="0.75rem" width="full">
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
@@ -50,8 +50,8 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, commission }) =>
           value={<MoneyText abbreviated value={fdv} addon={<Text color="dark.50">$</Text>} />}
         />
         <DealInfoField
-          label={DealInfoFieldDictionary.get('COMMISSION')}
-          value={<MoneyText abbreviated value={commission} addon={<Text color="dark.50">%</Text>} />}
+          label={DealInfoFieldDictionary.get('MARSBASE_COMMISSION')}
+          value={<MoneyText abbreviated value={marsbaseCommission} addon={<Text color="dark.50">%</Text>} />}
         />
       </SimpleGrid>
     </VStack>
