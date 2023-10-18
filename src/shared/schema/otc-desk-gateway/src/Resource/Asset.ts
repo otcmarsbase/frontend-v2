@@ -11,20 +11,7 @@ export namespace Asset {
     export const AssetTier = ['TIER_1', 'TIER_2', 'TIER_3', 'TIER_4'] as const;
     export type AssetTier = (typeof AssetTier)[number];
 
-    export const AssetVertical = [
-      'BLOCKCHAIN_SERVICE',
-      'LAYER_1',
-      'SOCIAL',
-      'CEFI',
-      'NFT',
-      'BRIDGE',
-      'METAVERSE',
-      'ZK_ROLLUP',
-      'LENDING',
-      'INFRA',
-      'GAMEFI',
-      'DEFI',
-    ] as const;
+    export const AssetVertical = ['BLOCKCHAIN_SERVICE', 'LAYER_1', 'SOCIAL', 'CEFI', 'NFT', 'BRIDGE', 'METAVERSE', 'ZK_ROLLUP', 'LENDING', 'INFRA', 'GAMEFI', 'DEFI'] as const;
     export type AssetVertical = (typeof AssetVertical)[number];
   }
 

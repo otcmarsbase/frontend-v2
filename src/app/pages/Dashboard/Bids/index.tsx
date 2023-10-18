@@ -93,8 +93,8 @@ const MyBids: React.FC = observer(() => {
             bid={item}
             asset={findAsset(item.assetKey)}
             onClick={() => {
-              if (item.deal) {
-                router.navigateComponent(MBPages.Deal.__id__, { id: item.deal.id }, {});
+              if (item.dealKey) {
+                router.navigateComponent(MBPages.Deal.__id__, { id: item.dealKey.id }, {});
               } else {
                 router.navigateComponent(MBPages.Lot.__id__, { id: item.lotKey.id }, {});
               }

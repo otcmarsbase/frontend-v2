@@ -62,6 +62,10 @@ const ChakraCalendar = chakra(ReactCalendar, {
         fontSize: 'xs',
         fontWeight: '500',
 
+        '&:disabled': {
+          color: 'dark.50',
+        },
+
         '&::before': {
           position: 'absolute',
           content: '""',

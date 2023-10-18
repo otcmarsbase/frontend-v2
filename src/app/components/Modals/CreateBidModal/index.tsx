@@ -48,6 +48,8 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     context: {
       minContractValue: lot.minimumDealSize.unitQuantity.value,
       minFundsCount: lot.minimumDealSize.stablecoinQuantity.value,
+      maxContractValue: lot.available.unitQuantity.value,
+      maxFundsCount: lot.available.stablecoinQuantity.value,
     },
   });
 
@@ -160,7 +162,11 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
         <GridItem colSpan={2}>
           <FormControl isRequired={isRequired('deadline')} isInvalid={Boolean(errors.deadline)}>
             <FormLabel>{fieldDictionary.get('DEADLINE').title}</FormLabel>
-            <Controller control={control} name="deadline" render={(props) => <UIKit.DatePicker {...props.field} />} />
+            <Controller
+              control={control}
+              name="deadline"
+              render={(props) => <UIKit.DatePicker minDate={new Date()} {...props.field} />}
+            />
           </FormControl>
         </GridItem>
         <GridItem colSpan={2}>

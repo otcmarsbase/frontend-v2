@@ -13,11 +13,12 @@ export interface DatePickerProps {
   withTime?: boolean;
   formatDate?: string;
   placeholder?: string;
+  minDate?: Date;
   onChange: (value: Date | Range<Date>) => void;
 }
 
 export const DatePicker = forwardRef<DatePickerProps, 'input'>(
-  ({ value, onChange, formatDate = 'dd.MM.yyyy', placeholder, rangeMode }, ref) => {
+  ({ value, onChange, formatDate = 'dd.MM.yyyy', placeholder, rangeMode, minDate }, ref) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
 
     const inputValue = useMemo(() => {
@@ -45,7 +46,14 @@ export const DatePicker = forwardRef<DatePickerProps, 'input'>(
           <DateInput readOnly value={inputValue} placeholder={placeholder} ref={ref} />
         </PopoverTrigger>
         <PopoverContent rounded="0.5rem" bg="dark.800" border="none">
-          <Calendar value={value} selectRange={rangeMode} onChange={handleChange} color="white" minDetail="year" />
+          <Calendar
+            value={value}
+            selectRange={rangeMode}
+            onChange={handleChange}
+            color="white"
+            minDetail="year"
+            minDate={minDate}
+          />
         </PopoverContent>
       </Popover>
     );

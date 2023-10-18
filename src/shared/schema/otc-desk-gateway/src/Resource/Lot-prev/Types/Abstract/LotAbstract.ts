@@ -13,13 +13,6 @@ export namespace LotAbstract {
   };
 
   export type LotState<Draft, OnModeration, Active, Completed, Archived, Rejected> = Merge<
-    [
-      LotDraftState<Draft>,
-      LotOnModerationState<OnModeration>,
-      LotActiveState<Active>,
-      LotCompletedState<Completed>,
-      LotArchivedState<Archived>,
-      LotRejectedState<Rejected>,
-    ]
+    [LotDraftState<Draft>, LotOnModerationState<OnModeration>, LotActiveState<Active>, LotCompletedState<Completed>, LotArchivedState<Archived>, LotRejectedState<Rejected>]
   >;
 }

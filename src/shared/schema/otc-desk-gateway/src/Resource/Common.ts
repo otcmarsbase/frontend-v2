@@ -261,7 +261,6 @@ export namespace Common {
 
     export type ContractSize = {
       contractShare: ContractShare;
-      factoryType: Enums.ContractSizeFactoryType;
       unitQuantity: UnitQuantity;
       price: Price;
     };
