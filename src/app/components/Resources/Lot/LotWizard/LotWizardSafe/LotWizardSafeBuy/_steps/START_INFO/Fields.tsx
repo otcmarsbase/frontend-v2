@@ -124,38 +124,7 @@ export function StartInfoFields() {
         isRequired={isRequired('asset')}
         w="full"
       >
-        {typeof asset === 'string' ? (
-          <SimpleGrid columns={2} gap="1.25rem">
-            <FormControl isInvalid={Boolean(errors.asset)}>
-              <Controller
-                control={control}
-                name="asset"
-                render={({ field }) => (
-                  <UILogic.AssetCreateSelect
-                    isInvalid={Boolean(errors.asset)}
-                    placeholder={StartInfoFieldsDictionary.get('PROJECT_NAME').placeholder}
-                    {...field}
-                  />
-                )}
-              />
-              {errors.asset && <FormErrorMessage>{errors.asset.message}</FormErrorMessage>}
-            </FormControl>
-            <FormControl isInvalid={Boolean(errors.website)}>
-              <Controller
-                control={control}
-                name="website"
-                render={({ field }) => (
-                  <UIKit.InputWebsite
-                    w="full"
-                    placeholder={StartInfoFieldsDictionary.get('WEBSITE').placeholder}
-                    {...field}
-                  />
-                )}
-              />
-              {errors.website && <FormErrorMessage>{errors.website.message}</FormErrorMessage>}
-            </FormControl>
-          </SimpleGrid>
-        ) : (
+        <HStack spacing="1.25rem">
           <FormControl isInvalid={Boolean(errors.asset)}>
             <Controller
               control={control}
@@ -170,7 +139,23 @@ export function StartInfoFields() {
             />
             {errors.asset && <FormErrorMessage>{errors.asset.message}</FormErrorMessage>}
           </FormControl>
-        )}
+          {typeof asset === 'string' && (
+            <FormControl isInvalid={Boolean(errors.website)}>
+              <Controller
+                control={control}
+                name="website"
+                render={({ field }) => (
+                  <UIKit.InputWebsite
+                    w="full"
+                    placeholder={StartInfoFieldsDictionary.get('WEBSITE').placeholder}
+                    {...field}
+                  />
+                )}
+              />
+              {errors.website && <FormErrorMessage>{errors.website.message}</FormErrorMessage>}
+            </FormControl>
+          )}
+        </HStack>
       </UIKit.FormElement>
     </VStack>
   );

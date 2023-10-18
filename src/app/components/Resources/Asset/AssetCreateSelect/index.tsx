@@ -36,11 +36,8 @@ export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = (props) => {
   }, []);
 
   const load = useCallback(async () => {
-    const pagination = await rpcSchema.send('asset.list', { limit: 5, search });
-    const items = pagination.items;
-
-    if (items.length > 0) return items;
-    return [search];
+    const { items, total } = await rpcSchema.send('asset.list', { limit: 5, search });
+    return total ? items : [search];
   }, [rpcSchema, search]);
 
   return (
