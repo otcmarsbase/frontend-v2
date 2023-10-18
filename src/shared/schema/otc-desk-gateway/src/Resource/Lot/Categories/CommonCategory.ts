@@ -15,6 +15,7 @@ export namespace CommonCategory {
       LotInputs.COMMON_MIN_FILTER_UNITS_INPUT,
       LotInputs.COMMON_MIN_FILTER_SUMMARY_INPUT,
       LotInputs.COMMON_COMPLETED_REASON_INPUT,
+      LotInputs.COMMON_DEADLINE_INPUT,
     ]
   >;
 
@@ -36,6 +37,9 @@ export namespace CommonCategory {
       LotAttributes.COMMON_ARCHIVED_AT_ATTRIBUTE,
       LotAttributes.COMMON_COMPLETED_AT_ATTRIBUTE,
       LotAttributes.COMMON_COMPLETED_REASON_ATTRIBUTE,
+      LotAttributes.COMMON_DEADLINE_ATTRIBUTE,
+      LotAttributes.COMMON_REJECTED_AT_ATTRIBUTE,
+      LotAttributes.COMMON_REJECT_REASON_ATTRIBUTE,
     ]
   >;
 }

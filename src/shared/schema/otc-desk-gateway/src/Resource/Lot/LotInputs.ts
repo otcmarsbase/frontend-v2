@@ -43,9 +43,9 @@ export namespace LotInputs {
   export type INVEST_DOC_ROUND_SHARE_INPUT = Utils.Input<'INVEST_DOC_ROUND_SHARE_INPUT', number>;
   export type INVEST_DOC_ROUND_SUMMARY_INPUT = Utils.Input<'INVEST_DOC_ROUND_SUMMARY_INPUT', string>;
 
-  export type SAFE_CATEGORY_WITH_TOKEN_WARRANT_INPUT = Utils.Input<'SAFE_CATEGORY_WITH_TOKEN_WARRANT_INPUT', boolean>;
+  export type SAFE_WITH_TOKEN_WARRANT_INPUT = Utils.Input<'SAFE_WITH_TOKEN_WARRANT_INPUT', boolean>;
 
   export type TOKEN_TGE_INPUT = Utils.Input<'TOKEN_TGE_INPUT', Date | 'TBD'>;
-  export type TOKEN_CATEGORY_LOCKUP_PERIOD_INPUT = Utils.Input<'TOKEN_CATEGORY_LOCKUP_PERIOD_INPUT', string>;
-  export type TOKEN_CATEGORY_VESTING_PERIOD_INPUT = Utils.Input<'TOKEN_CATEGORY_VESTING_PERIOD_INPUT', string>;
+  export type TOKEN_LOCKUP_PERIOD_INPUT = Utils.Input<'TOKEN_LOCKUP_PERIOD_INPUT', string>;
+  export type TOKEN_VESTING_PERIOD_INPUT = Utils.Input<'TOKEN_VESTING_PERIOD_INPUT', string>;
 }
