@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/otc-desk-gateway';
-import { Empty, List, Pagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, useLoadingCallback } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
@@ -24,7 +24,6 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
   const router = useRouter();
   const [items, setItems] = useState<Resource.Lot.Lot[]>([]);
   const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -38,15 +37,13 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
   );
 
   const fetchPayload = useMemo<RPC.DTO.LotListMy.Payload>(() => {
-    const { page, pageSize } = paginationOptions;
-    const skip = (page - 1) * pageSize;
+    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
 
-    return { skip, limit: pageSize, ...filters };
-  }, [paginationOptions, filters]);
+    return { skip, limit: paginationOptions.pageSize, ...filters };
+  }, [paginationOptions.page, paginationOptions.pageSize, filters]);
 
-  const fetchItems = useCallback(async () => {
-    setIsLoading(true);
-    try {
+  const fetchItems = useLoadingCallback(
+    useCallback(async () => {
       const { items, total } = await rpcSchema.send('lot.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
@@ -58,10 +55,9 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
       setItems(items);
       setAssets(assets);
       setTotal(total);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [rpcSchema, fetchPayload]);
+    }, [rpcSchema, fetchPayload]),
+    true,
+  );
 
   const findAsset = useCallback(
     (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
@@ -80,7 +76,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
         width="full"
         items={items}
         itemKey={(item) => item.id}
-        isLoading={isLoading}
+        isLoading={fetchItems.isLoading}
         loader={ListLoader}
         emptyText={
           <Empty
