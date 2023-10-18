@@ -9,9 +9,10 @@ const baseStyle = definePartsStyle({
     display: 'flex',
     width: 'full',
     fontSize: 'sm',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     py: '2.75rem',
+    gap: '1rem',
   },
   page: {
     color: 'dark.50',
@@ -30,6 +31,8 @@ const baseStyle = definePartsStyle({
   },
   buttonGroup: {
     gap: '0.25rem',
+    justifyContent: 'center',
+    flexGrow: 1,
   },
 });
 
