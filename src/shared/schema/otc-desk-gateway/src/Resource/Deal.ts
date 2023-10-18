@@ -77,15 +77,17 @@ export namespace Deal {
   }
 
   export interface Deal extends SchemaCommon.Resource<'deal'>, SchemaCommon.ResourceOmit<DealKey> {
-    assetKey: Asset.AssetKey;
-    lotKey: Lot.LotKey;
-    bidKey: Bid.BidKey;
     createdAt: number;
     status: Enums.DealStatus;
     contractSize: Common.Finances.ContractSize;
+    keyResults: ValueObjects.DealKeyResults;
+
+    // References
+    assetKey: Asset.AssetKey;
+    lotKey: Lot.LotKey;
+    bidKey: Bid.BidKey;
     offerMakers: User.User[];
     bidMakers: User.User[];
     moderators: User.User[];
-    keyResults: ValueObjects.DealKeyResults;
   }
 }

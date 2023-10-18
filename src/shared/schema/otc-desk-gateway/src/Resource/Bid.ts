@@ -20,15 +20,19 @@ export namespace Bid {
     createdAt: number;
     deadline?: number;
     status: Enums.BidStatus;
-    lotKey: Lot.LotKey;
-    assetKey: Asset.AssetKey;
-    bidMaker: User.User;
     bidMakerType: Common.Enums.InvestorType;
     location: Common.Enums.Location;
     mediatorType: Common.Enums.MediatorType;
     telegram: Common.Text.Telegram;
     contractSize: Common.Finances.ContractSize;
     readyForVerification: boolean;
-    deal?: Deal.DealKey;
+
+    // References
+    lotKey: Lot.LotKey;
+    lot?: Lot.Lot; // If included
+
+    bidMaker: User.User;
+    assetKey: Asset.AssetKey;
+    dealKey?: Deal.DealKey;
   }
 }
