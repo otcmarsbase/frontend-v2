@@ -93,6 +93,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
               currentStep={currentStep}
               onStepChange={setCurrentStep}
               stepComponent={<StepResolver stepKey={currentStep} />}
+              isLoading={formMethods.formState.isSubmitting}
             />
           </chakra.form>
         </FormProvider>
