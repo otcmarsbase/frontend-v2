@@ -78,6 +78,7 @@ export namespace Lot {
     bidMakerTypes?: Common.Enums.InvestorType[];
     reason?: Lot.Enums.LotCompletedReasonType;
     investRound?: Common.Enums.InvestRound;
+    roundContractSize?: Common.Finances.ContractSize;
 
     // LotAsset
     assetPK?: Asset.AssetKey | Lot.ValueObjects.AssetCreateRequest;
