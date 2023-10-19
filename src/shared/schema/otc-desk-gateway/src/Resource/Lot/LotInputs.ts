@@ -14,38 +14,36 @@ export namespace LotInputs {
     };
   }
 
-  export type COMMON_PRICE_INPUT = Utils.Input<'COMMON_PRICE_INPUT', string>;
-  export type COMMON_DIRECTION_INPUT = Utils.Input<'COMMON_DIRECTION_INPUT', Common.Enums.TradeDirection>;
-  export type COMMON_MEDIATOR_INPUT = Utils.Input<'COMMON_MEDIATOR_INPUT', Common.Enums.MediatorType>;
-  export type COMMON_TELEGRAM_INPUT = Utils.Input<'COMMON_TELEGRAM_INPUT', string>;
-  export type COMMON_DEADLINE_INPUT = Utils.Input<'COMMON_DEADLINE_INPUT', number>;
+  export type COMMON_PRICE = Utils.Input<'COMMON_PRICE', string>;
+  export type COMMON_DIRECTION = Utils.Input<'COMMON_DIRECTION', Common.Enums.TradeDirection>;
+  export type COMMON_IS_DIRECT = Utils.Input<'COMMON_IS_DIRECT', boolean>;
+  export type COMMON_TELEGRAM = Utils.Input<'COMMON_TELEGRAM', string>;
+  export type COMMON_DEADLINE = Utils.Input<'COMMON_DEADLINE', number>;
 
-  export type COMMON_OFFER_MAKER_TYPES_INPUT = Utils.Input<'COMMON_OFFER_MAKER_TYPES_INPUT', Common.Enums.InvestorType[]>;
-  export type COMMON_BID_MAKER_TYPES_INPUT = Utils.Input<'COMMON_BID_MAKER_TYPES_INPUT', Common.Enums.InvestorType[]>;
-  export type COMMON_UNITS_INPUT = Utils.Input<'COMMON_UNITS_INPUT', string>;
-  export type COMMON_SUMMARY_INPUT = Utils.Input<'COMMON_SUMMARY_INPUT', string>;
-  export type COMMON_MIN_FILTER_UNITS_INPUT = Utils.Input<'COMMON_MIN_FILTER_UNITS_INPUT', string>;
-  export type COMMON_MIN_FILTER_SUMMARY_INPUT = Utils.Input<'COMMON_MIN_FILTER_SUMMARY_INPUT', string>;
+  export type COMMON_OFFER_MAKER_TYPES = Utils.Input<'COMMON_OFFER_MAKER_TYPES', Common.Enums.InvestorType[]>;
+  export type COMMON_BID_MAKER_TYPES = Utils.Input<'COMMON_BID_MAKER_TYPES', Common.Enums.InvestorType[]>;
+  export type COMMON_UNITS = Utils.Input<'COMMON_UNITS', string>;
+  export type COMMON_SUMMARY = Utils.Input<'COMMON_SUMMARY', string>;
+  export type COMMON_MIN_FILTER_UNITS = Utils.Input<'COMMON_MIN_FILTER_UNITS', string>;
+  export type COMMON_MIN_FILTER_SUMMARY = Utils.Input<'COMMON_MIN_FILTER_SUMMARY', string>;
 
-  export type COMMON_COMPLETED_REASON_INPUT = Utils.Input<'COMMON_COMPLETED_REASON_INPUT', Lot.Enums.LotCompletedReasonType>;
-
-  export type INVEST_DOC_ASSET_PK_INPUT = Utils.Input<'INVEST_DOC_ASSET_PK_INPUT', string>;
-  export type INVEST_DOC_ASSET_CREATE_REQUEST_INPUT = Utils.Input<'INVEST_DOC_ASSET_CREATE_REQUEST_INPUT', Lot.ValueObjects.AssetCreateRequest>;
-  export type INVEST_DOC_WITH_REASSIGN_INPUT = Utils.Input<'INVEST_DOC_WITH_REASSIGN_INPUT', boolean>;
-  export type INVEST_DOC_FDV_INPUT = Utils.Input<'INVEST_DOC_FDV_INPUT', string>;
-  export type INVEST_DOC_SHARE_INPUT = Utils.Input<'INVEST_DOC_SHARE_INPUT', number>;
+  export type INVEST_DOC_ASSET_PK = Utils.Input<'INVEST_DOC_ASSET_PK', string>;
+  export type INVEST_DOC_ASSET_CREATE_REQUEST = Utils.Input<'INVEST_DOC_ASSET_CREATE_REQUEST', Lot.ValueObjects.AssetCreateRequest>;
+  export type INVEST_DOC_WITH_REASSIGN = Utils.Input<'INVEST_DOC_WITH_REASSIGN', boolean>;
+  export type INVEST_DOC_FDV = Utils.Input<'INVEST_DOC_FDV', string>;
+  export type INVEST_DOC_SHARE = Utils.Input<'INVEST_DOC_SHARE', number>;
 
   //  Только при SELL
-  export type INVEST_DOC_ROUND_TYPE_INPUT = Utils.Input<'INVEST_DOC_ROUND_TYPE_INPUT', Common.Enums.InvestRound>;
-  export type INVEST_DOC_ROUND_PRICE_INPUT = Utils.Input<'INVEST_DOC_ROUND_PRICE_INPUT', string>;
-  export type INVEST_DOC_ROUND_UNITS_INPUT = Utils.Input<'INVEST_DOC_ROUND_UNITS_INPUT', string>;
-  export type INVEST_DOC_ROUND_FDV_INPUT = Utils.Input<'INVEST_DOC_ROUND_FDV_INPUT', string>;
-  export type INVEST_DOC_ROUND_SHARE_INPUT = Utils.Input<'INVEST_DOC_ROUND_SHARE_INPUT', number>;
-  export type INVEST_DOC_ROUND_SUMMARY_INPUT = Utils.Input<'INVEST_DOC_ROUND_SUMMARY_INPUT', string>;
+  export type INVEST_DOC_ROUND_TYPE = Utils.Input<'INVEST_DOC_ROUND_TYPE', Common.Enums.InvestRound>;
+  export type INVEST_DOC_ROUND_PRICE = Utils.Input<'INVEST_DOC_ROUND_PRICE', string>;
+  export type INVEST_DOC_ROUND_UNITS = Utils.Input<'INVEST_DOC_ROUND_UNITS', string>;
+  export type INVEST_DOC_ROUND_FDV = Utils.Input<'INVEST_DOC_ROUND_FDV', string>;
+  export type INVEST_DOC_ROUND_SHARE = Utils.Input<'INVEST_DOC_ROUND_SHARE', number>;
+  export type INVEST_DOC_ROUND_SUMMARY = Utils.Input<'INVEST_DOC_ROUND_SUMMARY', string>;
 
-  export type SAFE_WITH_TOKEN_WARRANT_INPUT = Utils.Input<'SAFE_WITH_TOKEN_WARRANT_INPUT', boolean>;
+  export type SAFE_WITH_TOKEN_WARRANT = Utils.Input<'SAFE_WITH_TOKEN_WARRANT', boolean>;
 
-  export type TOKEN_TGE_INPUT = Utils.Input<'TOKEN_TGE_INPUT', Date | 'TBD'>;
-  export type TOKEN_LOCKUP_PERIOD_INPUT = Utils.Input<'TOKEN_LOCKUP_PERIOD_INPUT', string>;
-  export type TOKEN_VESTING_PERIOD_INPUT = Utils.Input<'TOKEN_VESTING_PERIOD_INPUT', string>;
+  export type TOKEN_TGE = Utils.Input<'TOKEN_TGE', number | 'TBD'>;
+  export type TOKEN_LOCKUP_PERIOD = Utils.Input<'TOKEN_LOCKUP_PERIOD', (string & {}) | 'OVER'>;
+  export type TOKEN_VESTING_PERIOD = Utils.Input<'TOKEN_VESTING_PERIOD', string>;
 }

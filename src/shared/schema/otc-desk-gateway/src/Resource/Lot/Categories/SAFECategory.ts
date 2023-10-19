@@ -3,6 +3,6 @@ import { LotInputs } from '../LotInputs';
 import { InvestDocumentCategory } from './InvestDocumentCategory';
 
 export namespace SAFECategory {
-  export type InputObject = InvestDocumentCategory.InputObject & LotInputs.Utils.MergeInputs<[LotInputs.SAFE_WITH_TOKEN_WARRANT_INPUT]>;
-  export type AttributeObject = InvestDocumentCategory.AttributeObject & LotAttributes.Utils.MergeAttributes<[LotAttributes.SAFE_WITH_TOKEN_WARRANT_ATTRIBUTE]>;
+  export type InputObject = LotInputs.Utils.MergeInputs<[InvestDocumentCategory.InputObject, LotInputs.SAFE_WITH_TOKEN_WARRANT]>;
+  export type AttributeObject = LotAttributes.Utils.MergeAttributes<[InvestDocumentCategory.AttributeObject, InputObject]>;
 }

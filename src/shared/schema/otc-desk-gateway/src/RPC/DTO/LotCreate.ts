@@ -6,5 +6,5 @@ export namespace LotCreate {
     type: Lot.Enums.LotType;
     inputs: Lot.LotInputObject;
   };
-  export type Result = Resource.Lot.LotKey;
+  export type Result = Resource.Lot.Lot;
 }

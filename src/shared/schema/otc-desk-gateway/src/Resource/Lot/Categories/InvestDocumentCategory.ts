@@ -3,39 +3,23 @@ import { LotInputs } from '../LotInputs';
 import { CommonCategory } from './CommonCategory';
 
 export namespace InvestDocumentCategory {
-  export type InputObject = CommonCategory.InputObject &
-    LotInputs.Utils.MergeInputs<
-      [
-        LotInputs.INVEST_DOC_ASSET_PK_INPUT,
-        LotInputs.INVEST_DOC_ASSET_CREATE_REQUEST_INPUT,
-        LotInputs.INVEST_DOC_WITH_REASSIGN_INPUT,
-        LotInputs.INVEST_DOC_FDV_INPUT,
-        LotInputs.INVEST_DOC_SHARE_INPUT,
+  export type InputObject = LotInputs.Utils.MergeInputs<
+    [
+      CommonCategory.InputObject,
 
-        LotInputs.INVEST_DOC_ROUND_TYPE_INPUT,
-        LotInputs.INVEST_DOC_ROUND_PRICE_INPUT,
-        LotInputs.INVEST_DOC_ROUND_UNITS_INPUT,
-        LotInputs.INVEST_DOC_ROUND_FDV_INPUT,
-        LotInputs.INVEST_DOC_ROUND_SHARE_INPUT,
-        LotInputs.INVEST_DOC_ROUND_SUMMARY_INPUT,
-      ]
-    >;
+      LotInputs.INVEST_DOC_ASSET_CREATE_REQUEST,
+      LotInputs.INVEST_DOC_ASSET_PK,
+      LotInputs.INVEST_DOC_FDV,
+      LotInputs.INVEST_DOC_ROUND_FDV,
+      LotInputs.INVEST_DOC_ROUND_PRICE,
+      LotInputs.INVEST_DOC_ROUND_SHARE,
+      LotInputs.INVEST_DOC_ROUND_SUMMARY,
+      LotInputs.INVEST_DOC_ROUND_TYPE,
+      LotInputs.INVEST_DOC_ROUND_UNITS,
+      LotInputs.INVEST_DOC_SHARE,
+      LotInputs.INVEST_DOC_WITH_REASSIGN,
+    ]
+  >;
 
-  export type AttributeObject = CommonCategory.AttributeObject &
-    LotAttributes.Utils.MergeAttributes<
-      [
-        LotAttributes.INVEST_DOC_ASSET_PK_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ASSET_CREATE_REQUEST_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_WITH_REASSIGN_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_FDV_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_SHARE_ATTRIBUTE,
-
-        LotAttributes.INVEST_DOC_ROUND_TYPE_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ROUND_PRICE_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ROUND_UNITS_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ROUND_FDV_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ROUND_SHARE_ATTRIBUTE,
-        LotAttributes.INVEST_DOC_ROUND_SUMMARY_ATTRIBUTE,
-      ]
-    >;
+  export type AttributeObject = LotAttributes.Utils.MergeAttributes<[CommonCategory.AttributeObject, InputObject]>;
 }

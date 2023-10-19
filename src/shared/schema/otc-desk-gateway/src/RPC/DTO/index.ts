@@ -19,6 +19,7 @@ export * from './LotCreate';
 export * from './LotGetById';
 export * from './LotListActive';
 export * from './LotListMy';
+export * from './LotSendOnModeration';
 export * from './LotUpdate';
 export * from './SystemGetVersion';
 export * from './UserGetByNickname';
