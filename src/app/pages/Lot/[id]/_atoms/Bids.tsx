@@ -66,7 +66,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
       >
         <HStack alignItems="center">
           <Text textTransform="uppercase" fontFamily="promo">
-            Bids
+            Active Bids
           </Text>
           <Circle padding="0 0.25rem" size="1.25rem" bg="orange.500" borderRadius="50%">
             <Text fontSize="xs">{bids && bids.length}</Text>

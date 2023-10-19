@@ -11,7 +11,7 @@ import { Empty, List, Pagination, useLoadingCallback } from '@shared/ui-kit';
 import { ListLoader } from './_atoms';
 
 interface MyBidsProps {
-  filters: {
+  filters?: {
     status?: Resource.Bid.Enums.BidStatus[];
   };
 }

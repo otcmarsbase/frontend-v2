@@ -74,3 +74,36 @@ export const SortBidsByTypeDictionary = createDictionary<SortBidsByType, SortBid
     title: 'Status',
   },
 });
+
+export const RoundInfoFieldType = [
+  'INVESTMENT_ROUND',
+  'ROUND_TOKEN_PRICE',
+  'TGE_DATE',
+  'ROUND_FDV',
+  'LOCKUP_PERIOD',
+  'VESTING_CALENDAR',
+] as const;
+export type RoundInfoFieldType = (typeof RoundInfoFieldType)[number];
+
+export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { title: string }>()
+  .setFromRecord({
+    INVESTMENT_ROUND: {
+      title: 'Investment round',
+    },
+    ROUND_TOKEN_PRICE: {
+      title: 'Round token price',
+    },
+    TGE_DATE: {
+      title: 'Estimate TGE Date',
+    },
+    ROUND_FDV: {
+      title: 'Round FDV',
+    },
+    LOCKUP_PERIOD: {
+      title: 'Lockup period',
+    },
+    VESTING_CALENDAR: {
+      title: 'Vesting calendar',
+    },
+  })
+  .asReadonly();

@@ -1,3 +1,4 @@
+export * from './InvestmentRoundBadge';
 export * from './InvestmentRoundSelect';
 export * from './LocationSelect';
 export * from './ParticipantTypeSelect';

@@ -3,6 +3,7 @@ import * as SchemaCommon from '@schema/common';
 import { Asset } from '../Asset';
 import { Common } from '../Common';
 import { User } from '../User';
+
 import { SAFECategory, SAFTCategory, TokenWarrantCategory } from './Categories';
 import { LotAttributes } from './LotAttributes';
 import { LotInputs } from './LotInputs';
