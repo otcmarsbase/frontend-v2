@@ -4,15 +4,17 @@ import { Controller } from 'react-hook-form';
 import { InputGroup, InputRightElement, Text } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage, FormLabel, SuggestionIcon, Tooltip, UIKit } from '@shared/ui-kit';
 
-import { InputDescriptor, NumberInputProps } from './types';
+import { BaseInputProps, NumberInputDescriptor } from './types';
 import { useInput } from './useInput';
 
-export interface CommonPriceInputProps extends InputDescriptor, NumberInputProps {}
-
-const NAME = 'COMMON_PRICE_INPUT';
-
-export const CommonPriceInput: FC<CommonPriceInputProps> = ({ label, tooltip, placeholder, rightElementText }) => {
-  const { isRequired, isValid, error } = useInput(NAME);
+export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> = ({
+  name,
+  label,
+  tooltip,
+  placeholder,
+  rightElementText,
+}) => {
+  const { isRequired, isValid, error } = useInput(name);
 
   return (
     <FormControl isRequired={isRequired} isInvalid={!isValid}>
@@ -23,7 +25,7 @@ export const CommonPriceInput: FC<CommonPriceInputProps> = ({ label, tooltip, pl
         </Tooltip>
       </FormLabel>
       <Controller
-        name={NAME}
+        name={name}
         render={(props) => (
           <InputGroup>
             <UIKit.InputNumber
@@ -33,11 +35,13 @@ export const CommonPriceInput: FC<CommonPriceInputProps> = ({ label, tooltip, pl
               }}
               placeholder={placeholder}
             />
-            <InputRightElement>
-              <Text color="orange.500" fontSize="sm">
-                {rightElementText}
-              </Text>
-            </InputRightElement>
+            {rightElementText && (
+              <InputRightElement>
+                <Text color="orange.500" fontSize="sm">
+                  {rightElementText}
+                </Text>
+              </InputRightElement>
+            )}
           </InputGroup>
         )}
       />

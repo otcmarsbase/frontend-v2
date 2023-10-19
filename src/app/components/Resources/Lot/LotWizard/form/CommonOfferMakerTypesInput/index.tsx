@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
-import { LotCreateModel, UILogic } from '@app/components';
+import { ParticipantTypeSelect } from '@app/components';
 import { HStack, VStack } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage, FormElement } from '@shared/ui-kit';
 
@@ -14,8 +14,8 @@ import { DescriptorDictionary } from './const';
 const NAME = 'COMMON_OFFER_MAKER_TYPES_INPUT';
 
 export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
-  const { isRequired, isValid, error } = useInput(NAME);
-  const direction = useWatch<LotCreateModel>({ name: 'COMMON_DIRECTION_INPUT' }) as any;
+  const { isRequired, isValid, error, watch } = useInput(NAME);
+  const direction = watch('COMMON_DIRECTION_INPUT');
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
@@ -26,7 +26,7 @@ export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
           <Controller
             name={NAME}
             render={({ field }) => (
-              <UILogic.ParticipantTypeSelect
+              <ParticipantTypeSelect
                 {...field}
                 isMulti
                 onChange={field.onChange}

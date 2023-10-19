@@ -59,7 +59,7 @@ export const PricingModelFieldDictionary = createDictionary<PricingModel, Pricin
       QUANTITY: {
         title: 'Equity to offer',
         placeholder: 'Amount',
-        tooltip: 'How much equity of the company/project is being sold in this lot?',
+        tooltip: '  ',
       },
       MIN_SIZE: {
         title: 'Minimum equity bid',

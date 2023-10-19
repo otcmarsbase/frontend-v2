@@ -11,19 +11,19 @@ export const COMMON_DIRECTION_INPUT = yup.string().oneOf(TradeDirectionDictionar
 export const COMMON_MEDIATOR_INPUT = yup.string().oneOf(MediatorTypeDictionary.keys());
 export const COMMON_TELEGRAM_INPUT = yup
   .string()
-  .matches(/[a-zA-Z0-9_]+$/g)
+  .matches(/^[a-zA-Z][a-zA-Z0-9_]*$/g)
   .min(5)
   .max(32);
-export const COMMON_DEADLINE_INPUT = yup
-  .number()
-  .transform((value) => (value instanceof Date ? value.valueOf() : value));
+export const COMMON_DEADLINE_INPUT = yup.date();
 export const COMMON_PERMANENT_INPUT = yup.bool();
 export const COMMON_OFFER_MAKER_TYPES_INPUT = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
 export const COMMON_BID_MAKER_TYPES_INPUT = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
+export const COMMON_NO_LIMIT_INPUT = yup.bool();
 export const COMMON_UNITS_INPUT = yup.string();
 export const COMMON_SUMMARY_INPUT = yup.string();
 export const COMMON_MIN_FILTER_UNITS_INPUT = yup.string();
 export const COMMON_MIN_FILTER_SUMMARY_INPUT = yup.string();
+export const COMMON_PRICING_MODEL_INPUT = yup.string().oneOf(['SUMMARY', 'UNITS']);
 
 export const INVEST_DOC_ASSET_PK_INPUT = yup.string();
 export const INVEST_DOC_ASSET_CREATE_REQUEST_INPUT = yup.object({

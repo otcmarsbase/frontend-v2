@@ -1,44 +1,49 @@
 import { useCallback, useMemo, useState } from 'react';
-import { DefaultValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { createDictionary } from '@app/dictionary';
+import { useToastInnerCallback } from '@app/hooks';
 import { Heading, HStack, VStack, Text, chakra } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Section } from '@shared/ui-kit';
+import * as yup from 'yup';
 
-import { LotWizardProvider, FormContext, useLotWizard, LotWizardView, StepResolver } from './_atoms';
-import { LotWizardDictionary, StepDescriptorDictionary, StepDescriptorKey } from './const';
+import { LotWizardView, StepResolver } from './_atoms';
+import { StepDescriptorsDictionary, StepDescriptorKey } from './const';
 import { LotCreateModel, LotCreateSchema } from './schema';
 import { LotWizardStep } from './types';
+import { useDefaultStep } from './useDefaultStep';
+import { useStepSchema } from './useStepSchema';
 
 export interface LotWizardProps {
-  defaultValues?: DefaultValues<LotCreateModel>;
-  onSubmit: SubmitHandler<LotCreateModel>;
+  defaultValues?: LotCreateModel;
+  onSubmit: (step: StepDescriptorKey, data: LotCreateModel) => Promise<void>;
 }
 
-const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) => {
-  const { formContext } = useLotWizard();
+export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) => {
+  const innerDefaultValues = useMemo(
+    () => defaultValues || (LotCreateSchema.getDefault() as unknown as LotCreateModel),
+    [defaultValues],
+  );
 
-  const formMethods = useForm<LotCreateModel, FormContext>({
+  const defaultStep = useDefaultStep(innerDefaultValues);
+  const [currentStep, setCurrentStep] = useState<StepDescriptorKey>(defaultStep);
+
+  const stepSchema = useStepSchema(currentStep);
+
+  const resolver = useMemo(() => yupResolver(yup.lazy((value) => stepSchema.resolve(value))), [stepSchema]);
+
+  const formMethods = useForm<LotCreateModel>({
     mode: 'onTouched',
-    defaultValues: defaultValues || (LotCreateSchema.getDefault() as any),
-    context: formContext,
-    resolver(values, context, options) {
-      if (!context?.schema)
-        return {
-          values,
-          errors: {},
-        };
-      // @ts-ignore
-      return yupResolver(context.schema)(values, context, options);
-    },
+    defaultValues: innerDefaultValues,
+    resolver,
   });
 
   const [direction] = formMethods.watch(['COMMON_DIRECTION_INPUT']);
 
-  const stepsDictionary = useMemo(() => {
+  const stepDescriptors = useMemo(() => {
     const dictionary = createDictionary<StepDescriptorKey, LotWizardStep<StepDescriptorKey>>().setFromDictionary(
-      StepDescriptorDictionary,
+      StepDescriptorsDictionary,
     );
 
     if (direction === 'BUY') {
@@ -48,27 +53,32 @@ const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) =
     return dictionary.asReadonly();
   }, [direction]);
 
-  const [currentStep, setCurrentStep] = useState<StepDescriptorKey>('INVEST_DOC_START');
+  const handleSubmit = useToastInnerCallback(
+    useCallback<SubmitHandler<LotCreateModel>>(
+      async (data) => {
+        const stepData = stepSchema.cast(data, { stripUnknown: true });
 
-  const handleSubmit: SubmitHandler<LotCreateModel> = useCallback(
-    async (data) => {
-      await onSubmit(data);
+        await onSubmit(currentStep, stepData);
 
-      const nextStepIndex = stepsDictionary.keys().findIndex((key) => key === currentStep) + 1;
-      const nextStep = stepsDictionary.keys()[nextStepIndex];
+        const nextStepIndex = stepDescriptors.keys().findIndex((key) => key === currentStep) + 1;
+        const nextStep = stepDescriptors.keys()[nextStepIndex];
 
-      setCurrentStep(nextStep);
-    },
-    [currentStep, onSubmit, stepsDictionary],
+        if (!nextStep) return;
+
+        setCurrentStep(nextStep);
+      },
+      [currentStep, onSubmit, stepDescriptors, stepSchema],
+    ),
+    {},
   );
 
   return (
     <VStack w="full" alignItems="start">
       <HStack w="full" justifyContent="space-between" mb="1.25rem">
         <VStack alignItems="start" gap="0.1rem">
-          <Heading fontSize="lg">{LotWizardDictionary.get('HEADER').title}</Heading>
+          <Heading fontSize="lg">Creating an offer</Heading>
           <Text color="dark.50" fontSize="sm">
-            {LotWizardDictionary.get('HEADER').description}
+            Set suitable conditions
           </Text>
         </VStack>
       </HStack>
@@ -77,7 +87,7 @@ const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) =
         <FormProvider {...formMethods}>
           <chakra.form w="full" onSubmit={formMethods.handleSubmit(handleSubmit)}>
             <LotWizardView
-              stepDictionary={stepsDictionary}
+              stepDictionary={stepDescriptors}
               currentStep={currentStep}
               onStepChange={setCurrentStep}
               stepComponent={<StepResolver stepKey={currentStep} />}
@@ -88,9 +98,3 @@ const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) =
     </VStack>
   );
 };
-
-export const LotWizard: React.FC<LotWizardProps> = (props) => (
-  <LotWizardProvider>
-    <LotWizardInner {...props} />
-  </LotWizardProvider>
-);

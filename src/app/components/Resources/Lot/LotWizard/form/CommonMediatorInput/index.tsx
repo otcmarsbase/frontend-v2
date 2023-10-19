@@ -1,19 +1,18 @@
 import { FC, useMemo } from 'react';
-import { Controller, useWatch } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
-import { Flex } from '@chakra-ui/react';
 import { FormControl, Checkbox } from '@shared/ui-kit';
 
-import { LotCreateModel } from '../../schema';
 import { BaseInputProps } from '../types';
+import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
 const NAME = 'COMMON_MEDIATOR_INPUT';
 
 export const CommonMediatorInput: FC<BaseInputProps> = () => {
-  // TODO: Fix value type
-  const direction = useWatch<LotCreateModel>({ name: 'COMMON_DIRECTION_INPUT' }) as any;
+  const { watch } = useInput(NAME);
+  const direction = watch('COMMON_DIRECTION_INPUT');
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
@@ -28,9 +27,7 @@ export const CommonMediatorInput: FC<BaseInputProps> = () => {
               field.onChange(e.target.checked ? 'DIRECT' : 'OTC_AGENT');
             }}
           >
-            <Flex alignItems="center" gap="0.25rem">
-              {descriptor.label}
-            </Flex>
+            {descriptor.label}
           </Checkbox>
         )}
       />

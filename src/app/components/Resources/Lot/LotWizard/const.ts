@@ -2,26 +2,14 @@ import { createDictionary } from '@app/dictionary';
 
 import { LotWizardStep } from './types';
 
-export type LotWizardField = 'HEADER';
-export type LotWizardFieldValue = {
-  title: string;
-  description: string;
-};
-export const LotWizardDictionary = createDictionary<LotWizardField, LotWizardFieldValue>({
-  HEADER: {
-    title: 'Creating an offer',
-    description: 'Set suitable conditions',
-  },
-});
-
 export type StepDescriptorKey =
   | 'INVEST_DOC_START'
   | 'COMMON_PROJECT'
   | 'INVEST_DOC_ROUND'
-  | 'COMMON_PRICE'
+  | 'INVEST_DOC_PRICE'
   | 'INVEST_DOC_REVIEW';
 
-export const StepDescriptorDictionary = createDictionary<StepDescriptorKey, LotWizardStep<StepDescriptorKey>>()
+export const StepDescriptorsDictionary = createDictionary<StepDescriptorKey, LotWizardStep<StepDescriptorKey>>()
   .setFromRecord({
     INVEST_DOC_START: {
       title: 'Start',
@@ -45,7 +33,7 @@ export const StepDescriptorDictionary = createDictionary<StepDescriptorKey, LotW
       backSteps: ['INVEST_DOC_START', 'COMMON_PROJECT'],
       skippable: false,
     },
-    COMMON_PRICE: {
+    INVEST_DOC_PRICE: {
       title: 'Lot info',
       description:
         'Provide information about the round on which you purchased the tokens. This information is necessary to calculate your supply.',
@@ -57,7 +45,7 @@ export const StepDescriptorDictionary = createDictionary<StepDescriptorKey, LotW
       title: 'Review',
       description: '',
       stepTitle: 'Review',
-      backSteps: ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_ROUND', 'COMMON_PRICE'],
+      backSteps: ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_ROUND', 'INVEST_DOC_PRICE'],
       skippable: false,
     },
   })

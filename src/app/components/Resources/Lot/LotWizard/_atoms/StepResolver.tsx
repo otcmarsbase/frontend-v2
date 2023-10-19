@@ -2,8 +2,8 @@ import { FC, useMemo } from 'react';
 
 import { StepDescriptorKey } from '../const';
 import {
-  CommonPriceStep,
   CommonProjectStep,
+  InvestDocPriceStep,
   InvestDocReviewStep,
   InvestDocRoundStep,
   InvestDocStartStep,
@@ -16,10 +16,10 @@ export interface StepResolverProps {
 export const StepResolver: FC<StepResolverProps> = ({ stepKey }) => {
   return useMemo(() => {
     switch (stepKey) {
-      case 'COMMON_PRICE':
-        return <CommonPriceStep />;
       case 'COMMON_PROJECT':
         return <CommonProjectStep />;
+      case 'INVEST_DOC_PRICE':
+        return <InvestDocPriceStep />;
       case 'INVEST_DOC_REVIEW':
         return <InvestDocReviewStep />;
       case 'INVEST_DOC_ROUND':

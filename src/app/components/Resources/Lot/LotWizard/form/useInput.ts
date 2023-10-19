@@ -1,37 +1,28 @@
 import { useCallback, useMemo } from 'react';
-import { FieldError, FieldPath, FieldPathValue, useFormContext, useFormState, useWatch } from 'react-hook-form';
+import { FieldPath, FieldPathValue, useFormContext, get } from 'react-hook-form';
 
-import { reach, SchemaDescription } from 'yup';
+import { useIsRequired } from '@shared/ui-kit';
 
-import { useLotWizard } from '../_atoms';
-import { LotCreateModel } from '../schema';
+import { LotCreateSchema, LotCreateModel } from '../schema';
 
-export function useInput(name: FieldPath<LotCreateModel>) {
-  const { formContext } = useLotWizard<LotCreateModel>();
-  const { setValue: rhfSetValue, getValues } = useFormContext();
+export function useInput<T extends FieldPath<LotCreateModel>>(name: T) {
+  const { setValue: rhfSetValue, trigger: rhfTrigger, formState, watch } = useFormContext<LotCreateModel>();
 
-  const { errors } = useFormState<LotCreateModel>({ name });
-
-  const error = useMemo(() => errors[name] as FieldError | undefined, [name, errors]);
+  const error = useMemo(() => get(formState.errors, name), [formState, name]);
   const isValid = useMemo(() => !error, [error]);
 
-  // TODO: Fix value type
-  const value = useWatch<LotCreateModel>({ name }) as any;
+  const value = watch(name);
 
   const setValue = useCallback(
-    (value: FieldPathValue<LotCreateModel, typeof name>) => {
-      rhfSetValue(name, value);
+    (value: FieldPathValue<LotCreateModel, T>) => {
+      rhfSetValue<T>(name, value);
     },
     [rhfSetValue, name],
   );
 
-  const isRequired = useMemo(() => {
-    if (!formContext.schema) return false;
+  const trigger = useCallback(() => rhfTrigger(name), [name, rhfTrigger]);
 
-    const schema = reach(formContext.schema, name, getValues());
-    const field = schema.describe() as SchemaDescription;
-    return !field.optional;
-  }, [name, formContext.schema, getValues]);
+  const isRequired = useIsRequired(LotCreateSchema)(name);
 
-  return { isRequired, isValid, error, value, setValue };
+  return { isRequired, isValid, error, value, setValue, trigger, formState, watch };
 }

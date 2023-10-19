@@ -22,15 +22,17 @@ export const DatePicker = forwardRef<DatePickerProps, 'input'>(
     const { onOpen, onClose, isOpen } = useDisclosure();
 
     const inputValue = useMemo(() => {
+      if (!value) return '';
+
       if (value instanceof Array) {
         const [start, end] = value;
 
-        if (!(isDate(start) && isDate(end))) return;
+        if (!(isDate(start) && isDate(end))) return '';
 
         return `${format(start, formatDate)} - ${format(end, formatDate)}`;
       }
 
-      if (!isDate(value)) return;
+      if (!isDate(value)) return '';
 
       return format(value, formatDate);
     }, [value, formatDate]);

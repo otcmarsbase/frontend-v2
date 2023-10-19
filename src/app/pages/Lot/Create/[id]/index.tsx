@@ -1,7 +1,6 @@
 import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import { SubmitHandler } from 'react-hook-form';
 
-import { LotCreateModel, LotWizard, useRpcSchemaClient } from '@app/components';
+import { LotWizard, LotWizardProps, useRpcSchemaClient } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Center } from '@chakra-ui/react';
@@ -31,12 +30,9 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     preload();
   }, [preload]);
 
-  const onSubmit: SubmitHandler<LotCreateModel> = useCallback(
-    (data) => {
-      rpcSchema.send('lot.update', { id, inputs: {} });
-    },
-    [rpcSchema, id],
-  );
+  const onSubmit: LotWizardProps['onSubmit'] = async (step, data) => {
+    console.log(data);
+  };
 
   if (preload.isLoading) return <></>;
 
