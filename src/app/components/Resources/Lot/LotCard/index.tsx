@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { AssetVerticalIcon, LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate } from '@app/utils';
+import { formatDate, getMinimumDealSize } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -63,7 +63,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
-            value={lot.minimumDealSize.stablecoinQuantity.value}
+            value={getMinimumDealSize(lot)}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
