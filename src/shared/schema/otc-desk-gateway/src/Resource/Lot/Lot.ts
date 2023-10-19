@@ -26,8 +26,12 @@ export namespace Lot {
     }
   }
 
-  export type LotInputObject = LotInputs.Utils.MergeInputs<[SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]>;
-  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<[SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]>;
+  export type LotInputObject = LotInputs.Utils.MergeInputs<
+    [SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]
+  >;
+  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<
+    [SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]
+  >;
 
   export interface LotKey extends SchemaCommon.ResourceKey<'lot'> {
     id: number;
@@ -73,6 +77,7 @@ export namespace Lot {
     offerMakerTypes?: Common.Enums.InvestorType[];
     bidMakerTypes?: Common.Enums.InvestorType[];
     reason?: Lot.Enums.LotCompletedReasonType;
+    investRound?: Common.Enums.InvestRound;
 
     // LotAsset
     assetPK?: Asset.AssetKey | Lot.ValueObjects.AssetCreateRequest;
