@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { FormControlNumberInput } from './FormControlNumberInput';
 import { BaseInputProps } from './types';
 
-const NAME = 'INVEST_DOC_FDV_INPUT';
+const NAME = 'INVEST_DOC_FDV';
 
 export const InvestDocFdvInput: FC<BaseInputProps> = () => {
   return (

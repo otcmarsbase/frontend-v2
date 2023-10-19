@@ -1,17 +1,18 @@
 import { FC, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { Checkbox, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage, FormElement, DatePicker } from '@shared/ui-kit';
 
+import { FormControlCheckboxInput } from './FormControlCheckboxInput';
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
 
-const NAME = 'COMMON_DEADLINE_INPUT';
+const NAME = 'COMMON_DEADLINE';
 
 export const CommonDeadlineInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error, setValue, trigger, watch } = useInput(NAME);
-  const isPermanent = watch('COMMON_PERMANENT_INPUT');
+  const isPermanent = watch('COMMON_IS_PERMANENT');
 
   useEffect(() => {
     if (isPermanent) {
@@ -28,23 +29,8 @@ export const CommonDeadlineInput: FC<BaseInputProps> = () => {
           {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>
 
-        <PermanentInput />
+        <FormControlCheckboxInput name="COMMON_IS_PERMANENT" label="Permanent" />
       </VStack>
     </FormElement>
-  );
-};
-
-const PermanentInput = () => {
-  return (
-    <FormControl>
-      <Controller
-        name="COMMON_PERMANENT_INPUT"
-        render={({ field }) => (
-          <Checkbox isChecked={!!field.value} {...field}>
-            Permanent
-          </Checkbox>
-        )}
-      />
-    </FormControl>
   );
 };

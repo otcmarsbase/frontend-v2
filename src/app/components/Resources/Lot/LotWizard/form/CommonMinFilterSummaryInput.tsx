@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { FormControlNumberInput } from './FormControlNumberInput';
 import { BaseInputProps } from './types';
 
-const NAME = 'COMMON_MIN_FILTER_SUMMARY_INPUT';
+const NAME = 'COMMON_MIN_FILTER_SUMMARY';
 
 export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
   return (

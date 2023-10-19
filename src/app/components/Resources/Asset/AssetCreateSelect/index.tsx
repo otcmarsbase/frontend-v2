@@ -9,7 +9,8 @@ import { AssetImage } from '../AssetImage';
 
 type SelectType = Resource.Asset.Asset | string;
 
-export interface AssetCreateSelectProps extends Omit<UIKit.SelectAsyncProps<SelectType>, 'load' | 'renderItem'> {}
+export interface AssetCreateSelectProps
+  extends Omit<UIKit.SelectAsyncProps<SelectType, false>, 'load' | 'renderItem'> {}
 
 export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();

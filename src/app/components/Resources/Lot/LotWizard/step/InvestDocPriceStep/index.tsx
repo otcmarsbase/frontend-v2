@@ -17,7 +17,7 @@ import { LotCreateModel } from '../../schema';
 
 export const InvestDocPriceStep: FC = () => {
   const { watch } = useFormContext<LotCreateModel>();
-  const pricingModel = watch('COMMON_PRICING_MODEL_INPUT');
+  const pricingModel = watch('COMMON_PRICING_MODEL');
 
   return (
     <FormElement

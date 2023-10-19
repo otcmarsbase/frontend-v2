@@ -1,49 +1,55 @@
-import {
-  InvestmentRoundDictionary,
-  MediatorTypeDictionary,
-  ParticipantTypeDictionary,
-  TradeDirectionDictionary,
-} from '@app/dictionary';
+import { InvestmentRoundDictionary, ParticipantTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import * as yup from 'yup';
 
-export const COMMON_PRICE_INPUT = yup.string();
-export const COMMON_DIRECTION_INPUT = yup.string().oneOf(TradeDirectionDictionary.keys());
-export const COMMON_MEDIATOR_INPUT = yup.string().oneOf(MediatorTypeDictionary.keys());
-export const COMMON_TELEGRAM_INPUT = yup
+export const COMMON_PRICE = yup.string();
+export const COMMON_DIRECTION = yup.string().oneOf(TradeDirectionDictionary.keys());
+export const COMMON_IS_DIRECT = yup.bool();
+export const COMMON_TELEGRAM = yup
   .string()
   .matches(/^[a-zA-Z][a-zA-Z0-9_]*$/g)
   .min(5)
   .max(32);
-export const COMMON_DEADLINE_INPUT = yup.date();
-export const COMMON_PERMANENT_INPUT = yup.bool();
-export const COMMON_OFFER_MAKER_TYPES_INPUT = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
-export const COMMON_BID_MAKER_TYPES_INPUT = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
-export const COMMON_NO_LIMIT_INPUT = yup.bool();
-export const COMMON_UNITS_INPUT = yup.string();
-export const COMMON_SUMMARY_INPUT = yup.string();
-export const COMMON_MIN_FILTER_UNITS_INPUT = yup.string();
-export const COMMON_MIN_FILTER_SUMMARY_INPUT = yup.string();
-export const COMMON_PRICING_MODEL_INPUT = yup.string().oneOf(['SUMMARY', 'UNITS']);
+export const COMMON_DEADLINE = yup
+  .number()
+  .nullable()
+  .transform((_, originalValue) => (originalValue instanceof Date ? originalValue.valueOf() : originalValue));
+export const COMMON_IS_PERMANENT = yup.bool();
+export const COMMON_OFFER_MAKER_TYPES = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
+export const COMMON_BID_MAKER_TYPES = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
+export const COMMON_IS_NO_LIMIT = yup.bool();
+export const COMMON_UNITS = yup.string();
+export const COMMON_SUMMARY = yup.string();
+export const COMMON_MIN_FILTER_UNITS = yup.string();
+export const COMMON_MIN_FILTER_SUMMARY = yup.string();
+export const COMMON_PRICING_MODEL = yup.string().oneOf(['SUMMARY', 'UNITS']);
 
-export const INVEST_DOC_ASSET_PK_INPUT = yup.string();
-export const INVEST_DOC_ASSET_CREATE_REQUEST_INPUT = yup.object({
-  title: yup.string(),
-  website: yup.string().url(),
+export const INVEST_DOC_ASSET_PK = yup
+  .string()
+  .transform((_, originalValue) => (typeof originalValue === 'string' ? originalValue : originalValue.id));
+export const INVEST_DOC_ASSET_CREATE_REQUEST = yup.object({
+  title: yup.string().required(),
+  website: yup.string().url().required(),
 });
-export const INVEST_DOC_WITH_REASSIGN_INPUT = yup.bool();
-export const INVEST_DOC_FDV_INPUT = yup.string();
-export const INVEST_DOC_SHARE_INPUT = yup.string();
-export const INVEST_DOC_ROUND_TYPE_INPUT = yup.string().oneOf(InvestmentRoundDictionary.keys());
-export const INVEST_DOC_ROUND_PRICE_INPUT = yup.string();
-export const INVEST_DOC_ROUND_UNITS_INPUT = yup.string();
-export const INVEST_DOC_ROUND_FDV_INPUT = yup.string();
-export const INVEST_DOC_ROUND_SHARE_INPUT = yup.number();
-export const INVEST_DOC_ROUND_SUMMARY_INPUT = yup.number();
+export const INVEST_DOC_ASSET = yup.lazy((value) =>
+  typeof value === 'string' || value?.id || !Boolean(value)
+    ? INVEST_DOC_ASSET_PK.required()
+    : INVEST_DOC_ASSET_CREATE_REQUEST.required(),
+);
+export const INVEST_DOC_WITH_REASSIGN = yup.bool();
+export const INVEST_DOC_FDV = yup.string();
+export const INVEST_DOC_SHARE = yup.number();
 
-export const SAFE_WITH_TOKEN_WARRANT_INPUT = yup.bool();
+export const INVEST_DOC_ROUND_TYPE = yup.string().oneOf(InvestmentRoundDictionary.keys());
+export const INVEST_DOC_ROUND_PRICE = yup.string();
+export const INVEST_DOC_ROUND_UNITS = yup.string();
+export const INVEST_DOC_ROUND_FDV = yup.string();
+export const INVEST_DOC_ROUND_SHARE = yup.number();
+export const INVEST_DOC_ROUND_SUMMARY = yup.string();
 
-export const TOKEN_TGE_INPUT = yup
+export const TOKEN_TGE = yup
   .mixed<number | 'TBD'>()
   .transform((value) => (value instanceof Date ? value.valueOf() : value));
-export const TOKEN_LOCKUP_PERIOD_INPUT = yup.string();
-export const TOKEN_VESTING_PERIOD_INPUT = yup.string();
+export const TOKEN_LOCKUP_PERIOD = yup.string();
+export const TOKEN_VESTING_PERIOD = yup.string();
+
+export const SAFE_WITH_TOKEN_WARRANT = yup.bool();

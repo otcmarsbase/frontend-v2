@@ -6,7 +6,7 @@ import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
-const NAME = 'COMMON_UNITS_INPUT';
+const NAME = 'COMMON_UNITS';
 
 export const CommonUnitsInput: FC<BaseInputProps> = () => {
   const { watch } = useInput(NAME);

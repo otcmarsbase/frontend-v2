@@ -8,7 +8,7 @@ import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
-const NAME = 'COMMON_PRICING_MODEL_INPUT';
+const NAME = 'COMMON_PRICING_MODEL';
 
 export const CommonPricingModelInput: FC<BaseInputProps> = () => {
   const { watch } = useInput(NAME);

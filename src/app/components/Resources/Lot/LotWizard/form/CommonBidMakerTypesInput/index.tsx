@@ -2,30 +2,31 @@ import { FC, useEffect, useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
-import { Checkbox, HStack, VStack } from '@chakra-ui/react';
+import { HStack, VStack } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage, FormElement } from '@shared/ui-kit';
 
+import { FormControlCheckboxInput } from '../FormControlCheckboxInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
-const NAME = 'COMMON_BID_MAKER_TYPES_INPUT';
+const NAME = 'COMMON_BID_MAKER_TYPES';
 
 export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error, setValue, watch } = useInput(NAME);
-  const [direction, noLimit] = watch(['COMMON_DIRECTION_INPUT', 'COMMON_NO_LIMIT_INPUT']);
+  const [direction, isNoLimit] = watch(['COMMON_DIRECTION', 'COMMON_IS_NO_LIMIT']);
 
   const { trigger } = useFormContext();
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
   useEffect(() => {
-    if (noLimit) {
+    if (isNoLimit) {
       setValue([]);
       trigger(NAME);
     }
-  }, [noLimit, setValue, trigger]);
+  }, [isNoLimit, setValue, trigger]);
 
   return (
     <FormElement label={descriptor.label} info={descriptor.tooltip} isRequired={isRequired} w="full">
@@ -39,7 +40,7 @@ export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
                 isMulti
                 onChange={field.onChange}
                 placeholder={descriptor.placeholder}
-                isDisabled={noLimit}
+                isDisabled={isNoLimit}
               />
             )}
           />
@@ -47,24 +48,9 @@ export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
         </FormControl>
 
         <HStack w="full">
-          <NoLimitInput />
+          <FormControlCheckboxInput name="COMMON_IS_NO_LIMIT" label="No limitations" />;
         </HStack>
       </VStack>
     </FormElement>
-  );
-};
-
-const NoLimitInput = () => {
-  return (
-    <FormControl>
-      <Controller
-        name="COMMON_NO_LIMIT_INPUT"
-        render={({ field }) => (
-          <Checkbox isChecked={!!field.value} {...field}>
-            No limitations
-          </Checkbox>
-        )}
-      />
-    </FormControl>
   );
 };

@@ -6,7 +6,7 @@ import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
-const NAME = 'COMMON_MIN_FILTER_UNITS_INPUT';
+const NAME = 'COMMON_MIN_FILTER_UNITS';
 
 export const CommonMinFilterUnitsInput: FC<BaseInputProps> = () => {
   const { watch } = useInput(NAME);

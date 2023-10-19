@@ -7,7 +7,7 @@ import { FormControl, FormElement, FormErrorMessage } from '@shared/ui-kit';
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
 
-const NAME = 'COMMON_TELEGRAM_INPUT';
+const NAME = 'COMMON_TELEGRAM';
 
 export const CommonTelegramInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error } = useInput(NAME);

@@ -17,12 +17,15 @@ import { useStepSchema } from './useStepSchema';
 
 export interface LotWizardProps {
   defaultValues?: LotCreateModel;
-  onSubmit: (step: StepDescriptorKey, data: LotCreateModel) => Promise<void>;
+  onSubmit: (inputs: LotCreateModel, meta: { isLastStep: boolean; stepKey?: StepDescriptorKey }) => Promise<void>;
 }
 
 export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) => {
   const innerDefaultValues = useMemo(
-    () => defaultValues || (LotCreateSchema.getDefault() as unknown as LotCreateModel),
+    () =>
+      defaultValues
+        ? LotCreateSchema.cast(defaultValues, { assert: false })
+        : (LotCreateSchema.getDefault() as unknown as LotCreateModel),
     [defaultValues],
   );
 
@@ -39,7 +42,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
     resolver,
   });
 
-  const [direction] = formMethods.watch(['COMMON_DIRECTION_INPUT']);
+  const [direction] = formMethods.watch(['COMMON_DIRECTION']);
 
   const stepDescriptors = useMemo(() => {
     const dictionary = createDictionary<StepDescriptorKey, LotWizardStep<StepDescriptorKey>>().setFromDictionary(
@@ -56,12 +59,11 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
   const handleSubmit = useToastInnerCallback(
     useCallback<SubmitHandler<LotCreateModel>>(
       async (data) => {
-        const stepData = stepSchema.cast(data, { stripUnknown: true });
-
-        await onSubmit(currentStep, stepData);
-
         const nextStepIndex = stepDescriptors.keys().findIndex((key) => key === currentStep) + 1;
         const nextStep = stepDescriptors.keys()[nextStepIndex];
+        const stepData = stepSchema.cast(data, { assert: false, stripUnknown: true });
+
+        await onSubmit(stepData, { isLastStep: !nextStep, stepKey: currentStep });
 
         if (!nextStep) return;
 

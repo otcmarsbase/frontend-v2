@@ -7,7 +7,7 @@ import { FormControl, FormErrorMessage, RadioButtons, FormElement } from '@share
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
 
-const NAME = 'COMMON_DIRECTION_INPUT';
+const NAME = 'COMMON_DIRECTION';
 
 export const CommonDirectionInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error } = useInput(NAME);

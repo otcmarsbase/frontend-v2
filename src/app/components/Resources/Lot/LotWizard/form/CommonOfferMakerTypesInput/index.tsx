@@ -5,17 +5,17 @@ import { ParticipantTypeSelect } from '@app/components';
 import { HStack, VStack } from '@chakra-ui/react';
 import { FormControl, FormErrorMessage, FormElement } from '@shared/ui-kit';
 
-import { CommonMediatorInput } from '../CommonMediatorInput';
+import { CommonIsDirectInput } from '../CommonIsDirectInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
 
-const NAME = 'COMMON_OFFER_MAKER_TYPES_INPUT';
+const NAME = 'COMMON_OFFER_MAKER_TYPES';
 
 export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error, watch } = useInput(NAME);
-  const direction = watch('COMMON_DIRECTION_INPUT');
+  const direction = watch('COMMON_DIRECTION');
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
@@ -38,7 +38,7 @@ export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
         </FormControl>
 
         <HStack w="full">
-          <CommonMediatorInput />
+          <CommonIsDirectInput />
         </HStack>
       </VStack>
     </FormElement>

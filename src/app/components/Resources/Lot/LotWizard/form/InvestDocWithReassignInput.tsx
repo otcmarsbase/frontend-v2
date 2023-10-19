@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { FormControlCheckboxInput } from './FormControlCheckboxInput';
 import { BaseInputProps } from './types';
 
-const NAME = 'INVEST_DOC_WITH_REASSIGN_INPUT';
+const NAME = 'INVEST_DOC_WITH_REASSIGN';
 
 export const InvestDocWithReassignInput: FC<BaseInputProps> = (props) => (
   <FormControlCheckboxInput

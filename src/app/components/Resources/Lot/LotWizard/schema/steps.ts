@@ -1,36 +1,42 @@
 import * as yup from 'yup';
 
-import { SafeInputs } from './categories';
+import { SafeInputs, SaftInputs, TokenWarrantInputs } from './categories';
 import { LotCreateModel, LotCreateSchema } from './LotCreate';
 
 export const InvestDocStartStepInputs = LotCreateSchema.pick([
   'type',
-  'COMMON_DIRECTION_INPUT',
-  'INVEST_DOC_ASSET_PK_INPUT',
+  'COMMON_DIRECTION',
+  'INVEST_DOC_ASSET',
+  'SAFE_WITH_TOKEN_WARRANT',
+  'INVEST_DOC_WITH_REASSIGN',
 ]);
 
 export const CommonProjectStepInputs = LotCreateSchema.pick([
-  'COMMON_OFFER_MAKER_TYPES_INPUT',
-  'COMMON_BID_MAKER_TYPES_INPUT',
-  'COMMON_DEADLINE_INPUT',
-  'COMMON_TELEGRAM_INPUT',
-  'COMMON_MEDIATOR_INPUT',
+  'COMMON_OFFER_MAKER_TYPES',
+  'COMMON_BID_MAKER_TYPES',
+  'COMMON_DEADLINE',
+  'COMMON_TELEGRAM',
+  'COMMON_IS_DIRECT',
 ]);
 
 export const InvestDocPriceStepInputs = LotCreateSchema.pick([
-  'COMMON_PRICE_INPUT',
-  'COMMON_SUMMARY_INPUT',
-  'COMMON_UNITS_INPUT',
-  'INVEST_DOC_FDV_INPUT',
-  'COMMON_MIN_FILTER_UNITS_INPUT',
-  'COMMON_MIN_FILTER_SUMMARY_INPUT',
+  'COMMON_PRICE',
+  'COMMON_SUMMARY',
+  'COMMON_UNITS',
+  'INVEST_DOC_FDV',
+  'COMMON_MIN_FILTER_UNITS',
+  'COMMON_MIN_FILTER_SUMMARY',
 ]);
 
-export const InvestDocReviewStepInputs = yup.lazy((data: LotCreateModel) => {
-  if (!data) return yup.object();
+export const InvestDocReviewStepInputs = yup.lazy((value: LotCreateModel) => {
+  if (!value) return yup.object();
 
-  switch (data.type) {
+  switch (value.type) {
     case 'SAFE':
-      return SafeInputs.resolve({ value: data });
+      return SafeInputs.resolve({ value });
+    case 'SAFT':
+      return SaftInputs.resolve({ value });
+    case 'TOKEN_WARRANT':
+      return TokenWarrantInputs.resolve({ value });
   }
 });
