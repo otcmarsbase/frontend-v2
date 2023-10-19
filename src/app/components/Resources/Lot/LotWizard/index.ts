@@ -1,2 +1,2 @@
 export * from './LotWizard';
-export * from './types';
+export * from './schema';

@@ -1,13 +1,7 @@
-export interface LotWizardStep<T> {
+export interface LotWizardStep<T extends string> {
   title: string;
   description: string;
   stepTitle: string;
   backSteps: T[];
   skippable: boolean;
-}
-
-export interface LotWizardStepField {
-  title: string;
-  placeholder?: string;
-  tooltip?: string;
 }

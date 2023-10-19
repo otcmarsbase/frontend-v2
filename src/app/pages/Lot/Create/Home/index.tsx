@@ -1,17 +1,15 @@
-import { LotWizard } from '@app/components';
+import { SubmitHandler } from 'react-hook-form';
+
+import { LotCreateModel, LotWizard } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { Center } from '@chakra-ui/react';
 
 const View: React.FC<{}> = () => {
-  return (
-    <LotWizard
-      defaultValues={{
-        resource: 'lot',
-        type: 'SAFE',
-        direction: 'BUY',
-      }}
-    />
-  );
+  const onSubmit: SubmitHandler<LotCreateModel> = (data) => {
+    console.log(data);
+  };
+
+  return <LotWizard onSubmit={onSubmit} />;
 };
 
 View.getLayout = ({ children }) => (

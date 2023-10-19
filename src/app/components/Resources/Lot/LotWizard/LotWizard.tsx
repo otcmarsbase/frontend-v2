@@ -1,24 +1,27 @@
+import { useCallback, useMemo, useState } from 'react';
 import { DefaultValues, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { Button, Heading, HStack, VStack, Text, chakra } from '@chakra-ui/react';
+import { createDictionary } from '@app/dictionary';
+import { Heading, HStack, VStack, Text, chakra } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Resource } from '@schema/otc-desk-gateway';
 import { Section } from '@shared/ui-kit';
 
-import { LotWizardProvider, FormContext } from './_atoms';
-import { useLotWizard } from './_atoms';
-import { LotWizardDictionary } from './const';
-import { LotWizardType } from './LotWizardType';
+import { LotWizardProvider, FormContext, useLotWizard, LotWizardView, StepResolver } from './_atoms';
+import { LotWizardDictionary, StepDescriptorDictionary, StepDescriptorKey } from './const';
+import { LotCreateModel, LotCreateSchema } from './schema';
+import { LotWizardStep } from './types';
 
 export interface LotWizardProps {
-  defaultValues: DefaultValues<Resource.Lot.Lot>;
+  defaultValues?: DefaultValues<LotCreateModel>;
+  onSubmit: SubmitHandler<LotCreateModel>;
 }
 
-const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues }) => {
+const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues, onSubmit }) => {
   const { formContext } = useLotWizard();
-  const formMethods = useForm<Resource.Lot.Lot, FormContext>({
+
+  const formMethods = useForm<LotCreateModel, FormContext>({
     mode: 'onTouched',
-    defaultValues,
+    defaultValues: defaultValues || (LotCreateSchema.getDefault() as any),
     context: formContext,
     resolver(values, context, options) {
       if (!context?.schema)
@@ -31,11 +34,33 @@ const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues }) => {
     },
   });
 
-  const onPreviewClick = () => {};
+  const [direction] = formMethods.watch(['COMMON_DIRECTION_INPUT']);
 
-  const onSubmit: SubmitHandler<Resource.Lot.Lot> = async (data) => {
-    console.log(data);
-  };
+  const stepsDictionary = useMemo(() => {
+    const dictionary = createDictionary<StepDescriptorKey, LotWizardStep<StepDescriptorKey>>().setFromDictionary(
+      StepDescriptorDictionary,
+    );
+
+    if (direction === 'BUY') {
+      dictionary.delete('INVEST_DOC_ROUND');
+    }
+
+    return dictionary.asReadonly();
+  }, [direction]);
+
+  const [currentStep, setCurrentStep] = useState<StepDescriptorKey>('INVEST_DOC_START');
+
+  const handleSubmit: SubmitHandler<LotCreateModel> = useCallback(
+    async (data) => {
+      await onSubmit(data);
+
+      const nextStepIndex = stepsDictionary.keys().findIndex((key) => key === currentStep) + 1;
+      const nextStep = stepsDictionary.keys()[nextStepIndex];
+
+      setCurrentStep(nextStep);
+    },
+    [currentStep, onSubmit, stepsDictionary],
+  );
 
   return (
     <VStack w="full" alignItems="start">
@@ -46,17 +71,17 @@ const LotWizardInner: React.FC<LotWizardProps> = ({ defaultValues }) => {
             {LotWizardDictionary.get('HEADER').description}
           </Text>
         </VStack>
-        {false && (
-          <Button onClick={onPreviewClick} size="sm" variant="darkOutline">
-            Preview
-          </Button>
-        )}
       </HStack>
 
       <Section w="full" p="0" borderRadius="sm">
         <FormProvider {...formMethods}>
-          <chakra.form w="full" onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <LotWizardType />
+          <chakra.form w="full" onSubmit={formMethods.handleSubmit(handleSubmit)}>
+            <LotWizardView
+              stepDictionary={stepsDictionary}
+              currentStep={currentStep}
+              onStepChange={setCurrentStep}
+              stepComponent={<StepResolver stepKey={currentStep} />}
+            />
           </chakra.form>
         </FormProvider>
       </Section>

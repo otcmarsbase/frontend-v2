@@ -3,6 +3,7 @@ import * as SchemaCommon from '@schema/common';
 import { Asset } from '../Asset';
 import { Common } from '../Common';
 import { User } from '../User';
+
 import { SAFECategory, SAFTCategory, TokenWarrantCategory } from './Categories';
 import { LotAttributes } from './LotAttributes';
 import { LotInputs } from './LotInputs';
@@ -26,8 +27,12 @@ export namespace Lot {
     }
   }
 
-  export type LotInputObject = LotInputs.Utils.MergeInputs<[SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]>;
-  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<[SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]>;
+  export type LotInputObject = LotInputs.Utils.MergeInputs<
+    [SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]
+  >;
+  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<
+    [SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]
+  >;
 
   export interface LotKey extends SchemaCommon.ResourceKey<'lot'> {
     id: number;
