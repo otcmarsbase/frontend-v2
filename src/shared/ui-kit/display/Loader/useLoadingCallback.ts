@@ -11,8 +11,11 @@ export interface LoadingCallback<T extends (...args: any[]) => any> {
   isLoadingAny: boolean;
 }
 
-export function useLoadingCallback<T extends (...args: any[]) => any>(callback: T): LoadingCallback<T> {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export function useLoadingCallback<T extends (...args: any[]) => any>(
+  callback: T,
+  defaultIsLoading = false,
+): LoadingCallback<T> {
+  const [isLoading, setIsLoading] = useState<boolean>(defaultIsLoading);
   const [loadingMap, setLoadingMap] = useState(new Map<string | number, boolean>());
 
   const updateMap = useCallback(

@@ -3,9 +3,10 @@ import React, { useMemo } from 'react';
 import { PaginationView, PaginationViewButtonProps, PaginationViewProps } from './PaginationView';
 
 export interface PaginationProps {
-  pageSizeOptions?: string[] | number[];
-  // Показывать сводку по пагинации
+  pageSizeOptions?: number[];
+
   showCaption?: boolean;
+  showPageSize?: boolean;
   page?: number;
   total?: number;
   pageSize?: number;
@@ -13,7 +14,7 @@ export interface PaginationProps {
   centerPageGroupNumber?: number;
 
   onChange?: (page: number, pageSize: number) => any;
-  onShowSizeChange?: (current: number, size: number) => void;
+  onShowSizeChange?: (size: number) => void;
   itemRender?: (
     page: number,
     type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
@@ -26,11 +27,14 @@ export interface PaginationProps {
 
 export const Pagination: React.FC<PaginationProps> = ({
   total = 0,
-  pageSize = 25,
+  pageSizeOptions = [25, 50, 100],
+  pageSize = pageSizeOptions[0],
   page = 1,
   centerPageGroupNumber = 5,
   showCaption,
+  showPageSize,
   onChange,
+  onShowSizeChange,
   renderView = PaginationView,
 }) => {
   const totalItems = useMemo(() => Math.ceil(total), [total]);
@@ -49,13 +53,17 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   return React.createElement(renderView, {
     onChangePage: (page) => onChange?.(page, pageSize),
+    onShowSizeChange: onShowSizeChange,
     page,
     showCaption,
+    showPageSize,
     lastPage,
     currentPageFromItem,
     currentPageToItem,
     totalItems,
     buttons,
+    pageSize,
+    pageSizeOptions,
   });
 };
 

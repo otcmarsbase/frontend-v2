@@ -22,6 +22,7 @@ export type Schema = {
   lot: {
     create(payload: DTO.LotCreate.Payload): DTO.LotCreate.Result;
     update(payload: DTO.LotUpdate.Payload): DTO.LotUpdate.Result;
+    sendOnModeration(payload: DTO.LotSendOnModeration.Payload): DTO.LotSendOnModeration.Result;
 
     getById(payload: DTO.LotGetById.Payload): DTO.LotGetById.Result;
     listActive(payload: DTO.LotListActive.Payload): DTO.LotListActive.Result;

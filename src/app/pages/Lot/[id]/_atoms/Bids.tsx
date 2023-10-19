@@ -1,16 +1,15 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource, RPC } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
 
-import { BidsList } from './BidsList';
-import { SortBidsByType, SortBidsByTypeDictionary } from './const';
+import { BidItem } from './BidItem';
 
 interface BidsProps {
   isOfferMaker: boolean;
@@ -22,10 +21,24 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
   const router = useRouter();
 
-  const loadBinds = useCallback(async () => {
-    const { items } = await rpcSchema.send('bid.listByLot', { lots: [lot.id] });
-    setBids(items);
-  }, [rpcSchema, lot]);
+  const { setTotal, paginationOptions, isEmpty, onChangePage, onShowSizeChange } = usePagination(1, 25);
+
+  const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
+    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
+    return {
+      skip,
+      limit: paginationOptions.pageSize,
+      lots: [lot.id],
+    };
+  }, [paginationOptions.pageSize, paginationOptions.page, lot.id]);
+
+  const loadBinds = useLoadingCallback(
+    useCallback(async () => {
+      const { items, total } = await rpcSchema.send('bid.listByLot', fetchPayload);
+      setBids(items);
+      setTotal(total);
+    }, [rpcSchema, fetchPayload, setTotal]),
+  );
 
   const preload = useLoadingCallback(loadBinds);
 
@@ -53,21 +66,13 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
       >
         <HStack alignItems="center">
           <Text textTransform="uppercase" fontFamily="promo">
-            Bids
+            Active Bids
           </Text>
           <Circle padding="0 0.25rem" size="1.25rem" bg="orange.500" borderRadius="50%">
             <Text fontSize="xs">{bids && bids.length}</Text>
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
-          {/* <Box w="11rem">
-            <UIKit.SelectSync<SortBidsByType>
-              placeholder="Sort by"
-              items={SortBidsByTypeDictionary.keys()}
-              renderItem={(item) => SortBidsByTypeDictionary.get(item).title}
-            />
-          </Box> */}
-
           {!isOfferMaker && (
             <UILogic.AuthAction>
               <Button
@@ -84,12 +89,26 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
           )}
         </HStack>
       </HStack>
-      <BidsList
-        isOfferMaker={isOfferMaker}
-        bids={bids}
-        isLoading={preload.isLoading}
-        refreshBids={loadBinds}
-        onCreateBid={onCreateBidClick}
+      <List
+        emptyText={
+          <Empty createButton={isOfferMaker ? <></> : <Button onClick={onCreateBidClick}>Create bid</Button>} />
+        }
+        w="full"
+        items={bids}
+        itemKey={(bid) => bid.id}
+        isLoading={loadBinds.isLoading}
+        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} refreshBids={loadBinds} />}
+        footer={
+          !isEmpty && (
+            <Pagination
+              {...paginationOptions}
+              onChange={onChangePage}
+              onShowSizeChange={onShowSizeChange}
+              showCaption
+              showPageSize
+            />
+          )
+        }
       />
     </VStack>
   );

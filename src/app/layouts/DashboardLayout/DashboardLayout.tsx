@@ -16,52 +16,55 @@ export interface DashboardLayoutProps {
   handleSearch?: (e: FormEvent<HTMLInputElement>) => void;
 }
 
-export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = observer(
-  ({ tabType, handleSearch, children }) => {
-    const router = useRouter();
-    const onRoute = useCallback(
-      (value: DashboardTabType) => {
-        if (value === 'MY_LOTS') router.navigateComponent(MBPages.Dashboard.Lots, {}, {});
-        if (value === 'MY_BIDS') router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
-        if (value === 'MY_DEALS') router.navigateComponent(MBPages.Dashboard.Deals, {}, {});
-      },
-      [router],
-    );
+export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = ({
+  tabType,
+  handleSearch,
+  children,
+}) => {
+  const router = useRouter();
+  const onRoute = useCallback(
+    (value: DashboardTabType) => {
+      if (value === 'MY_LOTS') router.navigateComponent(MBPages.Dashboard.Lots, {}, {});
+      if (value === 'MY_BIDS') router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+      if (value === 'MY_DEALS') router.navigateComponent(MBPages.Dashboard.Deals, {}, {});
+    },
+    [router],
+  );
 
-    return (
-      <Box>
-        <Heading fontFamily="promo" fontSize="2rem" marginTop="2.5rem" marginBottom="0.75rem">
-          Dashboard
-        </Heading>
-        <VStack gap="0.5rem">
-          <HStack
-            justifyContent="space-between"
-            width="full"
-            gap="0"
-            borderRadius="0.75rem"
-            bg="dark.900"
-            padding="0.5rem"
-            paddingRight="1.25rem"
-          >
-            <HStack width="full" gap="1rem">
-              <UIKit.RadioButtons
-                maxW="32rem"
-                items={DashboardTabType}
-                renderKey={(item) => item}
-                renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
-                variant="solid"
-                value={tabType}
-                onChange={onRoute}
-              />
-              {/* <InputGroup size="xs">
+  return (
+    <Box>
+      <Heading fontFamily="promo" fontSize="2rem" marginTop="2.5rem" marginBottom="0.75rem">
+        Dashboard
+      </Heading>
+      <VStack gap="0.5rem">
+        <HStack
+          justifyContent="space-between"
+          width="full"
+          gap="0"
+          borderRadius="0.75rem"
+          bg="dark.900"
+          padding="0.5rem"
+          paddingRight="1.25rem"
+        >
+          <HStack width="full" gap="1rem">
+            <UIKit.RadioButtons
+              maxW="32rem"
+              items={DashboardTabType}
+              renderKey={(item) => item}
+              renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
+              variant="solid"
+              value={tabType}
+              onChange={onRoute}
+            />
+            {/* <InputGroup size="xs">
                 <InputLeftElement pointerEvents="none">
                   <UIIcons.Common.SearchIcon color="orange.500" />
                 </InputLeftElement>
                 <Input variant="ghost" size="xs" maxW="17rem" placeholder="Search" onInput={handleSearch} />
               </InputGroup> */}
-            </HStack>
-            <HStack gap="1rem">
-              {/* TODO привязать к нормальным компонентам
+          </HStack>
+          <HStack gap="1rem">
+            {/* TODO привязать к нормальным компонентам
             <UIKit.Forms.FormField
               name="showAll"
               value={dashboardStore.filters.showAll}
@@ -94,13 +97,12 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
                 <Checkbox onChange={(e) => dashboardStore.changeFilters('showDraft', e.target.checked)}>Draft</Checkbox>
               }
             /> */}
-            </HStack>
           </HStack>
-          {children}
-        </VStack>
-      </Box>
-    );
-  },
-);
+        </HStack>
+        {children}
+      </VStack>
+    </Box>
+  );
+};
 
 DashboardLayout.getLayout = ({ children }) => <AppLayout containerSize="lg">{children}</AppLayout>;
