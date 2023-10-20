@@ -29,7 +29,10 @@ export const CommonDeadlineInput: FC<BaseInputProps> = () => {
     <FormElement label="Deadline" info="Expiration Date for this Lot" isRequired={isRequired} w="full">
       <VStack gap="1rem">
         <FormControl isInvalid={!isValid} isDisabled={isPermanent}>
-          <Controller name={NAME} render={({ field }) => <DatePicker placeholder="Choose finish day" {...field} />} />
+          <Controller
+            name={NAME}
+            render={({ field }) => <DatePicker placeholder="Choose finish day" {...field} minDate={new Date()} />}
+          />
           {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>
 

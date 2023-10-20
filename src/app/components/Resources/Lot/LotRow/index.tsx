@@ -102,7 +102,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       onClick={onClick}
       {...stackProps}
     >
-      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
+      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
           <Text color="dark.200">#{lot.id}</Text>

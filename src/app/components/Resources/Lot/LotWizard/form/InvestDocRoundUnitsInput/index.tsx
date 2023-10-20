@@ -19,7 +19,7 @@ export const InvestDocRoundUnitsInput: FC<BaseInputProps> = () => {
   const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
   useEffect(() => {
-    if (type === 'SAFT') return;
+    if (type === 'SAFT' || !INVEST_DOC_ROUND_SHARE) return;
 
     setValue(INVEST_DOC_ROUND_SHARE.toString());
     trigger();
