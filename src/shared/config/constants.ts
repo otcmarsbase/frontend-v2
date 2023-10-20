@@ -1,0 +1,5 @@
+export namespace Constants {
+  export const DASHBOARD_LOCAL_STORAGE_KEY = 'OTC_MARSBASE/DASHBOARD';
+  export const AUTH_META_LOCAL_STORAGE_KEY = 'OTC_MARSBASE/AUTH_META';
+  export const OTC_DESK_LOCAL_STORAGE_KEY = 'OTC_MARSBASE/OTC_DESK';
+}
