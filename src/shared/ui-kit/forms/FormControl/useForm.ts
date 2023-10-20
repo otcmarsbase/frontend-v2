@@ -22,7 +22,9 @@ export interface UseFormProps<TFieldValues extends FieldValues = FieldValues, TC
 }
 
 export type UseFormIsRequired<TFieldValues extends FieldValues = FieldValues> = <
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+  TFieldName extends FieldPath<Yup.InferType<Yup.ObjectSchema<TFieldValues>>> = FieldPath<
+    Yup.InferType<Yup.ObjectSchema<TFieldValues>>
+  >,
 >(
   name: TFieldName,
 ) => boolean;

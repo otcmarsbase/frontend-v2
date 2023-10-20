@@ -9,7 +9,8 @@ import { AssetImage } from '../AssetImage';
 
 type SelectType = Resource.Asset.Asset | string;
 
-export interface AssetCreateSelectProps extends Omit<UIKit.SelectAsyncProps<SelectType>, 'load' | 'renderItem'> {}
+export interface AssetCreateSelectProps
+  extends Omit<UIKit.SelectAsyncProps<SelectType, false>, 'load' | 'renderItem'> {}
 
 export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
@@ -36,11 +37,8 @@ export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = (props) => {
   }, []);
 
   const load = useCallback(async () => {
-    const pagination = await rpcSchema.send('asset.list', { limit: 5, search });
-    const items = pagination.items;
-
-    if (items.length > 0) return items;
-    return [search];
+    const { items, total } = await rpcSchema.send('asset.list', { search });
+    return total ? items : [search];
   }, [rpcSchema, search]);
 
   return (

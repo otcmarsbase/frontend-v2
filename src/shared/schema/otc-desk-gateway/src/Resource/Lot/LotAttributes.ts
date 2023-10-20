@@ -7,7 +7,9 @@ export namespace LotAttributes {
       [Key in Name]: Value;
     };
 
-    type _MergeAttributes<T extends Attribute<any, any>[]> = T extends [infer I, ...infer U] ? I & (U extends [] ? {} : _MergeAttributes<U>) : {};
+    type _MergeAttributes<T extends Attribute<any, any>[]> = T extends [infer I, ...infer U]
+      ? I & (U extends [] ? {} : _MergeAttributes<U>)
+      : {};
 
     export type MergeAttributes<T extends Attribute<any, any>[]> = {
       [Key in keyof _MergeAttributes<T> & string as `${Key}`]?: _MergeAttributes<T>[Key];
@@ -15,7 +17,10 @@ export namespace LotAttributes {
   }
 
   export type COMMON_CREATED_AT_ATTRIBUTE = Utils.Attribute<'COMMON_CREATED_AT_ATTRIBUTE', number>;
-  export type COMMON_SEND_ON_MODERATION_AT_ATTRIBUTE = Utils.Attribute<'COMMON_SEND_ON_MODERATION_AT_ATTRIBUTE', number>;
+  export type COMMON_SEND_ON_MODERATION_AT_ATTRIBUTE = Utils.Attribute<
+    'COMMON_SEND_ON_MODERATION_AT_ATTRIBUTE',
+    number
+  >;
   export type COMMON_PUBLISHED_AT_ATTRIBUTE = Utils.Attribute<'COMMON_PUBLISHED_AT_ATTRIBUTE', number>;
   export type COMMON_ARCHIVED_AT_ATTRIBUTE = Utils.Attribute<'COMMON_ARCHIVED_AT_ATTRIBUTE', number>;
   export type COMMON_COMPLETED_AT_ATTRIBUTE = Utils.Attribute<'COMMON_COMPLETED_AT_ATTRIBUTE', number>;

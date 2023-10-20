@@ -1,5 +1,6 @@
 import { LotAttributes } from '../LotAttributes';
 import { LotInputs } from '../LotInputs';
+
 import { InvestDocumentCategory } from './InvestDocumentCategory';
 
 export namespace SAFECategory {

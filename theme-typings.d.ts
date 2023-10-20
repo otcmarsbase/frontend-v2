@@ -536,7 +536,7 @@ export interface ThemeTypings extends BaseThemeTypings {
       variants: 'solid' | 'subtle' | 'outline' | (string & {});
     };
     Container: {
-      sizes: 'md' | 'lg' | (string & {});
+      sizes: 'sm' | 'md' | 'lg' | (string & {});
       variants: string & {};
     };
     Divider: {
@@ -686,6 +686,10 @@ export interface ThemeTypings extends BaseThemeTypings {
     RadioButtons: {
       sizes: string & {};
       variants: 'solid' | 'outline' | (string & {});
+    };
+    Text: {
+      sizes: string & {};
+      variants: string & {};
     };
     paginationAnatomy: {
       sizes: string & {};

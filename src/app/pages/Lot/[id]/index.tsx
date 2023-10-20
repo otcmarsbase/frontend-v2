@@ -37,9 +37,16 @@ export default function Lot({ id }: LotProps) {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
       const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
 
+      switch (lot.status) {
+        case 'DRAFT':
+          return router.navigateComponent(MBPages.Lot.Create.__id__, { id: lot.id }, {});
+        case 'ON_MODERATION':
+          return router.navigateComponent(MBPages.Lot.Moderation.__id__, { id: lot.id }, {});
+      }
+
       setLot(lot);
       setAsset(asset);
-    }, [id, rpcSchema]),
+    }, [id, rpcSchema, router]),
   );
 
   useEffect(() => {

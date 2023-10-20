@@ -1,4 +1,5 @@
 import { Common } from '../Common';
+
 import { Lot } from './Lot';
 
 export namespace LotInputs {
@@ -7,7 +8,9 @@ export namespace LotInputs {
       [Key in Name]: Value;
     };
 
-    type _MergeInputs<T extends Input<any, any>[]> = T extends [infer I, ...infer U] ? I & (U extends [] ? {} : _MergeInputs<U>) : {};
+    type _MergeInputs<T extends Input<any, any>[]> = T extends [infer I, ...infer U]
+      ? I & (U extends [] ? {} : _MergeInputs<U>)
+      : {};
 
     export type MergeInputs<T extends Input<any, any>[]> = {
       [Key in keyof _MergeInputs<T> & string as `${Key}`]?: _MergeInputs<T>[Key];
