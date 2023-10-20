@@ -1,13 +1,13 @@
-name: MainPushedThenBuildAndDeployImage
+name: StagePushedThenBuildAndDispatch
 on:
   push:
     branches:
-      - main
+      - stage
 
 env:
   IMAGE_REGISTRY: registry.digitalocean.com/marsbase-registry
   IMAGE_NAME: otc-desk-frontend
-  IMAGE_PREFIX: dev
+  IMAGE_PREFIX: stage
   IMAGE_DIGEST_SHA: <calculate> # Commit SHA, as: 'fbade6a1'
 
   IMAGE_NPM_VERSION: <calculate> # NPM Version, as: '0.1.0'
@@ -76,7 +76,7 @@ jobs:
         with:
           tag: v${{ env.IMAGE_SHA_VERSION }}
           prerelease: true
-          name: Published new DEV version v${{ env.IMAGE_SHA_VERSION }}
+          name: Published new STAGE version v${{ env.IMAGE_SHA_VERSION }}
 
       # Github releases - END
 
@@ -88,7 +88,7 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           repo: ${{ env.DEVOPS_REPOSITORY }}
           workflow: ${{ env.DEVOPS_WORKFLOW }}
-          ref: refs/heads/main
+          ref: refs/heads/stage
           inputs: '{ "registry": "${{ env.IMAGE_REGISTRY }}", "imageName": "${{ env.IMAGE_NAME }}", "tag": "${{ env.IMAGE_SHA_VERSION }}" }'
 
       # Dispatch DevOps - END

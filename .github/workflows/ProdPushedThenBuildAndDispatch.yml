@@ -1,13 +1,12 @@
-name: MainPushedThenBuildAndDeployImage
+name: ProdPushedThenBuildAndDispatch
 on:
   push:
     branches:
-      - main
+      - production
 
 env:
   IMAGE_REGISTRY: registry.digitalocean.com/marsbase-registry
   IMAGE_NAME: otc-desk-frontend
-  IMAGE_PREFIX: dev
   IMAGE_DIGEST_SHA: <calculate> # Commit SHA, as: 'fbade6a1'
 
   IMAGE_NPM_VERSION: <calculate> # NPM Version, as: '0.1.0'
@@ -36,7 +35,7 @@ jobs:
       - name: Calculate IMAGE_NPM_VERSION
         run: echo "IMAGE_NPM_VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
       - name: Calculate IMAGE_LATEST_VERSION
-        run: echo "IMAGE_LATEST_VERSION=${IMAGE_NPM_VERSION}-${{ env.IMAGE_PREFIX }}" >> $GITHUB_ENV
+        run: echo "IMAGE_LATEST_VERSION=${IMAGE_NPM_VERSION}" >> $GITHUB_ENV
       - name: Calculate IMAGE_SHA_VERSION
         run: echo "IMAGE_SHA_VERSION=${IMAGE_LATEST_VERSION}-${IMAGE_DIGEST_SHA}" >> $GITHUB_ENV
       - name: Calculate IMAGE_LATEST_TAG
@@ -75,8 +74,8 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: v${{ env.IMAGE_SHA_VERSION }}
-          prerelease: true
-          name: Published new DEV version v${{ env.IMAGE_SHA_VERSION }}
+          prerelease: false
+          name: Published new release version v${{ env.IMAGE_SHA_VERSION }}
 
       # Github releases - END
 
@@ -88,7 +87,7 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           repo: ${{ env.DEVOPS_REPOSITORY }}
           workflow: ${{ env.DEVOPS_WORKFLOW }}
-          ref: refs/heads/main
+          ref: refs/heads/production
           inputs: '{ "registry": "${{ env.IMAGE_REGISTRY }}", "imageName": "${{ env.IMAGE_NAME }}", "tag": "${{ env.IMAGE_SHA_VERSION }}" }'
 
       # Dispatch DevOps - END
