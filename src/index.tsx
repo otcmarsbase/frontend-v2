@@ -1,20 +1,24 @@
-import React from "react"
-import { createRoot } from "react-dom/client"
-import { ChakraProvider } from "@chakra-ui/react"
-import { theme } from "./utils/chakra"
-import { App } from "./App"
-import { SWRConfig } from "swr"
-import "./globals.scss"
-import "./tailwind.css"
-// import '@otcmarsbase/react-components'
-// import '@otcmarsbase/react-components/dist/index.css'
-const container = document.getElementById("root")
-const root = createRoot(container!)
+import '@packages/router5-react-auto';
+
+import React from 'react';
+
+import { override } from '@packages/react-runtime-layout';
+import ReactDOM from 'react-dom/client';
+
+import { App } from './app';
+import reportWebVitals from './reportWebVitals';
+
+override();
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-	<ChakraProvider resetCSS={true} theme={theme}>
-		<SWRConfig value={{ provider: () => new Map() }}>
-			<App />
-		</SWRConfig>
-	</ChakraProvider>
-)
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

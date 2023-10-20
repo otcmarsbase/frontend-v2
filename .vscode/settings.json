@@ -1,9 +1,15 @@
 {
-	"typescript.preferences.importModuleSpecifier": "non-relative",
-	"typescript.suggest.paths": false,
-	"javascript.suggest.paths": false,
-	"path-intellisense.mappings": {
-		"@": "${workspaceRoot}/src",
-	},
-	"typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "shortest",
+  "explorer.compactFolders": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.format.enable": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

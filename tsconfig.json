@@ -1,24 +1,63 @@
 {
-	"compilerOptions": {
-		"target": "es5",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"noEmit": true,
-		"jsx": "react-jsx",
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["./src/*"],
-		}
-	},
-	"include": ["src"]
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "incremental": true,
+    "baseUrl": ".",
+
+    "paths": {
+      "@app/components": ["./src/app/components"],
+      "@app/dictionary": ["./src/app/dictionary"],
+      "@app/hooks": ["./src/app/hooks"],
+      "@app/layouts": ["./src/app/layouts"],
+      "@app/logic": ["./src/app/logic"],
+      "@app/pages": ["./src/app/pages"],
+      "@app/permissions": ["./src/app/permissions"],
+      "@app/store": ["./src/app/store"],
+      "@app/theme": ["./src/app/theme"],
+      "@app/utils": ["./src/app/utils"],
+
+      "@packages/berish-configurator-core": ["./src/packages/berish-configurator-core"],
+      "@packages/berish-configurator-cra": ["./src/packages/berish-configurator-cra"],
+      "@packages/berish-react-portal": ["./src/packages/berish-react-portal"],
+      "@packages/berish-rpc-axios": ["./src/packages/berish-rpc-axios"],
+      "@packages/berish-rpc-client": ["./src/packages/berish-rpc-client"],
+      "@packages/berish-rpc-client-schema": ["./src/packages/berish-rpc-client-schema"],
+      "@packages/react-permission": ["./src/packages/react-permission"],
+      "@packages/react-runtime-layout": ["./src/packages/react-runtime-layout"],
+      "@packages/react-utils": ["./src/packages/react-utils"],
+      "@packages/router5-react-auto": ["./src/packages/router5-react-auto"],
+      "@packages/service-manager": ["./src/packages/service-manager"],
+
+      "@services/backend-api-service": ["./src/services/backend-api-service"],
+
+      "@shared/config": ["./src/shared/config"],
+      "@ddd/errors": ["./src/shared/ddd-errors"],
+      "@schema/common": ["./src/shared/schema/common/src"],
+      "@schema/errors": ["./src/shared/schema/errors/src"],
+      "@schema/otc-desk-gateway": ["./src/shared/schema/otc-desk-gateway/src"],
+      "@shared/ui-icons": ["./src/shared/ui-icons"],
+      "@shared/ui-kit": ["./src/shared/ui-kit"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules"]
 }
