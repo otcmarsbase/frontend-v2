@@ -6,13 +6,22 @@ interface MoneyTextProps extends TextProps {
   abbreviated?: boolean;
   addon?: React.ReactNode;
   format?: '0.00' | '0,00';
+  emptyValue?: React.ReactNode;
 }
 
-export function MoneyText({ value, abbreviated, addon, fontSize, format = '0.00', ...textProps }: MoneyTextProps) {
+export function MoneyText({
+  value,
+  abbreviated,
+  addon,
+  fontSize,
+  format = '0.00',
+  emptyValue = '-',
+  ...textProps
+}: MoneyTextProps) {
   return (
     <HStack gap="0" fontSize={fontSize}>
-      <Text {...textProps}>{formatNumerable(value, `${format}${abbreviated ? 'a' : ''}`)}</Text>
-      {addon && <>&nbsp;{addon}</>}
+      <Text {...textProps}>{value ? formatNumerable(value, `${format}${abbreviated ? 'a' : ''}`) : emptyValue}</Text>
+      {addon && value && <>&nbsp;{addon}</>}
     </HStack>
   );
 }
