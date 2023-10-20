@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
 import { FormControl, FormErrorMessage, HStack } from '@chakra-ui/react';
+import { Resource } from '@schema/otc-desk-gateway';
 import { FormElement, InputWebsite } from '@shared/ui-kit';
 
 import { BaseInputProps } from './types';
@@ -14,7 +15,6 @@ export const InvestDocAssetInput: FC<BaseInputProps> = () => {
   const { value, isRequired, error } = useInput(NAME);
 
   const innerError = useMemo(() => {
-    console.log(error);
     if (!(error && error instanceof Object)) return;
 
     if ('title' in error || 'root' in error) {

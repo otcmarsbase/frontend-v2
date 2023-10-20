@@ -48,10 +48,12 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
       const payload: RPC.DTO.LotUpdate.Payload = { id, type, inputs };
 
-      if (typeof INVEST_DOC_ASSET === 'string') {
-        payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET;
-      } else {
-        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as Required<typeof INVEST_DOC_ASSET>;
+      if (INVEST_DOC_ASSET instanceof Object) {
+        if ('id' in INVEST_DOC_ASSET) {
+          payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
+        } else {
+          payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+        }
       }
 
       await rpcSchema.send('lot.update', payload);

@@ -1,3 +1,4 @@
+import { Common } from '../Common';
 import { Lot } from './Lot';
 
 export namespace LotAttributes {
@@ -26,4 +27,7 @@ export namespace LotAttributes {
   export type COMMON_COMPLETED_REASON_ATTRIBUTE = Utils.Attribute<'COMMON_COMPLETED_REASON_ATTRIBUTE', Lot.Enums.LotCompletedReasonType>;
   export type COMMON_REJECTED_AT_ATTRIBUTE = Utils.Attribute<'COMMON_REJECTED_AT_ATTRIBUTE', number>;
   export type COMMON_REJECT_REASON_ATTRIBUTE = Utils.Attribute<'COMMON_REJECT_REASON_ATTRIBUTE', string>;
+
+  // CUSTOM
+  export type COMMON_MEDIATOR = Utils.Attribute<'COMMON_MEDIATOR', Common.Enums.MediatorType>;
 }

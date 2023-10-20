@@ -37,7 +37,7 @@ export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = (props) => {
   }, []);
 
   const load = useCallback(async () => {
-    const { items, total } = await rpcSchema.send('asset.list', { limit: 5, search });
+    const { items, total } = await rpcSchema.send('asset.list', { search });
     return total ? items : [search];
   }, [rpcSchema, search]);
 
