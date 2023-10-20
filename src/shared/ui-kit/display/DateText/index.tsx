@@ -1,10 +1,11 @@
+import { FormatDateType, formatDate } from '@app/utils';
 import { TextProps, Text } from '@chakra-ui/react';
-import { format } from 'date-fns';
 
 interface MoneyTextProps extends TextProps {
   value: Date | number;
+  format?: FormatDateType;
 }
 
-export function DateText({ value, ...textProps }: MoneyTextProps) {
-  return <Text {...textProps}>{format(value, 'dd.MM.yyyy')}</Text>;
+export function DateText({ value, format = 'ONLY_DATE', ...textProps }: MoneyTextProps) {
+  return <Text {...textProps}>{formatDate(value, format)}</Text>;
 }

@@ -687,6 +687,10 @@ export interface ThemeTypings extends BaseThemeTypings {
       sizes: string & {};
       variants: 'solid' | 'outline' | (string & {});
     };
+    Text: {
+      sizes: string & {};
+      variants: string & {};
+    };
     paginationAnatomy: {
       sizes: string & {};
       variants: string & {};

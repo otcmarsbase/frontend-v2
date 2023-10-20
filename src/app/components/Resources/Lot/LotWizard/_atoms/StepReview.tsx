@@ -1,7 +1,7 @@
 import { Box, HStack, Text, VStack } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
 
-type StepReviewField<T> = {
+export type StepReviewField<T> = {
   renderTitle: (item: T) => React.ReactNode;
   renderValue: (item: T) => React.ReactNode;
   isRequired?: boolean;
