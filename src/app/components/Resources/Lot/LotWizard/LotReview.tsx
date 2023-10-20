@@ -1,15 +1,11 @@
-import { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
-
 import { UILogic } from '@app/components';
-import { InvestmentRoundDictionary } from '@app/dictionary';
 import { Text, VStack } from '@chakra-ui/react';
 import { UIKit, useIsRequired } from '@shared/ui-kit';
 
 import { StepReview, StepReviewField } from './_atoms';
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';
 import { PricingModelType } from './form/CommonPricingModelInput/const';
-import { LotCreateModel, LotCreateSchema, LotSteps } from './schema';
+import { LotCreateModel, LotCreateSchema } from './schema';
 
 export interface StepsReviewDescriptorProps {
   isRequired: (key: keyof LotCreateModel) => boolean;
@@ -175,23 +171,22 @@ export const getStepsReviewDescriptor = ({
   };
 };
 
-export interface LotReviewProps {}
+export interface LotReviewProps {
+  values: LotCreateModel;
+}
 
-export const LotReview: React.FC<LotReviewProps> = () => {
-  const { getValues, watch } = useFormContext<LotCreateModel>();
-  const values: LotCreateModel = useMemo(() => {
-    const value = getValues();
-    return LotSteps.InvestDocReviewStepInputs.resolve({ value }).cast(value);
-  }, [getValues]);
-
-  const isRequired = useIsRequired(LotCreateSchema);
+export const LotReview: React.FC<LotReviewProps> = ({ values }) => {
+  console.log({ values });
+  const isRequired = (name: keyof LotCreateModel) => {
+    return (LotCreateSchema.fields[name] as any).spec?.optional;
+  };
 
   const steps: StepDescriptorKey[] =
     values.COMMON_DIRECTION === 'BUY'
       ? ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_PRICE']
       : ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_ROUND', 'INVEST_DOC_PRICE'];
 
-  const stepsDescriptors = getStepsReviewDescriptor({ isRequired, pricingModel: watch('COMMON_PRICING_MODEL') });
+  const stepsDescriptors = getStepsReviewDescriptor({ isRequired, pricingModel: values.COMMON_PRICING_MODEL });
 
   return (
     <VStack w="full" alignItems="start" gap="1.5rem">

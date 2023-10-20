@@ -15,7 +15,7 @@ export const InvestDocReviewStep: FC = () => {
 
   return (
     <VStack w="full" alignItems="start">
-      <LotReview />
+      <LotReview values={values} />
     </VStack>
   );
 };

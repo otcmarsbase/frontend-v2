@@ -1,6 +1,9 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const sizes = {
+  sm: defineStyle({
+    maxWidth: '50%',
+  }),
   md: defineStyle({
     maxWidth: '70%',
   }),
