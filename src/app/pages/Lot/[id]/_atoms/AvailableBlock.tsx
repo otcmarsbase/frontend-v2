@@ -10,33 +10,33 @@ interface AvailableBlockProps {
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
+  const reserved = new Decimal(lot.reserved?.stablecoinQuantity.value || '0');
+  const available = new Decimal(lot.available?.stablecoinQuantity.value || '0');
+  const executed = new Decimal(lot.executed?.stablecoinQuantity.value || '0');
+
   const [chartData] = useState<UIKit.ChartPieData[]>([
     {
       id: 'reserved',
       label: 'Reserved',
-      value: new Decimal(lot.reserved?.stablecoinQuantity.value).toNumber(),
+      value: reserved.toNumber(),
       color: '#F9C409',
     },
     {
       id: 'available',
       label: 'Available',
-      value: new Decimal(lot.available?.stablecoinQuantity.value).toNumber(),
+      value: available.toNumber(),
       color: 'dark.700',
     },
     {
       id: 'executed',
       label: 'Executed',
-      value: new Decimal(lot.executed?.stablecoinQuantity.value).toNumber(),
+      value: executed.toNumber(),
       color: 'orange.300',
     },
   ]);
 
-  const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
-    .add(lot.executed.stablecoinQuantity.value)
-    .add(availableSum)
-    .toDecimalPlaces(2)
-    .toNumber();
+  const availableSum = available.toDecimalPlaces(2).toNumber();
+  const totalSum = reserved.add(executed).add(availableSum).toDecimalPlaces(2).toNumber();
 
   return (
     <VStack bg="dark.900" p="1.25rem" borderRadius="sm">

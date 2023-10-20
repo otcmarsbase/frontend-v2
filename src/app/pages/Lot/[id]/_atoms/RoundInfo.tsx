@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import { ParticipantTypeDictionary, UIDictionary } from '@app/dictionary';
-import { formatDate } from '@app/utils';
+import { formatDate, getContractSize, getMinimumDealSize } from '@app/utils';
 import { SimpleGrid, VStack, Text, Heading, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
@@ -50,13 +50,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               </VStack>
             </RoundInfoItem>
             <RoundInfoItem fieldName="CONTRACT_SIZE">
-              <MoneyText
-                fontSize="sm"
-                fontWeight={500}
-                value={lot.contractSize.unitQuantity.value}
-                abbreviated
-                addon="%"
-              />
+              <MoneyText fontSize="sm" fontWeight={500} value={getContractSize(lot)} abbreviated addon="%" />
               <MoneyText
                 fontSize="xs"
                 abbreviated
@@ -75,19 +69,13 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               </Text>
             </RoundInfoItem>
             <RoundInfoItem fieldName="MIN_BID">
-              <MoneyText
-                fontSize="sm"
-                fontWeight={500}
-                value={lot.minimumDealSize.unitQuantity.value}
-                abbreviated
-                addon="%"
-              />
+              <MoneyText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} abbreviated addon="%" />
               <MoneyText
                 fontSize="xs"
                 fontWeight={500}
                 color="dark.50"
                 abbreviated
-                value={lot.minimumDealSize.price.value}
+                value={lot.minimumDealSize?.price.value}
                 addon="$"
               />
             </RoundInfoItem>
@@ -153,13 +141,13 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             />
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('TGE_DATE').title}
-              value={<Text>{lot.tge?.value ? formatDate(lot.tge.value, 'ONLY_DATE') : '-'}</Text>}
+              value={<Text fontSize="sm">{lot.tge?.value ? formatDate(lot.tge.value, 'ONLY_DATE') : '-'}</Text>}
             />
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('ROUND_FDV').title}
               value={
                 <UIKit.MoneyText
-                  value={lot.roundContractSize.contractShare.fdv.value}
+                  value={lot.roundContractSize?.contractShare.fdv.value}
                   fontSize="sm"
                   format="0,00"
                   fontWeight={800}

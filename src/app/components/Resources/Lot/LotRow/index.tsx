@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate } from '@app/utils';
+import { formatDate, getContractSize } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -51,7 +51,17 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value: <Text>1212</Text>,
+        value: (
+          <UIKit.MoneyText
+            value={getContractSize(lot)}
+            abbreviated
+            addon={
+              <Text as="span" color="dark.50">
+                %
+              </Text>
+            }
+          />
+        ),
       },
       {
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
