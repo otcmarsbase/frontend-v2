@@ -16,10 +16,10 @@ const View: FC = () => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
       const payload: RPC.DTO.LotCreate.Payload = { type, inputs };
 
-      if (typeof INVEST_DOC_ASSET === 'string') {
-        payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET;
+      if ('id' in INVEST_DOC_ASSET) {
+        payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
       } else {
-        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as Required<typeof INVEST_DOC_ASSET>;
+        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
       }
 
       const { id } = await rpcSchema.send('lot.create', payload);

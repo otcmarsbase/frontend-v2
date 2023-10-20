@@ -24,5 +24,5 @@ export function useInput<T extends FieldPath<LotCreateModel>>(name: T) {
 
   const isRequired = useIsRequired(LotCreateSchema)(name);
 
-  return { isRequired, isValid, error, value, setValue, trigger, formState, watch };
+  return { isRequired, isValid, error, value, setValue, rhfSetValue, trigger, rhfTrigger, formState, watch };
 }

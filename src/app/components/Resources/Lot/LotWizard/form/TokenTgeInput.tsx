@@ -11,16 +11,22 @@ import { useInput } from './useInput';
 const NAME = 'TOKEN_TGE';
 
 export const TokenTgeInput: FC<BaseInputProps> = () => {
-  const { isRequired, isValid, error, watch, setValue, trigger } = useInput(NAME);
+  const { isRequired, isValid, error, watch, setValue, trigger, rhfSetValue, value } = useInput(NAME);
 
   const isTBD = watch('TOKEN_TGE_IS_TBD');
 
   useEffect(() => {
     if (isTBD) {
-      setValue(null);
+      setValue('TBD');
       trigger();
     }
   }, [isTBD, setValue, trigger]);
+
+  useEffect(() => {
+    if (value === 'TBD') {
+      rhfSetValue('TOKEN_TGE_IS_TBD', true);
+    }
+  }, [value, rhfSetValue]);
 
   return (
     <FormElement
@@ -31,7 +37,16 @@ export const TokenTgeInput: FC<BaseInputProps> = () => {
     >
       <VStack gap="1.5rem" bg="dark.800" padding="1.5rem" rounded="xl">
         <FormControl isDisabled={isTBD} isInvalid={!isValid}>
-          <Controller name={NAME} render={({ field }) => <DatePicker placeholder="Estimated TGE Date" {...field} />} />
+          <Controller
+            name={NAME}
+            render={({ field }) => (
+              <DatePicker
+                placeholder="Estimated TGE Date"
+                {...field}
+                value={field.value === 'TBD' ? null : field.value}
+              />
+            )}
+          />
           {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>
 

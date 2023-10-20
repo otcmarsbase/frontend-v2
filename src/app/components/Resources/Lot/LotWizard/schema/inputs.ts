@@ -24,8 +24,8 @@ export const COMMON_MIN_FILTER_SUMMARY = yup.string();
 export const COMMON_PRICING_MODEL = yup.string().oneOf(['SUMMARY', 'UNITS']);
 
 export const INVEST_DOC_ASSET_PK = yup
-  .string()
-  .transform((_, originalValue) => (typeof originalValue === 'string' ? originalValue : originalValue.id));
+  .object({ id: yup.string() })
+  .transform((_, originalValue) => (typeof originalValue === 'string' ? { id: originalValue } : originalValue));
 export const INVEST_DOC_ASSET_CREATE_REQUEST = yup.object({
   title: yup.string().required(),
   website: yup.string().url().required(),
@@ -48,7 +48,8 @@ export const INVEST_DOC_ROUND_SUMMARY = yup.string();
 
 export const TOKEN_TGE = yup
   .mixed<number | 'TBD'>()
-  .transform((_, originalValue) => (originalValue instanceof Date ? originalValue.valueOf() : 'TBD'));
+  .nullable()
+  .transform((_, originalValue) => (originalValue instanceof Date ? originalValue.valueOf() : originalValue));
 export const TOKEN_LOCKUP_PERIOD = yup.string();
 export const TOKEN_VESTING_PERIOD = yup.string();
 export const TOKEN_TGE_IS_TBD = yup.bool();
