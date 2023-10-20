@@ -68,7 +68,7 @@ export const getStepsReviewDescriptor = ({
       {
         renderTitle: () => <Text>Deadline</Text>,
         renderValue: (model) =>
-          model.COMMON_IS_PERMANENT ? <Text>No</Text> : <UIKit.DateText value={model.COMMON_DEADLINE} />,
+          !model.COMMON_DEADLINE ? <Text>No</Text> : <UIKit.DateText value={model.COMMON_DEADLINE} />,
         isRequired: isRequired('COMMON_DEADLINE'),
       },
     ],

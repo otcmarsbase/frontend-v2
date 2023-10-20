@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import { Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/otc-desk-gateway';
-import { useLoadingCallback } from '@shared/ui-kit';
+import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
 const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
@@ -41,7 +41,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     async (data, meta) => {
       if (meta.isLastStep) {
         await rpcSchema.send('lot.sendOnModeration', { id });
-        router.navigateComponent(MBPages.Lot.Moderation.__id__, { id }, {});
+        router.navigateComponent(MBPages.Lot.Moderation.__id__, { id }, { replace: true });
         return;
       }
 
@@ -61,7 +61,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     [rpcSchema, router, id],
   );
 
-  if (preload.isLoading) return <></>;
+  if (preload.isLoading) return <UIKit.Loader />;
 
   return <LotWizard defaultValues={mappedLot} onSubmit={onSubmit} />;
 };

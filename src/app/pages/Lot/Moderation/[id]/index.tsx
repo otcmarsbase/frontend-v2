@@ -31,7 +31,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
 
       if (lot.status !== 'ON_MODERATION') {
-        return router.navigateComponent(MBPages.Lot.__id__, { id }, {});
+        return router.navigateComponent(MBPages.Lot.__id__, { id }, { replace: true });
       }
 
       setLot(lot);
