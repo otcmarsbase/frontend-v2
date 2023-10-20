@@ -13,6 +13,8 @@ export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> 
   tooltip,
   placeholder,
   rightElementText,
+  serializeValue = (value) => value,
+  deserializeValue = (value) => value,
 }) => {
   const { isRequired, isValid, error } = useInput(name);
 
@@ -26,13 +28,14 @@ export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> 
       </FormLabel>
       <Controller
         name={name}
-        render={(props) => (
+        render={({ field }) => (
           <InputGroup>
             <UIKit.InputNumber
-              {...props.field}
+              {...field}
               onChange={(value) => {
-                props.field.onChange(value);
+                field.onChange(deserializeValue(value));
               }}
+              value={serializeValue(field.value)}
               placeholder={placeholder}
             />
             {rightElementText && (

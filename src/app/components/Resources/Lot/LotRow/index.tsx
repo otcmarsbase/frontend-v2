@@ -39,7 +39,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         label: LotRowFieldNameTitleMap.get('FDV'),
         value: (
           <UIKit.MoneyText
-            value={lot.contractSize.contractShare.fdv.value || 0}
+            value={lot.contractSize?.contractShare?.fdv?.value || 0}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -73,12 +73,10 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           </HStack>
         ),
       },
-      lot.deadline
-        ? {
-            label: LotRowFieldNameTitleMap.get('DEADLINE'),
-            value: <Text>{formatDate(lot.deadline, 'ONLY_DATE')}</Text>,
-          }
-        : null,
+      {
+        label: LotRowFieldNameTitleMap.get('DEADLINE'),
+        value: <Text>{lot.deadline ? formatDate(lot.deadline, 'ONLY_DATE') : '-'}</Text>,
+      },
       {
         label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
         value: lot.totalBids,

@@ -41,7 +41,9 @@ export const InvestDocRoundStep: FC = () => {
               <UIIcons.Common.InfoIcon color="white" />
             </Circle>
             <Text fontWeight={800} fontSize="sm" color="orange.500">
-              Automatically calculated
+              {type === 'SAFT'
+                ? 'You must enter any 3 numbers, then is automatically calculated.'
+                : 'Automatically calculated'}
             </Text>
           </HStack>
           <HStack w="full" spacing="1.25rem" alignItems="flex-start">

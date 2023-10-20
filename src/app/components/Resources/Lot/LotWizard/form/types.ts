@@ -2,7 +2,10 @@ import { FieldPath } from 'react-hook-form';
 
 import { LotCreateModel } from '../schema';
 
-export interface BaseInputProps {}
+export interface BaseInputProps {
+  serializeValue?(value: any): any;
+  deserializeValue?(value: any): any;
+}
 
 export interface InputDescriptor {
   name?: FieldPath<LotCreateModel>;
