@@ -48,8 +48,10 @@ export const INVEST_DOC_ROUND_SUMMARY = yup.string();
 
 export const TOKEN_TGE = yup
   .mixed<number | 'TBD'>()
-  .transform((value) => (value instanceof Date ? value.valueOf() : value));
+  .transform((_, originalValue) => (originalValue instanceof Date ? originalValue.valueOf() : 'TBD'));
 export const TOKEN_LOCKUP_PERIOD = yup.string();
 export const TOKEN_VESTING_PERIOD = yup.string();
+export const TOKEN_TGE_IS_TBD = yup.bool();
+export const TOKEN_IS_ALREADY_OVER = yup.bool();
 
 export const SAFE_WITH_TOKEN_WARRANT = yup.bool();

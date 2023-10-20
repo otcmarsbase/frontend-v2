@@ -41,7 +41,7 @@ export default function Lot({ id }: LotProps) {
         case 'DRAFT':
           return router.navigateComponent(MBPages.Lot.Create.__id__, { id: lot.id }, {});
         case 'ON_MODERATION':
-          return router.navigateComponent(MBPages.Lot.Create.__id__, { id: lot.id }, {});
+          return router.navigateComponent(MBPages.Lot.Moderation.__id__, { id: lot.id }, {});
       }
 
       setLot(lot);

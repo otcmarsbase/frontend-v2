@@ -29,7 +29,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
     [defaultValues],
   );
 
-  const defaultStep = useDefaultStep(innerDefaultValues);
+  const defaultStep = useDefaultStep(innerDefaultValues, innerDefaultValues.COMMON_DIRECTION);
   const [currentStep, setCurrentStep] = useState<StepDescriptorKey>(defaultStep);
 
   const stepSchema = useStepSchema(currentStep);
@@ -56,11 +56,14 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
     return dictionary.asReadonly();
   }, [direction]);
 
+  const nextStep = useMemo(() => {
+    const nextStepIndex = stepDescriptors.keys().findIndex((key) => key === currentStep) + 1;
+    return stepDescriptors.keys()[nextStepIndex];
+  }, [stepDescriptors, currentStep]);
+
   const handleSubmit = useToastInnerCallback(
     useCallback<SubmitHandler<LotCreateModel>>(
       async (data) => {
-        const nextStepIndex = stepDescriptors.keys().findIndex((key) => key === currentStep) + 1;
-        const nextStep = stepDescriptors.keys()[nextStepIndex];
         const stepData = stepSchema.cast(data, { assert: false, stripUnknown: true });
 
         await onSubmit(stepData, { isLastStep: !nextStep, stepKey: currentStep });
@@ -69,7 +72,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
 
         setCurrentStep(nextStep);
       },
-      [currentStep, onSubmit, stepDescriptors, stepSchema],
+      [nextStep, currentStep, onSubmit, stepSchema],
     ),
     {},
   );
@@ -94,6 +97,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
               onStepChange={setCurrentStep}
               stepComponent={<StepResolver stepKey={currentStep} />}
               isLoading={formMethods.formState.isSubmitting}
+              isLastStep={!Boolean(nextStep)}
             />
           </chakra.form>
         </FormProvider>

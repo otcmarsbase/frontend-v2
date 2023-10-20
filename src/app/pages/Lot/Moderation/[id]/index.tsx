@@ -15,17 +15,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const router = useRouter();
   const [lot, setLot] = useState<Resource.Lot.Lot>();
 
-  const mappedLot = useMemo(() => {
-    if (!lot) return;
-
-    return { id: lot.id, type: lot.type, ...lot.attributes };
-  }, [lot]);
-
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id });
 
-      if (lot.status !== 'DRAFT') {
+      if (lot.status !== 'ON_MODERATION') {
         return router.navigateComponent(MBPages.Lot.__id__, { id }, {});
       }
 
@@ -37,31 +31,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     preload();
   }, [preload]);
 
-  const onSubmit = useCallback<LotWizardProps['onSubmit']>(
-    async (data, meta) => {
-      if (meta.isLastStep) {
-        await rpcSchema.send('lot.sendOnModeration', { id });
-        router.navigateComponent(MBPages.Lot.Moderation.__id__, { id }, {});
-        return;
-      }
-
-      const { type, INVEST_DOC_ASSET, ...inputs } = data;
-      const payload: RPC.DTO.LotUpdate.Payload = { id, type, inputs };
-
-      if (typeof INVEST_DOC_ASSET === 'string') {
-        payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET;
-      } else {
-        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as Required<typeof INVEST_DOC_ASSET>;
-      }
-
-      await rpcSchema.send('lot.update', payload);
-    },
-    [rpcSchema, router, id],
-  );
-
   if (preload.isLoading) return <></>;
-
-  return <LotWizard defaultValues={mappedLot} onSubmit={onSubmit} />;
 };
 
 View.getLayout = ({ children }) => (

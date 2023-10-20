@@ -19,6 +19,17 @@ export const CommonProjectStepInputs = LotCreateSchema.pick([
   'COMMON_IS_DIRECT',
 ]);
 
+export const InvestDocRoundStepInputs = LotCreateSchema.pick([
+  'INVEST_DOC_ROUND_FDV',
+  'INVEST_DOC_ROUND_PRICE',
+  'INVEST_DOC_ROUND_SUMMARY',
+  'INVEST_DOC_ROUND_TYPE',
+  'INVEST_DOC_ROUND_UNITS',
+  'TOKEN_LOCKUP_PERIOD',
+  'TOKEN_TGE',
+  'TOKEN_VESTING_PERIOD',
+]);
+
 export const InvestDocPriceStepInputs = LotCreateSchema.pick([
   'COMMON_PRICE',
   'COMMON_SUMMARY',

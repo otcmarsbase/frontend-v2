@@ -15,6 +15,7 @@ export interface LotWizardViewProps<T extends string> {
   onSkip?: () => void;
   onStepChange: (step: T) => void;
   stepComponent: ReactNode;
+  isLastStep?: boolean;
 }
 
 export const LotWizardView = <T extends string>({
@@ -24,6 +25,7 @@ export const LotWizardView = <T extends string>({
   currentStep,
   onStepChange,
   stepDictionary,
+  isLastStep,
 }: LotWizardViewProps<T>) => {
   const currentStepDescriptor = useMemo(() => stepDictionary.get(currentStep), [stepDictionary, currentStep]);
 
@@ -58,7 +60,7 @@ export const LotWizardView = <T extends string>({
         </Box>
         <VStack position="sticky" bottom="2rem" mt="10rem" gap="1rem">
           <Button w="full" color="white" type="submit" isLoading={isLoading}>
-            Next step
+            {isLastStep ? 'Pulish Lot' : 'Next step'}
           </Button>
           {stepDictionary.get(currentStep).skippable && (
             <Button w="full" variant="darkOutline" onClick={onSkip}>

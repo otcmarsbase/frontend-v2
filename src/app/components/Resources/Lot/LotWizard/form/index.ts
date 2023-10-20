@@ -16,4 +16,14 @@ export * from './InvestDocWithReassignInput';
 export * from './InvestDocTypeInput';
 export * from './InvestDocAssetInput';
 
+export * from './InvestDocRoundFdvInput';
+export * from './InvestDocRoundTypeInput';
+export * from './InvestDocRoundSummaryInput';
+export * from './InvestDocRoundPriceInput';
+export * from './InvestDocRoundUnitsInput';
+
+export * from './TokenLockupPeriodInput';
+export * from './TokenVestingPeriodInput';
+export * from './TokenTgeInput';
+
 export * from './SafeWithTokenWarrantInput';

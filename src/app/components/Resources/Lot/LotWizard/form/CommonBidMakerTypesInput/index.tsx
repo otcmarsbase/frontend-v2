@@ -14,17 +14,15 @@ import { DescriptorDictionary } from './const';
 const NAME = 'COMMON_BID_MAKER_TYPES';
 
 export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
-  const { isRequired, isValid, error, setValue, watch } = useInput(NAME);
+  const { isRequired, isValid, error, setValue, watch, trigger } = useInput(NAME);
   const [direction, isNoLimit] = watch(['COMMON_DIRECTION', 'COMMON_IS_NO_LIMIT']);
-
-  const { trigger } = useFormContext();
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
   useEffect(() => {
     if (isNoLimit) {
       setValue([]);
-      trigger(NAME);
+      trigger();
     }
   }, [isNoLimit, setValue, trigger]);
 
@@ -38,6 +36,7 @@ export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
               <UILogic.ParticipantTypeSelect
                 {...field}
                 isMulti
+                isInvalid={!isValid}
                 onChange={field.onChange}
                 placeholder={descriptor.placeholder}
                 isDisabled={isNoLimit}

@@ -11,7 +11,7 @@ export function useStepSchema(stepKey: StepDescriptorKey) {
       case 'COMMON_PROJECT':
         return LotSteps.CommonProjectStepInputs;
       case 'INVEST_DOC_ROUND':
-        return LotSteps.CommonProjectStepInputs;
+        return LotSteps.InvestDocRoundStepInputs;
       case 'INVEST_DOC_PRICE':
         return LotSteps.InvestDocPriceStepInputs;
       case 'INVEST_DOC_REVIEW':
