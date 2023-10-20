@@ -13,7 +13,7 @@ export const LotRowFieldNameTitleMap = new Map<LotRowFieldName, React.ReactNode>
   ['LOT_TYPE', 'Lot type'],
   ['PUBLISHED_AT', 'Published at'],
   ['FDV', 'FDV'],
-  ['LOT_VALUE', 'Lot value'],
+  ['LOT_VALUE', 'Contract size'],
   ['VERTICAL', 'Vertical'],
   ['DEADLINE', 'Deadline'],
   ['TOTAL_BIDS_PLACE', 'Total bids place'],

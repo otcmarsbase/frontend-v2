@@ -22,6 +22,7 @@ export namespace CommonCategory {
     [
       InputObject,
 
+      LotAttributes.COMMON_MEDIATOR,
       LotAttributes.COMMON_ARCHIVED_AT_ATTRIBUTE,
       LotAttributes.COMMON_COMPLETED_AT_ATTRIBUTE,
       LotAttributes.COMMON_COMPLETED_REASON_ATTRIBUTE,
