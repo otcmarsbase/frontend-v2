@@ -12,6 +12,7 @@ export * from './Loader';
 export * from './Logo';
 export * from './MoneyText';
 export * from './Pagination';
+export * from './PercentText';
 export * from './ProgressBar';
 export * from './SkeletonLoader';
 export * from './StatsInvert';

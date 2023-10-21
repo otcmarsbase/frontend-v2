@@ -1,26 +1,24 @@
 import { TextProps, Text, HStack } from '@chakra-ui/react';
 import { format as formatNumerable } from 'numerable';
 
-interface MoneyTextProps extends TextProps {
+export interface PercentTextProps extends TextProps {
   value: number | string;
-  abbreviated?: boolean;
   addon?: React.ReactNode;
-  format?: '0.00' | '0,00' | '0.00' | '0,00';
+  format?: '0.0000';
   emptyValue?: React.ReactNode;
 }
 
-export function MoneyText({
+export function PercentText({
   value,
-  abbreviated,
   addon,
   fontSize,
-  format = '0.00',
+  format = '0.0000',
   emptyValue = '-',
   ...textProps
-}: MoneyTextProps) {
+}: PercentTextProps) {
   return (
     <HStack gap="0" fontSize={fontSize}>
-      <Text {...textProps}>{value ? formatNumerable(value, `${format}${abbreviated ? 'a' : ''}`) : emptyValue}</Text>
+      <Text {...textProps}>{value ? formatNumerable(value, format) : emptyValue} %</Text>
       {addon && value && <>&nbsp;{addon}</>}
     </HStack>
   );

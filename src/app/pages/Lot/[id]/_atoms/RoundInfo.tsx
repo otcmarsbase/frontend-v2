@@ -3,7 +3,7 @@ import { ParticipantTypeDictionary, UIDictionary } from '@app/dictionary';
 import { formatDate, getContractSize, getMinimumDealSize } from '@app/utils';
 import { SimpleGrid, VStack, Text, Heading, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
-import { MoneyText, UIKit } from '@shared/ui-kit';
+import { MoneyText, PercentText, UIKit } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';
 import { RoundInfoFieldDictionary } from './const';
@@ -32,93 +32,6 @@ const RoundInfoField: React.FC<RoundInfoFieldProps> = ({ title, value }) => {
 export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
   return (
     <VStack w="full" alignItems="start">
-      <SimpleGrid gridTemplateColumns="61% 1fr" gap="1.5rem" borderRadius="0.5rem" w="full">
-        <VStack gap="0.75rem">
-          <SimpleGrid w="full" borderRadius="0.75rem" gridColumnGap="0.75rem" gridRowGap="0.81rem" columns={3}>
-            <RoundInfoItem fieldName={lot.type === 'SAFT' ? 'PRICE_UNIT' : 'PRICE_EQUITY'}>
-              <MoneyText fontSize="sm" fontWeight={500} value={lot.contractSize.price.value} abbreviated addon="$" />
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="LOT_FDV">
-              <VStack alignItems="start">
-                <MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} addon="$" />
-              </VStack>
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="CONTRACT_SIZE">
-              <MoneyText
-                fontSize="sm"
-                fontWeight={500}
-                value={getContractSize(lot)}
-                abbreviated
-                addon={lot.type === 'SAFT' ? null : '%'}
-              />
-              <MoneyText
-                fontSize="xs"
-                abbreviated
-                fontWeight={500}
-                color="dark.50"
-                value={lot.attributes.COMMON_SUMMARY}
-                addon="$"
-              />
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="OWNER">
-              <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="SELLER">
-              <Text fontWeight="500" fontSize="sm">
-                {UIDictionary.MediatorTypeDictionary.get(lot.mediatorType).title}
-              </Text>
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="MIN_BID">
-              <MoneyText
-                fontSize="sm"
-                fontWeight={500}
-                value={getMinimumDealSize(lot)}
-                abbreviated
-                addon={lot.type === 'SAFT' ? null : '%'}
-              />
-              <MoneyText
-                fontSize="xs"
-                fontWeight={500}
-                color="dark.50"
-                abbreviated
-                value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-                addon="$"
-              />
-            </RoundInfoItem>
-          </SimpleGrid>
-          <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">
-            <RoundInfoItem fieldName="TYPE_OF_BIDDER">
-              {lot.bidMakerTypes ? (
-                lot.bidMakerTypes.map((type) => (
-                  <Text fontSize="sm" color="orange.500">
-                    {ParticipantTypeDictionary.get(type).title}
-                  </Text>
-                ))
-              ) : (
-                <Text fontSize="sm" color="dark.50">
-                  -
-                </Text>
-              )}
-            </RoundInfoItem>
-            <RoundInfoItem fieldName="TYPE_OF_SELLER">
-              {lot.offerMakerTypes ? (
-                lot.offerMakerTypes.map((type) => (
-                  <Text fontSize="sm" color="orange.500">
-                    {ParticipantTypeDictionary.get(type).title}
-                  </Text>
-                ))
-              ) : (
-                <Text fontSize="sm" color="dark.50">
-                  -
-                </Text>
-              )}
-            </RoundInfoItem>
-          </SimpleGrid>
-        </VStack>
-
-        <AvailableBlock lot={lot} />
-      </SimpleGrid>
-
       {lot.direction === 'SELL' && (
         <VStack p="1.25rem" w="full" alignItems="start" bg="dark.900" borderRadius="sm" gap="1.5rem">
           <Heading textTransform="uppercase" fontSize="md" color="white" fontWeight={700}>
@@ -183,6 +96,89 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
           </SimpleGrid>
         </VStack>
       )}
+
+      <SimpleGrid gridTemplateColumns="61% 1fr" gap="1.5rem" borderRadius="0.5rem" w="full">
+        <VStack gap="0.75rem">
+          <SimpleGrid w="full" borderRadius="0.75rem" gridColumnGap="0.75rem" gridRowGap="0.81rem" columns={3}>
+            <RoundInfoItem fieldName={lot.type === 'SAFT' ? 'PRICE_UNIT' : 'PRICE_EQUITY'}>
+              <MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated addon="$" />
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="LOT_FDV">
+              <VStack alignItems="start">
+                <MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} addon="$" />
+              </VStack>
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="CONTRACT_SIZE">
+              {lot.type === 'SAFT' ? (
+                <MoneyText fontSize="sm" fontWeight={500} value={getContractSize(lot)} abbreviated />
+              ) : (
+                <PercentText fontSize="sm" fontWeight={500} value={getContractSize(lot)} />
+              )}
+              <MoneyText
+                fontSize="xs"
+                abbreviated
+                fontWeight={500}
+                color="dark.50"
+                value={lot.attributes.COMMON_SUMMARY}
+                addon="$"
+              />
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="OWNER">
+              <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="SELLER">
+              <Text fontWeight="500" fontSize="sm">
+                {UIDictionary.MediatorTypeDictionary.get(lot.mediatorType).title}
+              </Text>
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="MIN_BID">
+              {lot.type === 'SAFT' ? (
+                <MoneyText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} abbreviated />
+              ) : (
+                <PercentText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} />
+              )}
+              <MoneyText
+                fontSize="xs"
+                fontWeight={500}
+                color="dark.50"
+                abbreviated
+                value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+                addon="$"
+              />
+            </RoundInfoItem>
+          </SimpleGrid>
+          <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">
+            <RoundInfoItem fieldName="TYPE_OF_BIDDER">
+              {lot.bidMakerTypes ? (
+                lot.bidMakerTypes.map((type) => (
+                  <Text fontSize="sm" color="orange.500">
+                    {ParticipantTypeDictionary.get(type).title}
+                  </Text>
+                ))
+              ) : (
+                <Text fontSize="sm" color="dark.50">
+                  -
+                </Text>
+              )}
+            </RoundInfoItem>
+            <RoundInfoItem fieldName="TYPE_OF_SELLER">
+              {lot.offerMakerTypes ? (
+                lot.offerMakerTypes.map((type) => (
+                  <Text fontSize="sm" color="orange.500">
+                    {ParticipantTypeDictionary.get(type).title}
+                  </Text>
+                ))
+              ) : (
+                <Text fontSize="sm" color="dark.50">
+                  -
+                </Text>
+              )}
+            </RoundInfoItem>
+          </SimpleGrid>
+        </VStack>
+
+        <AvailableBlock lot={lot} />
+      </SimpleGrid>
     </VStack>
   );
 };

@@ -49,7 +49,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'FDV',
         value: (
           <UIKit.MoneyText
-            value={lot.contractSize.contractShare.fdv.value || 0}
+            value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
