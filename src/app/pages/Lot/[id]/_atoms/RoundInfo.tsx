@@ -30,6 +30,8 @@ const RoundInfoField: React.FC<RoundInfoFieldProps> = ({ title, value }) => {
 };
 
 export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
+  console.log({ lot });
+
   return (
     <VStack w="full" alignItems="start">
       {lot.direction === 'SELL' && (
@@ -47,6 +49,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               value={
                 <UIKit.MoneyText
                   fontWeight={800}
+                  format="0.000"
                   value={lot.attributes.INVEST_DOC_ROUND_PRICE}
                   fontSize="sm"
                   addon={
@@ -100,7 +103,11 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
       <SimpleGrid gridTemplateColumns="61% 1fr" gap="1.5rem" borderRadius="0.5rem" w="full">
         <VStack gap="0.75rem">
           <SimpleGrid w="full" borderRadius="0.75rem" gridColumnGap="0.75rem" gridRowGap="0.81rem" columns={3}>
-            <RoundInfoItem fieldName={lot.type === 'SAFT' ? 'PRICE_UNIT' : 'PRICE_EQUITY'}>
+            <RoundInfoItem
+              fieldName={
+                lot.type === 'SAFT' ? 'PRICE_UNIT' : lot.type === 'TOKEN_WARRANT' ? 'PRICE_TOKEN' : 'PRICE_EQUITY'
+              }
+            >
               <MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated addon="$" />
             </RoundInfoItem>
             <RoundInfoItem fieldName="LOT_FDV">
