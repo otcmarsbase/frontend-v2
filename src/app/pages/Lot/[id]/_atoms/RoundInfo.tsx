@@ -35,28 +35,28 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
       <SimpleGrid gridTemplateColumns="61% 1fr" gap="1.5rem" borderRadius="0.5rem" w="full">
         <VStack gap="0.75rem">
           <SimpleGrid w="full" borderRadius="0.75rem" gridColumnGap="0.75rem" gridRowGap="0.81rem" columns={3}>
-            <RoundInfoItem fieldName="PRICE_PER_EQUITY">
+            <RoundInfoItem fieldName={lot.type === 'SAFT' ? 'PRICE_UNIT' : 'PRICE_EQUITY'}>
               <MoneyText fontSize="sm" fontWeight={500} value={lot.contractSize.price.value} abbreviated addon="$" />
             </RoundInfoItem>
             <RoundInfoItem fieldName="LOT_FDV">
               <VStack alignItems="start">
-                <MoneyText
-                  fontSize="sm"
-                  abbreviated
-                  fontWeight={500}
-                  value={lot.contractSize.contractShare.fdv.value}
-                  addon="$"
-                />
+                <MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} addon="$" />
               </VStack>
             </RoundInfoItem>
             <RoundInfoItem fieldName="CONTRACT_SIZE">
-              <MoneyText fontSize="sm" fontWeight={500} value={getContractSize(lot)} abbreviated addon="%" />
+              <MoneyText
+                fontSize="sm"
+                fontWeight={500}
+                value={getContractSize(lot)}
+                abbreviated
+                addon={lot.type === 'SAFT' ? null : '%'}
+              />
               <MoneyText
                 fontSize="xs"
                 abbreviated
                 fontWeight={500}
                 color="dark.50"
-                value={lot.contractSize.price.value}
+                value={lot.attributes.COMMON_SUMMARY}
                 addon="$"
               />
             </RoundInfoItem>
@@ -69,13 +69,19 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               </Text>
             </RoundInfoItem>
             <RoundInfoItem fieldName="MIN_BID">
-              <MoneyText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} abbreviated addon="%" />
+              <MoneyText
+                fontSize="sm"
+                fontWeight={500}
+                value={getMinimumDealSize(lot)}
+                abbreviated
+                addon={lot.type === 'SAFT' ? null : '%'}
+              />
               <MoneyText
                 fontSize="xs"
                 fontWeight={500}
                 color="dark.50"
                 abbreviated
-                value={lot.minimumDealSize?.price.value}
+                value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
                 addon="$"
               />
             </RoundInfoItem>
@@ -121,15 +127,14 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
           <SimpleGrid columns={2} gridColumnGap="6.5rem" gridRowGap="1rem" w="full">
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('INVESTMENT_ROUND').title}
-              value={<UILogic.InvestmentRoundBadge value="PRESALE" />}
+              value={<UILogic.InvestmentRoundBadge value={lot.attributes.INVEST_DOC_ROUND_TYPE} />}
             />
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('ROUND_TOKEN_PRICE').title}
               value={
                 <UIKit.MoneyText
                   fontWeight={800}
-                  value={lot.roundContractSize?.price.value || '0'}
-                  format="0,00"
+                  value={lot.attributes.INVEST_DOC_ROUND_PRICE}
                   fontSize="sm"
                   addon={
                     <Text fontSize="sm" color="dark.50" fontWeight={800}>
@@ -147,7 +152,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               title={RoundInfoFieldDictionary.get('ROUND_FDV').title}
               value={
                 <UIKit.MoneyText
-                  value={lot.roundContractSize?.contractShare.fdv.value}
+                  value={lot.attributes.INVEST_DOC_ROUND_FDV}
                   fontSize="sm"
                   format="0,00"
                   fontWeight={800}
