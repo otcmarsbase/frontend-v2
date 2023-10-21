@@ -11,8 +11,6 @@ export interface ConfirmEditModalProps extends PortalProps<boolean> {
 }
 
 export const ConfirmEditModal: React.FC<ConfirmEditModalProps> = ({ portal }) => {
-  const rpcSchema = useRpcSchemaClient();
-
   const onClose = useCallback(() => {
     if (portal && portal.resolve) portal.resolve(false);
   }, [portal]);

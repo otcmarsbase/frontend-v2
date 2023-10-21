@@ -21,10 +21,15 @@ export default function View({ id }: ViewProps) {
 
   const onPreload = useLoadingCallback(
     useCallback(async () => {
-      const asset = await rpcSchema.send('asset.getById', { id });
-      const stats = await rpcSchema.send('asset.getStatsById', { id });
-      setAsset(asset);
-      setStats(stats);
+      try {
+        const asset = await rpcSchema.send('asset.getById', { id });
+        setAsset(asset);
+        const stats = await rpcSchema.send('asset.getStatsById', { id });
+        setStats(stats);
+      } catch (err) {
+        // TODO: delete this after fix `asset.getStatsById` on backend
+        setStats({ averageFdv: '0', lotSellCount: 0, lotBuyCount: 0, lotBuyCvSum: '0', lotSellCvSum: '0' });
+      }
     }, [id, rpcSchema]),
   );
   usePreloadPage(onPreload);
