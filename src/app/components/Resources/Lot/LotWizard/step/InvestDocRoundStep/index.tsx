@@ -34,7 +34,7 @@ export const InvestDocRoundStep: FC = () => {
           <TokenVestingPeriodInput />
         </>
       )}
-      <FormElement label="Price information" isRequired w="full">
+      <FormElement label="Price information" isRequired={false} w="full">
         <VStack layerStyle="orangeGradient" p="1.5rem" alignItems="start" gap="1.25rem">
           <HStack alignItems="flex-start">
             <Circle bg="orange.500" size="1.25rem">

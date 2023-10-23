@@ -38,6 +38,7 @@ export const INVEST_DOC_ASSET = yup.lazy((value) =>
 export const INVEST_DOC_WITH_REASSIGN = yup.bool();
 export const INVEST_DOC_FDV = yup.string();
 export const INVEST_DOC_SHARE = yup.number();
+export const INVEST_DOC_RATIO = yup.number();
 
 export const INVEST_DOC_ROUND_TYPE = yup.string().oneOf(InvestmentRoundDictionary.keys());
 export const INVEST_DOC_ROUND_PRICE = yup.string();

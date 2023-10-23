@@ -30,5 +30,5 @@ export function useDefaultStep(
     }
 
     return 'INVEST_DOC_REVIEW';
-  }, [defaultValues]);
+  }, [defaultValues, direction]);
 }

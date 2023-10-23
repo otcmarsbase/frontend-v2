@@ -11,7 +11,7 @@ import { useInput } from './useInput';
 const NAME = 'COMMON_DEADLINE';
 
 export const CommonDeadlineInput: FC<BaseInputProps> = () => {
-  const { isRequired, isValid, error, setValue, trigger, watch, value, rhfSetValue } = useInput(NAME);
+  const { isRequired, isValid, error, setValue, trigger, watch } = useInput(NAME);
   const isPermanent = watch('COMMON_IS_PERMANENT');
 
   useEffect(() => {
@@ -20,10 +20,6 @@ export const CommonDeadlineInput: FC<BaseInputProps> = () => {
       trigger();
     }
   }, [isPermanent, setValue, trigger]);
-
-  useEffect(() => {
-    if (!value) rhfSetValue('COMMON_IS_PERMANENT', true);
-  }, [value, rhfSetValue]);
 
   return (
     <FormElement label="Deadline" info="Expiration Date for this Lot" isRequired={isRequired} w="full">
