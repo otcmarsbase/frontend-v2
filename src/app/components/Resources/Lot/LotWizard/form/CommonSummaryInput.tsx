@@ -7,16 +7,16 @@ import { useInput } from './useInput';
 const NAME = 'COMMON_SUMMARY';
 
 export const CommonSummaryInput: FC<BaseInputProps> = () => {
-  const { watch, setValue, trigger } = useInput(NAME);
+  const { value, watch, setValue, trigger } = useInput(NAME);
 
   const [INVEST_DOC_ROUND_SUMMARY] = watch(['INVEST_DOC_ROUND_SUMMARY']);
 
   useEffect(() => {
-    if (!INVEST_DOC_ROUND_SUMMARY) return;
+    if (!INVEST_DOC_ROUND_SUMMARY || value) return;
 
     setValue(INVEST_DOC_ROUND_SUMMARY);
     trigger();
-  }, [INVEST_DOC_ROUND_SUMMARY, setValue, trigger]);
+  }, [value, INVEST_DOC_ROUND_SUMMARY, setValue, trigger]);
 
   return (
     <FormControlNumberInput

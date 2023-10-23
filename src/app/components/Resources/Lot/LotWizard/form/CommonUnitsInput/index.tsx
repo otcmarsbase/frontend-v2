@@ -13,7 +13,7 @@ import { DescriptorDictionary } from './const';
 const NAME = 'COMMON_UNITS';
 
 export const CommonUnitsInput: FC<BaseInputProps> = () => {
-  const { watch, setValue, trigger } = useInput(NAME);
+  const { value, watch, setValue, trigger } = useInput(NAME);
   const [type, INVEST_DOC_ROUND_UNITS] = watch(['type', 'INVEST_DOC_ROUND_UNITS']);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
@@ -26,11 +26,11 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
   );
 
   useEffect(() => {
-    if (!INVEST_DOC_ROUND_UNITS) return;
+    if (!INVEST_DOC_ROUND_UNITS || value) return;
 
     setValue(INVEST_DOC_ROUND_UNITS);
     trigger();
-  }, [INVEST_DOC_ROUND_UNITS, setValue, trigger]);
+  }, [value, INVEST_DOC_ROUND_UNITS, setValue, trigger]);
 
   return (
     <FormControlNumberInput
