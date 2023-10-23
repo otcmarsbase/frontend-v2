@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { AssetVerticalIcon, LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate, getMinimumDealSize } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -33,15 +32,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
     .toNumber();
 
   const fields: FieldType[] = useMemo(() => {
-    // const unitSizeFilter = lot.filters.find(
-    //   (lotFilter) => lotFilter.type === 'UNIT_SIZE_FILTER',
-    // ) as Resource.Lot.LotUnitSizeFilter;
-
-    // const minSizeDea = new Decimal(unitSizeFilter?.min_size || 0)
-    //   .mul(lot.valuation_info.price)
-    //   .toDecimalPlaces(2)
-    //   .toString();
-
     if (lot.status !== 'ACTIVE') return [];
 
     return [
@@ -63,13 +53,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
-            value={getMinimumDealSize(lot)}
             abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
+            value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+            addon={<Text color="dark.50">$</Text>}
           />
         ),
       },
@@ -79,7 +65,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       },
       {
         name: 'Lot Deadline',
-        value: <Text>{lot.deadline ? formatDate(lot.deadline, 'ONLY_DATE') : '-'}</Text>,
+        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} format="ONLY_DATE" />,
       },
       {
         name: 'Vertical',

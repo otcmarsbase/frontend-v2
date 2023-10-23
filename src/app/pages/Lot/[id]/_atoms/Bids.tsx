@@ -90,9 +90,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
         </HStack>
       </HStack>
       <List
-        emptyText={
-          <Empty createButton={isOfferMaker ? <></> : <Button onClick={onCreateBidClick}>Create bid</Button>} />
-        }
+        emptyText={<Empty description="Unfortunately, you don't have any bids yet. You can create your own bid" />}
         w="full"
         items={bids}
         itemKey={(bid) => bid.id}

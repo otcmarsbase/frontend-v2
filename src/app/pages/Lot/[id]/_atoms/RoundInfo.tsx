@@ -49,7 +49,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               value={
                 <UIKit.MoneyText
                   fontWeight={800}
-                  format="0.000"
+                  format="0,000.000"
                   value={lot.attributes.INVEST_DOC_ROUND_PRICE}
                   fontSize="sm"
                   addon={
@@ -62,7 +62,13 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             />
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('TGE_DATE').title}
-              value={<Text fontSize="sm">{lot.tge?.value ? formatDate(lot.tge.value, 'ONLY_DATE') : '-'}</Text>}
+              value={
+                <Text fontSize="sm">
+                  {typeof lot.attributes.TOKEN_TGE === 'number'
+                    ? formatDate(lot.tge.value, 'ONLY_DATE')
+                    : lot.attributes.TOKEN_TGE || '-'}
+                </Text>
+              }
             />
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('ROUND_FDV').title}
@@ -84,7 +90,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               title={RoundInfoFieldDictionary.get('LOCKUP_PERIOD').title}
               value={
                 <Text fontWeight={800} fontSize="sm">
-                  {lot.lockupPeriod?.period ? lot.lockupPeriod.period : '-'}
+                  {lot.attributes.TOKEN_LOCKUP_PERIOD ? lot.attributes.TOKEN_LOCKUP_PERIOD : '-'}
                 </Text>
               }
             />
@@ -92,7 +98,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               title={RoundInfoFieldDictionary.get('VESTING_CALENDAR').title}
               value={
                 <Text fontSize="sm" fontWeight={800}>
-                  {lot.vestingPeriod ? lot.vestingPeriod : '-'}
+                  {lot.attributes.TOKEN_VESTING_PERIOD ? lot.attributes.TOKEN_VESTING_PERIOD : '-'}
                 </Text>
               }
             />
@@ -156,30 +162,10 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
           </SimpleGrid>
           <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">
             <RoundInfoItem fieldName="TYPE_OF_BIDDER">
-              {lot.bidMakerTypes ? (
-                lot.bidMakerTypes.map((type) => (
-                  <Text fontSize="sm" color="orange.500">
-                    {ParticipantTypeDictionary.get(type).title}
-                  </Text>
-                ))
-              ) : (
-                <Text fontSize="sm" color="dark.50">
-                  -
-                </Text>
-              )}
+              <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_BID_MAKER_TYPES} />
             </RoundInfoItem>
             <RoundInfoItem fieldName="TYPE_OF_SELLER">
-              {lot.offerMakerTypes ? (
-                lot.offerMakerTypes.map((type) => (
-                  <Text fontSize="sm" color="orange.500">
-                    {ParticipantTypeDictionary.get(type).title}
-                  </Text>
-                ))
-              ) : (
-                <Text fontSize="sm" color="dark.50">
-                  -
-                </Text>
-              )}
+              <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_OFFER_MAKER_TYPES} />
             </RoundInfoItem>
           </SimpleGrid>
         </VStack>

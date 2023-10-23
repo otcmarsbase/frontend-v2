@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate, getContractSize } from '@app/utils';
+import { getContractSize } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
@@ -29,17 +29,17 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
     return [
       {
         label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
-        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />,
+        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
-        value: <Text>{formatDate(lot.createdAt, 'ONLY_DATE')}</Text>,
+        value: <UIKit.DateText value={lot.attributes.COMMON_CREATED_AT_ATTRIBUTE} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('FDV'),
         value: (
           <UIKit.MoneyText
-            value={lot.contractSize?.contractShare?.fdv?.value || 0}
+            value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -51,17 +51,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value: (
-          <UIKit.MoneyText
-            value={getContractSize(lot)}
-            abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                %
-              </Text>
-            }
-          />
-        ),
+        value: <UIKit.PercentText value={getContractSize(lot)} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
@@ -75,7 +65,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('DEADLINE'),
-        value: <Text>{lot.deadline ? formatDate(lot.deadline, 'ONLY_DATE') : '-'}</Text>,
+        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
@@ -137,9 +127,6 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
             </GridItem>
           ))}
         </Grid>
-        {
-          // TODO fix stopPropagate on row clicking
-        }
         <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
           <UIIcons.Common.KebabMenuIcon
             position="absolute"
