@@ -21,7 +21,7 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
   const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
   const max = useMemo(
-    () => (INVEST_DOC_ROUND_UNITS ? new Decimal(INVEST_DOC_ROUND_UNITS).mul(multiplicator).toNumber() : Infinity),
+    () => (INVEST_DOC_ROUND_UNITS ? new Decimal(INVEST_DOC_ROUND_UNITS).div(multiplicator).toNumber() : Infinity),
     [INVEST_DOC_ROUND_UNITS, multiplicator],
   );
 
@@ -38,7 +38,6 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
       {...descriptor}
       serializeValue={serializeValue}
       deserializeValue={deserializeValue}
-      min={1 / multiplicator}
       max={max}
     />
   );

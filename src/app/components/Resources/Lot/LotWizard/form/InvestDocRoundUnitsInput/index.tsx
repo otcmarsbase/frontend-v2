@@ -1,6 +1,5 @@
 import { FC, useCallback, useEffect, useMemo } from 'react';
 
-import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';
 
 import { FormControlNumberInput } from '../FormControlNumberInput';
@@ -13,18 +12,36 @@ import { DescriptorDictionary } from './const';
 const NAME = 'INVEST_DOC_ROUND_UNITS';
 
 export const InvestDocRoundUnitsInput: FC<BaseInputProps> = () => {
-  const { watch, setValue, trigger } = useInput(NAME);
-  const [type, INVEST_DOC_ROUND_SHARE] = watch(['type', 'INVEST_DOC_ROUND_SHARE']);
+  const { watch, setValue, trigger, rhfSetValue, rhfTrigger } = useInput(NAME);
+  const [type, INVEST_DOC_ROUND_SHARE, INVEST_DOC_ROUND_SUMMARY] = watch([
+    'type',
+    'INVEST_DOC_ROUND_SHARE',
+    'INVEST_DOC_ROUND_SUMMARY',
+  ]);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
   const { serializeValue, deserializeValue } = useMultiplicatorValue(type);
 
+  const handleChange = useCallback(
+    (value: number | string) => {
+      if (!(value && INVEST_DOC_ROUND_SUMMARY)) return;
+
+      const INVEST_DOC_ROUND_PRICE = new Decimal(INVEST_DOC_ROUND_SUMMARY).div(new Decimal(value)).toString();
+
+      rhfSetValue('INVEST_DOC_ROUND_PRICE', INVEST_DOC_ROUND_PRICE);
+      rhfTrigger();
+    },
+    [INVEST_DOC_ROUND_SUMMARY, rhfSetValue, rhfTrigger],
+  );
+
   useEffect(() => {
     if (type === 'SAFT' || !INVEST_DOC_ROUND_SHARE) return;
 
-    setValue(INVEST_DOC_ROUND_SHARE.toString());
+    const newValue = new Decimal(INVEST_DOC_ROUND_SHARE).mul(10000).toString();
+    setValue(newValue);
     trigger();
-  }, [INVEST_DOC_ROUND_SHARE, setValue, trigger, type]);
+    handleChange(newValue);
+  }, [handleChange, INVEST_DOC_ROUND_SHARE, setValue, trigger, type]);
 
   return (
     <FormControlNumberInput
@@ -32,6 +49,7 @@ export const InvestDocRoundUnitsInput: FC<BaseInputProps> = () => {
       {...descriptor}
       serializeValue={serializeValue}
       deserializeValue={deserializeValue}
+      onChange={handleChange}
     />
   );
 };

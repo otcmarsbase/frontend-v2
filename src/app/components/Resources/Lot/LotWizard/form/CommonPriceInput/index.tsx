@@ -1,6 +1,5 @@
 import { FC, useCallback, useEffect, useMemo } from 'react';
 
-import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';
 
 import { FormControlNumberInput } from '../FormControlNumberInput';
@@ -12,35 +11,40 @@ import { DescriptorDictionary } from './const';
 const NAME = 'COMMON_PRICE';
 
 export const CommonPriceInput: FC<BaseInputProps> = () => {
-  const { watch, setValue, trigger } = useInput(NAME);
-  const [type, COMMON_UNITS, COMMON_SUMMARY, INVEST_DOC_ROUND_PRICE] = watch([
+  const { watch, setValue, trigger, rhfSetValue, rhfTrigger } = useInput(NAME);
+  const [type, COMMON_UNITS, COMMON_SUMMARY, INVEST_DOC_ROUND_FDV, INVEST_DOC_ROUND_PRICE] = watch([
     'type',
     'COMMON_UNITS',
     'COMMON_SUMMARY',
+    'INVEST_DOC_ROUND_FDV',
     'INVEST_DOC_ROUND_PRICE',
   ]);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
-  const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
+  const handleChange = useCallback(
+    (value: number | string) => {
+      if (!(value && INVEST_DOC_ROUND_PRICE && INVEST_DOC_ROUND_FDV)) return;
+
+      const INVEST_DOC_FDV = new Decimal(value)
+        .div(new Decimal(INVEST_DOC_ROUND_PRICE))
+        .mul(new Decimal(INVEST_DOC_ROUND_FDV))
+        .toString();
+
+      rhfSetValue('INVEST_DOC_FDV', INVEST_DOC_FDV);
+      rhfTrigger('INVEST_DOC_FDV');
+    },
+    [rhfSetValue, rhfTrigger, INVEST_DOC_ROUND_FDV, INVEST_DOC_ROUND_PRICE],
+  );
 
   useEffect(() => {
     if (!(COMMON_UNITS && COMMON_SUMMARY)) return;
 
-    const newValue = new Decimal(COMMON_SUMMARY)
-      .div(new Decimal(COMMON_UNITS).mul(multiplicator))
-      .div(multiplicator)
-      .toString();
+    const newValue = new Decimal(COMMON_SUMMARY).div(new Decimal(COMMON_UNITS)).toString();
 
     setValue(newValue);
     trigger();
-  }, [setValue, trigger, COMMON_UNITS, COMMON_SUMMARY, multiplicator]);
+    handleChange(newValue);
+  }, [handleChange, setValue, trigger, COMMON_UNITS, COMMON_SUMMARY]);
 
-  const onChange = useCallback(
-    (value: number) => {
-      if (!(value && INVEST_DOC_ROUND_PRICE)) return;
-    },
-    [INVEST_DOC_ROUND_PRICE],
-  );
-
-  return <FormControlNumberInput name={NAME} {...descriptor} onChange={onChange} />;
+  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} />;
 };

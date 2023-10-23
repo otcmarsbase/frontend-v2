@@ -11,7 +11,7 @@ export function useMultiplicatorValue(type: Resource.Lot.Enums.LotType) {
     (value: string) => {
       if (!value) return value;
 
-      return new Decimal(value).mul(multiplicator).toString();
+      return new Decimal(value).div(multiplicator).toString();
     },
     [multiplicator],
   );
@@ -20,7 +20,7 @@ export function useMultiplicatorValue(type: Resource.Lot.Enums.LotType) {
     (value: string) => {
       if (!value) return value;
 
-      return new Decimal(value).div(multiplicator).toString();
+      return new Decimal(value).mul(multiplicator).toString();
     },
     [multiplicator],
   );
