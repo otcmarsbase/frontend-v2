@@ -1,26 +1,23 @@
+import { useCallback, useMemo } from 'react';
+
 import { UILogic } from '@app/components';
 import { Text, VStack } from '@chakra-ui/react';
 import { UIKit, useIsRequired } from '@shared/ui-kit';
 
 import { StepReview, StepReviewField } from './_atoms';
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';
-import { PricingModelType } from './form/CommonPricingModelInput/const';
 import { LotCreateModel, LotCreateSchema } from './schema';
 
 export interface StepsReviewDescriptorProps {
   isRequired: (key: keyof LotCreateModel) => boolean;
-  pricingModel: PricingModelType;
 }
 
 export const getStepsReviewDescriptor = ({
   isRequired,
-  pricingModel,
 }: StepsReviewDescriptorProps): Record<
   Exclude<StepDescriptorKey, 'INVEST_DOC_REVIEW'>,
   StepReviewField<LotCreateModel>[]
 > => {
-  const isSummary = pricingModel === 'SUMMARY';
-
   return {
     INVEST_DOC_START: [
       {
@@ -138,17 +135,23 @@ export const getStepsReviewDescriptor = ({
     ],
     INVEST_DOC_PRICE: [
       {
-        renderTitle: () => <Text>{isSummary ? 'Contract size to offer' : 'Equity to offer'}</Text>,
+        renderTitle: (model) => (
+          <Text>{model.COMMON_PRICING_MODEL === 'SUMMARY' ? 'Contract size to offer' : 'Equity to offer'}</Text>
+        ),
         renderValue: (model) => {
-          if (isSummary) return <UIKit.MoneyText value={model.COMMON_SUMMARY} addon="$" />;
+          if (model.COMMON_PRICING_MODEL === 'SUMMARY')
+            return <UIKit.MoneyText value={model.COMMON_SUMMARY} addon="$" />;
           return <UIKit.MoneyText value={model.COMMON_UNITS} addon="%" />;
         },
         isRequired: isRequired('COMMON_SUMMARY') || isRequired('COMMON_UNITS'),
       },
       {
-        renderTitle: () => <Text>{isSummary ? 'Minimum deal size' : 'Minimum equity bid'}</Text>,
+        renderTitle: (model) => (
+          <Text>{model.COMMON_PRICING_MODEL === 'SUMMARY' ? 'Minimum deal size' : 'Minimum equity bid'}</Text>
+        ),
         renderValue: (model) => {
-          if (isSummary) return <UIKit.MoneyText value={model.COMMON_MIN_FILTER_SUMMARY} addon="$" />;
+          if (model.COMMON_PRICING_MODEL === 'SUMMARY')
+            return <UIKit.MoneyText value={model.COMMON_MIN_FILTER_SUMMARY} addon="$" />;
           return <UIKit.MoneyText value={model.COMMON_MIN_FILTER_UNITS} addon="%" />;
         },
         isRequired: isRequired('COMMON_MIN_FILTER_SUMMARY') || isRequired('COMMON_MIN_FILTER_UNITS'),
@@ -160,13 +163,6 @@ export const getStepsReviewDescriptor = ({
         },
         isRequired: isRequired('INVEST_DOC_FDV'),
       },
-      // {
-      //   renderTitle: () => <Text>Price per 0,01% equity</Text>,
-      //   renderValue: (model) => {
-      //     return <UIKit.MoneyText value={model.COMMON_PRICE} addon="$" />;
-      //   },
-      //   isRequired: isRequired('COMMON_PRICE'),
-      // },
     ],
   };
 };
@@ -176,17 +172,15 @@ export interface LotReviewProps {
 }
 
 export const LotReview: React.FC<LotReviewProps> = ({ values }) => {
-  console.log({ values });
-  const isRequired = (name: keyof LotCreateModel) => {
-    return (LotCreateSchema.fields[name] as any).spec?.optional;
-  };
+  const getValues = useCallback(() => values, [values]);
+  const isRequired = useIsRequired(LotCreateSchema, getValues);
 
   const steps: StepDescriptorKey[] =
     values.COMMON_DIRECTION === 'BUY'
       ? ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_PRICE']
       : ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_ROUND', 'INVEST_DOC_PRICE'];
 
-  const stepsDescriptors = getStepsReviewDescriptor({ isRequired, pricingModel: values.COMMON_PRICING_MODEL });
+  const stepsDescriptors = useMemo(() => getStepsReviewDescriptor({ isRequired }), [isRequired]);
 
   return (
     <VStack w="full" alignItems="start" gap="1.5rem">

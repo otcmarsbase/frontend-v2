@@ -30,10 +30,15 @@ export const InvestDocPriceStep: FC = () => {
         <Box px="1.25rem" w="full">
           <CommonPricingModelInput />
         </Box>
-        <HStack gap="1.25rem" w="full" alignItems="start" px="1.5rem">
-          {pricingModel === 'SUMMARY' ? <CommonSummaryInput /> : <CommonUnitsInput />}
-          {pricingModel === 'SUMMARY' ? <CommonMinFilterSummaryInput /> : <CommonMinFilterUnitsInput />}
+        <HStack gap="1.25rem" w="full" alignItems="start" px="1.5rem" hidden={pricingModel !== 'SUMMARY'}>
+          <CommonSummaryInput />
+          <CommonMinFilterSummaryInput />
         </HStack>
+        <HStack gap="1.25rem" w="full" alignItems="start" px="1.5rem" hidden={pricingModel === 'SUMMARY'}>
+          <CommonUnitsInput />
+          <CommonMinFilterUnitsInput />
+        </HStack>
+
         <HStack gap="1.25rem" w="full" alignItems="start" layerStyle="orangeGradient" borderRadius="sm" px="1.5rem">
           <InvestDocFdvInput />
           <CommonPriceInput />

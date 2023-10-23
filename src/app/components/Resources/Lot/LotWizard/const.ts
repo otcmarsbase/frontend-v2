@@ -31,7 +31,7 @@ export const StepDescriptorsDictionary = createDictionary<StepDescriptorKey, Lot
         'Provide information about the round on which you purchased the tokens. This information is necessary to calculate your supply.',
       stepTitle: 'Round info',
       backSteps: ['INVEST_DOC_START', 'COMMON_PROJECT'],
-      skippable: false,
+      skippable: true,
     },
     INVEST_DOC_PRICE: {
       title: 'Lot info',

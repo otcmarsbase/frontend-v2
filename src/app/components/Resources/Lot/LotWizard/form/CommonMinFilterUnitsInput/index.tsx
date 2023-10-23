@@ -3,6 +3,7 @@ import { FC, useMemo } from 'react';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
+import { useMultiplicatorValue } from '../useMultiplicatorValue';
 
 import { DescriptorDictionary } from './const';
 
@@ -13,5 +14,14 @@ export const CommonMinFilterUnitsInput: FC<BaseInputProps> = () => {
   const type = watch('type');
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
-  return <FormControlNumberInput name={NAME} {...descriptor} />;
+  const { serializeValue, deserializeValue } = useMultiplicatorValue(type);
+
+  return (
+    <FormControlNumberInput
+      name={NAME}
+      {...descriptor}
+      serializeValue={serializeValue}
+      deserializeValue={deserializeValue}
+    />
+  );
 };

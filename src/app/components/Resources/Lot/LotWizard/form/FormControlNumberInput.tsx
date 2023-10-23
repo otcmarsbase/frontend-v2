@@ -2,12 +2,20 @@ import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { InputGroup, InputRightElement, Text } from '@chakra-ui/react';
-import { FormControl, FormErrorMessage, FormLabel, SuggestionIcon, Tooltip, UIKit } from '@shared/ui-kit';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  SuggestionIcon,
+  Tooltip,
+  InputNumber,
+  InputNumberProps,
+} from '@shared/ui-kit';
 
 import { BaseInputProps, NumberInputDescriptor } from './types';
 import { useInput } from './useInput';
 
-export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> = ({
+export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor & InputNumberProps> = ({
   name,
   label,
   tooltip,
@@ -15,6 +23,8 @@ export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> 
   rightElementText,
   serializeValue = (value) => value,
   deserializeValue = (value) => value,
+  onChange,
+  ...props
 }) => {
   const { isRequired, isValid, error } = useInput(name);
 
@@ -30,13 +40,16 @@ export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor> 
         name={name}
         render={({ field }) => (
           <InputGroup>
-            <UIKit.InputNumber
+            <InputNumber
               {...field}
-              onChange={(value) => {
-                field.onChange(deserializeValue(value));
+              onChange={(value, valueString) => {
+                value = deserializeValue(value);
+                field.onChange(value);
+                onChange?.(value, valueString);
               }}
               value={serializeValue(field.value)}
               placeholder={placeholder}
+              {...props}
             />
             {rightElementText && (
               <InputRightElement>
