@@ -12,7 +12,6 @@ const NAME = 'INVEST_DOC_ASSET';
 
 export const InvestDocAssetInput: FC<BaseInputProps> = () => {
   const { value, isRequired, error } = useInput(NAME);
-
   const innerError = useMemo(() => {
     if (!(error && error instanceof Object)) return;
 
@@ -36,6 +35,7 @@ export const InvestDocAssetInput: FC<BaseInputProps> = () => {
                 isInvalid={Boolean(innerError)}
                 placeholder="Project info"
                 {...field}
+                value={value ? ('title' in value ? value.title : (value as any)) : void 0}
                 onChange={(value) => {
                   if (typeof value === 'string') {
                     return field.onChange({ title: value });
