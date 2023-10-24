@@ -67,8 +67,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         {officialLinks && (
           <SidebarBlock
             title="Official links"
-            children={officialLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={officialLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
@@ -77,8 +77,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         {socialLinks && (
           <SidebarBlock
             title="Social media"
-            children={socialLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={socialLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
@@ -87,8 +87,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         {otherLinks && (
           <SidebarBlock
             title="Other links"
-            children={otherLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={otherLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
@@ -97,7 +97,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         <SidebarBlock
           title="Vertical"
           children={asset.info.verticals.map((type) => (
-            <AssetVerticalRow value={type} />
+            <AssetVerticalRow key={type} value={type} />
           ))}
         />
       </VStack>

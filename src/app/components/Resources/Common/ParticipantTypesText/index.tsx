@@ -11,7 +11,7 @@ export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({ valu
   <HStack divider={<Text color="orange.500">,</Text>} {...stackProps}>
     {value.length > 0 ? (
       value.map((participantType) => (
-        <Text {...textProps} color="orange.500">
+        <Text {...textProps} color="orange.500" key={participantType}>
           {ParticipantTypeDictionary.get(participantType).title}
         </Text>
       ))
