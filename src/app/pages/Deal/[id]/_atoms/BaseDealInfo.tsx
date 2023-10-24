@@ -40,7 +40,7 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
     if (deal.id) {
       setClipboardValue(`${deal.id}`);
     }
-  }, [deal]);
+  }, [deal.id, setClipboardValue]);
 
   const pushToLot = useCallback(() => {
     router.navigateComponent(pages.Lot.__id__, { id: lot?.id }, {});

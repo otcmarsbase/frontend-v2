@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Button, Image } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { Tooltip } from '@shared/ui-kit';
 

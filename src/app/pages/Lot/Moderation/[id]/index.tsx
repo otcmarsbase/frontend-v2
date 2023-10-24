@@ -1,12 +1,12 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotWizard, LotWizardProps, UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Box, Button, Center, HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/otc-desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
@@ -48,7 +48,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     if (result) {
       // TODO: make lot draft
     }
-  }, []);
+  }, [lot]);
 
   if (!mappedLot || !asset || preload.isLoading) return <UIKit.Loader />;
 

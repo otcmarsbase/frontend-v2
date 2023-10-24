@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Heading, Image } from '@chakra-ui/react';
+import { Button, HStack, Heading, Image } from '@chakra-ui/react';
 
 export interface TitleBlockProps {
   title: React.ReactNode;

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useRef } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';

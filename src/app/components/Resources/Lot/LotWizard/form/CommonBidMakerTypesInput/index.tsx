@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import { UILogic } from '@app/components';
 import { HStack, VStack } from '@chakra-ui/react';

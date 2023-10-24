@@ -1,7 +1,7 @@
 import { UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Grid, GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
+import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';

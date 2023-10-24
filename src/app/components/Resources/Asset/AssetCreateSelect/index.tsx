@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';

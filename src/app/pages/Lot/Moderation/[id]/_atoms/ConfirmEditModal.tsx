@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
 import { Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { Resource } from '@schema/otc-desk-gateway';

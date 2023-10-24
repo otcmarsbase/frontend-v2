@@ -1,6 +1,5 @@
 import * as SchemaCommon from '@schema/common';
 
-import { Asset } from '../Asset';
 import { Common } from '../Common';
 import { User } from '../User';
 

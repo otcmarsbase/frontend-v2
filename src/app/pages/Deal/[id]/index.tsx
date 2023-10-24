@@ -38,7 +38,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [id, rpcSchema]);
 
   useEffect(() => {
     loadDeal();

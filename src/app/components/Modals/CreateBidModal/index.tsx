@@ -93,7 +93,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     [price, setValue, trigger],
   );
 
-  const handlePrice = useCallback((value: number) => {}, [setValue, trigger]);
+  const handlePrice = useCallback((value: number) => {}, []);
 
   const fieldDictionary = useMemo(() => {
     switch (lot.attributes.COMMON_DIRECTION) {

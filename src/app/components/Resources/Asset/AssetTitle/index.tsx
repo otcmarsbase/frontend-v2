@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Text, HStack, Image } from '@chakra-ui/react';
+import { Box, Text, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 
 import { AssetImage } from '../AssetImage';
