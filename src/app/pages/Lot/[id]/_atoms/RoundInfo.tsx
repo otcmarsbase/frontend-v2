@@ -30,8 +30,6 @@ const RoundInfoField: React.FC<RoundInfoFieldProps> = ({ title, value }) => {
 };
 
 export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
-  console.log({ lot });
-
   return (
     <VStack w="full" alignItems="start">
       {lot.direction === 'SELL' && (

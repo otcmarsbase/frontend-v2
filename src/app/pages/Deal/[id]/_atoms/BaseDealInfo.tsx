@@ -1,9 +1,10 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
+import { useCopyToClipboard } from 'react-use';
 
 import { AssetName, DealStatus, TradeDirectionText } from '@app/components';
 import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
@@ -32,9 +33,13 @@ export interface BaseDealInfoProps {
 
 export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
   const router = useRouter();
+  const [, setClipboardValue] = useCopyToClipboard();
+  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
   const copyID = useCallback(() => {
-    console.log('copyToClipboard', deal?.id);
+    if (deal.id) {
+      setClipboardValue(`${deal.id}`);
+    }
   }, [deal]);
 
   const pushToLot = useCallback(() => {
@@ -70,7 +75,18 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
               <Text fontSize="sm" fontWeight="500">
                 {deal?.id}
               </Text>
-              <UIIcons.Common.CopyIcon w="1rem" h="1rem" />
+              <Tooltip
+                hasArrow
+                closeOnPointerDown
+                isOpen={tooltipIsOpen}
+                onClose={() => setTooltipIsOpen(false)}
+                closeDelay={500}
+                placement="bottom-start"
+                offset={[-10, 10]}
+                label={<Text fontSize="sm">ID Copied</Text>}
+              >
+                <UIIcons.Common.CopyIcon color="white" />
+              </Tooltip>
             </HStack>
           }
         />

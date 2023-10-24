@@ -9,7 +9,6 @@ export interface AuthVerifyModalProps extends PortalProps<void> {
 }
 
 export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalProps) {
-  console.log('AuthVerifyModal', error);
   return (
     <UIKit.Modal
       title={
