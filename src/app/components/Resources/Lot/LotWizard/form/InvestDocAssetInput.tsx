@@ -11,7 +11,7 @@ import { useInput } from './useInput';
 const NAME = 'INVEST_DOC_ASSET';
 
 export const InvestDocAssetInput: FC<BaseInputProps> = () => {
-  const { value, isRequired, error } = useInput(NAME);
+  const { value, isRequired, error, control } = useInput(NAME);
   const innerError = useMemo(() => {
     if (!(error && error instanceof Object)) return;
 
@@ -30,6 +30,7 @@ export const InvestDocAssetInput: FC<BaseInputProps> = () => {
         <FormControl isInvalid={Boolean(innerError)}>
           <Controller
             name={NAME}
+            control={control}
             render={({ field }) => (
               <UILogic.AssetCreateSelect
                 isInvalid={Boolean(innerError)}
@@ -38,7 +39,7 @@ export const InvestDocAssetInput: FC<BaseInputProps> = () => {
                 value={value ? ('title' in value ? value.title : (value as any)) : void 0}
                 onChange={(value) => {
                   if (typeof value === 'string') {
-                    return field.onChange({ title: value });
+                    return field.onChange({ title: value, website: '' });
                   }
 
                   field.onChange(value);
@@ -55,12 +56,13 @@ export const InvestDocAssetInput: FC<BaseInputProps> = () => {
 };
 
 const WebsiteInput: FC = () => {
-  const { isValid, isRequired, error } = useInput('INVEST_DOC_ASSET.website');
+  const { isValid, isRequired, error, control } = useInput('INVEST_DOC_ASSET.website');
 
   return (
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
       <Controller
         name="INVEST_DOC_ASSET.website"
+        control={control}
         render={({ field }) => <InputWebsite w="full" placeholder="Enter URL" {...field} />}
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
