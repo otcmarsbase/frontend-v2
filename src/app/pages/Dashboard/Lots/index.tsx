@@ -47,8 +47,8 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
       const { items, total } = await rpcSchema.send('lot.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
-      for (const { assetPK } of items) {
-        const asset = await rpcSchema.send('asset.getById', assetPK as Resource.Asset.AssetKey);
+      for (const { attributes } of items) {
+        const asset = await rpcSchema.send('asset.getById', { id: attributes.INVEST_DOC_ASSET_PK });
         assets.push(asset);
       }
 
@@ -60,7 +60,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
   );
 
   const findAsset = useCallback(
-    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
+    (assetId: Resource.Asset.AssetKey['id']) => assets.find((asset) => asset.id === assetId),
     [assets],
   );
 
@@ -92,7 +92,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
         itemRender={(item) => (
           <LotRow
             lot={item}
-            asset={findAsset(item.assetPK as Resource.Asset.AssetKey)}
+            asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

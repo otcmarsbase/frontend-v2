@@ -41,13 +41,14 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     formState: { errors, isSubmitting },
     setValue,
     trigger,
+    watch,
   } = useForm({
     mode: 'onTouched',
     schema: BidCreateSchema,
-    defaultValues: { lot: lot.id },
+    defaultValues: { lot: lot.id, price: lot.attributes.COMMON_PRICE },
     context: {
-      minContractValue: lot.minimumDealSize.unitQuantity.value,
-      minFundsCount: lot.minimumDealSize.stablecoinQuantity.value,
+      minContractValue: lot.attributes.COMMON_MIN_FILTER_UNITS,
+      minFundsCount: lot.attributes.COMMON_MIN_FILTER_SUMMARY,
       maxContractValue: lot.available.unitQuantity.value,
       maxFundsCount: lot.available.stablecoinQuantity.value,
     },
@@ -70,12 +71,13 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
 
   const onSubmit = useToastInnerCallback(createBid, {});
 
-  const price = useMemo(() => new Decimal(lot.contractSize.price.value).toNumber(), [lot]);
+  const price = watch('price');
 
   const handleContractValue = useCallback(
     (value: number) => {
       setValue('contractValue', value);
-      setValue('fundsCount', value ? price * value : undefined);
+      const fundsCount = value ? new Decimal(value).mul(price) : undefined;
+      setValue('fundsCount', fundsCount ? fundsCount.toNumber() : undefined);
       trigger('fundsCount');
     },
     [price, setValue, trigger],
@@ -84,14 +86,17 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   const handleFundsCount = useCallback(
     (value: number) => {
       setValue('fundsCount', value);
-      setValue('contractValue', value ? value / price : undefined);
+      const contractValue = value ? new Decimal(value).div(price) : undefined;
+      setValue('contractValue', contractValue ? contractValue.toNumber() : undefined);
       trigger('contractValue');
     },
     [price, setValue, trigger],
   );
 
+  const handlePrice = useCallback((value: number) => {}, [setValue, trigger]);
+
   const fieldDictionary = useMemo(() => {
-    switch (lot.direction) {
+    switch (lot.attributes.COMMON_DIRECTION) {
       case 'BUY':
         return CreateBidSellFieldDictionary;
       case 'SELL':
@@ -103,7 +108,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     <Modal
       title={
         <Text fontWeight={700} fontFamily="promo" fontSize="2md" textTransform="uppercase" color="white">
-          {CreateBidModalTitleDictionary.get(lot.direction)}
+          {CreateBidModalTitleDictionary.get(lot.attributes.COMMON_DIRECTION)}
         </Text>
       }
       onClose={onClose}
@@ -148,6 +153,30 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
                     {...props.field}
                     placeholder={fieldDictionary.get('FUNDS_COUNT').placeholder}
                     onChange={handleFundsCount}
+                  />
+                  <InputRightElement>
+                    <Text color="orange.500" fontSize="sm">
+                      $
+                    </Text>
+                  </InputRightElement>
+                </InputGroup>
+              )}
+            />
+          </FormControl>
+        </GridItem>
+        <GridItem colSpan={2}>
+          <FormControl isRequired={isRequired('price')} isInvalid={Boolean(errors.fundsCount)}>
+            <FormLabel>{fieldDictionary.get('PRICE').title}</FormLabel>
+            <Controller
+              control={control}
+              name="price"
+              disabled={typeof lot.attributes.COMMON_PRICE !== 'undefined'}
+              render={(props) => (
+                <InputGroup>
+                  <InputNumber
+                    {...props.field}
+                    placeholder={fieldDictionary.get('PRICE').placeholder}
+                    onChange={handlePrice}
                   />
                   <InputRightElement>
                     <Text color="orange.500" fontSize="sm">

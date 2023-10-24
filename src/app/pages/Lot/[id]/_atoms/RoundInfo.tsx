@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
-import { ParticipantTypeDictionary, UIDictionary } from '@app/dictionary';
-import { formatDate, getContractSize, getMinimumDealSize } from '@app/utils';
+import { UIDictionary } from '@app/dictionary';
+import { getContractSize, getMinimumDealSize } from '@app/utils';
 import { SimpleGrid, VStack, Text, Heading, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/otc-desk-gateway';
 import { MoneyText, PercentText, UIKit } from '@shared/ui-kit';
@@ -32,7 +32,7 @@ const RoundInfoField: React.FC<RoundInfoFieldProps> = ({ title, value }) => {
 export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
   return (
     <VStack w="full" alignItems="start">
-      {lot.direction === 'SELL' && (
+      {lot.attributes.COMMON_DIRECTION === 'SELL' && (
         <VStack p="1.25rem" w="full" alignItems="start" bg="dark.900" borderRadius="sm" gap="1.5rem">
           <Heading textTransform="uppercase" fontSize="md" color="white" fontWeight={700}>
             Round info
@@ -61,11 +61,9 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('TGE_DATE').title}
               value={
-                <Text fontSize="sm">
-                  {typeof lot.attributes.TOKEN_TGE === 'number'
-                    ? formatDate(lot.tge.value, 'ONLY_DATE')
-                    : lot.attributes.TOKEN_TGE || '-'}
-                </Text>
+                <UIKit.DateText
+                  value={typeof lot.attributes.TOKEN_TGE === 'number' ? lot.attributes.TOKEN_TGE : undefined}
+                />
               }
             />
             <RoundInfoField
@@ -139,7 +137,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             </RoundInfoItem>
             <RoundInfoItem fieldName="SELLER">
               <Text fontWeight="500" fontSize="sm">
-                {UIDictionary.MediatorTypeDictionary.get(lot.mediatorType).title}
+                {UIDictionary.MediatorTypeDictionary.get(lot.attributes.COMMON_MEDIATOR).title}
               </Text>
             </RoundInfoItem>
             <RoundInfoItem fieldName="MIN_BID">

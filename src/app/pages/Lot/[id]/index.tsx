@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
+import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/otc-desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
@@ -35,7 +35,7 @@ export default function Lot({ id }: LotProps) {
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
-      const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
+      const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
 
       switch (lot.status) {
         case 'DRAFT':

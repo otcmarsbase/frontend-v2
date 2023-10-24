@@ -22,9 +22,9 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   }, [rpcSchema]);
 
   const loadLots = useCallback(async () => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: [(lot.assetPK as Resource.Asset.AssetKey).id] });
+    const lots = await rpcSchema.send('lot.listActive', { assets: [lot.attributes.INVEST_DOC_ASSET_PK] });
     setLots(lots.items.filter((item) => item.id !== lot.id));
-  }, [lot.assetPK, lot.id, rpcSchema]);
+  }, [lot.attributes.INVEST_DOC_ASSET_PK, lot.id, rpcSchema]);
 
   useEffect(() => {
     loadAssets();
@@ -58,7 +58,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
             key={lot.id}
             minimalView
             lot={lot}
-            asset={assets.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
+            asset={assets.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />
         ))}

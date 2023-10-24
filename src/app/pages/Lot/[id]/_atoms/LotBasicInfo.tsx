@@ -32,7 +32,7 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) =
 const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600" />;
 
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
-  const { id, direction, type, deadline } = lot;
+  const { id, attributes, type } = lot;
 
   const [, copyToClipboard] = useCopyToClipboard();
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
@@ -68,21 +68,21 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Lot">
-          <TradeDirectionText variant="ghost" value={direction} />
+          <TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Type">
-          <LotTypeChip withTokenWarrant={lot.withTokenWarrant} value={type} />
+          <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
         </InfoElement>
       </HStack>
 
-      {deadline && (
+      {attributes.COMMON_DEADLINE && (
         <VStack gap="0.25rem" padding="0 0 0 1.5rem " flex="2" alignItems="flex-end">
           <Text fontSize="sm" color="dark.50">
             Auction ends in:
           </Text>
 
-          <Countdown expiryTimestamp={new Date(deadline)} />
+          <Countdown expiryTimestamp={new Date(attributes.COMMON_DEADLINE)} />
         </VStack>
       )}
     </HStack>

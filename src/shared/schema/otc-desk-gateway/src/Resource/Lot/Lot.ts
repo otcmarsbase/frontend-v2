@@ -38,7 +38,7 @@ export namespace Lot {
     id: number;
   }
 
-  export interface Lot extends SchemaCommon.Resource<'lot'>, SchemaCommon.ResourceOmit<LotKey>, __DEPRECATED_FORM {
+  export interface Lot extends SchemaCommon.Resource<'lot'>, SchemaCommon.ResourceOmit<LotKey> {
     offerMaker: User.User;
     status: Enums.LotStatus;
     type: Enums.LotType;
@@ -57,39 +57,39 @@ export namespace Lot {
     attributes: LotAttributesObject;
   }
 
-  export interface __DEPRECATED_FORM {
-    // LotSAFE
-    withTokenWarrant?: boolean;
+  // export interface __DEPRECATED_FORM {
+  //   // LotSAFE
+  //   withTokenWarrant?: boolean;
 
-    // LotSAFT + LotTokenWarrant
-    tge?: Common.Dates.TGE;
-    lockupPeriod?: Common.Text.LockupPeriod;
-    vestingPeriod?: Common.Text.VestingPeriod;
+  //   // LotSAFT + LotTokenWarrant
+  //   tge?: Common.Dates.TGE;
+  //   lockupPeriod?: Common.Text.LockupPeriod;
+  //   vestingPeriod?: Common.Text.VestingPeriod;
 
-    // LotCommon
-    createdAt?: number;
-    sendOnModerationAt?: number;
-    publishedAt?: number;
-    completedAt?: number;
-    direction?: Common.Enums.TradeDirection;
-    telegram?: Common.Text.Telegram;
-    deadline?: Common.Dates.Deadline;
-    mediatorType?: Common.Enums.MediatorType;
-    offerMakerTypes?: Common.Enums.InvestorType[];
-    bidMakerTypes?: Common.Enums.InvestorType[];
-    reason?: Lot.Enums.LotCompletedReasonType;
-    investRound?: Common.Enums.InvestRound;
-    roundContractSize?: Common.Finances.ContractSize;
+  //   // LotCommon
+  //   createdAt?: number;
+  //   sendOnModerationAt?: number;
+  //   publishedAt?: number;
+  //   completedAt?: number;
+  //   direction?: Common.Enums.TradeDirection;
+  //   telegram?: Common.Text.Telegram;
+  //   deadline?: Common.Dates.Deadline;
+  //   mediatorType?: Common.Enums.MediatorType;
+  //   offerMakerTypes?: Common.Enums.InvestorType[];
+  //   bidMakerTypes?: Common.Enums.InvestorType[];
+  //   reason?: Lot.Enums.LotCompletedReasonType;
+  //   investRound?: Common.Enums.InvestRound;
+  //   roundContractSize?: Common.Finances.ContractSize;
 
-    // LotAsset
-    assetPK?: Asset.AssetKey | Lot.ValueObjects.AssetCreateRequest;
-    withReassign?: boolean;
-    contractSize?: Common.Finances.ContractSize;
-    minimumDealSize?: Common.Finances.TicketQuantity;
+  //   // LotAsset
+  //   assetPK?: Asset.AssetKey | Lot.ValueObjects.AssetCreateRequest;
+  //   withReassign?: boolean;
+  //   contractSize?: Common.Finances.ContractSize;
+  //   minimumDealSize?: Common.Finances.TicketQuantity;
 
-    // LotBase
-    archivedAt?: number;
-    rejectedAt?: number;
-    rejectReason?: string;
-  }
+  //   // LotBase
+  //   archivedAt?: number;
+  //   rejectedAt?: number;
+  //   rejectReason?: string;
+  // }
 }

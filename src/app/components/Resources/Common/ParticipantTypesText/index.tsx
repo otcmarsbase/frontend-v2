@@ -8,7 +8,14 @@ export interface ParticipantTypesTextProps extends StackProps {
 }
 
 export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({ value, textProps, ...stackProps }) => (
-  <HStack divider={<Text color="orange.500">,</Text>} {...stackProps}>
+  <HStack
+    divider={
+      <Text color="orange.500" mr="0.5rem">
+        ,
+      </Text>
+    }
+    {...stackProps}
+  >
     {value.length > 0 ? (
       value.map((participantType) => (
         <Text {...textProps} color="orange.500" key={participantType}>

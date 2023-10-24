@@ -60,7 +60,7 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
       position="relative"
       gap="1.5rem"
     >
-      <TradeDirectionText position="absolute" left="0" top="0" value={lot?.direction} />
+      <TradeDirectionText position="absolute" left="0" top="0" value={lot?.attributes.COMMON_DIRECTION} />
       <VStack alignItems="start">
         <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />
         <Button p="0" onClick={pushToLot} variant="ghost" color="dark.50" rightIcon={<UIIcons.Common.ArrowUp />}>

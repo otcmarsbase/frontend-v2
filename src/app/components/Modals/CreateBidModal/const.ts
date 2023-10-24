@@ -10,6 +10,7 @@ export const CreateBidField = [
   'LOCATION',
   'READY_FOR_VERIFICATION',
   'TELEGRAM',
+  'PRICE',
 ] as const;
 export type CreateBidField = (typeof CreateBidField)[number];
 
@@ -45,6 +46,10 @@ export const CreateBidSellFieldDictionary = createDictionary<CreateBidField, { t
       title: 'Telegram',
       placeholder: '@nickname',
     },
+    PRICE: {
+      title: 'Price per 0.01% equity',
+      placeholder: 'Amount',
+    },
   })
   .asReadonly();
 
@@ -79,6 +84,10 @@ export const CreateBidBuyFieldDictionary = createDictionary<CreateBidField, { ti
     TELEGRAM: {
       title: 'Telegram',
       placeholder: '@nickname',
+    },
+    PRICE: {
+      title: 'Price per 0.01% equity',
+      placeholder: 'Amount',
     },
   })
   .asReadonly();

@@ -31,7 +31,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     try {
       const deal = await rpcSchema.send('deals.getById', { id: toNumber(id) });
       const lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
-      const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
+      const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
       setDeal(deal);
       setLot(lot);
       setAsset(asset);

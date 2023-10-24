@@ -10,6 +10,7 @@ export const BidCreateSchema = yup.object({
   isDirect: yup.boolean().default(false),
   location: yup.string().required().oneOf(LocationDictionary.keys()),
   readyForVerification: yup.boolean().default(false),
+  price: yup.string().required(),
   telegram: yup
     .string()
     .matches(/[a-zA-Z0-9_]+$/g)

@@ -98,12 +98,18 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       }}
     >
       <Box flexShrink="0" mb="0.75rem">
-        <UILogic.TradeDirectionText invert value={lot.direction} position="absolute" top="0" right="0" />
+        <UILogic.TradeDirectionText
+          invert
+          value={lot.attributes.COMMON_DIRECTION}
+          position="absolute"
+          top="0"
+          right="0"
+        />
         <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
             #{lot.id}
           </Text>
-          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />
+          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
           {lot.isHot && <LotHotChip />}
         </HStack>
         {asset && (
