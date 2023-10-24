@@ -55,6 +55,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
       <SimpleGrid columns={4} gap="0.75rem" w="full">
         {lots.map((lot) => (
           <LotCard
+            key={lot.id}
             minimalView
             lot={lot}
             asset={assets.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
