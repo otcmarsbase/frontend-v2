@@ -16,7 +16,7 @@ import {
 export const InvestDocInputs = yup
   .object({
     INVEST_DOC_ASSET: INVEST_DOC_ASSET,
-    INVEST_DOC_FDV: INVEST_DOC_FDV.required(),
+    INVEST_DOC_FDV: INVEST_DOC_FDV.nullable(),
     INVEST_DOC_SHARE,
     INVEST_DOC_WITH_REASSIGN,
   })

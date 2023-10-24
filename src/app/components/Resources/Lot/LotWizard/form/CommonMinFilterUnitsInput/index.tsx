@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react';
 
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -22,6 +23,7 @@ export const CommonMinFilterUnitsInput: FC<BaseInputProps> = () => {
       {...descriptor}
       serializeValue={serializeValue}
       deserializeValue={deserializeValue}
+      {...formatNumberProps()}
     />
   );
 };

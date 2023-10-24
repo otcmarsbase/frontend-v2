@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useMemo } from 'react';
 
 import Decimal from 'decimal.js';
 
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -50,6 +51,7 @@ export const InvestDocRoundUnitsInput: FC<BaseInputProps> = () => {
       serializeValue={serializeValue}
       deserializeValue={deserializeValue}
       onChange={handleChange}
+      {...formatNumberProps()}
     />
   );
 };

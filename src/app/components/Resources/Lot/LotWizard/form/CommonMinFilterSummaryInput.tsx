@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { formatNumberProps } from './formatNumberProps';
 import { FormControlNumberInput } from './FormControlNumberInput';
 import { BaseInputProps } from './types';
 
@@ -13,6 +14,7 @@ export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
       placeholder="Amount"
       rightElementText="$"
       tooltip="Smallest allowable size for a deal. The same as minimum bid."
+      {...formatNumberProps()}
     />
   );
 };
