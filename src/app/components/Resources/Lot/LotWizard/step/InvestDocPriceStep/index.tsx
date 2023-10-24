@@ -17,7 +17,7 @@ import { LotCreateModel } from '../../schema';
 
 export const InvestDocPriceStep: FC = () => {
   const { watch } = useFormContext<LotCreateModel>();
-  const pricingModel = watch('COMMON_PRICING_MODEL');
+  const [type, pricingModel] = watch(['type', 'COMMON_PRICING_MODEL']);
 
   return (
     <FormElement
@@ -38,9 +38,8 @@ export const InvestDocPriceStep: FC = () => {
           <CommonUnitsInput />
           <CommonMinFilterUnitsInput />
         </HStack>
-
         <HStack gap="1.25rem" w="full" alignItems="start" layerStyle="orangeGradient" borderRadius="sm" px="1.5rem">
-          <InvestDocFdvInput />
+          {type !== 'SAFT' && <InvestDocFdvInput />}
           <CommonPriceInput />
         </HStack>
       </VStack>

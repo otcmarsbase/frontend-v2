@@ -2,6 +2,7 @@ import { FC, useCallback, useMemo } from 'react';
 
 import Decimal from 'decimal.js';
 
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -27,5 +28,5 @@ export const InvestDocRoundPriceInput: FC<BaseInputProps> = () => {
     [INVEST_DOC_ROUND_SUMMARY, rhfSetValue, rhfTrigger],
   );
 
-  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} />;
+  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} {...formatNumberProps()} />;
 };

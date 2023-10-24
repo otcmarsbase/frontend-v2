@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 
 import Decimal from 'decimal.js';
 
+import { formatNumberProps } from './formatNumberProps';
 import { FormElementNumberInput } from './FormElementNumberInput';
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
@@ -28,6 +29,7 @@ export const InvestDocRoundSummaryInput: FC<BaseInputProps> = () => {
       placeholder="Enter value"
       rightElementText="$"
       tooltip="What is the contract value?"
+      {...formatNumberProps()}
     />
   );
 };

@@ -1,50 +1,36 @@
-import { FC, useCallback, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
+import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';
 
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
+import { useDefaultValueSetter } from '../useDefaultValueSetter';
 import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
+import { useCommonPriceChange } from './useHandleChange';
 
 const NAME = 'COMMON_PRICE';
 
 export const CommonPriceInput: FC<BaseInputProps> = () => {
-  const { watch, setValue, trigger, rhfSetValue, rhfTrigger } = useInput(NAME);
-  const [type, COMMON_UNITS, COMMON_SUMMARY, INVEST_DOC_ROUND_FDV, INVEST_DOC_ROUND_PRICE] = watch([
-    'type',
-    'COMMON_UNITS',
-    'COMMON_SUMMARY',
-    'INVEST_DOC_ROUND_FDV',
-    'INVEST_DOC_ROUND_PRICE',
-  ]);
+  const { value, watch, rhfSetValue, rhfTrigger } = useInput(NAME);
+  const [type] = watch(['type']);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
+  const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
-  const handleChange = useCallback(
-    (value: number | string) => {
-      if (!(value && INVEST_DOC_ROUND_PRICE && INVEST_DOC_ROUND_FDV)) return;
+  useDefaultValueSetter(NAME, 'INVEST_DOC_ROUND_PRICE');
 
-      const INVEST_DOC_FDV = new Decimal(value)
-        .div(new Decimal(INVEST_DOC_ROUND_PRICE))
-        .mul(new Decimal(INVEST_DOC_ROUND_FDV))
-        .toString();
-
-      rhfSetValue('INVEST_DOC_FDV', INVEST_DOC_FDV);
-      rhfTrigger('INVEST_DOC_FDV');
-    },
-    [rhfSetValue, rhfTrigger, INVEST_DOC_ROUND_FDV, INVEST_DOC_ROUND_PRICE],
-  );
+  const handleChange = useCommonPriceChange();
 
   useEffect(() => {
-    if (!(COMMON_UNITS && COMMON_SUMMARY)) return;
+    if (!value || type === 'SAFT') return;
 
-    const newValue = new Decimal(COMMON_SUMMARY).div(new Decimal(COMMON_UNITS)).toString();
+    const newFdv = new Decimal(value).mul(100).mul(multiplicator).toString();
+    rhfSetValue('INVEST_DOC_FDV', newFdv);
+    rhfTrigger('INVEST_DOC_FDV');
+  }, [value, type, rhfSetValue, rhfTrigger, multiplicator]);
 
-    setValue(newValue);
-    trigger();
-    handleChange(newValue);
-  }, [handleChange, setValue, trigger, COMMON_UNITS, COMMON_SUMMARY]);
-
-  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} />;
+  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} {...formatNumberProps()} />;
 };

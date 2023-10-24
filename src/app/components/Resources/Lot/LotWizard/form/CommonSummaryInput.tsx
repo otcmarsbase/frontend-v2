@@ -1,22 +1,42 @@
-import { FC, useEffect } from 'react';
+import { FC, useCallback } from 'react';
 
+import Decimal from 'decimal.js';
+
+import { formatNumberProps } from './formatNumberProps';
 import { FormControlNumberInput } from './FormControlNumberInput';
 import { BaseInputProps } from './types';
+import { useDefaultValueSetter } from './useDefaultValueSetter';
 import { useInput } from './useInput';
 
 const NAME = 'COMMON_SUMMARY';
 
 export const CommonSummaryInput: FC<BaseInputProps> = () => {
-  const { value, watch, setValue, trigger } = useInput(NAME);
+  const { watch, rhfSetValue, rhfTrigger } = useInput(NAME);
 
-  const [INVEST_DOC_ROUND_SUMMARY] = watch(['INVEST_DOC_ROUND_SUMMARY']);
+  const [COMMON_PRICE, COMMON_UNITS] = watch(['COMMON_PRICE', 'COMMON_UNITS']);
 
-  useEffect(() => {
-    if (!INVEST_DOC_ROUND_SUMMARY || value) return;
+  useDefaultValueSetter(NAME, 'INVEST_DOC_ROUND_SUMMARY');
 
-    setValue(INVEST_DOC_ROUND_SUMMARY);
-    trigger();
-  }, [value, INVEST_DOC_ROUND_SUMMARY, setValue, trigger]);
+  const handleChange = useCallback(
+    (value: number) => {
+      if (!value) return;
+
+      if (COMMON_UNITS) {
+        const newPrice = new Decimal(value).div(new Decimal(COMMON_UNITS)).toString();
+        rhfSetValue('COMMON_PRICE', newPrice);
+        rhfTrigger('COMMON_PRICE');
+        return;
+      }
+
+      if (COMMON_PRICE) {
+        const newUnits = new Decimal(value).div(new Decimal(COMMON_PRICE)).toString();
+        rhfSetValue('COMMON_UNITS', newUnits);
+        rhfTrigger('COMMON_UNITS');
+        return;
+      }
+    },
+    [COMMON_PRICE, COMMON_UNITS, rhfSetValue, rhfTrigger],
+  );
 
   return (
     <FormControlNumberInput
@@ -25,6 +45,8 @@ export const CommonSummaryInput: FC<BaseInputProps> = () => {
       placeholder="Amount"
       rightElementText="$"
       tooltip="The amount of sale in this lot. The seller will receive this amount."
+      onChange={handleChange}
+      {...formatNumberProps()}
     />
   );
 };

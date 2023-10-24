@@ -1,31 +1,38 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
+import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';
 
+import { useCommonPriceChange } from './CommonPriceInput/useHandleChange';
+import { formatNumberProps } from './formatNumberProps';
 import { FormControlNumberInput } from './FormControlNumberInput';
 import { BaseInputProps } from './types';
+import { useDefaultValueSetter } from './useDefaultValueSetter';
 import { useInput } from './useInput';
 
 const NAME = 'INVEST_DOC_FDV';
 
 export const InvestDocFdvInput: FC<BaseInputProps> = () => {
-  const { rhfTrigger, watch, rhfSetValue } = useInput(NAME);
+  const { watch, rhfTrigger, rhfSetValue } = useInput(NAME);
+  const [type] = watch(['type']);
+  const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
-  const [INVEST_DOC_ROUND_PRICE, INVEST_DOC_ROUND_FDV] = watch(['INVEST_DOC_ROUND_PRICE', 'INVEST_DOC_ROUND_FDV']);
+  useDefaultValueSetter(NAME, 'INVEST_DOC_ROUND_FDV');
+
+  const handleCommonPriceChange = useCommonPriceChange();
 
   const handleChange = useCallback(
     (value: number) => {
-      if (!(value && INVEST_DOC_ROUND_PRICE && INVEST_DOC_ROUND_FDV)) return;
+      if (!value) return;
 
-      const newValue = new Decimal(value)
-        .div(new Decimal(INVEST_DOC_ROUND_FDV))
-        .mul(new Decimal(INVEST_DOC_ROUND_PRICE))
-        .toString();
+      const newValue = new Decimal(value).div(100).div(multiplicator).toString();
 
       rhfSetValue('COMMON_PRICE', newValue);
       rhfTrigger('COMMON_PRICE');
+
+      handleCommonPriceChange(newValue);
     },
-    [rhfSetValue, rhfTrigger, INVEST_DOC_ROUND_FDV, INVEST_DOC_ROUND_PRICE],
+    [rhfSetValue, rhfTrigger, multiplicator, handleCommonPriceChange],
   );
 
   return (
@@ -36,6 +43,7 @@ export const InvestDocFdvInput: FC<BaseInputProps> = () => {
       rightElementText="$"
       tooltip="FDV = market price * maximum supply"
       onChange={handleChange}
+      {...formatNumberProps()}
     />
   );
 };
