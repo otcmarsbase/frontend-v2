@@ -37,7 +37,6 @@ export const CommonBidMakerTypesInput: FC<BaseInputProps> = () => {
                 {...field}
                 isMulti
                 isInvalid={!isValid}
-                onChange={field.onChange}
                 placeholder={descriptor.placeholder}
                 isDisabled={isNoLimit}
               />
