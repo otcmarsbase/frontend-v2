@@ -1,6 +1,7 @@
 import { FC, useCallback, useMemo } from 'react';
 
 import { LotMultiplicatorDictionary } from '@app/dictionary';
+import { useLotMultiplicatorValue } from '@app/hooks';
 import Decimal from 'decimal.js';
 
 import { formatNumberProps } from '../formatNumberProps';
@@ -8,7 +9,6 @@ import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useDefaultValueSetter } from '../useDefaultValueSetter';
 import { useInput } from '../useInput';
-import { useMultiplicatorValue } from '../useMultiplicatorValue';
 
 import { DescriptorDictionary } from './const';
 
@@ -24,7 +24,7 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
   ]);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
-  const { serializeValue, deserializeValue } = useMultiplicatorValue(type);
+  const { serializeValue, deserializeValue } = useLotMultiplicatorValue(type);
   const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
   const max = useMemo(

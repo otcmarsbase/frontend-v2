@@ -10,10 +10,10 @@ export namespace BidCreate {
     isDirect: boolean;
     deadline?: number;
 
-    summary: number;
+    summary: string;
     units: number;
-    price: number;
-    fdv?: number;
+    price: string;
+    fdv?: string;
   };
   export type Result = Resource.Bid.Bid;
 }
