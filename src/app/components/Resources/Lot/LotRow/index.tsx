@@ -102,7 +102,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           <UILogic.AssetName
             size="sm"
             onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-            asset={asset}
+            asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
           />
         </HStack>
         <UILogic.LotStatus value={lot.status} />

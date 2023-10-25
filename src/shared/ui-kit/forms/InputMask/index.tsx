@@ -7,7 +7,7 @@ export interface InputMaskProps extends InputProps {
 }
 
 export const InputMask: React.FC<InputMaskProps> = ({ mask, ...props }) => {
-  const { ref, setValue } = useIMask({ mask: mask as any });
+  const { ref, setValue, unmaskedValue } = useIMask({ mask: mask as any });
 
-  return <Input ref={ref} {...props} />;
+  return <Input ref={ref} value={unmaskedValue} {...props} />;
 };
