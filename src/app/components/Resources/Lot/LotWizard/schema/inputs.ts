@@ -7,7 +7,7 @@ export const COMMON_DIRECTION = yup.string().oneOf(TradeDirectionDictionary.keys
 export const COMMON_IS_DIRECT = yup.bool();
 export const COMMON_TELEGRAM = yup
   .string()
-  .matches(/.*\B@(?=\w{5,32}\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*/g, 'Telegram username must starts with @ and be valid')
+  .matches(/.*\B(?=\w{5,32}\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*/g, 'Telegram username must starts with @ and be valid')
   .min(5)
   .max(32);
 export const COMMON_DEADLINE = yup

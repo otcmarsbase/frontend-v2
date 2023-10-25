@@ -48,8 +48,10 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
       const assets: Resource.Asset.Asset[] = [];
 
       for (const { attributes } of items) {
-        const asset = await rpcSchema.send('asset.getById', { id: attributes.INVEST_DOC_ASSET_PK });
-        assets.push(asset);
+        if (attributes.INVEST_DOC_ASSET_PK) {
+          const asset = await rpcSchema.send('asset.getById', { id: attributes.INVEST_DOC_ASSET_PK });
+          assets.push(asset);
+        }
       }
 
       setItems(items);

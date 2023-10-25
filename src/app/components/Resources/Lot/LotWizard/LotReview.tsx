@@ -51,7 +51,7 @@ export const getStepsReviewDescriptor = ({
       },
       {
         renderTitle: () => <Text>Telegram</Text>,
-        renderValue: (model) => <Text color="white">{model.COMMON_TELEGRAM}</Text>,
+        renderValue: (model) => <Text color="white">@{model.COMMON_TELEGRAM}</Text>,
         isRequired: isRequired('COMMON_TELEGRAM'),
       },
       {
