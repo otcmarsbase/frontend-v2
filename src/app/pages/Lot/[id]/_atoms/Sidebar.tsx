@@ -10,13 +10,28 @@ import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
 import { SidebarBlock } from './SidebarBlock';
 
 interface SidebarProps {
-  asset: Resource.Asset.Asset;
+  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
   analyticsLink?: string;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
   const router = useRouter();
-  const groupedByGroupLinks = new Map(LINQ.from(asset.info.links).groupBy((link) => link.group));
+  const isAssetCreateRequest = 'title' in asset;
+
+  const groupedByGroupLinks = new Map(
+    LINQ.from(
+      isAssetCreateRequest
+        ? ([
+            {
+              type: 'SITE',
+              group: 'OFFICIAL',
+              title: 'Site',
+              url: asset.website,
+            },
+          ] as Resource.Asset.ValueObjects.AssetLink[])
+        : asset.info.links,
+    ).groupBy((link) => link.group),
+  );
 
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
   const socialLinks = groupedByGroupLinks.get('SOCIAL');
@@ -36,15 +51,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
           <HStack gap="2.12rem">
             <HStack
               gap="1.5rem"
-              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-              cursor="pointer"
+              onClick={
+                !isAssetCreateRequest
+                  ? () => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})
+                  : undefined
+              }
+              cursor={isAssetCreateRequest ? 'initial' : 'pointer'}
               _hover={{
-                textDecoration: 'underline',
+                textDecoration: isAssetCreateRequest ? 'initial' : 'underline',
               }}
             >
-              <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />
+              {!isAssetCreateRequest && <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />}
               <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
-                {asset.info.title}
+                {isAssetCreateRequest ? asset.title : asset.info.title}
               </Heading>
             </HStack>
             <Link href={analyticsLink}>
@@ -56,14 +75,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
             </Link>
           </HStack>
         </HStack>
-        <SidebarBlock
-          title="Description"
-          children={
-            <ExpandableText noOfLines={3} gap="0.75rem">
-              {asset.info.description}
-            </ExpandableText>
-          }
-        />
+        {!isAssetCreateRequest && (
+          <SidebarBlock
+            title="Description"
+            children={
+              <ExpandableText noOfLines={3} gap="0.75rem">
+                {asset.info.description}
+              </ExpandableText>
+            }
+          />
+        )}
         {officialLinks && (
           <SidebarBlock
             title="Official links"
@@ -94,12 +115,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
             ))}
           />
         )}
-        <SidebarBlock
-          title="Vertical"
-          children={asset.info.verticals.map((type) => (
-            <AssetVerticalRow key={type} value={type} />
-          ))}
-        />
+        {!isAssetCreateRequest && (
+          <SidebarBlock
+            title="Vertical"
+            children={asset.info.verticals.map((type) => (
+              <AssetVerticalRow key={type} value={type} />
+            ))}
+          />
+        )}
       </VStack>
     </GridItem>
   );

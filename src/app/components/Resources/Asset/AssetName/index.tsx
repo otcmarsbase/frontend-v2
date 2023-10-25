@@ -6,7 +6,7 @@ import { Resource } from '@schema/desk-gateway';
 import { AssetImage } from '../AssetImage';
 
 export interface AssetNameProps {
-  asset: Resource.Asset.Asset;
+  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
   size?: 'sm' | 'md';
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
@@ -30,16 +30,24 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
         textDecoration: onClick && 'underline',
       }}
     >
-      <AssetImage
-        rounded="full"
-        objectFit="cover"
-        asset={asset}
-        w={size === 'md' ? '3rem' : '2.25rem'}
-        h={size === 'md' ? '3rem' : '2.25rem'}
-      />
-      <Text fontWeight="semibold" fontSize="1.25rem">
-        {asset?.info.title}
-      </Text>
+      {'title' in asset ? (
+        <Text fontWeight="semibold" fontSize="1.25rem">
+          {asset.title}
+        </Text>
+      ) : (
+        <>
+          <AssetImage
+            rounded="full"
+            objectFit="cover"
+            asset={asset}
+            w={size === 'md' ? '3rem' : '2.25rem'}
+            h={size === 'md' ? '3rem' : '2.25rem'}
+          />
+          <Text fontWeight="semibold" fontSize="1.25rem">
+            {asset?.info.title}
+          </Text>
+        </>
+      )}
     </HStack>
   );
 };

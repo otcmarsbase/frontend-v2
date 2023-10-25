@@ -35,7 +35,11 @@ export default function Lot({ id }: LotProps) {
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
-      const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+
+      if (lot.attributes.INVEST_DOC_ASSET_PK) {
+        const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+        setAsset(asset);
+      }
 
       switch (lot.status) {
         case 'DRAFT':
@@ -45,7 +49,6 @@ export default function Lot({ id }: LotProps) {
       }
 
       setLot(lot);
-      setAsset(asset);
     }, [id, rpcSchema, router]),
   );
 
@@ -78,7 +81,7 @@ export default function Lot({ id }: LotProps) {
         </Text>
       </Button>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
-        <Sidebar asset={asset} />
+        <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>
           <VStack w="full" gap="0.75rem">
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>

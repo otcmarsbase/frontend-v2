@@ -6,6 +6,7 @@ export * from './FormElement';
 export * from './IconButton';
 export * from './Input';
 export * from './InputArea';
+export * from './InputMask';
 export * from './InputNumber';
 export * from './InputWebsite';
 export * from './Radio';
