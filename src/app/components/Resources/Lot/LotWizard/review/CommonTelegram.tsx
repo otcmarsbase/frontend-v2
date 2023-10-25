@@ -5,5 +5,5 @@ import { LotCreateModel } from '../schema';
 
 export const CommonTelegram = {
   renderTitle: () => <Text>Telegram</Text>,
-  renderValue: (model) => <Text>{model.COMMON_TELEGRAM}</Text>,
+  renderValue: (model) => <Text>@{model.COMMON_TELEGRAM}</Text>,
 } satisfies StepReviewField<LotCreateModel>;

@@ -25,6 +25,8 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
   const router = useRouter();
 
+  const isAssetCreateRequest = !lot.attributes.INVEST_DOC_ASSET_PK && lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST;
+
   const fields = useMemo<FieldType[]>(() => {
     return [
       {
@@ -55,7 +57,9 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
-        value: (
+        value: isAssetCreateRequest ? (
+          <Text>-</Text>
+        ) : (
           <HStack>
             {asset.info.verticals.map((vertical, index) => (
               <UILogic.AssetVerticalIcon value={vertical} key={index} />
