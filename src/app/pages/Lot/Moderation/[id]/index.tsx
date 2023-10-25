@@ -1,6 +1,6 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { LotCreateMappingSchema, UILogic, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
@@ -24,7 +24,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const mappedLot = useMemo(() => {
     if (!lot) return;
 
-    return { id: lot.id, type: lot.type, ...lot.attributes };
+    return LotCreateMappingSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
   }, [lot]);
 
   const preload = useLoadingCallback(
@@ -53,8 +53,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
 
     const updatedLot = await rpcSchema.send('lot.cancelModeration', { id: lot.id });
 
-    if (updatedLot['status'] !== 'ON_MODERATION')
+    if (updatedLot.status === 'DRAFT') {
+      return router.navigateComponent(MBPages.Lot.Create.__id__, { id: updatedLot['id'] }, { replace: true });
+    } else if (updatedLot.status !== 'ON_MODERATION') {
       return router.navigateComponent(MBPages.Lot.__id__, { id: updatedLot['id'] }, { replace: true });
+    }
 
     setLot(updatedLot);
   }, [lot, rpcSchema, router]);

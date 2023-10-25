@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { Input } from '@chakra-ui/react';
 import { FormControl, FormElement, FormErrorMessage, UIKit } from '@shared/ui-kit';
 
 import { BaseInputProps } from './types';
