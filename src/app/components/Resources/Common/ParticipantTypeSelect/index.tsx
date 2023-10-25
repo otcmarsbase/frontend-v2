@@ -1,5 +1,5 @@
 import { ParticipantTypeDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export type ParticipantTypeSelectProps = Omit<

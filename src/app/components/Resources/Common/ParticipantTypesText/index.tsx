@@ -1,6 +1,6 @@
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { HStack, StackProps, Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface ParticipantTypesTextProps extends StackProps {
   value: Resource.Common.ParticipantType[];

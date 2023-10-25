@@ -5,7 +5,7 @@ import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
 

@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
 
 import { AssetImage } from '../AssetImage';

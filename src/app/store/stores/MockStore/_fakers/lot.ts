@@ -5,7 +5,7 @@
 //   TradeDirectionDictionary,
 // } from '@app/dictionary';
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/otc-desk-gateway';
+// import { Resource } from '@schema/desk-gateway';
 // import { sample } from 'lodash';
 
 // const lot: Resource.Lot.Lot = null;

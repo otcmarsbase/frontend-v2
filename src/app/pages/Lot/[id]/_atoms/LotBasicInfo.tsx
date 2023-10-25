@@ -3,7 +3,7 @@ import { useCopyToClipboard } from 'react-use';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
 import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Countdown, Tooltip, SuggestionIcon } from '@shared/ui-kit';
 

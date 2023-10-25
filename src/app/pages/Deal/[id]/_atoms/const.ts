@@ -1,6 +1,6 @@
 import { createDictionary } from '@app/dictionary';
 import { IconProps } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 export const TradeProgressStatusField = [

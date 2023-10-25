@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { Square } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { Tooltip } from '@shared/ui-kit';
 
 import { AssetVerticalIconDictionary, AssetVerticalTitle } from './const';

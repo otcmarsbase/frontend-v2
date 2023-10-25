@@ -1,7 +1,7 @@
 import { AccountAvatar, UILogic } from '@app/components';
 import { ParticipantTypeDictionary } from '@app/dictionary';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { DateText, MoneyText } from '@shared/ui-kit';
 import { capitalize } from 'lodash';
 

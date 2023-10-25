@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { HStack, MoneyText, UIKit, VStack } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 

@@ -5,7 +5,7 @@ import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC } from '@schema/otc-desk-gateway';
+import { RPC } from '@schema/desk-gateway';
 
 const View: FC = () => {
   const rpcSchema = useRpcSchemaClient();

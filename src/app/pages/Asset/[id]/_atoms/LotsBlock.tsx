@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
 import { VStack, Text, HStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/otc-desk-gateway';
+import { RPC, Resource } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 
 const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;

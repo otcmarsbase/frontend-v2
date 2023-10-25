@@ -5,7 +5,7 @@ import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource, RPC } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 

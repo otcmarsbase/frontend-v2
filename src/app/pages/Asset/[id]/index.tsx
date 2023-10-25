@@ -4,7 +4,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-import { RPC, Resource } from '@schema/otc-desk-gateway';
+import { RPC, Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';

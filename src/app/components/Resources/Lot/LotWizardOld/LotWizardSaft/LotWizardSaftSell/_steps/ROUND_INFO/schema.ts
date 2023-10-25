@@ -1,5 +1,5 @@
 import { InvestmentRoundDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import * as yup from 'yup';
 
 import { RoundInfoModel } from './types';

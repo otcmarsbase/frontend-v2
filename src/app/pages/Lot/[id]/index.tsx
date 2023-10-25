@@ -5,7 +5,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';

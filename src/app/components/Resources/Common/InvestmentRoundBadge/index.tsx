@@ -1,6 +1,6 @@
 import { InvestmentRoundDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface InvestmentRoundBadgeProps {
   value: Resource.Common.Enums.InvestRound;

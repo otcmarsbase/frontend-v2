@@ -6,7 +6,7 @@ import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 interface FieldProps {

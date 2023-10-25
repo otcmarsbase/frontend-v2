@@ -16,7 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -63,7 +63,9 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   const createBid = useCallback(
     async (values: CreateBidModel) => {
       const payload = { ...values, deadline: values.deadline.valueOf() };
-      const bid = await rpcSchema.send('bid.create', payload);
+
+      // TODO Fix any type, updated schema, @mrdoss (writed by @berish_ceo)
+      const bid = await rpcSchema.send('bid.create', payload as any);
       if (portal && portal.resolve) portal.resolve(bid);
     },
     [portal, rpcSchema],

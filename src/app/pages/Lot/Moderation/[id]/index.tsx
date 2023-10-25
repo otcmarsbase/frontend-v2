@@ -6,7 +6,7 @@ import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Box, Button, Center, HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
@@ -45,10 +45,15 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
 
   const handleEditLot = useCallback(async () => {
     const result = await ModalController.create(ConfirmEditModal, { lot });
-    if (result) {
-      // TODO: make lot draft
-    }
-  }, [lot]);
+    if (!result) return;
+
+    const updatedLot = await rpcSchema.send('lot.cancelModeration' as any, { id: lot.id });
+
+    if (updatedLot['status'] !== 'ON_MODERATION')
+      return router.navigateComponent(MBPages.Lot.__id__, { id: updatedLot['id'] }, { replace: true });
+
+    setLot(updatedLot as any);
+  }, [lot, rpcSchema, router]);
 
   if (!mappedLot || !asset || preload.isLoading) return <UIKit.Loader />;
 

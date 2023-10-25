@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { LotStatusDictionary } from '@app/dictionary';
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface LotStatusProps extends BoxProps {
   value: Resource.Lot.Enums.LotStatus;

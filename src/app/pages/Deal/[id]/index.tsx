@@ -7,7 +7,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
@@ -29,7 +29,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
   const loadDeal = useCallback(async () => {
     setIsLoading(true);
     try {
-      const deal = await rpcSchema.send('deals.getById', { id: toNumber(id) });
+      const deal = await rpcSchema.send('deal.getById', { id: toNumber(id) });
       const lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
       const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
       setDeal(deal);

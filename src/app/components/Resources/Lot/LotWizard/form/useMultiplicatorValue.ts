@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { LotMultiplicatorDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
 export function useMultiplicatorValue(type: Resource.Lot.Enums.LotType) {

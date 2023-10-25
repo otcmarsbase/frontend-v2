@@ -1,5 +1,5 @@
 import { UIDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
 export const getContractSize = (lot: Resource.Lot.Lot) => {
