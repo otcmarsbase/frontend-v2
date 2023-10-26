@@ -3,7 +3,7 @@ import { UseFormReturn } from 'react-hook-form';
 
 import Decimal from 'decimal.js';
 
-import { CreateBidModel } from './schema';
+import { CreateBidModel } from '../schema';
 
 export function useUnitsChange({ watch, setValue, trigger }: UseFormReturn<CreateBidModel, any, any>) {
   const [summary, price] = watch(['summary', 'price']);

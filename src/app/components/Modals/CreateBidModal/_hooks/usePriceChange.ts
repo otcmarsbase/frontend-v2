@@ -5,7 +5,7 @@ import { LotMultiplicatorDictionary } from '@app/dictionary';
 import { Resource } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
-import { CreateBidModel } from './schema';
+import { CreateBidModel } from '../schema';
 
 export function usePriceChange(
   { watch, setValue, trigger }: UseFormReturn<CreateBidModel, any, any>,

@@ -5,7 +5,8 @@ import { LotMultiplicatorDictionary } from '@app/dictionary';
 import { Resource } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
-import { CreateBidModel } from './schema';
+import { CreateBidModel } from '../schema';
+
 import { usePriceChange } from './usePriceChange';
 
 export function useFdvChange(formMethods: UseFormReturn<CreateBidModel, any, any>, type: Resource.Lot.Enums.LotType) {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { AssetVerticalIcon, LotHotChip, UILogic } from '@app/components';
+import { AssetVerticalIcon, LotHotChip, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -23,6 +23,8 @@ export interface LotCardProps {
 
 export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
   const router = useRouter();
+  const { account } = useAuth();
+  const isOfferMaker = lot.offerMaker.id === account?.id;
 
   const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
   const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
@@ -155,7 +157,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       {!minimalView && (
         <UILogic.AuthAction>
           <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
-            Place bid
+            {isOfferMaker ? 'View my lot' : 'Place bid'}
           </Button>
         </UILogic.AuthAction>
       )}

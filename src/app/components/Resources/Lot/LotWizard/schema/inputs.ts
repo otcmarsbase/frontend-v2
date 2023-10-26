@@ -1,5 +1,5 @@
 import { InvestmentRoundDictionary, ParticipantTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
-import { InputWebsiteRegex } from '@shared/ui-kit';
+import { InputTelegramRegex, InputWebsiteRegex } from '@shared/ui-kit';
 import * as yup from 'yup';
 
 export const COMMON_PRICE = yup.string();
@@ -7,7 +7,7 @@ export const COMMON_DIRECTION = yup.string().oneOf(TradeDirectionDictionary.keys
 export const COMMON_IS_DIRECT = yup.bool();
 export const COMMON_TELEGRAM = yup
   .string()
-  .matches(/.*\B(?=\w{5,32}\b)[a-zA-Z0-9]+(?:_[a-zA-Z0-9]+)*.*/g, 'Telegram username must starts with @ and be valid')
+  .matches(InputTelegramRegex, 'Telegram username is not valid')
   .min(5)
   .max(32);
 export const COMMON_DEADLINE = yup
@@ -29,7 +29,7 @@ export const INVEST_DOC_ASSET_PK = yup
   .transform((_, originalValue) => (typeof originalValue === 'string' ? { id: originalValue } : originalValue));
 export const INVEST_DOC_ASSET_CREATE_REQUEST = yup.object({
   title: yup.string().required(),
-  website: yup.string().matches(InputWebsiteRegex).required(),
+  website: yup.string().matches(InputWebsiteRegex, 'Website address is not valid').required(),
 });
 export const INVEST_DOC_ASSET = yup.lazy((value) =>
   typeof value === 'string' || value?.id || !Boolean(value)

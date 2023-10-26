@@ -49,6 +49,17 @@ const baseStyle = definePartsStyle({
     background: 'dark.700',
     shadow: 'none',
     border: 'none',
+    '::-webkit-scrollbar': {
+      backgroundColor: 'transparent',
+    },
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: 'dark.300',
+      borderRadius: '6.25rem',
+      width: '0.25rem',
+    },
+    '::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
   },
   optionSelected: {
     position: 'relative',
