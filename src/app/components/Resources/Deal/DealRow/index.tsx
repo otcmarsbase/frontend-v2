@@ -48,7 +48,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     {
       label: DealRowFieldNameTitleMap.get('TYPE'),
-      value: <Text>1212</Text>,
+      value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
     },
     {
       label: DealRowFieldNameTitleMap.get('LOT_ID'),
