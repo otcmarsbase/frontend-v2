@@ -24,6 +24,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
   const rpcSchema = useRpcSchemaClient();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
   const [lot, setLot] = useState<Resource.Lot.Lot>();
+  const [deal, setDeal] = useState<Resource.Deal.Deal>();
 
   const fetchAssotiations = useLoadingCallback(
     useCallback(async () => {
@@ -32,6 +33,11 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
 
       setAsset(_asset);
       setLot(_lot);
+
+      if (bid.dealKey) {
+        const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
+        setDeal(_deal);
+      }
     }, [rpcSchema, bid]),
     true,
   );
@@ -121,7 +127,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
             asset={asset}
           />
         </HStack>
-        <UILogic.BidStatus value={bid.status} />
+        {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
       </VStack>
       <HStack>
         <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">

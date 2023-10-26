@@ -1,3 +1,4 @@
+export * from './LotBidSkeleton';
 export * from './LotCard';
 export * from './LotCardSkeleton';
 export * from './LotFilters';

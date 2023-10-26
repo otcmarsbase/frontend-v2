@@ -16,7 +16,7 @@ export const BidRowFieldNameTitleMap = new Map<BidRowFieldName, React.ReactNode>
   ['PUBLISH_DATE', 'Publish Date'],
   ['BID_FDV', 'Bid FDV'],
   ['BID_SIZE', 'Bid size'],
-  ['BID_AMOUNT', 'Bid amount'],
+  ['BID_AMOUNT', 'Amount'],
   ['OFFER_MAKER', 'Offer Maker'],
   ['DIRECT_SELLER', 'Is direct seller'],
   ['LOCATION', 'Location'],

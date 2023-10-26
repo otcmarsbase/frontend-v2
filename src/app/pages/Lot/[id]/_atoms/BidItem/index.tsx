@@ -1,9 +1,12 @@
-import { AccountAvatar, UILogic } from '@app/components';
-import { ParticipantTypeDictionary } from '@app/dictionary';
-import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { AccountAvatar, LotBidSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotMultiplicatorDictionary, ParticipantTypeDictionary } from '@app/dictionary';
+import { HStack, VStack, Text, SimpleGrid, Box, Skeleton, SkeletonCircle } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { DateText, MoneyText } from '@shared/ui-kit';
-import { capitalize } from 'lodash';
+import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
+import { capitalize, range } from 'lodash';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
 
@@ -26,11 +29,34 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 
 export interface BidItemProps {
   bid: Resource.Bid.Bid;
+  lot: Resource.Lot.Lot;
   isOfferMaker: boolean;
   refreshBids: () => Promise<void>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refreshBids }) => {
+  const rpcSchema = useRpcSchemaClient();
+  const [deal, setDeal] = useState<Resource.Deal.Deal>();
+
+  const fetchBid = useLoadingCallback(
+    useCallback(async () => {
+      if (!bid.dealKey) return;
+
+      const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
+
+      setDeal(_deal);
+    }, [rpcSchema, bid]),
+    true,
+  );
+
+  useEffect(() => {
+    fetchBid();
+  }, [fetchBid]);
+
+  if (fetchBid.isLoading) return <LotBidSkeleton />;
+
+  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
+
   return (
     <HStack
       w="full"
@@ -60,7 +86,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.price.value}
+            value={bid.summary.value}
             addon={<Text color="dark.50">$</Text>}
           />
         </BidItemColumn>
@@ -70,8 +96,9 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.units.value}
+            value={new Decimal(bid.units.value).div(multiplicator).toString()}
             addon={<Text color="dark.50">%</Text>}
+            format="0,0.X"
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">
@@ -89,7 +116,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
           {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}
         </BidItemColumn>
         <BidItemColumn type="STATUS">
-          <UILogic.BidStatus value={bid.status} />
+          {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
         </BidItemColumn>
       </SimpleGrid>
       <OfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />
