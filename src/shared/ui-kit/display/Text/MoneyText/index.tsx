@@ -5,7 +5,7 @@ interface MoneyTextProps extends TextProps {
   value: number | string;
   abbreviated?: boolean;
   addon?: React.ReactNode;
-  format?: '0.00' | '0,00' | '0.000' | '0,000.000' | '0,0.X' | '0,0.0000';
+  format?: string | null | undefined;
   emptyValue?: React.ReactNode;
 }
 
@@ -14,7 +14,7 @@ export function MoneyText({
   abbreviated,
   addon,
   fontSize,
-  format = '0.00',
+  format = '0,0[.]####',
   emptyValue = '-',
   ...textProps
 }: MoneyTextProps) {

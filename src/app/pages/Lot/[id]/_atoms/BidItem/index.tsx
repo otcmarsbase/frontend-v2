@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { AccountAvatar, LotBidSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
-import { LotMultiplicatorDictionary, ParticipantTypeDictionary } from '@app/dictionary';
-import { HStack, VStack, Text, SimpleGrid, Box, Skeleton, SkeletonCircle } from '@chakra-ui/react';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary, ParticipantTypeDictionary } from '@app/dictionary';
+import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
-import { capitalize, range } from 'lodash';
+import { capitalize } from 'lodash';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
 
@@ -97,8 +97,11 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
             color="white"
             abbreviated
             value={new Decimal(bid.units.value).div(multiplicator).toString()}
-            addon={<Text color="dark.50">%</Text>}
-            format="0,0.0000"
+            addon={
+              LotUnitAddonDictionary.get(lot.type) && (
+                <Text color="dark.50">{LotUnitAddonDictionary.get(lot.type)}</Text>
+              )
+            }
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">

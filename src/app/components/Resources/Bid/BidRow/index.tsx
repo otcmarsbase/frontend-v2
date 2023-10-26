@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
-import { LotMultiplicatorDictionary } from '@app/dictionary';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
@@ -68,8 +68,8 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
       value: (
         <UIKit.MoneyText
           value={new Decimal(bid.units.value).div(multiplicator).toString()}
-          addon="%"
-          format="0,0.0000"
+          addon={LotUnitAddonDictionary.get(lot.type)}
+          abbreviated
         />
       ),
     },

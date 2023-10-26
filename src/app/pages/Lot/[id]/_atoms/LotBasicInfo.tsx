@@ -1,11 +1,10 @@
-import { FC, useState } from 'react';
-import { useCopyToClipboard } from 'react-use';
+import { FC } from 'react';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
 import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Countdown, Tooltip, SuggestionIcon } from '@shared/ui-kit';
+import { Countdown, Tooltip, SuggestionIcon, CopyButton } from '@shared/ui-kit';
 
 interface InfoElementProps {
   label: string;
@@ -34,14 +33,6 @@ const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600"
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
   const { id, attributes, type } = lot;
 
-  const [, copyToClipboard] = useCopyToClipboard();
-  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-
-  const copy = () => {
-    copyToClipboard(id.toString());
-    setTooltipIsOpen(true);
-  };
-
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
       <HStack gap="2rem">
@@ -50,20 +41,7 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
             <Text fontSize="sm" fontWeight="500">
               {id}
             </Text>
-            <Box onClick={copy}>
-              <Tooltip
-                hasArrow
-                closeOnPointerDown
-                isOpen={tooltipIsOpen}
-                onClose={() => setTooltipIsOpen(false)}
-                closeDelay={500}
-                placement="bottom-start"
-                offset={[-10, 10]}
-                label={<Text fontSize="sm">ID Copied</Text>}
-              >
-                <UIIcons.Common.CopyIcon color="white" />
-              </Tooltip>
-            </Box>
+            <CopyButton value={lot.id.toString()} />
           </HStack>
         </InfoElement>
         {InfoDivider}

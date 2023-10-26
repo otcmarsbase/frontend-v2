@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 import { DealRowSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
-import { LotMultiplicatorDictionary } from '@app/dictionary';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
@@ -59,14 +59,14 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }
       value: (
         <UIKit.MoneyText
           value={new Decimal(deal.units.value).div(multiplicator).toString()}
-          addon="%"
-          format="0,0.0000"
+          addon={LotUnitAddonDictionary.get(lot.type)}
+          abbreviated
         />
       ),
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
-      value: <UIKit.MoneyText value={deal.summary.value} addon="$" format="0,0.X" />,
+      value: <UIKit.MoneyText value={deal.summary.value} addon="$" format="0,0.X" abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
