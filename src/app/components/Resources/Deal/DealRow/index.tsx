@@ -39,10 +39,6 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),
       value: <Text>{formatDate(deal.createdAt, 'DATE_AND_TIME')}</Text>,
     },
-    {
-      label: DealRowFieldNameTitleMap.get('STATUS'),
-      value: <UILogic.DealStatus value={deal.status} />,
-    },
   ];
 
   return (
@@ -91,7 +87,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
               </GridItem>
             ))}
           </SimpleGrid>
-          <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
+          {/* <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
             <UIIcons.Common.KebabMenuIcon
               position="absolute"
               top="1.5rem"
@@ -105,7 +101,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
                 e.stopPropagation();
               }}
             />
-          </UIKit.Dropdown>
+          </UIKit.Dropdown> */}
         </HStack>
       </HStack>
     </HStack>

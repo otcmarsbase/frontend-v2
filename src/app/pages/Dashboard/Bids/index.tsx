@@ -20,7 +20,6 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [items, setItems] = useState<Resource.Bid.Bid[]>([]);
-  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -50,15 +49,9 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
       }
 
       setItems(items);
-      setAssets(assets);
       setTotal(total);
     }, [rpcSchema, fetchPayload]),
     true,
-  );
-
-  const findAsset = useCallback(
-    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
-    [assets],
   );
 
   useEffect(() => {
@@ -91,7 +84,6 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
         itemRender={(item) => (
           <UILogic.BidRow
             bid={item}
-            asset={findAsset(item.assetKey)}
             onClick={() => {
               if (item.dealKey) {
                 router.navigateComponent(MBPages.Deal.__id__, { id: item.dealKey.id }, {});
