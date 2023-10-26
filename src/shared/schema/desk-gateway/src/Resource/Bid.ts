@@ -10,6 +10,9 @@ export namespace Bid {
   export namespace Enums {
     export const BidStatus = ['ON_MODERATION', 'ACTIVE', 'DEAL', 'REJECTED'] as const;
     export type BidStatus = (typeof BidStatus)[number];
+
+    export const BidRejectReasonType = ['OFFER_MAKER_REJECT', 'MODERATOR_REJECT'] as const;
+    export type BidRejectReasonType = (typeof BidRejectReasonType)[number];
   }
 
   export interface BidKey extends SchemaCommon.ResourceKey<'bid'> {
@@ -24,13 +27,16 @@ export namespace Bid {
     location: Common.Enums.Location;
     mediatorType: Common.Enums.MediatorType;
     telegram: Common.Text.Telegram;
-    contractSize: Common.Finances.ContractSize;
     readyForVerification: boolean;
+    rejectReason: Enums.BidRejectReasonType;
+
+    summary: Common.Finances.StablecoinQuantity;
+    units: Common.Finances.StablecoinQuantity;
+    price: Common.Finances.Price;
+    fdv?: Common.Finances.StablecoinQuantity;
 
     // References
     lotKey: Lot.LotKey;
-    lot?: Lot.Lot; // If included
-
     bidMaker: User.User;
     assetKey: Asset.AssetKey;
     dealKey?: Deal.DealKey;

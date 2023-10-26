@@ -77,10 +77,20 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
 
   const createBid = useCallback(
     async (values: CreateBidModel) => {
-      const payload = { ...values, deadline: values.deadline.valueOf() };
+      const bid = await rpcSchema.send('bid.create', {
+        lotId: values.lotId,
+        bidMakerType: values.bidMakerType,
+        location: values.location,
+        readyForVerification: values.readyForVerification,
+        telegram: values.telegram,
+        isDirect: values.isDirect,
+        deadline: values.deadline?.valueOf(),
+        summary: String(values.summary),
+        units: String(values.units),
+        price: String(values.price),
+        fdv: values.fdv ? String(values.fdv) : undefined,
+      });
 
-      // TODO Fix any type, updated schema, @mrdoss (writed by @berish_ceo)
-      const bid = await rpcSchema.send('bid.create', payload as any);
       if (portal && portal.resolve) portal.resolve(bid);
     },
     [portal, rpcSchema],

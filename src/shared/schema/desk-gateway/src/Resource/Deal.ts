@@ -79,8 +79,11 @@ export namespace Deal {
   export interface Deal extends SchemaCommon.Resource<'deal'>, SchemaCommon.ResourceOmit<DealKey> {
     createdAt: number;
     status: Enums.DealStatus;
-    contractSize: Common.Finances.ContractSize;
     keyResults: ValueObjects.DealKeyResults;
+    summary: Common.Finances.StablecoinQuantity;
+    units: Common.Finances.StablecoinQuantity;
+    price: Common.Finances.Price;
+    fdv?: Common.Finances.StablecoinQuantity;
 
     // References
     assetKey: Asset.AssetKey;

@@ -60,7 +60,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.contractSize.price.value}
+            value={bid.price.value}
             addon={<Text color="dark.50">$</Text>}
           />
         </BidItemColumn>
@@ -70,7 +70,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.contractSize.unitQuantity.value}
+            value={bid.units.value}
             addon={<Text color="dark.50">%</Text>}
           />
         </BidItemColumn>

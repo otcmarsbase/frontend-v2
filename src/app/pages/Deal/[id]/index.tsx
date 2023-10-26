@@ -58,9 +58,9 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />
 
           <DealInfo
-            price={deal.contractSize.price.value}
-            size={deal.contractSize.unitQuantity.value}
-            fdv={deal.contractSize.contractShare.fdv.value}
+            price={deal.price.value}
+            size={deal.units.value}
+            fdv={deal.fdv?.value}
             marsbaseCommission={deal.keyResults.marsbaseCommissionKR.percent.value}
           />
 

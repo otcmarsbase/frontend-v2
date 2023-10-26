@@ -30,11 +30,11 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_FDV'),
-      value: <UIKit.MoneyText value={bid.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
+      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated addon="$" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_SIZE'),
-      value: <UIKit.MoneyText value={bid.contractSize.unitQuantity.value} addon="%" />,
+      value: <UIKit.MoneyText value={bid.units.value} addon="%" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),

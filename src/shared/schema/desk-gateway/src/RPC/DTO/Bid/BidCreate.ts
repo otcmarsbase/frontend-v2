@@ -11,7 +11,7 @@ export namespace BidCreate {
     deadline?: number;
 
     summary: string;
-    units: number;
+    units: string;
     price: string;
     fdv?: string;
   };
