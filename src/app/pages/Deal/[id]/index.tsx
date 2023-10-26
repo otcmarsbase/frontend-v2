@@ -65,7 +65,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
             price={deal.price.value}
             size={new Decimal(deal.units.value).div(multiplicator).toString()}
             fdv={deal.fdv?.value}
-            marsbaseCommission={deal.keyResults.marsbaseCommissionKR.percent.value}
+            marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent.value).mul(100).toString()}
           />
 
           <DealParticipants
