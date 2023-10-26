@@ -14,7 +14,7 @@ export const CommonTelegramInput: FC<BaseInputProps> = () => {
   return (
     <FormElement label="Telegram" info="Please provide your Telegram account" isRequired={isRequired} w="full">
       <FormControl isInvalid={!isValid}>
-        <Controller name={NAME} render={({ field }) => <UIKit.Input {...field} placeholder="@nickname" />} />
+        <Controller name={NAME} render={({ field }) => <UIKit.InputTelegram {...field} placeholder="@nickname" />} />
         {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       </FormControl>
     </FormElement>

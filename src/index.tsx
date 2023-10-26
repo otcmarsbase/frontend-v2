@@ -5,6 +5,7 @@ import React from 'react';
 import { override } from '@packages/react-runtime-layout';
 import ReactDOM from 'react-dom/client';
 
+import './locale';
 import { App } from './app';
 import reportWebVitals from './reportWebVitals';
 

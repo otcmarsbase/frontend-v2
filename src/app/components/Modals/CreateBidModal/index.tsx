@@ -19,6 +19,7 @@ import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
+import { useFdvChange, usePriceChange, useSummaryChange, useUnitsChange } from './_hooks';
 import {
   UnitsDescriptorDictionary,
   UnitsDictionary,
@@ -29,10 +30,6 @@ import {
 } from './const';
 import { formatNumberProps } from './formatNumberProps';
 import { BidCreateSchema, CreateBidModel } from './schema';
-import { useFdvChange } from './useFdvChange';
-import { usePriceChange } from './usePriceChange';
-import { useSummaryChange } from './useSummaryChange';
-import { useUnitsChange } from './useUnitsChange';
 
 export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
   lot: Resource.Lot.Lot;
