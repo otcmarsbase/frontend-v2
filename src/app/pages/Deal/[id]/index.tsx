@@ -3,12 +3,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
+import { LotMultiplicatorDictionary } from '@app/dictionary';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
 import { toNumber } from 'lodash';
 
 import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
@@ -48,6 +50,8 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     return <UILogic.DealPageSkeleton />;
   }
 
+  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
+
   return (
     <VStack gap="1rem" alignItems="start">
       <UIKit.BackButton onClick={() => router.navigateComponent(MBPages.Dashboard.Deals, {}, {})}>
@@ -59,7 +63,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
 
           <DealInfo
             price={deal.price.value}
-            size={deal.units.value}
+            size={new Decimal(deal.units.value).div(multiplicator).toString()}
             fdv={deal.fdv?.value}
             marsbaseCommission={deal.keyResults.marsbaseCommissionKR.percent.value}
           />

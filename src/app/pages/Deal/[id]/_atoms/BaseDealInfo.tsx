@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
-import { AssetName, DealStatus, TradeDirectionText } from '@app/components';
+import { AssetName, DealStatus, TradeDirectionText, useAuth } from '@app/components';
 import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Button, HStack, Text, Tooltip, VStack } from '@chakra-ui/react';
@@ -33,6 +33,8 @@ export interface BaseDealInfoProps {
 
 export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
   const router = useRouter();
+  const { account } = useAuth();
+
   const [, setClipboardValue] = useCopyToClipboard();
   const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
 
@@ -60,7 +62,13 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
       position="relative"
       gap="1.5rem"
     >
-      <TradeDirectionText position="absolute" left="0" top="0" value={lot?.attributes.COMMON_DIRECTION} />
+      <TradeDirectionText
+        position="absolute"
+        left="0"
+        top="0"
+        value={lot?.attributes.COMMON_DIRECTION}
+        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+      />
       <VStack alignItems="start">
         <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />
         <Button p="0" onClick={pushToLot} variant="ghost" color="dark.50" rightIcon={<UIIcons.Common.ArrowUp />}>

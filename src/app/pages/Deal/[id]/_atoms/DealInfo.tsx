@@ -43,7 +43,7 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, marsbaseCommissi
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('SIZE')}
-          value={<MoneyText abbreviated value={size} addon={<Text color="dark.50">$</Text>} />}
+          value={<MoneyText abbreviated value={size} addon={<Text color="dark.50">%</Text>} format="0,0.0000" />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('FDV')}

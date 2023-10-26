@@ -23,7 +23,6 @@ const Deals: React.FC<DealsProps> = ({ filters }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [items, setItems] = useState<Resource.Deal.Deal[]>([]);
-  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -53,15 +52,9 @@ const Deals: React.FC<DealsProps> = ({ filters }) => {
       }
 
       setItems(items);
-      setAssets(assets);
       setTotal(total);
     }, [rpcSchema, fetchPayload]),
     true,
-  );
-
-  const findAsset = useCallback(
-    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
-    [assets],
   );
 
   useEffect(() => {
@@ -93,7 +86,6 @@ const Deals: React.FC<DealsProps> = ({ filters }) => {
         itemRender={(item) => (
           <UILogic.DealRow
             deal={item}
-            asset={findAsset(item.assetKey)}
             onClick={() => router.navigateComponent(MBPages.Deal.__id__, { id: item.id }, {})}
           />
         )}
