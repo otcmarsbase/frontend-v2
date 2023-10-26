@@ -30,32 +30,23 @@ import {
 } from './const';
 import { formatNumberProps } from './formatNumberProps';
 import { BidCreateSchema, CreateBidModel } from './schema';
+import { useDefaultValues } from './useDefaultValues';
+import { useRange } from './useRange';
 
 export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
   lot: Resource.Lot.Lot;
 }
 
 export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) => {
-  const defaultValues = useMemo(
-    () => ({
-      lotId: lot.id,
-      fdv: new Decimal(lot.attributes.INVEST_DOC_FDV).toNumber(),
-      price: new Decimal(lot.attributes.COMMON_PRICE).toNumber(),
-    }),
-    [lot],
-  );
+  const defaultValues = useDefaultValues(lot);
+  const range = useRange(lot);
 
   const rpcSchema = useRpcSchemaClient();
   const formMethods = useForm<CreateBidModel>({
     mode: 'onTouched',
     schema: BidCreateSchema,
     defaultValues,
-    context: {
-      minUnits: new Decimal(lot.attributes.COMMON_MIN_FILTER_UNITS).toNumber(),
-      maxUnits: new Decimal(lot.attributes.COMMON_UNITS).toNumber(),
-      minSummary: new Decimal(lot.attributes.COMMON_MIN_FILTER_SUMMARY).toNumber(),
-      maxSummary: new Decimal(lot.attributes.COMMON_SUMMARY).toNumber(),
-    },
+    context: range,
   });
   const {
     control,

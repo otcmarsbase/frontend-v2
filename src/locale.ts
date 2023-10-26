@@ -89,7 +89,6 @@ function initApp() {
     object,
     array,
     boolean,
-    tuple,
   });
 }
 
