@@ -98,7 +98,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
             abbreviated
             value={new Decimal(bid.units.value).div(multiplicator).toString()}
             addon={<Text color="dark.50">%</Text>}
-            format="0,0.X"
+            format="0,0.0000"
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">

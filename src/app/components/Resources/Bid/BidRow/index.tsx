@@ -66,7 +66,11 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
     {
       label: BidRowFieldNameTitleMap.get('BID_SIZE'),
       value: (
-        <UIKit.MoneyText value={new Decimal(bid.units.value).div(multiplicator).toString()} addon="%" format="0,0.X" />
+        <UIKit.MoneyText
+          value={new Decimal(bid.units.value).div(multiplicator).toString()}
+          addon="%"
+          format="0,0.0000"
+        />
       ),
     },
     {
