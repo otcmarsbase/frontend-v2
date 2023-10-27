@@ -19,7 +19,7 @@ const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, Review
       addon: '$',
     },
     TOKEN_WARRANT: {
-      label: 'Price per 0,01% equity',
+      label: 'Price per 0,01% tokens',
       addon: '$',
     },
   })
