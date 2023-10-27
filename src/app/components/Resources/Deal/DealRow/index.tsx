@@ -100,7 +100,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }
         position="absolute"
         top="0"
         left="0"
-        value="BUY"
+        value={lot.attributes.COMMON_DIRECTION}
         reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
       />
       <HStack justifyContent="space-between" w="full">
