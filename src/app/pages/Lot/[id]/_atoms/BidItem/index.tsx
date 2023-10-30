@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { AccountAvatar, LotBidSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { LotMultiplicatorDictionary, LotUnitAddonDictionary, ParticipantTypeDictionary } from '@app/dictionary';
+import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
@@ -35,7 +37,9 @@ export interface BidItemProps {
 }
 
 export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refreshBids }) => {
+  const router = useRouter();
   const rpcSchema = useRpcSchemaClient();
+  const { account } = useAuth();
   const [deal, setDeal] = useState<Resource.Deal.Deal>();
 
   const fetchBid = useLoadingCallback(
@@ -48,6 +52,12 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
     }, [rpcSchema, bid]),
     true,
   );
+
+  const handleClick = useCallback(() => {
+    if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
+
+    router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
+  }, [bid, router, account, isOfferMaker]);
 
   useEffect(() => {
     fetchBid();
@@ -72,6 +82,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
       _hover={{
         bg: 'dark.800',
       }}
+      onClick={handleClick}
     >
       <VStack alignItems="start">
         <Text color="dark.200" fontSize="sm">
