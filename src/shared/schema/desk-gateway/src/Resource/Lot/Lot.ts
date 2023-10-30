@@ -44,9 +44,10 @@ export namespace Lot {
     isHot: boolean;
 
     // When active + completed
-    executed?: Common.Finances.TicketQuantity;
-    reserved?: Common.Finances.TicketQuantity;
-    available?: Common.Finances.TicketQuantity;
+    executed?: Common.Finances.StablecoinQuantity;
+    reserved?: Common.Finances.StablecoinQuantity;
+    available?: Common.Finances.StablecoinQuantity;
+    total?: Common.Finances.StablecoinQuantity;
 
     // Attributes
     attributes: LotAttributesObject;

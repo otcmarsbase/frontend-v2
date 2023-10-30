@@ -26,9 +26,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
-    .add(lot.executed.stablecoinQuantity.value)
+  const availableSum = new Decimal(lot.available.value).toDecimalPlaces(2).toNumber();
+  const totalSum = new Decimal(lot.reserved.value)
+    .add(lot.executed.value)
     .add(availableSum)
     .toDecimalPlaces(2)
     .toNumber();

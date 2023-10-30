@@ -8,7 +8,7 @@ import { User } from './User';
 
 export namespace Deal {
   export namespace Enums {
-    export const DealStatus = ['PREPARE', 'NEGOTIATION', 'COMPLETED', 'REJECTED'] as const;
+    export const DealStatus = ['NEGOTIATION', 'COMPLETED', 'REJECTED'] as const;
     export type DealStatus = (typeof DealStatus)[number];
 
     export const KeyResultStatus = ['NEW', 'PROCESS', 'COMPLETED', 'FAILED'] as const;

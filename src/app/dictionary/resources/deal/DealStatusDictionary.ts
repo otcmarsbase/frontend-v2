@@ -8,9 +8,6 @@ export interface DealStatusDictionaryInfo {
 
 export const DealStatusDictionary = createDictionary<Resource.Deal.Enums.DealStatus, DealStatusDictionaryInfo>()
   .setFromRecord({
-    PREPARE: {
-      title: 'Prepare',
-    },
     NEGOTIATION: {
       title: 'Negotiation',
     },

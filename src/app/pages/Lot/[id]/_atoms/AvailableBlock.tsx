@@ -10,9 +10,9 @@ interface AvailableBlockProps {
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const reserved = new Decimal(lot.reserved?.stablecoinQuantity.value || '0');
-  const available = new Decimal(lot.available?.stablecoinQuantity.value || '0');
-  const executed = new Decimal(lot.executed?.stablecoinQuantity.value || '0');
+  const reserved = new Decimal(lot.reserved?.value || '0');
+  const available = new Decimal(lot.available?.value || '0');
+  const executed = new Decimal(lot.executed?.value || '0');
 
   const [chartData] = useState<UIKit.ChartPieData[]>([
     {
