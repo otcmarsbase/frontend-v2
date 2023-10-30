@@ -233,6 +233,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
                 render={(props) => (
                   <UILogic.ParticipantTypeSelect
                     {...props.field}
+                    showOnlyTypes={lot.attributes.COMMON_BID_MAKER_TYPES}
                     isInvalid={Boolean(props.fieldState.invalid)}
                     placeholder={CommonFieldsDictionary.get('BID_MAKER_TYPE').placeholder}
                   />

@@ -17,7 +17,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   id = toNumber(id);
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const deleteToastCallback = useToastOuterCallback({ showWhenOk: true, okText: `Lot with ${id} was success deleted` });
+  const deleteToastCallback = useToastOuterCallback({
+    showWhenOk: true,
+    showWhenError: false,
+    okText: `Lot with ${id} was success deleted`,
+  });
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
 
@@ -65,7 +69,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const handleDeleteLot = useCallback(() => {
     deleteToastCallback(async () => {
       const result = await ModalController.create(ConfirmDeleteModal, { lot });
-      if (!result) return;
+      // TODO: remove this, refactor `useToastOuterCallback` for canceling
+      if (!result) throw new Error();
 
       const archivedLot = await rpcSchema.send('lot.archive', { id: lot.id });
 

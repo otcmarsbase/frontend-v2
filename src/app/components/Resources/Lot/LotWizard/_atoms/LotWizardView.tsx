@@ -60,7 +60,7 @@ export const LotWizardView = <T extends string>({
         </Box>
         <VStack position="sticky" bottom="2rem" mt="10rem" gap="1rem">
           <Button w="full" color="white" type="submit" isLoading={isLoading}>
-            {isLastStep ? 'Pulish Lot' : 'Next step'}
+            {isLastStep ? 'Publish Lot' : 'Next step'}
           </Button>
           {stepDictionary.get(currentStep).skippable && (
             <Button w="full" variant="darkOutline" onClick={onSkip}>

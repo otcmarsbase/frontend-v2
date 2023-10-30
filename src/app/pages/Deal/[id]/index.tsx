@@ -5,11 +5,8 @@ import { observer } from 'mobx-react-lite';
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import { LotMultiplicatorDictionary } from '@app/dictionary';
 import * as Layouts from '@app/layouts';
-import { MBPages } from '@app/pages';
 import { HStack, VStack } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { toNumber } from 'lodash';
 
@@ -21,7 +18,6 @@ interface DealProps {
 }
 
 const Deal: React.FC<DealProps> = observer(({ id }) => {
-  const router = useRouter();
   const rpcSchema = useRpcSchemaClient();
   const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
   const [lot, setLot] = useState<Resource.Lot.Lot>(null);
@@ -54,9 +50,6 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
 
   return (
     <VStack gap="1rem" alignItems="start">
-      <UIKit.BackButton onClick={() => router.navigateComponent(MBPages.Dashboard.Deals, {}, {})}>
-        Back to Dashboard
-      </UIKit.BackButton>
       <HStack width="full" gap="2rem" alignItems="start">
         <VStack gap="1.25rem" flex="1.5">
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />
