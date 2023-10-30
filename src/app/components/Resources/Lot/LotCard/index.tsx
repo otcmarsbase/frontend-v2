@@ -26,12 +26,8 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const availableSum = new Decimal(lot.available.value).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.reserved.value)
-    .add(lot.executed.value)
-    .add(availableSum)
-    .toDecimalPlaces(2)
-    .toNumber();
+  const availableSum = new Decimal(lot.available?.value || 0).toDecimalPlaces(2).toNumber();
+  const totalSum = new Decimal(lot.total?.value || 0).toDecimalPlaces(2).toNumber();
 
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE') return [];

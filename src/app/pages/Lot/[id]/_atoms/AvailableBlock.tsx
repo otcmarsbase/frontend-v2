@@ -13,6 +13,7 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
   const reserved = new Decimal(lot.reserved?.value || '0');
   const available = new Decimal(lot.available?.value || '0');
   const executed = new Decimal(lot.executed?.value || '0');
+  const total = new Decimal(lot.total?.value || '0');
 
   const [chartData] = useState<UIKit.ChartPieData[]>([
     {
@@ -36,7 +37,7 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
   ]);
 
   const availableSum = available.toDecimalPlaces(2).toNumber();
-  const totalSum = reserved.add(executed).add(availableSum).toDecimalPlaces(2).toNumber();
+  const totalSum = total.toDecimalPlaces(2).toNumber();
 
   return (
     <VStack bg="dark.900" p="1.25rem" borderRadius="sm">
