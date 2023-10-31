@@ -20,19 +20,20 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
     [onClick],
   );
 
+  const fontSize = size === 'xs' ? '1rem' : '1.25rem';
+
   return (
     <HStack
       gap="0.5rem"
       alignItems="center"
       onClick={handleClick}
       cursor={onClick && 'pointer'}
-      fontSize={size === 'sm' ? '1rem' : undefined}
       _hover={{
         textDecoration: onClick && 'underline',
       }}
     >
       {'title' in asset ? (
-        <Text fontWeight="semibold" fontSize="1.25rem">
+        <Text fontWeight="semibold" fontSize={fontSize}>
           {asset.title}
         </Text>
       ) : (
@@ -44,7 +45,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
             w={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
             h={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
           />
-          <Text fontWeight="semibold" fontSize="1.25rem">
+          <Text fontWeight="semibold" fontSize={fontSize}>
             {asset?.info.title}
           </Text>
         </>
