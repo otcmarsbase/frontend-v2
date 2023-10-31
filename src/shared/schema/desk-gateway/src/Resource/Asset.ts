@@ -19,10 +19,12 @@ export namespace Asset {
     export interface AssetInfo {
       title: string;
       description: string;
-      logoURL: string;
       tier: Enums.AssetTier;
       links: AssetLink[];
       verticals: Enums.AssetVertical[];
+
+      logoURL?: string;
+      analyticURL?: string;
     }
 
     export interface AssetLink {
