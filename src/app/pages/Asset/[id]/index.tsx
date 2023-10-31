@@ -38,7 +38,7 @@ export default function View({ id }: ViewProps) {
 
   return (
     <VStack gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl="" />
+      <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl={asset.info.analyticURL} />
       <StatsBlock
         averageLotsFdv={stats.averageFdv}
         lotSellCount={stats.lotSellCount}

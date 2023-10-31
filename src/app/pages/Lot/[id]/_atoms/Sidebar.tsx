@@ -11,10 +11,9 @@ import { SidebarBlock } from './SidebarBlock';
 
 interface SidebarProps {
   asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
-  analyticsLink?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
   const router = useRouter();
   const isAssetCreateRequest = 'title' in asset;
 
@@ -66,13 +65,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
                 {isAssetCreateRequest ? asset.title : asset.info.title}
               </Heading>
             </HStack>
-            <Link href={analyticsLink}>
-              <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
-                <Text fontWeight="800" whiteSpace="nowrap">
+            {!isAssetCreateRequest && asset.info.analyticURL && (
+              <Link href={asset.info.analyticURL} target="_blank">
+                <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
                   Get analytics
-                </Text>
-              </Button>
-            </Link>
+                </Button>
+              </Link>
+            )}
           </HStack>
         </HStack>
         {!isAssetCreateRequest && (

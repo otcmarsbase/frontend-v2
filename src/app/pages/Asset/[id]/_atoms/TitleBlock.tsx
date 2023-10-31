@@ -3,7 +3,7 @@ import { Button, HStack, Heading, Image } from '@chakra-ui/react';
 export interface TitleBlockProps {
   title: React.ReactNode;
   logoUrl: string;
-  analyticsUrl: string;
+  analyticsUrl?: string;
 }
 
 export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
@@ -17,9 +17,11 @@ export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
           </Heading>
         )}
       </HStack>
-      <Button as="a" href={analyticsUrl} size="xs" variant="darkOutline">
-        Download asset research
-      </Button>
+      {analyticsUrl && (
+        <Button as="a" href={analyticsUrl} size="xs" variant="darkOutline">
+          Download asset research
+        </Button>
+      )}
     </HStack>
   );
 }
