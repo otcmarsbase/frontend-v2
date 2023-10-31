@@ -7,7 +7,7 @@ import { AssetImage } from '../AssetImage';
 
 export interface AssetNameProps {
   asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
-  size?: 'sm' | 'md';
+  size?: 'xs' | 'sm' | 'md';
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -26,6 +26,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
       alignItems="center"
       onClick={handleClick}
       cursor={onClick && 'pointer'}
+      fontSize={size === 'sm' ? '1rem' : undefined}
       _hover={{
         textDecoration: onClick && 'underline',
       }}
@@ -40,8 +41,8 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
             rounded="full"
             objectFit="cover"
             asset={asset}
-            w={size === 'md' ? '3rem' : '2.25rem'}
-            h={size === 'md' ? '3rem' : '2.25rem'}
+            w={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
+            h={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
           />
           <Text fontWeight="semibold" fontSize="1.25rem">
             {asset?.info.title}

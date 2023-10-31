@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
@@ -35,5 +35,10 @@ const AssetField = ({ value }: { value: LotCreateModel['INVEST_DOC_ASSET'] }) =>
 
   if (preload.isLoading || !asset) return <></>;
 
-  return <Text>{'title' in asset ? asset.title : asset.info.title}</Text>;
+  return (
+    <UILogic.AssetName
+      size="xs"
+      asset={'title' in value ? (value as Resource.Lot.ValueObjects.AssetCreateRequest) : asset}
+    />
+  );
 };
