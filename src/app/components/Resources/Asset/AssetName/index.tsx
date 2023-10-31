@@ -7,7 +7,7 @@ import { AssetImage } from '../AssetImage';
 
 export interface AssetNameProps {
   asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
-  size?: 'sm' | 'md';
+  size?: 'xs' | 'sm' | 'md';
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -20,6 +20,8 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
     [onClick],
   );
 
+  const fontSize = size === 'xs' ? '1rem' : '1.25rem';
+
   return (
     <HStack
       gap="0.5rem"
@@ -31,7 +33,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
       }}
     >
       {'title' in asset ? (
-        <Text fontWeight="semibold" fontSize="1.25rem">
+        <Text fontWeight="semibold" fontSize={fontSize}>
           {asset.title}
         </Text>
       ) : (
@@ -40,10 +42,10 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
             rounded="full"
             objectFit="cover"
             asset={asset}
-            w={size === 'md' ? '3rem' : '2.25rem'}
-            h={size === 'md' ? '3rem' : '2.25rem'}
+            w={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
+            h={size === 'md' ? '3rem' : size === 'sm' ? '2.25rem' : '1.5rem'}
           />
-          <Text fontWeight="semibold" fontSize="1.25rem">
+          <Text fontWeight="semibold" fontSize={fontSize}>
             {asset?.info.title}
           </Text>
         </>
