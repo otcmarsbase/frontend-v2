@@ -21,6 +21,7 @@ export const InvestDocRoundTypeInput: FC<BaseInputProps> = () => {
             <UILogic.InvestmentRoundSelect
               {...field}
               isInvalid={!isValid}
+              isClearable
               onChange={field.onChange}
               placeholder="Choose type"
             />

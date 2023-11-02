@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 
 import { LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate, getContractSize } from '@app/utils';
+import { getContractSize } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
@@ -25,21 +25,23 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
   const router = useRouter();
 
+  const isAssetCreateRequest = !lot.attributes.INVEST_DOC_ASSET_PK && lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST;
+
   const fields = useMemo<FieldType[]>(() => {
     return [
       {
         label: LotRowFieldNameTitleMap.get('LOT_TYPE'),
-        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />,
+        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
-        value: <Text>{formatDate(lot.createdAt, 'ONLY_DATE')}</Text>,
+        value: <UIKit.DateText value={lot.attributes.COMMON_CREATED_AT_ATTRIBUTE} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('FDV'),
         value: (
           <UIKit.MoneyText
-            value={lot.contractSize.contractShare.fdv.value || 0}
+            value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -51,21 +53,13 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value: (
-          <UIKit.MoneyText
-            value={getContractSize(lot)}
-            abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                %
-              </Text>
-            }
-          />
-        ),
+        value: <UIKit.PercentText value={getContractSize(lot)} />,
       },
       {
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
-        value: (
+        value: isAssetCreateRequest ? (
+          <Text>-</Text>
+        ) : (
           <HStack>
             {asset.info.verticals.map((vertical, index) => (
               <UILogic.AssetVerticalIcon value={vertical} key={index} />
@@ -73,12 +67,10 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           </HStack>
         ),
       },
-      lot.deadline
-        ? {
-            label: LotRowFieldNameTitleMap.get('DEADLINE'),
-            value: <Text>{formatDate(lot.deadline, 'ONLY_DATE')}</Text>,
-          }
-        : null,
+      {
+        label: LotRowFieldNameTitleMap.get('DEADLINE'),
+        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} />,
+      },
       {
         label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
         value: lot.totalBids,
@@ -104,7 +96,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       onClick={onClick}
       {...stackProps}
     >
-      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
+      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
           <Text color="dark.200">#{lot.id}</Text>
@@ -114,7 +106,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           <UILogic.AssetName
             size="sm"
             onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-            asset={asset}
+            asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
           />
         </HStack>
         <UILogic.LotStatus value={lot.status} />
@@ -139,9 +131,6 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
             </GridItem>
           ))}
         </Grid>
-        {
-          // TODO fix stopPropagate on row clicking
-        }
         <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
           <UIIcons.Common.KebabMenuIcon
             position="absolute"

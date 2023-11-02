@@ -1,6 +1,6 @@
 import { createDictionary } from '@app/dictionary';
 import { IconProps } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 export const TradeProgressStatusField = [
@@ -81,7 +81,7 @@ export const TradeValidationStatusDictionary = createDictionary<
   })
   .asReadonly();
 
-export const DealInfoFieldType = ['PRICE', 'FDV', 'SIZE', 'MARSBASE_COMMISSION'] as const;
+export const DealInfoFieldType = ['PRICE', 'FDV', 'SIZE', 'AMOUNT', 'MARSBASE_COMMISSION'] as const;
 export type DealInfoFieldType = (typeof DealInfoFieldType)[number];
 
 export const DealInfoFieldDictionary = createDictionary<DealInfoFieldType, string>()
@@ -89,6 +89,7 @@ export const DealInfoFieldDictionary = createDictionary<DealInfoFieldType, strin
     PRICE: 'Price',
     FDV: 'Deal FDV',
     SIZE: 'Deal size',
+    AMOUNT: 'Amount',
     MARSBASE_COMMISSION: 'Marsbase commission',
   })
   .asReadonly();

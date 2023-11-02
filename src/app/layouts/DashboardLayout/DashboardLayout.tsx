@@ -1,12 +1,9 @@
 import { PropsWithChildren, useCallback, FormEvent } from 'react';
 
-import { observer } from 'mobx-react-lite';
-
 import { AppLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Box, HStack, Heading, Input, InputGroup, InputLeftElement, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
 import { DashboardTabType, DashboardTabTypeTitleMap } from './const';

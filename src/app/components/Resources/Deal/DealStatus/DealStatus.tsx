@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { DealStatusColorMap, DealStatusTitleMap } from './const';
 

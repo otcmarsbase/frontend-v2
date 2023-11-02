@@ -4,8 +4,8 @@ import { makePersistable } from 'mobx-persist-store';
 import { ModalController, appManager } from '@app/logic';
 import { RuntimeError } from '@ddd/errors';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
+import { Resource } from '@schema/desk-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
-import { Resource } from '@schema/otc-desk-gateway';
 import { AppConfig } from '@shared/config';
 import { connect, getAccount, signMessage } from '@wagmi/core';
 import { v4 } from 'uuid';
@@ -179,7 +179,7 @@ export class AuthStore {
     if (!connectorInfo) return void 0;
 
     const wagmiAccount = getAccount();
-    
+
     const connectedAddress =
       wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
         ? wagmiAccount.address

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { StepDescriptorKey } from './const';
 import { LotCreateModel } from './schema';
@@ -30,5 +30,5 @@ export function useDefaultStep(
     }
 
     return 'INVEST_DOC_REVIEW';
-  }, [defaultValues]);
+  }, [defaultValues, direction]);
 }

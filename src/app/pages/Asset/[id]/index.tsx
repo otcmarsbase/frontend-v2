@@ -4,7 +4,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-import { RPC, Resource } from '@schema/otc-desk-gateway';
+import { RPC, Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
@@ -21,10 +21,15 @@ export default function View({ id }: ViewProps) {
 
   const onPreload = useLoadingCallback(
     useCallback(async () => {
-      const asset = await rpcSchema.send('asset.getById', { id });
-      const stats = await rpcSchema.send('asset.getStatsById', { id });
-      setAsset(asset);
-      setStats(stats);
+      try {
+        const asset = await rpcSchema.send('asset.getById', { id });
+        setAsset(asset);
+        const stats = await rpcSchema.send('asset.getStatsById', { id });
+        setStats(stats);
+      } catch (err) {
+        // TODO: delete this after fix `asset.getStatsById` on backend
+        setStats({ averageFdv: '0', lotSellCount: 0, lotBuyCount: 0, lotBuyCvSum: '0', lotSellCvSum: '0' });
+      }
     }, [id, rpcSchema]),
   );
   usePreloadPage(onPreload);
@@ -33,7 +38,7 @@ export default function View({ id }: ViewProps) {
 
   return (
     <VStack gap="2rem">
-      <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl="" />
+      <TitleBlock title={asset.info.title} logoUrl={asset.info.logoURL} analyticsUrl={asset.info.analyticURL} />
       <StatsBlock
         averageLotsFdv={stats.averageFdv}
         lotSellCount={stats.lotSellCount}

@@ -1,18 +1,10 @@
 import { RuntimeError } from '@ddd/errors';
-import {
-  RpcClient,
-  RpcError,
-  RpcRequestInterceptorCallback,
-  RpcResponseInterceptorCallback,
-} from '@packages/berish-rpc-client';
+import { RpcClient, RpcError, RpcRequestInterceptorCallback, RpcResponseInterceptorCallback } from '@packages/berish-rpc-client';
 import { RpcApiSchema, RpcSchemaClient } from '@packages/berish-rpc-client-schema';
 
 import { RpcClientErrorTrigger } from './RpcClientErrorTrigger';
 
-export interface RpcSchemaClientCommonOptions<
-  ClientMeta extends Record<string, any>,
-  ServerMeta extends Record<string, any>,
-> {
+export interface RpcSchemaClientCommonOptions<ClientMeta extends Record<string, any>, ServerMeta extends Record<string, any>> {
   /** Default true */
   includeRuntimeErrorInterceptor?: boolean;
   globalErrorTriggers?: RpcClientErrorTrigger[];
@@ -21,11 +13,7 @@ export interface RpcSchemaClientCommonOptions<
   setMeta?: (meta: ServerMeta) => any;
 }
 
-export class RpcSchemaClientCommon<
-  Schema extends RpcApiSchema,
-  ClientMeta extends Record<string, any>,
-  ServerMeta extends Record<string, any>,
-> extends RpcSchemaClient<Schema, ClientMeta> {
+export class RpcSchemaClientCommon<Schema extends RpcApiSchema, ClientMeta extends Record<string, any>, ServerMeta extends Record<string, any>> extends RpcSchemaClient<Schema, ClientMeta> {
   readonly options: RpcSchemaClientCommonOptions<ClientMeta, ServerMeta>;
 
   constructor(client: RpcClient, options: RpcSchemaClientCommonOptions<ClientMeta, ServerMeta>) {

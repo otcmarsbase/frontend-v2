@@ -9,12 +9,10 @@ export function backendApiService() {
     backend: { apiGatewayUrl },
   } = AppConfig;
 
-  // const { authLocalStore } = rootStore;
-
   return createService(BackendApiService, {
     serviceName: 'backend-api-service',
     debug,
-    onError: (reason) => console.log(reason),
+    onError: (reason) => console.error(reason),
 
     baseURL: apiGatewayUrl,
     getMeta: async () => {

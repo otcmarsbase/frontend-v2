@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 
 import { AssetIconButton } from '@app/components';
-import { SimpleGrid, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { SimpleGrid } from '@chakra-ui/react';
+import { Resource } from '@schema/desk-gateway';
 
 export interface LotAssetFilterProps {
   assets: Resource.Asset.Asset[];

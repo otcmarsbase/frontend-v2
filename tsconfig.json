@@ -53,7 +53,7 @@
       "@ddd/errors": ["./src/shared/ddd-errors"],
       "@schema/common": ["./src/shared/schema/common/src"],
       "@schema/errors": ["./src/shared/schema/errors/src"],
-      "@schema/otc-desk-gateway": ["./src/shared/schema/otc-desk-gateway/src"],
+      "@schema/desk-gateway": ["./src/shared/schema/desk-gateway/src"],
       "@shared/ui-icons": ["./src/shared/ui-icons"],
       "@shared/ui-kit": ["./src/shared/ui-kit"]
     }

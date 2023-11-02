@@ -1,6 +1,6 @@
 // import { faker } from '@faker-js/faker';
 // import { RpcApiMethodName, RpcApiPayload, RpcApiResult } from '@packages/berish-rpc-client-schema';
-// import { RPC, Resource } from '@schema/otc-desk-gateway';
+// import { RPC, Resource } from '@schema/desk-gateway';
 
 // import { createAsset, createBid, createLot } from './_fakers';
 

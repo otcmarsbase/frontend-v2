@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Circle, Heading, HStack, VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { DealBlockTypeDictionary, TradeProgressStatusDictionary, TradeValidationStatusDictionary } from './const';
 

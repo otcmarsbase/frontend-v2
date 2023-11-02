@@ -4,7 +4,7 @@ import { LotCard, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface SimilarLotsBlockProps {
   lot: Resource.Lot.Lot;
@@ -22,9 +22,9 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   }, [rpcSchema]);
 
   const loadLots = useCallback(async () => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: [(lot.assetPK as Resource.Asset.AssetKey).id] });
+    const lots = await rpcSchema.send('lot.listActive', { assets: [lot.attributes.INVEST_DOC_ASSET_PK] });
     setLots(lots.items.filter((item) => item.id !== lot.id));
-  }, [lot.assetPK, lot.id, rpcSchema]);
+  }, [lot.attributes.INVEST_DOC_ASSET_PK, lot.id, rpcSchema]);
 
   useEffect(() => {
     loadAssets();
@@ -55,9 +55,10 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
       <SimpleGrid columns={4} gap="0.75rem" w="full">
         {lots.map((lot) => (
           <LotCard
+            key={lot.id}
             minimalView
             lot={lot}
-            asset={assets.find((asset) => asset.id === (lot.assetPK as Resource.Asset.AssetKey).id)}
+            asset={assets.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />
         ))}

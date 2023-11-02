@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
+import { resolveTradeDirection } from '@app/utils';
 import { Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { TradeDirectionBackgroundColorMap, TradeDirectionColorMap, TradeDirectionTitleMap } from './const';
 
@@ -9,12 +10,21 @@ export interface TradeDirectionTextProps extends Omit<TextProps, 'invert'> {
   value: Resource.Common.Enums.TradeDirection;
   variant?: 'leaf' | 'ghost';
   invert?: boolean;
+  reverse?: boolean;
 }
 
-export function TradeDirectionText({ value, variant = 'leaf', invert, ...textProps }: TradeDirectionTextProps) {
-  const backgroundColor = useMemo(() => TradeDirectionBackgroundColorMap.get(value), [value]);
-  const color = useMemo(() => TradeDirectionColorMap.get(value), [value]);
-  const title = useMemo(() => TradeDirectionTitleMap.get(value), [value]);
+export function TradeDirectionText({
+  value,
+  variant = 'leaf',
+  invert,
+  reverse,
+  ...textProps
+}: TradeDirectionTextProps) {
+  const innerValue = useMemo(() => resolveTradeDirection(value, reverse), [reverse, value]);
+
+  const backgroundColor = useMemo(() => TradeDirectionBackgroundColorMap.get(innerValue), [innerValue]);
+  const color = useMemo(() => TradeDirectionColorMap.get(innerValue), [innerValue]);
+  const title = useMemo(() => TradeDirectionTitleMap.get(innerValue), [innerValue]);
 
   return (
     <Text

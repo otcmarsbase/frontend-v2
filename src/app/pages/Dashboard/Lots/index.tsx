@@ -5,7 +5,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource, RPC } from '@schema/desk-gateway';
 import { Empty, List, Pagination, useLoadingCallback } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
@@ -47,9 +47,11 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
       const { items, total } = await rpcSchema.send('lot.listMy', fetchPayload);
       const assets: Resource.Asset.Asset[] = [];
 
-      for (const { assetPK } of items) {
-        const asset = await rpcSchema.send('asset.getById', assetPK as Resource.Asset.AssetKey);
-        assets.push(asset);
+      for (const { attributes } of items) {
+        if (attributes.INVEST_DOC_ASSET_PK) {
+          const asset = await rpcSchema.send('asset.getById', { id: attributes.INVEST_DOC_ASSET_PK });
+          assets.push(asset);
+        }
       }
 
       setItems(items);
@@ -60,7 +62,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
   );
 
   const findAsset = useCallback(
-    (assetPK: Resource.Asset.AssetKey) => assets.find((asset) => asset.id === assetPK.id),
+    (assetId: Resource.Asset.AssetKey['id']) => assets.find((asset) => asset.id === assetId),
     [assets],
   );
 
@@ -92,7 +94,7 @@ export const Lots: React.FC<LotsProps> = ({ filters }) => {
         itemRender={(item) => (
           <LotRow
             lot={item}
-            asset={findAsset(item.assetPK as Resource.Asset.AssetKey)}
+            asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

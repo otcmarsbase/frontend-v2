@@ -25,6 +25,7 @@ export const InvestDocRoundStepInputs = LotCreateSchema.pick([
   'INVEST_DOC_ROUND_SUMMARY',
   'INVEST_DOC_ROUND_TYPE',
   'INVEST_DOC_ROUND_UNITS',
+  'INVEST_DOC_ROUND_SHARE',
   'TOKEN_LOCKUP_PERIOD',
   'TOKEN_TGE',
   'TOKEN_VESTING_PERIOD',
@@ -35,6 +36,7 @@ export const InvestDocPriceStepInputs = LotCreateSchema.pick([
   'COMMON_SUMMARY',
   'COMMON_UNITS',
   'INVEST_DOC_FDV',
+  'INVEST_DOC_SHARE',
   'COMMON_MIN_FILTER_UNITS',
   'COMMON_MIN_FILTER_SUMMARY',
 ]);

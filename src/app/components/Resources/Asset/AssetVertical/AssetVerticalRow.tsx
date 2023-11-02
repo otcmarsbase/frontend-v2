@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { HStack, StackProps, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { AssetVerticalIcon } from './AssetVerticalIcon';
 import { AssetVerticalTitle } from './const';

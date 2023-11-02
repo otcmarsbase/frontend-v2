@@ -20,25 +20,7 @@ export const TokenLockupPeriodInput: FC<BaseInputProps> = () => {
       w="full"
     >
       <FormControl isInvalid={!isValid}>
-        <Controller
-          name={NAME}
-          render={(props) => (
-            <InputGroup>
-              <UIKit.InputNumber
-                {...props.field}
-                onChange={(value) => {
-                  props.field.onChange(value);
-                }}
-                placeholder="Enter value"
-              />
-              <InputRightElement>
-                <Text color="orange.500" fontSize="sm">
-                  months
-                </Text>
-              </InputRightElement>
-            </InputGroup>
-          )}
-        />
+        <Controller name={NAME} render={(props) => <UIKit.Input {...props.field} placeholder="Enter value" />} />
         {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       </FormControl>
     </FormElement>

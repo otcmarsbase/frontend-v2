@@ -1,9 +1,11 @@
 import { UIDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
 export const getContractSize = (lot: Resource.Lot.Lot) => {
   const { multiplicator } = UIDictionary.LotMultiplicatorDictionary.get(lot.type);
+
+  if (!lot.attributes.COMMON_UNITS) return null;
 
   return new Decimal(lot.attributes.COMMON_UNITS).div(multiplicator).toString();
 };

@@ -1,172 +1,56 @@
-import { UILogic } from '@app/components';
-import { Text, VStack } from '@chakra-ui/react';
-import { UIKit, useIsRequired } from '@shared/ui-kit';
+import { useCallback } from 'react';
+
+import { VStack } from '@chakra-ui/react';
+import { useIsRequired } from '@shared/ui-kit';
 
 import { StepReview, StepReviewField } from './_atoms';
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';
-import { PricingModelType } from './form/CommonPricingModelInput/const';
+import * as Fields from './review';
 import { LotCreateModel, LotCreateSchema } from './schema';
 
 export interface StepsReviewDescriptorProps {
-  isRequired: (key: keyof LotCreateModel) => boolean;
-  pricingModel: PricingModelType;
+  values: LotCreateModel;
 }
 
-export const getStepsReviewDescriptor = ({
-  isRequired,
-  pricingModel,
+export const useStepsReviewDescriptor = ({
+  values,
 }: StepsReviewDescriptorProps): Record<
   Exclude<StepDescriptorKey, 'INVEST_DOC_REVIEW'>,
   StepReviewField<LotCreateModel>[]
 > => {
-  const isSummary = pricingModel === 'SUMMARY';
+  const getValues = useCallback(() => values, [values]);
+  const isRequired = useIsRequired(LotCreateSchema, getValues);
 
   return {
     INVEST_DOC_START: [
-      {
-        renderTitle: () => <Text>Trade direction</Text>,
-        renderValue: (model) => <UILogic.TradeDirectionText variant="ghost" value={model.COMMON_DIRECTION} />,
-        isRequired: isRequired('COMMON_DIRECTION'),
-      },
-      {
-        renderTitle: () => <Text>Type of lot</Text>,
-        renderValue: (model) => (
-          <UILogic.LotTypeChip value={model.type} withTokenWarrant={model.SAFE_WITH_TOKEN_WARRANT} />
-        ),
-        isRequired: isRequired('type'),
-      },
-      {
-        renderTitle: () => <Text>With reassign</Text>,
-        renderValue: (model) => <Text color="white">{model.INVEST_DOC_WITH_REASSIGN ? 'Yes' : 'No'}</Text>,
-        isRequired: isRequired('INVEST_DOC_WITH_REASSIGN'),
-      },
+      { ...Fields.CommonDirectionField, isRequired: isRequired('COMMON_DIRECTION') },
+      { ...Fields.TypeField, isRequired: isRequired('type') },
+      { ...Fields.InvestDocWithReassignField },
+      { ...Fields.InvestDocAssetField, isRequired: isRequired('INVEST_DOC_ASSET') },
     ],
     COMMON_PROJECT: [
-      {
-        renderTitle: () => <Text>Type of buyer</Text>,
-        renderValue: (model) => <UILogic.ParticipantTypesText value={model.COMMON_BID_MAKER_TYPES} />,
-        isRequired: isRequired('COMMON_BID_MAKER_TYPES'),
-      },
-      {
-        renderTitle: () => <Text>Is direct buyer</Text>,
-        renderValue: (model) => <Text color="white">{model.COMMON_IS_DIRECT ? 'Yes' : 'No'}</Text>,
-        isRequired: isRequired('COMMON_TELEGRAM'),
-      },
-      {
-        renderTitle: () => <Text>Telegram</Text>,
-        renderValue: (model) => <Text color="white">@{model.COMMON_TELEGRAM}</Text>,
-        isRequired: isRequired('COMMON_TELEGRAM'),
-      },
-      {
-        renderTitle: () => <Text>Type of seller</Text>,
-        renderValue: (model) => {
-          if (model.COMMON_IS_NO_LIMIT) return <Text>No limitations</Text>;
-          return <UILogic.ParticipantTypesText value={model.COMMON_OFFER_MAKER_TYPES} />;
-        },
-        isRequired: isRequired('COMMON_OFFER_MAKER_TYPES'),
-      },
-      {
-        renderTitle: () => <Text>Deadline</Text>,
-        renderValue: (model) =>
-          model.COMMON_IS_PERMANENT ? <Text>No</Text> : <UIKit.DateText value={model.COMMON_DEADLINE} />,
-        isRequired: isRequired('COMMON_DEADLINE'),
-      },
+      { ...Fields.CommonOfferMakerTypesField, isRequired: isRequired('COMMON_OFFER_MAKER_TYPES') },
+      { ...Fields.CommonTelegram, isRequired: isRequired('COMMON_TELEGRAM') },
+      { ...Fields.CommonBidMakerTypesField, isRequired: isRequired('COMMON_BID_MAKER_TYPES') },
+      { ...Fields.CommonDeadlineField, isRequired: isRequired('COMMON_DEADLINE') },
     ],
     INVEST_DOC_ROUND: [
-      {
-        renderTitle: () => <Text>Investment round</Text>,
-        renderValue: (model) => {
-          return <UILogic.InvestmentRoundBadge value={model.INVEST_DOC_ROUND_TYPE} />;
-        },
-        isRequired: isRequired('INVEST_DOC_ROUND_TYPE'),
-      },
-      {
-        renderTitle: () => <Text>Round FDV</Text>,
-        renderValue: (model) => {
-          return <UIKit.MoneyText value={model.INVEST_DOC_ROUND_FDV} addon="$" />;
-        },
-        isRequired: isRequired('INVEST_DOC_ROUND_FDV'),
-      },
-      {
-        renderTitle: () => <Text>Contract value</Text>,
-        renderValue: (model) => {
-          return <UIKit.MoneyText value={model.INVEST_DOC_ROUND_SUMMARY} addon="$" />;
-        },
-        isRequired: isRequired('INVEST_DOC_ROUND_SUMMARY'),
-      },
-      {
-        renderTitle: () => <Text>Estimated TGE Date</Text>,
-        renderValue: (model) => {
-          return model.TOKEN_TGE_IS_TBD ? (
-            <Text>TBD</Text>
-          ) : typeof model.TOKEN_TGE === 'number' ? (
-            <UIKit.DateText value={model.TOKEN_TGE} />
-          ) : (
-            <Text>No</Text>
-          );
-        },
-        isRequired: isRequired('TOKEN_TGE'),
-      },
-      {
-        renderTitle: () => <Text>Lockup period</Text>,
-        renderValue: (model) => {
-          return <Text>{model.TOKEN_LOCKUP_PERIOD ? `${model.TOKEN_LOCKUP_PERIOD} months` : '-'}</Text>;
-        },
-        isRequired: isRequired('TOKEN_LOCKUP_PERIOD'),
-      },
-      {
-        renderTitle: () => <Text>Vesting period</Text>,
-        renderValue: (model) => {
-          return <Text>{model.TOKEN_VESTING_PERIOD ? `${model.TOKEN_VESTING_PERIOD} months` : '-'}</Text>;
-        },
-        isRequired: isRequired('TOKEN_VESTING_PERIOD'),
-      },
-      {
-        renderTitle: () => <Text>Tokens bought</Text>,
-        renderValue: (model) => {
-          return <UIKit.MoneyText value={model.INVEST_DOC_ROUND_UNITS} />;
-        },
-        isRequired: isRequired('INVEST_DOC_ROUND_UNITS'),
-      },
-      {
-        renderTitle: () => <Text>Price per token</Text>,
-        renderValue: (model) => {
-          return <UIKit.MoneyText value={model.INVEST_DOC_ROUND_PRICE} addon="$" />;
-        },
-        isRequired: isRequired('INVEST_DOC_ROUND_PRICE'),
-      },
-    ],
+      { ...Fields.InvestDocRoundTypeField, isRequired: isRequired('INVEST_DOC_ROUND_TYPE') },
+      { ...Fields.InvestDocRoundFdvField, isRequired: isRequired('INVEST_DOC_ROUND_FDV') },
+      { ...Fields.InvestDocRoundSummaryField, isRequired: isRequired('INVEST_DOC_ROUND_SUMMARY') },
+      values.type !== 'SAFE' && { ...Fields.TokenTgeField, isRequired: isRequired('TOKEN_TGE') },
+      values.type !== 'SAFE' && { ...Fields.TokenLockupPeriodField, isRequired: isRequired('TOKEN_LOCKUP_PERIOD') },
+      values.type !== 'SAFE' && { ...Fields.TokenVestingPeriodField, isRequired: isRequired('TOKEN_VESTING_PERIOD') },
+      { ...Fields.InvestDocRoundUnitsField, isRequired: isRequired('INVEST_DOC_ROUND_UNITS') },
+      { ...Fields.InvestDocRoundPriceField, isRequired: isRequired('INVEST_DOC_ROUND_PRICE') },
+    ].filter(Boolean),
     INVEST_DOC_PRICE: [
-      {
-        renderTitle: () => <Text>{isSummary ? 'Contract size to offer' : 'Equity to offer'}</Text>,
-        renderValue: (model) => {
-          if (isSummary) return <UIKit.MoneyText value={model.COMMON_SUMMARY} addon="$" />;
-          return <UIKit.MoneyText value={model.COMMON_UNITS} addon="%" />;
-        },
-        isRequired: isRequired('COMMON_SUMMARY') || isRequired('COMMON_UNITS'),
-      },
-      {
-        renderTitle: () => <Text>{isSummary ? 'Minimum deal size' : 'Minimum equity bid'}</Text>,
-        renderValue: (model) => {
-          if (isSummary) return <UIKit.MoneyText value={model.COMMON_MIN_FILTER_SUMMARY} addon="$" />;
-          return <UIKit.MoneyText value={model.COMMON_MIN_FILTER_UNITS} addon="%" />;
-        },
-        isRequired: isRequired('COMMON_MIN_FILTER_SUMMARY') || isRequired('COMMON_MIN_FILTER_UNITS'),
-      },
-      {
-        renderTitle: () => <Text>Target FDV</Text>,
-        renderValue: (model) => {
-          return <UIKit.MoneyText value={model.INVEST_DOC_FDV} addon="$" />;
-        },
-        isRequired: isRequired('INVEST_DOC_FDV'),
-      },
-      // {
-      //   renderTitle: () => <Text>Price per 0,01% equity</Text>,
-      //   renderValue: (model) => {
-      //     return <UIKit.MoneyText value={model.COMMON_PRICE} addon="$" />;
-      //   },
-      //   isRequired: isRequired('COMMON_PRICE'),
-      // },
+      { ...Fields.CommonSummaryField, isRequired: isRequired('COMMON_SUMMARY') },
+      { ...Fields.CommonUnitsField, isRequired: isRequired('COMMON_UNITS') },
+      { ...Fields.CommonMinFilterSummaryField, isRequired: isRequired('COMMON_MIN_FILTER_SUMMARY') },
+      { ...Fields.CommonMinFilterUnitsField, isRequired: isRequired('COMMON_MIN_FILTER_UNITS') },
+      { ...Fields.InvestDocFdvField, isRequired: isRequired('INVEST_DOC_FDV') },
+      { ...Fields.CommonPriceField, isRequired: isRequired('COMMON_PRICE') },
     ],
   };
 };
@@ -176,17 +60,12 @@ export interface LotReviewProps {
 }
 
 export const LotReview: React.FC<LotReviewProps> = ({ values }) => {
-  console.log({ values });
-  const isRequired = (name: keyof LotCreateModel) => {
-    return (LotCreateSchema.fields[name] as any).spec?.optional;
-  };
-
   const steps: StepDescriptorKey[] =
     values.COMMON_DIRECTION === 'BUY'
       ? ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_PRICE']
       : ['INVEST_DOC_START', 'COMMON_PROJECT', 'INVEST_DOC_ROUND', 'INVEST_DOC_PRICE'];
 
-  const stepsDescriptors = getStepsReviewDescriptor({ isRequired, pricingModel: values.COMMON_PRICING_MODEL });
+  const stepsDescriptors = useStepsReviewDescriptor({ values });
 
   return (
     <VStack w="full" alignItems="start" gap="1.5rem">

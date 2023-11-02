@@ -1,23 +1,54 @@
-import { UILogic } from '@app/components';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
+import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
 import { BidRowFieldNameTitleMap } from './const';
 
 export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   bid: Resource.Bid.Bid;
-  asset: Resource.Asset.Asset;
   onClick: () => any;
 }
 
-export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackProps }) => {
+export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) => {
   const router = useRouter();
+  const rpcSchema = useRpcSchemaClient();
+  const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [lot, setLot] = useState<Resource.Lot.Lot>();
+  const [deal, setDeal] = useState<Resource.Deal.Deal>();
+
+  const fetchAssotiations = useLoadingCallback(
+    useCallback(async () => {
+      const _asset = await rpcSchema.send('asset.getById', { id: bid.assetKey.id });
+      const _lot = await rpcSchema.send('lot.getById', { id: bid.lotKey.id });
+
+      setAsset(_asset);
+      setLot(_lot);
+
+      if (bid.dealKey) {
+        const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
+        setDeal(_deal);
+      }
+    }, [rpcSchema, bid]),
+    true,
+  );
+
+  useEffect(() => {
+    fetchAssotiations();
+  }, [fetchAssotiations]);
+
+  if (fetchAssotiations.isLoading) return <BidRowSkeleton />;
+
+  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     // {
@@ -30,15 +61,25 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_FDV'),
-      value: <UIKit.MoneyText value={bid.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
+      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated addon="$" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_SIZE'),
-      value: <UIKit.MoneyText value={bid.contractSize.unitQuantity.value} addon="%" />,
+      value: (
+        <UIKit.MoneyText
+          value={new Decimal(bid.units.value).div(multiplicator).toString()}
+          addon={LotUnitAddonDictionary.get(lot.type)}
+          abbreviated
+        />
+      ),
+    },
+    {
+      label: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
+      value: <UIKit.MoneyText value={bid.summary.value} addon="$" format="0,0.X" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
-      value: <UILogic.AccountAvatar nickname={bid.bidMaker.nickname} />,
+      value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
     },
     {
       label: BidRowFieldNameTitleMap.get('DIRECT_SELLER'),
@@ -72,7 +113,13 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
       onClick={onClick}
       {...stackProps}
     >
-      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
+      <UILogic.TradeDirectionText
+        position="absolute"
+        top="0"
+        left="0"
+        value={lot.attributes.COMMON_DIRECTION}
+        reverse
+      />
       <VStack gap="1rem" marginTop="1rem" alignItems="start">
         <HStack gap="0.7rem">
           <Text color="dark.200">#{bid.id}</Text>
@@ -84,7 +131,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
             asset={asset}
           />
         </HStack>
-        <UILogic.BidStatus value={bid.status} />
+        {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
       </VStack>
       <HStack>
         <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">
@@ -97,7 +144,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
               marginRight="8rem"
               pb="0.75rem"
               __css={{
-                [`:nth-last-child(-n+3)`]: {
+                [`:nth-last-child(-n+4)`]: {
                   marginRight: 'none',
                   borderColor: 'transparent',
                 },
@@ -115,7 +162,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
         {
           // TODO fix stopPropagate on row clicking
         }
-        <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
+        {/* <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
           <UIIcons.Common.KebabMenuIcon
             position="absolute"
             top="1.5rem"
@@ -129,7 +176,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, asset, onClick, ...stackPro
               e.stopPropagation();
             }}
           />
-        </UIKit.Dropdown>
+        </UIKit.Dropdown> */}
       </HStack>
     </HStack>
   );

@@ -1,5 +1,5 @@
 import { createDictionary } from '@app/dictionary';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { NumberInputDescriptor } from '../types';
 
@@ -18,10 +18,10 @@ export const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType,
       tooltip: 'The price of the token',
     },
     TOKEN_WARRANT: {
-      label: 'Price per 0,01% equity',
+      label: 'Price per 0,01% tokens',
       placeholder: 'Amount',
       rightElementText: '$',
-      tooltip: 'The price per 0,01% of equity.',
+      tooltip: 'The price per 0,01% of tokens.',
     },
   })
   .asReadonly();

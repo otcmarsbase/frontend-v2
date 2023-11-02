@@ -1,4 +1,4 @@
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { Property } from 'csstype';
 
 export const LotTypeTitleMap = new Map<Resource.Lot.Enums.LotType, React.ReactNode>([

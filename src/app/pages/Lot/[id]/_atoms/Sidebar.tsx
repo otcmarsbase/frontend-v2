@@ -3,20 +3,34 @@ import { MBPages } from '@app/pages';
 import LINQ from '@berish/linq';
 import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
 
 import { SidebarBlock } from './SidebarBlock';
 
 interface SidebarProps {
-  asset: Resource.Asset.Asset;
-  analyticsLink?: string;
+  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
   const router = useRouter();
-  const groupedByGroupLinks = new Map(LINQ.from(asset.info.links).groupBy((link) => link.group));
+  const isAssetCreateRequest = 'title' in asset;
+
+  const groupedByGroupLinks = new Map(
+    LINQ.from(
+      isAssetCreateRequest
+        ? ([
+            {
+              type: 'SITE',
+              group: 'OFFICIAL',
+              title: 'Site',
+              url: asset.website,
+            },
+          ] as Resource.Asset.ValueObjects.AssetLink[])
+        : asset.info.links,
+    ).groupBy((link) => link.group),
+  );
 
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
   const socialLinks = groupedByGroupLinks.get('SOCIAL');
@@ -36,39 +50,45 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
           <HStack gap="2.12rem">
             <HStack
               gap="1.5rem"
-              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-              cursor="pointer"
+              onClick={
+                !isAssetCreateRequest
+                  ? () => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})
+                  : undefined
+              }
+              cursor={isAssetCreateRequest ? 'initial' : 'pointer'}
               _hover={{
-                textDecoration: 'underline',
+                textDecoration: isAssetCreateRequest ? 'initial' : 'underline',
               }}
             >
-              <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />
+              {!isAssetCreateRequest && <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />}
               <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
-                {asset.info.title}
+                {isAssetCreateRequest ? asset.title : asset.info.title}
               </Heading>
             </HStack>
-            <Link href={analyticsLink}>
-              <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
-                <Text fontWeight="800" whiteSpace="nowrap">
+            {!isAssetCreateRequest && asset.info.analyticURL && (
+              <Link href={asset.info.analyticURL} target="_blank">
+                <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
                   Get analytics
-                </Text>
-              </Button>
-            </Link>
+                </Button>
+              </Link>
+            )}
           </HStack>
         </HStack>
-        <SidebarBlock
-          title="Description"
-          children={
-            <ExpandableText noOfLines={3} gap="0.75rem">
-              {asset.info.description}
-            </ExpandableText>
-          }
-        />
+        {!isAssetCreateRequest && (
+          <SidebarBlock
+            title="Description"
+            children={
+              <ExpandableText noOfLines={3} gap="0.75rem">
+                {asset.info.description}
+              </ExpandableText>
+            }
+          />
+        )}
         {officialLinks && (
           <SidebarBlock
             title="Official links"
-            children={officialLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={officialLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
@@ -77,8 +97,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         {socialLinks && (
           <SidebarBlock
             title="Social media"
-            children={socialLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={socialLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
@@ -87,19 +107,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset, analyticsLink = '#' }) 
         {otherLinks && (
           <SidebarBlock
             title="Other links"
-            children={otherLinks.map((props) => (
-              <AssetLink type={props.type} url={props.url}>
+            children={otherLinks.map((props, index) => (
+              <AssetLink key={index} type={props.type} url={props.url}>
                 {props.title}
               </AssetLink>
             ))}
           />
         )}
-        <SidebarBlock
-          title="Vertical"
-          children={asset.info.verticals.map((type) => (
-            <AssetVerticalRow value={type} />
-          ))}
-        />
+        {!isAssetCreateRequest && (
+          <SidebarBlock
+            title="Vertical"
+            children={asset.info.verticals.map((type) => (
+              <AssetVerticalRow key={type} value={type} />
+            ))}
+          />
+        )}
       </VStack>
     </GridItem>
   );

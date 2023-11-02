@@ -1,13 +1,14 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { UILogic, UIModals, useRpcSchemaClient } from '@app/components';
+import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, SkeletonLoader, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { range } from 'lodash';
 
 import { BidItem } from './BidItem';
 
@@ -32,7 +33,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
     };
   }, [paginationOptions.pageSize, paginationOptions.page, lot.id]);
 
-  const loadBinds = useLoadingCallback(
+  const loadBids = useLoadingCallback(
     useCallback(async () => {
       const { items, total } = await rpcSchema.send('bid.listByLot', fetchPayload);
       setBids(items);
@@ -40,11 +41,9 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
     }, [rpcSchema, fetchPayload, setTotal]),
   );
 
-  const preload = useLoadingCallback(loadBinds);
-
   useEffect(() => {
-    preload();
-  }, [preload]);
+    loadBids();
+  }, [loadBids]);
 
   const onCreateBidClick = async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
@@ -90,14 +89,26 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
         </HStack>
       </HStack>
       <List
-        emptyText={
-          <Empty createButton={isOfferMaker ? <></> : <Button onClick={onCreateBidClick}>Create bid</Button>} />
-        }
+        emptyText={<Empty description="Unfortunately, you don't have any bids yet. You can create your own bid" />}
         w="full"
         items={bids}
         itemKey={(bid) => bid.id}
-        isLoading={loadBinds.isLoading}
-        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} refreshBids={loadBinds} />}
+        isLoading={loadBids.isLoading}
+        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} lot={lot} refreshBids={loadBids} />}
+        loader={({ isLoading, children }) => (
+          <SkeletonLoader
+            skeleton={
+              <VStack alignItems="start" w="full">
+                {range(0, 3).map((key) => (
+                  <LotBidSkeleton key={key} />
+                ))}
+              </VStack>
+            }
+            isLoading={isLoading}
+          >
+            {children}
+          </SkeletonLoader>
+        )}
         footer={
           !isEmpty && (
             <Pagination
