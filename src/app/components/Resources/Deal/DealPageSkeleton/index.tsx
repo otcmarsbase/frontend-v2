@@ -8,7 +8,6 @@ import { TradeDirectionText } from '../../Common';
 export const DealPageSkeleton = () => {
   return (
     <VStack w="full" alignItems="start">
-      <UIKit.BackButton mb="0.75rem">Back to Dashboard</UIKit.BackButton>
       <HStack w="full" gap="2rem" alignItems="start">
         <VStack flex="1.5" alignItems="start" gap="1.5rem">
           <Box padding="3rem 1.25rem" position="relative" bg="dark.900" w="full" borderRadius="sm">

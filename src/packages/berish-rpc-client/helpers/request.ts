@@ -5,7 +5,6 @@ export function request<Result>(
   params?: Record<string, any>,
   meta?: Record<string, any>,
 ): RpcRequest<any, Result> {
-  console.log('request ' + method, meta);
   return {
     method,
     params,

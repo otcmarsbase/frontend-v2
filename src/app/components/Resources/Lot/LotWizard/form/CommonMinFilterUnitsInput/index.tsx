@@ -1,5 +1,8 @@
 import { FC, useMemo } from 'react';
 
+import { useLotMultiplicatorValue } from '@app/hooks';
+
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -13,5 +16,15 @@ export const CommonMinFilterUnitsInput: FC<BaseInputProps> = () => {
   const type = watch('type');
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
 
-  return <FormControlNumberInput name={NAME} {...descriptor} />;
+  const { serializeValue, deserializeValue } = useLotMultiplicatorValue(type);
+
+  return (
+    <FormControlNumberInput
+      name={NAME}
+      {...descriptor}
+      serializeValue={serializeValue}
+      deserializeValue={deserializeValue}
+      {...formatNumberProps()}
+    />
+  );
 };

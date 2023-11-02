@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
 
-import { AssetVerticalIcon, LotHotChip, UILogic } from '@app/components';
+import { AssetVerticalIcon, LotHotChip, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
-import { formatDate, getMinimumDealSize } from '@app/utils';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -24,24 +23,13 @@ export interface LotCardProps {
 
 export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
   const router = useRouter();
+  const { account } = useAuth();
+  const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const availableSum = new Decimal(lot.available.stablecoinQuantity.value).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.reserved.stablecoinQuantity.value)
-    .add(lot.executed.stablecoinQuantity.value)
-    .add(availableSum)
-    .toDecimalPlaces(2)
-    .toNumber();
+  const availableSum = new Decimal(lot.available?.value || 0).toDecimalPlaces(2).toNumber();
+  const totalSum = new Decimal(lot.total?.value || 0).toDecimalPlaces(2).toNumber();
 
   const fields: FieldType[] = useMemo(() => {
-    // const unitSizeFilter = lot.filters.find(
-    //   (lotFilter) => lotFilter.type === 'UNIT_SIZE_FILTER',
-    // ) as Resource.Lot.LotUnitSizeFilter;
-
-    // const minSizeDea = new Decimal(unitSizeFilter?.min_size || 0)
-    //   .mul(lot.valuation_info.price)
-    //   .toDecimalPlaces(2)
-    //   .toString();
-
     if (lot.status !== 'ACTIVE') return [];
 
     return [
@@ -49,7 +37,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'FDV',
         value: (
           <UIKit.MoneyText
-            value={lot.contractSize.contractShare.fdv.value || 0}
+            value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
             addon={
               <Text as="span" color="dark.50">
@@ -63,13 +51,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
-            value={getMinimumDealSize(lot)}
             abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
+            value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+            addon={<Text color="dark.50">$</Text>}
           />
         ),
       },
@@ -79,7 +63,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       },
       {
         name: 'Lot Deadline',
-        value: <Text>{lot.deadline ? formatDate(lot.deadline, 'ONLY_DATE') : '-'}</Text>,
+        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} format="ONLY_DATE" />,
       },
       {
         name: 'Vertical',
@@ -112,12 +96,18 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       }}
     >
       <Box flexShrink="0" mb="0.75rem">
-        <UILogic.TradeDirectionText invert value={lot.direction} position="absolute" top="0" right="0" />
+        <UILogic.TradeDirectionText
+          invert
+          value={lot.attributes.COMMON_DIRECTION}
+          position="absolute"
+          top="0"
+          right="0"
+        />
         <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
             #{lot.id}
           </Text>
-          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.withTokenWarrant} />
+          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
           {lot.isHot && <LotHotChip />}
         </HStack>
         {asset && (
@@ -163,7 +153,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       {!minimalView && (
         <UILogic.AuthAction>
           <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
-            Place bid
+            {isOfferMaker ? 'View my lot' : 'Place bid'}
           </Button>
         </UILogic.AuthAction>
       )}

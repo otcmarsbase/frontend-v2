@@ -1,12 +1,13 @@
 import { FC, useCallback } from 'react';
 
-import { AssetName, DealStatus, TradeDirectionText } from '@app/components';
+import { AssetName, DealStatus, TradeDirectionText, useAuth } from '@app/components';
 import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Button, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
+import { CopyButton } from '@shared/ui-kit';
 
 interface FieldProps {
   label: string;
@@ -32,10 +33,7 @@ export interface BaseDealInfoProps {
 
 export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
   const router = useRouter();
-
-  const copyID = useCallback(() => {
-    console.log('copyToClipboard', deal?.id);
-  }, [deal]);
+  const { account } = useAuth();
 
   const pushToLot = useCallback(() => {
     router.navigateComponent(pages.Lot.__id__, { id: lot?.id }, {});
@@ -55,7 +53,13 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
       position="relative"
       gap="1.5rem"
     >
-      <TradeDirectionText position="absolute" left="0" top="0" value={lot?.direction} />
+      <TradeDirectionText
+        position="absolute"
+        left="0"
+        top="0"
+        value={lot?.attributes.COMMON_DIRECTION}
+        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+      />
       <VStack alignItems="start">
         <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />
         <Button p="0" onClick={pushToLot} variant="ghost" color="dark.50" rightIcon={<UIIcons.Common.ArrowUp />}>
@@ -66,11 +70,11 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
         <Field
           label="Deal ID"
           value={
-            <HStack onClick={copyID}>
+            <HStack>
               <Text fontSize="sm" fontWeight="500">
                 {deal?.id}
               </Text>
-              <UIIcons.Common.CopyIcon w="1rem" h="1rem" />
+              <CopyButton value={deal.id.toString()} />
             </HStack>
           }
         />

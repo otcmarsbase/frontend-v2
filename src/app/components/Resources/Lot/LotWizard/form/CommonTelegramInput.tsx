@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { Input } from '@chakra-ui/react';
-import { FormControl, FormElement, FormErrorMessage } from '@shared/ui-kit';
+import { FormControl, FormElement, FormErrorMessage, UIKit } from '@shared/ui-kit';
 
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
@@ -15,7 +14,7 @@ export const CommonTelegramInput: FC<BaseInputProps> = () => {
   return (
     <FormElement label="Telegram" info="Please provide your Telegram account" isRequired={isRequired} w="full">
       <FormControl isInvalid={!isValid}>
-        <Controller name={NAME} render={({ field }) => <Input {...field} placeholder="@nickname" />} />
+        <Controller name={NAME} render={({ field }) => <UIKit.InputTelegram {...field} placeholder="@nickname" />} />
         {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
       </FormControl>
     </FormElement>

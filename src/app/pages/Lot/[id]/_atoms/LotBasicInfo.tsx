@@ -1,11 +1,10 @@
-import { FC, useState } from 'react';
-import { useCopyToClipboard } from 'react-use';
+import { FC } from 'react';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
 import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Countdown, Tooltip, SuggestionIcon } from '@shared/ui-kit';
+import { Countdown, Tooltip, SuggestionIcon, CopyButton } from '@shared/ui-kit';
 
 interface InfoElementProps {
   label: string;
@@ -32,15 +31,7 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) =
 const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600" />;
 
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
-  const { id, direction, type, deadline } = lot;
-
-  const [, copyToClipboard] = useCopyToClipboard();
-  const [tooltipIsOpen, setTooltipIsOpen] = useState(false);
-
-  const copy = () => {
-    copyToClipboard(id.toString());
-    setTooltipIsOpen(true);
-  };
+  const { id, attributes, type } = lot;
 
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
@@ -50,39 +41,26 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
             <Text fontSize="sm" fontWeight="500">
               {id}
             </Text>
-            <Box onClick={copy}>
-              <Tooltip
-                hasArrow
-                closeOnPointerDown
-                isOpen={tooltipIsOpen}
-                onClose={() => setTooltipIsOpen(false)}
-                closeDelay={500}
-                placement="bottom-start"
-                offset={[-10, 10]}
-                label={<Text fontSize="sm">ID Copied</Text>}
-              >
-                <UIIcons.Common.CopyIcon color="white" />
-              </Tooltip>
-            </Box>
+            <CopyButton value={lot.id.toString()} />
           </HStack>
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Lot">
-          <TradeDirectionText variant="ghost" value={direction} />
+          <TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Type">
-          <LotTypeChip withTokenWarrant={lot.withTokenWarrant} value={type} />
+          <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
         </InfoElement>
       </HStack>
 
-      {deadline && (
+      {attributes.COMMON_DEADLINE && (
         <VStack gap="0.25rem" padding="0 0 0 1.5rem " flex="2" alignItems="flex-end">
           <Text fontSize="sm" color="dark.50">
             Auction ends in:
           </Text>
 
-          <Countdown expiryTimestamp={new Date(deadline)} />
+          <Countdown expiryTimestamp={new Date(attributes.COMMON_DEADLINE)} />
         </VStack>
       )}
     </HStack>

@@ -1,4 +1,4 @@
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export type StartInfoModel = {
   asset: Resource.Asset.Asset | string;

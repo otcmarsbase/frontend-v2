@@ -1,8 +1,13 @@
-import { AccountAvatar, UILogic } from '@app/components';
-import { ParticipantTypeDictionary } from '@app/dictionary';
+import { useCallback, useEffect, useState } from 'react';
+
+import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary, ParticipantTypeDictionary } from '@app/dictionary';
+import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
-import { DateText, MoneyText } from '@shared/ui-kit';
+import { useRouter } from '@packages/router5-react-auto';
+import { Resource } from '@schema/desk-gateway';
+import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
@@ -26,11 +31,42 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 
 export interface BidItemProps {
   bid: Resource.Bid.Bid;
+  lot: Resource.Lot.Lot;
   isOfferMaker: boolean;
   refreshBids: () => Promise<void>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refreshBids }) => {
+  const router = useRouter();
+  const rpcSchema = useRpcSchemaClient();
+  const { account } = useAuth();
+  const [deal, setDeal] = useState<Resource.Deal.Deal>();
+
+  const fetchBid = useLoadingCallback(
+    useCallback(async () => {
+      if (!bid.dealKey) return;
+
+      const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
+
+      setDeal(_deal);
+    }, [rpcSchema, bid]),
+    true,
+  );
+
+  const handleClick = useCallback(() => {
+    if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
+
+    router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
+  }, [bid, router, account, isOfferMaker]);
+
+  useEffect(() => {
+    fetchBid();
+  }, [fetchBid]);
+
+  if (fetchBid.isLoading) return <LotBidSkeleton />;
+
+  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
+
   return (
     <HStack
       w="full"
@@ -46,6 +82,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
       _hover={{
         bg: 'dark.800',
       }}
+      onClick={handleClick}
     >
       <VStack alignItems="start">
         <Text color="dark.200" fontSize="sm">
@@ -60,7 +97,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.contractSize.price.value}
+            value={bid.summary.value}
             addon={<Text color="dark.50">$</Text>}
           />
         </BidItemColumn>
@@ -70,8 +107,12 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.contractSize.unitQuantity.value}
-            addon={<Text color="dark.50">%</Text>}
+            value={new Decimal(bid.units.value).div(multiplicator).toString()}
+            addon={
+              LotUnitAddonDictionary.get(lot.type) && (
+                <Text color="dark.50">{LotUnitAddonDictionary.get(lot.type)}</Text>
+              )
+            }
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">
@@ -89,7 +130,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, isOfferMaker, refreshBids
           {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}
         </BidItemColumn>
         <BidItemColumn type="STATUS">
-          <UILogic.BidStatus value={bid.status} />
+          {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
         </BidItemColumn>
       </SimpleGrid>
       <OfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />

@@ -1,4 +1,4 @@
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
@@ -8,9 +8,6 @@ export interface DealStatusDictionaryInfo {
 
 export const DealStatusDictionary = createDictionary<Resource.Deal.Enums.DealStatus, DealStatusDictionaryInfo>()
   .setFromRecord({
-    PREPARE: {
-      title: 'Prepare',
-    },
     NEGOTIATION: {
       title: 'Negotiation',
     },

@@ -22,6 +22,13 @@ export const Step = (props: StepProps) => {
         textDecoration={isCompleted ? 'line-through' : ''}
         color={isActive ? 'white' : 'dark.300'}
         fontWeight="medium"
+        _hover={
+          canClick && {
+            color: 'white',
+            textDecoration: 'underline',
+            textUnderlineOffset: '0.2rem',
+          }
+        }
       >
         {title}
       </Text>

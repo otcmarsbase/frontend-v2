@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { ResponsiveValue, SimpleGrid } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { motion } from 'framer-motion';
 
 import { LotCard } from '../LotCard';
@@ -16,7 +16,7 @@ export interface LotGripProps {
 
 export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
   const getAsset = useCallback(
-    (lot: Resource.Lot.Lot) => assets.find((m) => m.id === (lot.assetPK as Resource.Asset.AssetKey).id),
+    (lot: Resource.Lot.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
     [assets],
   );
 

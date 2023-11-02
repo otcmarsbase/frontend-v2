@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import { RPC } from '@schema/otc-desk-gateway';
+import { RPC } from '@schema/desk-gateway';
 
 import { RpcSchemaContext } from './RpcSchemaContext';
 

@@ -19,7 +19,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
         </Container>
       </Box>
       <Box width="full" marginTop="auto">
-        <Container size={containerSize}>
+        <Box w="full" px="10rem" margin="0 auto">
           <Footer
             links={[
               <Link href={AppConfig.links.aboutURL} target="_blank">
@@ -43,7 +43,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
             socials={AppConfig.socials}
             copyrightText={`© All Rights Reserved MarsBase, ${new Date().getFullYear()}`}
           />
-        </Container>
+        </Box>
       </Box>
     </VStack>
   );

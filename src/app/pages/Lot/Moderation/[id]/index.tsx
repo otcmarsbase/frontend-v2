@@ -1,41 +1,49 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotWizard, LotWizardProps, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotCreateMappingSchema, UILogic, useRpcSchemaClient } from '@app/components';
+import { useToastOuterCallback } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Box, Button, Center, HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
-import { ConfirmEditModal } from './_atoms';
+import { ConfirmDeleteModal, ConfirmEditModal } from './_atoms';
 
 const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   id = toNumber(id);
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
+  const deleteToastCallback = useToastOuterCallback({
+    showWhenOk: true,
+    showWhenError: false,
+    okText: `Lot with ${id} was success deleted`,
+  });
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
 
   const mappedLot = useMemo(() => {
     if (!lot) return;
 
-    return { id: lot.id, type: lot.type, ...lot.attributes };
+    return LotCreateMappingSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
   }, [lot]);
 
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id });
-      const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+      if (lot.attributes.INVEST_DOC_ASSET_PK) {
+        const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+        setAsset(asset);
+      }
 
       if (lot.status !== 'ON_MODERATION') {
-        return router.navigateComponent(MBPages.Lot.__id__, { id }, {});
+        return router.navigateComponent(MBPages.Lot.__id__, { id }, { replace: true });
       }
 
       setLot(lot);
-      setAsset(asset);
     }, [id, rpcSchema, router]),
   );
 
@@ -45,12 +53,33 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
 
   const handleEditLot = useCallback(async () => {
     const result = await ModalController.create(ConfirmEditModal, { lot });
-    if (result) {
-      // TODO: make lot draft
-    }
-  }, []);
+    if (!result) return;
 
-  if (!mappedLot || !asset || preload.isLoading) return <UIKit.Loader />;
+    const updatedLot = await rpcSchema.send('lot.cancelModeration', { id: lot.id });
+
+    if (updatedLot.status === 'DRAFT') {
+      return router.navigateComponent(MBPages.Lot.Create.__id__, { id: updatedLot['id'] }, { replace: true });
+    } else if (updatedLot.status !== 'ON_MODERATION') {
+      return router.navigateComponent(MBPages.Lot.__id__, { id: updatedLot['id'] }, { replace: true });
+    }
+
+    setLot(updatedLot);
+  }, [lot, rpcSchema, router]);
+
+  const handleDeleteLot = useCallback(() => {
+    deleteToastCallback(async () => {
+      const result = await ModalController.create(ConfirmDeleteModal, { lot });
+      // TODO: remove this, refactor `useToastOuterCallback` for canceling
+      if (!result) throw new Error();
+
+      const archivedLot = await rpcSchema.send('lot.archive', { id: lot.id });
+
+      if (archivedLot['status'] === 'ARCHIVED') return router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+    });
+  }, [deleteToastCallback, lot, rpcSchema, router]);
+
+  if (!mappedLot || (!asset && !lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST) || preload.isLoading)
+    return <UIKit.Loader />;
 
   return (
     <VStack gap="1.5rem" w="full" alignItems="start">
@@ -59,12 +88,14 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         edit or delete a published lot in your personal account.
       </Box>
       <HStack w="full" justifyContent="space-between" bg="dark.900" borderRadius="sm" p="1.25rem 1.5rem">
-        <UILogic.AssetName asset={asset} />
+        <UILogic.AssetName asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <HStack>
           <Button variant="orange" onClick={handleEditLot}>
             Edit
           </Button>
-          <Button variant="darkOutline">Delete</Button>
+          <Button variant="darkOutline" onClick={handleDeleteLot}>
+            Delete
+          </Button>
         </HStack>
       </HStack>
       <UILogic.LotReview values={mappedLot} />

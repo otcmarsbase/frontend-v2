@@ -7,8 +7,7 @@ export function commaSeparatedNumber(number: number | string | Decimal, decimalP
   const result = number.toNumber().toLocaleString('en', {
     minimumFractionDigits: 0,
     maximumFractionDigits: decimalPartLength,
-  });
-  Number(1).toLocaleString();
+  }); 
 
   if (result.split('.')[0].length < 6) {
     return result.replace(',', '');

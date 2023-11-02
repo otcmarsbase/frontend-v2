@@ -1,4 +1,4 @@
-import { Divider, HStack, SimpleGrid, Skeleton, SkeletonCircle, Text, SkeletonText, VStack } from '@chakra-ui/react';
+import { Divider, HStack, SimpleGrid, Skeleton, SkeletonCircle, Text, VStack } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
 import { range } from 'lodash';
 

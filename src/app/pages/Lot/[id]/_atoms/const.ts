@@ -1,7 +1,9 @@
 import { createDictionary } from '@app/dictionary';
 
 export const MainChipFieldType = [
-  'PRICE_PER_EQUITY',
+  'PRICE_TOKEN',
+  'PRICE_EQUITY',
+  'PRICE_UNIT',
   'LOT_FDV',
   'MIN_BID',
   'CONTRACT_SIZE',
@@ -13,7 +15,9 @@ export const MainChipFieldType = [
 export type MainChipFieldType = (typeof MainChipFieldType)[number];
 
 export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, React.ReactNode>([
-  ['PRICE_PER_EQUITY', 'Price 0.01% equity'],
+  ['PRICE_TOKEN', 'Price 0.01% token share'],
+  ['PRICE_EQUITY', 'Price 0.01% equity'],
+  ['PRICE_UNIT', 'Price per token'],
   ['LOT_FDV', 'Lot FDV'],
   ['CONTRACT_SIZE', 'Contract size'],
   ['OWNER', 'Owner'],

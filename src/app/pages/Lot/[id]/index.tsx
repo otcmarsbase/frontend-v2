@@ -3,9 +3,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, Heading, HStack, VStack, Text } from '@chakra-ui/react';
+import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
@@ -35,17 +35,20 @@ export default function Lot({ id }: LotProps) {
   const preload = useLoadingCallback(
     useCallback(async () => {
       const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
-      const asset = await rpcSchema.send('asset.getById', { id: (lot.assetPK as Resource.Asset.AssetKey).id });
+
+      if (lot.attributes.INVEST_DOC_ASSET_PK) {
+        const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+        setAsset(asset);
+      }
 
       switch (lot.status) {
         case 'DRAFT':
-          return router.navigateComponent(MBPages.Lot.Create.__id__, { id: lot.id }, {});
+          return router.navigateComponent(MBPages.Lot.Create.__id__, { id: lot.id }, { replace: true });
         case 'ON_MODERATION':
-          return router.navigateComponent(MBPages.Lot.Moderation.__id__, { id: lot.id }, {});
+          return router.navigateComponent(MBPages.Lot.Moderation.__id__, { id: lot.id }, { replace: true });
       }
 
       setLot(lot);
-      setAsset(asset);
     }, [id, rpcSchema, router]),
   );
 
@@ -53,12 +56,12 @@ export default function Lot({ id }: LotProps) {
     preload();
   }, [preload]);
 
-  const handleEditLot = () => {
-    console.log('handleEditLot');
-  };
-  const handleUnPublishLot = () => {
-    console.log('handleUnpublishLot');
-  };
+  // const handleEditLot = () => {
+  //   console.log('handleEditLot');
+  // };
+  // const handleUnPublishLot = () => {
+  //   console.log('handleUnpublishLot');
+  // };
 
   if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
@@ -78,11 +81,11 @@ export default function Lot({ id }: LotProps) {
         </Text>
       </Button>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
-        <Sidebar asset={asset} />
+        <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>
           <VStack w="full" gap="0.75rem">
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
-              {isOfferMaker ? (
+              {/* {isOfferMaker ? (
                 <HStack
                   bg="dark.900"
                   w="100%"
@@ -104,7 +107,7 @@ export default function Lot({ id }: LotProps) {
                     </Button>
                   </HStack>
                 </HStack>
-              ) : null}
+              ) : null} */}
               <LotBasicInfo lot={lot} />
             </VStack>
             <RoundInfo lot={lot} />

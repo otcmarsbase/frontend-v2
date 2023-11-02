@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import { LotWizardView, StepResolver } from './_atoms';
 import { StepDescriptorsDictionary, StepDescriptorKey } from './const';
-import { LotCreateModel, LotCreateSchema } from './schema';
+import { LotCreateMappingSchema, LotCreateModel, LotCreateSchema } from './schema';
 import { LotWizardStep } from './types';
 import { useDefaultStep } from './useDefaultStep';
 import { useStepSchema } from './useStepSchema';
@@ -24,7 +24,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
   const innerDefaultValues = useMemo(
     () =>
       defaultValues
-        ? LotCreateSchema.cast(defaultValues, { assert: false })
+        ? LotCreateMappingSchema.cast(defaultValues, { assert: false })
         : (LotCreateSchema.getDefault() as unknown as LotCreateModel),
     [defaultValues],
   );
@@ -77,6 +77,12 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
     {},
   );
 
+  const handleSkip = useCallback(() => {
+    if (!nextStep) return;
+
+    setCurrentStep(nextStep);
+  }, [nextStep]);
+
   return (
     <VStack w="full" alignItems="start">
       <HStack w="full" justifyContent="space-between" mb="1.25rem">
@@ -95,6 +101,7 @@ export const LotWizard: React.FC<LotWizardProps> = ({ defaultValues, onSubmit })
               stepDictionary={stepDescriptors}
               currentStep={currentStep}
               onStepChange={setCurrentStep}
+              onSkip={handleSkip}
               stepComponent={<StepResolver stepKey={currentStep} />}
               isLoading={formMethods.formState.isSubmitting}
               isLastStep={!Boolean(nextStep)}

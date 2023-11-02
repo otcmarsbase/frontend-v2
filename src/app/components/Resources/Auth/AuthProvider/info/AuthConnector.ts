@@ -1,12 +1,9 @@
 import { createDictionary } from '@app/dictionary';
-import { AppConfig } from '@shared/config';
 import { WindowProvider } from 'wagmi';
 import { Connector } from 'wagmi/connectors';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
 import metamaskLogo from './assets/metamask.png';
-import walletConnectLogo from './assets/wallet-connect.svg';
 import { AuthChainDictionary } from './AuthChain';
 
 export const AuthConnectorType = ['metamask', 'wallet-connect'] as const;

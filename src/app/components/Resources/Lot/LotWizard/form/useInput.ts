@@ -6,7 +6,7 @@ import { useIsRequired } from '@shared/ui-kit';
 import { LotCreateSchema, LotCreateModel } from '../schema';
 
 export function useInput<T extends FieldPath<LotCreateModel>>(name: T) {
-  const { setValue: rhfSetValue, trigger: rhfTrigger, formState, watch } = useFormContext<LotCreateModel>();
+  const { setValue: rhfSetValue, trigger: rhfTrigger, formState, watch, control } = useFormContext<LotCreateModel>();
 
   const error = useMemo(() => get(formState.errors, name), [formState, name]);
   const isValid = useMemo(() => !error, [error]);
@@ -24,5 +24,5 @@ export function useInput<T extends FieldPath<LotCreateModel>>(name: T) {
 
   const isRequired = useIsRequired(LotCreateSchema)(name);
 
-  return { isRequired, isValid, error, value, setValue, rhfSetValue, trigger, rhfTrigger, formState, watch };
+  return { isRequired, isValid, error, value, setValue, rhfSetValue, trigger, rhfTrigger, formState, control, watch };
 }

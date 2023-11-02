@@ -1,27 +1,54 @@
-import { UILogic } from '@app/components';
+import { useState, useCallback, useEffect } from 'react';
+
+import { DealRowSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Grid, GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
+import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
+import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import Decimal from 'decimal.js';
 
 import { DealRowFieldNameTitleMap } from './const';
 
 export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
   onClick: () => any;
 }
 
-export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stackProps }) => {
+export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }) => {
   const router = useRouter();
+  const rpcSchema = useRpcSchemaClient();
+  const { account } = useAuth();
+
+  const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [lot, setLot] = useState<Resource.Lot.Lot>();
+
+  const fetchAssotiations = useLoadingCallback(
+    useCallback(async () => {
+      const _asset = await rpcSchema.send('asset.getById', { id: deal.assetKey.id });
+      const _lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
+
+      setAsset(_asset);
+      setLot(_lot);
+    }, [rpcSchema, deal]),
+    true,
+  );
+
+  useEffect(() => {
+    fetchAssotiations();
+  }, [fetchAssotiations]);
+
+  if (fetchAssotiations.isLoading) return <DealRowSkeleton />;
+
+  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     {
       label: DealRowFieldNameTitleMap.get('TYPE'),
-      value: <Text>1212</Text>,
+      value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
     },
     {
       label: DealRowFieldNameTitleMap.get('LOT_ID'),
@@ -29,19 +56,25 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_SIZE'),
-      value: <UIKit.MoneyText value={deal.contractSize.unitQuantity.value} abbreviated addon="$" />,
+      value: (
+        <UIKit.MoneyText
+          value={new Decimal(deal.units.value).div(multiplicator).toString()}
+          addon={LotUnitAddonDictionary.get(lot.type)}
+          abbreviated
+        />
+      ),
+    },
+    {
+      label: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
+      value: <UIKit.MoneyText value={deal.summary.value} addon="$" format="0,0.X" abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-      value: <UIKit.MoneyText value={deal.contractSize.contractShare.fdv.value} abbreviated addon="$" />,
+      value: <UIKit.MoneyText value={deal.fdv?.value} abbreviated addon="$" />,
     },
     {
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),
       value: <Text>{formatDate(deal.createdAt, 'DATE_AND_TIME')}</Text>,
-    },
-    {
-      label: DealRowFieldNameTitleMap.get('STATUS'),
-      value: <UILogic.DealStatus value={deal.status} />,
     },
   ];
 
@@ -63,7 +96,13 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
       onClick={onClick}
       {...stackProps}
     >
-      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value="BUY" />
+      <UILogic.TradeDirectionText
+        position="absolute"
+        top="0"
+        left="0"
+        value={lot.attributes.COMMON_DIRECTION}
+        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+      />
       <HStack justifyContent="space-between" w="full">
         <VStack gap="1rem" marginTop="1rem" alignItems="start">
           <HStack gap="0.7rem">
@@ -91,7 +130,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
               </GridItem>
             ))}
           </SimpleGrid>
-          <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
+          {/* <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
             <UIIcons.Common.KebabMenuIcon
               position="absolute"
               top="1.5rem"
@@ -105,7 +144,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, asset, onClick, ...stack
                 e.stopPropagation();
               }}
             />
-          </UIKit.Dropdown>
+          </UIKit.Dropdown> */}
         </HStack>
       </HStack>
     </HStack>

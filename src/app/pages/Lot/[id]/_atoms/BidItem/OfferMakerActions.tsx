@@ -3,7 +3,7 @@ import { FC, useMemo, useState, MouseEvent } from 'react';
 import { useAuth, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { Button, HStack } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface OfferMakerActions {
   bid: Resource.Bid.Bid;
@@ -70,14 +70,20 @@ export const OfferMakerActions: FC<OfferMakerActions> = ({ bid, isOfferMaker, re
       px="1rem"
     >
       {canAccept && (
-        <Button size="xs" onClickCapture={accept} isLoading={acceptIsLoading} isDisabled={rejectIsLoading}>
+        <Button
+          size="xs"
+          variant="orange"
+          onClickCapture={accept}
+          isLoading={acceptIsLoading}
+          isDisabled={rejectIsLoading}
+        >
           Accept
         </Button>
       )}
       {canReject && (
         <Button
           size="xs"
-          variant="outline"
+          variant="darkOutline"
           onClickCapture={reject}
           isLoading={rejectIsLoading}
           isDisabled={acceptIsLoading}

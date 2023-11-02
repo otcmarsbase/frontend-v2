@@ -1,13 +1,13 @@
 import { InvestmentRoundDictionary } from '@app/dictionary';
-import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Text, TextProps } from '@chakra-ui/react';
+import { Resource } from '@schema/desk-gateway';
 
-export interface InvestmentRoundBadgeProps {
-  value: Resource.Common.Enums.InvestRound;
+export interface InvestmentRoundBadgeProps extends TextProps {
+  value?: Resource.Common.Enums.InvestRound;
 }
 
-export const InvestmentRoundBadge: React.FC<InvestmentRoundBadgeProps> = ({ value }) => {
-  return (
+export const InvestmentRoundBadge: React.FC<InvestmentRoundBadgeProps> = ({ value, ...textProps }) => {
+  return value ? (
     <Text
       color="white"
       fontSize="sm"
@@ -16,8 +16,13 @@ export const InvestmentRoundBadge: React.FC<InvestmentRoundBadgeProps> = ({ valu
       lineHeight="1.5rem"
       bg="orange.500"
       borderRadius="6.25rem"
+      {...textProps}
     >
       {InvestmentRoundDictionary.get(value).title}
+    </Text>
+  ) : (
+    <Text fontSize="sm" {...textProps}>
+      -
     </Text>
   );
 };

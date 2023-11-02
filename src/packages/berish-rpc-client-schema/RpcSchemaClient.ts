@@ -46,7 +46,6 @@ export class RpcSchemaClient<ApiSchema extends RpcApiSchema, Meta extends Record
     params: Record<string, any>,
     options?: RpcSchemaSendOptions<Push, Meta>,
   ): Promise<Result> {
-    console.log('custom', options?.meta);
     const rpcRequest: RpcRequest = options?.push
       ? push(method, params, options?.meta)
       : request(method, params, options?.meta);

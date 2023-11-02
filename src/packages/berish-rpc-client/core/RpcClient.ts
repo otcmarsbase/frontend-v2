@@ -127,7 +127,6 @@ export class RpcClient {
   // Raw adapter SEND request
   private async _requestSend<Params, Result>(request: RpcRequest<Params, Result>): Promise<RpcResponse<any>> {
     try {
-      console.log('_requestSend', request);
       const response = await this.adapter.send(request);
       return response;
     } catch (err) {

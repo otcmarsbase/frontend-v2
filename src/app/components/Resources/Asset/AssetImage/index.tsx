@@ -1,5 +1,5 @@
 import { Image, ImageProps } from '@chakra-ui/react';
-import { Resource } from '@schema/otc-desk-gateway';
+import { Resource } from '@schema/desk-gateway';
 
 export interface AssetImageProps extends Omit<ImageProps, 'src'> {
   asset: Resource.Asset.Asset;

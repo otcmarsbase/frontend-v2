@@ -23,7 +23,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ title, currentAmount, 
 
   return (
     <VStack w="100%" gap="0.31rem">
-      <HStack w="100%" justifyContent="space-between" onClick={() => console.log('value', value)}>
+      <HStack w="100%" justifyContent="space-between">
         <Text fontSize="sm" variant="h5" color="dark.50" fontWeight="600">
           {title}
         </Text>

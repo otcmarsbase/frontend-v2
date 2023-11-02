@@ -1,17 +1,36 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
+import { LotMultiplicatorDictionary } from '@app/dictionary';
+import Decimal from 'decimal.js';
+
+import { formatNumberProps } from '../formatNumberProps';
 import { FormControlNumberInput } from '../FormControlNumberInput';
 import { BaseInputProps } from '../types';
+import { useDefaultValueSetter } from '../useDefaultValueSetter';
 import { useInput } from '../useInput';
 
 import { DescriptorDictionary } from './const';
+import { useCommonPriceChange } from './useHandleChange';
 
 const NAME = 'COMMON_PRICE';
 
 export const CommonPriceInput: FC<BaseInputProps> = () => {
-  const { watch } = useInput(NAME);
-  const type = watch('type');
+  const { value, watch, rhfSetValue, rhfTrigger } = useInput(NAME);
+  const [type] = watch(['type']);
   const descriptor = useMemo(() => DescriptorDictionary.get(type), [type]);
+  const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
-  return <FormControlNumberInput name={NAME} {...descriptor} />;
+  useDefaultValueSetter(NAME, 'INVEST_DOC_ROUND_PRICE');
+
+  const handleChange = useCommonPriceChange();
+
+  useEffect(() => {
+    if (!value || type === 'SAFT') return;
+
+    const newFdv = new Decimal(value).mul(100).mul(multiplicator).toString();
+    rhfSetValue('INVEST_DOC_FDV', newFdv);
+    rhfTrigger('INVEST_DOC_FDV');
+  }, [value, type, rhfSetValue, rhfTrigger, multiplicator]);
+
+  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} {...formatNumberProps()} />;
 };

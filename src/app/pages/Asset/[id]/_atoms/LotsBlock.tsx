@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDebounce } from 'react-use';
 
-import { LotCard, UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaClient } from '@app/components';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
-import { VStack, Text, HStack, Button, SimpleGrid } from '@chakra-ui/react';
+import { VStack, Text, HStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/otc-desk-gateway';
+import { RPC, Resource } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
 const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
