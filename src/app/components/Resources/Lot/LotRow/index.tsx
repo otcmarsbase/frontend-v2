@@ -53,7 +53,12 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
       {
         label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value: <UIKit.PercentText value={getContractSize(lot)} />,
+        value:
+          lot.type === 'SAFT' ? (
+            <Text>{getContractSize(lot)}</Text>
+          ) : (
+            <UIKit.PercentText value={getContractSize(lot)} />
+          ),
       },
       {
         label: LotRowFieldNameTitleMap.get('VERTICAL'),
