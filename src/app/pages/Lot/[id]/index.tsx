@@ -69,17 +69,6 @@ export default function Lot({ id }: LotProps) {
 
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
-      <Button
-        variant="ghost"
-        color="#888D9B"
-        cursor="pointer"
-        leftIcon={<UIIcons.Common.ArrowLeft />}
-        onClick={() => router.navigateComponent(MBPages.Marketplace.Home, {}, {})}
-      >
-        <Text fontSize="sm" fontWeight={600}>
-          Back to Marketplace
-        </Text>
-      </Button>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
         <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>

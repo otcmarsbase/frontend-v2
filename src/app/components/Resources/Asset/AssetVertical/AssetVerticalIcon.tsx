@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 
+import { AssetVerticalIconDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Square } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { Tooltip } from '@shared/ui-kit';
-
-import { AssetVerticalIconDictionary, AssetVerticalTitle } from './const';
 
 export interface AssetVerticalIconProps {
   value: Resource.Asset.Enums.AssetVertical;
@@ -12,7 +11,7 @@ export interface AssetVerticalIconProps {
 
 export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) => {
   const IconComponent = useMemo(() => AssetVerticalIconDictionary.get(value), [value]);
-  const title = useMemo(() => AssetVerticalTitle.get(value), [value]);
+  const title = useMemo(() => AssetVerticalTitleDictionary.get(value), [value]);
 
   return (
     <Tooltip label={title}>

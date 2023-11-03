@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
-import { Empty, List, Pagination, useLoadingCallback } from '@shared/ui-kit';
+import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
@@ -20,23 +20,11 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [items, setItems] = useState<Resource.Bid.Bid[]>([]);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-
-  const paginationOptions = useMemo(
-    () => ({
-      page,
-      total,
-      pageSize: 10,
-    }),
-    [page, total],
-  );
+  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination();
 
   const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
-    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
-
-    return { skip, limit: paginationOptions.pageSize, ...filters };
-  }, [paginationOptions.page, paginationOptions.pageSize, filters]);
+    return { skip, limit, ...filters };
+  }, [skip, limit, filters]);
 
   const fetchItems = useLoadingCallback(
     useCallback(async () => {
@@ -50,15 +38,13 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
 
       setItems(items);
       setTotal(total);
-    }, [rpcSchema, fetchPayload]),
+    }, [rpcSchema, fetchPayload, setTotal]),
     true,
   );
 
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
-
-  const onChangePage = (page: number) => setPage(page);
 
   return (
     <VStack width="full">
@@ -80,7 +66,7 @@ const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
             }
           />
         }
-        footer={items.length > 0 && <Pagination {...paginationOptions} onChange={onChangePage} />}
+        footer={items.length > 0 && <Pagination {...paginationProps} />}
         itemRender={(item) => (
           <UILogic.BidRow
             bid={item}

@@ -1,13 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useDebounce } from 'react-use';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
+import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
 import { VStack, Text, HStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/desk-gateway';
-import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import { useQueryParams } from '@shared/hooks';
+import { UIKit, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import pick from 'lodash/pick';
+import * as yup from 'yup';
 
 const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
@@ -16,54 +20,97 @@ const TradeDirectionTitleMap = new Map<Resource.Common.Enums.TradeDirection, Rea
   ['SELL', `Lot's to sell`],
 ]);
 
+export const QueryParamsSchema = yup.object({
+  search: yup.string(),
+  direction: yup.string().oneOf(TradeDirectionDictionary.keys()),
+  type: yup.array().of(yup.string().oneOf(LotTypeDictionary.keys())),
+  verticals: yup.array().of(yup.string().oneOf(AssetVerticalTitleDictionary.keys())),
+  bidSize: yup.array().of(yup.number()),
+  withReassign: yup.bool().transform((value) => (typeof value === 'boolean' ? value : value === '1' ? true : false)),
+});
+
 export interface LotsBlockProps {
-  assetId: Resource.Asset.AssetKey['id'];
+  asset: Resource.Asset.Asset;
 }
 
-export function LotsBlock({ assetId }: LotsBlockProps) {
-  const rpcSchema = useRpcSchemaClient();
+export function LotsBlock({ asset }: LotsBlockProps) {
   const router = useRouter();
-  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>({});
+
+  const rpcSchema = useRpcSchemaClient();
+
   const [columnsCount, setColumnsCount] = useState(3);
-  const [direction, setDirection] = useState<Resource.Common.Enums.TradeDirection>('BUY');
-  const [isLoading, setIsLoading] = useState(true);
-  const [lots, setLots] = useState<{
-    items: Resource.Lot.Lot[];
-    total: number;
-  }>({
-    items: [],
-    total: 0,
+  const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
+
+  const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema, { id: asset.id });
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
+    const initialFilters: UILogic.LotFilterSidebarModel = pick(queryParams, [
+      'search',
+      'direction',
+      'type',
+      'withReassign',
+    ]);
+
+    initialFilters.direction ??= 'BUY';
+
+    if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
+
+    return initialFilters;
   });
-  const [_assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
-    items: [],
-    total: 0,
-  });
 
-  const isFiltersOpened = columnsCount === 3;
+  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(12);
 
-  const isEmpty = useMemo(() => !lots.total, [lots]);
+  const fetchPayload = useMemo<RPC.DTO.LotListActive.Payload>(() => {
+    const [minContractValue, maxContractValue] = filters.bidSize ?? [];
 
-  const loadingCallback = useLoadingCallback(
-    useCallback(
-      async (direction: Resource.Common.Enums.TradeDirection) => {
-        try {
-          setIsLoading(true);
-          const lots = await rpcSchema.send('lot.listActive', { assets: [assetId], direction });
-          const assets = await rpcSchema.send('asset.list', { withLots: true }, {});
+    return {
+      skip,
+      limit,
+      ...prepareFiltersParams({
+        assets: [asset.id],
+        direction: filters.direction,
+        minContractValue,
+        maxContractValue,
+        withReassign: filters.withReassign,
+        type: filters.type,
+        search: filters.search,
+      }),
+    };
+  }, [skip, limit, filters, asset.id]);
 
-          setLots(lots);
-          setAssets(assets);
-        } finally {
-          setIsLoading(false);
-        }
-      },
-      [assetId, rpcSchema],
-    ),
+  const isFiltersOpened = useMemo(() => columnsCount === 3, [columnsCount]);
+
+  const toggleFilters = () => {
+    setColumnsCount((count) => (count === 3 ? 4 : 3));
+  };
+
+  const loadLots = useLoadingCallback(
+    useCallback(async () => {
+      const { items, total } = await rpcSchema.send('lot.listActive', fetchPayload, {});
+
+      setLots(items);
+      setTotal(total);
+    }, [rpcSchema, fetchPayload, setTotal]),
+    true,
   );
 
-  useEffect(() => {
-    loadingCallback(direction);
-  }, [loadingCallback, direction]);
+  useDebounce(loadLots, CHANGE_FILTERS_DEBOUNCE_DURATION_MS, [fetchPayload]);
+
+  const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
+    paginationProps.onChange(1);
+    setFilters((filters) => ({
+      ...filters,
+      ...nextFilters,
+    }));
+    setQueryParams((queryParams) => ({
+      ...queryParams,
+      ...nextFilters,
+    }));
+  };
+
+  const handleResetFilters = () => {
+    setFilters((filters) => ({ direction: filters.direction }));
+    setQueryParams((queryParams) => ({ direction: queryParams.direction }));
+  };
 
   const renderTab = useCallback(
     (direction: Resource.Common.Enums.TradeDirection) => (
@@ -74,61 +121,13 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
     [],
   );
 
-  const onChangeDirection = useCallback(
-    (direction: Resource.Common.Enums.TradeDirection) => {
-      setDirection(direction);
-      loadingCallback(direction);
-    },
-    [loadingCallback],
-  );
-
-  const toggleFilters = () => {
-    setColumnsCount((count) => (count === 3 ? 4 : 3));
-  };
-
-  const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
-    setFilters((filters) => ({
-      ...filters,
-      ...nextFilters,
-    }));
-  };
-
-  const handleResetFilters = () => setFilters({});
-
-  const onSubmitFilters = async () => {
-    const minContractValue = filters.bidSize ? filters.bidSize[0] : undefined;
-    const maxContractValue = filters.bidSize ? filters.bidSize[1] : undefined;
-    try {
-      setIsLoading(true);
-      const lots = await rpcSchema.send(
-        'lot.listActive',
-        prepareFiltersParams({
-          assets: [assetId],
-          direction,
-          minContractValue,
-          maxContractValue,
-          withReassign: filters.withReassing,
-          verticals: filters.assetVerticals,
-          type: filters.lotTypes,
-          search: filters.search,
-        }),
-        {},
-      );
-      setLots(lots);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useDebounce(onSubmitFilters, CHANGE_FILTERS_DEBOUNCE_DURATION_MS, [filters]);
-
   return (
     <UIKit.Tabs<Resource.Common.Enums.TradeDirection>
       items={['BUY', 'SELL']}
       renderKey={(direction) => direction}
       renderTab={renderTab}
-      value={direction}
-      onChange={onChangeDirection}
+      value={filters.direction}
+      onChange={(direction) => onChangeFilters({ direction })}
       variant="promo"
     >
       {(direction) => (
@@ -136,7 +135,7 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
           <HStack alignItems="start" w="full" gap="2rem">
             {isFiltersOpened && (
               <UILogic.LotFilterSidebar
-                visibility={{ direction: false }}
+                visibility={{ direction: false, verticals: false }}
                 filters={filters}
                 onChange={onChangeFilters}
               />
@@ -151,8 +150,11 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
                 onChangeSearch={(search) => onChangeFilters({ search })}
               />
               <VStack alignItems="start" spacing="1rem" width="full">
-                <UILogic.LotActiveFilters filters={filters} onReset={handleResetFilters} />
-                {isLoading ? (
+                <UILogic.LotActiveFilters
+                  filters={{ ...filters, assets: undefined, direction: undefined }}
+                  onReset={handleResetFilters}
+                />
+                {loadLots.isLoading ? (
                   <UILogic.LotGridSkeleton columns={columnsCount} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
@@ -169,8 +171,8 @@ export function LotsBlock({ assetId }: LotsBlockProps) {
                     ) : (
                       <UILogic.LotGrid
                         columns={columnsCount}
-                        lots={lots.items}
-                        assets={_assets.items}
+                        lots={lots}
+                        assets={[asset]}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />
                     )}
