@@ -118,19 +118,19 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               </VStack>
             </RoundInfoItem>
             <RoundInfoItem fieldName="CONTRACT_SIZE">
-              {lot.type === 'SAFT' ? (
-                <MoneyText fontSize="sm" fontWeight={500} value={getContractSize(lot)} abbreviated />
-              ) : (
-                <PercentText fontSize="sm" fontWeight={500} value={getContractSize(lot)} />
-              )}
               <MoneyText
-                fontSize="xs"
+                fontSize="sm"
                 abbreviated
                 fontWeight={500}
                 color="dark.50"
                 value={lot.attributes.COMMON_SUMMARY}
                 addon="$"
               />
+              {lot.type === 'SAFT' ? (
+                <MoneyText fontSize="xs" fontWeight={500} value={getContractSize(lot)} abbreviated />
+              ) : (
+                <PercentText fontSize="xs" fontWeight={500} value={getContractSize(lot)} />
+              )}
             </RoundInfoItem>
             <RoundInfoItem fieldName="OWNER">
               <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
