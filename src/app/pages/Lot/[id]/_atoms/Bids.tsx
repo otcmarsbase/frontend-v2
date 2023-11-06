@@ -22,16 +22,15 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
   const router = useRouter();
 
-  const { setTotal, paginationOptions, isEmpty, onChangePage, onShowSizeChange } = usePagination(1, 25);
+  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
-    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
     return {
       skip,
-      limit: paginationOptions.pageSize,
+      limit,
       lots: [lot.id],
     };
-  }, [paginationOptions.pageSize, paginationOptions.page, lot.id]);
+  }, [skip, limit, lot.id]);
 
   const loadBids = useLoadingCallback(
     useCallback(async () => {
@@ -109,17 +108,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             {children}
           </SkeletonLoader>
         )}
-        footer={
-          !isEmpty && (
-            <Pagination
-              {...paginationOptions}
-              onChange={onChangePage}
-              onShowSizeChange={onShowSizeChange}
-              showCaption
-              showPageSize
-            />
-          )
-        }
+        footer={!isEmpty && <Pagination {...paginationProps} showCaption showPageSize />}
       />
     </VStack>
   );

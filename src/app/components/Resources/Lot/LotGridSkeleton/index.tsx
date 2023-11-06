@@ -12,7 +12,7 @@ export interface LotGridSkeletonProps {
 
 export const LotGridSkeleton: React.FC<LotGridSkeletonProps> = ({
   columns,
-  items = 10,
+  items = 12,
   withAnimation,
   minimalCardView,
 }) => {

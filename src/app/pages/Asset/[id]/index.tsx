@@ -58,7 +58,7 @@ export default function View({ id }: ViewProps) {
         </GridItem>
       </Grid>
 
-      <LotsBlock assetId={id} />
+      <LotsBlock asset={asset} />
     </VStack>
   );
 }

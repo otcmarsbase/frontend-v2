@@ -6,11 +6,11 @@ import { UIKit } from '@shared/ui-kit';
 export type LotFilterSidebarModel = Partial<{
   search: string;
   direction: Resource.Common.Enums.TradeDirection;
-  lotTypes: Resource.Lot.Enums.LotType[];
-  assetVerticals: Resource.Asset.Enums.AssetVertical[];
+  type: Resource.Lot.Enums.LotType[];
+  verticals: Resource.Asset.Enums.AssetVertical[];
   bidSize: [number, number];
-  withReassing: boolean;
-  assets: Resource.Asset.Asset[];
+  withReassign: boolean;
+  assets: string[];
 }>;
 
 type LotFilterFieldsVisibility = Partial<Record<keyof LotFilterSidebarModel, boolean>>;
@@ -23,10 +23,10 @@ export interface LotFilterSidebarProps {
 
 const defaultVisibility: LotFilterFieldsVisibility = {
   direction: true,
-  lotTypes: true,
-  assetVerticals: true,
+  type: true,
+  verticals: true,
   bidSize: true,
-  withReassing: true,
+  withReassign: true,
 };
 
 export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSidebarProps) {
@@ -40,13 +40,13 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
 
       <Divider color="rgba(255, 255, 255, 0.15)" />
 
-      {fieldsVisibility.withReassing && (
+      {fieldsVisibility.withReassign && (
         <VStack w="100%">
           <FormControl display="flex" justifyContent="space-between">
             <FormLabel>Re-assign</FormLabel>
             <Checkbox
-              isChecked={!!filters.withReassing}
-              onChange={(e) => onChange({ withReassing: e.target.checked ? true : undefined })}
+              isChecked={!!filters.withReassign}
+              onChange={(e) => onChange({ withReassign: e.target.checked ? true : undefined })}
             />
           </FormControl>
         </VStack>
@@ -62,25 +62,25 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
           />
         </UIKit.KeyValueRowAccordion>
       )}
-      {fieldsVisibility.lotTypes && (
+      {fieldsVisibility.type && (
         <UIKit.KeyValueRowAccordion keyComponent="Lot type">
           <UILogic.LotTypeSelect
             placeholder="Choose lot type"
             isClearable
             isMulti
-            value={filters.lotTypes}
-            onChange={(lotTypes) => onChange({ lotTypes })}
+            value={filters.type}
+            onChange={(type) => onChange({ type })}
           />
         </UIKit.KeyValueRowAccordion>
       )}
-      {fieldsVisibility.assetVerticals && (
+      {fieldsVisibility.verticals && (
         <UIKit.KeyValueRowAccordion keyComponent="Asset vertical">
           <UILogic.AssetVerticalSelect
             placeholder="Choose vertical"
             isClearable
             isMulti
-            value={filters.assetVerticals}
-            onChange={(assetVerticals) => onChange({ assetVerticals })}
+            value={filters.verticals}
+            onChange={(verticals) => onChange({ verticals })}
           />
         </UIKit.KeyValueRowAccordion>
       )}
