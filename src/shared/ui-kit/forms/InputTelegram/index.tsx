@@ -17,6 +17,9 @@ export const InputTelegram: React.FC<InputProps> = ({ size, ...inputProps }) => 
         mask={TelegramMask}
         alwaysShowMask
         maskChar=""
+        formatChars={{
+          '*': '[_A-Za-z0-9]',
+        }}
         {...inputProps}
       />
     </InputGroup>

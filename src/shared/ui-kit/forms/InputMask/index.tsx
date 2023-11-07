@@ -15,6 +15,7 @@ export const InputMask: React.FC<InputMaskProps> = ({
   inputRef,
   beforeMaskedStateChange,
   toUnmaskedValue,
+  formatChars,
   ...props
 }) => {
   const onChange = useCallback(
@@ -43,6 +44,7 @@ export const InputMask: React.FC<InputMaskProps> = ({
       beforeMaskedStateChange={beforeMaskedStateChange}
       value={props.value}
       onChange={onChange}
+      formatChars={formatChars}
     >
       {/*@ts-ignore broken types in `react-input-mask` */}
       {(inputProps) => <Input {...inputProps} />}
