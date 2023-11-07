@@ -45,7 +45,9 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
         >
           <HStack width="full" gap="1rem">
             <UIKit.RadioButtons
-              maxW="32rem"
+              maxW={{
+                xl: '32rem',
+              }}
               items={DashboardTabType}
               renderKey={(item) => item}
               renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
@@ -53,12 +55,6 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
               value={tabType}
               onChange={onRoute}
             />
-            {/* <InputGroup size="xs">
-                <InputLeftElement pointerEvents="none">
-                  <UIIcons.Common.SearchIcon color="orange.500" />
-                </InputLeftElement>
-                <Input variant="ghost" size="xs" maxW="17rem" placeholder="Search" onInput={handleSearch} />
-              </InputGroup> */}
           </HStack>
           <HStack gap="1rem">
             {/* TODO привязать к нормальным компонентам
