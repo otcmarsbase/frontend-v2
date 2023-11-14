@@ -30,7 +30,7 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
 
   return (
     <Box>
-      <Heading fontFamily="promo" fontSize="2rem" marginTop="2.5rem" marginBottom="0.75rem">
+      <Heading fontFamily="promo" fontSize="2rem" marginTop={{ base: '0', md: '2.5rem' }} marginBottom="0.75rem">
         Dashboard
       </Heading>
       <VStack gap="0.5rem">
@@ -40,8 +40,8 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
           gap="0"
           borderRadius="0.75rem"
           bg="dark.900"
-          padding="0.5rem"
-          paddingRight="1.25rem"
+          padding={{ base: '0', md: '0.5rem' }}
+          paddingRight={{ base: '0', md: '1.25rem' }}
         >
           <HStack width="full" gap="1rem">
             <UIKit.RadioButtons
@@ -51,9 +51,10 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
               items={DashboardTabType}
               renderKey={(item) => item}
               renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
-              variant="solid"
+              variant={{ base: 'outline', md: 'solid' }}
               value={tabType}
               onChange={onRoute}
+              bg={{ base: 'transparent', md: 'dark.800' }}
             />
           </HStack>
           <HStack gap="1rem">

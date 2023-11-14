@@ -20,7 +20,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           <Header />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize} mt="3rem">
+          <Container size={containerSize} mt={{ base: '1rem', md: '3rem' }} maxW={{ base: '100%', md: '85%' }}>
             {children}
           </Container>
         </Box>

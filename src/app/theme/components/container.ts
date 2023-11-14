@@ -14,14 +14,8 @@ const sizes = {
 
 // define the base component styles
 const baseStyle = defineStyle({
-  maxWidth: {
-    base: '90%',
-    md: '85%',
-  },
-  p: {
-    base: '0',
-    md: '1rem',
-  },
+  maxWidth: '85%',
+  p: '1rem',
   width: '100%',
   margin: '0 auto',
 });
