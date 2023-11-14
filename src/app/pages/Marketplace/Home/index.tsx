@@ -7,7 +7,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
-import { HStack, Heading, VStack, Button } from '@chakra-ui/react';
+import { HStack, Heading, VStack, Button, useMediaQuery, useBreakpoint, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
@@ -23,7 +23,15 @@ export const OtcDesk: React.FC = observer(() => {
 
   const rpcSchema = useRpcSchemaClient();
 
-  const [columnsCount, setColumnsCount] = useState(3);
+  const defaultIsFiltersOpened = useBreakpointValue(
+    {
+      md: true,
+      base: false,
+    },
+    { ssr: false },
+  );
+
+  const [isFiltersOpened, setIsFiltersOpened] = useState<boolean>(defaultIsFiltersOpened);
   const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
   const [_assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
     items: [],
@@ -71,10 +79,8 @@ export const OtcDesk: React.FC = observer(() => {
     };
   }, [skip, limit, filters]);
 
-  const isFiltersOpened = useMemo(() => columnsCount === 3, [columnsCount]);
-
   const toggleFilters = () => {
-    setColumnsCount((count) => (count === 3 ? 4 : 3));
+    setIsFiltersOpened((opened) => !opened);
   };
 
   const loadLots = useLoadingCallback(
@@ -123,6 +129,8 @@ export const OtcDesk: React.FC = observer(() => {
     setQueryParams({});
   };
 
+  const columnsCount = isFiltersOpened ? 3 : 4;
+
   return (
     <VStack alignItems="start">
       <Heading variant="pageHeader">OTC Desk</Heading>
@@ -131,7 +139,7 @@ export const OtcDesk: React.FC = observer(() => {
         value={assets.filter((asset) => filters.assets?.includes(asset.id))}
         onChange={(assets) => onChangeFilters({ assets: assets.map((asset) => asset.id) })}
       />
-      <HStack alignItems="start" w="full" gap="2rem">
+      <HStack alignItems="start" flexDirection={{ base: 'column', md: 'row' }} w="full" gap="2rem">
         {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} onChange={onChangeFilters} />}
         <VStack w="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls
@@ -148,7 +156,7 @@ export const OtcDesk: React.FC = observer(() => {
               onReset={handleResetFilters}
             />
             {isLoading ? (
-              <UILogic.LotGridSkeleton columns={columnsCount} withAnimation={isFiltersOpened} />
+              <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
                 {isEmpty ? (
@@ -164,7 +172,7 @@ export const OtcDesk: React.FC = observer(() => {
                 ) : (
                   <>
                     <UILogic.LotGrid
-                      columns={columnsCount}
+                      columns={{ base: 1, md: columnsCount }}
                       lots={lots}
                       assets={_assets.items}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}

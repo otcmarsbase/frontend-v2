@@ -155,7 +155,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   onReset={handleResetFilters}
                 />
                 {loadLots.isLoading ? (
-                  <UILogic.LotGridSkeleton columns={columnsCount} withAnimation={isFiltersOpened} />
+                  <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
                     {isEmpty ? (
@@ -170,7 +170,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                       />
                     ) : (
                       <UILogic.LotGrid
-                        columns={columnsCount}
+                        columns={{ base: 1, md: columnsCount }}
                         lots={lots}
                         assets={[asset]}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}

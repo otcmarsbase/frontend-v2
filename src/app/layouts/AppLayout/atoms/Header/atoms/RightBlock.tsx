@@ -9,7 +9,7 @@ export function RightBlock() {
 
   return (
     <HStack>
-      <HStack gap="2.5rem" mr="1.7rem">
+      <HStack gap="2.5rem" mr="1.7rem" display={{ base: 'none', md: 'flex' }}>
         <Dropdown
           trigger="hover"
           items={[
@@ -96,7 +96,7 @@ export function RightBlock() {
         </Link>
       </HStack>
 
-      <Box mr="1.5rem">
+      <Box mr={{ base: '0', md: '1.5rem' }}>
         <UILogic.AuthConnectButton>
           <HStack gap="1rem">
             <UILogic.AuthAccountPanel />
@@ -109,10 +109,7 @@ export function RightBlock() {
           </HStack>
         </UILogic.AuthConnectButton>
       </Box>
-      <HStack gap="0.6rem">
-        {/* <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
-          <UIIcons.Common.NotificationIcon w="1.125rem" h="1.125rem" />
-        </Square> */}
+      <HStack gap="0.6rem" display={{ base: 'none', md: 'flex' }}>
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
           <UIIcons.Language.EnglishIcon w="1.125rem" h="1.125rem" />
         </Square>

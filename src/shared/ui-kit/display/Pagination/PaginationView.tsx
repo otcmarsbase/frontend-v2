@@ -44,7 +44,11 @@ export const PaginationView: React.FC<PaginationViewProps> = (props) => {
 
 export const PaginationViewContainer: React.FC<PropsWithChildren<PaginationViewProps>> = ({ children }) => {
   const styles = useMultiStyleConfig('Pagination');
-  return <HStack __css={styles.container}>{children}</HStack>;
+  return (
+    <HStack __css={styles.container} gap="1.5rem" flexDirection={{ base: 'column', md: 'row' }}>
+      {children}
+    </HStack>
+  );
 };
 
 export const PaginationViewCaption: React.FC<PaginationViewProps> = ({

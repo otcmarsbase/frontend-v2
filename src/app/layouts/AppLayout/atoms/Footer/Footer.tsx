@@ -20,9 +20,17 @@ export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, 
   const { systemStore } = useStore();
 
   return (
-    <HStack width="full" padding="6rem 0 4rem">
-      <HStack display="flex" justifyContent="space-between" width="full">
-        <HStack alignItems="flex-start" gap="8.5rem">
+    <HStack width="full" padding={{ base: '1rem', md: '6rem 0 4rem' }}>
+      <HStack
+        flexDirection={{ base: 'column', md: 'row' }}
+        justifyContent={{ base: 'center', md: 'space-between' }}
+        width="full"
+      >
+        <HStack
+          alignItems="flex-start"
+          gap={{ base: '1.5rem', md: '8.5rem' }}
+          flexDirection={{ base: 'column', md: 'row' }}
+        >
           <Grid templateColumns="repeat(2, 1fr)" rowGap="0.75rem" columnGap="3rem">
             {links.map((link, index) => (
               <GridItem
@@ -46,7 +54,7 @@ export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, 
             </Text>
           </VStack>
         </HStack>
-        <VStack gap="1.5rem" alignItems="flex-end">
+        <VStack gap="1.5rem" alignItems={{ base: 'center', md: 'flex-end' }}>
           <SocialBlock
             github={socials.githubUrl}
             twitter={socials.twitterUrl}

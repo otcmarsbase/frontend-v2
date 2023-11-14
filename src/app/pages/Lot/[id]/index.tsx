@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
@@ -52,9 +53,7 @@ export default function Lot({ id }: LotProps) {
     }, [id, rpcSchema, router]),
   );
 
-  useEffect(() => {
-    preload();
-  }, [preload]);
+  usePreloadPage(preload);
 
   // const handleEditLot = () => {
   //   console.log('handleEditLot');

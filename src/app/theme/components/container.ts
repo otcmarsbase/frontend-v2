@@ -14,10 +14,16 @@ const sizes = {
 
 // define the base component styles
 const baseStyle = defineStyle({
-  maxWidth: '85%',
+  maxWidth: {
+    base: '90%',
+    md: '85%',
+  },
+  p: {
+    base: '0',
+    md: '1rem',
+  },
   width: '100%',
   margin: '0 auto',
-  // marginLeft: '7.8rem',
 });
 
 // export the component theme
