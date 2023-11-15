@@ -24,7 +24,8 @@ export function AssetIconButton({ asset, isSelected, onSelect }: AssetIconButton
         aria-label={asset.id}
         variant={isSelected ? 'darkSolid' : 'darkOutline'}
         size="lg"
-        w="full"
+        w={{ base: '2.5rem', md: 'full' }}
+        h={{ base: '2.5rem', md: 'initial' }}
         onClick={onSelectCallback}
         p="0"
         sx={{
@@ -33,7 +34,7 @@ export function AssetIconButton({ asset, isSelected, onSelect }: AssetIconButton
           },
         }}
       >
-        <AssetImage asset={asset} w="2rem" h="2rem" />
+        <AssetImage asset={asset} w={{ base: '1.5rem', md: '2rem' }} h={{ base: '1.5rem', md: '2rem' }} />
       </Button>
     </Tooltip>
   );

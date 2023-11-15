@@ -32,7 +32,15 @@ export function LotAssetFilter({ assets, value, onChange }: LotAssetFilterProps)
   );
 
   return (
-    <SimpleGrid minH="3.5rem" columns={20} w="full" gap="0.5rem">
+    <SimpleGrid
+      display={{ base: 'flex', md: 'grid' }}
+      minH="3.5rem"
+      columns={20}
+      autoFlow="column"
+      w="full"
+      gap="0.5rem"
+      overflowX="auto"
+    >
       {assets.slice(0, 20).map((asset) => (
         <AssetIconButton
           asset={asset}

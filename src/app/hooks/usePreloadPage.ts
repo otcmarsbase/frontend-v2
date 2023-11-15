@@ -8,5 +8,8 @@ export function usePreloadPage(callback: () => any) {
       isPreloadedRef.current = true;
       callback();
     }
+    return () => {
+      isPreloadedRef.current = false;
+    };
   }, [callback]);
 }
