@@ -9,6 +9,7 @@ export const MainChipFieldType = [
   'CONTRACT_SIZE',
   'OWNER',
   'SELLER',
+  'BUYER',
   'TYPE_OF_BIDDER',
   'TYPE_OF_SELLER',
 ] as const;
@@ -22,6 +23,7 @@ export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, React.ReactN
   ['CONTRACT_SIZE', 'Contract size'],
   ['OWNER', 'Owner'],
   ['SELLER', 'Seller'],
+  ['BUYER', 'Buyer'],
   ['MIN_BID', 'Min Bid'],
   ['TYPE_OF_BIDDER', 'Type of bidder'],
   ['TYPE_OF_SELLER', 'Type of seller'],

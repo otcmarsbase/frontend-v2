@@ -27,11 +27,11 @@ export type InvestDocModel = yup.InferType<typeof InvestDocInputs>;
 
 export const InvestDocRoundInputs = yup.object({
   INVEST_DOC_ROUND_FDV: INVEST_DOC_ROUND_FDV.nullable(),
-  INVEST_DOC_ROUND_PRICE: INVEST_DOC_ROUND_PRICE,
+  INVEST_DOC_ROUND_PRICE: INVEST_DOC_ROUND_PRICE.nullable(),
   INVEST_DOC_ROUND_SHARE,
   INVEST_DOC_ROUND_SUMMARY: INVEST_DOC_ROUND_SUMMARY.nullable(),
   INVEST_DOC_ROUND_TYPE: INVEST_DOC_ROUND_TYPE.nullable(),
-  INVEST_DOC_ROUND_UNITS: INVEST_DOC_ROUND_UNITS,
+  INVEST_DOC_ROUND_UNITS: INVEST_DOC_ROUND_UNITS.nullable(),
 });
 
 export type InvestDocRoundModel = yup.InferType<typeof InvestDocRoundInputs>;

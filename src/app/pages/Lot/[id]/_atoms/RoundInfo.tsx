@@ -135,7 +135,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
             <RoundInfoItem fieldName="OWNER">
               <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />
             </RoundInfoItem>
-            <RoundInfoItem fieldName="SELLER">
+            <RoundInfoItem fieldName={lot.attributes.COMMON_DIRECTION === 'BUY' ? 'BUYER' : 'SELLER'}>
               <Text fontWeight="500" fontSize="sm">
                 {UIDictionary.MediatorTypeDictionary.get(lot.attributes.COMMON_MEDIATOR).title}
               </Text>

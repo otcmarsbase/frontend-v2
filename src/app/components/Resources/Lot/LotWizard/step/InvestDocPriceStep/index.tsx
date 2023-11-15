@@ -6,7 +6,6 @@ import { FormElement } from '@shared/ui-kit';
 
 import {
   CommonPriceInput,
-  CommonPricingModelInput,
   CommonUnitsInput,
   CommonMinFilterSummaryInput,
   CommonMinFilterUnitsInput,
@@ -17,32 +16,20 @@ import { LotCreateModel } from '../../schema';
 
 export const InvestDocPriceStep: FC = () => {
   const { watch } = useFormContext<LotCreateModel>();
-  const [type, pricingModel] = watch(['type', 'COMMON_PRICING_MODEL']);
+  const [type] = watch(['type']);
 
   return (
-    <FormElement
-      label="Pricing model"
-      info="You can choose the pricing model in a stablecoin or in equity."
-      isRequired
-      w="full"
-    >
-      <VStack w="full" alignItems="start" bg="dark.900" gap="2rem" borderRadius="sm" p="1.5rem">
-        <Box px="1.25rem" w="full">
-          <CommonPricingModelInput />
-        </Box>
-        <HStack gap="1.25rem" w="full" alignItems="start" px="1.5rem" hidden={pricingModel !== 'SUMMARY'}>
-          <CommonSummaryInput />
+    <>
+      <CommonSummaryInput />
+      <CommonUnitsInput />
+      <CommonPriceInput />
+      <FormElement label="Minimum deal size" w="full" isRequired={false} gridTemplateColumns="12rem 2fr">
+        <HStack gap="1.25rem" w="full" alignItems="start">
           <CommonMinFilterSummaryInput />
-        </HStack>
-        <HStack gap="1.25rem" w="full" alignItems="start" px="1.5rem" hidden={pricingModel === 'SUMMARY'}>
-          <CommonUnitsInput />
           <CommonMinFilterUnitsInput />
         </HStack>
-        <HStack gap="1.25rem" w="full" alignItems="start" layerStyle="orangeGradient" borderRadius="sm" px="1.5rem">
-          {type !== 'SAFT' && <InvestDocFdvInput />}
-          <CommonPriceInput />
-        </HStack>
-      </VStack>
-    </FormElement>
+      </FormElement>
+      {type !== 'SAFT' && <InvestDocFdvInput />}
+    </>
   );
 };

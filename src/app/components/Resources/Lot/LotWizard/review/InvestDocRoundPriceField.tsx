@@ -28,6 +28,10 @@ const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, Review
 export const InvestDocRoundPriceField = {
   renderTitle: (model) => <Text>{DescriptorDictionary.get(model.type).label}</Text>,
   renderValue: (model) => (
-    <UIKit.MoneyText value={model.COMMON_PRICE} addon={DescriptorDictionary.get(model.type).addon} format="0,0.X" />
+    <UIKit.MoneyText
+      value={model.INVEST_DOC_ROUND_PRICE}
+      addon={DescriptorDictionary.get(model.type).addon}
+      format="0,0.X"
+    />
   ),
 } satisfies StepReviewField<LotCreateModel>;

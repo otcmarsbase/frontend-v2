@@ -10,7 +10,7 @@ export const InvestDocReviewStep: FC = () => {
   const { getValues } = useFormContext<LotCreateModel>();
   const values: LotCreateModel = useMemo(() => {
     const value = getValues();
-    return LotSteps.InvestDocReviewStepInputs.resolve({ value }).cast(value);
+    return LotSteps.InvestDocReviewStepInputs.resolve({ value }).cast(value, { assert: false });
   }, [getValues]);
 
   return (
