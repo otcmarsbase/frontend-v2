@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
@@ -20,7 +20,10 @@ export interface LotProps extends React.PropsWithChildren {
 }
 
 export default function Lot({ id }: LotProps) {
+  id = toNumber(id);
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
+
   const router = useRouter();
   const { account } = useAuth();
 
@@ -35,10 +38,16 @@ export default function Lot({ id }: LotProps) {
 
   const preload = useLoadingCallback(
     useCallback(async () => {
-      const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
+      const lot = await queryClient.fetchQuery({
+        queryKey: ['lot.getById', { id }],
+        queryFn: () => rpcSchema.send('lot.getById', { id }),
+      });
 
       if (lot.attributes.INVEST_DOC_ASSET_PK) {
-        const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+        const asset = await queryClient.fetchQuery({
+          queryKey: ['asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }],
+          queryFn: () => rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }),
+        });
         setAsset(asset);
       }
 
@@ -50,7 +59,7 @@ export default function Lot({ id }: LotProps) {
       }
 
       setLot(lot);
-    }, [id, rpcSchema, router]),
+    }, [id, rpcSchema, router, queryClient]),
   );
 
   usePreloadPage(preload);

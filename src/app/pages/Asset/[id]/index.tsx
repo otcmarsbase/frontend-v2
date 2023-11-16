@@ -1,11 +1,6 @@
-import { useCallback, useState } from 'react';
-
-import { UILogic, useRpcSchemaClient } from '@app/components';
-import { usePreloadPage } from '@app/hooks';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
-import { RPC, Resource } from '@schema/desk-gateway';
-import { useLoadingCallback } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
 
@@ -14,27 +9,14 @@ export interface ViewProps {
 }
 
 export default function View({ id }: ViewProps) {
-  const rpcSchema = useRpcSchemaClient();
-
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [stats, setStats] = useState<RPC.DTO.AssetGetStatsById.Result>();
-
-  const onPreload = useLoadingCallback(
-    useCallback(async () => {
-      try {
-        const asset = await rpcSchema.send('asset.getById', { id });
-        setAsset(asset);
-        const stats = await rpcSchema.send('asset.getStatsById', { id });
-        setStats(stats);
-      } catch (err) {
-        // TODO: delete this after fix `asset.getStatsById` on backend
-        setStats({ averageFdv: '0', lotSellCount: 0, lotBuyCount: 0, lotBuyCvSum: '0', lotSellCvSum: '0' });
-      }
-    }, [id, rpcSchema]),
+  const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.getById', { id });
+  const { data: stats, isLoading: statsIsLoading } = useRpcSchemaQuery(
+    'asset.getStatsById',
+    { id },
+    { placeholderData: { averageFdv: '0', lotSellCount: 0, lotBuyCount: 0, lotBuyCvSum: '0', lotSellCvSum: '0' } },
   );
-  usePreloadPage(onPreload);
 
-  if (!asset || !stats || onPreload.isLoading) return <UILogic.AssetPageSkeleton />;
+  if (!asset || !stats || assetIsLoading || statsIsLoading) return <UILogic.AssetPageSkeleton />;
 
   return (
     <VStack gap="2rem">

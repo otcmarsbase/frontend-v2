@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
-import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
@@ -20,42 +20,42 @@ export interface DealsProps {
 }
 
 const Deals: React.FC<DealsProps> = ({ filters }) => {
-  const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const [items, setItems] = useState<Resource.Deal.Deal[]>([]);
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination();
+  const { skip, limit, ...paginationProps } = usePagination();
 
   const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
     return { skip, limit, ...filters };
   }, [skip, limit, filters]);
 
-  const fetchItems = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('deal.listMy', fetchPayload);
-      const assets: Resource.Asset.Asset[] = [];
-
-      for (const { assetKey } of items) {
-        const asset = await rpcSchema.send('asset.getById', assetKey);
-        assets.push(asset);
-      }
-
-      setItems(items);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
-    true,
+  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', fetchPayload);
+  const { data: assets, isLoading: assetsIsLoading } = useRpcSchemaQuery(
+    'asset.list',
+    { deals: deals?.items?.map(({ id }) => id) },
+    { enabled: !!deals },
+  );
+  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery(
+    'lot.listMy',
+    { deals: deals?.items?.map(({ id }) => id) },
+    { enabled: !!deals },
   );
 
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
+  const findAsset = useCallback(
+    (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
+    [assets],
+  );
+
+  const findLot = useCallback(
+    (lotId: Resource.Lot.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
+    [lots],
+  );
 
   return (
     <VStack width="full">
       <List
         width="full"
-        items={items}
+        items={deals?.items}
         itemKey={(item) => item.id}
-        isLoading={fetchItems.isLoading}
+        isLoading={dealsIsLoading || lotsIsLoading || assetsIsLoading}
         loader={ListLoader}
         emptyText={
           <Empty
@@ -72,10 +72,12 @@ const Deals: React.FC<DealsProps> = ({ filters }) => {
         itemRender={(item) => (
           <UILogic.DealRow
             deal={item}
+            lot={findLot(item.lotKey.id)}
+            asset={findAsset(item.assetKey.id)}
             onClick={() => router.navigateComponent(MBPages.Deal.__id__, { id: item.id }, {})}
           />
         )}
-        footer={items.length > 0 && <Pagination {...paginationProps} />}
+        footer={deals?.total > 0 && <Pagination {...paginationProps} total={deals.total} />}
       />
     </VStack>
   );

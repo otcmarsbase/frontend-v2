@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotCard, useRpcSchemaClient } from '@app/components';
+import { LotCard, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -11,27 +11,16 @@ export interface SimilarLotsBlockProps {
 }
 
 export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
-  const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
-  const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
 
-  const loadAssets = useCallback(async () => {
-    const assets = await rpcSchema.send('asset.list', {});
-    setAssets(assets.items);
-  }, [rpcSchema]);
+  const { data: assets } = useRpcSchemaQuery('asset.list', {});
+  const { data: lots } = useRpcSchemaQuery('lot.listActive', {
+    assets: [lot.attributes.INVEST_DOC_ASSET_PK],
+  });
 
-  const loadLots = useCallback(async () => {
-    const lots = await rpcSchema.send('lot.listActive', { assets: [lot.attributes.INVEST_DOC_ASSET_PK] });
-    setLots(lots.items.filter((item) => item.id !== lot.id));
-  }, [lot.attributes.INVEST_DOC_ASSET_PK, lot.id, rpcSchema]);
+  const similarLots = useMemo(() => lots?.items?.filter((other) => other.id !== lot.id) || [], [lots, lot]);
 
-  useEffect(() => {
-    loadAssets();
-    loadLots();
-  }, [loadAssets, loadLots]);
-
-  if (!lots.length) return null;
+  if (!lots?.total) return null;
 
   return (
     <VStack
@@ -53,12 +42,12 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
       </VStack>
 
       <SimpleGrid columns={4} gap="0.75rem" w="full">
-        {lots.map((lot) => (
+        {similarLots.map((lot) => (
           <LotCard
             key={lot.id}
             minimalView
             lot={lot}
-            asset={assets.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
+            asset={assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />
         ))}

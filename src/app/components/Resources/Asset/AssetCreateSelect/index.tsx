@@ -4,6 +4,7 @@ import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { AssetImage } from '../AssetImage';
 
@@ -14,6 +15,7 @@ export interface AssetCreateSelectProps
 
 export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = ({ value, ...props }) => {
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
   const itemsRef = useRef<Resource.Asset.Asset[]>([]);
   const [search, setSearch] = useState<string>();
 
@@ -46,13 +48,15 @@ export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = ({ value, ...
   );
 
   const load = useCallback(async () => {
-    const { items } = await rpcSchema.send('asset.list', { search });
+    const { items } = await queryClient.fetchQuery({
+      queryKey: ['asset.list', { search }],
+      queryFn: () => rpcSchema.send('asset.list', { search }),
+    });
     itemsRef.current = items;
-
     const notFound = !search ? (typeof value === 'string' ? value : void 0) : search;
 
     return [...items, notFound].filter(Boolean);
-  }, [rpcSchema, search, value]);
+  }, [rpcSchema, search, value, queryClient]);
 
   return (
     <UIKit.SelectAsync

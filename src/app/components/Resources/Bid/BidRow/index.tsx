@@ -1,14 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { BidRowSkeleton, UILogic, useRpcSchemaQuery } from '@app/components';
 import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
-import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
@@ -16,37 +15,14 @@ import { BidRowFieldNameTitleMap } from './const';
 
 export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   bid: Resource.Bid.Bid;
+  lot: Resource.Lot.Lot;
+  asset: Resource.Asset.Asset;
+  deal: Resource.Deal.Deal;
   onClick: () => any;
 }
 
-export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) => {
+export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, ...stackProps }) => {
   const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [lot, setLot] = useState<Resource.Lot.Lot>();
-  const [deal, setDeal] = useState<Resource.Deal.Deal>();
-
-  const fetchAssotiations = useLoadingCallback(
-    useCallback(async () => {
-      const _asset = await rpcSchema.send('asset.getById', { id: bid.assetKey.id });
-      const _lot = await rpcSchema.send('lot.getById', { id: bid.lotKey.id });
-
-      setAsset(_asset);
-      setLot(_lot);
-
-      if (bid.dealKey) {
-        const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
-        setDeal(_deal);
-      }
-    }, [rpcSchema, bid]),
-    true,
-  );
-
-  useEffect(() => {
-    fetchAssotiations();
-  }, [fetchAssotiations]);
-
-  if (fetchAssotiations.isLoading) return <BidRowSkeleton />;
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 

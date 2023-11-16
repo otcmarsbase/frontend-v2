@@ -1,13 +1,13 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 
-import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient } from '@app/components';
+import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Empty, List, Pagination, SkeletonLoader, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, SkeletonLoader, usePagination } from '@shared/ui-kit';
 import { range } from 'lodash';
 
 import { BidItem } from './BidItem';
@@ -18,11 +18,9 @@ interface BidsProps {
 }
 
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
-  const rpcSchema = useRpcSchemaClient();
-  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
   const router = useRouter();
 
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(25);
+  const { skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
     return {
@@ -32,17 +30,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
     };
   }, [skip, limit, lot.id]);
 
-  const loadBids = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('bid.listByLot', fetchPayload);
-      setBids(items);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
-  );
-
-  useEffect(() => {
-    loadBids();
-  }, [loadBids]);
+  const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.listByLot', fetchPayload);
 
   const onCreateBidClick = async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
@@ -67,7 +55,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             Active Bids
           </Text>
           <Circle padding="0 0.25rem" size="1.25rem" bg="orange.500" borderRadius="50%">
-            <Text fontSize="xs">{bids && bids.length}</Text>
+            <Text fontSize="xs">{bids && bids.total}</Text>
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
@@ -90,10 +78,10 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
       <List
         emptyText={<Empty description="Unfortunately, you don't have any bids yet. You can create your own bid" />}
         w="full"
-        items={bids}
+        items={bids?.items}
         itemKey={(bid) => bid.id}
-        isLoading={loadBids.isLoading}
-        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} lot={lot} refreshBids={loadBids} />}
+        isLoading={isLoading}
+        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} lot={lot} refreshBids={refetch} />}
         loader={({ isLoading, children }) => (
           <SkeletonLoader
             skeleton={
@@ -108,7 +96,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             {children}
           </SkeletonLoader>
         )}
-        footer={!isEmpty && <Pagination {...paginationProps} showCaption showPageSize />}
+        footer={!!bids?.total && <Pagination {...paginationProps} showCaption showPageSize total={bids.total} />}
       />
     </VStack>
   );

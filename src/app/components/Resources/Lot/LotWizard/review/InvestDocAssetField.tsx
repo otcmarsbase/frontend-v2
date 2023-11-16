@@ -4,6 +4,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { StepReviewField } from '../_atoms';
 import { LotCreateModel } from '../schema';
@@ -15,6 +16,8 @@ export const InvestDocAssetField = {
 
 const AssetField = ({ value }: { value: LotCreateModel['INVEST_DOC_ASSET'] }) => {
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
+
   const [asset, setAsset] = useState<Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest>();
 
   const preload = useLoadingCallback(
@@ -24,9 +27,12 @@ const AssetField = ({ value }: { value: LotCreateModel['INVEST_DOC_ASSET'] }) =>
         return;
       }
 
-      const result = await rpcSchema.send('asset.getById', { id: value.id });
+      const result = await queryClient.fetchQuery({
+        queryKey: ['asset.getById', { id: value.id }],
+        queryFn: () => rpcSchema.send('asset.getById', { id: value.id }),
+      });
       setAsset(result);
-    }, [value, rpcSchema]),
+    }, [value, rpcSchema, queryClient]),
   );
 
   useEffect(() => {

@@ -1,15 +1,15 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useDebounce } from 'react-use';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
+import { useDebounce } from '@app/hooks';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
 import { VStack, Text, HStack, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
-import { UIKit, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { UIKit, usePagination } from '@shared/ui-kit';
 import pick from 'lodash/pick';
 import * as yup from 'yup';
 
@@ -36,10 +36,7 @@ export interface LotsBlockProps {
 export function LotsBlock({ asset }: LotsBlockProps) {
   const router = useRouter();
 
-  const rpcSchema = useRpcSchemaClient();
-
   const [columnsCount, setColumnsCount] = useState(3);
-  const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema, { id: asset.id });
   const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
@@ -57,7 +54,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
     return initialFilters;
   });
 
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(12);
+  const { skip, limit, ...paginationProps } = usePagination(12);
 
   const fetchPayload = useMemo<RPC.DTO.LotListActive.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
@@ -77,23 +74,15 @@ export function LotsBlock({ asset }: LotsBlockProps) {
     };
   }, [skip, limit, filters, asset.id]);
 
+  const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
+
+  const { data: lots, isLoading } = useRpcSchemaQuery('lot.listActive', debauncedPayload, {});
+
   const isFiltersOpened = useMemo(() => columnsCount === 3, [columnsCount]);
 
   const toggleFilters = () => {
     setColumnsCount((count) => (count === 3 ? 4 : 3));
   };
-
-  const loadLots = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('lot.listActive', fetchPayload, {});
-
-      setLots(items);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
-    true,
-  );
-
-  useDebounce(loadLots, CHANGE_FILTERS_DEBOUNCE_DURATION_MS, [fetchPayload]);
 
   const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     paginationProps.onChange(1);
@@ -154,11 +143,11 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   filters={{ ...filters, assets: undefined, direction: undefined }}
                   onReset={handleResetFilters}
                 />
-                {loadLots.isLoading ? (
+                {isLoading ? (
                   <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
-                    {isEmpty ? (
+                    {!lots.total ? (
                       <UIKit.Empty
                         createButton={
                           <UILogic.AuthAction>
@@ -171,7 +160,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                     ) : (
                       <UILogic.LotGrid
                         columns={{ base: 1, md: columnsCount }}
-                        lots={lots}
+                        lots={lots.items}
                         assets={[asset]}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />

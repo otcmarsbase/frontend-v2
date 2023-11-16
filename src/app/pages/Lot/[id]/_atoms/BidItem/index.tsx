@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
-import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
 import { LotMultiplicatorDictionary, LotUnitAddonDictionary, ParticipantTypeDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
+import { DateText, MoneyText } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
@@ -33,24 +33,17 @@ export interface BidItemProps {
   bid: Resource.Bid.Bid;
   lot: Resource.Lot.Lot;
   isOfferMaker: boolean;
-  refreshBids: () => Promise<void>;
+  refreshBids: () => Promise<any>;
 }
 
 export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refreshBids }) => {
   const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
   const { account } = useAuth();
-  const [deal, setDeal] = useState<Resource.Deal.Deal>();
 
-  const fetchBid = useLoadingCallback(
-    useCallback(async () => {
-      if (!bid.dealKey) return;
-
-      const _deal = await rpcSchema.send('deal.getById', { id: bid.dealKey.id });
-
-      setDeal(_deal);
-    }, [rpcSchema, bid]),
-    true,
+  const { data: deal, isLoading } = useRpcSchemaQuery(
+    'deal.getById',
+    { id: bid.dealKey?.id },
+    { enabled: !!bid.dealKey },
   );
 
   const handleClick = useCallback(() => {
@@ -59,11 +52,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
     router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
   }, [bid, router, account, isOfferMaker]);
 
-  useEffect(() => {
-    fetchBid();
-  }, [fetchBid]);
-
-  if (fetchBid.isLoading) return <LotBidSkeleton />;
+  if (isLoading) return <LotBidSkeleton />;
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
