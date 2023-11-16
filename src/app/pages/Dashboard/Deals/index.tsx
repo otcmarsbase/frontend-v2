@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -10,23 +12,31 @@ import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@sha
 
 import { ListLoader } from './_atoms';
 
-export interface DealsProps {
-  filters?: {
-    search?: string;
-    directions?: Resource.Common.Enums.TradeDirection[];
-    minValue?: number;
-    maxValue?: number;
-  };
-}
-
-const Deals: React.FC<DealsProps> = ({ filters }) => {
+const Deals: React.FC = () => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const [items, setItems] = useState<Resource.Deal.Deal[]>([]);
   const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination();
 
+  const filters = useWatch({ name: 'filters' }) as DashboardFilters;
+
   const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
-    return { skip, limit, ...filters };
+    const status = filters.status.length
+      ? filters.status.flatMap((value) => {
+          switch (value) {
+            case 'active':
+              return ['NEGOTIATION'];
+            case 'moderated':
+              return ['ON_MODERATION'];
+            case 'ended':
+              return ['COMPLETED', 'REJECTED'];
+            default:
+              return [];
+          }
+        })
+      : undefined;
+
+    return { skip, limit, status };
   }, [skip, limit, filters]);
 
   const fetchItems = useLoadingCallback(
