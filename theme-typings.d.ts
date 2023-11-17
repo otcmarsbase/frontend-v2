@@ -274,6 +274,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'brandGradientBordered'
     | 'brandLinearGradient'
     | 'grayRadiiArea'
+    | 'card'
     | (string & {});
   letterSpacings: 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest' | (string & {});
   lineHeights:

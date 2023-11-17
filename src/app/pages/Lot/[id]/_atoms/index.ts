@@ -1,3 +1,4 @@
+export * from './AssetBlock';
 export * from './Bids';
 export * from './SidebarBlock';
 export * from './LotBasicInfo';
