@@ -15,7 +15,7 @@ export const MainChipFieldType = [
 ] as const;
 export type MainChipFieldType = (typeof MainChipFieldType)[number];
 
-export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, React.ReactNode>([
+export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, string>([
   ['PRICE_TOKEN', 'Price 0.01% token share'],
   ['PRICE_EQUITY', 'Price 0.01% equity'],
   ['PRICE_UNIT', 'Price per token'],
@@ -121,3 +121,13 @@ export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { t
     },
   })
   .asReadonly();
+
+export const MobileTabItemKey = ['BIDS', 'LOT_INFO', 'ASSET_INFO'] as const;
+
+export type MobileTabItemKey = (typeof MobileTabItemKey)[number];
+
+export const MobileTabItemDictionary = createDictionary<MobileTabItemKey, string>({
+  BIDS: 'Bids',
+  LOT_INFO: 'Lot info',
+  ASSET_INFO: 'Asset info',
+});

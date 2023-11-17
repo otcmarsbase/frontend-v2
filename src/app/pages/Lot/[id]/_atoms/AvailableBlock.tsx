@@ -40,7 +40,7 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
   const totalSum = total.toDecimalPlaces(2).toNumber();
 
   return (
-    <VStack bg="dark.900" p="1.25rem" borderRadius="sm">
+    <VStack bg="dark.900" p="1.25rem" borderRadius="sm" w="full">
       <HStack w="full" justifyContent="space-between">
         <Text fontFamily="promo" fontSize="md" textTransform="uppercase">
           Available

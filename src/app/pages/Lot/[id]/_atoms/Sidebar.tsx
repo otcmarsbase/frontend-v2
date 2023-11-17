@@ -7,6 +7,7 @@ import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
 
+import { AssetBlock } from './AssetBlock';
 import { SidebarBlock } from './SidebarBlock';
 
 interface SidebarProps {
@@ -14,7 +15,6 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
-  const router = useRouter();
   const isAssetCreateRequest = 'title' in asset;
 
   const groupedByGroupLinks = new Map(
@@ -39,41 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
   return (
     <GridItem display="flex" h="100%" flexDirection="column" top={0}>
       <VStack top={0} position="sticky" w="full" gap="0.75rem">
-        <HStack
-          w="100%"
-          h="5.5rem"
-          justifyContent="space-between"
-          padding="0.75rem 1.25rem"
-          bg="dark.900"
-          borderRadius="0.75rem"
-        >
-          <HStack gap="2.12rem">
-            <HStack
-              gap="1.5rem"
-              onClick={
-                !isAssetCreateRequest
-                  ? () => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})
-                  : undefined
-              }
-              cursor={isAssetCreateRequest ? 'initial' : 'pointer'}
-              _hover={{
-                textDecoration: isAssetCreateRequest ? 'initial' : 'underline',
-              }}
-            >
-              {!isAssetCreateRequest && <UILogic.AssetImage w="4rem" asset={asset} borderRadius="light" />}
-              <Heading as="h2" variant="h4" fontSize={'lg'} fontFamily="promo">
-                {isAssetCreateRequest ? asset.title : asset.info.title}
-              </Heading>
-            </HStack>
-            {!isAssetCreateRequest && asset.info.analyticURL && (
-              <Link href={asset.info.analyticURL} target="_blank">
-                <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
-                  Get analytics
-                </Button>
-              </Link>
-            )}
-          </HStack>
-        </HStack>
+        <AssetBlock asset={asset} />
         {!isAssetCreateRequest && (
           <SidebarBlock
             title="Description"
