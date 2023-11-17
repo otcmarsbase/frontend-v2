@@ -4,6 +4,7 @@ import { useAuth, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { Button, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
+import { useQueryClient } from '@tanstack/react-query';
 
 export interface OfferMakerActions {
   bid: Resource.Bid.Bid;
@@ -13,6 +14,7 @@ export interface OfferMakerActions {
 
 export const OfferMakerActions: FC<OfferMakerActions> = ({ bid, isOfferMaker, refreshBids }) => {
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
   const { account } = useAuth();
   const toastCallback = useToastOuterCallback({ showWhenOk: true });
   const [acceptIsLoading, setAcceptIsLoading] = useState(false);
@@ -31,6 +33,7 @@ export const OfferMakerActions: FC<OfferMakerActions> = ({ bid, isOfferMaker, re
       try {
         setAcceptIsLoading(true);
         await rpcSchema.send('bid.accept', { id: bid.id, userId: account.id });
+        await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('bid') });
         refreshBids();
       } catch (e) {
         throw e;

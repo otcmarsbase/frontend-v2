@@ -65,6 +65,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     if (!result) return;
 
     const updatedLot = await rpcSchema.send('lot.cancelModeration', { id: lot.id });
+    await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
 
     if (updatedLot.status === 'DRAFT') {
       return router.navigateComponent(MBPages.Lot.Create.__id__, { id: updatedLot['id'] }, { replace: true });
@@ -73,7 +74,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     }
 
     setLot(updatedLot);
-  }, [lot, rpcSchema, router]);
+  }, [lot, rpcSchema, router, queryClient]);
 
   const handleDeleteLot = useCallback(() => {
     deleteToastCallback(async () => {
@@ -82,10 +83,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       if (!result) throw new Error();
 
       const archivedLot = await rpcSchema.send('lot.archive', { id: lot.id });
+      await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
 
       if (archivedLot['status'] === 'ARCHIVED') return router.navigateComponent(MBPages.Marketplace.Home, {}, {});
     });
-  }, [deleteToastCallback, lot, rpcSchema, router]);
+  }, [deleteToastCallback, lot, rpcSchema, router, queryClient]);
 
   if (!mappedLot || (!asset && !lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST) || preload.isLoading)
     return <UIKit.Loader />;

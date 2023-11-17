@@ -7,6 +7,7 @@ import { Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
 const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
@@ -14,6 +15,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
   const { data: lot, isLoading } = useRpcSchemaQuery('lot.getById', { id });
+  const queryClient = useQueryClient();
 
   const mappedLot = useMemo(() => {
     if (!lot) return;
@@ -31,6 +33,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     async (data, meta) => {
       if (meta.isLastStep) {
         await rpcSchema.send('lot.sendOnModeration', { id });
+        await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
+
         router.navigateComponent(MBPages.Lot.Moderation.__id__, { id }, { replace: true });
         return;
       }
@@ -47,8 +51,9 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       }
 
       await rpcSchema.send('lot.update', payload);
+      await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
     },
-    [rpcSchema, router, id],
+    [rpcSchema, router, id, queryClient],
   );
 
   if (isLoading) return <UIKit.Loader />;

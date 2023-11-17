@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { LotCard, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
+import { LotCard, useRpcSchemaQuery } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
