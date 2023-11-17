@@ -84,6 +84,8 @@ export const SortBidsByTypeDictionary = createDictionary<SortBidsByType, SortBid
 export const RoundInfoFieldType = [
   'INVESTMENT_ROUND',
   'ROUND_TOKEN_PRICE',
+  'ROUND_EQUITY_PRICE',
+  'ROUND_UNITS',
   'TGE_DATE',
   'ROUND_FDV',
   'LOCKUP_PERIOD',
@@ -98,6 +100,12 @@ export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { t
     },
     ROUND_TOKEN_PRICE: {
       title: 'Round token price',
+    },
+    ROUND_EQUITY_PRICE: {
+      title: 'Equity price',
+    },
+    ROUND_UNITS: {
+      title: 'Tokens share bought',
     },
     TGE_DATE: {
       title: 'Estimate TGE Date',
