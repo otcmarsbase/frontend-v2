@@ -19,7 +19,7 @@ export const CommonDirectionInput: FC<BaseInputProps> = () => {
           name={NAME}
           render={({ field }) => (
             <RadioButtons
-              variant="solid"
+              variant={{ base: 'bordered', md: 'solid' }}
               value={field.value}
               renderKey={(item) => item}
               onChange={(value) => {

@@ -686,7 +686,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     RadioButtons: {
       sizes: string & {};
-      variants: 'solid' | 'outline' | (string & {});
+      variants: 'solid' | 'outline' | 'bordered' | (string & {});
     };
     Text: {
       sizes: string & {};

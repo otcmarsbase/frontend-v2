@@ -40,7 +40,7 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, amount, lotType,
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
         {DealBlockTypeDictionary.get('DEAL_INFO').title}
       </Heading>
-      <SimpleGrid columns={2} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
+      <SimpleGrid columns={{ base: 1, md: 2 }} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
           value={<MoneyText abbreviated value={price} addon={<Text color="dark.50">$</Text>} />}
