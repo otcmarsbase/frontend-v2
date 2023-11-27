@@ -50,7 +50,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
 
   return (
     <VStack gap="1rem" alignItems="start">
-      <HStack width="full" gap="2rem" alignItems="start">
+      <HStack flexDirection={{ base: 'column', md: 'row' }} width="full" gap="2rem" alignItems="start">
         <VStack gap="1.25rem" flex="1.5">
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />
 
