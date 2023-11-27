@@ -78,6 +78,8 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }
     },
   ];
 
+  console.log(deal.bidMakers, account);
+
   return (
     <HStack
       bg="dark.900"

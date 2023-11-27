@@ -2,9 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
-import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Empty, List, Pagination, SkeletonLoader, useLoadingCallback, usePagination } from '@shared/ui-kit';
@@ -20,7 +18,6 @@ interface BidsProps {
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const rpcSchema = useRpcSchemaClient();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
-  const router = useRouter();
 
   const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(25);
 
@@ -49,7 +46,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
 
     if (!bid) return;
 
-    router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+    loadBids();
   };
 
   return (

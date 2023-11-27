@@ -280,7 +280,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
             <Controller
               control={control}
               name="telegram"
-              render={(props) => <Input {...props.field} placeholder={CommonFieldsDictionary.get('TELEGRAM').label} />}
+              render={(props) => <UIKit.InputTelegram {...props.field} placeholder="@nickname" />}
             />
           </FormControl>
           <Button w="full" size="lg" isLoading={isSubmitting} onClick={handleSubmit(onSubmit)}>
