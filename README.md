@@ -1,6 +1,6 @@
 <p align="center"><img src="https://desk.otcmarsbase.io/static/media/logo.35a2adb7b56d3431201a.png" width="256" /></p>
 
-<h1 align="center">OTC MarsBase Web</h1>
+<h1 align="center">Marsbase Desk Web</h1>
 
 <div align="center">
   <a href='https://github.com/dydxprotocol/v4-web/blob/main/LICENSE'>
