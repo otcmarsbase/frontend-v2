@@ -61,5 +61,16 @@ Set environment variables via `.env`.
 | `REACT_APP_DEBUG_MODE`              | Optional    | When set to `true`, the application runs in debug mode.                                                                                     | false                               |
 
 # Linting, tests and typechecking
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
 # Deployments
