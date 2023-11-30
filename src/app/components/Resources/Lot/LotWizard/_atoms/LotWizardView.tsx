@@ -30,9 +30,15 @@ export const LotWizardView = <T extends string>({
   const currentStepDescriptor = useMemo(() => stepDictionary.get(currentStep), [stepDictionary, currentStep]);
 
   return (
-    <SimpleGrid gridTemplateColumns="1fr 18rem" w="full" gap="0" alignItems="stretch" position="relative">
-      <Box borderRight="1px solid" w="full" borderColor="dark.800">
-        <VStack alignItems="start" p="2rem" pb="0">
+    <SimpleGrid
+      gridTemplateColumns={{ base: '1fr', md: '1fr 18rem' }}
+      w="full"
+      gap="0"
+      alignItems="stretch"
+      position="relative"
+    >
+      <Box borderRight={{ base: 'none', md: '1px solid' }} w="full" borderColor="dark.800">
+        <VStack alignItems="start" p="2rem" pb="0" w="full">
           {currentStepDescriptor.title && (
             <Text fontSize="2md" color="white" fontWeight="600">
               {currentStepDescriptor.title}
@@ -44,12 +50,12 @@ export const LotWizardView = <T extends string>({
             </Text>
           )}
         </VStack>
-        <VStack p="2rem" gap="2rem" alignItems="start">
+        <VStack p="2rem" gap="2rem" alignItems="start" w="full">
           {stepComponent}
         </VStack>
       </Box>
-      <Box p="2rem" position="relative" display="flex" flexDirection="column" justifyContent="space-between">
-        <Box position="sticky" top="2rem">
+      <Box p="2rem" position="relative" flexDirection="column" justifyContent="space-between">
+        <Box position="sticky" top="2rem" display={{ base: 'none', md: 'flex' }}>
           <Steps
             value={currentStep}
             onChange={onStepChange}
@@ -58,7 +64,7 @@ export const LotWizardView = <T extends string>({
             renderTitle={(key) => stepDictionary.get(key).stepTitle}
           />
         </Box>
-        <VStack position="sticky" bottom="2rem" mt="10rem" gap="1rem">
+        <VStack position="sticky" bottom="2rem" mt={{ base: '1rem', md: '10rem' }} gap="1rem">
           <Button w="full" color="white" type="submit" isLoading={isLoading}>
             {isLastStep ? 'Publish Lot' : 'Next step'}
           </Button>

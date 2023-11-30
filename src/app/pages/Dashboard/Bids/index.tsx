@@ -1,7 +1,9 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
 import * as Layouts from '@app/layouts';
+import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -10,18 +12,29 @@ import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
-interface MyBidsProps {
-  filters?: {
-    status?: Resource.Bid.Enums.BidStatus[];
-  };
-}
-
-const MyBids: React.FC<MyBidsProps> = ({ filters }) => {
+const MyBids: React.FC = () => {
   const router = useRouter();
   const { skip, limit, ...paginationProps } = usePagination();
 
-  const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
-    return { skip, limit, ...filters };
+  const filters = useWatch({ name: 'filters' }) as DashboardFilters;
+
+  const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
+    const status = filters.status.length
+      ? filters.status.flatMap((value) => {
+          switch (value) {
+            case 'active':
+              return ['ACTIVE'];
+            case 'moderated':
+              return ['ON_MODERATION'];
+            case 'ended':
+              return ['REJECTED', 'DEAL'];
+            default:
+              return [];
+          }
+        })
+      : undefined;
+
+    return { skip, limit, status };
   }, [skip, limit, filters]);
   const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.listMy', fetchPayload);
   const { data: assets, isLoading: assetsIsLoading } = useRpcSchemaQuery(

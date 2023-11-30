@@ -4,7 +4,7 @@ import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Button, Grid, GridItem, VStack, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
@@ -14,6 +14,7 @@ import { toNumber } from 'lodash';
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
+import { LotMobile } from './index.mobile';
 
 export interface LotProps extends React.PropsWithChildren {
   id: number;
@@ -29,6 +30,13 @@ export default function Lot({ id }: LotProps) {
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const isMobile = useBreakpointValue(
+    {
+      base: true,
+      md: false,
+    },
+    { ssr: false },
+  );
 
   const isOfferMaker = useMemo(() => {
     if (!(lot && account)) return false;
@@ -74,6 +82,15 @@ export default function Lot({ id }: LotProps) {
   if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
   if (!lot) return;
+
+  if (isMobile)
+    return (
+      <LotMobile
+        isOfferMaker={isOfferMaker}
+        lot={lot}
+        asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
+      />
+    );
 
   return (
     <VStack marginTop="2rem" alignItems="flex-start">

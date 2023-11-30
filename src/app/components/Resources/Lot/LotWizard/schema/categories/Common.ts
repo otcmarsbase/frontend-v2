@@ -37,7 +37,7 @@ export const CommonInputs = yup.object({
   COMMON_PRICE: COMMON_PRICE.nullable(),
   COMMON_SUMMARY: COMMON_SUMMARY.required(),
   COMMON_TELEGRAM: COMMON_TELEGRAM.required(),
-  COMMON_UNITS: COMMON_UNITS.required(),
+  COMMON_UNITS: COMMON_UNITS,
 });
 
 export type CommonInputsModel = yup.InferType<typeof CommonInputs>;

@@ -9,7 +9,7 @@ export interface RadioButtonsItem<Type extends RadioButtonsValue> {
   value: Type;
 }
 
-export type RadioButtonsVariant = 'solid' | 'outline';
+export type RadioButtonsVariant = 'solid' | 'outline' | 'bordered';
 
 export interface RadioButtonsProps<T> extends Omit<BoxProps, 'onChange'> {
   items: readonly T[] | T[];

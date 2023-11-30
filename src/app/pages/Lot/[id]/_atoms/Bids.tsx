@@ -2,9 +2,7 @@ import { FC, useMemo } from 'react';
 
 import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
-import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Empty, List, Pagination, SkeletonLoader, usePagination } from '@shared/ui-kit';
@@ -18,8 +16,6 @@ interface BidsProps {
 }
 
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
-  const router = useRouter();
-
   const { skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
@@ -37,7 +33,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
 
     if (!bid) return;
 
-    router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+    refetch();
   };
 
   return (
@@ -49,6 +45,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
         lineHeight={'1.5rem'}
         textTransform={'uppercase'}
         w={'100%'}
+        display={{ base: 'none', md: 'flex' }}
       >
         <HStack alignItems="center">
           <Text textTransform="uppercase" fontFamily="promo">

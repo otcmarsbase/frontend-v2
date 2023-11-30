@@ -1,5 +1,10 @@
-import { AuthProvider, QueryClientProvider } from '@app/components';
-import { RpcSchemaProvider, ThemeProvider } from '@app/components';
+import {
+  AuthProvider,
+  QueryClientProvider,
+  AppStateController,
+  RpcSchemaProvider,
+  ThemeProvider,
+} from '@app/components';
 import { StoreProvider } from '@app/store';
 import { PortalProvider } from '@packages/berish-react-portal';
 import { RouterProvider } from '@packages/router5-react-auto';
@@ -20,7 +25,9 @@ export function App() {
                   <StoreProvider>
                     <RpcSchemaProvider client={appManager.serviceManager.backendApiService.schema}>
                       <ModalRenderProvider />
-                      <RouterProvider router={appManager.router} notFound={pages.Errors.NotFound} />
+                      <AppStateController>
+                        <RouterProvider router={appManager.router} notFound={pages.Errors.NotFound} />
+                      </AppStateController>
                     </RpcSchemaProvider>
                   </StoreProvider>
                 </AuthProvider>

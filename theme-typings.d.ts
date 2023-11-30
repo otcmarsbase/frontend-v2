@@ -274,6 +274,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'brandGradientBordered'
     | 'brandLinearGradient'
     | 'grayRadiiArea'
+    | 'card'
     | (string & {});
   letterSpacings: 'tighter' | 'tight' | 'normal' | 'wide' | 'wider' | 'widest' | (string & {});
   lineHeights:
@@ -685,7 +686,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     RadioButtons: {
       sizes: string & {};
-      variants: 'solid' | 'outline' | (string & {});
+      variants: 'solid' | 'outline' | 'bordered' | (string & {});
     };
     Text: {
       sizes: string & {};

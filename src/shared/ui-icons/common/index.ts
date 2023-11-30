@@ -3,6 +3,7 @@ export * from './AlertCircle';
 export * from './ArrowDown';
 export * from './ArrowLeft';
 export * from './ArrowUp';
+export * from './BellIcon';
 export * from './CalendarIcon';
 export * from './CheckmarkIcon';
 export * from './ChevronDownIcon';

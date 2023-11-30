@@ -33,7 +33,7 @@ export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
   agentCommission,
 }) => {
   return (
-    <VStack flex="1" padding="1.5rem 1.25rem" gap="1rem" bg="dark.900" borderRadius="0.75rem">
+    <VStack flex="1" padding="1.5rem 1.25rem" gap="1rem" bg="dark.900" borderRadius="0.75rem" w="full">
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
         {DealBlockTypeDictionary.get('TRADE_PROGRESS').title}
       </Heading>

@@ -45,4 +45,9 @@ export default defineStyle({
     borderRadius: 'xs',
     bg: 'dark.800',
   },
+  card: {
+    padding: '1rem',
+    borderRadius: 'sm',
+    bg: 'dark.900',
+  },
 });

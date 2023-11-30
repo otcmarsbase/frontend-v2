@@ -35,7 +35,7 @@ interface DealParticipantProps {
 
 const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
   return (
-    <VStack w="full" gap="1.5rem">
+    <VStack w="full" flexDirection={{ base: 'row', md: 'column' }} gap="1.5rem">
       <GridParticipantField
         label={DealParticipantDictionary.get(type).title}
         value={<AccountAvatar nickname={user.nickname} />}
@@ -73,7 +73,7 @@ export const DealParticipants: FC<DealParticipantsProps> = ({
           </Button>
         )}
       </HStack>
-      <SimpleGrid w="full" columns={4} gridColumnGap="4.2rem">
+      <SimpleGrid w="full" columns={{ base: 1, md: 4 }} gridColumnGap="4.2rem" gridRowGap="1.5rem">
         {!!offerMakers.length && offerMakers.map((user) => <DealParticipant type="OFFER_MAKER" user={user} />)}
         {!!bidMakers.length && bidMakers.map((user) => <DealParticipant type="BID_MAKER" user={user} />)}
         {!!moderators.length && moderators.map((user) => <DealParticipant type="MODERATOR" user={user} />)}
