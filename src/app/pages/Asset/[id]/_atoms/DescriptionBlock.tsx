@@ -1,3 +1,5 @@
+import Linkify from 'react-linkify';
+
 import { Text } from '@chakra-ui/react';
 import { UIKit } from '@shared/ui-kit';
 
@@ -19,7 +21,22 @@ export function DescriptionBlock({ description }: DescriptionBlockProps) {
           color="dark.50"
           whiteSpace="pre-line"
         >
-          {description}
+          <Linkify
+            componentDecorator={(href, text, key) => (
+              <Text
+                key={key}
+                as="a"
+                href={href}
+                color="orange.500"
+                _hover={{ textDecoration: 'underline' }}
+                target="_blank"
+              >
+                {text}
+              </Text>
+            )}
+          >
+            {description}
+          </Linkify>
         </Text>
       </UIKit.SectionContent>
     </UIKit.Section>
