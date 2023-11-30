@@ -50,7 +50,7 @@ yarn storybook
 
 This will automatically open your default browser at `http://localhost:6006`.
 
-## Part 3: Set Enviornment variables
+## Part 3: Set Environment variables
 
 Set environment variables via `.env`.
 
