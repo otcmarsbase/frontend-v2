@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+<p align="center"><img src="https://desk.otcmarsbase.io/static/media/logo.35a2adb7b56d3431201a.png" width="256" /></p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">OTC MarsBase Web</h1>
 
-## Available Scripts
+<div align="center">
+  <a href='https://github.com/dydxprotocol/v4-web/blob/main/LICENSE'>
+    <img src='https://img.shields.io/badge/License-AGPL_v3-blue.svg' alt='License' />
+  </a>
+</div>
 
-In the project directory, you can run:
+## Prerequisites
 
-### `yarn start`
+- [Node.js](https://nodejs.org/en/download/current) version 18 and `yarn` installed on your system
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Part 1: Setting up your local environment
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1. Clone the repo
 
-### `yarn test`
+Clone the repository and navigate to its directory:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/otcmarsbase/frontend-v2
+cd frontend-v2
+```
 
-### `yarn build`
+### 2. Install yarn and dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install yarn and the project dependencies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm i -g yarn
+yarn
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Part 2: Running the project locally
 
-### `yarn eject`
+Run the following command in the project directory to start the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+yarn start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The development server will be running at `http://localhost:3000` (or the port number displayed in the terminal) and will automatically open your default browser with the app.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To view UI component stories, run the following command:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+yarn storybook
+```
 
-## Learn More
+This will automatically open your default browser at `http://localhost:6006`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Part 3: Set Enviornment variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Set environment variables via `.env`.
+
+| Variable name                       | Requirement | Description                                                                                                                                 | Default Value                       |
+| ----------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `REACT_APP_BACKEND_API_GATEWAY_URL` | Required    | The URL of the [RPC](https://www.w3.org/History/1992/nfs_dxcern_mirror/rpc/doc/Introduction/WhatIs.html) backend endpoint.                  | https://dev-api.otcmarsbase.io/rpc/ |
+| `GENERATE_SOURCEMAP`                | Optional    | When set to `false`, source maps are not generated for a production build. This solves out of memory (OOM) issues on some smaller machines. | true                                |
+| `REACT_APP_DEBUG_MODE`              | Optional    | When set to `true`, the application runs in debug mode.                                                                                     | false                               |
+
+# Linting, tests and typechecking
+
+# Deployments
