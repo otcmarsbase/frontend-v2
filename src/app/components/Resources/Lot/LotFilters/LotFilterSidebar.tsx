@@ -90,7 +90,7 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
             minMax={[0, 999999]}
             value={filters.bidSize}
             onChange={(bidSize) => onChange({ bidSize })}
-            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated addon="$" />}
+            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
             step={20}
           />
         </UIKit.KeyValueRowAccordion>

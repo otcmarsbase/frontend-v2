@@ -1,5 +1,5 @@
 import { PropsWithChildren, useCallback } from 'react';
-import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import { AppLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';

@@ -53,11 +53,9 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                     format="0,000.000"
                     value={lot.attributes.INVEST_DOC_ROUND_PRICE}
                     fontSize="sm"
-                    addon={
-                      <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                        $
-                      </Text>
-                    }
+                    currencyTextProps={{
+                      color: 'dark.50',
+                    }}
                   />
                 }
               />
@@ -65,16 +63,13 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               <RoundInfoField
                 title={RoundInfoFieldDictionary.get('ROUND_UNITS').title}
                 value={
-                  <UIKit.MoneyText
+                  <UIKit.PercentText
                     fontWeight={800}
-                    format="0,000.000"
                     value={getRoundContractSize(lot)}
                     fontSize="sm"
-                    addon={
-                      <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                        %
-                      </Text>
-                    }
+                    percentTextProps={{
+                      color: 'dark.50',
+                    }}
                   />
                 }
               />
@@ -97,11 +92,9 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                   fontSize="sm"
                   format="0,00"
                   fontWeight={800}
-                  addon={
-                    <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                      $
-                    </Text>
-                  }
+                  currencyTextProps={{
+                    color: 'dark.50',
+                  }}
                 />
               }
             />
@@ -137,11 +130,11 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                 lot.type === 'SAFT' ? 'PRICE_UNIT' : lot.type === 'TOKEN_WARRANT' ? 'PRICE_TOKEN' : 'PRICE_EQUITY'
               }
             >
-              <MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated addon="$" />
+              <MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated />
             </RoundInfoItem>
             <RoundInfoItem fieldName="LOT_FDV">
               <VStack alignItems="start">
-                <MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} addon="$" />
+                <MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} />
               </VStack>
             </RoundInfoItem>
             <RoundInfoItem fieldName="CONTRACT_SIZE">
@@ -151,7 +144,6 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                 fontWeight={500}
                 color="dark.50"
                 value={lot.attributes.COMMON_SUMMARY}
-                addon="$"
               />
               {lot.type === 'SAFT' ? (
                 <MoneyText fontSize="xs" fontWeight={500} value={getContractSize(lot)} abbreviated />
@@ -179,7 +171,6 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                 color="dark.50"
                 abbreviated
                 value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-                addon="$"
               />
             </RoundInfoItem>
           </SimpleGrid>
