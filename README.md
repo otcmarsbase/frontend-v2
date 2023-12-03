@@ -8,6 +8,8 @@
   </a>
 </div>
 
+MarsBase — Web3 Secondaries and OTC platform for SAFT, SAFE & illiquid crypto assets p2p-trading. 
+
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/current) version 18 and `yarn` installed on your system
