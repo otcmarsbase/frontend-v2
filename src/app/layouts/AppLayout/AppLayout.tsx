@@ -44,7 +44,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
               about={{
                 title: 'MARSBASE dOTC Desk',
                 description:
-                  'A perfect place for crypto whales and retail investors to trade large volumes of any digital asset with no price slippage or market impact.',
+                  'Pioneering the Evolution of Web3 Secondary Markets! DeFi secondary market for all types of illiquid assets in the web3 ecosystem. Facilitating trading of locked assets, options, distressed tokens, and more.',
               }}
               socials={AppConfig.socials}
               copyrightText={`© All Rights Reserved MarsBase, ${new Date().getFullYear()}`}
