@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { DateText, MoneyText, useLoadingCallback } from '@shared/ui-kit';
+import { DateText, UIKit, useLoadingCallback } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
@@ -92,27 +92,27 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
       </VStack>
       <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">
-          <MoneyText
+          <UIKit.MoneyText
             fontSize="sm"
             fontWeight="500"
             color="white"
             abbreviated
             value={bid.summary.value}
-            addon={<Text color="dark.50">$</Text>}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         </BidItemColumn>
         <BidItemColumn type="BID_SIZE">
-          <MoneyText
+          <UIKit.PercentText
             fontSize="sm"
             fontWeight="500"
             color="white"
-            abbreviated
             value={new Decimal(bid.units.value).div(multiplicator).toString()}
-            addon={
-              LotUnitAddonDictionary.get(lot.type) && (
-                <Text color="dark.50">{LotUnitAddonDictionary.get(lot.type)}</Text>
-              )
-            }
+            percent={LotUnitAddonDictionary.get(lot.type)}
+            percentTextProps={{
+              color: 'dark.50',
+            }}
           />
         </BidItemColumn>
         <BidItemColumn type="BIDDER_TYPE">

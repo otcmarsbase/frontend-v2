@@ -7,7 +7,6 @@ import { formatDate } from '@app/utils';
 import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -57,20 +56,19 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, onClick, ...stackProps }
     {
       label: DealRowFieldNameTitleMap.get('DEAL_SIZE'),
       value: (
-        <UIKit.MoneyText
+        <UIKit.PercentText
           value={new Decimal(deal.units.value).div(multiplicator).toString()}
-          addon={LotUnitAddonDictionary.get(lot.type)}
-          abbreviated
+          percent={LotUnitAddonDictionary.get(lot.type)}
         />
       ),
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
-      value: <UIKit.MoneyText value={deal.summary.value} addon="$" format="0,0.X" abbreviated />,
+      value: <UIKit.MoneyText value={deal.summary.value} format="0,0.X" abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-      value: <UIKit.MoneyText value={deal.fdv?.value} abbreviated addon="$" />,
+      value: <UIKit.MoneyText value={deal.fdv?.value} abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),

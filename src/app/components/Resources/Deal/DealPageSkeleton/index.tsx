@@ -1,6 +1,5 @@
 import { Box, HStack, SimpleGrid, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
-import { UIKit } from '@shared/ui-kit';
 import { range } from 'lodash';
 
 import { TradeDirectionText } from '../../Common';

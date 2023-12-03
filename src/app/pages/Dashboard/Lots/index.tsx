@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 
 import { LotRow, UILogic, useRpcSchemaClient } from '@app/components';
 import * as Layouts from '@app/layouts';

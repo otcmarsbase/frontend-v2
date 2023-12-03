@@ -6,5 +6,5 @@ import { LotCreateModel } from '../schema';
 
 export const CommonMinFilterSummaryField = {
   renderTitle: () => <Text>Minimum deal size</Text>,
-  renderValue: (model) => <UIKit.MoneyText value={model.COMMON_MIN_FILTER_SUMMARY} addon="$" format="0,0.X" />,
+  renderValue: (model) => <UIKit.MoneyText value={model.COMMON_MIN_FILTER_SUMMARY} format="0,0.X" />,
 } satisfies StepReviewField<LotCreateModel>;

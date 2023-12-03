@@ -1,11 +1,8 @@
-import { AssetLink, AssetVerticalRow, UILogic } from '@app/components';
-import { MBPages } from '@app/pages';
+import { AssetLink, AssetVerticalRow } from '@app/components';
 import LINQ from '@berish/linq';
-import { Button, Heading, Link, Text, VStack } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
+import { VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
-import { ExpandableText, GridItem, HStack } from '@shared/ui-kit';
+import { ExpandableText, GridItem } from '@shared/ui-kit';
 
 import { AssetBlock } from './AssetBlock';
 import { SidebarBlock } from './SidebarBlock';

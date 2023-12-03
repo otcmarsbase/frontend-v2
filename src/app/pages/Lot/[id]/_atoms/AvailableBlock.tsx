@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { HStack, MoneyText, UIKit, VStack } from '@shared/ui-kit';
+import { HStack, UIKit, VStack } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
@@ -46,9 +46,9 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
           Available
         </Text>
         <HStack>
-          <MoneyText fontSize="sm" value={availableSum} abbreviated addon={<Text color="dark.50">$</Text>} />
+          <UIKit.MoneyText fontSize="sm" value={availableSum} abbreviated currencyTextProps={{ color: 'dark.50' }} />
           <Text fontSize="sm">/</Text>
-          <MoneyText fontSize="sm" value={totalSum} abbreviated addon={<Text color="dark.50">$</Text>} />
+          <UIKit.MoneyText fontSize="sm" value={totalSum} abbreviated currencyTextProps={{ color: 'dark.50' }} />
         </HStack>
       </HStack>
       <Box w="full" h="11rem">
@@ -56,15 +56,14 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
           data={chartData}
           size="sm"
           formatValue={(point) => (
-            <MoneyText
+            <UIKit.MoneyText
               fontSize="sm"
               value={point.datum.formattedValue}
               abbreviated
-              addon={
-                <Text fontSize="sm" fontWeight={700} color="dark.50">
-                  $
-                </Text>
-              }
+              currencyTextProps={{
+                color: 'dark.50',
+                fontWeight: 700,
+              }}
             />
           )}
         />

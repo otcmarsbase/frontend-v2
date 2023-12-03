@@ -3,6 +3,12 @@
   "plugins": ["import"],
   "overrides": [
     {
+      "files": ["./src/locale.ts"],
+      "rules": {
+        "no-template-curly-in-string": "off"
+      }
+    },
+    {
       "files": ["**/*.ts?(x)"],
       "rules": {
         "import/no-anonymous-default-export": "off",

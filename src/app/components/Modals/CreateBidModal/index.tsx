@@ -1,23 +1,12 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import { useLotMultiplicatorValue, useToastInnerCallback } from '@app/hooks';
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, HStack, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
 
 import { useFdvChange, usePriceChange, useSummaryChange, useUnitsChange } from './_hooks';
 import {

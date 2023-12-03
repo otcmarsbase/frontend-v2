@@ -1,13 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, VStack, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 

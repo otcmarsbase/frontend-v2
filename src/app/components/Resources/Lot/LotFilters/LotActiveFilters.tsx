@@ -4,7 +4,7 @@ import { LotFilterSidebarModel } from '@app/components';
 import { LotTypeDictionary, TradeDirectionDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { MoneyText } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
 import { omitBy } from 'lodash';
 
@@ -30,9 +30,9 @@ export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }
     withReassign: (value) => (value ? 'Re-assign' : null),
     bidSize: ([from, to]) => (
       <HStack spacing=".5rem">
-        <MoneyText value={from} abbreviated addon="$" />
+        <UIKit.MoneyText value={from} abbreviated />
         <Text>-</Text>
-        <MoneyText value={to} abbreviated addon="$" />
+        <UIKit.MoneyText value={to} abbreviated />
       </HStack>
     ),
     search: (value) => `Search: ${value}`,

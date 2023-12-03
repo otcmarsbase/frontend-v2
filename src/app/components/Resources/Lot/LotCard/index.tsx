@@ -39,11 +39,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         ),
       },
@@ -53,7 +51,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           <UIKit.MoneyText
             abbreviated
             value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-            addon={<Text color="dark.50">$</Text>}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         ),
       },
@@ -143,9 +143,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
             Available
           </Text>
           <HStack fontWeight={600} color="white" fontSize="xs">
-            <UIKit.MoneyText value={availableSum} abbreviated addon="$" />
+            <UIKit.MoneyText value={availableSum} abbreviated />
             <Text>/</Text>
-            <UIKit.MoneyText value={totalSum} abbreviated addon="$" />
+            <UIKit.MoneyText value={totalSum} abbreviated />
           </HStack>
         </HStack>
         <Progress value={(availableSum / totalSum) * 100} colorScheme="green" />

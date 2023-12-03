@@ -31,6 +31,6 @@ export const CommonUnitsField = {
     const multiplicator = LotMultiplicatorDictionary.get(model.type).multiplicator;
     const value = model.COMMON_UNITS ? new Decimal(model.COMMON_UNITS).div(multiplicator).toString() : null;
 
-    return <UIKit.MoneyText value={value} addon={DescriptorDictionary.get(model.type).addon} format="0,0.X" />;
+    return <UIKit.PercentText value={value} percent={DescriptorDictionary.get(model.type).addon} format="0,0.X" />;
   },
 } satisfies StepReviewField<LotCreateModel>;

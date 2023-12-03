@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
 import { LotTypeChip, TradeDirectionText } from '@app/components';
-import { Box, Text, HStack, VStack, Divider } from '@chakra-ui/react';
+import { Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { Countdown, Tooltip, SuggestionIcon, CopyButton } from '@shared/ui-kit';
 
 interface InfoElementProps {
