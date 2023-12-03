@@ -28,7 +28,8 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
 
   const available = new Decimal(lot.available?.value || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
-  const progress = available.div(total).mul(100);
+  const executed = total.minus(available);
+  const progress = executed.div(total).mul(100);
 
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE') return [];
@@ -149,7 +150,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
             <UIKit.MoneyText value={total.toNumber()} abbreviated />
           </HStack>
         </HStack>
-        <Progress variant="inverted" value={progress.toNumber()} />
+        <Progress value={progress.toNumber()} />
       </VStack>
       {!minimalView && (
         <UILogic.AuthAction>
