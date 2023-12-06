@@ -37,7 +37,12 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
           <Heading textTransform="uppercase" fontSize="md" color="white" fontWeight={700}>
             Round info
           </Heading>
-          <SimpleGrid columns={lot.type === 'SAFE' ? 1 : 2} gridColumnGap="6.5rem" gridRowGap="1rem" w="full">
+          <SimpleGrid
+            columns={lot.type === 'SAFE' && !lot.attributes.SAFE_WITH_TOKEN_WARRANT ? 1 : 2}
+            gridColumnGap="6.5rem"
+            gridRowGap="1rem"
+            w="full"
+          >
             <RoundInfoField
               title={RoundInfoFieldDictionary.get('INVESTMENT_ROUND').title}
               value={<UILogic.InvestmentRoundBadge value={lot.attributes.INVEST_DOC_ROUND_TYPE} />}
@@ -74,7 +79,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                 }
               />
             )}
-            {lot.type !== 'SAFE' && (
+            {(lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && (
               <RoundInfoField
                 title={RoundInfoFieldDictionary.get('TGE_DATE').title}
                 value={
@@ -98,7 +103,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
                 />
               }
             />
-            {lot.type !== 'SAFE' && (
+            {(lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && (
               <>
                 <RoundInfoField
                   title={RoundInfoFieldDictionary.get('LOCKUP_PERIOD').title}
@@ -160,18 +165,7 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
               </Text>
             </RoundInfoItem>
             <RoundInfoItem fieldName="MIN_BID">
-              {lot.type === 'SAFT' ? (
-                <MoneyText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} abbreviated />
-              ) : (
-                <PercentText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} />
-              )}
-              <MoneyText
-                fontSize="xs"
-                fontWeight={500}
-                color="dark.50"
-                abbreviated
-                value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-              />
+              <MoneyText fontSize="sm" fontWeight={500} abbreviated value={lot.attributes.COMMON_MIN_FILTER_SUMMARY} />
             </RoundInfoItem>
           </SimpleGrid>
           <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">

@@ -38,9 +38,18 @@ export const useStepsReviewDescriptor = ({
       { ...Fields.InvestDocRoundTypeField, isRequired: isRequired('INVEST_DOC_ROUND_TYPE') },
       { ...Fields.InvestDocRoundFdvField, isRequired: isRequired('INVEST_DOC_ROUND_FDV') },
       { ...Fields.InvestDocRoundSummaryField, isRequired: isRequired('INVEST_DOC_ROUND_SUMMARY') },
-      values.type !== 'SAFE' && { ...Fields.TokenTgeField, isRequired: isRequired('TOKEN_TGE') },
-      values.type !== 'SAFE' && { ...Fields.TokenLockupPeriodField, isRequired: isRequired('TOKEN_LOCKUP_PERIOD') },
-      values.type !== 'SAFE' && { ...Fields.TokenVestingPeriodField, isRequired: isRequired('TOKEN_VESTING_PERIOD') },
+      (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && {
+        ...Fields.TokenTgeField,
+        isRequired: isRequired('TOKEN_TGE'),
+      },
+      (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && {
+        ...Fields.TokenLockupPeriodField,
+        isRequired: isRequired('TOKEN_LOCKUP_PERIOD'),
+      },
+      (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && {
+        ...Fields.TokenVestingPeriodField,
+        isRequired: isRequired('TOKEN_VESTING_PERIOD'),
+      },
       { ...Fields.InvestDocRoundUnitsField, isRequired: isRequired('INVEST_DOC_ROUND_UNITS') },
       { ...Fields.InvestDocRoundPriceField, isRequired: isRequired('INVEST_DOC_ROUND_PRICE') },
     ].filter(Boolean),
