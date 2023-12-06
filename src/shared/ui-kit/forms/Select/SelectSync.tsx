@@ -73,6 +73,11 @@ export function SelectSync<T, M extends boolean = boolean>({
     (key: string[] | string) => {
       if (!onChange) return;
 
+      if (!key) {
+        onChange(null);
+        return;
+      }
+
       if (key instanceof Array) {
         const items = key.map((k) => getByKey(k)?.item).filter(Boolean);
 

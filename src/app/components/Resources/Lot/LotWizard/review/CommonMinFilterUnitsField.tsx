@@ -33,6 +33,6 @@ export const CommonMinFilterUnitsField = {
       ? new Decimal(model.COMMON_MIN_FILTER_UNITS).div(multiplicator).toString()
       : null;
 
-    return <UIKit.MoneyText value={value} addon={DescriptorDictionary.get(model.type).addon} format="0,0.X" />;
+    return <UIKit.PercentText value={value} percent={DescriptorDictionary.get(model.type).addon} format="0,0.X" />;
   },
 } satisfies StepReviewField<LotCreateModel>;

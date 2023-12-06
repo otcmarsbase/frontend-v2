@@ -3,15 +3,17 @@ import { format as formatNumerable } from 'numerable';
 
 export interface PercentTextProps extends TextProps {
   value: number | string;
-  addon?: React.ReactNode;
-  format?: '0.0000';
+  percent?: React.ReactNode;
+  percentTextProps?: TextProps;
+  format?: '0.0000' | '0,0.X';
   emptyValue?: React.ReactNode;
 }
 
 export function PercentText({
   value,
-  addon,
   fontSize,
+  percent = '%',
+  percentTextProps,
   format = '0.0000',
   emptyValue = '-',
   ...textProps
@@ -20,11 +22,12 @@ export function PercentText({
     <HStack gap="0" fontSize={fontSize}>
       <Text {...textProps}>
         {value ? formatNumerable(value, format) : emptyValue}&nbsp;
-        <Text as="span" color="dark.50">
-          %
-        </Text>
+        {percent && (
+          <Text {...percentTextProps} as="span" color="dark.50">
+            {percent}
+          </Text>
+        )}
       </Text>
-      {addon && value && <>&nbsp;{addon}</>}
     </HStack>
   );
 }

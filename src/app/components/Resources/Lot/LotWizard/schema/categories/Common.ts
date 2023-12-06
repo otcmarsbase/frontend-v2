@@ -14,7 +14,6 @@ import {
   COMMON_UNITS,
   COMMON_IS_PERMANENT,
   COMMON_IS_NO_LIMIT,
-  COMMON_PRICING_MODEL,
 } from '../inputs';
 
 export const CommonInputs = yup.object({
@@ -36,18 +35,9 @@ export const CommonInputs = yup.object({
   COMMON_MIN_FILTER_UNITS: COMMON_MIN_FILTER_UNITS.nullable(),
   COMMON_OFFER_MAKER_TYPES: COMMON_OFFER_MAKER_TYPES.min(1).required(),
   COMMON_PRICE: COMMON_PRICE.nullable(),
-  COMMON_SUMMARY: COMMON_SUMMARY.when('COMMON_PRICING_MODEL', {
-    is: 'SUMMARY',
-    then: (field) => field.required(),
-    otherwise: (field) => field.nullable(),
-  }),
+  COMMON_SUMMARY: COMMON_SUMMARY.required(),
   COMMON_TELEGRAM: COMMON_TELEGRAM.required(),
-  COMMON_UNITS: COMMON_UNITS.when('COMMON_PRICING_MODEL', {
-    is: 'UNITS',
-    then: (field) => field.required(),
-    otherwise: (field) => field.nullable(),
-  }),
-  COMMON_PRICING_MODEL: COMMON_PRICING_MODEL.default('SUMMARY'),
+  COMMON_UNITS: COMMON_UNITS,
 });
 
 export type CommonInputsModel = yup.InferType<typeof CommonInputs>;

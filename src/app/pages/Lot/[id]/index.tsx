@@ -1,18 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, VStack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIIcons } from '@shared/ui-icons';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { toNumber } from 'lodash';
 
 import { LotBasicInfo, Bids, Sidebar } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
+import { LotMobile } from './index.mobile';
 
 export interface LotProps extends React.PropsWithChildren {
   id: number;
@@ -25,6 +26,13 @@ export default function Lot({ id }: LotProps) {
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const isMobile = useBreakpointValue(
+    {
+      base: true,
+      md: false,
+    },
+    { ssr: false },
+  );
 
   const isOfferMaker = useMemo(() => {
     if (!(lot && account)) return false;
@@ -52,9 +60,7 @@ export default function Lot({ id }: LotProps) {
     }, [id, rpcSchema, router]),
   );
 
-  useEffect(() => {
-    preload();
-  }, [preload]);
+  usePreloadPage(preload);
 
   // const handleEditLot = () => {
   //   console.log('handleEditLot');
@@ -67,19 +73,17 @@ export default function Lot({ id }: LotProps) {
 
   if (!lot) return;
 
+  if (isMobile)
+    return (
+      <LotMobile
+        isOfferMaker={isOfferMaker}
+        lot={lot}
+        asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
+      />
+    );
+
   return (
     <VStack marginTop="2rem" alignItems="flex-start">
-      <Button
-        variant="ghost"
-        color="#888D9B"
-        cursor="pointer"
-        leftIcon={<UIIcons.Common.ArrowLeft />}
-        onClick={() => router.navigateComponent(MBPages.Marketplace.Home, {}, {})}
-      >
-        <Text fontSize="sm" fontWeight={600}>
-          Back to Marketplace
-        </Text>
-      </Button>
       <Grid templateColumns="28.5rem 1fr" columnGap="2rem" width="full">
         <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>

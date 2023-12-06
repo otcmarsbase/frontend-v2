@@ -1,10 +1,10 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { ResponsiveValue, SimpleGrid } from '@chakra-ui/react';
 import { range } from 'lodash';
 
 import { LotCardSkeleton } from '../LotCardSkeleton';
 
 export interface LotGridSkeletonProps {
-  columns: number;
+  columns: ResponsiveValue<number>;
   items?: number;
   withAnimation?: boolean;
   minimalCardView?: boolean;
@@ -12,7 +12,7 @@ export interface LotGridSkeletonProps {
 
 export const LotGridSkeleton: React.FC<LotGridSkeletonProps> = ({
   columns,
-  items = 10,
+  items = 12,
   withAnimation,
   minimalCardView,
 }) => {

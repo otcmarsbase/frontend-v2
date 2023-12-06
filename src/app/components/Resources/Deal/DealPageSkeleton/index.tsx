@@ -1,6 +1,5 @@
 import { Box, HStack, SimpleGrid, Skeleton, SkeletonCircle, VStack } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
-import { UIKit } from '@shared/ui-kit';
 import { range } from 'lodash';
 
 import { TradeDirectionText } from '../../Common';
@@ -8,7 +7,7 @@ import { TradeDirectionText } from '../../Common';
 export const DealPageSkeleton = () => {
   return (
     <VStack w="full" alignItems="start">
-      <HStack w="full" gap="2rem" alignItems="start">
+      <HStack w="full" flexDirection={{ base: 'column', md: 'row' }} gap="2rem" alignItems="start">
         <VStack flex="1.5" alignItems="start" gap="1.5rem">
           <Box padding="3rem 1.25rem" position="relative" bg="dark.900" w="full" borderRadius="sm">
             <TradeDirectionText position="absolute" top="0" left="0" color="dark.800" bg="dark.800" value="BUY" />

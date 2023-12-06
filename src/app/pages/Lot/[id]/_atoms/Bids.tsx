@@ -2,9 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
-import { MBPages } from '@app/pages';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
-import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Empty, List, Pagination, SkeletonLoader, useLoadingCallback, usePagination } from '@shared/ui-kit';
@@ -20,18 +18,16 @@ interface BidsProps {
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const rpcSchema = useRpcSchemaClient();
   const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
-  const router = useRouter();
 
-  const { setTotal, paginationOptions, isEmpty, onChangePage, onShowSizeChange } = usePagination(1, 25);
+  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
-    const skip = (paginationOptions.page - 1) * paginationOptions.pageSize;
     return {
       skip,
-      limit: paginationOptions.pageSize,
+      limit,
       lots: [lot.id],
     };
-  }, [paginationOptions.pageSize, paginationOptions.page, lot.id]);
+  }, [skip, limit, lot.id]);
 
   const loadBids = useLoadingCallback(
     useCallback(async () => {
@@ -50,7 +46,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
 
     if (!bid) return;
 
-    router.navigateComponent(MBPages.Dashboard.Bids, {}, {});
+    loadBids();
   };
 
   return (
@@ -62,6 +58,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
         lineHeight={'1.5rem'}
         textTransform={'uppercase'}
         w={'100%'}
+        display={{ base: 'none', md: 'flex' }}
       >
         <HStack alignItems="center">
           <Text textTransform="uppercase" fontFamily="promo">
@@ -109,17 +106,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             {children}
           </SkeletonLoader>
         )}
-        footer={
-          !isEmpty && (
-            <Pagination
-              {...paginationOptions}
-              onChange={onChangePage}
-              onShowSizeChange={onShowSizeChange}
-              showCaption
-              showPageSize
-            />
-          )
-        }
+        footer={!isEmpty && <Pagination {...paginationProps} showCaption showPageSize />}
       />
     </VStack>
   );

@@ -1,13 +1,20 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { InputGroup, InputRightElement, Text } from '@chakra-ui/react';
+import { InputGroup, InputRightElement, SimpleGridProps, Text } from '@chakra-ui/react';
 import { FormControl, FormElement, FormErrorMessage, InputNumberProps, UIKit } from '@shared/ui-kit';
 
 import { BaseInputProps, NumberInputDescriptor } from './types';
 import { useInput } from './useInput';
 
-export const FormElementNumberInput: FC<BaseInputProps & NumberInputDescriptor & InputNumberProps> = ({
+export interface FormElementNumberInputProps
+  extends BaseInputProps,
+    NumberInputDescriptor,
+    Omit<InputNumberProps, 'name'> {
+  gridProps?: SimpleGridProps;
+}
+
+export const FormElementNumberInput: FC<FormElementNumberInputProps> = ({
   name,
   label,
   tooltip,
@@ -16,12 +23,13 @@ export const FormElementNumberInput: FC<BaseInputProps & NumberInputDescriptor &
   serializeValue = (value) => value,
   deserializeValue = (value) => value,
   onChange,
+  gridProps,
   ...props
 }) => {
   const { isRequired, isValid, error } = useInput(name);
 
   return (
-    <FormElement label={label} info={tooltip} isRequired={isRequired} w="full">
+    <FormElement label={label} info={tooltip} isRequired={isRequired} w="full" {...gridProps}>
       <FormControl isInvalid={!isValid}>
         <Controller
           name={name}

@@ -30,12 +30,14 @@ export const FormControlNumberInput: FC<BaseInputProps & NumberInputDescriptor &
 
   return (
     <FormControl isRequired={isRequired} isInvalid={!isValid}>
-      <FormLabel display="flex" gap="0.25rem" alignItems="center">
-        {label}
-        <Tooltip label={tooltip}>
-          <SuggestionIcon />
-        </Tooltip>
-      </FormLabel>
+      {label && (
+        <FormLabel display="flex" gap="0.25rem" alignItems="center">
+          {label}
+          <Tooltip label={tooltip}>
+            <SuggestionIcon />
+          </Tooltip>
+        </FormLabel>
+      )}
       <Controller
         name={name}
         render={({ field }) => (

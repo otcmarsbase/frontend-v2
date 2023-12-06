@@ -1,4 +1,4 @@
-import { HStack, Text } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 import { UIKit } from '@shared/ui-kit';
 
 export interface StatsBlockProps {
@@ -21,16 +21,7 @@ export function StatsBlock({
       <UIKit.StatsInvert
         title="Average lots FDV"
         value={
-          <UIKit.MoneyText
-            value={averageLotsFdv}
-            abbreviated
-            fontSize="sm"
-            addon={
-              <Text fontSize="sm" color="dark.50">
-                $
-              </Text>
-            }
-          />
+          <UIKit.MoneyText value={averageLotsFdv} abbreviated fontSize="sm" currencyTextProps={{ color: 'dark.50' }} />
         }
       />
       {/* <UIKit.StatsInvert title="Lots on SELL" value={<Text fontSize="sm">{lotSellCount}</Text>} /> */}
@@ -38,31 +29,13 @@ export function StatsBlock({
       <UIKit.StatsInvert
         title="Lot value on buy"
         value={
-          <UIKit.MoneyText
-            value={lotValueOnBuy}
-            abbreviated
-            fontSize="sm"
-            addon={
-              <Text fontSize="sm" color="dark.50">
-                $
-              </Text>
-            }
-          />
+          <UIKit.MoneyText value={lotValueOnBuy} abbreviated fontSize="sm" currencyTextProps={{ color: 'dark.50' }} />
         }
       />
       <UIKit.StatsInvert
         title="Lot value on buy"
         value={
-          <UIKit.MoneyText
-            value={lotValueOnSell}
-            abbreviated
-            fontSize="sm"
-            addon={
-              <Text fontSize="sm" color="dark.50">
-                $
-              </Text>
-            }
-          />
+          <UIKit.MoneyText value={lotValueOnSell} abbreviated fontSize="sm" currencyTextProps={{ color: 'dark.50' }} />
         }
       />
     </HStack>

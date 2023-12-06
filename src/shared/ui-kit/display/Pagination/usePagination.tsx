@@ -1,31 +1,52 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
-export function usePagination(defaultPage, defaultPageSize: number) {
-  const [page, setPage] = useState(defaultPage);
-  const [pageSize, setPageSize] = useState(defaultPageSize);
+import { useQueryParams } from '@shared/hooks';
+import * as yup from 'yup';
+
+export const PaginationQueryParamsSchema = yup.lazy((_, { context }) =>
+  yup.object({
+    skip: yup.number().default(0),
+    limit: yup.number().default(context.defaultPageSize),
+  }),
+);
+
+export function usePagination(defaultPageSize: number = 10) {
+  const { queryParams, setQueryParams } = useQueryParams(
+    PaginationQueryParamsSchema.resolve({ context: { defaultPageSize } }),
+  );
+  const [page, setPage] = useState(() => queryParams.skip / queryParams.limit + 1);
+  const [pageSize, setPageSize] = useState(() => queryParams.limit);
   const [total, setTotal] = useState(0);
 
-  const paginationOptions = useMemo(
-    () => ({
-      page,
-      total,
-      pageSize,
-    }),
-    [page, pageSize, total],
-  );
   const isEmpty = useMemo(() => !total, [total]);
 
-  const onChangePage = (page: number) => setPage(page);
-  const onShowSizeChange = (size: number) => setPageSize(size);
+  const skip = useMemo(() => (page - 1) * pageSize, [page, pageSize]);
+
+  const onChange = useCallback(
+    (page: number) => {
+      setQueryParams({ ...queryParams, skip: (page - 1) * pageSize });
+      setPage(page);
+    },
+    [setQueryParams, pageSize, queryParams],
+  );
+  const onShowSizeChange = useCallback(
+    (size: number) => {
+      setQueryParams({ ...queryParams, limit: size });
+      setPage(1);
+      setPageSize(size);
+    },
+    [setQueryParams, queryParams],
+  );
 
   return {
     page,
     pageSize,
     total,
+    skip,
+    limit: pageSize,
     setTotal,
-    paginationOptions,
     isEmpty,
-    onChangePage,
+    onChange,
     onShowSizeChange,
   };
 }

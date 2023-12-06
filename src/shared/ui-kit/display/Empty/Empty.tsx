@@ -35,6 +35,7 @@ export const Empty: React.FC<PropsWithChildren<EmptyProps>> = ({
       borderRadius="1rem"
       paddingTop="11rem"
       paddingBottom="8.5rem"
+      px="2.5rem"
     >
       <Circle size="4rem" bg="dark.600">
         {image}

@@ -4,7 +4,7 @@ import { LotMultiplicatorDictionary } from '@app/dictionary';
 import Decimal from 'decimal.js';
 
 import { formatNumberProps } from '../formatNumberProps';
-import { FormControlNumberInput } from '../FormControlNumberInput';
+import { FormElementNumberInput } from '../FormElementNumberInput';
 import { BaseInputProps } from '../types';
 import { useDefaultValueSetter } from '../useDefaultValueSetter';
 import { useInput } from '../useInput';
@@ -32,5 +32,13 @@ export const CommonPriceInput: FC<BaseInputProps> = () => {
     rhfTrigger('INVEST_DOC_FDV');
   }, [value, type, rhfSetValue, rhfTrigger, multiplicator]);
 
-  return <FormControlNumberInput name={NAME} {...descriptor} onChange={handleChange} {...formatNumberProps()} />;
+  return (
+    <FormElementNumberInput
+      name={NAME}
+      {...descriptor}
+      onChange={handleChange}
+      {...formatNumberProps()}
+      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+    />
+  );
 };

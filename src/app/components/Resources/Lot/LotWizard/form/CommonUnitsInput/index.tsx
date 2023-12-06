@@ -5,7 +5,7 @@ import { useLotMultiplicatorValue } from '@app/hooks';
 import Decimal from 'decimal.js';
 
 import { formatNumberProps } from '../formatNumberProps';
-import { FormControlNumberInput } from '../FormControlNumberInput';
+import { FormElementNumberInput } from '../FormElementNumberInput';
 import { BaseInputProps } from '../types';
 import { useDefaultValueSetter } from '../useDefaultValueSetter';
 import { useInput } from '../useInput';
@@ -56,13 +56,14 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
   );
 
   return (
-    <FormControlNumberInput
+    <FormElementNumberInput
       name={NAME}
       {...descriptor}
       serializeValue={serializeValue}
       deserializeValue={deserializeValue}
       max={max}
       onChange={handleChange}
+      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
       {...formatNumberProps()}
     />
   );

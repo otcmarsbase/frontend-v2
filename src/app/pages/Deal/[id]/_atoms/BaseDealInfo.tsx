@@ -3,20 +3,20 @@ import { FC, useCallback } from 'react';
 import { AssetName, DealStatus, TradeDirectionText, useAuth } from '@app/components';
 import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Button, HStack, Text, VStack } from '@chakra-ui/react';
+import { Button, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { CopyButton } from '@shared/ui-kit';
 
-interface FieldProps {
+interface FieldProps extends StackProps {
   label: string;
   value: React.ReactNode;
 }
 
-const Field: FC<FieldProps> = ({ label, value }) => {
+const Field: FC<FieldProps> = ({ label, value, ...props }) => {
   return (
-    <HStack gap="0.75rem">
+    <HStack gap="0.75rem" {...props}>
       <Text fontSize="sm" color="dark.50" fontWeight="600">
         {label}
       </Text>
@@ -58,7 +58,7 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
         left="0"
         top="0"
         value={lot?.attributes.COMMON_DIRECTION}
-        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account?.nickname)}
       />
       <VStack alignItems="start">
         <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />

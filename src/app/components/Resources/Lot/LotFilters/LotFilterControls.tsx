@@ -12,9 +12,8 @@ export interface LotFilterControlsProps {
 
 export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotFilterControlsProps) {
   return (
-    <HStack>
+    <HStack flexDirection={{ base: 'row-reverse', md: 'row' }}>
       <Button
-        w="12rem"
         variant={toggleButton?.isSelected ? 'red' : 'darkOutline'}
         borderColor={toggleButton?.isSelected ? 'red.200' : 'dark.200'}
         leftIcon={<UIIcons.Common.FilterIcon />}
@@ -22,7 +21,7 @@ export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotF
       >
         Filters
       </Button>
-      <InputGroup>
+      <InputGroup flexShrink="1">
         <InputLeftElement>
           <UIIcons.Common.SearchIcon />
         </InputLeftElement>

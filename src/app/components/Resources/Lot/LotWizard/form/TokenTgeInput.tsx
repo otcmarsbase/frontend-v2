@@ -30,8 +30,8 @@ export const TokenTgeInput: FC<BaseInputProps> = () => {
 
   return (
     <FormElement
-      label="Dates"
-      info="TGE (Token Generation Event). Date whena cryptocurrency or blockchain project generates and distributes its tokens to initial investors, contributors, or participants."
+      label="TGE date"
+      info="TGE (Token Generation Event). Date when a cryptocurrency or blockchain project generates and distributes its tokens to initial investors, contributors, or participants."
       isRequired={isRequired}
       w="full"
     >

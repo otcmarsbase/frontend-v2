@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { LotUnitAddonDictionary } from '@app/dictionary';
 import { Heading, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { MoneyText } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 
 import { DealBlockTypeDictionary, DealInfoFieldDictionary } from './const';
 
@@ -40,36 +40,32 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, amount, lotType,
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
         {DealBlockTypeDictionary.get('DEAL_INFO').title}
       </Heading>
-      <SimpleGrid columns={2} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
+      <SimpleGrid columns={{ base: 1, md: 2 }} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
-          value={<MoneyText abbreviated value={price} addon={<Text color="dark.50">$</Text>} />}
+          value={<UIKit.MoneyText abbreviated value={price} currencyTextProps={{ color: 'dark.50' }} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('SIZE')}
           value={
-            <MoneyText
-              abbreviated
+            <UIKit.PercentText
               value={size}
-              addon={
-                LotUnitAddonDictionary.get(lotType) && (
-                  <Text color="dark.50">{LotUnitAddonDictionary.get(lotType)}</Text>
-                )
-              }
+              percentTextProps={{ color: 'dark.50' }}
+              percent={LotUnitAddonDictionary.get(lotType)}
             />
           }
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('AMOUNT')}
-          value={<MoneyText abbreviated value={amount} addon={<Text color="dark.50">$</Text>} />}
+          value={<UIKit.MoneyText abbreviated value={amount} currencyTextProps={{ color: 'dark.50' }} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('FDV')}
-          value={<MoneyText abbreviated value={fdv} addon={<Text color="dark.50">$</Text>} />}
+          value={<UIKit.MoneyText abbreviated value={fdv} currencyTextProps={{ color: 'dark.50' }} />}
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('MARSBASE_COMMISSION')}
-          value={<MoneyText abbreviated value={marsbaseCommission} addon={<Text color="dark.50">%</Text>} />}
+          value={<UIKit.MoneyText abbreviated value={marsbaseCommission} currencyTextProps={{ color: 'dark.50' }} />}
         />
       </SimpleGrid>
     </VStack>

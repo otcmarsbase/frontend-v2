@@ -5,7 +5,7 @@ import Decimal from 'decimal.js';
 
 import { useCommonPriceChange } from './CommonPriceInput/useHandleChange';
 import { formatNumberProps } from './formatNumberProps';
-import { FormControlNumberInput } from './FormControlNumberInput';
+import { FormElementNumberInput } from './FormElementNumberInput';
 import { BaseInputProps } from './types';
 import { useDefaultValueSetter } from './useDefaultValueSetter';
 import { useInput } from './useInput';
@@ -36,13 +36,14 @@ export const InvestDocFdvInput: FC<BaseInputProps> = () => {
   );
 
   return (
-    <FormControlNumberInput
+    <FormElementNumberInput
       name={NAME}
       label="Target FDV"
       placeholder="Amount"
       rightElementText="$"
       tooltip="FDV = market price * maximum supply"
       onChange={handleChange}
+      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
       {...formatNumberProps()}
     />
   );
