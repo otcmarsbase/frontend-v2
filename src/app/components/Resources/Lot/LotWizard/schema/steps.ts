@@ -39,6 +39,7 @@ export const InvestDocPriceStepInputs = LotCreateSchema.pick([
   'INVEST_DOC_SHARE',
   'COMMON_MIN_FILTER_UNITS',
   'COMMON_MIN_FILTER_SUMMARY',
+  'COMMON_ADDITIONAL_INFO',
 ]);
 
 export const InvestDocReviewStepInputs = yup.lazy((value: LotCreateModel) => {
