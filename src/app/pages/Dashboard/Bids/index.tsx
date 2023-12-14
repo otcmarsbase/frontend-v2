@@ -20,9 +20,9 @@ const MyBids: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
     const status = filters.status.length
-      ? filters.status.flatMap((value) => {
+      ? (filters.status.flatMap((value) => {
           switch (value) {
             case 'active':
               return ['ACTIVE'];
@@ -33,7 +33,7 @@ const MyBids: React.FC = () => {
             default:
               return [];
           }
-        })
+        }) as Resource.Bid.Enums.BidStatus[])
       : undefined;
 
     return { skip, limit, status };

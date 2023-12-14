@@ -21,9 +21,9 @@ export const Lots: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.LotListMy.Payload>(() => {
     const status = filters.status.length
-      ? filters.status.flatMap((value) => {
+      ? (filters.status.flatMap((value) => {
           switch (value) {
             case 'active':
               return ['ACTIVE'];
@@ -34,7 +34,7 @@ export const Lots: React.FC = () => {
             default:
               return [];
           }
-        })
+        }) as Resource.Lot.Enums.LotStatus[])
       : undefined;
 
     return { skip, limit, status };
