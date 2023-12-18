@@ -24,6 +24,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   }, [lot]);
 
   useEffect(() => {
+    if (!lot) return;
+
     if (lot.status !== 'DRAFT') {
       router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {});
     }
