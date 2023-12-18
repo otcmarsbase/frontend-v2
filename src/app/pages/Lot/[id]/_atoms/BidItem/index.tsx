@@ -36,27 +36,20 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 export interface BidItemProps {
   bid: Resource.Bid.Bid;
   lot: Resource.Lot.Lot;
+  deal: Resource.Deal.Deal;
   isOfferMaker: boolean;
   refreshBids: () => Promise<any>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, isOfferMaker, refreshBids }) => {
   const router = useRouter();
   const { account } = useAuth();
-
-  const { data: deal, isLoading } = useRpcSchemaQuery(
-    'deal.getById',
-    { id: bid.dealKey?.id },
-    { enabled: !!bid.dealKey },
-  );
 
   const handleClick = useCallback(() => {
     if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
 
     router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
   }, [bid, router, account, isOfferMaker]);
-
-  if (isLoading) return <LotBidSkeleton />;
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 

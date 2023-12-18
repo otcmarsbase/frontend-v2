@@ -35,16 +35,16 @@ const Deals: React.FC = () => {
     return { skip, limit, status };
   }, [skip, limit, filters]);
 
-  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', fetchPayload);
-  const { data: assets, isLoading: assetsIsLoading } = useRpcSchemaQuery(
+  const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', fetchPayload);
+  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
     { deals: deals?.items?.map(({ id }) => id) },
-    { enabled: !!deals },
+    { enabled: !!deals?.total },
   );
-  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery(
+  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
     'lot.listMy',
     { deals: deals?.items?.map(({ id }) => id) },
-    { enabled: !!deals },
+    { enabled: !!deals?.total },
   );
 
   const findAsset = useCallback(

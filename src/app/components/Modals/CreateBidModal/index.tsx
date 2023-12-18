@@ -7,6 +7,7 @@ import { Button, FormControl, FormLabel, HStack, InputGroup, InputRightElement, 
 import { PortalProps } from '@packages/berish-react-portal';
 import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useFdvChange, usePriceChange, useSummaryChange, useUnitsChange } from './_hooks';
 import {
@@ -29,6 +30,7 @@ export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
 export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) => {
   const defaultValues = useDefaultValues(lot);
   const range = useRange(lot);
+  const queryClient = useQueryClient();
 
   const rpcSchema = useRpcSchemaClient();
   const formMethods = useForm<CreateBidModel>({
@@ -66,6 +68,10 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
         units: String(values.units),
         price: String(values.price),
         fdv: values.fdv ? String(values.fdv) : undefined,
+      });
+
+      await queryClient.invalidateQueries({
+        predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('bid'),
       });
 
       if (portal && portal.resolve) portal.resolve(bid);

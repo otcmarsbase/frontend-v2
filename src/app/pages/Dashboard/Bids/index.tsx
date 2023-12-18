@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
@@ -37,17 +37,25 @@ const MyBids: React.FC = () => {
     return { skip, limit, status };
   }, [skip, limit, filters]);
   const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.listMy', fetchPayload);
-  const { data: assets, isLoading: assetsIsLoading } = useRpcSchemaQuery(
+  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { deals: bids?.items?.map(({ id }) => id) },
-    { enabled: !!bids },
+    { bids: bids?.items?.map(({ id }) => id) },
+    { enabled: !!bids?.total },
   );
-  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery(
-    'lot.listMy',
-    { deals: bids?.items?.map(({ id }) => id) },
-    { enabled: !!bids },
+  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
+    'lot.listActive',
+    { bids: bids?.items?.map(({ id }) => id) },
+    { enabled: !!bids?.total },
   );
-  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', {});
+  const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery(
+    'deal.listMy',
+    {
+      bids: bids?.items?.map(({ id }) => id),
+    },
+    {
+      enabled: !!bids?.total,
+    },
+  );
 
   const findAsset = useCallback(
     (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),

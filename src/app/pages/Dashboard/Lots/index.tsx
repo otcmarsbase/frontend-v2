@@ -37,11 +37,11 @@ export const Lots: React.FC = () => {
     return { skip, limit, status };
   }, [skip, limit, filters]);
 
-  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.listMy', fetchPayload);
-  const { data: assets, isLoading: assetsIsLoading } = useRpcSchemaQuery(
+  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery('lot.listMy', fetchPayload);
+  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
     { lots: lots?.items?.map(({ id }) => id) },
-    { enabled: !!lots },
+    { enabled: !!lots?.total },
   );
 
   const findAsset = useCallback(

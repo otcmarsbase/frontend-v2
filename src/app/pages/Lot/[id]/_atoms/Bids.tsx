@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
@@ -28,13 +28,16 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
 
   const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.listByLot', fetchPayload);
 
-  const onCreateBidClick = async () => {
-    const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
+  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', {
+    bids: bids?.items?.map(({ id }) => id),
+  });
 
-    if (!bid) return;
+  const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
 
-    refetch();
-  };
+  const findDeal = useCallback(
+    (dealId: Resource.Deal.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
+    [deals],
+  );
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -77,8 +80,16 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
         w="full"
         items={bids?.items}
         itemKey={(bid) => bid.id}
-        isLoading={isLoading}
-        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} lot={lot} refreshBids={refetch} />}
+        isLoading={isLoading || dealsIsLoading}
+        itemRender={(bid) => (
+          <BidItem
+            isOfferMaker={isOfferMaker}
+            bid={bid}
+            lot={lot}
+            deal={findDeal(bid.dealKey?.id)}
+            refreshBids={refetch}
+          />
+        )}
         loader={({ isLoading, children }) => (
           <SkeletonLoader
             skeleton={
