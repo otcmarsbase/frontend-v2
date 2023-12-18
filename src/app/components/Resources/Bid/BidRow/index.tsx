@@ -1,13 +1,13 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { BidRowSkeleton, UILogic, useRpcSchemaQuery } from '@app/components';
-import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
+import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIKit } from '@shared/ui-kit';
+import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 import { capitalize } from 'lodash';
 
@@ -37,21 +37,20 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_FDV'),
-      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated addon="$" />,
+      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_SIZE'),
       value: (
-        <UIKit.MoneyText
+        <UIKit.PercentText
           value={new Decimal(bid.units.value).div(multiplicator).toString()}
-          addon={LotUnitAddonDictionary.get(lot.type)}
-          abbreviated
+          percent={LotUnitAddonDictionary.get(lot.type)}
         />
       ),
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
-      value: <UIKit.MoneyText value={bid.summary.value} addon="$" format="0,0.X" />,
+      value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
@@ -63,7 +62,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
     },
     {
       label: BidRowFieldNameTitleMap.get('LOCATION'),
-      value: <Text>{capitalize(bid.location)}</Text>,
+      value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
     },
     {
       label: BidRowFieldNameTitleMap.get('DEADLINE'),

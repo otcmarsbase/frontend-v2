@@ -26,8 +26,10 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const availableSum = new Decimal(lot.available?.value || 0).toDecimalPlaces(2).toNumber();
-  const totalSum = new Decimal(lot.total?.value || 0).toDecimalPlaces(2).toNumber();
+  const available = new Decimal(lot.available?.value || '0');
+  const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
+  const executed = total.minus(available);
+  const progress = executed.div(total).mul(100);
 
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE') return [];
@@ -39,11 +41,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         ),
       },
@@ -53,7 +53,9 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
           <UIKit.MoneyText
             abbreviated
             value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-            addon={<Text color="dark.50">$</Text>}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         ),
       },
@@ -143,12 +145,12 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
             Available
           </Text>
           <HStack fontWeight={600} color="white" fontSize="xs">
-            <UIKit.MoneyText value={availableSum} abbreviated addon="$" />
+            <UIKit.MoneyText value={available.toNumber()} abbreviated />
             <Text>/</Text>
-            <UIKit.MoneyText value={totalSum} abbreviated addon="$" />
+            <UIKit.MoneyText value={total.toNumber()} abbreviated />
           </HStack>
         </HStack>
-        <Progress value={(availableSum / totalSum) * 100} colorScheme="green" />
+        <Progress value={progress.toNumber()} />
       </VStack>
       {!minimalView && (
         <UILogic.AuthAction>

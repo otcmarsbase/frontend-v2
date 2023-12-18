@@ -7,18 +7,55 @@ const baseStyle = definePartsStyle({
   track: defineStyle({
     borderRadius: '6.25rem',
     w: 'full',
-    bg: 'dark.600',
+    bg: 'orange.400',
     overflow: 'hidden',
   }),
   filledTrack: {
     borderTopRightRadius: '0 !important',
     borderBottomRightRadius: '0 !important',
-    bg: 'orange.400',
+    bg: 'dark.600',
     borderRadius: '0rem',
     transition: 'width 1s ease-in-out',
   },
 });
 
+const variants = {
+  default: definePartsStyle({
+    track: defineStyle({
+      borderRadius: '6.25rem',
+      w: 'full',
+      bg: 'dark.600',
+      overflow: 'hidden',
+    }),
+    filledTrack: {
+      borderTopRightRadius: '0 !important',
+      borderBottomRightRadius: '0 !important',
+      bg: 'orange.400',
+      borderRadius: '0rem',
+      transition: 'width 1s ease-in-out',
+    },
+  }),
+  inverted: definePartsStyle({
+    track: defineStyle({
+      borderRadius: '6.25rem',
+      w: 'full',
+      bg: 'orange.400',
+      overflow: 'hidden',
+    }),
+    filledTrack: {
+      borderTopRightRadius: '0 !important',
+      borderBottomRightRadius: '0 !important',
+      bg: 'dark.600',
+      borderRadius: '0rem',
+      transition: 'width 1s ease-in-out',
+    },
+  }),
+};
+
 export const Progress = defineMultiStyleConfig({
   baseStyle,
+  variants,
+  defaultProps: {
+    variant: 'default',
+  },
 });

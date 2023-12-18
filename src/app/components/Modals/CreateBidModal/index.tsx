@@ -1,23 +1,12 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import { useLotMultiplicatorValue, useToastInnerCallback } from '@app/hooks';
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, HStack, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
 
 import { useFdvChange, usePriceChange, useSummaryChange, useUnitsChange } from './_hooks';
 import {
@@ -106,7 +95,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     >
       <VStack spacing="1rem" width="full">
         <HStack spacing="1rem" width="full">
-          <FormControl isRequired={isRequired('units')} isInvalid={Boolean(errors.summary)}>
+          <FormControl isRequired={isRequired('units')} isInvalid={Boolean(errors.units)}>
             <FormLabel>{UnitsDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).label}</FormLabel>
             <Controller
               control={control}
@@ -133,7 +122,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
               )}
             />
           </FormControl>
-          <FormControl isRequired={isRequired('summary')} isInvalid={Boolean(errors.units)}>
+          <FormControl isRequired={isRequired('summary')} isInvalid={Boolean(errors.summary)}>
             <FormLabel>{SummaryDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).label}</FormLabel>
             <Controller
               control={control}
@@ -283,7 +272,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
               render={(props) => <UIKit.InputTelegram {...props.field} placeholder="@nickname" />}
             />
           </FormControl>
-          <Button w="full" size="lg" isLoading={isSubmitting} onClick={handleSubmit(onSubmit)}>
+          <Button w="full" size="lg" isLoading={isSubmitting} onClick={handleSubmit(onSubmit, console.log)}>
             Place bid
           </Button>
         </VStack>

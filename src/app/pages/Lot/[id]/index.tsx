@@ -4,14 +4,14 @@ import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Button, Grid, GridItem, VStack, Text, useBreakpointValue } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
-import { LotBasicInfo, Bids, Sidebar } from './_atoms';
+import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock } from './_atoms';
 import { RoundInfo } from './_atoms/RoundInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
 import { LotMobile } from './index.mobile';
@@ -124,7 +124,10 @@ export default function Lot({ id }: LotProps) {
               ) : null} */}
               <LotBasicInfo lot={lot} />
             </VStack>
-            <RoundInfo lot={lot} />
+            <VStack spacing="6rem" w="full">
+              <RoundInfo lot={lot} />
+              <AdditionalInfoBlock lot={lot} />
+            </VStack>
             <Bids isOfferMaker={isOfferMaker} lot={lot} />
           </VStack>
         </GridItem>

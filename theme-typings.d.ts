@@ -606,7 +606,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     };
     Progress: {
       sizes: 'xs' | 'sm' | 'md' | 'lg' | (string & {});
-      variants: string & {};
+      variants: 'default' | 'inverted' | (string & {});
     };
     Radio: {
       sizes: 'md' | 'lg' | 'sm' | (string & {});

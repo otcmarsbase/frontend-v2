@@ -1,15 +1,12 @@
 import { FC } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { HStack } from '@chakra-ui/react';
-import { FormElement } from '@shared/ui-kit';
-
 import {
   CommonPriceInput,
   CommonUnitsInput,
   CommonMinFilterSummaryInput,
-  CommonMinFilterUnitsInput,
   CommonSummaryInput,
+  CommonAdditionalInfoInput,
 } from '../../form';
 import { InvestDocFdvInput } from '../../form/InvestDocFdvInput';
 import { LotCreateModel } from '../../schema';
@@ -25,6 +22,7 @@ export const InvestDocPriceStep: FC = () => {
       <CommonMinFilterSummaryInput />
       <CommonUnitsInput />
       <CommonPriceInput />
+      <CommonAdditionalInfoInput />
     </>
   );
 };

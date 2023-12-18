@@ -19,6 +19,7 @@ export namespace LotInputs {
   export type COMMON_IS_DIRECT = Utils.Input<'COMMON_IS_DIRECT', boolean>;
   export type COMMON_TELEGRAM = Utils.Input<'COMMON_TELEGRAM', string>;
   export type COMMON_DEADLINE = Utils.Input<'COMMON_DEADLINE', number>;
+  export type COMMON_ADDITIONAL_INFO = Utils.Input<'COMMON_ADDITIONAL_INFO', string>;
 
   export type COMMON_OFFER_MAKER_TYPES = Utils.Input<'COMMON_OFFER_MAKER_TYPES', Common.Enums.InvestorType[]>;
   export type COMMON_BID_MAKER_TYPES = Utils.Input<'COMMON_BID_MAKER_TYPES', Common.Enums.InvestorType[]>;

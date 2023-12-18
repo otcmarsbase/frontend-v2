@@ -1,5 +1,5 @@
 import { PropsWithChildren, useCallback } from 'react';
-import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import { AppLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
@@ -58,33 +58,73 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
                 bg={{ base: 'transparent', md: 'dark.800' }}
               />
             </HStack>
-            {tabType !== 'MY_DEALS' && (
-              <HStack gap="1rem">
-                {DashboardFilterStatusDictionary.entries().map(([status, label]) => (
-                  <Controller
-                    name="filters.status"
-                    control={control}
-                    render={({ field }) => (
-                      <Checkbox
-                        isChecked={field.value.includes(status)}
-                        onChange={(e) => {
-                          const oldValue = [...field.value];
-                          if (e.target.checked) {
-                            field.onChange(oldValue.concat(status));
-                          } else {
-                            const i = field.value.indexOf(status);
-                            oldValue.splice(i, 1);
-                            field.onChange(oldValue);
-                          }
-                        }}
-                      >
-                        {label}
-                      </Checkbox>
-                    )}
-                  />
-                ))}
-              </HStack>
-            )}
+            <HStack gap="1rem">
+              <Controller
+                name="filters.status"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    isChecked={field.value.includes('active')}
+                    onChange={(e) => {
+                      const oldValue = [...field.value];
+                      if (e.target.checked) {
+                        field.onChange(oldValue.concat('active'));
+                      } else {
+                        const i = field.value.indexOf('active');
+                        oldValue.splice(i, 1);
+                        field.onChange(oldValue);
+                      }
+                    }}
+                  >
+                    Active
+                  </Checkbox>
+                )}
+              />
+              {tabType !== 'MY_DEALS' && (
+                <Controller
+                  name="filters.status"
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox
+                      isChecked={field.value.includes('moderated')}
+                      onChange={(e) => {
+                        const oldValue = [...field.value];
+                        if (e.target.checked) {
+                          field.onChange(oldValue.concat('moderated'));
+                        } else {
+                          const i = field.value.indexOf('moderated');
+                          oldValue.splice(i, 1);
+                          field.onChange(oldValue);
+                        }
+                      }}
+                    >
+                      Moderated
+                    </Checkbox>
+                  )}
+                />
+              )}
+              <Controller
+                name="filters.status"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    isChecked={field.value.includes('ended')}
+                    onChange={(e) => {
+                      const oldValue = [...field.value];
+                      if (e.target.checked) {
+                        field.onChange(oldValue.concat('ended'));
+                      } else {
+                        const i = field.value.indexOf('ended');
+                        oldValue.splice(i, 1);
+                        field.onChange(oldValue);
+                      }
+                    }}
+                  >
+                    Ended
+                  </Checkbox>
+                )}
+              />
+            </HStack>
           </HStack>
           {children}
         </VStack>

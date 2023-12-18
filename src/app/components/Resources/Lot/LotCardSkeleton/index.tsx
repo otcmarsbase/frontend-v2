@@ -14,11 +14,11 @@ export const LotCardSkeleton: React.FC<LotCardSkeletonProps> = ({ minimalView })
       <TradeDirectionText invert position="absolute" top="0" right="0" color="dark.800" bg="dark.800" value="BUY" />
       <HStack mb="1rem">
         <Skeleton w="1rem" h="1rem" />
-        <Skeleton w={faker.helpers.arrayElement(['5.3rem', '3.5rem'])} h="1.2rem" />
+        <Skeleton w={faker.helpers.arrayElement(['1.3rem', '3.5rem'])} h="1.2rem" />
       </HStack>
       <HStack>
         <SkeletonCircle size="3rem" />
-        <Skeleton w={faker.helpers.arrayElement(['10rem', '4.5rem', '6rem'])} h="2rem" />
+        <Skeleton w={faker.helpers.arrayElement(['7rem', '4.5rem', '3rem'])} h="2rem" />
       </HStack>
       {!minimalView && (
         <>
@@ -26,8 +26,8 @@ export const LotCardSkeleton: React.FC<LotCardSkeletonProps> = ({ minimalView })
           <SimpleGrid columns={2} gridColumnGap="2rem" gridRowGap="1.5rem">
             {range(0, 6).map((key) => (
               <VStack alignItems="start" key={key}>
-                <Skeleton h="1.2rem" w={faker.helpers.arrayElement(['4rem', '6rem', '3.4rem', '8.2rem'])} />
-                <Skeleton h="1.2rem" w={faker.helpers.arrayElement(['10rem', '4.5rem', '6rem'])} />
+                <Skeleton h="1.2rem" w={faker.helpers.arrayElement(['4rem', '6rem', '3.4rem', '1.2rem'])} />
+                <Skeleton h="1.2rem" w={faker.helpers.arrayElement(['6rem', '4.5rem', '3rem'])} />
               </VStack>
             ))}
           </SimpleGrid>

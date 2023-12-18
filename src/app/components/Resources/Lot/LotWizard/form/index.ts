@@ -10,6 +10,7 @@ export * from './CommonMinFilterSummaryInput';
 export * from './CommonMinFilterUnitsInput';
 export * from './CommonSummaryInput';
 export * from './CommonUnitsInput';
+export * from './CommonAdditionalInfoInput';
 
 export * from './InvestDocWithReassignInput';
 export * from './InvestDocTypeInput';

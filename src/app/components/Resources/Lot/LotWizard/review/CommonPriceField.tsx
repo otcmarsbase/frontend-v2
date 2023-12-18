@@ -27,7 +27,5 @@ const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, Review
 
 export const CommonPriceField = {
   renderTitle: (model) => <Text>{DescriptorDictionary.get(model.type).label}</Text>,
-  renderValue: (model) => (
-    <UIKit.MoneyText value={model.COMMON_PRICE} addon={DescriptorDictionary.get(model.type).addon} format="0,0.X" />
-  ),
+  renderValue: (model) => <UIKit.MoneyText value={model.COMMON_PRICE} format="0,0.X" />,
 } satisfies StepReviewField<LotCreateModel>;

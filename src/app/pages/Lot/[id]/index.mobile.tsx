@@ -11,7 +11,7 @@ import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
-import { AssetBlock, Bids, SidebarBlock } from './_atoms';
+import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
 import { AvailableBlock } from './_atoms/AvailableBlock';
 import {
   MainChipFieldTypeTitleMap,
@@ -100,32 +100,23 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                   RoundInfoFieldDictionary.get(lot.type === 'SAFE' ? 'ROUND_EQUITY_PRICE' : 'ROUND_TOKEN_PRICE').title,
                 value:
                   lot.type !== 'TOKEN_WARRANT' ? (
-                    <UIKit.MoneyText
+                    <UIKit.PercentText
                       fontWeight={800}
-                      format="0,000.000"
                       value={attributes.INVEST_DOC_ROUND_PRICE}
                       fontSize="sm"
-                      addon={
-                        <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                          $
-                        </Text>
-                      }
+                      percentTextProps={{ fontWeight: 800 }}
                     />
                   ) : (
-                    <UIKit.MoneyText
+                    <UIKit.PercentText
                       fontWeight={800}
-                      format="0,000.000"
+                      format="0.0000"
                       value={getRoundContractSize(lot)}
                       fontSize="sm"
-                      addon={
-                        <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                          %
-                        </Text>
-                      }
+                      percentTextProps={{ fontWeight: 800 }}
                     />
                   ),
               },
-              lot.type !== 'SAFE' && {
+              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
                 label: RoundInfoFieldDictionary.get('TGE_DATE').title,
                 value: (
                   <UIKit.DateText value={typeof attributes.TOKEN_TGE === 'number' ? attributes.TOKEN_TGE : undefined} />
@@ -139,15 +130,15 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                     fontSize="sm"
                     format="0,00"
                     fontWeight={800}
-                    addon={
-                      <Text fontSize="sm" color="dark.50" fontWeight={800}>
-                        $
-                      </Text>
-                    }
+                    currencyTextProps={{
+                      fontSize: 'sm',
+                      color: 'dark.50',
+                      fontWeight: 800,
+                    }}
                   />
                 ),
               },
-              lot.type !== 'SAFE' && {
+              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
                 label: RoundInfoFieldDictionary.get('LOCKUP_PERIOD').title,
                 value: (
                   <Text fontWeight={800} fontSize="sm">
@@ -155,7 +146,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                   </Text>
                 ),
               },
-              lot.type !== 'SAFE' && {
+              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
                 label: RoundInfoFieldDictionary.get('VESTING_CALENDAR').title,
                 value: (
                   <Text fontSize="sm" fontWeight={800}>
@@ -174,25 +165,13 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                   lot.type === 'SAFT' ? 'PRICE_UNIT' : lot.type === 'TOKEN_WARRANT' ? 'PRICE_TOKEN' : 'PRICE_EQUITY',
                 ),
                 value: (
-                  <UIKit.MoneyText
-                    fontSize="sm"
-                    fontWeight={500}
-                    value={lot.attributes.COMMON_PRICE}
-                    abbreviated
-                    addon="$"
-                  />
+                  <UIKit.MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated />
                 ),
               },
               {
                 label: MainChipFieldTypeTitleMap.get('LOT_FDV'),
                 value: (
-                  <UIKit.MoneyText
-                    fontSize="sm"
-                    abbreviated
-                    fontWeight={500}
-                    value={lot.attributes.INVEST_DOC_FDV}
-                    addon="$"
-                  />
+                  <UIKit.MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} />
                 ),
               },
               {
@@ -205,7 +184,6 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                       fontWeight={500}
                       color="dark.50"
                       value={lot.attributes.COMMON_SUMMARY}
-                      addon="$"
                     />
                     {lot.type === 'SAFT' ? (
                       <UIKit.MoneyText fontSize="xs" fontWeight={500} value={getContractSize(lot)} abbreviated />
@@ -230,21 +208,12 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
               {
                 label: MainChipFieldTypeTitleMap.get('MIN_BID'),
                 value: (
-                  <VStack>
-                    {lot.type === 'SAFT' ? (
-                      <UIKit.MoneyText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} abbreviated />
-                    ) : (
-                      <UIKit.PercentText fontSize="sm" fontWeight={500} value={getMinimumDealSize(lot)} />
-                    )}
-                    <UIKit.MoneyText
-                      fontSize="xs"
-                      fontWeight={500}
-                      color="dark.50"
-                      abbreviated
-                      value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-                      addon="$"
-                    />
-                  </VStack>
+                  <UIKit.MoneyText
+                    fontSize="sm"
+                    fontWeight={500}
+                    abbreviated
+                    value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+                  />
                 ),
               },
               {
@@ -257,6 +226,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
               },
             ].filter(Boolean)}
           />
+          <AdditionalInfoBlock lot={lot} />
         </VStack>
       )}
       {tab === 'ASSET_INFO' && (
