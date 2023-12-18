@@ -1,5 +1,5 @@
 import { MBPages } from '@app/pages';
-import { Box, Container, ContainerProps, Link, VStack } from '@chakra-ui/react';
+import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { AppConfig } from '@shared/config';
 
@@ -28,18 +28,22 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           <Box w="full" px={{ base: '1rem', md: '10rem' }} margin="0 auto">
             <Footer
               links={[
-                <Link href={AppConfig.links.aboutURL} target="_blank">
-                  About
-                </Link>,
-                <Link href={AppConfig.links.supportURL} target="_blank">
-                  Support
-                </Link>,
-                <Link href={AppConfig.links.termsOfUseURL} target="_blank">
-                  Terms Of Use
-                </Link>,
-                <Link href={AppConfig.links.privacyPolicyURL} target="_blank">
-                  Privacy Policy
-                </Link>,
+                {
+                  title: 'About',
+                  href: AppConfig.links.aboutURL,
+                },
+                {
+                  title: 'Support',
+                  href: AppConfig.links.supportURL,
+                },
+                {
+                  title: 'Terms of Use',
+                  href: AppConfig.links.termsOfUseURL,
+                },
+                {
+                  title: 'Privacy Policy',
+                  href: AppConfig.links.privacyPolicyURL,
+                },
               ]}
               about={{
                 title: 'MARSBASE dOTC Desk',

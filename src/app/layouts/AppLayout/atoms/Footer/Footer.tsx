@@ -1,13 +1,16 @@
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '@app/store';
-import { Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Link, Text, VStack } from '@chakra-ui/react';
 import { AppConfig, AppConfigType } from '@shared/config';
 
 import { SocialBlock } from './atoms';
 
 export interface FooterProps {
-  links: React.ReactNode[];
+  links: {
+    title: string;
+    href: string;
+  }[];
   about: {
     title: React.ReactNode;
     description: React.ReactNode;
@@ -41,7 +44,9 @@ export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, 
                   textDecoration: 'none',
                 }}
               >
-                {link}
+                <Text href={link.href} target="_blank" as={Link}>
+                  {link.title}
+                </Text>
               </GridItem>
             ))}
           </Grid>

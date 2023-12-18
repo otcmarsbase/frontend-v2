@@ -3,14 +3,9 @@
   "plugins": ["import"],
   "overrides": [
     {
-      "files": ["./src/locale.ts"],
-      "rules": {
-        "no-template-curly-in-string": "off"
-      }
-    },
-    {
       "files": ["**/*.ts?(x)"],
       "rules": {
+        "react/jsx-key": "warn",
         "import/no-anonymous-default-export": "off",
         "@typescript-eslint/no-redeclare": "off",
         "import/order": [
@@ -56,6 +51,18 @@
       "rules": {
         "import/no-anonymous-default-export": "off",
         "import/prefer-default-export": "off"
+      }
+    },
+    {
+      "files": ["./src/locale.ts"],
+      "rules": {
+        "no-template-curly-in-string": "off"
+      }
+    },
+    {
+      "files": ["./src/shared/ui-icons/**/*.ts?(x)"],
+      "rules": {
+        "react/jsx-key": "off"
       }
     }
   ]

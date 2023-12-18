@@ -62,6 +62,7 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
               <HStack gap="1rem">
                 {DashboardFilterStatusDictionary.entries().map(([status, label]) => (
                   <Controller
+                    key={status}
                     name="filters.status"
                     control={control}
                     render={({ field }) => (

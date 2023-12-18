@@ -44,11 +44,16 @@ export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick 
           </Heading>
         </HStack>
         {!isAssetCreateRequest && asset.info.analyticURL && (
-          <Link href={asset.info.analyticURL} target="_blank">
-            <Button size="xs" variant="darkOutline" leftIcon={<UIIcons.Common.DownloadIcon />}>
-              Get analytics
-            </Button>
-          </Link>
+          <Button
+            as={Link}
+            href={asset.info.analyticURL}
+            target="_blank"
+            size="xs"
+            variant="darkOutline"
+            leftIcon={<UIIcons.Common.DownloadIcon />}
+          >
+            Get analytics
+          </Button>
         )}
       </HStack>
       <UILogic.AuthAction>

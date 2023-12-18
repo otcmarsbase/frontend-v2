@@ -74,9 +74,11 @@ export const DealParticipants: FC<DealParticipantsProps> = ({
         )}
       </HStack>
       <SimpleGrid w="full" columns={{ base: 1, md: 4 }} gridColumnGap="4.2rem" gridRowGap="1.5rem">
-        {!!offerMakers.length && offerMakers.map((user) => <DealParticipant type="OFFER_MAKER" user={user} />)}
-        {!!bidMakers.length && bidMakers.map((user) => <DealParticipant type="BID_MAKER" user={user} />)}
-        {!!moderators.length && moderators.map((user) => <DealParticipant type="MODERATOR" user={user} />)}
+        {!!offerMakers.length &&
+          offerMakers.map((user) => <DealParticipant key={user.id} type="OFFER_MAKER" user={user} />)}
+        {!!bidMakers.length && bidMakers.map((user) => <DealParticipant key={user.id} type="BID_MAKER" user={user} />)}
+        {!!moderators.length &&
+          moderators.map((user) => <DealParticipant key={user.id} type="MODERATOR" user={user} />)}
       </SimpleGrid>
     </VStack>
   );
