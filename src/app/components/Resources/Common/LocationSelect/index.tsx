@@ -13,7 +13,9 @@ export const LocationSelect: React.FC<LocationSelectProps> = (props) => {
   const [search, setSearch] = useState('');
   const items = useMemo(
     () =>
-      LocationDictionary.keys().filter((value) => (search ? value.toLowerCase().includes(search.toLowerCase()) : true)),
+      LocationDictionary.entries()
+        .filter(([, value]) => (search ? value.name.toLowerCase().includes(search.toLowerCase()) : true))
+        .map(([key]) => key),
     [search],
   );
 
@@ -21,7 +23,7 @@ export const LocationSelect: React.FC<LocationSelectProps> = (props) => {
     <UIKit.SelectSync<Resource.Common.Enums.Location>
       {...props}
       onSearch={setSearch}
-      renderItem={(item) => item}
+      renderItem={(item) => LocationDictionary.get(item).name}
       items={items}
     />
   );

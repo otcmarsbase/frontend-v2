@@ -11,8 +11,10 @@ export const DashboardTabTypeTitleMap = new Map<DashboardTabType, React.ReactNod
   ['MY_LOTS', 'My lots'],
 ]);
 
-export const DashboardFilterStatusDictionary = createDictionary<DashboardFilterStatus, string>().setFromEntries([
-  ['active', 'Active'],
-  ['moderated', 'Moderated'],
-  ['ended', 'Ended'],
-]);
+export const DashboardFilterStatusDictionary = createDictionary<DashboardFilterStatus, string>()
+  .setFromEntries([
+    ['active', 'Active'],
+    ['moderated', 'Moderated'],
+    ['ended', 'Ended'],
+  ])
+  .asReadonly();

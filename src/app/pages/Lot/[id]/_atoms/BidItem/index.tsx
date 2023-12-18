@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
-import { LotMultiplicatorDictionary, LotUnitAddonDictionary, ParticipantTypeDictionary } from '@app/dictionary';
+import {
+  LocationDictionary,
+  LotMultiplicatorDictionary,
+  LotUnitAddonDictionary,
+  ParticipantTypeDictionary,
+} from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -124,7 +129,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, isOfferMaker, refres
           <Text fontSize="sm">{LocationTypeTitleMap.get(bid.location)}</Text>
         </BidItemColumn> */}
         <BidItemColumn type="LOCATION">
-          <Text fontSize="sm">{capitalize(bid.location)}</Text>
+          <Text fontSize="sm">{LocationDictionary.get(bid.location).name}</Text>
         </BidItemColumn>
         <BidItemColumn type="DEADLINE">
           {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}

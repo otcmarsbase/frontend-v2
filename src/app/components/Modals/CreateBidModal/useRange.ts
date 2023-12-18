@@ -8,11 +8,11 @@ export function useRange(lot: Resource.Lot.Lot) {
     () => ({
       minUnits: lot.attributes.COMMON_MIN_FILTER_UNITS
         ? new Decimal(lot.attributes.COMMON_MIN_FILTER_UNITS).toNumber()
-        : null,
+        : 0,
       maxUnits: lot.attributes.COMMON_UNITS ? new Decimal(lot.attributes.COMMON_UNITS).toNumber() : null,
       minSummary: lot.attributes.COMMON_MIN_FILTER_SUMMARY
         ? new Decimal(lot.attributes.COMMON_MIN_FILTER_SUMMARY).toNumber()
-        : null,
+        : 5000,
       maxSummary: lot.attributes.COMMON_SUMMARY ? new Decimal(lot.attributes.COMMON_SUMMARY).toNumber() : null,
     }),
     [lot],

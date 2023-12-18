@@ -20,14 +20,14 @@ import { LotCreateModel } from '../../schema';
 export const InvestDocRoundStep: FC = () => {
   const { watch } = useFormContext<LotCreateModel>();
 
-  const type = watch('type');
+  const [type, SAFE_WITH_TOKEN_WARRANT] = watch(['type', 'SAFE_WITH_TOKEN_WARRANT']);
 
   return (
     <>
       <InvestDocRoundTypeInput />
       <InvestDocRoundFdvInput />
       <InvestDocRoundSummaryInput />
-      {type !== 'SAFE' && (
+      {(type !== 'SAFE' || SAFE_WITH_TOKEN_WARRANT) && (
         <>
           <TokenTgeInput />
           <TokenLockupPeriodInput />
