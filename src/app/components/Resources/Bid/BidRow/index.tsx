@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
-import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
+import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
@@ -85,7 +85,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, onClick, ...stackProps }) =
     },
     {
       label: BidRowFieldNameTitleMap.get('LOCATION'),
-      value: <Text>{capitalize(bid.location)}</Text>,
+      value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
     },
     {
       label: BidRowFieldNameTitleMap.get('DEADLINE'),
