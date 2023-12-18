@@ -22,18 +22,16 @@ const Deals: React.FC = () => {
 
   const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
     const status = filters.status.length
-      ? filters.status.flatMap((value) => {
+      ? (filters.status.flatMap((value) => {
           switch (value) {
             case 'active':
               return ['NEGOTIATION'];
-            case 'moderated':
-              return ['ON_MODERATION'];
             case 'ended':
               return ['COMPLETED', 'REJECTED'];
             default:
               return [];
           }
-        })
+        }) as Resource.Deal.Enums.DealStatus[])
       : undefined;
 
     return { skip, limit, status };

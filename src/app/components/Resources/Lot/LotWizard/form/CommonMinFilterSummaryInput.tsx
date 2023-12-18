@@ -14,6 +14,7 @@ export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
       placeholder="In stablecoin"
       rightElementText="$"
       gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      min={5000}
       {...formatNumberProps()}
     />
   );
