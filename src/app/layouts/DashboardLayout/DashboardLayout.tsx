@@ -1,23 +1,20 @@
-import { PropsWithChildren, useCallback, FormEvent } from 'react';
+import { PropsWithChildren, useCallback } from 'react';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 
 import { AppLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Box, HStack, Heading, VStack } from '@chakra-ui/react';
+import { Box, HStack, Heading, VStack, Checkbox } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { UIKit } from '@shared/ui-kit';
 
-import { DashboardTabType, DashboardTabTypeTitleMap } from './const';
+import { DashboardFilterStatusDictionary, DashboardTabType, DashboardTabTypeTitleMap } from './const';
+import { DashboardFilters } from './types';
 
 export interface DashboardLayoutProps {
   tabType: DashboardTabType;
-  handleSearch?: (e: FormEvent<HTMLInputElement>) => void;
 }
 
-export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = ({
-  tabType,
-  handleSearch,
-  children,
-}) => {
+export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> = ({ tabType, children }) => {
   const router = useRouter();
   const onRoute = useCallback(
     (value: DashboardTabType) => {
@@ -27,78 +24,112 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
     },
     [router],
   );
+  const { control, ...formProps } = useForm<{ filters: DashboardFilters }>({
+    defaultValues: { filters: { status: [] } },
+  });
 
   return (
-    <Box>
-      <Heading fontFamily="promo" fontSize="2rem" marginTop="2.5rem" marginBottom="0.75rem">
-        Dashboard
-      </Heading>
-      <VStack gap="0.5rem">
-        <HStack
-          justifyContent="space-between"
-          width="full"
-          gap="0"
-          borderRadius="0.75rem"
-          bg="dark.900"
-          padding="0.5rem"
-          paddingRight="1.25rem"
-        >
-          <HStack width="full" gap="1rem">
-            <UIKit.RadioButtons
-              maxW="32rem"
-              items={DashboardTabType}
-              renderKey={(item) => item}
-              renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
-              variant="solid"
-              value={tabType}
-              onChange={onRoute}
-            />
-            {/* <InputGroup size="xs">
-                <InputLeftElement pointerEvents="none">
-                  <UIIcons.Common.SearchIcon color="orange.500" />
-                </InputLeftElement>
-                <Input variant="ghost" size="xs" maxW="17rem" placeholder="Search" onInput={handleSearch} />
-              </InputGroup> */}
+    <FormProvider control={control} {...formProps}>
+      <Box>
+        <Heading fontFamily="promo" fontSize="2rem" marginTop={{ base: '0', md: '2.5rem' }} marginBottom="0.75rem">
+          Dashboard
+        </Heading>
+        <VStack gap="0.5rem">
+          <HStack
+            justifyContent="space-between"
+            width="full"
+            gap="0"
+            borderRadius="0.75rem"
+            bg="dark.900"
+            padding={{ base: '0', md: '0.5rem' }}
+            paddingRight={{ base: '0', md: '1.25rem' }}
+          >
+            <HStack width="full" gap="1rem">
+              <UIKit.RadioButtons
+                maxW={{
+                  xl: '32rem',
+                }}
+                items={DashboardTabType}
+                renderKey={(item) => item}
+                renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
+                variant={{ base: 'outline', md: 'solid' }}
+                value={tabType}
+                onChange={onRoute}
+                bg={{ base: 'transparent', md: 'dark.800' }}
+              />
+            </HStack>
+            <HStack gap="1rem">
+              <Controller
+                name="filters.status"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    isChecked={field.value.includes('active')}
+                    onChange={(e) => {
+                      const oldValue = [...field.value];
+                      if (e.target.checked) {
+                        field.onChange(oldValue.concat('active'));
+                      } else {
+                        const i = field.value.indexOf('active');
+                        oldValue.splice(i, 1);
+                        field.onChange(oldValue);
+                      }
+                    }}
+                  >
+                    Active
+                  </Checkbox>
+                )}
+              />
+              {tabType !== 'MY_DEALS' && (
+                <Controller
+                  name="filters.status"
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox
+                      isChecked={field.value.includes('moderated')}
+                      onChange={(e) => {
+                        const oldValue = [...field.value];
+                        if (e.target.checked) {
+                          field.onChange(oldValue.concat('moderated'));
+                        } else {
+                          const i = field.value.indexOf('moderated');
+                          oldValue.splice(i, 1);
+                          field.onChange(oldValue);
+                        }
+                      }}
+                    >
+                      Moderated
+                    </Checkbox>
+                  )}
+                />
+              )}
+              <Controller
+                name="filters.status"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox
+                    isChecked={field.value.includes('ended')}
+                    onChange={(e) => {
+                      const oldValue = [...field.value];
+                      if (e.target.checked) {
+                        field.onChange(oldValue.concat('ended'));
+                      } else {
+                        const i = field.value.indexOf('ended');
+                        oldValue.splice(i, 1);
+                        field.onChange(oldValue);
+                      }
+                    }}
+                  >
+                    Ended
+                  </Checkbox>
+                )}
+              />
+            </HStack>
           </HStack>
-          <HStack gap="1rem">
-            {/* TODO привязать к нормальным компонентам
-            <UIKit.Forms.FormField
-              name="showAll"
-              value={dashboardStore.filters.showAll}
-              component={
-                <Checkbox onChange={(e) => dashboardStore.changeFilters('showAll', e.target.checked)}>All</Checkbox>
-              }
-            />
-            <FormField
-              name="showActive"
-              value={dashboardStore.filters.showActive}
-              component={
-                <Checkbox onChange={(e) => dashboardStore.changeFilters('showActive', e.target.checked)}>
-                  Active
-                </Checkbox>
-              }
-            />
-            <FormField
-              name="showModerated"
-              value={dashboardStore.filters.showModerated}
-              component={
-                <Checkbox onChange={(e) => dashboardStore.changeFilters('showModerated', e.target.checked)}>
-                  Moderated
-                </Checkbox>
-              }
-            />
-            <FormField
-              name="showDraft"
-              value={dashboardStore.filters.showDraft}
-              component={
-                <Checkbox onChange={(e) => dashboardStore.changeFilters('showDraft', e.target.checked)}>Draft</Checkbox>
-              }
-            /> */}
-          </HStack>
-        </HStack>
-        {children}
-      </VStack>
-    </Box>
+          {children}
+        </VStack>
+      </Box>
+    </FormProvider>
   );
 };
 

@@ -1,44 +1,51 @@
 import { FC, ReactNode, Children, useMemo } from 'react';
 
-import { AssetVerticalTitle, LotFilterSidebarModel } from '@app/components';
-import { LotTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
-import { isDeeplyEmpty } from '@app/utils';
+import { LotFilterSidebarModel } from '@app/components';
+import { LotTypeDictionary, TradeDirectionDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
-import { MoneyText } from '@shared/ui-kit';
+import { Resource } from '@schema/desk-gateway';
+import { UIKit } from '@shared/ui-kit';
+import { isDeeplyEmpty } from '@shared/utils';
+import { omitBy } from 'lodash';
+
+interface FiltersModel extends Omit<LotFilterSidebarModel, 'assets'> {
+  assets: Resource.Asset.Asset[];
+}
 
 type FormatValue = {
-  [key in keyof LotFilterSidebarModel]: (value: LotFilterSidebarModel[key]) => ReactNode;
+  [key in keyof FiltersModel]: (value: FiltersModel[key]) => ReactNode;
 };
 
 export interface LotActiveFiltersProps {
-  filters: LotFilterSidebarModel;
+  filters: FiltersModel;
   onReset: () => void;
 }
 
 export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }) => {
+  const notEmptyFilters = useMemo(() => omitBy(filters, isDeeplyEmpty), [filters]);
   const formatValue: FormatValue = {
     direction: (value) => (value ? TradeDirectionDictionary.get(value).title : null),
-    lotTypes: (value) => value.map((type) => LotTypeDictionary.get(type).title),
-    assetVerticals: (value) => value.map((vertical) => AssetVerticalTitle.get(vertical)),
-    withReassing: (value) => (value ? 'Re-assign' : null),
+    type: (value) => value.map((type) => LotTypeDictionary.get(type).title),
+    verticals: (value) => value.map((vertical) => AssetVerticalTitleDictionary.get(vertical)),
+    withReassign: (value) => (value ? 'Re-assign' : null),
     bidSize: ([from, to]) => (
       <HStack spacing=".5rem">
-        <MoneyText value={from} abbreviated addon="$" />
+        <UIKit.MoneyText value={from} abbreviated />
         <Text>-</Text>
-        <MoneyText value={to} abbreviated addon="$" />
+        <UIKit.MoneyText value={to} abbreviated />
       </HStack>
     ),
     search: (value) => `Search: ${value}`,
     assets: (value) => value.map((asset) => asset.info.title),
   };
 
-  const isEmpty = useMemo(() => isDeeplyEmpty(filters), [filters]);
+  const isEmpty = useMemo(() => isDeeplyEmpty(notEmptyFilters), [notEmptyFilters]);
 
   if (isEmpty) return <></>;
 
   return (
     <Flex flexWrap="wrap" gap="0.75rem">
-      {Object.entries(filters).map(([key, value]) =>
+      {Object.entries(notEmptyFilters).map(([key, value]) =>
         Children.map(formatValue[key](value), (child) => (
           <Flex fontSize="sm" bgColor="whiteAlpha.300" padding="0.5rem 0.75rem" rounded="0.375rem" lineHeight="1.2">
             {child}

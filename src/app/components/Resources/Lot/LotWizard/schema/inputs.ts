@@ -22,7 +22,7 @@ export const COMMON_UNITS = yup.string();
 export const COMMON_SUMMARY = yup.string();
 export const COMMON_MIN_FILTER_UNITS = yup.string();
 export const COMMON_MIN_FILTER_SUMMARY = yup.string();
-export const COMMON_PRICING_MODEL = yup.string().oneOf(['SUMMARY', 'UNITS']);
+export const COMMON_ADDITIONAL_INFO = yup.string().max(1000);
 
 export const INVEST_DOC_ASSET_PK = yup
   .object({ id: yup.string() })

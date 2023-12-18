@@ -1,11 +1,6 @@
-import { isEmpty } from 'lodash';
+import { isDeeplyEmpty } from '@shared/utils';
+import omitBy from 'lodash/omitBy';
 
-export function prepareFiltersParams<T = any>(filters: T) {
-  return Object.entries(filters).reduce((acc, entry) => {
-    const [key, value] = entry;
-    return {
-      ...acc,
-      [key]: typeof value === 'object' ? (isEmpty(value) ? undefined : value) : value ? value : undefined,
-    };
-  }, {} as T);
+export function prepareFiltersParams<T extends Record<string, any>>(filters: T) {
+  return omitBy(filters, isDeeplyEmpty);
 }

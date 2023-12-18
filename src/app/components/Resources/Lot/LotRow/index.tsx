@@ -43,11 +43,9 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
             abbreviated
-            addon={
-              <Text as="span" color="dark.50">
-                $
-              </Text>
-            }
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
           />
         ),
       },
@@ -81,7 +79,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         value: lot.totalBids,
       },
     ].filter(Boolean);
-  }, [lot, asset]);
+  }, [lot, isAssetCreateRequest, asset.info.verticals]);
 
   return (
     <HStack

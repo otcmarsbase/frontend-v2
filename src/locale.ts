@@ -7,15 +7,15 @@ export let mixed = {
   notNull: 'This cannot be null',
   oneOf: 'This must be one of the following values: ${values}',
   notOneOf: 'This must not be one of the following values: ${values}',
-  notType: ({ path, type, value, originalValue }) => {
+  notType: ({ type, value, originalValue }) => {
     const castMsg =
       originalValue != null && originalValue !== value
         ? ` (cast from the value \`${printValue(originalValue, true)}\`).`
         : '.';
 
     return type !== 'mixed'
-      ? `This must be a \`${type}\` type, ` + `but the final value was: \`${printValue(value, true)}\`` + castMsg
-      : `This must match the configured type. ` + `The validated value was: \`${printValue(value, true)}\`` + castMsg;
+      ? `This must be a \`${type}\` type, but the final value was: \`${printValue(value, true)}\`` + castMsg
+      : `This must match the configured type. The validated value was: \`${printValue(value, true)}\`` + castMsg;
   },
 };
 
@@ -63,7 +63,7 @@ export let array = {
 
 export let tuple = {
   notType: (params) => {
-    const { path, value, spec } = params;
+    const { value, spec } = params;
     const typeLen = spec.types.length;
     if (Array.isArray(value)) {
       if (value.length < typeLen)

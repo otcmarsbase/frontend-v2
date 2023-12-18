@@ -5,7 +5,7 @@ import { UIIcons } from '@shared/ui-icons';
 export const AssetLinkTypeIconMap = new Map<Resource.Asset.Enums.AssetLinkType, ComponentWithAs<'svg', IconProps>>([
   ['DISCORD', UIIcons.Social.DiscordIcon],
   ['GITHUB', UIIcons.Social.GithubIcon],
-  ['OTHER', UIIcons.Social.DiscordIcon],
+  ['OTHER', UIIcons.Social.InternetIcon],
   ['REDDIT', UIIcons.Social.RedditIcon],
   ['SITE', UIIcons.Social.GithubIcon],
   ['TWITTER', UIIcons.Social.TwitterIcon],

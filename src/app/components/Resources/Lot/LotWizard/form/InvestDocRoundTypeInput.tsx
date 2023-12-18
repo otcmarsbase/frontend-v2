@@ -18,13 +18,7 @@ export const InvestDocRoundTypeInput: FC<BaseInputProps> = () => {
         <Controller
           name={NAME}
           render={({ field }) => (
-            <UILogic.InvestmentRoundSelect
-              {...field}
-              isInvalid={!isValid}
-              isClearable
-              onChange={field.onChange}
-              placeholder="Choose type"
-            />
+            <UILogic.InvestmentRoundSelect {...field} isInvalid={!isValid} isClearable placeholder="Choose type" />
           )}
         />
         {error && <FormErrorMessage>{error.message}</FormErrorMessage>}

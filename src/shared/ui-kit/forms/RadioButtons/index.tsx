@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { Box, useMultiStyleConfig, ColorProps, SimpleGrid, BoxProps } from '@chakra-ui/react';
+import { Box, useMultiStyleConfig, ColorProps, SimpleGrid, BoxProps, ResponsiveValue } from '@chakra-ui/react';
 
 type RadioButtonsValue = string | number;
 
@@ -9,7 +9,7 @@ export interface RadioButtonsItem<Type extends RadioButtonsValue> {
   value: Type;
 }
 
-export type RadioButtonsVariant = 'solid' | 'outline';
+export type RadioButtonsVariant = 'solid' | 'outline' | 'bordered';
 
 export interface RadioButtonsProps<T> extends Omit<BoxProps, 'onChange'> {
   items: readonly T[] | T[];
@@ -20,7 +20,7 @@ export interface RadioButtonsProps<T> extends Omit<BoxProps, 'onChange'> {
   isInvalid?: boolean;
   value: T;
   onChange?: (value: T, index: number) => void;
-  variant?: RadioButtonsVariant;
+  variant?: ResponsiveValue<RadioButtonsVariant>;
 }
 
 export function RadioButtons<T>({

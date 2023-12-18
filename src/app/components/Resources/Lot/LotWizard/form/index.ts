@@ -6,11 +6,11 @@ export * from './CommonBidMakerTypesInput';
 export * from './CommonDeadlineInput';
 export * from './CommonTelegramInput';
 export * from './CommonPriceInput';
-export * from './CommonPricingModelInput';
 export * from './CommonMinFilterSummaryInput';
 export * from './CommonMinFilterUnitsInput';
 export * from './CommonSummaryInput';
 export * from './CommonUnitsInput';
+export * from './CommonAdditionalInfoInput';
 
 export * from './InvestDocWithReassignInput';
 export * from './InvestDocTypeInput';

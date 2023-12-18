@@ -75,6 +75,11 @@ const variants = {
       borderColor: 'orange.500',
     }),
   },
+  bordered: {
+    container: {
+      p: '0.125rem',
+    },
+  },
 };
 
 export const RadioButtons = defineMultiStyleConfig({

@@ -1,19 +1,20 @@
 import { FC } from 'react';
 
 import { formatNumberProps } from './formatNumberProps';
-import { FormControlNumberInput } from './FormControlNumberInput';
+import { FormElementNumberInput } from './FormElementNumberInput';
 import { BaseInputProps } from './types';
 
 const NAME = 'COMMON_MIN_FILTER_SUMMARY';
 
 export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
   return (
-    <FormControlNumberInput
+    <FormElementNumberInput
       name={NAME}
       label="Minimum deal size"
-      placeholder="Amount"
+      placeholder="In stablecoin"
       rightElementText="$"
-      tooltip="Smallest allowable size for a deal. The same as minimum bid."
+      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      min={5000}
       {...formatNumberProps()}
     />
   );

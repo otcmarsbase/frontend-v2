@@ -3,7 +3,7 @@ import { FC, useCallback } from 'react';
 import Decimal from 'decimal.js';
 
 import { formatNumberProps } from './formatNumberProps';
-import { FormControlNumberInput } from './FormControlNumberInput';
+import { FormElementNumberInput } from './FormElementNumberInput';
 import { BaseInputProps } from './types';
 import { useDefaultValueSetter } from './useDefaultValueSetter';
 import { useInput } from './useInput';
@@ -39,13 +39,14 @@ export const CommonSummaryInput: FC<BaseInputProps> = () => {
   );
 
   return (
-    <FormControlNumberInput
+    <FormElementNumberInput
       name={NAME}
       label="Contract size to offer"
       placeholder="Amount"
       rightElementText="$"
       tooltip="The amount of sale in this lot. The seller will receive this amount."
       onChange={handleChange}
+      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
       {...formatNumberProps()}
     />
   );

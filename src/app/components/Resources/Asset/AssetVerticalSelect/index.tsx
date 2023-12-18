@@ -1,7 +1,7 @@
+import { AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
-import { AssetVerticalTitle } from '../AssetVertical';
 import { AssetVerticalRow } from '../AssetVertical/AssetVerticalRow';
 
 export type AssetVerticalSelectProps = Omit<
@@ -14,7 +14,7 @@ export const AssetVerticalSelect: React.FC<AssetVerticalSelectProps> = (props) =
     <UIKit.SelectSync<Resource.Asset.Enums.AssetVertical, true>
       {...props}
       renderItem={(item) => <AssetVerticalRow value={item} />}
-      items={AssetVerticalTitle.keys()}
+      items={AssetVerticalTitleDictionary.keys()}
     />
   );
 };

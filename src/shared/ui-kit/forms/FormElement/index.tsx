@@ -14,8 +14,8 @@ export const FormElement: React.FC<FormElementProps> = ({ label, info, isRequire
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <SimpleGrid gridTemplateColumns="10rem 2fr" gridColumnGap="3rem" w="full" {...gridProps}>
-      <HStack gap="0.25rem" alignSelf="start" mt="0.7rem">
+    <SimpleGrid gridTemplateColumns={{ base: '1fr', md: '10rem 2fr' }} gridColumnGap="3rem" w="full" {...gridProps}>
+      <HStack gap="0.25rem" alignSelf="start" mt="0.7rem" w="full">
         <Text fontSize="md" color="white" cursor="default">
           {label}
         </Text>

@@ -28,7 +28,7 @@ export const ExpandableText = forwardRef<HTMLDivElement, Props>(({ children, noO
 
   return (
     <Box ref={ref} {...boxProps}>
-      <Text fontSize="sm" ref={inputRef} noOfLines={expandedCount}>
+      <Text fontSize="sm" ref={inputRef} noOfLines={expandedCount} whiteSpace="pre-wrap" wordBreak="break-word">
         {children}
       </Text>
       <Button display={isTextClamped ? 'block' : 'none'} size="sm" variant="link" onClick={handleToggle}>

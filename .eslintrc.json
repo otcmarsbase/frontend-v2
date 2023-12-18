@@ -3,6 +3,12 @@
   "plugins": ["import"],
   "overrides": [
     {
+      "files": ["./src/locale.ts"],
+      "rules": {
+        "no-template-curly-in-string": "off"
+      }
+    },
+    {
       "files": ["**/*.ts?(x)"],
       "rules": {
         "import/no-anonymous-default-export": "off",
@@ -10,16 +16,7 @@
         "import/order": [
           "error",
           {
-            "groups": [
-              "builtin",
-              "external",
-              "internal",
-              "parent",
-              "sibling",
-              "index",
-              "object",
-              "unknown"
-            ],
+            "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "unknown"],
             "pathGroups": [
               {
                 "pattern": "@**",

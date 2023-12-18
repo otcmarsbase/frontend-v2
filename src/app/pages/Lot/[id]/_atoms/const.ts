@@ -9,12 +9,13 @@ export const MainChipFieldType = [
   'CONTRACT_SIZE',
   'OWNER',
   'SELLER',
+  'BUYER',
   'TYPE_OF_BIDDER',
   'TYPE_OF_SELLER',
 ] as const;
 export type MainChipFieldType = (typeof MainChipFieldType)[number];
 
-export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, React.ReactNode>([
+export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, string>([
   ['PRICE_TOKEN', 'Price 0.01% token share'],
   ['PRICE_EQUITY', 'Price 0.01% equity'],
   ['PRICE_UNIT', 'Price per token'],
@@ -22,6 +23,7 @@ export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, React.ReactN
   ['CONTRACT_SIZE', 'Contract size'],
   ['OWNER', 'Owner'],
   ['SELLER', 'Seller'],
+  ['BUYER', 'Buyer'],
   ['MIN_BID', 'Min Bid'],
   ['TYPE_OF_BIDDER', 'Type of bidder'],
   ['TYPE_OF_SELLER', 'Type of seller'],
@@ -82,6 +84,8 @@ export const SortBidsByTypeDictionary = createDictionary<SortBidsByType, SortBid
 export const RoundInfoFieldType = [
   'INVESTMENT_ROUND',
   'ROUND_TOKEN_PRICE',
+  'ROUND_EQUITY_PRICE',
+  'ROUND_UNITS',
   'TGE_DATE',
   'ROUND_FDV',
   'LOCKUP_PERIOD',
@@ -97,6 +101,12 @@ export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { t
     ROUND_TOKEN_PRICE: {
       title: 'Round token price',
     },
+    ROUND_EQUITY_PRICE: {
+      title: 'Equity price',
+    },
+    ROUND_UNITS: {
+      title: 'Tokens share bought',
+    },
     TGE_DATE: {
       title: 'Estimate TGE Date',
     },
@@ -111,3 +121,13 @@ export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { t
     },
   })
   .asReadonly();
+
+export const MobileTabItemKey = ['BIDS', 'LOT_INFO', 'ASSET_INFO'] as const;
+
+export type MobileTabItemKey = (typeof MobileTabItemKey)[number];
+
+export const MobileTabItemDictionary = createDictionary<MobileTabItemKey, string>({
+  BIDS: 'Bids',
+  LOT_INFO: 'Lot info',
+  ASSET_INFO: 'Asset info',
+});
