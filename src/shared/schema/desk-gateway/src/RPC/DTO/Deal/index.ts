@@ -1,2 +1,2 @@
 export * from './DealGetById';
-export * from './DealListMy';
+export * from './DealList';

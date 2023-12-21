@@ -56,13 +56,17 @@ export function LotsBlock({ asset }: LotsBlockProps) {
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
-  const fetchPayload = useMemo<RPC.DTO.LotListActive.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
 
     return {
-      skip,
-      limit,
-      ...prepareFiltersParams({
+      page: {
+        skip,
+        limit,
+      },
+
+      filter: prepareFiltersParams({
+        status: ['ACTIVE'],
         assets: [asset.id],
         direction: filters.direction,
         minContractValue,
@@ -76,7 +80,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
 
   const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
-  const { data: lots, isLoading } = useRpcSchemaQuery('lot.listActive', debauncedPayload, {});
+  const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
   const isFiltersOpened = useMemo(() => columnsCount === 3, [columnsCount]);
 

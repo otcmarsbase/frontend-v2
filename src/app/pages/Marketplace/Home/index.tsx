@@ -31,7 +31,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   const [isFiltersOpened, setIsFiltersOpened] = useState<boolean>(defaultIsFiltersOpened);
 
-  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', { withLots: true });
+  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', { filter: { withLots: true } });
 
   const assets = useMemo(() => {
     if (!_assets) return [];
@@ -57,13 +57,16 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
-  const fetchPayload = useMemo<RPC.DTO.LotListActive.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
 
     return {
-      skip,
-      limit,
-      ...prepareFiltersParams({
+      page: {
+        skip,
+        limit,
+      },
+      filter: prepareFiltersParams({
+        status: ['ACTIVE'],
         assets: filters.assets,
         direction: filters.direction,
         minContractValue,
@@ -78,7 +81,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
-  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.listActive', debauncedPayload, {});
+  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
   const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
 

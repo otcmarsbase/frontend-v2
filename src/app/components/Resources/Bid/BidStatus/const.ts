@@ -13,4 +13,8 @@ export const BidStatusInfoDictionary = createDictionary<
     title: 'Rejected',
     color: 'red.500',
   },
+  ARCHIVED: {
+    title: 'Archived',
+    color: 'red.500',
+  },
 });

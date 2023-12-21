@@ -8,7 +8,7 @@ import { User } from './User';
 
 export namespace Bid {
   export namespace Enums {
-    export const BidStatus = ['ON_MODERATION', 'ACTIVE', 'DEAL', 'REJECTED'] as const;
+    export const BidStatus = ['ON_MODERATION', 'ACTIVE', 'DEAL', 'REJECTED', 'ARCHIVED'] as const;
     export type BidStatus = (typeof BidStatus)[number];
 
     export const BidRejectReasonType = ['OFFER_MAKER_REJECT', 'MODERATOR_REJECT'] as const;

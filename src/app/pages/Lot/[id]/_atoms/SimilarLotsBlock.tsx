@@ -14,8 +14,8 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   const router = useRouter();
 
   const { data: assets } = useRpcSchemaQuery('asset.list', {});
-  const { data: lots } = useRpcSchemaQuery('lot.listActive', {
-    assets: [lot.attributes.INVEST_DOC_ASSET_PK],
+  const { data: lots } = useRpcSchemaQuery('lot.list', {
+    filter: { status: ['ACTIVE'], assets: [lot.attributes.INVEST_DOC_ASSET_PK] },
   });
 
   const similarLots = useMemo(() => lots?.items?.filter((other) => other.id !== lot.id) || [], [lots, lot]);

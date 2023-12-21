@@ -18,7 +18,7 @@ const Deals: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.DealListMy.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.DealList.Payload>(() => {
     const status = filters.status.length
       ? (filters.status.flatMap((value) => {
           switch (value) {
@@ -32,18 +32,18 @@ const Deals: React.FC = () => {
         }) as Resource.Deal.Enums.DealStatus[])
       : undefined;
 
-    return { skip, limit, status };
+    return { page: { skip, limit }, filter: { status } };
   }, [skip, limit, filters]);
 
-  const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', fetchPayload);
+  const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery('deal.list', fetchPayload);
   const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { deals: deals?.items?.map(({ id }) => id) },
+    { filter: { deals: deals?.items?.map(({ id }) => id) } },
     { enabled: !!deals?.total },
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
-    'lot.listMy',
-    { deals: deals?.items?.map(({ id }) => id) },
+    'lot.list',
+    { filter: { onlyMy: true, deals: deals?.items?.map(({ id }) => id) } },
     { enabled: !!deals?.total },
   );
 

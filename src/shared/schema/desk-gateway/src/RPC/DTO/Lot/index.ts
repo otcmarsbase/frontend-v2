@@ -4,7 +4,6 @@ export * from './LotComplete';
 export * from './LotCreate';
 export * from './LotDuplicate';
 export * from './LotGetById';
-export * from './LotListActive';
-export * from './LotListMy';
+export * from './LotList';
 export * from './LotSendOnModeration';
 export * from './LotUpdate';

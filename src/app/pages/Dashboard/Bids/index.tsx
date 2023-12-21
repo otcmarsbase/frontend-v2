@@ -18,7 +18,7 @@ const MyBids: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.BidListMy.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
     const status = filters.status.length
       ? (filters.status.flatMap((value) => {
           switch (value) {
@@ -34,23 +34,26 @@ const MyBids: React.FC = () => {
         }) as Resource.Bid.Enums.BidStatus[])
       : undefined;
 
-    return { skip, limit, status };
+    return { page: { skip, limit }, filter: { status, onlyMy: true } };
   }, [skip, limit, filters]);
-  const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.listMy', fetchPayload);
+
+  const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.list', fetchPayload);
   const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { bids: bids?.items?.map(({ id }) => id) },
+    { filter: { bids: bids?.items?.map(({ id }) => id) } },
     { enabled: !!bids?.total },
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
-    'lot.listActive',
-    { bids: bids?.items?.map(({ id }) => id) },
+    'lot.list',
+    { filter: { status: ['ACTIVE'], bids: bids?.items?.map(({ id }) => id) } },
     { enabled: !!bids?.total },
   );
   const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery(
-    'deal.listMy',
+    'deal.list',
     {
-      bids: bids?.items?.map(({ id }) => id),
+      filter: {
+        bids: bids?.items?.map(({ id }) => id),
+      },
     },
     {
       enabled: !!bids?.total,
