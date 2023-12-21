@@ -63,7 +63,7 @@ export const CommonUnitsInput: FC<BaseInputProps> = () => {
       deserializeValue={deserializeValue}
       max={max}
       onChange={handleChange}
-      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      gridProps={{ gridTemplateColumns: { base: '1fr', md: '12rem 2fr' } }}
       {...formatNumberProps()}
     />
   );

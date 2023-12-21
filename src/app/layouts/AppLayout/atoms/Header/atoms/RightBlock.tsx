@@ -102,7 +102,13 @@ export function RightBlock() {
             <UILogic.AuthAccountPanel />
 
             {isAuthorized && (
-              <Button variant="link" fontSize="sm" onClick={signOut} color="orange.300">
+              <Button
+                variant="link"
+                display={{ base: 'none', md: 'block' }}
+                fontSize="sm"
+                onClick={signOut}
+                color="orange.300"
+              >
                 Logout
               </Button>
             )}

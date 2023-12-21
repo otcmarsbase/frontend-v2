@@ -29,6 +29,6 @@ export function useDefaultStep(
       return 'INVEST_DOC_PRICE';
     }
 
-    return 'INVEST_DOC_REVIEW';
+    return 'INVEST_DOC_START';
   }, [defaultValues, direction]);
 }

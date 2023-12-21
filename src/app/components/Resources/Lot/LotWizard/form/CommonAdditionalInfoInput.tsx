@@ -13,7 +13,12 @@ export const CommonAdditionalInfoInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error } = useInput(NAME);
 
   return (
-    <FormElement label="Additional info" isRequired={isRequired} w="full" gridTemplateColumns="12rem 2fr">
+    <FormElement
+      label="Additional info"
+      isRequired={isRequired}
+      w="full"
+      gridTemplateColumns={{ base: '1fr', md: '12rem 2fr' }}
+    >
       <FormControl isInvalid={!isValid}>
         <Controller name={NAME} render={(props) => <UIKit.Textarea {...props.field} placeholder="Enter value" />} />
         {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
