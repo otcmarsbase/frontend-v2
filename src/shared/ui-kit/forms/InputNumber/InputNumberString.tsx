@@ -13,6 +13,7 @@ export interface InputNumberStringProps
   extends Omit<ChakraNumberInputProps, 'value' | 'onChange' | 'format'>,
     UseInputNumberDecimalsProps {
   showStepper?: boolean;
+  placeholder?: string;
 }
 
 export function InputNumberString({
