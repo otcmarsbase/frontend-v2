@@ -38,7 +38,7 @@ export const LotWizardView = <T extends string>({
       position="relative"
     >
       <Box borderRight={{ base: 'none', md: '1px solid' }} w="full" borderColor="dark.800">
-        <VStack alignItems="start" p="2rem" pb="0" w="full">
+        <VStack alignItems="start" p={{ base: '0.7rem', md: '2rem' }} pb="0" w="full">
           {currentStepDescriptor.title && (
             <Text fontSize="2md" color="white" fontWeight="600">
               {currentStepDescriptor.title}
@@ -50,11 +50,11 @@ export const LotWizardView = <T extends string>({
             </Text>
           )}
         </VStack>
-        <VStack p="2rem" gap="2rem" alignItems="start" w="full">
+        <VStack p={{ base: '0.7rem', md: '2rem' }} gap={{ base: '0.7rem', md: '2rem' }} alignItems="start" w="full">
           {stepComponent}
         </VStack>
       </Box>
-      <Box p="2rem" position="relative" flexDirection="column" justifyContent="space-between">
+      <Box p={{ base: '0.7rem', md: '2rem' }} position="relative" flexDirection="column" justifyContent="space-between">
         <Box position="sticky" top="2rem" display={{ base: 'none', md: 'flex' }}>
           <Steps
             value={currentStep}
