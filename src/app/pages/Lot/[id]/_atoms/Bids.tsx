@@ -18,18 +18,22 @@ interface BidsProps {
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
   const { skip, limit, ...paginationProps } = usePagination(25);
 
-  const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
+  const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
     return {
-      skip,
-      limit,
-      lots: [lot.id],
+      page: {
+        skip,
+        limit,
+      },
+      filter: {
+        lots: [lot.id],
+      },
     };
   }, [skip, limit, lot.id]);
 
-  const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.listByLot', fetchPayload);
+  const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.list', fetchPayload);
 
-  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', {
-    bids: bids?.items?.map(({ id }) => id),
+  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.list', {
+    filter: { bids: bids?.items?.map(({ id }) => id) },
   });
 
   const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });

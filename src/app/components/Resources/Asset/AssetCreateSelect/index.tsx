@@ -50,7 +50,7 @@ export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = ({ value, ...
   const load = useCallback(async () => {
     const { items } = await queryClient.fetchQuery({
       queryKey: ['asset.list', { search }],
-      queryFn: () => rpcSchema.send('asset.list', { search }),
+      queryFn: () => rpcSchema.send('asset.list', { filter: { search } }),
     });
     itemsRef.current = items;
     const notFound = !search ? (typeof value === 'string' ? value : void 0) : search;

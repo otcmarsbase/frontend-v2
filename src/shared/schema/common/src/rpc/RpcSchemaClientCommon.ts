@@ -49,7 +49,7 @@ export class RpcSchemaClientCommon<Schema extends RpcApiSchema, ClientMeta exten
     return async (response, next) => {
       if (!this.options.setMeta) return next();
 
-      if (response.meta) await this.options.setMeta(response.meta as ServerMeta);
+      if (response.meta) await this.options.setMeta(<ServerMeta>response.meta);
       return next();
     };
   }

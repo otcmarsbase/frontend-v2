@@ -16,15 +16,14 @@ export type Schema = {
   };
   bid: {
     create(payload: DTO.BidCreate.Payload): DTO.BidCreate.Result;
-    listByLot(payload: DTO.BidListByLot.Payload): DTO.BidListByLot.Result;
-    listMy(payload: DTO.BidListMy.Payload): DTO.BidListMy.Result;
+    list(payload: DTO.BidList.Payload): DTO.BidList.Result;
     accept(payload: DTO.BidAccept.Payload): DTO.BidAccept.Result;
     reject(payload: DTO.BidReject.Payload): DTO.BidReject.Result;
     makeActive(payload: DTO.BidMakeActive.Payload): DTO.BidMakeActive.Result;
   };
   deal: {
     getById(payload: DTO.DealGetById.Payload): DTO.DealGetById.Result;
-    listMy(payload: DTO.DealListMy.Payload): DTO.DealListMy.Result;
+    list(payload: DTO.DealList.Payload): DTO.DealList.Result;
   };
   lot: {
     archive(payload: DTO.LotArchive.Payload): DTO.LotArchive.Result;
@@ -33,8 +32,7 @@ export type Schema = {
     create(payload: DTO.LotCreate.Payload): DTO.LotCreate.Result;
     duplicate(payload: DTO.LotDuplicate.Payload): DTO.LotDuplicate.Result;
     getById(payload: DTO.LotGetById.Payload): DTO.LotGetById.Result;
-    listActive(payload: DTO.LotListActive.Payload): DTO.LotListActive.Result;
-    listMy(payload: DTO.LotListMy.Payload): DTO.LotListMy.Result;
+    list(payload: DTO.LotList.Payload): DTO.LotList.Result;
     sendOnModeration(payload: DTO.LotSendOnModeration.Payload): DTO.LotSendOnModeration.Result;
     update(payload: DTO.LotUpdate.Payload): DTO.LotUpdate.Result;
   };

@@ -1,9 +1,9 @@
-import { Pagination, PaginationPayload } from '@schema/common';
+import { CompositeFilter, Pagination, QueryListPayload } from '@schema/common';
 
 import { Resource } from '../../../Resource';
 
 export namespace AssetList {
-  export type Payload = PaginationPayload & {
+  export type Filter = CompositeFilter<{
     search?: string;
     withLots?: boolean;
     tier?: Resource.Asset.Enums.AssetTier[];
@@ -12,6 +12,8 @@ export namespace AssetList {
     lots?: Resource.Lot.LotKey['id'][];
     bids?: Resource.Bid.BidKey['id'][];
     deals?: Resource.Deal.DealKey['id'][];
-  };
+  }>;
+
+  export type Payload = QueryListPayload<Filter>;
   export type Result = Pagination<Resource.Asset.Asset>;
 }
