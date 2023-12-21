@@ -1,23 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
-import { LotRow, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotRow, UILogic, useRpcSchemaQuery } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource, RPC } from '@schema/desk-gateway';
-import { Empty, List, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
 
 export const Lots: React.FC = () => {
-  const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
-  const [items, setItems] = useState<Resource.Lot.Lot[]>([]);
-  const [assets, setAssets] = useState<Resource.Asset.Asset[]>([]);
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination();
+  const { skip, limit, ...paginationProps } = usePagination();
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
@@ -40,41 +37,25 @@ export const Lots: React.FC = () => {
     return { skip, limit, status };
   }, [skip, limit, filters]);
 
-  const fetchItems = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('lot.listMy', fetchPayload);
-      const assets: Resource.Asset.Asset[] = [];
-
-      for (const { attributes } of items) {
-        if (attributes.INVEST_DOC_ASSET_PK) {
-          const asset = await rpcSchema.send('asset.getById', { id: attributes.INVEST_DOC_ASSET_PK });
-          assets.push(asset);
-        }
-      }
-
-      setItems(items);
-      setAssets(assets);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
-    true,
+  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery('lot.listMy', fetchPayload);
+  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
+    'asset.list',
+    { lots: lots?.items?.map(({ id }) => id) },
+    { enabled: !!lots?.total },
   );
 
   const findAsset = useCallback(
-    (assetId: Resource.Asset.AssetKey['id']) => assets.find((asset) => asset.id === assetId),
+    (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
     [assets],
   );
-
-  useEffect(() => {
-    fetchItems();
-  }, [fetchItems]);
 
   return (
     <VStack width="full">
       <List
         width="full"
-        items={items}
+        items={lots?.items}
         itemKey={(item) => item.id}
-        isLoading={fetchItems.isLoading}
+        isLoading={lotsIsLoading || assetsIsLoading}
         loader={ListLoader}
         emptyText={
           <Empty
@@ -94,7 +75,7 @@ export const Lots: React.FC = () => {
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}
-        footer={items.length > 0 && <Pagination {...paginationProps} />}
+        footer={lots?.total > 0 && <Pagination {...paginationProps} />}
       />
     </VStack>
   );

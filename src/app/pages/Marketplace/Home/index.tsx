@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDebounce } from 'react-use';
+import { useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
 import { HStack, Heading, VStack, Button, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/desk-gateway';
+import { RPC } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
-import { Empty, Pagination, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, Pagination, usePagination } from '@shared/ui-kit';
 import pick from 'lodash/pick';
 
 import { QueryParamsSchema } from './schema';
@@ -20,8 +20,6 @@ const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-
-  const rpcSchema = useRpcSchemaClient();
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
@@ -32,15 +30,14 @@ export const OtcDesk: React.FC = observer(() => {
   );
 
   const [isFiltersOpened, setIsFiltersOpened] = useState<boolean>(defaultIsFiltersOpened);
-  const [lots, setLots] = useState<Resource.Lot.Lot[]>([]);
-  const [_assets, setAssets] = useState<RPC.DTO.AssetList.Result>({
-    items: [],
-    total: 0,
-  });
+
+  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', { withLots: true });
 
   const assets = useMemo(() => {
+    if (!_assets) return [];
+
     return _assets.items.slice(0, 20);
-  }, [_assets.items]);
+  }, [_assets]);
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema);
   const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
@@ -58,7 +55,7 @@ export const OtcDesk: React.FC = observer(() => {
     return initialFilters;
   });
 
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(12);
+  const { skip, limit, ...paginationProps } = usePagination(12);
 
   const fetchPayload = useMemo<RPC.DTO.LotListActive.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
@@ -79,38 +76,15 @@ export const OtcDesk: React.FC = observer(() => {
     };
   }, [skip, limit, filters]);
 
+  const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
+
+  const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.listActive', debauncedPayload, {});
+
+  const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
+
   const toggleFilters = () => {
     setIsFiltersOpened((opened) => !opened);
   };
-
-  const loadLots = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('lot.listActive', fetchPayload, {});
-
-      setLots(items);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
-    true,
-  );
-
-  const loadAssets = useLoadingCallback(
-    useCallback(async () => {
-      const assets = await rpcSchema.send('asset.list', { withLots: true }, {});
-      setAssets(assets);
-    }, [rpcSchema]),
-    true,
-  );
-
-  const isLoading = useMemo(
-    () => loadLots.isLoading || loadAssets.isLoading,
-    [loadLots.isLoading, loadAssets.isLoading],
-  );
-
-  useEffect(() => {
-    loadAssets();
-  }, [loadAssets]);
-
-  useDebounce(loadLots, CHANGE_FILTERS_DEBOUNCE_DURATION_MS, [fetchPayload]);
 
   const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     paginationProps.onChange(1);
@@ -129,7 +103,7 @@ export const OtcDesk: React.FC = observer(() => {
     setQueryParams({});
   };
 
-  const columnsCount = isFiltersOpened ? 3 : 4;
+  const columnsCount = useMemo(() => (isFiltersOpened ? 3 : 4), [isFiltersOpened]);
 
   return (
     <VStack alignItems="start">
@@ -159,7 +133,7 @@ export const OtcDesk: React.FC = observer(() => {
               <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
-                {isEmpty ? (
+                {!lots.total ? (
                   <Empty
                     createButton={
                       <UILogic.AuthAction>
@@ -173,11 +147,17 @@ export const OtcDesk: React.FC = observer(() => {
                   <>
                     <UILogic.LotGrid
                       columns={{ base: 1, md: columnsCount }}
-                      lots={lots}
+                      lots={lots.items}
                       assets={_assets.items}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
-                    <Pagination {...paginationProps} showCaption showPageSize pageSizeOptions={[12, 24, 36]} />
+                    <Pagination
+                      {...paginationProps}
+                      total={lots.total}
+                      showCaption
+                      showPageSize
+                      pageSizeOptions={[12, 24, 36]}
+                    />
                   </>
                 )}
               </>

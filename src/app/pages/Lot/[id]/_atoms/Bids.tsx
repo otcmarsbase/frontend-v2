@@ -1,11 +1,11 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
-import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient } from '@app/components';
+import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { Resource, RPC } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { Empty, List, Pagination, SkeletonLoader, useLoadingCallback, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, SkeletonLoader, usePagination } from '@shared/ui-kit';
 import { range } from 'lodash';
 
 import { BidItem } from './BidItem';
@@ -16,10 +16,7 @@ interface BidsProps {
 }
 
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
-  const rpcSchema = useRpcSchemaClient();
-  const [bids, setBids] = useState<Resource.Bid.Bid[]>([]);
-
-  const { setTotal, isEmpty, skip, limit, ...paginationProps } = usePagination(25);
+  const { skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidListByLot.Payload>(() => {
     return {
@@ -29,25 +26,18 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
     };
   }, [skip, limit, lot.id]);
 
-  const loadBids = useLoadingCallback(
-    useCallback(async () => {
-      const { items, total } = await rpcSchema.send('bid.listByLot', fetchPayload);
-      setBids(items);
-      setTotal(total);
-    }, [rpcSchema, fetchPayload, setTotal]),
+  const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.listByLot', fetchPayload);
+
+  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.listMy', {
+    bids: bids?.items?.map(({ id }) => id),
+  });
+
+  const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
+
+  const findDeal = useCallback(
+    (dealId: Resource.Deal.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
+    [deals],
   );
-
-  useEffect(() => {
-    loadBids();
-  }, [loadBids]);
-
-  const onCreateBidClick = async () => {
-    const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
-
-    if (!bid) return;
-
-    loadBids();
-  };
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
@@ -65,7 +55,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             Active Bids
           </Text>
           <Circle padding="0 0.25rem" size="1.25rem" bg="orange.500" borderRadius="50%">
-            <Text fontSize="xs">{bids && bids.length}</Text>
+            <Text fontSize="xs">{bids && bids.total}</Text>
           </Circle>
         </HStack>
         <HStack flex="auto" justifyContent="flex-end">
@@ -88,10 +78,18 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
       <List
         emptyText={<Empty description="Unfortunately, you don't have any bids yet. You can create your own bid" />}
         w="full"
-        items={bids}
+        items={bids?.items}
         itemKey={(bid) => bid.id}
-        isLoading={loadBids.isLoading}
-        itemRender={(bid) => <BidItem isOfferMaker={isOfferMaker} bid={bid} lot={lot} refreshBids={loadBids} />}
+        isLoading={isLoading || dealsIsLoading}
+        itemRender={(bid) => (
+          <BidItem
+            isOfferMaker={isOfferMaker}
+            bid={bid}
+            lot={lot}
+            deal={findDeal(bid.dealKey?.id)}
+            refreshBids={refetch}
+          />
+        )}
         loader={({ isLoading, children }) => (
           <SkeletonLoader
             skeleton={
@@ -106,7 +104,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             {children}
           </SkeletonLoader>
         )}
-        footer={!isEmpty && <Pagination {...paginationProps} showCaption showPageSize />}
+        footer={!!bids?.total && <Pagination {...paginationProps} showCaption showPageSize total={bids.total} />}
       />
     </VStack>
   );

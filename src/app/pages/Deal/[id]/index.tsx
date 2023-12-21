@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { LotMultiplicatorDictionary } from '@app/dictionary';
 import * as Layouts from '@app/layouts';
 import { HStack, VStack } from '@chakra-ui/react';
@@ -18,31 +18,19 @@ interface DealProps {
 }
 
 const Deal: React.FC<DealProps> = observer(({ id }) => {
-  const rpcSchema = useRpcSchemaClient();
-  const [deal, setDeal] = useState<Resource.Deal.Deal>(null);
-  const [lot, setLot] = useState<Resource.Lot.Lot>(null);
-  const [asset, setAsset] = useState<Resource.Asset.Asset>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { data: deal, isLoading: dealIsLoading } = useRpcSchemaQuery('deal.getById', { id: toNumber(id) });
+  const { data: lot, isLoading: lotIsLoading } = useRpcSchemaQuery(
+    'lot.getById',
+    { id: deal?.lotKey?.id },
+    { enabled: !!deal },
+  );
+  const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery(
+    'asset.getById',
+    { id: lot?.attributes?.INVEST_DOC_ASSET_PK },
+    { enabled: !!lot },
+  );
 
-  const loadDeal = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const deal = await rpcSchema.send('deal.getById', { id: toNumber(id) });
-      const lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
-      const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
-      setDeal(deal);
-      setLot(lot);
-      setAsset(asset);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id, rpcSchema]);
-
-  useEffect(() => {
-    loadDeal();
-  }, [loadDeal]);
-
-  if (!asset || !deal || !lot || isLoading) {
+  if (dealIsLoading || lotIsLoading || assetIsLoading) {
     return <UILogic.DealPageSkeleton />;
   }
 

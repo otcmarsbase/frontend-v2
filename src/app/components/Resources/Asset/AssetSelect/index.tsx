@@ -4,6 +4,7 @@ import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { AssetImage } from '../AssetImage';
 
@@ -13,6 +14,7 @@ export interface AssetSelectProps extends Omit<UIKit.SelectAsyncProps<SelectType
 
 export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
 
   const renderKey = useCallback((item: SelectType) => item.id, []);
   const renderItem = useCallback(
@@ -27,9 +29,12 @@ export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
 
   const equalsItems = useCallback((item1: SelectType, item2: SelectType) => Object.is(item1?.id, item2?.id), []);
   const load = useCallback(async () => {
-    const pagination = await rpcSchema.send('asset.list', { limit: 5 });
-    return pagination.items;
-  }, [rpcSchema]);
+    const { items } = await queryClient.fetchQuery({
+      queryKey: ['asset.list', { limit: 5 }],
+      queryFn: () => rpcSchema.send('asset.list', { limit: 5 }),
+    });
+    return items;
+  }, [rpcSchema, queryClient]);
 
   return (
     <UIKit.SelectAsync

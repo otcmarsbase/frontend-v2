@@ -8,6 +8,7 @@ import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
 import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock } from './_atoms';
@@ -20,7 +21,10 @@ export interface LotProps extends React.PropsWithChildren {
 }
 
 export default function Lot({ id }: LotProps) {
+  id = toNumber(id);
   const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
+
   const router = useRouter();
   const { account } = useAuth();
 
@@ -42,10 +46,16 @@ export default function Lot({ id }: LotProps) {
 
   const preload = useLoadingCallback(
     useCallback(async () => {
-      const lot = await rpcSchema.send('lot.getById', { id: toNumber(id) });
+      const lot = await queryClient.fetchQuery({
+        queryKey: ['lot.getById', { id }],
+        queryFn: () => rpcSchema.send('lot.getById', { id }),
+      });
 
       if (lot.attributes.INVEST_DOC_ASSET_PK) {
-        const asset = await rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK });
+        const asset = await queryClient.fetchQuery({
+          queryKey: ['asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }],
+          queryFn: () => rpcSchema.send('asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }),
+        });
         setAsset(asset);
       }
 
@@ -57,7 +67,7 @@ export default function Lot({ id }: LotProps) {
       }
 
       setLot(lot);
-    }, [id, rpcSchema, router]),
+    }, [id, rpcSchema, router, queryClient]),
   );
 
   usePreloadPage(preload);
