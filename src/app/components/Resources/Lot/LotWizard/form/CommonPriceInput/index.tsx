@@ -38,7 +38,7 @@ export const CommonPriceInput: FC<BaseInputProps> = () => {
       {...descriptor}
       onChange={handleChange}
       {...formatNumberProps()}
-      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      gridProps={{ gridTemplateColumns: { base: '1fr', md: '12rem 2fr' } }}
     />
   );
 };

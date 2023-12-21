@@ -13,7 +13,7 @@ export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
       label="Minimum deal size"
       placeholder="In stablecoin"
       rightElementText="$"
-      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      gridProps={{ gridTemplateColumns: { base: '1fr', md: '12rem 2fr' } }}
       min={5000}
       {...formatNumberProps()}
     />

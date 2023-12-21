@@ -43,7 +43,7 @@ export const InvestDocFdvInput: FC<BaseInputProps> = () => {
       rightElementText="$"
       tooltip="FDV = market price * maximum supply"
       onChange={handleChange}
-      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      gridProps={{ gridTemplateColumns: { base: '1fr', md: '12rem 2fr' } }}
       {...formatNumberProps()}
     />
   );

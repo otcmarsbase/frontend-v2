@@ -46,7 +46,7 @@ export const CommonSummaryInput: FC<BaseInputProps> = () => {
       rightElementText="$"
       tooltip="The amount of sale in this lot. The seller will receive this amount."
       onChange={handleChange}
-      gridProps={{ gridTemplateColumns: '12rem 2fr' }}
+      gridProps={{ gridTemplateColumns: { base: '1fr', md: '12rem 2fr' } }}
       {...formatNumberProps()}
     />
   );
