@@ -43,7 +43,7 @@ const Deals: React.FC = () => {
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
     'lot.list',
-    { filter: { onlyMy: true, deal: { id: deals?.items?.map(({ id }) => id) } } },
+    { filter: { deal: { id: deals?.items?.map(({ id }) => id) } } },
     { enabled: !!deals?.total },
   );
 
