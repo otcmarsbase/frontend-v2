@@ -40,7 +40,7 @@ export const Lots: React.FC = () => {
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery('lot.list', fetchPayload);
   const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { filter: { lots: lots?.items?.map(({ id }) => id) } },
+    { filter: { lot: { id: lots?.items?.map(({ id }) => id) } } },
     { enabled: !!lots?.total },
   );
 
