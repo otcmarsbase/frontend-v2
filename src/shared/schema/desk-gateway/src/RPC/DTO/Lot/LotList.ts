@@ -1,9 +1,14 @@
 import { CompositeFilter, Pagination, QueryListPayload } from '@schema/common';
 
 import { Resource } from '../../../Resource';
+import { AssetList } from '../Asset';
+import { BidList } from '../Bid';
+import { DealList } from '../Deal';
 
 export namespace LotList {
   export type Filter = CompositeFilter<{
+    id?: Resource.Lot.LotKey['id'][];
+
     search?: string;
     type?: Resource.Lot.Enums.LotType[];
     status?: Resource.Lot.Enums.LotStatus[];
@@ -14,12 +19,11 @@ export namespace LotList {
     maxContractValue?: number;
     withReassign?: boolean;
     isHot?: boolean;
-
-    assets?: Resource.Asset.AssetKey['id'][];
-    bids?: Resource.Bid.BidKey['id'][];
-    deals?: Resource.Deal.DealKey['id'][];
-
     onlyMy?: boolean;
+
+    asset?: AssetList.Filter;
+    bid?: BidList.Filter;
+    deal?: DealList.Filter;
   }>;
 
   export type Payload = QueryListPayload<Filter>;

@@ -38,12 +38,12 @@ const Deals: React.FC = () => {
   const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery('deal.list', fetchPayload);
   const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { filter: { deals: deals?.items?.map(({ id }) => id) } },
+    { filter: { deal: { id: deals?.items?.map(({ id }) => id) } } },
     { enabled: !!deals?.total },
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
     'lot.list',
-    { filter: { onlyMy: true, deals: deals?.items?.map(({ id }) => id) } },
+    { filter: { onlyMy: true, deal: { id: deals?.items?.map(({ id }) => id) } } },
     { enabled: !!deals?.total },
   );
 

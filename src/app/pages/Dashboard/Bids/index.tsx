@@ -40,19 +40,19 @@ const MyBids: React.FC = () => {
   const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.list', fetchPayload);
   const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
     'asset.list',
-    { filter: { bids: bids?.items?.map(({ id }) => id) } },
+    { filter: { bid: { id: bids?.items?.map(({ id }) => id) } } },
     { enabled: !!bids?.total },
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
     'lot.list',
-    { filter: { status: ['ACTIVE'], bids: bids?.items?.map(({ id }) => id) } },
+    { filter: { status: ['ACTIVE'], bid: { id: bids?.items?.map(({ id }) => id) } } },
     { enabled: !!bids?.total },
   );
   const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery(
     'deal.list',
     {
       filter: {
-        bids: bids?.items?.map(({ id }) => id),
+        bid: { id: bids?.items?.map(({ id }) => id) },
       },
     },
     {
