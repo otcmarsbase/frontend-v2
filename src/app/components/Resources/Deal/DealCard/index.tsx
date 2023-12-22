@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { LotHotChip, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { LotHotChip, UILogic, useAuth } from '@app/components';
 import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
 import { DealRowFieldNameTitleMap } from '../const';
@@ -19,32 +19,15 @@ type FieldType = {
 
 export interface DealCardProps {
   deal: Resource.Deal.Deal;
+  lot: Resource.Lot.Lot;
+  asset: Resource.Asset.Asset;
   onClick: () => void;
   minimalView?: boolean;
 }
 
-export const DealCard: React.FC<DealCardProps> = ({ deal, minimalView = false, onClick }) => {
+export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalView = false, onClick }) => {
   const router = useRouter();
-  const rpcSchema = useRpcSchemaClient();
   const { account } = useAuth();
-
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const [lot, setLot] = useState<Resource.Lot.Lot>();
-
-  const fetchAssotiations = useLoadingCallback(
-    useCallback(async () => {
-      const _asset = await rpcSchema.send('asset.getById', { id: deal.assetKey.id });
-      const _lot = await rpcSchema.send('lot.getById', { id: deal.lotKey.id });
-
-      setAsset(_asset);
-      setLot(_lot);
-    }, [rpcSchema, deal]),
-    true,
-  );
-
-  useEffect(() => {
-    fetchAssotiations();
-  }, [fetchAssotiations]);
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 

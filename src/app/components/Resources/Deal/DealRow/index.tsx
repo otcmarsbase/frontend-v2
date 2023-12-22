@@ -58,7 +58,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
     },
   ];
 
-  if (isBase) return <DealCard deal={deal} onClick={onClick} />;
+  if (isBase) return <DealCard deal={deal} lot={lot} asset={asset} onClick={onClick} />;
 
   return (
     <HStack
