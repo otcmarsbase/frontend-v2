@@ -12,7 +12,7 @@ export interface LotFilterControlsProps {
 
 export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotFilterControlsProps) {
   return (
-    <HStack flexDirection={{ base: 'row-reverse', md: 'row' }}>
+    <HStack w={{ base: '100%', md: 'auto' }} flexDirection={{ base: 'row-reverse', md: 'row' }}>
       <Button
         variant={toggleButton?.isSelected ? 'red' : 'darkOutline'}
         borderColor={toggleButton?.isSelected ? 'red.200' : 'dark.200'}

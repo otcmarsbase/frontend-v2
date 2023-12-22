@@ -106,6 +106,7 @@ export function RadioButtons<T>({
                     }
                   : {}),
               }}
+              p={{ base: '0.5rem 2.5rem', md: '0.5rem 3.44rem' }}
               onClick={() => _onChange(item, index)}
             >
               {renderItem}

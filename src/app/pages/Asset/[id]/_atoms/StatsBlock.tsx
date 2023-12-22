@@ -33,7 +33,7 @@ export function StatsBlock({
         }
       />
       <UIKit.StatsInvert
-        title="Lot value on buy"
+        title="Lot value on sell"
         value={
           <UIKit.MoneyText value={lotValueOnSell} abbreviated fontSize="sm" currencyTextProps={{ color: 'dark.50' }} />
         }

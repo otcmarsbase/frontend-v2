@@ -1,14 +1,18 @@
 import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { useBreakpointDevice } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
+import AssetViewMobile from './index.mobile';
 
 export interface ViewProps {
   id: string;
 }
 
 export default function View({ id }: ViewProps) {
+  const { isDesktop, isMobile, isTablet } = useBreakpointDevice();
+
   const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.getById', { id });
   const { data: stats, isLoading: statsIsLoading } = useRpcSchemaQuery(
     'asset.getStatsById',
@@ -17,6 +21,8 @@ export default function View({ id }: ViewProps) {
   );
 
   if (!asset || !stats || assetIsLoading || statsIsLoading) return <UILogic.AssetPageSkeleton />;
+
+  if (isMobile) return <AssetViewMobile asset={asset} stats={stats} />;
 
   return (
     <VStack gap="2rem">
