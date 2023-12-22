@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 
 import { LotRow, UILogic, useRpcSchemaQuery } from '@app/components';

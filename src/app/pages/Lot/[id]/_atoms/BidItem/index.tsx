@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { AccountAvatar, LotBidSkeleton, UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
+import { AccountAvatar, UILogic, useAuth } from '@app/components';
 import {
   LocationDictionary,
   LotMultiplicatorDictionary,

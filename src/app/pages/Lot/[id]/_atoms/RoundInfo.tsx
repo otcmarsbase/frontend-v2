@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import { UIDictionary } from '@app/dictionary';
-import { getContractSize, getMinimumDealSize, getRoundContractSize } from '@app/utils';
+import { getContractSize, getRoundContractSize } from '@app/utils';
 import { SimpleGrid, VStack, Text, Heading, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { MoneyText, PercentText, UIKit } from '@shared/ui-kit';

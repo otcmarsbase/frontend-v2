@@ -1,6 +1,6 @@
 import { useToggle } from 'react-use';
 
-import { Accordion, Text, AccordionItem, Box, HStack, IconButton } from '@chakra-ui/react';
+import { Text, Box, HStack, IconButton } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
 
 export interface CollapserProps {
@@ -22,7 +22,14 @@ export const Collapser: React.FC<CollapserProps> = ({ label, children, defaultOp
           variant="ghost"
           onClick={togglePanel}
           aria-label="down"
-          icon={<UIIcons.Common.ArrowDown w="1.5rem" h="1.5rem" />}
+          icon={
+            <UIIcons.Common.ArrowDown
+              transition="all 0.15s"
+              transform={isOpened ? 'rotate(180deg)' : 'auto'}
+              w="1.5rem"
+              h="1.5rem"
+            />
+          }
         />
       </HStack>
       <Box

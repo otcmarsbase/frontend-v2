@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { HStack, Text, VStack } from '@chakra-ui/react';
 import { RPC } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 

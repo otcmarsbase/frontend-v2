@@ -11,7 +11,7 @@ export interface ViewProps {
 }
 
 export default function View({ id }: ViewProps) {
-  const { isDesktop, isMobile, isTablet } = useBreakpointDevice();
+  const { isMobile } = useBreakpointDevice();
 
   const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.getById', { id });
   const { data: stats, isLoading: statsIsLoading } = useRpcSchemaQuery(

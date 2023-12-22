@@ -1,7 +1,6 @@
 import Linkify from 'react-linkify';
 
-import { Accordion, AccordionItem, Text } from '@chakra-ui/react';
-import { UIKit } from '@shared/ui-kit';
+import { Text } from '@chakra-ui/react';
 
 import { Collapser } from './Collapser';
 

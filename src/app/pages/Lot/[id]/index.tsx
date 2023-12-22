@@ -72,13 +72,6 @@ export default function Lot({ id }: LotProps) {
 
   usePreloadPage(preload);
 
-  // const handleEditLot = () => {
-  //   console.log('handleEditLot');
-  // };
-  // const handleUnPublishLot = () => {
-  //   console.log('handleUnpublishLot');
-  // };
-
   if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
   if (!lot) return;
