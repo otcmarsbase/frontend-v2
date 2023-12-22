@@ -2,7 +2,7 @@ import { InputGroup, InputProps } from '@chakra-ui/react';
 
 import { InputMask } from '../InputMask';
 
-export const InputTelegramRegex = /^(?=.{5,32}$)(?!.*__)[a-z][a-z0-9_]*[a-z0-9]$/g;
+export const InputTelegramRegex = /^(?=.{5,32}$)(?!.*__)[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]$/g;
 
 export const InputTelegram: React.FC<InputProps> = ({ size, ...inputProps }) => {
   const TelegramMask =
