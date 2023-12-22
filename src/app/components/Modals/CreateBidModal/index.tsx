@@ -76,7 +76,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
 
       if (portal && portal.resolve) portal.resolve(bid);
     },
-    [portal, rpcSchema],
+    [portal, queryClient, rpcSchema],
   );
 
   const onSubmit = useToastInnerCallback(createBid, {});
@@ -278,7 +278,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
               render={(props) => <UIKit.InputTelegram {...props.field} placeholder="@nickname" />}
             />
           </FormControl>
-          <Button w="full" size="lg" isLoading={isSubmitting} onClick={handleSubmit(onSubmit, console.log)}>
+          <Button w="full" size="lg" isLoading={isSubmitting} onClick={handleSubmit(onSubmit)}>
             Place bid
           </Button>
         </VStack>

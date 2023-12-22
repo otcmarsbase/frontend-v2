@@ -4,7 +4,7 @@ import { UILogic, UIModals } from '@app/components';
 import { UIDictionary } from '@app/dictionary';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
-import { getContractSize, getMinimumDealSize, getRoundContractSize } from '@app/utils';
+import { getContractSize, getRoundContractSize } from '@app/utils';
 import LINQ from '@berish/linq';
 import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';

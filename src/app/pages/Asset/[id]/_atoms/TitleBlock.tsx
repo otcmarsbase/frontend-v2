@@ -8,11 +8,19 @@ export interface TitleBlockProps {
 
 export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
   return (
-    <HStack w="100%" gap="1.5rem">
+    <HStack
+      w="100%"
+      gap="1.5rem"
+      bg={{ base: 'dark.900', md: 'none' }}
+      borderRadius={{ base: 'sm', md: 'none' }}
+      p={{ base: '0.75rem', md: '0' }}
+    >
       <HStack gap="0.5rem">
-        {logoUrl && <Image borderRadius="sm" w="4rem" h="4rem" src={logoUrl} />}
+        {logoUrl && (
+          <Image borderRadius="sm" w={{ base: '2rem', md: '4rem' }} h={{ base: '2rem', md: '4rem' }} src={logoUrl} />
+        )}
         {title && (
-          <Heading variant="h2" fontWeight="500">
+          <Heading variant="h2" fontSize={{ base: '1rem', md: '2rem' }} fontWeight="500">
             {title}
           </Heading>
         )}

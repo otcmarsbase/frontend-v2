@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useToggle } from 'react-use';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { useDebounce } from '@app/hooks';
 import { MBPages } from '@app/pages';
 import { prepareFiltersParams } from '@app/utils';
-import { VStack, Text, HStack, Button } from '@chakra-ui/react';
+import { VStack, Text, HStack, Button, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC, Resource } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
@@ -36,7 +37,9 @@ export interface LotsBlockProps {
 export function LotsBlock({ asset }: LotsBlockProps) {
   const router = useRouter();
 
-  const [columnsCount, setColumnsCount] = useState(3);
+  const defaultIsFiltersOpened = useBreakpointValue({ base: false, md: true }, { ssr: false });
+  const [isFiltersOpened, toggleFilters] = useToggle(defaultIsFiltersOpened);
+  const columnsCount = isFiltersOpened ? 3 : 4;
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema, { id: asset.id });
   const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
@@ -78,15 +81,9 @@ export function LotsBlock({ asset }: LotsBlockProps) {
     };
   }, [skip, limit, filters, asset.id]);
 
-  const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
+  const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
-  const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
-
-  const isFiltersOpened = useMemo(() => columnsCount === 3, [columnsCount]);
-
-  const toggleFilters = () => {
-    setColumnsCount((count) => (count === 3 ? 4 : 3));
-  };
+  const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
 
   const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     paginationProps.onChange(1);
@@ -125,7 +122,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
     >
       {(direction) => (
         <VStack width="full" alignItems="start" gap="1.5rem">
-          <HStack alignItems="start" w="full" gap="2rem">
+          <HStack alignItems="start" w="full" gap="2rem" flexDirection={{ base: 'column', md: 'row' }}>
             {isFiltersOpened && (
               <UILogic.LotFilterSidebar
                 visibility={{ direction: false, verticals: false }}

@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
 
 import { LotWizard, LotWizardProps, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { UILayout } from '@app/layouts';

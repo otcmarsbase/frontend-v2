@@ -33,7 +33,7 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
   const fieldsVisibility = { ...defaultVisibility, ...visibility };
 
   return (
-    <VStack w="20rem" paddingTop="10px" gap="0.65rem" alignItems="flex-start">
+    <VStack w={{ base: '100%', md: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
       <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem">
         Filter
       </Text>
