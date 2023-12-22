@@ -13,9 +13,10 @@ import { BidItem } from './BidItem';
 interface BidsProps {
   isOfferMaker: boolean;
   lot: Resource.Lot.Lot;
+  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
 }
 
-export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
+export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
   const { skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
@@ -90,6 +91,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot }) => {
             isOfferMaker={isOfferMaker}
             bid={bid}
             lot={lot}
+            asset={asset as Resource.Asset.Asset}
             deal={findDeal(bid.dealKey?.id)}
             refreshBids={refetch}
           />

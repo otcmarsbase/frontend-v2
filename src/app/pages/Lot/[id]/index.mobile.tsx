@@ -71,7 +71,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
         renderKey={(key) => key}
         renderItem={(key) => MobileTabItemDictionary.get(key)}
       />
-      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} />}
+      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
       {tab === 'LOT_INFO' && (
         <VStack w="full" gap="0.5rem">
           <InfoBlock

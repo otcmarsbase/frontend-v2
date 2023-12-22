@@ -128,7 +128,7 @@ export default function Lot({ id }: LotProps) {
               <RoundInfo lot={lot} />
               <AdditionalInfoBlock lot={lot} />
             </VStack>
-            <Bids isOfferMaker={isOfferMaker} lot={lot} />
+            <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />
           </VStack>
         </GridItem>
       </Grid>

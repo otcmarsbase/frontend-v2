@@ -11,7 +11,7 @@ export const BidRowFieldName = [
 ] as const;
 export type BidRowFieldName = (typeof BidRowFieldName)[number];
 
-export const BidRowFieldNameTitleMap = new Map<BidRowFieldName, React.ReactNode>([
+export const BidRowFieldNameTitleMap = new Map<BidRowFieldName, string>([
   ['TYPE', 'Type'],
   ['PUBLISH_DATE', 'Publish Date'],
   ['BID_FDV', 'Bid FDV'],

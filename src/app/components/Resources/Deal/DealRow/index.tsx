@@ -2,13 +2,14 @@ import { UILogic, useAuth } from '@app/components';
 import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack } from '@chakra-ui/react';
+import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
-import { DealRowFieldNameTitleMap } from './const';
+import { DealRowFieldNameTitleMap } from '../const';
+import { DealCard } from '../DealCard';
 
 export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   deal: Resource.Deal.Deal;
@@ -20,6 +21,8 @@ export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> 
 export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...stackProps }) => {
   const router = useRouter();
   const { account } = useAuth();
+
+  const isBase = useBreakpointValue({ base: true, md: false });
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
@@ -55,7 +58,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
     },
   ];
 
-  console.log(deal.bidMakers, account);
+  if (isBase) return <DealCard deal={deal} onClick={onClick} />;
 
   return (
     <HStack
