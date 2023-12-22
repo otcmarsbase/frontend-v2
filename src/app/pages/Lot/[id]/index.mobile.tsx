@@ -19,7 +19,7 @@ import {
   MobileTabItemKey,
   RoundInfoFieldDictionary,
 } from './_atoms/const';
-import { InfoBlock } from './_atoms_tablet';
+import { InfoBlock } from './_atoms_mobile';
 
 export interface LotMobileProps {
   lot: Resource.Lot.Lot;

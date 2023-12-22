@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
-import { usePreloadPage } from '@app/hooks';
+import { useBreakpointDevice, usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
@@ -30,13 +30,7 @@ export default function Lot({ id }: LotProps) {
 
   const [lot, setLot] = useState<Resource.Lot.Lot>();
   const [asset, setAsset] = useState<Resource.Asset.Asset>();
-  const isMobile = useBreakpointValue(
-    {
-      base: true,
-      md: false,
-    },
-    { ssr: false },
-  );
+  const { isMobile } = useBreakpointDevice();
 
   const isOfferMaker = useMemo(() => {
     if (!(lot && account)) return false;
