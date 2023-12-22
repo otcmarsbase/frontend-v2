@@ -58,35 +58,35 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
                 bg={{ base: 'transparent', md: 'dark.800' }}
               />
             </HStack>
-            {tabType !== 'MY_DEALS' && (
-              <HStack gap="1rem">
-                {DashboardFilterStatusDictionary.entries().map(([status, label]) => (
-                  <Controller
-                    key={status}
-                    name="filters.status"
-                    control={control}
-                    render={({ field }) => (
-                      <Checkbox
-                        isChecked={field.value.includes(status)}
-                        onChange={(e) => {
-                          const oldValue = [...field.value];
-                          if (e.target.checked) {
-                            field.onChange(oldValue.concat(status));
-                          } else {
-                            const i = field.value.indexOf(status);
-                            oldValue.splice(i, 1);
-                            field.onChange(oldValue);
-                          }
-                        }}
-                      >
-                        {label}
-                      </Checkbox>
-                    )}
-                  />
-                ))}
-              </HStack>
-            )}
           </HStack>
+          {tabType !== 'MY_DEALS' && (
+            <HStack gap="1rem" my={{ base: '0.7rem', md: 0 }}>
+              {DashboardFilterStatusDictionary.entries().map(([status, label]) => (
+                <Controller
+                  key={status}
+                  name="filters.status"
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox
+                      isChecked={field.value.includes(status)}
+                      onChange={(e) => {
+                        const oldValue = [...field.value];
+                        if (e.target.checked) {
+                          field.onChange(oldValue.concat(status));
+                        } else {
+                          const i = field.value.indexOf(status);
+                          oldValue.splice(i, 1);
+                          field.onChange(oldValue);
+                        }
+                      }}
+                    >
+                      {label}
+                    </Checkbox>
+                  )}
+                />
+              ))}
+            </HStack>
+          )}
           {children}
         </VStack>
       </Box>

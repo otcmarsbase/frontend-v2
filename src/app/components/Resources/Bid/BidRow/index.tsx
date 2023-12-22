@@ -1,17 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-
-import { BidRowSkeleton, UILogic, useRpcSchemaClient } from '@app/components';
+import { UILogic } from '@app/components';
 import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIKit, useLoadingCallback } from '@shared/ui-kit';
+import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
-import { capitalize } from 'lodash';
 
-import { BidRowFieldNameTitleMap } from './const';
+import { BidCard } from '../BidCard';
+import { BidRowFieldNameTitleMap } from '../const';
 
 export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   bid: Resource.Bid.Bid;
@@ -23,6 +21,8 @@ export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 
 export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, ...stackProps }) => {
   const router = useRouter();
+
+  const isBase = useBreakpointValue({ base: true, md: false });
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
@@ -69,6 +69,8 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
       value: <Text>{bid.deadline ? formatDate(bid.deadline, 'ONLY_DATE') : '-'}</Text>,
     },
   ];
+
+  if (isBase) return <BidCard lot={lot} asset={asset} bid={bid} onClick={onClick} />;
 
   return (
     <HStack

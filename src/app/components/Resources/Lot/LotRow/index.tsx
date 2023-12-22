@@ -3,11 +3,13 @@ import { useMemo } from 'react';
 import { LotHotChip, UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
 import { getContractSize } from '@app/utils';
-import { Grid, GridItem, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
+
+import { LotCard } from '../LotCard';
 
 import { LotRowFieldNameTitleMap } from './const';
 
@@ -24,6 +26,7 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 
 export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
   const router = useRouter();
+  const isBase = useBreakpointValue({ base: true, md: false });
 
   const isAssetCreateRequest = !lot.attributes.INVEST_DOC_ASSET_PK && lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST;
 
@@ -80,6 +83,8 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       },
     ].filter(Boolean);
   }, [lot, isAssetCreateRequest, asset.info.verticals]);
+
+  if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
 
   return (
     <HStack

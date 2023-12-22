@@ -9,7 +9,7 @@ export const DelaRowFieldName = [
 ] as const;
 export type DelaRowFieldName = (typeof DelaRowFieldName)[number];
 
-export const DealRowFieldNameTitleMap = new Map<DelaRowFieldName, React.ReactNode>([
+export const DealRowFieldNameTitleMap = new Map<DelaRowFieldName, string>([
   ['TYPE', 'Lot Type'],
   ['CREATED_TIME', 'Created time'],
   ['LOT_ID', 'Lot ID'],

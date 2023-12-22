@@ -6,13 +6,13 @@ import { Button, HStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { useQueryClient } from '@tanstack/react-query';
 
-export interface OfferMakerActions {
+export interface BidOfferMakerActions {
   bid: Resource.Bid.Bid;
   isOfferMaker: boolean;
   refreshBids: () => Promise<void>;
 }
 
-export const OfferMakerActions: FC<OfferMakerActions> = ({ bid, isOfferMaker, refreshBids }) => {
+export const BidOfferMakerActions: FC<BidOfferMakerActions> = ({ bid, isOfferMaker, refreshBids }) => {
   const rpcSchema = useRpcSchemaClient();
   const queryClient = useQueryClient();
   const { account } = useAuth();

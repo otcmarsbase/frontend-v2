@@ -8,15 +8,13 @@ import {
   ParticipantTypeDictionary,
 } from '@app/dictionary';
 import { MBPages } from '@app/pages';
-import { HStack, VStack, Text, SimpleGrid, Box } from '@chakra-ui/react';
+import { HStack, VStack, Text, SimpleGrid, Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { DateText, UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
-
-import { OfferMakerActions } from './OfferMakerActions';
 
 interface BidItemColumnProps extends React.PropsWithChildren {
   type: BidListFieldType;
@@ -37,13 +35,16 @@ export interface BidItemProps {
   bid: Resource.Bid.Bid;
   lot: Resource.Lot.Lot;
   deal: Resource.Deal.Deal;
+  asset: Resource.Asset.Asset;
   isOfferMaker: boolean;
   refreshBids: () => Promise<any>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOfferMaker, refreshBids }) => {
   const router = useRouter();
   const { account } = useAuth();
+
+  const isBase = useBreakpointValue({ base: true, md: false });
 
   const handleClick = useCallback(() => {
     if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
@@ -52,6 +53,17 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, isOfferMaker, 
   }, [bid, router, account, isOfferMaker]);
 
   const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
+
+  if (isBase)
+    return (
+      <UILogic.BidCard
+        bid={bid}
+        lot={lot}
+        asset={asset}
+        onClick={handleClick}
+        offerMakerActions={{ isOfferMaker, refetch: refreshBids }}
+      />
+    );
 
   return (
     <HStack
@@ -119,7 +131,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, isOfferMaker, 
           {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
         </BidItemColumn>
       </SimpleGrid>
-      <OfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />
+      <UILogic.BidOfferMakerActions bid={bid} isOfferMaker={isOfferMaker} refreshBids={refreshBids} />
     </HStack>
   );
 };
