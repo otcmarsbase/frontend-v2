@@ -68,16 +68,18 @@ export function LotsBlock({ asset }: LotsBlockProps) {
         limit,
       },
 
-      filter: prepareFiltersParams({
+      filter: {
         status: ['ACTIVE'],
-        assets: [asset.id],
+        asset: {
+          id: [asset.id],
+        },
         direction: filters.direction,
         minContractValue,
         maxContractValue,
         withReassign: filters.withReassign,
         type: filters.type,
         search: filters.search,
-      }),
+      },
     };
   }, [skip, limit, filters, asset.id]);
 
