@@ -10,18 +10,11 @@ interface AvailableBlockProps {
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const reserved = new Decimal(lot.reserved?.value || '0');
   const available = new Decimal(lot.available?.value || '0');
   const executed = new Decimal(lot.executed?.value || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
 
   const [chartData] = useState<UIKit.ChartPieData[]>([
-    {
-      id: 'reserved',
-      label: 'Reserved',
-      value: reserved.toNumber(),
-      color: '#F9C409',
-    },
     {
       id: 'available',
       label: 'Available',
