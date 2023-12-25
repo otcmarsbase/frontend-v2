@@ -65,9 +65,11 @@ export const OtcDesk: React.FC = observer(() => {
         skip,
         limit,
       },
-      filter: prepareFiltersParams({
+      filter: {
         status: ['ACTIVE'],
-        assets: filters.assets,
+        asset: {
+          id: filters.assets,
+        },
         direction: filters.direction,
         minContractValue,
         maxContractValue,
@@ -75,7 +77,7 @@ export const OtcDesk: React.FC = observer(() => {
         verticals: filters.verticals,
         type: filters.type,
         search: filters.search,
-      }),
+      },
     };
   }, [skip, limit, filters]);
 
