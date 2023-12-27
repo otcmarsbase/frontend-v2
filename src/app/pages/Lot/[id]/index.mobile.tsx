@@ -89,6 +89,10 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                 label: 'Type',
                 value: <UILogic.LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
               },
+              {
+                label: 'Re-Assign',
+                value: <UIKit.BooleanChip value={attributes.INVEST_DOC_WITH_REASSIGN} />,
+              },
             ]}
           />
           <InfoBlock

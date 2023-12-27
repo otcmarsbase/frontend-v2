@@ -1,27 +1,27 @@
-import { PropsWithChildren } from 'react';
+import { ReactNode, useMemo } from 'react';
 
-import { HStack, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 
-export interface ChipProps extends PropsWithChildren {
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
+export interface BooleanChipProps {
+  yes?: ReactNode;
+  no?: ReactNode;
+  value: boolean;
 }
 
-export function Chip({ leftIcon, rightIcon, children }: ChipProps) {
+export function BooleanChip({ value, yes = 'Yes', no = 'No' }: BooleanChipProps) {
+  const color = useMemo(() => (value ? 'green-promo' : 'red.500'), [value]);
+
   return (
-    <HStack
-      borderRadius="0.25rem"
-      bg="rgba(207, 79, 41, 0.40)"
-      padding="0.12rem 0.5rem"
-      alignItems="center"
-      gap="0.12rem"
-      justifyContent="center"
+    <Text
+      padding="0.125rem 0.5rem"
+      borderRadius="6.25rem"
+      fontSize="2xs"
+      color="white"
+      fontWeight="600"
+      bg={color}
+      whiteSpace="nowrap"
     >
-      {leftIcon}
-      <Text display="flex" alignItems="center" fontWeight="semibold" fontSize="2xs">
-        {children}
-      </Text>
-      {rightIcon}
-    </HStack>
+      {value ? yes : no}
+    </Text>
   );
 }

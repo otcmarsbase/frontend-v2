@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { LotTypeChip, TradeDirectionText } from '@app/components';
 import { Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { Countdown, Tooltip, SuggestionIcon, CopyButton } from '@shared/ui-kit';
+import { Countdown, Tooltip, SuggestionIcon, CopyButton, BooleanChip } from '@shared/ui-kit';
 
 interface InfoElementProps {
   label: string;
@@ -15,7 +15,9 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) =
   return (
     <VStack gap="0.25rem" color="dark.50" flex="2" alignItems="flex-start">
       <HStack gap="0.25rem">
-        <Text fontSize="sm">{label}</Text>
+        <Text fontSize="sm" whiteSpace="nowrap">
+          {label}
+        </Text>
         {tooltip && (
           <Tooltip label={tooltip} aria-label="A tooltip">
             <SuggestionIcon />
@@ -50,6 +52,10 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
         {InfoDivider}
         <InfoElement label="Type">
           <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
+        </InfoElement>
+        {InfoDivider}
+        <InfoElement label="Re-Assign">
+          <BooleanChip value={attributes.INVEST_DOC_WITH_REASSIGN} />
         </InfoElement>
       </HStack>
 

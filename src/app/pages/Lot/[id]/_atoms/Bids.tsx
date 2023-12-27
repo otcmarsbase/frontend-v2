@@ -33,9 +33,13 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
 
   const { data: bids, isLoading, refetch } = useRpcSchemaQuery('bid.list', fetchPayload);
 
-  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery('deal.list', {
-    filter: { bid: { id: bids?.items?.map(({ id }) => id) } },
-  });
+  const { data: deals, isLoading: dealsIsLoading } = useRpcSchemaQuery(
+    'deal.list',
+    {
+      filter: { bid: { id: bids?.items?.map(({ id }) => id) } },
+    },
+    { enabled: !!bids?.total },
+  );
 
   const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
 
