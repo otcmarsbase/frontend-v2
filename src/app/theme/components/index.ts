@@ -16,6 +16,7 @@ export { Divider } from './divider';
 export { Progress } from './progress';
 export { Select } from './select';
 export { Skeleton } from './skeleton';
+export { Switch } from './switch';
 export { Table } from './table';
 export { Tabs } from './tabs';
 export { Tag } from './tag';

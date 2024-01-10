@@ -170,7 +170,11 @@ export const RoundInfo: React.FC<RoundInfoProps> = ({ lot }) => {
           </SimpleGrid>
           <SimpleGrid gridColumnGap="0.75rem" columns={2} w="full">
             <RoundInfoItem fieldName="TYPE_OF_BIDDER">
-              <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_BID_MAKER_TYPES} />
+              <UILogic.ParticipantTypesText
+                fontSize="sm"
+                value={lot.attributes.COMMON_BID_MAKER_TYPES}
+                empty={'No limitations'}
+              />
             </RoundInfoItem>
             <RoundInfoItem fieldName="TYPE_OF_SELLER">
               <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_OFFER_MAKER_TYPES} />

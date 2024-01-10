@@ -6,12 +6,12 @@ import { InputDescriptor } from '../types';
 export const DescriptorDictionary = createDictionary<Resource.Common.Enums.TradeDirection, InputDescriptor>()
   .setFromRecord({
     BUY: {
-      label: 'Type of buyer',
+      label: 'Offer maker',
       tooltip: 'Choose Buyer Type',
       placeholder: 'Choose type',
     },
     SELL: {
-      label: 'Type of seller',
+      label: 'Offer maker',
       tooltip: 'Choose Seller Type',
       placeholder: 'Choose type',
     },

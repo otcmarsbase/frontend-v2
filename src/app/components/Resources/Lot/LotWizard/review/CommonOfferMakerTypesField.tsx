@@ -11,10 +11,10 @@ import { ReviewFieldDescriptor } from './types';
 const DescriptorDictionary = createDictionary<Resource.Common.Enums.TradeDirection, ReviewFieldDescriptor>()
   .setFromRecord({
     BUY: {
-      label: 'Type of buyer',
+      label: 'Offer maker',
     },
     SELL: {
-      label: 'Type of seller',
+      label: 'Offer maker',
     },
   })
   .asReadonly();

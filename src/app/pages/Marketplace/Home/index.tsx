@@ -6,12 +6,12 @@ import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { prepareFiltersParams } from '@app/utils';
 import { HStack, Heading, VStack, Button, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
 import { Empty, Pagination, usePagination } from '@shared/ui-kit';
+import { isDeeplyEmpty } from '@shared/utils';
 import pick from 'lodash/pick';
 
 import { QueryParamsSchema } from './schema';
@@ -60,7 +60,7 @@ export const OtcDesk: React.FC = observer(() => {
   const fetchPayload = useMemo<RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
 
-    return {
+    const payload: RPC.DTO.LotList.Payload = {
       page: {
         skip,
         limit,
@@ -79,6 +79,14 @@ export const OtcDesk: React.FC = observer(() => {
         search: filters.search,
       },
     };
+
+    Object.keys(payload.filter).forEach((key) => {
+      if (isDeeplyEmpty(payload.filter[key])) {
+        delete payload.filter[key];
+      }
+    });
+
+    return payload;
   }, [skip, limit, filters]);
 
   const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);

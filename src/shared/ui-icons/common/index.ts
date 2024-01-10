@@ -30,5 +30,6 @@ export * from './RequiredIcon';
 export * from './RightIcon';
 export * from './SearchIcon';
 export * from './SecurityIcon';
+export * from './SettingsIcon';
 export * from './SwapIcon';
 export * from './WaitingIcon';

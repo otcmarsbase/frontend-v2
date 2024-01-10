@@ -26,7 +26,7 @@ export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, string>([
   ['BUYER', 'Buyer'],
   ['MIN_BID', 'Min Bid'],
   ['TYPE_OF_BIDDER', 'Type of bidder'],
-  ['TYPE_OF_SELLER', 'Type of seller'],
+  ['TYPE_OF_SELLER', 'Offer maker'],
 ]);
 
 export const BidListFieldType = ['AMOUNT', 'BID_SIZE', 'BIDDER_TYPE', 'LOCATION', 'DEADLINE', 'STATUS'] as const;
