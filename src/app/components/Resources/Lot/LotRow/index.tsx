@@ -82,7 +82,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         value: lot.totalBids,
       },
     ].filter(Boolean);
-  }, [lot, isAssetCreateRequest, asset.info.verticals]);
+  }, [lot, isAssetCreateRequest, asset]);
 
   if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
 

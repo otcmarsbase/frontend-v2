@@ -72,7 +72,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         colSpan: 2,
         value: (
           <HStack flexWrap="wrap">
-            {asset?.info.verticals.map((vertical, index) => (
+            {asset?.info?.verticals?.map((vertical, index) => (
               <AssetVerticalIcon value={vertical} key={index} />
             ))}
           </HStack>
