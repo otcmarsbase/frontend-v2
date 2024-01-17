@@ -122,12 +122,12 @@ export const RoundInfoFieldDictionary = createDictionary<RoundInfoFieldType, { t
   })
   .asReadonly();
 
-export const MobileTabItemKey = ['BIDS', 'LOT_INFO', 'ASSET_INFO'] as const;
+export const MobileTabItemKey = ['LOT_INFO', 'BIDS', 'ASSET_INFO'] as const;
 
 export type MobileTabItemKey = (typeof MobileTabItemKey)[number];
 
 export const MobileTabItemDictionary = createDictionary<MobileTabItemKey, string>({
-  BIDS: 'Bids',
   LOT_INFO: 'Lot info',
+  BIDS: 'Bids',
   ASSET_INFO: 'Asset info',
 });

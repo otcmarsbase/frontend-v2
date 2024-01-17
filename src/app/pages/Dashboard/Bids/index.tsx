@@ -19,7 +19,11 @@ const MyBids: React.FC = () => {
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
   const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
-    const status = filters.status.length
+    const filter: RPC.DTO.BidList.Filter = {
+      onlyMy: true,
+    };
+
+    filter.status = filters.status.length
       ? (filters.status.flatMap((value) => {
           switch (value) {
             case 'active':
@@ -27,14 +31,22 @@ const MyBids: React.FC = () => {
             case 'moderated':
               return ['ON_MODERATION'];
             case 'ended':
-              return ['REJECTED', 'DEAL'];
+              return ['REJECTED'];
             default:
               return [];
           }
         }) as Resource.Bid.Enums.BidStatus[])
       : undefined;
 
-    return { page: { skip, limit }, filter: { status, onlyMy: true } };
+    if (filters.status && filters.status.includes('ended')) {
+      filter.lot = {
+        deal: {
+          status: ['COMPLETED', 'REJECTED'],
+        },
+      };
+    }
+
+    return { page: { skip, limit }, filter };
   }, [skip, limit, filters]);
 
   const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.list', fetchPayload);

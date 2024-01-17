@@ -29,7 +29,7 @@ export interface LotMobileProps {
 
 export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }) => {
   const router = useRouter();
-  const [tab, setTab] = useState<MobileTabItemKey>('BIDS');
+  const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
   const { attributes } = lot;
 
   const onCreateBidClick = async () => {
@@ -71,7 +71,6 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
         renderKey={(key) => key}
         renderItem={(key) => MobileTabItemDictionary.get(key)}
       />
-      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
       {tab === 'LOT_INFO' && (
         <VStack w="full" gap="0.5rem">
           <InfoBlock
@@ -233,6 +232,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
           <AdditionalInfoBlock lot={lot} />
         </VStack>
       )}
+      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
       {tab === 'ASSET_INFO' && (
         <VStack>
           {!isAssetCreateRequest && (

@@ -34,10 +34,10 @@ export const LotWizardView = <T extends string>({
       gridTemplateColumns={{ base: '1fr', md: '1fr 18rem' }}
       w="full"
       gap="0"
-      alignItems="stretch"
+      alignItems="flex-start"
       position="relative"
     >
-      <Box borderRight={{ base: 'none', md: '1px solid' }} w="full" borderColor="dark.800">
+      <Box borderRight={{ base: 'none', md: '1px solid' }} w="full" borderColor="dark.800" h="full">
         <VStack alignItems="start" p={{ base: '0.7rem', md: '2rem' }} pb="0" w="full">
           {currentStepDescriptor.title && (
             <Text fontSize="2md" color="white" fontWeight="600">
@@ -54,8 +54,14 @@ export const LotWizardView = <T extends string>({
           {stepComponent}
         </VStack>
       </Box>
-      <Box p={{ base: '0.7rem', md: '2rem' }} position="relative" flexDirection="column" justifyContent="space-between">
-        <Box position="sticky" top="2rem" display={{ base: 'none', md: 'flex' }}>
+      <Box
+        position="sticky"
+        top="2rem"
+        p={{ base: '0.7rem', md: '2rem' }}
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Box display={{ base: 'none', md: 'flex' }}>
           <Steps
             value={currentStep}
             onChange={onStepChange}
