@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { HStack, UIKit, VStack } from '@shared/ui-kit';
+import { formatToMoney } from '@shared/utils';
 import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
@@ -14,20 +15,25 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
   const executed = new Decimal(lot.executed?.value || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
 
-  const [chartData] = useState<UIKit.ChartPieData[]>([
-    {
-      id: 'available',
-      label: 'Available',
-      value: available.toNumber(),
-      color: 'dark.700',
-    },
-    {
-      id: 'executed',
-      label: 'Executed',
-      value: executed.toNumber(),
-      color: 'orange.300',
-    },
-  ]);
+  const chartData = useMemo<UIKit.ChartPieData[]>(() => {
+    const availableNumber = available.toNumber();
+    const executedNumber = executed.toNumber();
+
+    return [
+      {
+        id: 'available',
+        label: `Available: ${formatToMoney(availableNumber)}`,
+        value: availableNumber,
+        color: 'dark.700',
+      },
+      {
+        id: 'executed',
+        label: `Executed: ${formatToMoney(executedNumber)}`,
+        value: executedNumber,
+        color: 'orange.300',
+      },
+    ];
+  }, [available, executed]);
 
   const availableSum = available.toDecimalPlaces(2).toNumber();
   const totalSum = total.toDecimalPlaces(2).toNumber();
