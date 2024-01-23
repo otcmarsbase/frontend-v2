@@ -111,7 +111,7 @@ export default function Lot({ id }: LotProps) {
               ) : null} */}
               <LotBasicInfo lot={lot} />
             </VStack>
-            <VStack spacing="6rem" w="full">
+            <VStack w="full">
               <RoundInfo lot={lot} />
               <AdditionalInfoBlock lot={lot} />
             </VStack>

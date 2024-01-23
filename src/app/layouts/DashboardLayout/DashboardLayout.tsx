@@ -43,6 +43,7 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
             bg="dark.900"
             padding={{ base: '0', md: '0.5rem' }}
             paddingRight={{ base: '0', md: '1.25rem' }}
+            flexDirection={{ base: 'column', md: 'row' }}
           >
             <HStack width="full" gap="1rem">
               <UIKit.RadioButtons
