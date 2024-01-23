@@ -27,8 +27,6 @@ export const formatToMoney = (value: number, options: FormatToMoneyOptions = def
 
   const formattedValue = formatNumerable(value, `${format}${abbreviated ? 'a' : ''}`);
 
-  console.log({ formattedValue });
-
   return value
     ? currencyPlacement === 'start'
       ? `${addon} ${formattedValue}`
