@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { LocationSelect } from '@app/components';
+import { LocationSelect, useAuth } from '@app/components';
 import { ProfileLayout } from '@app/layouts';
 import { VStack, Heading } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,7 +11,12 @@ import { InputGroup, ProfileInput } from './_atoms';
 import { ProfileSchema } from './schema';
 
 const Home: FC = () => {
-  const formMethods = useForm({ resolver: yupResolver(ProfileSchema), mode: 'onTouched' });
+  const { account } = useAuth();
+  const formMethods = useForm({
+    defaultValues: account.profile,
+    resolver: yupResolver(ProfileSchema),
+    mode: 'onTouched',
+  });
 
   return (
     <FormProvider {...formMethods}>

@@ -221,7 +221,13 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
               },
               {
                 label: MainChipFieldTypeTitleMap.get('TYPE_OF_BIDDER'),
-                value: <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_BID_MAKER_TYPES} />,
+                value: (
+                  <UILogic.ParticipantTypesText
+                    fontSize="sm"
+                    value={lot.attributes.COMMON_BID_MAKER_TYPES}
+                    empty="No limitations"
+                  />
+                ),
               },
               {
                 label: MainChipFieldTypeTitleMap.get('TYPE_OF_SELLER'),
