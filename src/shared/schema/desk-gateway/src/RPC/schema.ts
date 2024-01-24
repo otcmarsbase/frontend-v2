@@ -39,5 +39,7 @@ export type Schema = {
   system: {
     getVersion(payload: DTO.SystemGetVersion.Payload): DTO.SystemGetVersion.Result;
   };
-  user: {};
+  user: {
+    updateProfile(payload: DTO.UserProfileUpdate.Payload): DTO.UserProfileUpdate.Result;
+  };
 };

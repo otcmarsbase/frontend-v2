@@ -323,6 +323,8 @@ export namespace Common {
 
     export type Telegram = string;
 
+    export type Email = string;
+
     export type VestingPeriod = string;
   }
 
