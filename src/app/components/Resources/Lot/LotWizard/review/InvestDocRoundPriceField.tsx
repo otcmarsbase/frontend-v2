@@ -24,7 +24,7 @@ const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, Review
     },
   })
   .asReadonly();
-
+  
 export const InvestDocRoundPriceField = {
   renderTitle: (model) => <Text>{DescriptorDictionary.get(model.type).label}</Text>,
   renderValue: (model) => <UIKit.MoneyText value={model.INVEST_DOC_ROUND_PRICE} format="0,0.X" />,

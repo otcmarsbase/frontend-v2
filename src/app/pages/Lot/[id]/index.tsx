@@ -108,7 +108,7 @@ export default function Lot({ id }: LotProps) {
                     </Button>
                   </HStack>
                 </HStack>
-              ) : null} */}
+              ) : null} */} 
               <LotBasicInfo lot={lot} />
             </VStack>
             <VStack w="full">
