@@ -95,8 +95,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   return (
     <VStack gap="1.5rem" w="full" alignItems="start">
       <Box w="full" bg="rgba(223, 96, 59, 0.30)" color="white" p="1.5rem 2rem" borderRadius="sm">
-        The lot has been added and is in the process of moderation. As a rule, this takes up to 3 days. You can always
-        edit or delete a published lot in your personal account.
+        The lot has been added and is in the process of moderation. Usually it takes up to 3 days. You can always edit
+        or delete a published lot in your personal account.
       </Box>
       <HStack w="full" justifyContent="space-between" bg="dark.900" borderRadius="sm" p="1.25rem 1.5rem">
         <UILogic.AssetName asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />

@@ -4,7 +4,7 @@ import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Logo, LinkComponent } from '@shared/ui-kit';
 
-import { RightBlock } from './atoms';
+import { Markets, RightBlock } from './atoms';
 
 export function Header() {
   const router = useRouter();
@@ -34,9 +34,7 @@ export function Header() {
             textTransform="uppercase"
             fontFamily="promo"
           >
-            <LinkComponent page={pages.Marketplace.Home} pageProps={{}}>
-              <Link>OTC Desk</Link>
-            </LinkComponent>
+            <Markets />
 
             <UILogic.AuthAction>
               <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
