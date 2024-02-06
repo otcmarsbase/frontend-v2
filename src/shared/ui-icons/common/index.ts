@@ -33,3 +33,7 @@ export * from './SecurityIcon';
 export * from './SettingsIcon';
 export * from './SwapIcon';
 export * from './WaitingIcon';
+export * from './AssetIcon';
+export * from './LotInfoIcon';
+export * from './ChevronDoubleRightIcon';
+export * from './FlagIcon';

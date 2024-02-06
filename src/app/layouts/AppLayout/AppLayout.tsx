@@ -61,7 +61,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           {
             label: 'Create offer',
             icon: 'AddIcon',
-            onClick: () => router.navigateComponent(MBPages.Lot.Create.Home, {}, {}),
+            onClick: () => router.navigateComponent(MBPages.Lot.Create.Home, { direction: 'BUY' }, {}),
             needAuth: true,
           },
           {

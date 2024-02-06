@@ -8,6 +8,7 @@ export interface LinkComponentProps<Props> {
   pageProps: Props;
   options?: NavigationOptions;
   onClick?: (e: React.MouseEvent, href: string) => any;
+  overrideClick?: boolean;
 }
 
 export function LinkComponent<Props>({
@@ -15,6 +16,7 @@ export function LinkComponent<Props>({
   pageProps,
   options,
   onClick,
+  overrideClick = true,
   children,
 }: PropsWithChildren<LinkComponentProps<Props>>) {
   const router = useRouter();
@@ -26,10 +28,11 @@ export function LinkComponent<Props>({
     (e: React.MouseEvent) => {
       e.preventDefault();
 
-      if (onClick) return onClick(e, fullHref);
-      else router.navigateComponent(page, pageProps, options ?? {});
+      if (onClick) onClick(e, fullHref);
+
+      if (!(overrideClick && onClick)) router.navigateComponent(page, pageProps, options ?? {});
     },
-    [onClick, fullHref, router, page, pageProps, options],
+    [onClick, fullHref, router, page, pageProps, options, overrideClick],
   );
 
   return React.cloneElement(React.Children.only<any>(children), { href: fullHref, onClick: onClickCallback });

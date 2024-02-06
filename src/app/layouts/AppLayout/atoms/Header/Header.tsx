@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import pages from '@app/pages';
-import { HStack, Box, Divider, VStack, Link } from '@chakra-ui/react';
+import { HStack, Box, Divider, VStack, Link, Button, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Logo, LinkComponent } from '@shared/ui-kit';
 
@@ -20,7 +20,7 @@ export function Header() {
         paddingRight="0.75rem"
         justifyContent="space-between"
       >
-        <HStack gap={{ base: '0', md: '4.5rem' }}>
+        <HStack gap={{ base: '0', md: '3.75rem' }}>
           <Logo onClick={() => router.navigateComponent(pages.Home, {}, {})} cursor="pointer" />
           <HStack
             gap="3.75rem"
@@ -42,11 +42,25 @@ export function Header() {
               </LinkComponent>
             </UILogic.AuthAction>
 
-            <UILogic.AuthAction>
-              <LinkComponent page={pages.Lot.Create.Home} pageProps={{}}>
-                <Link>Create offer</Link>
-              </LinkComponent>
-            </UILogic.AuthAction>
+            <Text>🔥 CREATE OFFER</Text>
+
+            <HStack fontFamily="body">
+              <UILogic.AuthAction>
+                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'BUY' }}>
+                  <Button bg="done" h="7">
+                    Buy
+                  </Button>
+                </LinkComponent>
+              </UILogic.AuthAction>
+
+              <UILogic.AuthAction>
+                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'SELL' }}>
+                  <Button bg="error" h="7">
+                    Sell
+                  </Button>
+                </LinkComponent>
+              </UILogic.AuthAction>
+            </HStack>
           </HStack>
         </HStack>
         <Box color="white">

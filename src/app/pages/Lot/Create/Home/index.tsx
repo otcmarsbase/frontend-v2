@@ -1,17 +1,21 @@
-import { FC, useCallback } from 'react';
+import { PropsWithChildren, useCallback } from 'react';
 
-import { LotWizard, LotWizardProps, useRpcSchemaClient } from '@app/components';
+import { LotSimpleWizard, LotSimpleWizardProps, useRpcSchemaClient } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Center } from '@chakra-ui/react';
+import { Center, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC } from '@schema/desk-gateway';
+import { RPC, Resource } from '@schema/desk-gateway';
 
-const View: FC = () => {
+interface LotCreateProps {
+  direction: Resource.Common.Enums.TradeDirection;
+}
+
+const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
 
-  const onSubmit = useCallback<LotWizardProps['onSubmit']>(
+  const onSubmit = useCallback<LotSimpleWizardProps['onSubmit']>(
     async (data) => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
       const payload: RPC.DTO.LotCreate.Payload = { type, inputs };
@@ -29,11 +33,15 @@ const View: FC = () => {
     [rpcSchema, router],
   );
 
-  return <LotWizard onSubmit={onSubmit} />;
+  return (
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+      <LotSimpleWizard direction={direction} defaultValues={{ COMMON_DIRECTION: direction }} onSubmit={onSubmit} />
+    </Box>
+  );
 };
 
 View.getLayout = ({ children }) => (
-  <UILayout.AppLayout containerSize="md">
+  <UILayout.AppLayout containerSize="sm">
     <Center>{children}</Center>
   </UILayout.AppLayout>
 );

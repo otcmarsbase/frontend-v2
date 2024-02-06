@@ -13,14 +13,17 @@ import {
   PopoverTrigger,
   Text,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import { LinkComponent } from '@shared/ui-kit';
 
 export function Markets() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
   return (
-    <Popover trigger="hover">
+    <Popover trigger="hover" onClose={onClose} onOpen={onOpen} isOpen={isOpen}>
       <PopoverTrigger>
         <Link>Mars Markets</Link>
       </PopoverTrigger>
@@ -40,6 +43,7 @@ export function Markets() {
               page={pages.Marketplace.Home}
               label="Web3 secondaries"
               icon={<UIIcons.Market.Web3SecondariesIcon />}
+              onClick={onClose}
             />
             <MarketLink label="Fundraising (Soon)" icon={<UIIcons.Market.FundraisingIcon />} />
             <MarketLink label="Web2 secondaries (Soon)" icon={<UIIcons.Market.Web2SecondariesIcon />} />
@@ -66,9 +70,10 @@ interface MarketLinkProps {
   page?: React.FC;
   label: string;
   icon: ReactNode;
+  onClick?: () => void;
 }
 
-function MarketLink({ page, label, icon }: MarketLinkProps) {
+function MarketLink({ page, label, icon, onClick }: MarketLinkProps) {
   const inner = useMemo(() => {
     return (
       <HStack as={Link}>
@@ -91,7 +96,7 @@ function MarketLink({ page, label, icon }: MarketLinkProps) {
 
   if (page) {
     return (
-      <LinkComponent page={page} pageProps={{}}>
+      <LinkComponent page={page} pageProps={{}} onClick={onClick} overrideClick={false}>
         {inner}
       </LinkComponent>
     );
