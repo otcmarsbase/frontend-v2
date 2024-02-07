@@ -1,7 +1,12 @@
 import { FC, ReactNode, Children, useMemo } from 'react';
 
 import { LotFilterSidebarModel } from '@app/components';
-import { LotTypeDictionary, TradeDirectionDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
+import {
+  LotTypeDictionary,
+  LotReassignmentTypeDictionary,
+  TradeDirectionDictionary,
+  AssetVerticalTitleDictionary,
+} from '@app/dictionary';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
@@ -27,7 +32,7 @@ export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }
     direction: (value) => (value ? TradeDirectionDictionary.get(value).title : null),
     type: (value) => value.map((type) => LotTypeDictionary.get(type).title),
     verticals: (value) => value.map((vertical) => AssetVerticalTitleDictionary.get(vertical)),
-    withReassign: (value) => (value ? 'Re-assign' : null),
+    reassignmentType: (value) => value.map((type) => LotReassignmentTypeDictionary.get(type)),
     bidSize: ([from, to]) => (
       <HStack spacing=".5rem">
         <UIKit.MoneyText value={from} abbreviated />

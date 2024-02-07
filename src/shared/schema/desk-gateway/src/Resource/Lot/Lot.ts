@@ -17,6 +17,9 @@ export namespace Lot {
 
     export const LotCompletedReasonType = ['DEADLINE', 'FULFILLED', 'MANUALLY'] as const;
     export type LotCompletedReasonType = (typeof LotCompletedReasonType)[number];
+
+    export const LotReassignmentType = ['DIRECT', 'SPV', 'FORWARD_CONTRACT'] as const;
+    export type LotReassignmentType = (typeof LotReassignmentType)[number];
   }
 
   export namespace ValueObjects {
@@ -26,8 +29,12 @@ export namespace Lot {
     }
   }
 
-  export type LotInputObject = LotInputs.Utils.MergeInputs<[SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]>;
-  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<[SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]>;
+  export type LotInputObject = LotInputs.Utils.MergeInputs<
+    [SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]
+  >;
+  export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<
+    [SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]
+  >;
 
   export interface LotKey extends SchemaCommon.ResourceKey<'lot'> {
     id: number;

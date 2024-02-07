@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { UILogic, UIModals } from '@app/components';
+import { LotReassignmentType, UILogic, UIModals } from '@app/components';
 import { UIDictionary } from '@app/dictionary';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
@@ -89,8 +89,8 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
                 value: <UILogic.LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
               },
               {
-                label: 'Re-Assign',
-                value: <UIKit.BooleanChip value={attributes.INVEST_DOC_WITH_REASSIGN} />,
+                label: 'Reassignment',
+                value: <LotReassignmentType value={attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
               },
             ]}
           />

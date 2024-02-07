@@ -73,7 +73,7 @@ export const OtcDesk: React.FC = observer(() => {
         direction: filters.direction,
         minContractValue,
         maxContractValue,
-        withReassign: filters.withReassign,
+        reassignmentType: filters.reassignmentType,
         verticals: filters.verticals,
         type: filters.type,
         search: filters.search,
@@ -161,7 +161,7 @@ export const OtcDesk: React.FC = observer(() => {
                     <UILogic.LotGrid
                       columns={{ base: 1, md: columnsCount }}
                       lots={lots.items}
-                      assets={_assets.items}
+                      assets={_assets?.items || []}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

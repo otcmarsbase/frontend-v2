@@ -9,7 +9,7 @@ export type LotFilterSidebarModel = Partial<{
   type: Resource.Lot.Enums.LotType[];
   verticals: Resource.Asset.Enums.AssetVertical[];
   bidSize: [number, number];
-  withReassign: boolean;
+  reassignmentType: Resource.Lot.Enums.LotReassignmentType[];
   assets: string[];
 }>;
 
@@ -26,7 +26,7 @@ const defaultVisibility: LotFilterFieldsVisibility = {
   type: true,
   verticals: true,
   bidSize: true,
-  withReassign: true,
+  reassignmentType: true,
 };
 
 export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSidebarProps) {
@@ -40,16 +40,16 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
 
       <Divider color="rgba(255, 255, 255, 0.15)" />
 
-      {fieldsVisibility.withReassign && (
-        <VStack w="100%">
-          <FormControl display="flex" justifyContent="space-between">
-            <FormLabel>Re-assign</FormLabel>
-            <Checkbox
-              isChecked={!!filters.withReassign}
-              onChange={(e) => onChange({ withReassign: e.target.checked ? true : undefined })}
-            />
-          </FormControl>
-        </VStack>
+      {fieldsVisibility.reassignmentType && (
+        <UIKit.KeyValueRowAccordion keyComponent="Reassignment">
+          <UILogic.LotReassignmentTypeSelect
+            value={filters.reassignmentType}
+            isClearable
+            isMulti
+            onChange={(reassignmentType) => onChange({ reassignmentType })}
+            placeholder="Choose"
+          />
+        </UIKit.KeyValueRowAccordion>
       )}
 
       {fieldsVisibility.direction && (

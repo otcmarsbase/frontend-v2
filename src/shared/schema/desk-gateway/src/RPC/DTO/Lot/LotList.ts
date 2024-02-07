@@ -17,7 +17,7 @@ export namespace LotList {
     direction?: Resource.Common.Enums.TradeDirection;
     minContractValue?: number;
     maxContractValue?: number;
-    withReassign?: boolean;
+    reassignmentType?: Resource.Lot.Enums.LotReassignmentType[];
     isHot?: boolean;
     onlyMy?: boolean;
 

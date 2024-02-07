@@ -4,7 +4,7 @@ import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { useBreakpointDevice, usePreloadPage } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Grid, GridItem, VStack, useBreakpointValue } from '@chakra-ui/react';
+import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';

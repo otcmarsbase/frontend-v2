@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
+import { LotReassignmentTypeDictionary } from '@app/dictionary';
 import { FormControl, FormLabel, FormErrorMessage, Checkbox, Flex } from '@chakra-ui/react';
 
 import { BaseInputProps } from './types';
 import { useInput } from './useInput';
 
-const NAME = 'INVEST_DOC_WITH_REASSIGN';
+const NAME = 'INVEST_DOC_REASSIGNMENT_TYPE';
 
 export const InvestDocWithReassignInput: FC<BaseInputProps> = (props) => {
   const { isRequired, isValid, error } = useInput(NAME);
@@ -17,34 +18,23 @@ export const InvestDocWithReassignInput: FC<BaseInputProps> = (props) => {
         Available reassignment
       </FormLabel>
       <Flex justifyContent="space-between">
-        <Controller
-          name={NAME}
-          render={({ field }) => (
-            <Checkbox
-              isChecked={field.value === true}
-              {...field}
-              flexGrow="1"
-              onChange={(e) => e.target.checked && field.onChange(true)}
-              required={false}
-            >
-              Yes
-            </Checkbox>
-          )}
-        />
-        <Controller
-          name={NAME}
-          render={({ field }) => (
-            <Checkbox
-              isChecked={field.value === false}
-              {...field}
-              flexGrow="1"
-              onChange={(e) => e.target.checked && field.onChange(false)}
-              required={false}
-            >
-              No
-            </Checkbox>
-          )}
-        />
+        {LotReassignmentTypeDictionary.entries().map(([key, value]) => (
+          <Controller
+            name={NAME}
+            key={key}
+            render={({ field }) => (
+              <Checkbox
+                isChecked={field.value === key}
+                {...field}
+                flexGrow="1"
+                onChange={(e) => e.target.checked && field.onChange(key)}
+                required={false}
+              >
+                {value}
+              </Checkbox>
+            )}
+          />
+        ))}
       </Flex>
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>

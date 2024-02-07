@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { LotTypeChip, TradeDirectionText } from '@app/components';
+import { LotReassignmentType, LotTypeChip, TradeDirectionText } from '@app/components';
 import { Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { Countdown, Tooltip, SuggestionIcon, CopyButton, BooleanChip } from '@shared/ui-kit';
@@ -54,8 +54,8 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
           <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
         </InfoElement>
         {InfoDivider}
-        <InfoElement label="Re-Assign">
-          <BooleanChip value={attributes.INVEST_DOC_WITH_REASSIGN} />
+        <InfoElement label="Reassignment">
+          <LotReassignmentType value={attributes.INVEST_DOC_REASSIGNMENT_TYPE} />
         </InfoElement>
       </HStack>
 

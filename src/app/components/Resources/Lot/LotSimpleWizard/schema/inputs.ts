@@ -1,4 +1,4 @@
-import { ParticipantTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
+import { LotReassignmentTypeDictionary, ParticipantTypeDictionary, TradeDirectionDictionary } from '@app/dictionary';
 import { InputTelegramRegex } from '@shared/ui-kit';
 import * as yup from 'yup';
 
@@ -29,7 +29,7 @@ export const INVEST_DOC_ASSET = yup.lazy((value) =>
     ? INVEST_DOC_ASSET_PK.required()
     : INVEST_DOC_ASSET_CREATE_REQUEST.required(),
 );
-export const INVEST_DOC_WITH_REASSIGN = yup.bool();
+export const INVEST_DOC_REASSIGNMENT_TYPE = yup.string().oneOf(LotReassignmentTypeDictionary.keys());
 export const INVEST_DOC_FDV = yup.string();
 export const TOKEN_VESTING_PERIOD = yup.string();
 
