@@ -9,7 +9,7 @@ export const DescriptorDictionary = createDictionary<Resource.Common.Enums.Trade
       label: 'I am',
     },
     SELL: {
-      label: 'Seller type',
+      label: 'I am',
     },
   })
   .asReadonly();

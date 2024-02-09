@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import { StepResolver, Stepper } from './_atoms';
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';
 import { LotCreateModel, LotCreateSchema } from './schema';
+import { useDefaultStep } from './useDefaultStep';
 import { useStepSchema } from './useStepSchema';
 
 export interface LotSimpleWizardProps {
@@ -27,8 +28,10 @@ export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direc
     [defaultValues],
   );
 
+  const defaultStep = useDefaultStep(innerDefaultValues);
+
   const stepperControls = useSteps({
-    index: 0,
+    index: StepDescriptorsDictionary.keys().indexOf(defaultStep),
     count: StepDescriptorsDictionary.length,
   });
 

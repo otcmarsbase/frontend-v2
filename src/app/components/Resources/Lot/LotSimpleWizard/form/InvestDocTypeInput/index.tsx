@@ -79,6 +79,36 @@ export const InvestDocTypeInput: FC<BaseInputProps> = () => {
             )}
           />
         </GridItem>
+        <GridItem>
+          <Controller
+            name={NAME}
+            render={({ field }) => (
+              <LotType
+                title="Equity"
+                active={type === 'EQUITY'}
+                onClick={() => {
+                  field.onChange('EQUITY');
+                  rhfSetValue('SAFE_WITH_TOKEN_WARRANT', false);
+                }}
+              />
+            )}
+          />
+        </GridItem>
+        <GridItem>
+          <Controller
+            name={NAME}
+            render={({ field }) => (
+              <LotType
+                title="Unlocked tokens"
+                active={type === 'UNLOCKED_TOKENS'}
+                onClick={() => {
+                  field.onChange('UNLOCKED_TOKENS');
+                  rhfSetValue('SAFE_WITH_TOKEN_WARRANT', false);
+                }}
+              />
+            )}
+          />
+        </GridItem>
       </SimpleGrid>
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>

@@ -98,6 +98,14 @@ export const PriceDescriptorDictionary = createDictionary<Resource.Lot.Enums.Lot
       label: 'Price per 0,01% equity',
       placeholder: 'Amount',
     },
+    EQUITY: {
+      label: 'Price per 0,01% equity',
+      placeholder: 'Amount',
+    },
+    UNLOCKED_TOKENS: {
+      label: 'Target token price',
+      placeholder: 'Amount',
+    },
   },
 );
 

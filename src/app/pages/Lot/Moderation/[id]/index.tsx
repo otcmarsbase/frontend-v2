@@ -1,6 +1,6 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotCreateMappingSchema, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotCreateSchema, UILogic, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
@@ -30,7 +30,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const mappedLot = useMemo(() => {
     if (!lot) return;
 
-    return LotCreateMappingSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
+    return LotCreateSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
   }, [lot]);
 
   const preload = useLoadingCallback(
@@ -109,7 +109,6 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
           </Button>
         </HStack>
       </HStack>
-      <UILogic.LotReview values={mappedLot} />
     </VStack>
   );
 };

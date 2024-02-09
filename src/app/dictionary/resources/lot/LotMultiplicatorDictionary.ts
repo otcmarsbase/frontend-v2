@@ -13,5 +13,11 @@ export const LotMultiplicatorDictionary = createDictionary<Resource.Lot.Enums.Lo
     TOKEN_WARRANT: {
       multiplicator: 100,
     },
+    EQUITY: {
+      multiplicator: 100,
+    },
+    UNLOCKED_TOKENS: {
+      multiplicator: 1,
+    },
   })
   .asReadonly();

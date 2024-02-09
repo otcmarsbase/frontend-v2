@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { SafeInputs, SaftInputs, TokenWarrantInputs } from './categories';
+import { EquityInputs, SafeInputs, SaftInputs, TokenWarrantInputs, UnlockedTokensInputs } from './categories';
 import { LotCreateModel, LotCreateSchema } from './LotCreate';
 
 export const InvestDocStartStepInputs = LotCreateSchema.pick([
@@ -33,5 +33,9 @@ export const InvestDocReviewStepInputs = yup.lazy((value: LotCreateModel) => {
       return SaftInputs.resolve({ value });
     case 'TOKEN_WARRANT':
       return TokenWarrantInputs.resolve({ value });
+    case 'EQUITY':
+      return EquityInputs.resolve({ value });
+    case 'UNLOCKED_TOKENS':
+      return UnlockedTokensInputs.resolve({ value });
   }
 });

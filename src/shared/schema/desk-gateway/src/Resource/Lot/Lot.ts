@@ -3,13 +3,13 @@ import * as SchemaCommon from '@schema/common';
 import { Common } from '../Common';
 import { User } from '../User';
 
-import { SAFECategory, SAFTCategory, TokenWarrantCategory } from './Categories';
+import { EquityCategory, SAFECategory, SAFTCategory, TokenWarrantCategory, UnlockedTokensCategory } from './Categories';
 import { LotAttributes } from './LotAttributes';
 import { LotInputs } from './LotInputs';
 
 export namespace Lot {
   export namespace Enums {
-    export const LotType = ['SAFE', 'SAFT', 'TOKEN_WARRANT'] as const;
+    export const LotType = ['SAFE', 'SAFT', 'TOKEN_WARRANT', 'EQUITY', 'UNLOCKED_TOKENS'] as const;
     export type LotType = (typeof LotType)[number];
 
     export const LotStatus = ['DRAFT', 'ON_MODERATION', 'ACTIVE', 'REJECTED', 'COMPLETED', 'ARCHIVED'] as const;
@@ -30,10 +30,22 @@ export namespace Lot {
   }
 
   export type LotInputObject = LotInputs.Utils.MergeInputs<
-    [SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject]
+    [
+      SAFTCategory.InputObject,
+      SAFECategory.InputObject,
+      TokenWarrantCategory.InputObject,
+      EquityCategory.InputObject,
+      UnlockedTokensCategory.InputObject,
+    ]
   >;
   export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<
-    [SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject]
+    [
+      SAFTCategory.AttributeObject,
+      SAFECategory.AttributeObject,
+      TokenWarrantCategory.AttributeObject,
+      EquityCategory.AttributeObject,
+      UnlockedTokensCategory.AttributeObject,
+    ]
   >;
 
   export interface LotKey extends SchemaCommon.ResourceKey<'lot'> {
