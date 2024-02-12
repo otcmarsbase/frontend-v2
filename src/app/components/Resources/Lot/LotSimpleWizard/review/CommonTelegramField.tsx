@@ -4,7 +4,7 @@ import { LotCreateModel } from '../schema';
 
 import { StepReviewField } from './types';
 
-export const CommonTelegram = {
+export const CommonTelegramField = {
   renderTitle: () => <Text>Telegram</Text>,
   renderValue: (model) => <Text>@{model.COMMON_TELEGRAM}</Text>,
 } satisfies StepReviewField<LotCreateModel>;

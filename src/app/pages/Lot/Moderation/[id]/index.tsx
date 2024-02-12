@@ -1,6 +1,6 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotCreateSchema, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotCreateSchema, LotReview, UILogic, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
@@ -93,22 +93,37 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     return <UIKit.Loader />;
 
   return (
-    <VStack gap="1.5rem" w="full" alignItems="start">
-      <Box w="full" bg="rgba(223, 96, 59, 0.30)" color="white" p="1.5rem 2rem" borderRadius="sm">
+    <VStack gap="1.5rem" w="full" alignItems="start" maxW="54rem">
+      <Box
+        w="full"
+        bg="rgba(223, 96, 59, 0.30)"
+        color="white"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 5, md: 9 }}
+        borderRadius="sm"
+      >
         The lot has been added and is in the process of moderation. Usually it takes up to 3 days. You can always edit
         or delete a published lot in your personal account.
       </Box>
-      <HStack w="full" justifyContent="space-between" bg="dark.900" borderRadius="sm" p="1.25rem 1.5rem">
+      <HStack
+        w="full"
+        justifyContent="space-between"
+        bg="dark.900"
+        borderRadius="sm"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 5, md: 9 }}
+      >
         <UILogic.AssetName asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <HStack>
-          <Button variant="orange" onClick={handleEditLot}>
-            Edit
-          </Button>
-          <Button variant="darkOutline" onClick={handleDeleteLot}>
+          <Button size="sm" variant="darkOutline" onClick={handleDeleteLot}>
             Delete
+          </Button>
+          <Button size="sm" minW="7rem" variant="orange" onClick={handleEditLot}>
+            Edit
           </Button>
         </HStack>
       </HStack>
+      <LotReview values={mappedLot} />
     </VStack>
   );
 };

@@ -5,13 +5,16 @@ import { HStack, VStack, Text } from '@chakra-ui/react';
 
 import {
   CommonDirectionField,
+  CommonTelegramField,
   CommonMinFilterSummaryField,
   CommonOfferMakerTypesField,
   InvestDocAssetField,
+  InvestDocReassignmentTypeField,
   InvestDocFdvField,
   TokenVestingPeriodField,
   TypeField,
   CommonAdditionalInfoField,
+  CommonSummaryField,
 } from '../review';
 import { LotCreateModel } from '../schema';
 
@@ -22,9 +25,12 @@ export const InvestDocReviewStep = () => {
   const fields = useMemo(() => {
     return [
       CommonDirectionField,
+      CommonTelegramField,
       CommonOfferMakerTypesField,
       TypeField,
       InvestDocAssetField,
+      InvestDocReassignmentTypeField,
+      CommonSummaryField,
       InvestDocFdvField,
       CommonMinFilterSummaryField,
       (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && TokenVestingPeriodField,
