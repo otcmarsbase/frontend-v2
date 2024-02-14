@@ -3,7 +3,6 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
-import { LotMultiplicatorDictionary } from '@app/dictionary';
 import * as Layouts from '@app/layouts';
 import { HStack, VStack } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
@@ -34,8 +33,6 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     return <UILogic.DealPageSkeleton />;
   }
 
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
-
   return (
     <VStack gap="1rem" alignItems="start">
       <HStack flexDirection={{ base: 'column', md: 'row' }} width="full" gap="2rem" alignItems="start">
@@ -44,9 +41,8 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
 
           <DealInfo
             price={deal.price.value}
-            size={new Decimal(deal.units.value).div(multiplicator).toString()}
             amount={deal.summary.value}
-            fdv={deal.fdv?.value}
+            fdv={deal.fdv.value}
             lotType={lot.type}
             marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent.value).mul(100).toString()}
           />

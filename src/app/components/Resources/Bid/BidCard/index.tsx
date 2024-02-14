@@ -54,15 +54,6 @@ export const BidCard: React.FC<BidCardProps> = ({
         value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
       },
       {
-        name: BidRowFieldNameTitleMap.get('BID_SIZE'),
-        value: (
-          <UIKit.PercentText
-            value={new Decimal(bid.units.value).div(multiplicator).toString()}
-            percent={LotUnitAddonDictionary.get(lot.type)}
-          />
-        ),
-      },
-      {
         name: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
         value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
       },
@@ -78,12 +69,8 @@ export const BidCard: React.FC<BidCardProps> = ({
         name: BidRowFieldNameTitleMap.get('LOCATION'),
         value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
       },
-      {
-        name: BidRowFieldNameTitleMap.get('DEADLINE'),
-        value: <UIKit.DateText value={bid.deadline} format="ONLY_DATE" />,
-      },
     ].filter(Boolean);
-  }, [lot, bid, multiplicator]);
+  }, [lot, bid]);
 
   return (
     <VStack

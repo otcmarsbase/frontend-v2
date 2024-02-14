@@ -87,9 +87,9 @@ export type DealInfoFieldType = (typeof DealInfoFieldType)[number];
 export const DealInfoFieldDictionary = createDictionary<DealInfoFieldType, string>()
   .setFromRecord({
     PRICE: 'Price',
-    FDV: 'Deal FDV',
+    FDV: 'Target valuation',
     SIZE: 'Deal size',
-    AMOUNT: 'Amount',
+    AMOUNT: 'Contract size',
     MARSBASE_COMMISSION: 'Marsbase commission',
   })
   .asReadonly();

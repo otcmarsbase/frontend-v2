@@ -40,15 +40,6 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
       value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
     },
     {
-      label: BidRowFieldNameTitleMap.get('BID_SIZE'),
-      value: (
-        <UIKit.PercentText
-          value={new Decimal(bid.units.value).div(multiplicator).toString()}
-          percent={LotUnitAddonDictionary.get(lot.type)}
-        />
-      ),
-    },
-    {
       label: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
       value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
     },
@@ -63,10 +54,6 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
     {
       label: BidRowFieldNameTitleMap.get('LOCATION'),
       value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
-    },
-    {
-      label: BidRowFieldNameTitleMap.get('DEADLINE'),
-      value: <Text>{bid.deadline ? formatDate(bid.deadline, 'ONLY_DATE') : '-'}</Text>,
     },
   ];
 
@@ -121,7 +108,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
               marginRight="8rem"
               pb="0.75rem"
               __css={{
-                [`:nth-last-child(-n+4)`]: {
+                [`:nth-last-child(-n+2)`]: {
                   marginRight: 'none',
                   borderColor: 'transparent',
                 },

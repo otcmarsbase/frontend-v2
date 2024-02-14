@@ -101,14 +101,14 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             }}
           />
         </BidItemColumn>
-        <BidItemColumn type="BID_SIZE">
-          <UIKit.PercentText
+        <BidItemColumn type="BID_FDV">
+          <UIKit.MoneyText
             fontSize="sm"
             fontWeight="500"
             color="white"
-            value={new Decimal(bid.units.value).div(multiplicator).toString()}
-            percent={LotUnitAddonDictionary.get(lot.type)}
-            percentTextProps={{
+            value={bid.fdv.value}
+            abbreviated
+            currencyTextProps={{
               color: 'dark.50',
             }}
           />
@@ -118,14 +118,8 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             {ParticipantTypeDictionary.get(bid.bidMakerType).title}
           </Text>
         </BidItemColumn>
-        {/* <BidItemColumn type="LOCATION">
-          <Text fontSize="sm">{LocationTypeTitleMap.get(bid.location)}</Text>
-        </BidItemColumn> */}
         <BidItemColumn type="LOCATION">
           <Text fontSize="sm">{LocationDictionary.get(bid.location).name}</Text>
-        </BidItemColumn>
-        <BidItemColumn type="DEADLINE">
-          {bid.deadline ? <DateText fontSize="sm" value={bid.deadline} /> : <>-</>}
         </BidItemColumn>
         <BidItemColumn type="STATUS">
           {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}

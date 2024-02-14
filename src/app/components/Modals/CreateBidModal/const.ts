@@ -8,9 +8,10 @@ export interface FieldDescriptior {
 }
 
 export const CommonField = [
-  'DEADLINE',
+  'SUMMARY',
+  'FDV',
   'BID_MAKER_TYPE',
-  'DIRECT',
+  'IS_BROKER',
   'LOCATION',
   'READY_FOR_VERIFICATION',
   'TELEGRAM',
@@ -20,16 +21,20 @@ export type CommonField = (typeof CommonField)[number];
 
 export const CommonFieldsDictionary = createDictionary<CommonField, FieldDescriptior>()
   .setFromRecord({
-    DEADLINE: {
-      label: 'Deadline',
-      placeholder: 'Choose finish day',
+    SUMMARY: {
+      label: 'Contract size',
+      placeholder: 'Amount',
+    },
+    FDV: {
+      label: 'Target valuation',
+      placeholder: 'Amount',
     },
     BID_MAKER_TYPE: {
-      label: 'Who you are?',
+      label: 'Choose type',
       placeholder: 'Choose type',
     },
-    DIRECT: {
-      label: 'I’m the directly seller',
+    IS_BROKER: {
+      label: 'I’m the broker',
     },
     LOCATION: {
       label: 'Locate',
@@ -42,10 +47,6 @@ export const CommonFieldsDictionary = createDictionary<CommonField, FieldDescrip
       label: 'Telegram',
       placeholder: '@nickname',
     },
-    FDV: {
-      label: 'Target FDV',
-      placeholder: 'Amount',
-    },
   })
   .asReadonly();
 
@@ -55,34 +56,6 @@ export const CreateBidModalTitleDictionary = createDictionary<Resource.Common.En
     ['SELL', 'Buy'],
   ])
   .asReadonly();
-
-export const UnitsDescriptorDictionary = createDictionary<
-  Resource.Common.Enums.TradeDirection,
-  FieldDescriptior
->().setFromRecord({
-  BUY: {
-    label: 'I Want to Sell',
-    placeholder: 'Enter amount',
-  },
-  SELL: {
-    label: 'I Want to Buy',
-    placeholder: 'Enter amount',
-  },
-});
-
-export const SummaryDescriptorDictionary = createDictionary<
-  Resource.Common.Enums.TradeDirection,
-  FieldDescriptior
->().setFromRecord({
-  BUY: {
-    label: 'I Want to Receive',
-    placeholder: 'Enter amount',
-  },
-  SELL: {
-    label: 'I Give Funds',
-    placeholder: 'Enter amount',
-  },
-});
 
 export const PriceDescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, FieldDescriptior>().setFromRecord(
   {
@@ -99,11 +72,11 @@ export const PriceDescriptorDictionary = createDictionary<Resource.Lot.Enums.Lot
       placeholder: 'Amount',
     },
     EQUITY: {
-      label: 'Price per 0,01% equity',
+      label: 'Price per share',
       placeholder: 'Amount',
     },
     UNLOCKED_TOKENS: {
-      label: 'Target token price',
+      label: 'Price per token',
       placeholder: 'Amount',
     },
   },

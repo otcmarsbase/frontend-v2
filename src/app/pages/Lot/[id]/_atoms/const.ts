@@ -29,12 +29,12 @@ export const MainChipFieldTypeTitleMap = new Map<MainChipFieldType, string>([
   ['TYPE_OF_SELLER', 'Offer maker'],
 ]);
 
-export const BidListFieldType = ['AMOUNT', 'BID_SIZE', 'BIDDER_TYPE', 'LOCATION', 'DEADLINE', 'STATUS'] as const;
+export const BidListFieldType = ['AMOUNT', 'BID_FDV', 'BIDDER_TYPE', 'LOCATION', 'DEADLINE', 'STATUS'] as const;
 export type BidListFieldType = (typeof BidListFieldType)[number];
 
 export const BidListFieldTypeTitleMap = new Map<BidListFieldType, React.ReactNode>([
   ['AMOUNT', 'Amount'],
-  ['BID_SIZE', 'Bid Size'],
+  ['BID_FDV', 'Target valuation'],
   ['BIDDER_TYPE', 'Bidder type'],
   ['LOCATION', 'Location'],
   ['DEADLINE', 'Deadline'],

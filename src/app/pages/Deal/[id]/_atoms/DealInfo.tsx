@@ -28,13 +28,12 @@ const DealInfoField: React.FC<DealInfoFieldProps> = ({ label, value }) => {
 export interface DealInfoProps {
   price: string;
   fdv: string;
-  size: string;
   amount: string;
   lotType: Resource.Lot.Enums.LotType;
   marsbaseCommission: string;
 }
 
-export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, amount, lotType, marsbaseCommission }) => {
+export const DealInfo: FC<DealInfoProps> = ({ price, fdv, amount, lotType, marsbaseCommission }) => {
   return (
     <VStack gap="1.5rem" padding="1.5rem 1.25rem" bg="dark.900" flex="2" borderRadius="0.75rem" width="full">
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
@@ -44,16 +43,6 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, size, amount, lotType,
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
           value={<UIKit.MoneyText abbreviated value={price} currencyTextProps={{ color: 'dark.50' }} />}
-        />
-        <DealInfoField
-          label={DealInfoFieldDictionary.get('SIZE')}
-          value={
-            <UIKit.PercentText
-              value={size}
-              percentTextProps={{ color: 'dark.50' }}
-              percent={LotUnitAddonDictionary.get(lotType)}
-            />
-          }
         />
         <DealInfoField
           label={DealInfoFieldDictionary.get('AMOUNT')}
