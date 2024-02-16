@@ -6,6 +6,7 @@ export * from './CommonMinFilterSummaryField';
 export * from './CommonOfferMakerTypesField';
 export * from './CommonSummaryField';
 export * from './CommonTelegramField';
+export * from './CommonPriceField';
 
 export * from './CommonAdditionalInfo';
 

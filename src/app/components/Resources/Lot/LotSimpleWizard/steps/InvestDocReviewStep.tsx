@@ -15,13 +15,24 @@ import {
   TypeField,
   CommonAdditionalInfoField,
   CommonSummaryField,
+  CommonPriceField,
 } from '../review';
 import { LotCreateModel } from '../schema';
 
 export const InvestDocReviewStep = () => {
-  const { getValues } = useFormContext<LotCreateModel>();
+  const { getValues, watch } = useFormContext<LotCreateModel>();
+  const [type, SAFE_WITH_TOKEN_WARRANT] = watch(['type', 'SAFE_WITH_TOKEN_WARRANT']);
 
   const values = useMemo(() => getValues(), [getValues]);
+
+  const hasVesting = useMemo(() => {
+    return type === 'TOKEN_WARRANT' || type === 'SAFT' || SAFE_WITH_TOKEN_WARRANT;
+  }, [type, SAFE_WITH_TOKEN_WARRANT]);
+
+  const hasPrice = useMemo(() => {
+    return type === 'EQUITY' || type === 'UNLOCKED_TOKENS';
+  }, [type]);
+
   const fields = useMemo(() => {
     return [
       CommonDirectionField,
@@ -32,11 +43,12 @@ export const InvestDocReviewStep = () => {
       InvestDocReassignmentTypeField,
       CommonSummaryField,
       InvestDocFdvField,
+      hasPrice && CommonPriceField,
       CommonMinFilterSummaryField,
-      (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && TokenVestingPeriodField,
+      hasVesting && TokenVestingPeriodField,
       CommonAdditionalInfoField,
     ].filter(Boolean);
-  }, [values]);
+  }, [hasVesting, hasPrice]);
 
   return (
     <VStack

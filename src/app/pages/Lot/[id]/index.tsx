@@ -11,8 +11,8 @@ import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
-import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock } from './_atoms';
-import { RoundInfo } from './_atoms/RoundInfo';
+import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock, LotFAQ } from './_atoms';
+import { LotInfo } from './_atoms/LotInfo';
 import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
 import { LotMobile } from './index.mobile';
 
@@ -86,36 +86,14 @@ export default function Lot({ id }: LotProps) {
         <GridItem>
           <VStack w="full" gap="0.75rem">
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
-              {/* {isOfferMaker ? (
-                <HStack
-                  bg="dark.900"
-                  w="100%"
-                  padding="1rem 1.25rem"
-                  borderRadius="0.75rem"
-                  gap="0.75rem"
-                  justifyContent="space-between"
-                >
-                  <Heading textTransform="uppercase" variant="h3">
-                    My lot analytics
-                  </Heading>
-
-                  <HStack gap="0.69rem">
-                    <Button size="xs" padding="0.5rem 1.5rem" onClick={handleEditLot}>
-                      Edit my lot
-                    </Button>
-                    <Button size="xs" variant="darkOutline" padding="0.5rem 1.5rem" onClick={handleUnPublishLot}>
-                      Delete
-                    </Button>
-                  </HStack>
-                </HStack>
-              ) : null} */}
               <LotBasicInfo lot={lot} />
             </VStack>
             <VStack w="full">
-              <RoundInfo lot={lot} />
+              <LotInfo lot={lot} />
               <AdditionalInfoBlock lot={lot} />
             </VStack>
             <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />
+            {/* <LotFAQ /> */}
           </VStack>
         </GridItem>
       </Grid>

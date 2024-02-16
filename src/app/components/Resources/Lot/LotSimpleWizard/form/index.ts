@@ -9,3 +9,4 @@ export * from './CommonSummaryInput';
 export * from './CommonMinFilterSummaryInput';
 export * from './CommonAdditionalInfoInput';
 export * from './TokenVestingPeriodInput';
+export * from './CommonPriceInput';
