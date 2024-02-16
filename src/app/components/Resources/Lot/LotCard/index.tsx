@@ -1,6 +1,15 @@
 import { useMemo } from 'react';
 
-import { AssetVerticalIcon, LotHotChip, UILogic, useAuth } from '@app/components';
+import {
+  AssetVerticalIcon,
+  AssetVerticalJoin,
+  AssetVerticalRow,
+  AssetVerticalText,
+  LotHotChip,
+  LotReassignmentType,
+  UILogic,
+  useAuth,
+} from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -36,11 +45,11 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
 
     return [
       {
-        name: 'FDV',
+        name: 'Target valuation',
         value: (
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
-            abbreviated
+            currencyPlacement="end"
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -51,8 +60,8 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
-            abbreviated
             value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+            currencyPlacement="end"
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -60,23 +69,17 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         ),
       },
       {
-        name: 'Total Bids Placed',
+        name: 'Total Bids Place',
         value: <Text>{lot.totalBids}</Text>,
       },
       {
-        name: 'Lot Deadline',
-        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} format="ONLY_DATE" />,
+        name: 'Reasigment',
+        value: <LotReassignmentType value={lot.attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
       },
       {
         name: 'Vertical',
         colSpan: 2,
-        value: (
-          <HStack flexWrap="wrap">
-            {asset?.info?.verticals?.map((vertical, index) => (
-              <AssetVerticalIcon value={vertical} key={index} />
-            ))}
-          </HStack>
-        ),
+        value: <AssetVerticalJoin value={asset.info.verticals} />,
       },
     ].filter(Boolean);
   }, [lot, asset]);
