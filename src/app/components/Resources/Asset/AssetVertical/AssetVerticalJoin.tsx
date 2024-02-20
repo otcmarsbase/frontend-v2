@@ -6,16 +6,13 @@ import {
   Text,
   VStack,
   SimpleGrid,
-  GridItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  useDisclosure,
   PopoverBody,
   PopoverArrow,
 } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
-import { Tooltip } from '@shared/ui-kit';
 
 import { AssetVerticalRow } from './AssetVerticalRow';
 

@@ -21,6 +21,7 @@ export const InvestDocInfoStepInputs = LotCreateSchema.pick([
   'INVEST_DOC_FDV',
   'COMMON_MIN_FILTER_SUMMARY',
   'COMMON_ADDITIONAL_INFO',
+  'TOKEN_VESTING_PERIOD',
 ]);
 
 export const InvestDocReviewStepInputs = yup.lazy((value: LotCreateModel) => {

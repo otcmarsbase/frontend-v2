@@ -41,7 +41,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
   const progress = executed.div(total).mul(100);
 
   const fields: FieldType[] = useMemo(() => {
-    if (lot.status !== 'ACTIVE') return [];
+    if (lot.status !== 'ACTIVE' || !asset) return [];
 
     return [
       {
