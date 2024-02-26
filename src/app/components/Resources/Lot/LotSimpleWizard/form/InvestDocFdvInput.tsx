@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { InputGroup, InputRightElement, Text } from '@chakra-ui/react';
-import { FormControl, FormErrorMessage, FormLabel, InputNumber } from '@shared/ui-kit';
+import { FormControl, FormErrorMessage, FormLabel, InputNumber, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { formatNumberProps } from './formatNumberProps';
 import { BaseInputProps } from './types';
@@ -17,7 +17,11 @@ export const InvestDocFdvInput: FC<BaseInputProps> = () => {
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
       <FormLabel display="flex" gap="0.25rem" alignItems="center">
         Target valuation
+        <Tooltip label="The pricing ot the deal. It is the value of the round asset was acquired with the premium applied">
+          <SuggestionIcon />
+        </Tooltip>
       </FormLabel>
+
       <Controller
         name={NAME}
         render={({ field }) => (

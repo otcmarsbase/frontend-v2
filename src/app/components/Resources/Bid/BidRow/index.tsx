@@ -1,8 +1,8 @@
-import { UILogic } from '@app/components';
+import { LotTypeChip, UILogic } from '@app/components';
 import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
@@ -24,33 +24,24 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
 
   const isBase = useBreakpointValue({ base: true, md: false });
 
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
-
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
-    // {
-    //   label: BidRowFieldNameTitleMap.get('TYPE'),
-    //   value: <Text>1212</Text>,
-    // },
     {
-      label: BidRowFieldNameTitleMap.get('PUBLISH_DATE'),
-      value: <Text>{formatDate(bid.createdAt, 'ONLY_DATE')}</Text>,
-    },
-    {
-      label: BidRowFieldNameTitleMap.get('BID_FDV'),
-      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
+      label: BidRowFieldNameTitleMap.get('TYPE'),
+      value: <LotTypeChip value={lot.type} />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
       value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
     },
     {
+      label: BidRowFieldNameTitleMap.get('BID_FDV'),
+      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
+    },
+    {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
       value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
     },
-    {
-      label: BidRowFieldNameTitleMap.get('DIRECT_SELLER'),
-      value: <Text>{bid.mediatorType === 'DIRECT' ? 'Yes' : 'No'}</Text>,
-    },
+
     {
       label: BidRowFieldNameTitleMap.get('LOCATION'),
       value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
@@ -65,7 +56,6 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
       borderRadius="0.75rem"
       width="full"
       padding="1.5rem"
-      paddingRight="6rem"
       justifyContent="space-between"
       position="relative"
       transition="all 0.3s"
@@ -73,7 +63,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
       _hover={{
         bg: 'dark.800',
       }}
-      alignItems="start"
+      alignItems="center"
       onClick={onClick}
       {...stackProps}
     >
@@ -84,37 +74,24 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
         value={lot.attributes.COMMON_DIRECTION}
         reverse
       />
-      <VStack gap="1rem" marginTop="1rem" alignItems="start">
-        <HStack gap="0.7rem">
-          <Text color="dark.200">#{bid.id}</Text>
-        </HStack>
-        <HStack gap="0.5rem" alignItems="center">
-          <UILogic.AssetName
-            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: bid.assetKey.id }, {})}
-            size="sm"
-            asset={asset}
-          />
-        </HStack>
-        {deal ? <UILogic.DealStatus value={deal.status} /> : <UILogic.BidStatus value={bid.status} />}
-      </VStack>
+      <Flex gap="1rem" alignItems="center" flexWrap="wrap">
+        <UILogic.AssetName
+          onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: bid.assetKey.id }, {})}
+          size="sm"
+          asset={asset}
+          flexShrink="0"
+        />
+        {deal ? (
+          <UILogic.DealStatus value={deal.status} flexShrink="0" />
+        ) : (
+          <UILogic.BidStatus value={bid.status} flexShrink="0" />
+        )}
+      </Flex>
       <HStack>
-        <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">
+        <Grid templateColumns={'repeat(5, 1fr)'} gap="4rem">
           {fields.map((field, index) => (
-            <GridItem
-              w="100%"
-              key={index}
-              borderBottom="1px solid"
-              borderColor="dark.400"
-              marginRight="8rem"
-              pb="0.75rem"
-              __css={{
-                [`:nth-last-child(-n+2)`]: {
-                  marginRight: 'none',
-                  borderColor: 'transparent',
-                },
-              }}
-            >
-              <VStack alignItems="start" maxW="8rem" w="full" fontSize="sm">
+            <GridItem w="100%" key={index} pb="0.75rem">
+              <VStack alignItems="start" w="full" fontSize="sm" spacing="0.5rem">
                 <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
                   {field.label}
                 </Text>
@@ -123,24 +100,6 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
             </GridItem>
           ))}
         </Grid>
-        {
-          // TODO fix stopPropagate on row clicking
-        }
-        {/* <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
-          <UIIcons.Common.KebabMenuIcon
-            position="absolute"
-            top="1.5rem"
-            right="2rem"
-            w="2rem"
-            color="dark.200"
-            transition="all 0.3s"
-            _hover={{ color: 'orange.500' }}
-            h="2rem"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        </UIKit.Dropdown> */}
       </HStack>
     </HStack>
   );

@@ -12,13 +12,11 @@ export const BidRowFieldName = [
 export type BidRowFieldName = (typeof BidRowFieldName)[number];
 
 export const BidRowFieldNameTitleMap = new Map<BidRowFieldName, string>([
-  ['TYPE', 'Type'],
+  ['TYPE', 'Lot Type'],
   ['PUBLISH_DATE', 'Publish Date'],
   ['BID_FDV', 'Target valuation'],
   ['BID_SIZE', 'Bid size'],
   ['BID_AMOUNT', 'Contract size'],
   ['OFFER_MAKER', 'Offer Maker'],
-  ['DIRECT_SELLER', 'Is direct seller'],
-  ['LOCATION', 'Location'],
-  ['DEADLINE', 'Deadline'],
+  ['LOCATION', 'Citizenship'],
 ]);

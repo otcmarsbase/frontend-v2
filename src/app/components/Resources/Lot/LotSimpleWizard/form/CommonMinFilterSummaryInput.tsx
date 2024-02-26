@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { InputGroup, InputRightElement, Text } from '@chakra-ui/react';
-import { FormControl, FormErrorMessage, FormLabel, InputNumber } from '@shared/ui-kit';
+import { FormControl, FormErrorMessage, FormLabel, InputNumber, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { formatNumberProps } from './formatNumberProps';
 import { BaseInputProps } from './types';
@@ -17,6 +17,9 @@ export const CommonMinFilterSummaryInput: FC<BaseInputProps> = () => {
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
       <FormLabel display="flex" gap="0.25rem" alignItems="center">
         Minimal bid
+        <Tooltip label="Contract size for one deal">
+          <SuggestionIcon />
+        </Tooltip>
       </FormLabel>
       <Controller
         name={NAME}

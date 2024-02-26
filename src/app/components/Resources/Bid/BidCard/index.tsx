@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { LotHotChip, UILogic } from '@app/components';
+import { LotHotChip, LotTypeChip, UILogic } from '@app/components';
 import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
@@ -39,15 +39,13 @@ export const BidCard: React.FC<BidCardProps> = ({
 }) => {
   const router = useRouter();
 
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
-
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE') return [];
 
     return [
       {
-        name: BidRowFieldNameTitleMap.get('PUBLISH_DATE'),
-        value: <UIKit.DateText value={bid.createdAt} format="ONLY_DATE" />,
+        name: BidRowFieldNameTitleMap.get('TYPE'),
+        value: <LotTypeChip value={lot.type} />,
       },
       {
         name: BidRowFieldNameTitleMap.get('BID_FDV'),
@@ -60,10 +58,6 @@ export const BidCard: React.FC<BidCardProps> = ({
       {
         name: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
         value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
-      },
-      {
-        name: BidRowFieldNameTitleMap.get('DIRECT_SELLER'),
-        value: <Text>{bid.mediatorType === 'DIRECT' ? 'Yes' : 'No'}</Text>,
       },
       {
         name: BidRowFieldNameTitleMap.get('LOCATION'),
@@ -90,19 +84,13 @@ export const BidCard: React.FC<BidCardProps> = ({
     >
       <Box flexShrink="0" mb="0.75rem">
         <UILogic.TradeDirectionText
-          invert
+          reverse
           value={lot.attributes.COMMON_DIRECTION}
           position="absolute"
           top="0"
-          right="0"
+          left="0"
         />
-        <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
-          <Text color="dark.200" fontSize="sm">
-            #{lot.id}
-          </Text>
-          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
-          {lot.isHot && <LotHotChip />}
-        </HStack>
+
         {asset && (
           <UILogic.AssetName
             asset={asset}
@@ -113,20 +101,16 @@ export const BidCard: React.FC<BidCardProps> = ({
       {!minimalView && (
         <>
           <Divider variant="dashed" color="dark.600" />
-          <Box flex="1" py="1rem">
-            <Grid templateColumns="repeat(2, 1fr)" gridColumnGap="2.5rem" gridRowGap="0.75rem">
-              {fields.map((field, index) => (
-                <GridItem key={index} colSpan={field.colSpan}>
-                  <VStack gap="0.25rem" alignItems="start">
-                    <Text fontWeight={600} fontSize="sm" color="dark.50">
-                      {field.name}
-                    </Text>
-                    {field.value}
-                  </VStack>
-                </GridItem>
-              ))}
-            </Grid>
-          </Box>
+          <VStack alignItems="flex-start" flex="1" py="1rem" w="full" gap="0.75rem">
+            {fields.map((field, index) => (
+              <HStack gap="0.25rem" alignItems="start" justifyContent="space-between" key={index} w="full">
+                <Text fontWeight={600} fontSize="sm" color="dark.50">
+                  {field.name}
+                </Text>
+                {field.value}
+              </HStack>
+            ))}
+          </VStack>
           {offerMakerActions && (
             <>
               <Divider variant="dashed" mb="1rem" color="dark.600" />

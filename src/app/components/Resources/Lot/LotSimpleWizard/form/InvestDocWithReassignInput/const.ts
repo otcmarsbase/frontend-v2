@@ -6,14 +6,12 @@ import { InputDescriptor } from '../types';
 export const DescriptorDictionary = createDictionary<Resource.Common.Enums.TradeDirection, InputDescriptor>()
   .setFromRecord({
     BUY: {
-      label: 'Deal Size',
-      placeholder: 'Amount',
-      tooltip: 'Contract size based on the target valuation of the deal. Total amount for buy',
+      label: 'Available reassignment',
+      tooltip: 'Process of transfering economic rights to buyer. For better understanding read OTC guide',
     },
     SELL: {
-      label: 'Deal Size',
-      placeholder: 'Amount',
-      tooltip: 'Contract size based on the target valuation of the deal. Total amount for sell',
+      label: 'Available reassignment',
+      tooltip: 'Process of transfering economic rights to buyer.',
     },
   })
   .asReadonly();

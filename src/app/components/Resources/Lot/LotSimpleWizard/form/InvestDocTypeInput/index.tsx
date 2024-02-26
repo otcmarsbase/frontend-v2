@@ -1,7 +1,16 @@
 import { FC } from 'react';
 import { Controller } from 'react-hook-form';
 
-import { FormControl, FormErrorMessage, FormLabel, GridItem, SimpleGrid, VStack } from '@shared/ui-kit';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  GridItem,
+  SimpleGrid,
+  SuggestionIcon,
+  Tooltip,
+  VStack,
+} from '@shared/ui-kit';
 
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -17,7 +26,12 @@ export const InvestDocTypeInput: FC<BaseInputProps> = () => {
 
   return (
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
-      <FormLabel>Type of Lot</FormLabel>
+      <FormLabel display="flex" gap="0.25rem" alignItems="center">
+        Asset type
+        <Tooltip label="Asset offered for this deal.">
+          <SuggestionIcon />
+        </Tooltip>
+      </FormLabel>
       <SimpleGrid columns={{ base: 2, md: 3 }} gap={3}>
         <GridItem>
           <Controller

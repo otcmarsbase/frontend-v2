@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react';
-import { RadioButtons } from '@shared/ui-kit';
+import { RadioButtons, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { BaseInputProps } from '../types';
 import { useInput } from '../useInput';
@@ -26,6 +26,9 @@ export const CommonIsDirectInput: FC<BaseInputProps> = () => {
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
       <FormLabel display="flex" gap="0.25rem" alignItems="center">
         {descriptor.label}
+        <Tooltip label={descriptor.tooltip}>
+          <SuggestionIcon />
+        </Tooltip>
       </FormLabel>
       <Controller
         name={NAME}

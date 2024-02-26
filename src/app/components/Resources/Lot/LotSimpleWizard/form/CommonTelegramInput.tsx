@@ -15,7 +15,7 @@ export const CommonTelegramInput: FC<BaseInputProps> = () => {
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
       <FormLabel display="flex" gap="0.25rem" alignItems="center">
         Telegram
-        <Tooltip label="Please provide your Telegram account">
+        <Tooltip label="Your tg for additional clarifications">
           <SuggestionIcon />
         </Tooltip>
       </FormLabel>

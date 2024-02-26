@@ -13,6 +13,6 @@ export const LotTypeColorMap = new Map<Resource.Lot.Enums.LotType, Property.Colo
   ['SAFE', '#EF5DA8'],
   ['SAFT', '#5D5FEF'],
   ['TOKEN_WARRANT', '#FF5B37'],
-  ['EQUITY', '#FF5B37'],
-  ['UNLOCKED_TOKENS', '#FF5B37'],
+  ['EQUITY', '#9851FF'],
+  ['UNLOCKED_TOKENS', '#4ED1FA'],
 ]);
