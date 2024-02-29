@@ -1,17 +1,8 @@
 import { useMemo } from 'react';
 
-import {
-  AssetVerticalIcon,
-  AssetVerticalJoin,
-  AssetVerticalRow,
-  AssetVerticalText,
-  LotHotChip,
-  LotReassignmentType,
-  UILogic,
-  useAuth,
-} from '@app/components';
+import { AssetVerticalJoin, LotReassignmentType, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
-import { Box, Divider, Grid, GridItem, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
+import { Box, Divider, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
@@ -45,6 +36,14 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
 
     return [
       {
+        name: 'Lot',
+        value: <UILogic.TradeDirectionChip value={lot.attributes.COMMON_DIRECTION} />,
+      },
+      {
+        name: 'Type',
+        value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
+      },
+      {
         name: 'Target valuation',
         value: (
           <UIKit.MoneyText
@@ -57,6 +56,10 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
         ),
       },
       {
+        name: 'Reasigment',
+        value: <LotReassignmentType value={lot.attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
+      },
+      {
         name: 'Minimal Bid Size',
         value: (
           <UIKit.MoneyText
@@ -67,14 +70,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
             }}
           />
         ),
-      },
-      {
-        name: 'Total Bids Place',
-        value: <Text>{lot.totalBids}</Text>,
-      },
-      {
-        name: 'Reasigment',
-        value: <LotReassignmentType value={lot.attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
       },
       {
         name: 'Vertical',
@@ -101,20 +96,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       }}
     >
       <Box flexShrink="0" mb="0.75rem">
-        <UILogic.TradeDirectionText
-          invert
-          value={lot.attributes.COMMON_DIRECTION}
-          position="absolute"
-          top="0"
-          right="0"
-        />
-        <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
-          <Text color="dark.200" fontSize="sm">
-            #{lot.id}
-          </Text>
-          <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
-          {lot.isHot && <LotHotChip />}
-        </HStack>
         {asset && (
           <UILogic.AssetName
             asset={asset}
@@ -125,20 +106,16 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = fals
       {!minimalView && (
         <>
           <Divider variant="dashed" color="dark.600" />
-          <Box flex="1" py="1rem">
-            <Grid templateColumns="repeat(2, 1fr)" gridColumnGap="2.5rem" gridRowGap="0.75rem">
-              {fields.map((field, index) => (
-                <GridItem key={index} colSpan={field.colSpan}>
-                  <VStack gap="0.25rem" alignItems="start">
-                    <Text fontWeight={600} fontSize="sm" color="dark.50">
-                      {field.name}
-                    </Text>
-                    {field.value}
-                  </VStack>
-                </GridItem>
-              ))}
-            </Grid>
-          </Box>
+          <VStack flex="1" py="1rem" spacing="0.75rem" alignItems="flex-start" w="full">
+            {fields.map((field, index) => (
+              <HStack gap="0.25rem" alignItems="center" key={index} justifyContent="space-between" w="full">
+                <Text fontWeight={600} fontSize="sm" color="dark.50">
+                  {field.name}
+                </Text>
+                {field.value}
+              </HStack>
+            ))}
+          </VStack>
           <Divider variant="dashed" mb="1rem" color="dark.600" />
         </>
       )}

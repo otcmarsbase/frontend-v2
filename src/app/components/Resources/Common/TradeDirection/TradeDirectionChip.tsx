@@ -6,20 +6,12 @@ import { Resource } from '@schema/desk-gateway';
 
 import { TradeDirectionBackgroundColorMap, TradeDirectionTitleMap } from './const';
 
-export interface TradeDirectionTextProps extends Omit<TextProps, 'invert'> {
+export interface TradeDirectionChipProps extends TextProps {
   value: Resource.Common.Enums.TradeDirection;
-  variant?: 'leaf' | 'ghost';
-  invert?: boolean;
   reverse?: boolean;
 }
 
-export function TradeDirectionText({
-  value,
-  variant = 'leaf',
-  invert,
-  reverse,
-  ...textProps
-}: TradeDirectionTextProps) {
+export function TradeDirectionChip({ value, reverse, ...textProps }: TradeDirectionChipProps) {
   const innerValue = useMemo(() => resolveTradeDirection(value, reverse), [reverse, value]);
 
   const backgroundColor = useMemo(() => TradeDirectionBackgroundColorMap.get(innerValue), [innerValue]);
@@ -27,13 +19,14 @@ export function TradeDirectionText({
 
   return (
     <Text
-      bg={variant === 'leaf' ? backgroundColor : 'transparent'}
-      padding={variant === 'leaf' ? '0.1rem 1rem' : '0'}
-      borderRadius={invert ? '0rem 0.75rem' : '0.75rem 0rem'}
+      padding="0.125rem 0.5rem"
+      borderRadius="6.25rem"
+      fontSize="2xs"
       color="white"
+      fontWeight="600"
       textTransform="uppercase"
-      fontSize="sm"
-      fontWeight={600}
+      bg={backgroundColor}
+      whiteSpace="nowrap"
       {...textProps}
     >
       {title}

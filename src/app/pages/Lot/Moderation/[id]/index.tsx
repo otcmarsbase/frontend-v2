@@ -102,8 +102,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         py={{ base: 5, md: 9 }}
         borderRadius="sm"
       >
-        The lot has been added and is in the process of moderation. Usually it takes up to 3 days. You can always edit
-        or delete a published lot in your personal account.
+        Thank you for creating an offer. Your lot id number is {lot.id}. We will contact you on Telegram once we have
+        reviewed it. The current processing time for a review is 1 day.
       </Box>
       <HStack
         w="full"

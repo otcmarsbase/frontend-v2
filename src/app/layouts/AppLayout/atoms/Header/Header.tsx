@@ -42,8 +42,6 @@ export function Header() {
               </LinkComponent>
             </UILogic.AuthAction>
 
-            <Text>🔥 CREATE OFFER</Text>
-
             <HStack fontFamily="body">
               <UILogic.AuthAction>
                 <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'BUY' }}>

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { LotReassignmentType, LotTypeChip, ParticipantTypesText, TradeDirectionText } from '@app/components';
+import { LotReassignmentType, LotTypeChip, ParticipantTypesText, TradeDirectionChip } from '@app/components';
 import { Text, HStack, VStack, Divider } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 import { Tooltip, SuggestionIcon } from '@shared/ui-kit';
@@ -38,7 +38,7 @@ export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
       <HStack gap="2rem">
         <InfoElement label="Lot">
-          <TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />
+          <TradeDirectionChip value={attributes.COMMON_DIRECTION} />
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Type">

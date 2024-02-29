@@ -22,11 +22,11 @@ export interface AssetVerticalJoinProps extends TextProps {
 
 export function AssetVerticalJoin({ value }: AssetVerticalJoinProps) {
   const displayText = useMemo(() => {
-    const items = value.slice(0, 3);
+    const items = value.slice(0, 2);
 
     let itemsString = items.map((v) => AssetVerticalTitleDictionary.get(v)).join(', ');
 
-    if (value.length > 3) {
+    if (value.length > 2) {
       itemsString += ` +${value.length - items.length}`;
     }
 

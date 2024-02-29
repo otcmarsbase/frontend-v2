@@ -88,7 +88,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
         )}
       </Flex>
       <HStack>
-        <Grid templateColumns={'repeat(5, 1fr)'} gap="4rem">
+        <Grid templateColumns={'repeat(5, minmax(9rem, 1fr))'} gap="2rem" w="full">
           {fields.map((field, index) => (
             <GridItem w="100%" key={index} pb="0.75rem">
               <VStack alignItems="start" w="full" fontSize="sm" spacing="0.5rem">
