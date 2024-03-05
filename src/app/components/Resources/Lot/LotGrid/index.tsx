@@ -9,16 +9,19 @@ import { LotCard } from '../LotCard';
 export interface LotGripProps {
   columns: ResponsiveValue<number>;
   lots: DeskGatewaySchema.Lot[];
+  stats: DeskGatewaySchema.LotTransactionStatsAggregation[];
   assets: DeskGatewaySchema.Asset[];
 
   onSelect?: (lot: DeskGatewaySchema.Lot, asset: DeskGatewaySchema.Asset) => any;
 }
 
-export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
+export function LotGrid({ columns, lots, assets, stats, onSelect }: LotGripProps) {
   const getAsset = useCallback(
     (lot: DeskGatewaySchema.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
     [assets],
   );
+
+  const getStat = useCallback((lot: DeskGatewaySchema.Lot) => stats.find((stat) => stat.id === lot.id), [stats]);
 
   const onSelectCallback = useCallback(
     (lot: DeskGatewaySchema.Lot) => {
@@ -34,7 +37,7 @@ export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
     <SimpleGrid w="full" columns={columns} spacing="2rem">
       {lots.map((lot) => (
         <motion.div layout key={lot.id}>
-          <LotCard lot={lot} asset={getAsset(lot)} onClick={() => onSelectCallback(lot)} />
+          <LotCard lot={lot} asset={getAsset(lot)} stat={getStat(lot)} onClick={() => onSelectCallback(lot)} />
         </motion.div>
       ))}
     </SimpleGrid>

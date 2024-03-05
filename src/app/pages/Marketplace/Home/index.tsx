@@ -78,6 +78,9 @@ export const OtcDesk: React.FC = observer(() => {
         type: filters.type,
         search: filters.search,
       },
+      include: {
+        lotTransactionStatsAggregation: true,
+      },
     };
 
     Object.keys(payload.filter).forEach((key) => {
@@ -92,6 +95,14 @@ export const OtcDesk: React.FC = observer(() => {
   const debauncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
+
+  const stats = useMemo(
+    () =>
+      (lots
+        ? lots.links.filter((link) => link.resource === 'lot_transaction_stats_aggregation')
+        : []) as DeskGatewaySchema.LotTransactionStatsAggregation[],
+    [lots],
+  );
 
   const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
 
@@ -162,6 +173,7 @@ export const OtcDesk: React.FC = observer(() => {
                       columns={{ base: 1, md: columnsCount }}
                       lots={lots.items}
                       assets={_assets?.items || []}
+                      stats={stats}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

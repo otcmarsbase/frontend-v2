@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
+import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
@@ -13,10 +13,11 @@ import { BidItem } from './BidItem';
 interface BidsProps {
   isOfferMaker: boolean;
   lot: DeskGatewaySchema.Lot;
+  offerMaker: DeskGatewaySchema.User;
   asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
 }
 
-export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
+export const Bids: FC<BidsProps> = ({ isOfferMaker, offerMaker, lot, asset }) => {
   const { skip, limit, ...paginationProps } = usePagination(25);
 
   const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.BidList.Payload>(() => {
@@ -27,6 +28,9 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
       },
       filter: {
         lot: { id: [lot.id] },
+      },
+      include: {
+        bidMaker: true,
       },
     };
   }, [skip, limit, lot.id]);
@@ -44,8 +48,14 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
   const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
 
   const findDeal = useCallback(
-    (dealId: DeskGatewaySchema.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
+    (bidId: DeskGatewaySchema.BidKey['id']) => deals?.items?.find((deal) => deal.bidKey.id === bidId),
     [deals],
+  );
+
+  const findBidMaker = useCallback(
+    (bid: DeskGatewaySchema.Bid) =>
+      bids.links.find((link) => link.resource === 'user' && link.id === bid.bidMakerKey.id) as DeskGatewaySchema.User,
+    [bids],
   );
 
   return (
@@ -96,8 +106,10 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
             bid={bid}
             lot={lot}
             asset={asset as DeskGatewaySchema.Asset}
-            deal={findDeal(bid.dealKey?.id)}
+            deal={findDeal(bid.id)}
+            bidMaker={findBidMaker(bid)}
             refreshBids={refetch}
+            offerMaker={offerMaker}
           />
         )}
         loader={({ isLoading, children }) => (

@@ -49,18 +49,12 @@ const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
 };
 
 export interface DealParticipantsProps {
-  moderators: DeskGatewaySchema.User[];
   bidMakers: DeskGatewaySchema.User[];
   offerMakers: DeskGatewaySchema.User[];
   telegramChatLink: string;
 }
 
-export const DealParticipants: FC<DealParticipantsProps> = ({
-  offerMakers,
-  bidMakers,
-  moderators,
-  telegramChatLink,
-}) => {
+export const DealParticipants: FC<DealParticipantsProps> = ({ offerMakers, bidMakers, telegramChatLink }) => {
   return (
     <VStack gap="1.5rem" padding="1.5rem 1.25rem" bg="dark.900" flex="2" borderRadius="0.75rem" width="full">
       <HStack justifyContent="space-between" w="full">
@@ -77,8 +71,6 @@ export const DealParticipants: FC<DealParticipantsProps> = ({
         {!!offerMakers.length &&
           offerMakers.map((user) => <DealParticipant key={user.id} type="OFFER_MAKER" user={user} />)}
         {!!bidMakers.length && bidMakers.map((user) => <DealParticipant key={user.id} type="BID_MAKER" user={user} />)}
-        {!!moderators.length &&
-          moderators.map((user) => <DealParticipant key={user.id} type="MODERATOR" user={user} />)}
       </SimpleGrid>
     </VStack>
   );

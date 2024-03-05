@@ -16,17 +16,18 @@ type FieldType = {
 
 export interface LotCardProps {
   lot: DeskGatewaySchema.Lot;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick }) => {
   const router = useRouter();
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const available = new Decimal(lot.available?.value || '0');
+  const available = new Decimal(stat.available || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
   const executed = total.minus(available);
   const progress = executed.div(total).mul(100);

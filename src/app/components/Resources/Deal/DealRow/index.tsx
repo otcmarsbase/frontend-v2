@@ -29,15 +29,15 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
     },
     {
       label: DealRowFieldNameTitleMap.get('LOT_ID'),
-      value: <Text>#{deal.lotKey.id}</Text>,
+      value: <Text>#{lot.id}</Text>,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
-      value: <UIKit.MoneyText value={deal.summary.value} format="0,0.X" abbreviated />,
+      value: <UIKit.MoneyText value={deal.summary} format="0,0.X" abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-      value: <UIKit.MoneyText value={deal.fdv.value} abbreviated />,
+      value: <UIKit.MoneyText value={deal.fdv} abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),
@@ -70,7 +70,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
         top="0"
         left="0"
         value={lot.attributes.COMMON_DIRECTION}
-        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+        reverse={deal.bidMakers.some((bidMaker) => bidMaker.id === account.id)}
       />
       <HStack justifyContent="space-between" w="full">
         <VStack gap="1rem" marginTop="1rem" alignItems="start">
@@ -79,7 +79,7 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
           </HStack>
           <HStack gap="0.5rem" alignItems="center">
             <UILogic.AssetName
-              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: deal.assetKey.id }, {})}
+              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
               size="sm"
               asset={asset}
             />

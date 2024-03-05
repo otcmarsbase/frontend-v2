@@ -79,12 +79,24 @@ export function LotsBlock({ asset }: LotsBlockProps) {
         type: filters.type,
         search: filters.search,
       },
+      include: {
+        lotTransactionStatsAggregation: true,
+      },
     };
   }, [skip, limit, filters, asset.id]);
 
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
+
+  const stats = useMemo(
+    () =>
+      !isLoading &&
+      (lots.links.filter(
+        (link) => link.resource === 'lot_transaction_stats_aggregation',
+      ) as DeskGatewaySchema.LotTransactionStatsAggregation[]),
+    [lots, isLoading],
+  );
 
   const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     paginationProps.onChange(1);
@@ -164,6 +176,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                         columns={{ base: 1, md: columnsCount }}
                         lots={lots.items}
                         assets={[asset]}
+                        stats={stats}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />
                     )}

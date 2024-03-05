@@ -19,6 +19,7 @@ type FieldType = {
 export interface BidCardProps {
   bid: DeskGatewaySchema.Bid;
   lot: DeskGatewaySchema.Lot;
+  offerMaker: DeskGatewaySchema.User;
   asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
@@ -32,6 +33,7 @@ export const BidCard: React.FC<BidCardProps> = ({
   bid,
   lot,
   asset,
+  offerMaker,
   minimalView = false,
   offerMakerActions,
   onClick,
@@ -56,7 +58,7 @@ export const BidCard: React.FC<BidCardProps> = ({
       },
       {
         name: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
-        value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
+        value: <UILogic.AccountAvatar nickname={offerMaker.nickname} />,
       },
       {
         name: BidRowFieldNameTitleMap.get('LOCATION'),

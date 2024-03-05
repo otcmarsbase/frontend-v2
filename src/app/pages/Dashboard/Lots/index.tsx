@@ -34,19 +34,29 @@ export const Lots: React.FC = () => {
         }) as DeskGatewaySchema.LotStatus[])
       : undefined;
 
-    return { page: { skip, limit }, filter: { status, onlyMy: true } };
+    return {
+      page: { skip, limit },
+      filter: { status, onlyMy: true },
+      include: { asset: true, lotTransactionStatsAggregation: true },
+    };
   }, [skip, limit, filters]);
 
-  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery('lot.list', fetchPayload);
-  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
-    'asset.list',
-    { filter: { lot: { id: lots?.items?.map(({ id }) => id) } } },
-    { enabled: !!lots?.total },
-  );
+  const { data: lots, isFetching } = useRpcSchemaQuery('lot.list', fetchPayload);
 
   const findAsset = useCallback(
-    (assetId: DeskGatewaySchema.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
-    [assets],
+    (assetId: DeskGatewaySchema.AssetKey['id']) =>
+      !isFetching &&
+      (lots.links.find((link) => link.resource === 'asset' && link.id === assetId) as DeskGatewaySchema.Asset),
+    [lots, isFetching],
+  );
+
+  const findStat = useCallback(
+    (lotId: DeskGatewaySchema.LotKey['id']) =>
+      !isFetching &&
+      (lots.links.find(
+        (link) => link.resource === 'lot_transaction_stats_aggregation' && link.id === lotId,
+      ) as DeskGatewaySchema.LotTransactionStatsAggregation),
+    [lots, isFetching],
   );
 
   return (
@@ -55,7 +65,7 @@ export const Lots: React.FC = () => {
         width="full"
         items={lots?.items}
         itemKey={(item) => item.id}
-        isLoading={lotsIsLoading || assetsIsLoading}
+        isLoading={isFetching}
         loader={ListLoader}
         emptyText={
           <Empty
@@ -72,6 +82,7 @@ export const Lots: React.FC = () => {
           <LotRow
             lot={item}
             asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
+            stat={findStat(item.id)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

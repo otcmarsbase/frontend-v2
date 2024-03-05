@@ -195,6 +195,7 @@ export class AuthStore {
     });
 
     const signature = await signMessage({ message: generatedMessage.message });
+
     await schema.send('auth.signIn', {
       message: generatedMessage.message,
       signatureHash: generatedMessage.signatureHash,

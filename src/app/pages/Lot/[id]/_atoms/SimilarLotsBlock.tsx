@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { LotCard, useRpcSchemaQuery } from '@app/components';
 import { MBPages } from '@app/pages';
@@ -16,9 +16,18 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   const { data: assets } = useRpcSchemaQuery('asset.list', {});
   const { data: lots } = useRpcSchemaQuery('lot.list', {
     filter: { status: ['ACTIVE'], asset: { id: [lot.attributes.INVEST_DOC_ASSET_PK] } },
+    include: { lotTransactionStatsAggregation: true },
   });
 
   const similarLots = useMemo(() => lots?.items?.filter((other) => other.id !== lot.id) || [], [lots, lot]);
+
+  const findStat = useCallback(
+    (lot: DeskGatewaySchema.Lot) =>
+      lots.links.find(
+        (link) => link.resource === 'lot_transaction_stats_aggregation' && lot.id === link.id,
+      ) as DeskGatewaySchema.LotTransactionStatsAggregation,
+    [lots],
+  );
 
   if (!lots?.total) return null;
 
@@ -47,6 +56,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
             key={lot.id}
             minimalView
             lot={lot}
+            stat={findStat(lot)}
             asset={assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />

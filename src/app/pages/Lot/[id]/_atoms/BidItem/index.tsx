@@ -36,21 +36,32 @@ export interface BidItemProps {
   lot: DeskGatewaySchema.Lot;
   deal: DeskGatewaySchema.Deal;
   asset: DeskGatewaySchema.Asset;
+  offerMaker: DeskGatewaySchema.User;
+  bidMaker: DeskGatewaySchema.User;
   isOfferMaker: boolean;
   refreshBids: () => Promise<any>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({
+  bid,
+  lot,
+  deal,
+  asset,
+  offerMaker,
+  bidMaker,
+  isOfferMaker,
+  refreshBids,
+}) => {
   const router = useRouter();
   const { account } = useAuth();
 
   const isBase = useBreakpointValue({ base: true, md: false });
 
   const handleClick = useCallback(() => {
-    if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
+    if (!(deal && (bidMaker.nickname === account?.nickname || isOfferMaker))) return;
 
-    router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
-  }, [bid, router, account, isOfferMaker]);
+    router.navigateComponent(MBPages.Deal.__id__, { id: deal.id }, {});
+  }, [router, account, bidMaker, deal, isOfferMaker]);
 
   if (isBase)
     return (
@@ -58,6 +69,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
         bid={bid}
         lot={lot}
         asset={asset}
+        offerMaker={offerMaker}
         onClick={handleClick}
         offerMakerActions={{ isOfferMaker, refetch: refreshBids }}
       />
@@ -84,7 +96,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bid.bidMaker.nickname} />
+        <AccountAvatar nickname={bidMaker.nickname} />
       </VStack>
       <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">

@@ -21,10 +21,11 @@ interface FieldType {
 export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: DeskGatewaySchema.Lot;
   asset: DeskGatewaySchema.Asset;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
+export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, onClick, ...stackProps }) => {
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, md: false });
 
@@ -67,7 +68,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
     ].filter(Boolean);
   }, [lot]);
 
-  if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
+  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} onClick={onClick} />;
 
   return (
     <HStack

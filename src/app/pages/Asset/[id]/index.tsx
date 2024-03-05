@@ -15,15 +15,15 @@ export interface ViewProps {
 export default function View({ id }: ViewProps) {
   const { isMobile } = useBreakpointDevice();
 
-  const { data, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.list', {
+  const { data, isLoading } = useRpcSchemaQuery('asset.list', {
     filter: { id: [id] },
     include: { assetLotStatsAggregation: true },
   });
 
-  const asset = useMemo(() => data.items[0], [data]);
-  const stats = useMemo(() => data.links[0], [data]);
+  const asset = useMemo(() => !isLoading && data.items[0], [data, isLoading]);
+  const stats = useMemo(() => !isLoading && data.links[0], [data, isLoading]);
 
-  if (!asset || assetIsLoading) return <UILogic.AssetPageSkeleton />;
+  if (!asset || isLoading) return <UILogic.AssetPageSkeleton />;
 
   if (isMobile) return <AssetViewMobile asset={asset} stats={stats} />;
 

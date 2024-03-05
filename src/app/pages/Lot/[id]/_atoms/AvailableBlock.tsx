@@ -8,11 +8,12 @@ import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
   lot: DeskGatewaySchema.Lot;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
 }
 
-export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const available = new Decimal(lot.available?.value || '0');
-  const executed = new Decimal(lot.executed?.value || '0');
+export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot, stat }) => {
+  const available = useMemo(() => new Decimal(stat.available || '0'), [stat]);
+  const executed = useMemo(() => new Decimal(stat.executed || '0'), [stat]);
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
 
   const chartData = useMemo<UIKit.ChartPieData[]>(() => {

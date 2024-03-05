@@ -69,7 +69,7 @@ const MyBids: React.FC = () => {
   );
   const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
     'lot.list',
-    { filter: { bid: { id: bids?.items?.map(({ id }) => id) } } },
+    { filter: { bid: { id: bids?.items?.map(({ id }) => id) } }, include: { offerMaker: true } },
     { enabled: !!bids?.total },
   );
   const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery(
@@ -84,19 +84,32 @@ const MyBids: React.FC = () => {
     },
   );
 
-  const findAsset = useCallback(
-    (assetId: DeskGatewaySchema.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
-    [assets],
-  );
-
   const findLot = useCallback(
     (lotId: DeskGatewaySchema.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
     [lots],
   );
 
+  const findAsset = useCallback(
+    (bidId: DeskGatewaySchema.BidKey['id']) => {
+      const lot = findLot(bidId);
+      return assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK);
+    },
+    [assets, findLot],
+  );
+
   const findDeal = useCallback(
     (bidId: DeskGatewaySchema.BidKey['id']) => deals?.items?.find((deal) => deal.bidKey.id === bidId),
     [deals],
+  );
+
+  const findOfferMaker = useCallback(
+    (lotId: DeskGatewaySchema.LotKey['id']) => {
+      const lot = findLot(lotId);
+      return lots.links.find(
+        (value) => value.resource === 'user' && value.id === lot.offerMaker.id,
+      ) as DeskGatewaySchema.User;
+    },
+    [lots, findLot],
   );
 
   return (
@@ -124,8 +137,9 @@ const MyBids: React.FC = () => {
           <UILogic.BidRow
             bid={item}
             lot={findLot(item.lotKey.id)}
-            asset={findAsset(item.assetKey.id)}
+            asset={findAsset(item.id)}
             deal={findDeal(item.id)}
+            offerMaker={findOfferMaker(item.lotKey.id)}
             onClick={() => {
               const deal = findDeal(item.id);
               if (deal) {

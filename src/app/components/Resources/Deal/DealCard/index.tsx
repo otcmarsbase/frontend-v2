@@ -37,7 +37,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
       },
       {
         name: DealRowFieldNameTitleMap.get('LOT_ID'),
-        value: <Text>#{deal.lotKey.id}</Text>,
+        value: <Text>#{lot.id}</Text>,
       },
       {
         name: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
@@ -77,7 +77,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
           position="absolute"
           top="0"
           right="0"
-          reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account.nickname)}
+          reverse={deal.bidMakers.some((bidMaker) => bidMaker.id === account.id)}
         />
         <HStack gap="0.6rem" mt="0.1rem" mb="0.75rem">
           <Text color="dark.200" fontSize="sm">
