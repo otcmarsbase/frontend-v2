@@ -32,11 +32,17 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) =
 const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600" />;
 
 export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
-  const { attributes, type } = lot;
+  const { attributes, type, id } = lot;
 
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
       <HStack gap="2rem">
+        <InfoElement label="ID">
+          <Text fontSize="sm" fontWeight="500" whiteSpace="nowrap">
+            {id}
+          </Text>
+        </InfoElement>
+        {InfoDivider}
         <InfoElement label="Lot">
           <TradeDirectionChip value={attributes.COMMON_DIRECTION} />
         </InfoElement>
