@@ -10,11 +10,7 @@ export const BidCreateSchema = yup.object({
   readyForVerification: yup.boolean().default(false),
   telegram: yup.string().matches(InputTelegramRegex, 'Telegram username is not valid').min(5).max(32).required(),
   summary: yup.number().required().min(yup.ref('$minSummary')).max(yup.ref('$maxSummary')),
-  price: yup
-    .number()
-    .when('$priceRequired', ([priceRequired], schema) =>
-      priceRequired ? schema.required() : schema.nullable().default(0),
-    ),
+  price: yup.number(),
   fdv: yup.number().required(),
   units: yup.number().nullable().default(0),
 });

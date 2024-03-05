@@ -130,7 +130,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
         </HStack>
         <VStack spacing="1em" width="full">
           {context.priceRequired && (
-            <FormControl isRequired={true} isInvalid={Boolean(errors.price)}>
+            <FormControl isInvalid={Boolean(errors.price)}>
               <FormLabel>{PriceDescriptorDictionary.get(lot.type).label}</FormLabel>
               <Controller
                 control={control}
