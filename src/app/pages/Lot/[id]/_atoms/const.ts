@@ -22,7 +22,7 @@ export const BidListFieldTypeTitleMap = new Map<BidListFieldType, React.ReactNod
   ['AMOUNT', 'Amount'],
   ['BID_FDV', 'Target valuation'],
   ['BIDDER_TYPE', 'Bidder type'],
-  ['LOCATION', 'Location'],
+  ['LOCATION', 'Citizenship'],
   ['DEADLINE', 'Deadline'],
   ['STATUS', 'Status'],
 ]);
