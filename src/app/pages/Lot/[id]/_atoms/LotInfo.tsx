@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { SimpleGrid, VStack, Heading, Text } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText } from '@shared/ui-kit';
@@ -10,6 +12,7 @@ export interface LotInfoProps {
 }
 
 export const LotInfo: React.FC<LotInfoProps> = ({ lot }) => {
+  const isShowPrice = useMemo(() => ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type), [lot.type])
   return (
     <SimpleGrid gridTemplateColumns="61% 1fr" gap="1.5rem" borderRadius="0.5rem" w="full">
       <VStack bg="dark.900" p="1.25rem" borderRadius="sm" w="full" alignItems="flex-start" spacing="4">
@@ -46,9 +49,25 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot }) => {
             }}
           />
         </LotInfoItem>
-        <LotInfoItem fieldName="TOKEN_VESTING_PERIOD">
-          <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
-        </LotInfoItem>
+        {isShowPrice ?
+          (
+            <LotInfoItem fieldName={lot.type === 'UNLOCKED_TOKENS' ? 'PRICE_PER_SHARE' : 'PRICE_PER_TOKEN'}>
+              <MoneyText
+                value={lot.attributes.COMMON_PRICE}
+                format="0,0.X"
+                fontSize="sm"
+                currencyTextProps={{
+                  color: 'dark.50',
+                }}
+              />
+            </LotInfoItem>
+          ) :
+          (
+            <LotInfoItem fieldName="TOKEN_VESTING_PERIOD">
+              <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
+            </LotInfoItem>
+          )
+        }
       </VStack>
 
       <AvailableBlock lot={lot} />
