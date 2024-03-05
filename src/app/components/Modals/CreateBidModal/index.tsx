@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
@@ -39,6 +39,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   } = formMethods;
 
   const isRequired = useIsRequired(BidCreateSchema, getValues);
+  const isShowPrice = useMemo(() => ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type), [lot.type])
 
   const onClose = useCallback(() => {
     if (portal && portal.resolve) portal.resolve(null);
@@ -129,7 +130,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
           </FormControl>
         </HStack>
         <VStack spacing="1em" width="full">
-          {context.priceRequired && (
+          {isShowPrice && (
             <FormControl isInvalid={Boolean(errors.price)}>
               <FormLabel>{PriceDescriptorDictionary.get(lot.type).label}</FormLabel>
               <Controller
