@@ -85,26 +85,30 @@ const MyBids: React.FC = () => {
   );
 
   const findLot = useCallback(
-    (lotId: DeskGatewaySchema.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
+    (bid: DeskGatewaySchema.Bid) => lots?.items?.find((lot) => lot.id === bid.lotKey.id),
     [lots],
   );
 
   const findAsset = useCallback(
-    (bidId: DeskGatewaySchema.BidKey['id']) => {
-      const lot = findLot(bidId);
+    (bid: DeskGatewaySchema.Bid) => {
+      const lot = findLot(bid);
+
       return assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK);
     },
     [assets, findLot],
   );
 
   const findDeal = useCallback(
-    (bidId: DeskGatewaySchema.BidKey['id']) => deals?.items?.find((deal) => deal.bidKey.id === bidId),
+    (bid: DeskGatewaySchema.Bid) => deals?.items?.find((deal) => deal.bidKey.id === bid.id),
     [deals],
   );
 
   const findOfferMaker = useCallback(
-    (lotId: DeskGatewaySchema.LotKey['id']) => {
-      const lot = findLot(lotId);
+    (bid: DeskGatewaySchema.Bid) => {
+      const lot = findLot(bid);
+
+      if (!lot) return;
+
       return lots.links.find(
         (value) => value.resource === 'user' && value.id === lot.offerMaker.id,
       ) as DeskGatewaySchema.User;
@@ -136,12 +140,12 @@ const MyBids: React.FC = () => {
         itemRender={(item) => (
           <UILogic.BidRow
             bid={item}
-            lot={findLot(item.lotKey.id)}
-            asset={findAsset(item.id)}
-            deal={findDeal(item.id)}
-            offerMaker={findOfferMaker(item.lotKey.id)}
+            lot={findLot(item)}
+            asset={findAsset(item)}
+            deal={findDeal(item)}
+            offerMaker={findOfferMaker(item)}
             onClick={() => {
-              const deal = findDeal(item.id);
+              const deal = findDeal(item);
               if (deal) {
                 router.navigateComponent(MBPages.Deal.__id__, { id: deal.id }, {});
               } else {

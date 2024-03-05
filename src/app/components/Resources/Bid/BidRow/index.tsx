@@ -74,12 +74,14 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, offerMaker, asset, dea
         reverse
       />
       <Flex gap="1rem" alignItems="center" flexWrap="wrap">
-        <UILogic.AssetName
-          onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-          size="sm"
-          asset={asset}
-          flexShrink="0"
-        />
+        {asset && (
+          <UILogic.AssetName
+            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+            size="sm"
+            asset={asset}
+            flexShrink="0"
+          />
+        )}
         {deal ? (
           <UILogic.DealStatus value={deal.status} flexShrink="0" />
         ) : (
