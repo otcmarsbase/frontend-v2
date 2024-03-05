@@ -10,7 +10,6 @@ export function useFormContext(lot: Resource.Lot.Lot) {
         ? new Decimal(lot.attributes.COMMON_MIN_FILTER_SUMMARY).toNumber()
         : 5000,
       maxSummary: lot.attributes.COMMON_SUMMARY ? new Decimal(lot.attributes.COMMON_SUMMARY).toNumber() : null,
-      priceRequired: ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type),
     }),
     [lot],
   );
