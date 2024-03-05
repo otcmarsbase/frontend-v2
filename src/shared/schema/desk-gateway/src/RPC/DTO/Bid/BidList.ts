@@ -1,18 +1,30 @@
-import { CompositeFilter, Pagination, QueryListPayload } from '@schema/common';
+import { CoreSchema } from '@schema/core';
 
-import { Resource } from '../../../Resource';
+import { Bid, BidKey, BidStatus, User } from '../../../Resource';
 import { LotList } from '../Lot';
 
 export namespace BidList {
-  export type Filter = CompositeFilter<{
-    id?: Resource.Bid.BidKey['id'][];
+  export type Filter = CoreSchema.CompositeFilter<{
+    id?: BidKey['id'][];
 
-    status?: Resource.Bid.Enums.BidStatus[];
+    status?: BidStatus[];
     onlyMy?: boolean;
 
     lot?: LotList.Filter;
   }>;
 
-  export type Payload = QueryListPayload<Filter>;
-  export type Result = Pagination<Resource.Bid.Bid>;
+  export type Include = CoreSchema.Include<
+    Bid,
+    {
+      lot: LotList.Include;
+      bidMaker: User;
+    }
+  >;
+
+  export type Sortable = {
+    id?: CoreSchema.SortableValue;
+  };
+
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable> & CoreSchema.WithPagination;
+  export type Result = CoreSchema.WithPaginationResult<Bid> & CoreSchema.WithIncludeLinks<Include>;
 }

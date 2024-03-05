@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 
 import { AuthConnectorInfo, AuthConnectorType } from '../info';
@@ -14,13 +14,13 @@ export interface UseAuth {
   isLoading: boolean;
 
   authToken?: string;
-  account?: Resource.Account.Account;
+  account?: DeskGatewaySchema.Account;
   connectorInfo?: AuthConnectorInfo;
 
   signInWithConnector: LoadingCallback<(connectorType: AuthConnectorType) => Promise<void>>;
   signIn: LoadingCallback<() => Promise<void>>;
   signOut: () => Promise<void>;
-  updateAccount: (account: Resource.Account.Account) => Promise<void>;
+  updateAccount: (account: DeskGatewaySchema.Account) => Promise<void>;
 }
 
 export function useAuth(): UseAuth {

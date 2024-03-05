@@ -5,7 +5,7 @@ import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Button, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { CopyButton } from '@shared/ui-kit';
 
@@ -26,9 +26,9 @@ const Field: FC<FieldProps> = ({ label, value, ...props }) => {
 };
 
 export interface BaseDealInfoProps {
-  lot: Resource.Lot.Lot;
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  deal: DeskGatewaySchema.Deal;
+  asset: DeskGatewaySchema.Asset;
 }
 
 export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {

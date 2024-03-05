@@ -5,7 +5,7 @@ import { MBPages } from '@app/pages';
 import { getContractSize } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
@@ -19,8 +19,8 @@ interface FieldType {
 }
 
 export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  asset: DeskGatewaySchema.Asset;
   onClick: () => any;
 }
 

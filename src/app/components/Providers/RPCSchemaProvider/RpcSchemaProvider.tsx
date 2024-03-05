@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 
-import { RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { RpcSchemaContext } from './RpcSchemaContext';
 
 export interface RpcSchemaProviderProps {
-  client: RPC.Client;
+  client: DeskGatewaySchema.RPC.Client;
 }
 
 export function RpcSchemaProvider({ client, children }: PropsWithChildren<RpcSchemaProviderProps>) {

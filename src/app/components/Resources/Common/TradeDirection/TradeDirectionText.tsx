@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import { resolveTradeDirection } from '@app/utils';
 import { Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { TradeDirectionBackgroundColorMap, TradeDirectionTitleMap } from './const';
 
 export interface TradeDirectionTextProps extends Omit<TextProps, 'invert'> {
-  value: Resource.Common.Enums.TradeDirection;
+  value: DeskGatewaySchema.TradeDirection;
   variant?: 'leaf' | 'ghost';
   invert?: boolean;
   reverse?: boolean;

@@ -1,5 +1,5 @@
 import { createDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface FieldDescriptior {
   label: string;
@@ -50,39 +50,37 @@ export const CommonFieldsDictionary = createDictionary<CommonField, FieldDescrip
   })
   .asReadonly();
 
-export const CreateBidModalTitleDictionary = createDictionary<Resource.Common.Enums.TradeDirection, string>()
+export const CreateBidModalTitleDictionary = createDictionary<DeskGatewaySchema.TradeDirection, string>()
   .setFromEntries([
     ['BUY', 'For sale'],
     ['SELL', 'Buy'],
   ])
   .asReadonly();
 
-export const PriceDescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, FieldDescriptior>().setFromRecord(
-  {
-    SAFE: {
-      label: 'Price per 0,01% equity',
-      placeholder: 'Amount',
-    },
-    SAFT: {
-      label: 'Target token price',
-      placeholder: 'Amount',
-    },
-    TOKEN_WARRANT: {
-      label: 'Price per 0,01% equity',
-      placeholder: 'Amount',
-    },
-    EQUITY: {
-      label: 'Price per share',
-      placeholder: 'Amount',
-    },
-    UNLOCKED_TOKENS: {
-      label: 'Price per token',
-      placeholder: 'Amount',
-    },
+export const PriceDescriptorDictionary = createDictionary<DeskGatewaySchema.LotType, FieldDescriptior>().setFromRecord({
+  SAFE: {
+    label: 'Price per 0,01% equity',
+    placeholder: 'Amount',
   },
-);
+  SAFT: {
+    label: 'Target token price',
+    placeholder: 'Amount',
+  },
+  TOKEN_WARRANT: {
+    label: 'Price per 0,01% equity',
+    placeholder: 'Amount',
+  },
+  EQUITY: {
+    label: 'Price per share',
+    placeholder: 'Amount',
+  },
+  UNLOCKED_TOKENS: {
+    label: 'Price per token',
+    placeholder: 'Amount',
+  },
+});
 
-export const UnitsDictionary = createDictionary<Resource.Lot.Enums.LotType, string>()
+export const UnitsDictionary = createDictionary<DeskGatewaySchema.LotType, string>()
   .setFromEntries([
     ['SAFE', '%'],
     ['SAFT', ''],

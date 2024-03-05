@@ -4,10 +4,10 @@ import { LotCard, useRpcSchemaQuery } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface SimilarLotsBlockProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {

@@ -4,5 +4,7 @@ export * from './Auth';
 export * from './Bid';
 export * from './Deal';
 export * from './Lot';
+export * from './Notification';
+export * from './NotificationConfig';
 export * from './System';
 export * from './User';

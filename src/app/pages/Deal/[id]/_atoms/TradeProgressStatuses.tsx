@@ -1,22 +1,22 @@
 import React, { FC } from 'react';
 
 import { Circle, Heading, HStack, VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { DealBlockTypeDictionary, TradeProgressStatusDictionary, TradeValidationStatusDictionary } from './const';
 
 export interface TradeProgressStatusesProps {
-  chatCreating: Resource.Deal.Enums.KeyResultStatus;
-  offerMakerValidation: Resource.Deal.Enums.KeyResultStatus;
-  bidMakerValidation: Resource.Deal.Enums.KeyResultStatus;
-  kycValidation: Resource.Deal.Enums.KeyResultStatus;
-  amlValidation: Resource.Deal.Enums.KeyResultStatus;
-  kybValidation: Resource.Deal.Enums.KeyResultStatus;
-  docOwnership: Resource.Deal.Enums.KeyResultStatus;
-  docResigned: Resource.Deal.Enums.KeyResultStatus;
-  txPayment: Resource.Deal.Enums.KeyResultStatus;
-  marsbaseCommission: Resource.Deal.Enums.KeyResultStatus;
-  agentCommission: Resource.Deal.Enums.KeyResultStatus;
+  chatCreating: DeskGatewaySchema.KeyResultStatus;
+  offerMakerValidation: DeskGatewaySchema.KeyResultStatus;
+  bidMakerValidation: DeskGatewaySchema.KeyResultStatus;
+  kycValidation: DeskGatewaySchema.KeyResultStatus;
+  amlValidation: DeskGatewaySchema.KeyResultStatus;
+  kybValidation: DeskGatewaySchema.KeyResultStatus;
+  docOwnership: DeskGatewaySchema.KeyResultStatus;
+  docResigned: DeskGatewaySchema.KeyResultStatus;
+  txPayment: DeskGatewaySchema.KeyResultStatus;
+  marsbaseCommission: DeskGatewaySchema.KeyResultStatus;
+  agentCommission: DeskGatewaySchema.KeyResultStatus;
 }
 
 export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
@@ -112,7 +112,7 @@ export const TradeProgressStatuses: FC<TradeProgressStatusesProps> = ({
 
 export interface TradeProgressFieldProps {
   label: string;
-  status: Resource.Deal.Enums.KeyResultStatus;
+  status: DeskGatewaySchema.KeyResultStatus;
 }
 
 export const TradeProgressField: React.FC<TradeProgressFieldProps> = ({ label, status }) => {

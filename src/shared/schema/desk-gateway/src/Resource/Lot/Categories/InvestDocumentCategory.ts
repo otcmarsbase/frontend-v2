@@ -1,9 +1,11 @@
-import { LotAttributes } from '../LotAttributes';
-import { LotInputs } from '../LotInputs';
+import { MergeAttributes } from '@schema/core';
+
+import { LotInputs } from '../Inputs';
+
 import { CommonCategory } from './CommonCategory';
 
 export namespace InvestDocumentCategory {
-  export type InputObject = LotInputs.Utils.MergeInputs<
+  export type InputObject = MergeAttributes<
     [
       CommonCategory.InputObject,
 
@@ -21,5 +23,5 @@ export namespace InvestDocumentCategory {
     ]
   >;
 
-  export type AttributeObject = LotAttributes.Utils.MergeAttributes<[CommonCategory.AttributeObject, InputObject]>;
+  export type AttributeObject = MergeAttributes<[CommonCategory.AttributeObject, InputObject]>;
 }

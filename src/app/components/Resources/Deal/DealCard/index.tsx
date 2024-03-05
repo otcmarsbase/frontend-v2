@@ -4,7 +4,7 @@ import { LotHotChip, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealRowFieldNameTitleMap } from '../const';
@@ -16,9 +16,9 @@ type FieldType = {
 };
 
 export interface DealCardProps {
-  deal: Resource.Deal.Deal;
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  deal: DeskGatewaySchema.Deal;
+  lot: DeskGatewaySchema.Lot;
+  asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
 }
@@ -41,11 +41,11 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
       },
       {
         name: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
-        value: <UIKit.MoneyText value={deal.summary.value} format="0,0.X" abbreviated />,
+        value: <UIKit.MoneyText value={deal.summary} format="0,0.X" abbreviated />,
       },
       {
         name: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-        value: <UIKit.MoneyText value={deal.fdv.value} abbreviated />,
+        value: <UIKit.MoneyText value={deal.fdv} abbreviated />,
       },
       {
         name: DealRowFieldNameTitleMap.get('CREATED_TIME'),

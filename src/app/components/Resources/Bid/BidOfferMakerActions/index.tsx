@@ -3,11 +3,11 @@ import { FC, useMemo, useState, MouseEvent } from 'react';
 import { useAuth, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { Button, HStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useQueryClient } from '@tanstack/react-query';
 
 export interface BidOfferMakerActions {
-  bid: Resource.Bid.Bid;
+  bid: DeskGatewaySchema.Bid;
   isOfferMaker: boolean;
   refreshBids: () => Promise<void>;
 }

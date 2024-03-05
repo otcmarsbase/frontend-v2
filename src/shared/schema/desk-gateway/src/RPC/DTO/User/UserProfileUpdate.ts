@@ -1,12 +1,12 @@
-import { Resource } from '../../../Resource';
+import { CommonSchema } from '@schema/common';
 
 export namespace UserProfileUpdate {
   export type Payload = {
     firstName?: string;
     lastName?: string;
-    telegram?: Resource.Common.Text.Telegram;
-    email?: Resource.Common.Text.Email;
-    location?: Resource.Common.Enums.Location;
+    telegram?: string;
+    email?: string;
+    location?: CommonSchema.Country;
   };
   export type Result = void;
 }

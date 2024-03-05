@@ -5,10 +5,10 @@ import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Center, Box } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 interface LotCreateProps {
-  direction: Resource.Common.Enums.TradeDirection;
+  direction: DeskGatewaySchema.TradeDirection;
 }
 
 const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
@@ -18,7 +18,7 @@ const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
   const onSubmit = useCallback<LotSimpleWizardProps['onSubmit']>(
     async (data) => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
-      const payload: RPC.DTO.LotCreate.Payload = { type, inputs };
+      const payload: DeskGatewaySchema.RPC.DTO.LotCreate.Payload = { type, inputs };
 
       if ('id' in INVEST_DOC_ASSET) {
         payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;

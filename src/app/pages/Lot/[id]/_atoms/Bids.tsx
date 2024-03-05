@@ -1,9 +1,9 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaQuery } from '@app/components';
+import { LotBidSkeleton, UILogic, UIModals, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { ModalController } from '@app/logic';
 import { Button, HStack, VStack, Text, Circle } from '@chakra-ui/react';
-import { Resource, RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { Empty, List, Pagination, SkeletonLoader, usePagination } from '@shared/ui-kit';
 import { range } from 'lodash';
@@ -12,14 +12,14 @@ import { BidItem } from './BidItem';
 
 interface BidsProps {
   isOfferMaker: boolean;
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  lot: DeskGatewaySchema.Lot;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
 }
 
 export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
   const { skip, limit, ...paginationProps } = usePagination(25);
 
-  const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.BidList.Payload>(() => {
     return {
       page: {
         skip,
@@ -44,7 +44,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
   const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
 
   const findDeal = useCallback(
-    (dealId: Resource.Deal.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
+    (dealId: DeskGatewaySchema.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
     [deals],
   );
 
@@ -95,7 +95,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, lot, asset }) => {
             isOfferMaker={isOfferMaker}
             bid={bid}
             lot={lot}
-            asset={asset as Resource.Asset.Asset}
+            asset={asset as DeskGatewaySchema.Asset}
             deal={findDeal(bid.dealKey?.id)}
             refreshBids={refetch}
           />

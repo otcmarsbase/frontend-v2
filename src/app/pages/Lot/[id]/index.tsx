@@ -6,7 +6,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
@@ -28,8 +28,8 @@ export default function Lot({ id }: LotProps) {
   const router = useRouter();
   const { account } = useAuth();
 
-  const [lot, setLot] = useState<Resource.Lot.Lot>();
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [lot, setLot] = useState<DeskGatewaySchema.Lot>();
+  const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
   const { isMobile } = useBreakpointDevice();
 
   const isOfferMaker = useMemo(() => {

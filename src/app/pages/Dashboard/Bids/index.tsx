@@ -7,7 +7,7 @@ import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
@@ -18,8 +18,8 @@ const MyBids: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
-    const filter: RPC.DTO.BidList.Filter = {
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.BidList.Payload>(() => {
+    const filter: DeskGatewaySchema.RPC.DTO.BidList.Filter = {
       onlyMy: true,
       OR: [],
     };
@@ -85,17 +85,17 @@ const MyBids: React.FC = () => {
   );
 
   const findAsset = useCallback(
-    (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
+    (assetId: DeskGatewaySchema.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
     [assets],
   );
 
   const findLot = useCallback(
-    (lotId: Resource.Lot.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
+    (lotId: DeskGatewaySchema.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
     [lots],
   );
 
   const findDeal = useCallback(
-    (dealId: Resource.Deal.DealKey['id']) => deals?.items?.find((deal) => deal.id === dealId),
+    (bidId: DeskGatewaySchema.BidKey['id']) => deals?.items?.find((deal) => deal.bidKey.id === bidId),
     [deals],
   );
 
@@ -125,10 +125,11 @@ const MyBids: React.FC = () => {
             bid={item}
             lot={findLot(item.lotKey.id)}
             asset={findAsset(item.assetKey.id)}
-            deal={findDeal(item.dealKey?.id)}
+            deal={findDeal(item.id)}
             onClick={() => {
-              if (item.dealKey) {
-                router.navigateComponent(MBPages.Deal.__id__, { id: item.dealKey.id }, {});
+              const deal = findDeal(item.id);
+              if (deal) {
+                router.navigateComponent(MBPages.Deal.__id__, { id: deal.id }, {});
               } else {
                 router.navigateComponent(MBPages.Lot.__id__, { id: item.lotKey.id }, {});
               }

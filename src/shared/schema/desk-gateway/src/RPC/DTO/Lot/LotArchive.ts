@@ -1,9 +1,9 @@
-import { Resource } from '../../../Resource';
+import { Lot, LotKey } from '../../../Resource';
 
 export namespace LotArchive {
   export type Payload = {
-    id: number;
+    id: LotKey['id'];
   };
 
-  export type Result = Resource.Lot.Lot;
+  export type Result = Lot;
 }

@@ -5,7 +5,7 @@ import { UILogic, useRpcSchemaClient } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
 import { Button, FormControl, FormLabel, HStack, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -15,8 +15,8 @@ import { BidCreateSchema, CreateBidModel } from './schema';
 import { useDefaultValues } from './useDefaultValues';
 import { useFormContext } from './useFormContext';
 
-export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
-  lot: Resource.Lot.Lot;
+export interface CreateBidModalProps extends PortalProps<DeskGatewaySchema.Bid> {
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) => {

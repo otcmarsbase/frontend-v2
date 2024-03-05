@@ -10,7 +10,7 @@ import {
 import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { DateText, UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -32,10 +32,10 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 };
 
 export interface BidItemProps {
-  bid: Resource.Bid.Bid;
-  lot: Resource.Lot.Lot;
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
+  bid: DeskGatewaySchema.Bid;
+  lot: DeskGatewaySchema.Lot;
+  deal: DeskGatewaySchema.Deal;
+  asset: DeskGatewaySchema.Asset;
   isOfferMaker: boolean;
   refreshBids: () => Promise<any>;
 }
@@ -51,8 +51,6 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
 
     router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
   }, [bid, router, account, isOfferMaker]);
-
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
 
   if (isBase)
     return (
@@ -95,7 +93,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.summary.value}
+            value={bid.summary}
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -106,7 +104,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             fontSize="sm"
             fontWeight="500"
             color="white"
-            value={bid.fdv.value}
+            value={bid.fdv}
             abbreviated
             currencyTextProps={{
               color: 'dark.50',

@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from 'react';
 
 import { LotMultiplicatorDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
-export function useLotMultiplicatorValue(type: Resource.Lot.Enums.LotType) {
+export function useLotMultiplicatorValue(type: DeskGatewaySchema.LotType) {
   const multiplicator = useMemo(() => LotMultiplicatorDictionary.get(type).multiplicator, [type]);
 
   const serializeValue = useCallback(

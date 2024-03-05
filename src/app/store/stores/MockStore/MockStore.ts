@@ -9,7 +9,7 @@
 // type MockStoreResult<T extends MockStoreMethod> = RpcApiResult<RPC.Schema, T>;
 
 // export class MockStore {
-//   public lotListActive(assets: Resource.Asset.Asset[]): MockStoreResult<'lot.listActive'> {
+//   public lotListActive(assets: DeskGatewaySchema.Asset[]): MockStoreResult<'lot.listActive'> {
 //     return {
 //       items: faker.helpers.multiple(() => createLot(assets), {
 //         count: 20,
@@ -28,7 +28,7 @@
 //   }
 
 //   public bidListLot(params: MockStorePayload<'bids.listLot'>): {
-//     items: Resource.Bid.Bid[];
+//     items: DeskGatewaySchema.Bid[];
 //     total: number;
 //   } {
 //     return {

@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Decimal } from 'decimal.js';
 
-export function useFormContext(lot: Resource.Lot.Lot) {
+export function useFormContext(lot: DeskGatewaySchema.Lot) {
   return useMemo(
     () => ({
       minSummary: lot.attributes.COMMON_MIN_FILTER_SUMMARY

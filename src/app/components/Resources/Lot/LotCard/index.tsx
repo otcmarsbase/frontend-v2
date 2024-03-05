@@ -4,7 +4,7 @@ import { AssetVerticalJoin, LotReassignmentType, UILogic, useAuth } from '@app/c
 import { MBPages } from '@app/pages';
 import { Box, Divider, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -15,8 +15,8 @@ type FieldType = {
 };
 
 export interface LotCardProps {
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
 }

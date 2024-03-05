@@ -7,7 +7,7 @@ import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
@@ -18,7 +18,7 @@ export const Lots: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.LotList.Payload>(() => {
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const status = filters.status.length
       ? (filters.status.flatMap((value) => {
           switch (value) {
@@ -31,7 +31,7 @@ export const Lots: React.FC = () => {
             default:
               return [];
           }
-        }) as Resource.Lot.Enums.LotStatus[])
+        }) as DeskGatewaySchema.LotStatus[])
       : undefined;
 
     return { page: { skip, limit }, filter: { status, onlyMy: true } };
@@ -45,7 +45,7 @@ export const Lots: React.FC = () => {
   );
 
   const findAsset = useCallback(
-    (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
+    (assetId: DeskGatewaySchema.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
     [assets],
   );
 

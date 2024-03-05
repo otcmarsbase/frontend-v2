@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { useBreakpointDevice } from '@app/hooks';
 import { UILayout } from '@app/layouts';
@@ -13,14 +15,15 @@ export interface ViewProps {
 export default function View({ id }: ViewProps) {
   const { isMobile } = useBreakpointDevice();
 
-  const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.getById', { id });
-  const { data: stats, isLoading: statsIsLoading } = useRpcSchemaQuery(
-    'asset.getStatsById',
-    { id },
-    { placeholderData: { averageFdv: '0', lotSellCount: 0, lotBuyCount: 0, lotBuyCvSum: '0', lotSellCvSum: '0' } },
-  );
+  const { data, isLoading: assetIsLoading } = useRpcSchemaQuery('asset.list', {
+    filter: { id: [id] },
+    include: { assetLotStatsAggregation: true },
+  });
 
-  if (!asset || !stats || assetIsLoading || statsIsLoading) return <UILogic.AssetPageSkeleton />;
+  const asset = useMemo(() => data.items[0], [data]);
+  const stats = useMemo(() => data.links[0], [data]);
+
+  if (!asset || assetIsLoading) return <UILogic.AssetPageSkeleton />;
 
   if (isMobile) return <AssetViewMobile asset={asset} stats={stats} />;
 

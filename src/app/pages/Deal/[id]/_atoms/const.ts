@@ -1,6 +1,6 @@
 import { createDictionary } from '@app/dictionary';
 import { IconProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 export const TradeProgressStatusField = [
@@ -54,7 +54,7 @@ export const DealBlockTypeDictionary = createDictionary<DealBlockType, { title: 
   .asReadonly();
 
 export const TradeValidationStatusDictionary = createDictionary<
-  Resource.Deal.Enums.KeyResultStatus,
+  DeskGatewaySchema.KeyResultStatus,
   { title: string; color: string; icon: React.FC<IconProps> }
 >()
   .setFromRecord({

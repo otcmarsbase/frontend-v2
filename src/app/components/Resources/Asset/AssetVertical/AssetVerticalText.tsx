@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 
 import { AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface AssetVerticalTextProps extends TextProps {
-  value: Resource.Asset.Enums.AssetVertical;
+  value: DeskGatewaySchema.AssetVertical;
 }
 
 export function AssetVerticalText({ value }: AssetVerticalTextProps) {

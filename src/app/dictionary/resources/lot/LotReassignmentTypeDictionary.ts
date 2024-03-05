@@ -1,9 +1,9 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
 export const LotReassignmentTypeDictionary = createDictionary<
-  Resource.Lot.Enums.LotReassignmentType,
+  DeskGatewaySchema.LotReassignmentType,
   string
 >().setFromEntries([
   ['DIRECT', 'Direct'],

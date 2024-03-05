@@ -1,11 +1,11 @@
 import { UILogic } from '@app/components';
 import LINQ from '@berish/linq';
 import { HStack, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export interface LinksBlockProps {
-  links: Resource.Asset.ValueObjects.AssetLink[];
+  links: DeskGatewaySchema.AssetLink[];
 }
 
 export function LinksBlock({ links }: LinksBlockProps) {

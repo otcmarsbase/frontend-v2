@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import LINQ from '@berish/linq';
 import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
 
 import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
@@ -15,9 +15,9 @@ import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
 import { InfoBlock } from './_atoms_mobile';
 
 export interface LotMobileProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
   isOfferMaker: boolean;
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
 }
 
 export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }) => {
@@ -45,7 +45,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
               title: 'Site',
               url: asset.website,
             },
-          ] as Resource.Asset.ValueObjects.AssetLink[])
+          ] as DeskGatewaySchema.AssetLink[])
         : asset.info.links,
     ).groupBy((link) => link.group),
   );

@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { HStack, UIKit, VStack } from '@shared/ui-kit';
 import { formatToMoney } from '@shared/utils';
 import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {

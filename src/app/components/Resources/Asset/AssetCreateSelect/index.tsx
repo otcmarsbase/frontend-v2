@@ -2,13 +2,13 @@ import { useCallback, useRef, useState } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { AssetImage } from '../AssetImage';
 
-type SelectType = Resource.Asset.AssetKey | Resource.Asset.Asset | string;
+type SelectType = DeskGatewaySchema.AssetKey | DeskGatewaySchema.Asset | string;
 
 export interface AssetCreateSelectProps
   extends Omit<UIKit.SelectAsyncProps<SelectType, false>, 'load' | 'renderItem'> {}
@@ -16,7 +16,7 @@ export interface AssetCreateSelectProps
 export const AssetCreateSelect: React.FC<AssetCreateSelectProps> = ({ value, ...props }) => {
   const rpcSchema = useRpcSchemaClient();
   const queryClient = useQueryClient();
-  const itemsRef = useRef<Resource.Asset.Asset[]>([]);
+  const itemsRef = useRef<DeskGatewaySchema.Asset[]>([]);
   const [search, setSearch] = useState<string>();
 
   const equalsItems = useCallback((item1: SelectType, item2: SelectType) => {

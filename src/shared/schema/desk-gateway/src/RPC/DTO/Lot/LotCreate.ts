@@ -1,9 +1,9 @@
-import { Resource } from '../../../Resource';
+import { Lot, LotInputObject, LotType } from '../../../Resource';
 
 export namespace LotCreate {
   export type Payload = {
-    type: Resource.Lot.Enums.LotType;
-    inputs: Resource.Lot.LotInputObject;
+    type: LotType;
+    inputs: LotInputObject;
   };
-  export type Result = Resource.Lot.Lot;
+  export type Result = Lot;
 }

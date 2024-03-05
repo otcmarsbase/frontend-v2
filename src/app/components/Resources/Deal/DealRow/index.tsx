@@ -3,16 +3,16 @@ import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { GridItem, HStack, SimpleGrid, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealRowFieldNameTitleMap } from '../const';
 import { DealCard } from '../DealCard';
 
 export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
-  lot: Resource.Lot.Lot;
+  deal: DeskGatewaySchema.Deal;
+  asset: DeskGatewaySchema.Asset;
+  lot: DeskGatewaySchema.Lot;
   onClick: () => any;
 }
 

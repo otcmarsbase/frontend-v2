@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
 
 import { VStack, Text, HStack, Box, Divider } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { values } from 'lodash';
 
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';

@@ -1,12 +1,12 @@
 import { SimpleGrid, VStack, Heading, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText } from '@shared/ui-kit';
 
 import { AvailableBlock } from './AvailableBlock';
 import { LotInfoItem } from './LotInfoItem';
 
 export interface LotInfoProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const LotInfo: React.FC<LotInfoProps> = ({ lot }) => {

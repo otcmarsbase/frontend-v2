@@ -1,5 +1,5 @@
 import { ComponentWithAs, IconProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 import { createDictionary } from '../utils';
@@ -13,7 +13,7 @@ export interface TradeDirectionDictionaryInfo {
 }
 
 export const TradeDirectionDictionary = createDictionary<
-  Resource.Common.Enums.TradeDirection,
+  DeskGatewaySchema.TradeDirection,
   TradeDirectionDictionaryInfo
 >({
   BUY: {

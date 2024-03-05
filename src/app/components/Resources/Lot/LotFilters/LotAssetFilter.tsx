@@ -2,27 +2,28 @@ import { useCallback } from 'react';
 
 import { AssetIconButton } from '@app/components';
 import { SimpleGrid } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface LotAssetFilterProps {
-  assets: Resource.Asset.Asset[];
-  value: Resource.Asset.Asset[];
-  onChange: (value: Resource.Asset.Asset[]) => any;
+  assets: DeskGatewaySchema.Asset[];
+  value: DeskGatewaySchema.Asset[];
+  onChange: (value: DeskGatewaySchema.Asset[]) => any;
 }
 
 export function LotAssetFilter({ assets, value, onChange }: LotAssetFilterProps) {
   const isEqualsCallback = useCallback(
-    (asset1: Resource.Asset.Asset, asset2: Resource.Asset.Asset) => asset1?.id === asset2?.id,
+    (asset1: DeskGatewaySchema.Asset, asset2: DeskGatewaySchema.Asset) => asset1?.id === asset2?.id,
     [],
   );
 
   const isSelectedCallback = useCallback(
-    (asset: Resource.Asset.Asset) => value.findIndex((selectedAsset) => isEqualsCallback(asset, selectedAsset)) !== -1,
+    (asset: DeskGatewaySchema.Asset) =>
+      value.findIndex((selectedAsset) => isEqualsCallback(asset, selectedAsset)) !== -1,
     [value, isEqualsCallback],
   );
 
   const onChangeCallback = useCallback(
-    (asset: Resource.Asset.Asset) => {
+    (asset: DeskGatewaySchema.Asset) => {
       return (isSelected: boolean) => {
         const newValues = isSelected ? value.concat(asset) : value.filter((m) => !isEqualsCallback(m, asset));
         if (onChange) onChange(newValues);

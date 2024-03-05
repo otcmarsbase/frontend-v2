@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { UILogic, useRpcSchemaQuery } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { HStack, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 import { toNumber } from 'lodash';
 
@@ -13,7 +13,7 @@ import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
 
 interface DealProps {
-  id: Resource.Deal.DealKey['id'];
+  id: DeskGatewaySchema.DealKey['id'];
 }
 
 const Deal: React.FC<DealProps> = observer(({ id }) => {
@@ -40,11 +40,11 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
           <BaseDealInfo lot={lot} deal={deal} asset={asset} />
 
           <DealInfo
-            price={deal.price.value}
-            amount={deal.summary.value}
-            fdv={deal.fdv.value}
+            price={deal.price}
+            amount={deal.summary}
+            fdv={deal.fdv}
             lotType={lot.type}
-            marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent.value).mul(100).toString()}
+            marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent).mul(100).toString()}
           />
 
           <DealParticipants

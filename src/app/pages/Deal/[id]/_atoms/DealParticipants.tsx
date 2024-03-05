@@ -3,12 +3,12 @@ import React, { FC } from 'react';
 import { AccountAvatar } from '@app/components';
 import { formatAddress } from '@app/utils';
 import { Heading, HStack, Text, SimpleGrid, VStack, Button } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { DealBlockTypeDictionary, DealParticipantDictionary, DealParticipantType } from './const';
 
 export type DealParticipantItem = {
-  account: Resource.Account.Account;
+  account: DeskGatewaySchema.Account;
   type: DealParticipantType;
 };
 
@@ -29,7 +29,7 @@ const GridParticipantField: React.FC<GridParticipantFieldProps> = ({ label, valu
 };
 
 interface DealParticipantProps {
-  user: Resource.User.User;
+  user: DeskGatewaySchema.User;
   type: DealParticipantType;
 }
 
@@ -49,9 +49,9 @@ const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
 };
 
 export interface DealParticipantsProps {
-  moderators: Resource.User.User[];
-  bidMakers: Resource.User.User[];
-  offerMakers: Resource.User.User[];
+  moderators: DeskGatewaySchema.User[];
+  bidMakers: DeskGatewaySchema.User[];
+  offerMakers: DeskGatewaySchema.User[];
   telegramChatLink: string;
 }
 
