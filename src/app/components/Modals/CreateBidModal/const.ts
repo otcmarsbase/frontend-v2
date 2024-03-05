@@ -37,7 +37,7 @@ export const CommonFieldsDictionary = createDictionary<CommonField, FieldDescrip
       label: 'I’m the broker',
     },
     LOCATION: {
-      label: 'Locate',
+      label: 'Citizenship',
       placeholder: 'Choose country',
     },
     READY_FOR_VERIFICATION: {
