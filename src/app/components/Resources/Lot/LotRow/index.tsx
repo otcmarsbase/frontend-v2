@@ -28,8 +28,6 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, md: false });
 
-  const isAssetCreateRequest = !lot.attributes.INVEST_DOC_ASSET_PK && lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST;
-
   const fields = useMemo<FieldType[]>(() => {
     return [
       {
@@ -37,15 +35,10 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
       },
       {
-        label: LotRowFieldNameTitleMap.get('PUBLISHED_AT'),
-        value: <UIKit.DateText value={lot.attributes.COMMON_CREATED_AT_ATTRIBUTE} />,
-      },
-      {
         label: LotRowFieldNameTitleMap.get('FDV'),
         value: (
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
-            abbreviated
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -53,36 +46,26 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         ),
       },
       {
-        label: LotRowFieldNameTitleMap.get('LOT_VALUE'),
-        value:
-          lot.type === 'SAFT' ? (
-            <Text>{getContractSize(lot)}</Text>
-          ) : (
-            <UIKit.PercentText value={getContractSize(lot)} />
-          ),
+        label: LotRowFieldNameTitleMap.get('OFFER_MAKER'),
+        value: <Text>{lot.attributes.COMMON_IS_DIRECT ? 'Direct' : 'Broker'}</Text>,
       },
       {
-        label: LotRowFieldNameTitleMap.get('VERTICAL'),
-        value: isAssetCreateRequest ? (
-          <Text>-</Text>
-        ) : (
-          <HStack>
-            {asset.info.verticals.map((vertical, index) => (
-              <UILogic.AssetVerticalIcon value={vertical} key={index} />
-            ))}
-          </HStack>
+        label: LotRowFieldNameTitleMap.get('MIN_BID'),
+        value: (
+          <UIKit.MoneyText
+            value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
         ),
       },
       {
-        label: LotRowFieldNameTitleMap.get('DEADLINE'),
-        value: <UIKit.DateText value={lot.attributes.COMMON_DEADLINE} />,
-      },
-      {
-        label: LotRowFieldNameTitleMap.get('TOTAL_BIDS_PLACE'),
-        value: lot.totalBids,
+        label: LotRowFieldNameTitleMap.get('LOT_STATUS'),
+        value: <UILogic.LotStatus value={lot.status} />,
       },
     ].filter(Boolean);
-  }, [lot, isAssetCreateRequest, asset.info.verticals]);
+  }, [lot]);
 
   if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
 
@@ -100,37 +83,23 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       _hover={{
         bg: 'dark.800',
       }}
-      alignItems="start"
+      alignItems="center"
       onClick={onClick}
       {...stackProps}
     >
       <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
-      <VStack gap="1rem" marginTop="1rem" alignItems="start">
-        <HStack gap="0.7rem">
-          <Text color="dark.200">#{lot.id}</Text>
-          {lot.isHot && <LotHotChip />}
-        </HStack>
-        <HStack gap="0.5rem" alignItems="center">
-          <UILogic.AssetName
-            size="sm"
-            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-            asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
-          />
-        </HStack>
-        <UILogic.LotStatus value={lot.status} />
-      </VStack>
+      <HStack gap="0.5rem" alignItems="center">
+        <UILogic.AssetName
+          size="sm"
+          onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+          asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
+        />
+      </HStack>
       <HStack>
-        <Grid templateColumns={'repeat(4, 13rem)'} gridRowGap="1.5rem">
+        <Grid templateColumns={'repeat(5, minmax(9rem, 1fr))'} gap="2rem" w="full">
           {fields.map((field, index) => (
-            <GridItem
-              w="100%"
-              key={index}
-              borderBottom="1px solid"
-              borderColor={index > 3 ? 'transparent' : 'dark.400'}
-              marginRight={index > 3 ? 0 : '8rem'}
-              pb="0.75rem"
-            >
-              <VStack alignItems="start" maxW="8rem" w="full">
+            <GridItem w="full" key={index} pb="0.75rem">
+              <VStack alignItems="start" maxW="8rem" w="full" key={index}>
                 <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
                   {field.label}
                 </Text>

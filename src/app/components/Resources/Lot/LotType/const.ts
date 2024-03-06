@@ -5,10 +5,14 @@ export const LotTypeTitleMap = new Map<Resource.Lot.Enums.LotType, React.ReactNo
   ['SAFE', 'SAFE'],
   ['SAFT', 'SAFT'],
   ['TOKEN_WARRANT', 'Token warrant'],
+  ['EQUITY', 'Equity'],
+  ['UNLOCKED_TOKENS', 'Unlocked tokens'],
 ]);
 
 export const LotTypeColorMap = new Map<Resource.Lot.Enums.LotType, Property.Color>([
   ['SAFE', '#EF5DA8'],
   ['SAFT', '#5D5FEF'],
   ['TOKEN_WARRANT', '#FF5B37'],
+  ['EQUITY', '#9851FF'],
+  ['UNLOCKED_TOKENS', '#4ED1FA'],
 ]);

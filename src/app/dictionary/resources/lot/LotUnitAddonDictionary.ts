@@ -7,5 +7,7 @@ export const LotUnitAddonDictionary = createDictionary<Resource.Lot.Enums.LotTyp
     ['SAFE', '%'],
     ['SAFT', ''],
     ['TOKEN_WARRANT', '%'],
+    ['EQUITY', '%'],
+    ['UNLOCKED_TOKENS', ''],
   ])
   .asReadonly();

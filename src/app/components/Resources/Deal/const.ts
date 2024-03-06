@@ -14,7 +14,7 @@ export const DealRowFieldNameTitleMap = new Map<DelaRowFieldName, string>([
   ['CREATED_TIME', 'Created time'],
   ['LOT_ID', 'Lot ID'],
   ['DEAL_SIZE', 'Deal size'],
-  ['DEAL_AMOUNT', 'Amount'],
-  ['DEAL_FDV', 'Deal FDV'],
+  ['DEAL_AMOUNT', 'Contract size'],
+  ['DEAL_FDV', 'Target valuation'],
   ['STATUS', 'Status'],
 ]);

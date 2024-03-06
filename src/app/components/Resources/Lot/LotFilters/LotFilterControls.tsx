@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { Button, HStack, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { UIIcons } from '@shared/ui-icons';
 
@@ -11,6 +13,8 @@ export interface LotFilterControlsProps {
 }
 
 export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotFilterControlsProps) {
+  const searchValue = useMemo(() => search ?? '', [search]);
+
   return (
     <HStack w={{ base: '100%', md: 'auto' }} flexDirection={{ base: 'row-reverse', md: 'row' }}>
       <Button
@@ -25,7 +29,7 @@ export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotF
         <InputLeftElement>
           <UIIcons.Common.SearchIcon />
         </InputLeftElement>
-        <Input placeholder="Search" value={search} onChange={(e) => onChangeSearch(e.target.value)} />
+        <Input placeholder="Search" value={searchValue} onChange={(e) => onChangeSearch(e.target.value)} />
       </InputGroup>
       {/* <UIKit.SelectSync<LotFilterSortByField>
         placeholder="Sort by"

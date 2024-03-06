@@ -1,27 +1,19 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
-import { useLotMultiplicatorValue, useToastInnerCallback } from '@app/hooks';
+import { useToastInnerCallback } from '@app/hooks';
 import { Button, FormControl, FormLabel, HStack, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { Resource } from '@schema/desk-gateway';
 import { InputNumber, Modal, UIKit, useForm, useIsRequired } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { useFdvChange, usePriceChange, useSummaryChange, useUnitsChange } from './_hooks';
-import {
-  UnitsDescriptorDictionary,
-  UnitsDictionary,
-  SummaryDescriptorDictionary,
-  CreateBidModalTitleDictionary,
-  PriceDescriptorDictionary,
-  CommonFieldsDictionary,
-} from './const';
+import { CreateBidModalTitleDictionary, PriceDescriptorDictionary, CommonFieldsDictionary } from './const';
 import { formatNumberProps } from './formatNumberProps';
 import { BidCreateSchema, CreateBidModel } from './schema';
 import { useDefaultValues } from './useDefaultValues';
-import { useRange } from './useRange';
+import { useFormContext } from './useFormContext';
 
 export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
   lot: Resource.Lot.Lot;
@@ -29,7 +21,7 @@ export interface CreateBidModalProps extends PortalProps<Resource.Bid.Bid> {
 
 export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) => {
   const defaultValues = useDefaultValues(lot);
-  const range = useRange(lot);
+  const context = useFormContext(lot);
   const queryClient = useQueryClient();
 
   const rpcSchema = useRpcSchemaClient();
@@ -37,7 +29,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     mode: 'onTouched',
     schema: BidCreateSchema,
     defaultValues,
-    context: range,
+    context,
   });
   const {
     control,
@@ -47,8 +39,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   } = formMethods;
 
   const isRequired = useIsRequired(BidCreateSchema, getValues);
-
-  const { serializeValue, deserializeValue } = useLotMultiplicatorValue(lot.type);
+  const isShowPrice = useMemo(() => ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type), [lot.type])
 
   const onClose = useCallback(() => {
     if (portal && portal.resolve) portal.resolve(null);
@@ -62,12 +53,11 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
         location: values.location,
         readyForVerification: values.readyForVerification,
         telegram: values.telegram,
-        isDirect: values.isDirect,
-        deadline: values.deadline?.valueOf(),
+        isDirect: !values.isBroker,
         summary: String(values.summary),
         units: String(values.units),
         price: String(values.price),
-        fdv: values.fdv ? String(values.fdv) : undefined,
+        fdv: String(values.fdv),
       });
 
       await queryClient.invalidateQueries({
@@ -80,11 +70,6 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   );
 
   const onSubmit = useToastInnerCallback(createBid, {});
-
-  const handleUnitsChange = useUnitsChange(formMethods);
-  const handleSummaryChange = useSummaryChange(formMethods);
-  const handlePriceChange = usePriceChange(formMethods, lot.type);
-  const handleFdvChange = useFdvChange(formMethods, lot.type);
 
   return (
     <Modal
@@ -101,35 +86,8 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
     >
       <VStack spacing="1rem" width="full">
         <HStack spacing="1rem" width="full">
-          <FormControl isRequired={isRequired('units')} isInvalid={Boolean(errors.units)}>
-            <FormLabel>{UnitsDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).label}</FormLabel>
-            <Controller
-              control={control}
-              name="units"
-              render={(props) => (
-                <InputGroup>
-                  <InputNumber
-                    {...props.field}
-                    placeholder={UnitsDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).placeholder}
-                    onChange={(value) => {
-                      const newValue = deserializeValue(value);
-                      props.field.onChange(newValue);
-                      handleUnitsChange(newValue);
-                    }}
-                    value={serializeValue(props.field.value)}
-                    {...formatNumberProps()}
-                  />
-                  <InputRightElement>
-                    <Text color="orange.500" fontSize="sm">
-                      {UnitsDictionary.get(lot.type)}
-                    </Text>
-                  </InputRightElement>
-                </InputGroup>
-              )}
-            />
-          </FormControl>
           <FormControl isRequired={isRequired('summary')} isInvalid={Boolean(errors.summary)}>
-            <FormLabel>{SummaryDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).label}</FormLabel>
+            <FormLabel>{CommonFieldsDictionary.get('SUMMARY').label}</FormLabel>
             <Controller
               control={control}
               name="summary"
@@ -137,11 +95,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
                 <InputGroup>
                   <InputNumber
                     {...props.field}
-                    placeholder={SummaryDescriptorDictionary.get(lot.attributes.COMMON_DIRECTION).placeholder}
-                    onChange={(value) => {
-                      props.field.onChange(value);
-                      handleSummaryChange(value);
-                    }}
+                    placeholder={CommonFieldsDictionary.get('SUMMARY').placeholder}
                     {...formatNumberProps()}
                   />
                   <InputRightElement>
@@ -153,51 +107,16 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
               )}
             />
           </FormControl>
-        </HStack>
-        <HStack spacing="1rem" width="full">
-          {lot.type !== 'SAFT' && (
-            <FormControl isRequired={isRequired('fdv')} isInvalid={Boolean(errors.price)}>
-              <FormLabel>{CommonFieldsDictionary.get('FDV').label}</FormLabel>
-              <Controller
-                control={control}
-                name="fdv"
-                render={(props) => (
-                  <InputGroup>
-                    <InputNumber
-                      {...props.field}
-                      placeholder={CommonFieldsDictionary.get('FDV').placeholder}
-                      onChange={(value) => {
-                        props.field.onChange(value);
-                        handleFdvChange(value);
-                      }}
-                      isDisabled={Boolean(defaultValues.price)}
-                      {...formatNumberProps()}
-                    />
-                    <InputRightElement>
-                      <Text color="orange.500" fontSize="sm">
-                        $
-                      </Text>
-                    </InputRightElement>
-                  </InputGroup>
-                )}
-              />
-            </FormControl>
-          )}
-          <FormControl isRequired={isRequired('price')} isInvalid={Boolean(errors.price)}>
-            <FormLabel>{PriceDescriptorDictionary.get(lot.type).label}</FormLabel>
+          <FormControl isRequired={isRequired('fdv')} isInvalid={Boolean(errors.fdv)}>
+            <FormLabel>{CommonFieldsDictionary.get('FDV').label}</FormLabel>
             <Controller
               control={control}
-              name="price"
+              name="fdv"
               render={(props) => (
                 <InputGroup>
                   <InputNumber
                     {...props.field}
-                    placeholder={PriceDescriptorDictionary.get(lot.type).placeholder}
-                    onChange={(value) => {
-                      props.field.onChange(value);
-                      handlePriceChange(value);
-                    }}
-                    isDisabled={Boolean(defaultValues.price)}
+                    placeholder={CommonFieldsDictionary.get('FDV').placeholder}
                     {...formatNumberProps()}
                   />
                   <InputRightElement>
@@ -211,17 +130,32 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
           </FormControl>
         </HStack>
         <VStack spacing="1em" width="full">
-          <FormControl isRequired={isRequired('deadline')} isInvalid={Boolean(errors.deadline)}>
-            <FormLabel>{CommonFieldsDictionary.get('DEADLINE').label}</FormLabel>
-            <Controller
-              control={control}
-              name="deadline"
-              render={(props) => <UIKit.DatePicker minDate={new Date()} {...props.field} />}
-            />
-          </FormControl>
+          {isShowPrice && (
+            <FormControl isInvalid={Boolean(errors.price)}>
+              <FormLabel>{PriceDescriptorDictionary.get(lot.type).label}</FormLabel>
+              <Controller
+                control={control}
+                name="price"
+                render={(props) => (
+                  <InputGroup>
+                    <InputNumber
+                      {...props.field}
+                      placeholder={PriceDescriptorDictionary.get(lot.type).placeholder}
+                      {...formatNumberProps()}
+                    />
+                    <InputRightElement>
+                      <Text color="orange.500" fontSize="sm">
+                        $
+                      </Text>
+                    </InputRightElement>
+                  </InputGroup>
+                )}
+              />
+            </FormControl>
+          )}
           <VStack alignItems="start" width="full">
             <FormControl isRequired={isRequired('bidMakerType')}>
-              <FormLabel>{CommonFieldsDictionary.get('BID_MAKER_TYPE').placeholder}</FormLabel>
+              <FormLabel>{CommonFieldsDictionary.get('BID_MAKER_TYPE').label}</FormLabel>
               <Controller
                 control={control}
                 name="bidMakerType"
@@ -237,10 +171,10 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
             </FormControl>
             <Controller
               control={control}
-              name="isDirect"
+              name="isBroker"
               render={({ field }) => (
                 <UIKit.Checkbox checked={field.value} onChange={field.onChange}>
-                  {CommonFieldsDictionary.get('DIRECT').label}
+                  {CommonFieldsDictionary.get('IS_BROKER').label}
                 </UIKit.Checkbox>
               )}
             />

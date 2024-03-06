@@ -5,5 +5,6 @@ import Errors from './Errors';
 import Lot from './Lot';
 import Marketplace from './Marketplace';
 import Home from './Marketplace/Home';
+import Profile from './Profile';
 
-export default { Errors, Asset, Dashboard, Deal, Home, Lot, Marketplace };
+export default { Errors, Asset, Dashboard, Deal, Home, Lot, Marketplace, Profile };

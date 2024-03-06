@@ -1,7 +1,5 @@
 import { createIcon } from '@chakra-ui/react';
 
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>;
-
 export const ProfileIcon = createIcon({
   displayName: 'ProfileIcon',
   viewBox: '0 0 24 24',
@@ -10,10 +8,18 @@ export const ProfileIcon = createIcon({
   },
   path: [
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M11.9986 3C9.51259 3 7.49727 5.01472 7.49727 7.5C7.49727 9.98528 9.51259 12 11.9986 12C14.4847 12 16.5 9.98528 16.5 7.5C16.5 5.01472 14.4847 3 11.9986 3ZM19.2012 16.284L20.9027 19.695C21.0431 19.9736 21.0292 20.305 20.866 20.5708C20.7028 20.8367 20.4135 20.9991 20.1015 21H3.89657C3.58454 20.9991 3.29525 20.8367 3.13203 20.5708C2.9688 20.305 2.95491 19.9736 3.09533 19.695L4.79684 16.284C5.56002 14.7615 7.11755 13.8001 8.82106 13.8H15.177C16.8805 13.8001 18.438 14.7615 19.2012 16.284Z"
-      fill="currentColor"
+      d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />,
+    <path
+      d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />,
   ],
 });

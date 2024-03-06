@@ -4,10 +4,16 @@ import { Resource } from '@schema/desk-gateway';
 
 export interface ParticipantTypesTextProps extends StackProps {
   value: Resource.Common.ParticipantType[];
+  empty?: string;
   textProps?: TextProps;
 }
 
-export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({ value, textProps, ...stackProps }) => (
+export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({
+  value,
+  textProps,
+  empty = '-',
+  ...stackProps
+}) => (
   <HStack
     divider={
       <Text color="orange.500" mr="0.5rem">
@@ -23,7 +29,7 @@ export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({ valu
         </Text>
       ))
     ) : (
-      <Text {...textProps}>-</Text>
+      <Text {...textProps}>{empty}</Text>
     )}
   </HStack>
 );

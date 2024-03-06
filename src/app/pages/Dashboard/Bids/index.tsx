@@ -19,22 +19,46 @@ const MyBids: React.FC = () => {
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
   const fetchPayload = useMemo<RPC.DTO.BidList.Payload>(() => {
-    const status = filters.status.length
-      ? (filters.status.flatMap((value) => {
-          switch (value) {
-            case 'active':
-              return ['ACTIVE'];
-            case 'moderated':
-              return ['ON_MODERATION'];
-            case 'ended':
-              return ['REJECTED', 'DEAL'];
-            default:
-              return [];
-          }
-        }) as Resource.Bid.Enums.BidStatus[])
-      : undefined;
+    const filter: RPC.DTO.BidList.Filter = {
+      onlyMy: true,
+      OR: [],
+    };
 
-    return { page: { skip, limit }, filter: { status, onlyMy: true } };
+    for (const status of filters.status) {
+      if (status === 'active') {
+        filter.OR.push({
+          status: ['ACTIVE'],
+        });
+        filter.OR.push({
+          lot: {
+            deal: {
+              status: ['NEGOTIATION'],
+            },
+          },
+        });
+      } else if (status === 'moderated') {
+        filter.OR.push({
+          status: ['ON_MODERATION'],
+        });
+      } else if (status === 'ended') {
+        filter.OR.push({
+          status: ['ARCHIVED', 'REJECTED'],
+        });
+        filter.OR.push({
+          lot: {
+            deal: {
+              status: ['COMPLETED', 'REJECTED'],
+            },
+          },
+        });
+      }
+    }
+
+    if (!filter.OR.length) {
+      delete filter.OR;
+    }
+
+    return { page: { skip, limit }, filter };
   }, [skip, limit, filters]);
 
   const { data: bids, isLoading: bidsIsLoading } = useRpcSchemaQuery('bid.list', fetchPayload);

@@ -1,0 +1,16 @@
+import { useMemo } from 'react';
+
+import { Resource } from '@schema/desk-gateway';
+import { Decimal } from 'decimal.js';
+
+export function useFormContext(lot: Resource.Lot.Lot) {
+  return useMemo(
+    () => ({
+      minSummary: lot.attributes.COMMON_MIN_FILTER_SUMMARY
+        ? new Decimal(lot.attributes.COMMON_MIN_FILTER_SUMMARY).toNumber()
+        : 5000,
+      maxSummary: lot.attributes.COMMON_SUMMARY ? new Decimal(lot.attributes.COMMON_SUMMARY).toNumber() : null,
+    }),
+    [lot],
+  );
+}

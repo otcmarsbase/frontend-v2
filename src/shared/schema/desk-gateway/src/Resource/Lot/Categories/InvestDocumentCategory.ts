@@ -17,7 +17,7 @@ export namespace InvestDocumentCategory {
       LotInputs.INVEST_DOC_ROUND_TYPE,
       LotInputs.INVEST_DOC_ROUND_UNITS,
       LotInputs.INVEST_DOC_SHARE,
-      LotInputs.INVEST_DOC_WITH_REASSIGN,
+      LotInputs.INVEST_DOC_REASSIGNMENT_TYPE,
     ]
   >;
 

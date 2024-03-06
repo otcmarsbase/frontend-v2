@@ -4,5 +4,6 @@ export default defineStyle({
   colors: {
     promo: '#00CB82',
     done: '#34A853',
+    error: '#E82A36',
   },
 });
