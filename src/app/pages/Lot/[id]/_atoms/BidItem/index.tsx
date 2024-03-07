@@ -106,7 +106,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             fontSize="sm"
             fontWeight="500"
             color="white"
-            value={bid.fdv.value}
+            value={bid.fdv?.value}
             abbreviated
             currencyTextProps={{
               color: 'dark.50',
