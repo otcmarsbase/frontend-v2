@@ -66,17 +66,17 @@ export const TradeValidationStatusDictionary = createDictionary<
     FAILED: {
       title: 'Failed',
       color: '#E82A36',
-      icon: UIIcons.Common.InfoIcon,
+      icon: UIIcons.Common.CloseModalIcon,
     },
     PROCESS: {
       title: 'Pending',
       color: '#2C2C2E',
-      icon: UIIcons.Common.CloseModalIcon,
+      icon: UIIcons.Common.ProcessingIcon,
     },
     NEW: {
       title: 'Validated',
       color: '#FF5B37',
-      icon: UIIcons.Common.ProcessingIcon,
+      icon: UIIcons.Common.InfoIcon,
     },
   })
   .asReadonly();

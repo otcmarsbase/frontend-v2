@@ -14,7 +14,7 @@ import {
 
 export const CommonInputs = yup.object({
   COMMON_DIRECTION: COMMON_DIRECTION.required().default('BUY'),
-  COMMON_IS_DIRECT: COMMON_IS_DIRECT.required(),
+  COMMON_IS_DIRECT: COMMON_IS_DIRECT.required().default(true),
   COMMON_MIN_FILTER_SUMMARY: COMMON_MIN_FILTER_SUMMARY.default('5000').required(),
   COMMON_OFFER_MAKER_TYPES: COMMON_OFFER_MAKER_TYPES.min(1).required(),
   COMMON_PRICE: COMMON_PRICE.nullable(),

@@ -30,22 +30,10 @@ export namespace Lot {
   }
 
   export type LotInputObject = LotInputs.Utils.MergeInputs<
-    [
-      SAFTCategory.InputObject,
-      SAFECategory.InputObject,
-      TokenWarrantCategory.InputObject,
-      EquityCategory.InputObject,
-      UnlockedTokensCategory.InputObject,
-    ]
+    [SAFTCategory.InputObject, SAFECategory.InputObject, TokenWarrantCategory.InputObject, EquityCategory.InputObject, UnlockedTokensCategory.InputObject]
   >;
   export type LotAttributesObject = LotAttributes.Utils.MergeAttributes<
-    [
-      SAFTCategory.AttributeObject,
-      SAFECategory.AttributeObject,
-      TokenWarrantCategory.AttributeObject,
-      EquityCategory.AttributeObject,
-      UnlockedTokensCategory.AttributeObject,
-    ]
+    [SAFTCategory.AttributeObject, SAFECategory.AttributeObject, TokenWarrantCategory.AttributeObject, EquityCategory.AttributeObject, UnlockedTokensCategory.AttributeObject]
   >;
 
   export interface LotKey extends SchemaCommon.ResourceKey<'lot'> {

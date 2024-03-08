@@ -28,6 +28,23 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, md: false });
 
+  const hasPrice = useMemo(() => {
+    return lot.type === 'EQUITY' || lot.type === 'UNLOCKED_TOKENS';
+  }, [lot]);
+
+  const hasFdv = useMemo(() => {
+    return lot.type === 'TOKEN_WARRANT' || lot.type === 'SAFT' || lot.type === 'SAFE';
+  }, [lot]);
+
+  const priceLabel = useMemo(() => {
+    switch (lot.type) {
+      case 'UNLOCKED_TOKENS':
+        return LotRowFieldNameTitleMap.get('PRICE_PER_TOKEN');
+      case 'EQUITY':
+        return LotRowFieldNameTitleMap.get('PRICE_PER_SHARE');
+    }
+  }, [lot]);
+
   const fields = useMemo<FieldType[]>(() => {
     return [
       {
@@ -35,10 +52,32 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
         value: <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />,
       },
       {
+        label: LotRowFieldNameTitleMap.get('DEAL_SIZE'),
+        value: (
+          <UIKit.MoneyText
+            value={lot.attributes.COMMON_SUMMARY}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      },
+      hasFdv && {
         label: LotRowFieldNameTitleMap.get('FDV'),
         value: (
           <UIKit.MoneyText
             value={lot.attributes.INVEST_DOC_FDV}
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      },
+      hasPrice && {
+        label: priceLabel,
+        value: (
+          <UIKit.MoneyText
+            value={lot.attributes.COMMON_PRICE}
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -60,12 +99,8 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
           />
         ),
       },
-      {
-        label: LotRowFieldNameTitleMap.get('LOT_STATUS'),
-        value: <UILogic.LotStatus value={lot.status} />,
-      },
     ].filter(Boolean);
-  }, [lot]);
+  }, [lot, hasFdv, hasPrice, priceLabel]);
 
   if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
 
@@ -75,6 +110,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       borderRadius="0.75rem"
       width="full"
       padding="1.5rem"
+      paddingTop="2rem"
       paddingRight="6rem"
       justifyContent="space-between"
       position="relative"
@@ -83,18 +119,22 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
       _hover={{
         bg: 'dark.800',
       }}
-      alignItems="center"
+      alignItems="start"
       onClick={onClick}
       {...stackProps}
     >
       <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
-      <HStack gap="0.5rem" alignItems="center">
-        <UILogic.AssetName
-          size="sm"
-          onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-          asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
-        />
-      </HStack>
+      <VStack alignItems="flex-start" spacing="0">
+        <Text color="dark.50">#{lot.id}</Text>
+        <HStack gap="1rem" alignItems="center">
+          <UILogic.AssetName
+            size="sm"
+            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+            asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
+          />
+          <UILogic.LotStatus value={lot.status} />
+        </HStack>
+      </VStack>
       <HStack>
         <Grid templateColumns={'repeat(5, minmax(9rem, 1fr))'} gap="2rem" w="full">
           {fields.map((field, index) => (
