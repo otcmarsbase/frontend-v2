@@ -45,7 +45,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
       },
       {
         name: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-        value: <UIKit.MoneyText value={deal.fdv.value} abbreviated />,
+        value: <UIKit.MoneyText value={deal.fdv?.value} abbreviated />,
       },
       {
         name: DealRowFieldNameTitleMap.get('CREATED_TIME'),

@@ -5,3 +5,4 @@ export * from './Bid';
 export * from './Common';
 export * from './Deal';
 export * from './Lot';
+export * from './NotificationSettings';

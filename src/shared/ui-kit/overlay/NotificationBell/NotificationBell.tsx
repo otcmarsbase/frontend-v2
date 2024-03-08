@@ -33,6 +33,7 @@ export const NotificationBell = <T,>({
   items,
   renderItem,
   empty,
+  onViewAll,
   ...popoverProps
 }: NotificationBellProps<T>) => {
   const isEmpty = useMemo(() => !items.length, [items]);
@@ -71,7 +72,7 @@ export const NotificationBell = <T,>({
           )}
         </PopoverBody>
         <PopoverFooter borderTop="1px solid rgba(81, 84, 96, 0.3)">
-          <Link color="orange.300" fontSize="sm">
+          <Link color="orange.300" fontSize="sm" onClick={onViewAll}>
             View all notifications
           </Link>
         </PopoverFooter>

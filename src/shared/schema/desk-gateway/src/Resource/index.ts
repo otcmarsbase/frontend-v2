@@ -7,6 +7,9 @@ import * as BidImports from './Bid';
 import * as CommonImports from './Common';
 import * as DealImports from './Deal';
 import * as LotImports from './Lot';
+import * as NotificationImports from './Notification';
+import * as NotificationCommonImports from './NotificationCommon';
+import * as NotificationConfigImports from './NotificationConfig';
 import * as UserImports from './User';
 
 export namespace Resource {
@@ -18,4 +21,8 @@ export namespace Resource {
   export import Deal = DealImports.Deal;
   export import User = UserImports.User;
   export import Lot = LotImports.Lot;
+
+  export import Notification = NotificationImports.Notification;
+  export import NotificationCommon = NotificationCommonImports.Common;
+  export import NotificationConfig = NotificationConfigImports.NotificationConfig;
 }
