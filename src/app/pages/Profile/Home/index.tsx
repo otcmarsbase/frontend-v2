@@ -18,7 +18,7 @@ const Home: FC = () => {
   const formMethods = useForm({
     defaultValues: account?.profile,
     resolver: yupResolver(ProfileSchema),
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   useEffect(() => {
@@ -60,7 +60,6 @@ const Home: FC = () => {
             label="Telegram"
             render={({ field }) => <InputTelegram placeholder="Enter telegram" {...field} />}
           />
-
           <ProfileInput name="location" label="Location" render={({ field }) => <LocationSelect {...field} />} />
         </InputGroup>
       </VStack>

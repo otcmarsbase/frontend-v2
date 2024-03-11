@@ -1,8 +1,6 @@
 import { FC, useMemo } from 'react';
 
-import { VStack, Text, HStack, Box, Divider } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
-import { values } from 'lodash';
+import { VStack, Text, HStack, Box } from '@chakra-ui/react';
 
 import { StepDescriptorKey, StepDescriptorsDictionary } from './const';
 import {
@@ -17,6 +15,7 @@ import {
   CommonTelegramField,
   InvestDocReassignmentTypeField,
   CommonSummaryField,
+  CommonPriceField,
 } from './review';
 import { StepReviewField } from './review/types';
 import { LotCreateModel } from './schema';
@@ -26,6 +25,14 @@ export interface LotReviewProps {
 }
 
 export const LotReview: FC<LotReviewProps> = ({ values }) => {
+  const hasVesting = useMemo(() => {
+    return values.type === 'TOKEN_WARRANT' || values.type === 'SAFT' || values.SAFE_WITH_TOKEN_WARRANT;
+  }, [values]);
+
+  const hasPrice = useMemo(() => {
+    return values.type === 'EQUITY' || values.type === 'UNLOCKED_TOKENS';
+  }, [values]);
+
   const fields: Record<
     Exclude<StepDescriptorKey, 'INVEST_DOC_REVIEW'>,
     StepReviewField<LotCreateModel>[]
@@ -43,11 +50,12 @@ export const LotReview: FC<LotReviewProps> = ({ values }) => {
         CommonSummaryField,
         InvestDocFdvField,
         CommonMinFilterSummaryField,
-        (values.type !== 'SAFE' || values.SAFE_WITH_TOKEN_WARRANT) && TokenVestingPeriodField,
+        hasVesting && TokenVestingPeriodField,
+        hasPrice && CommonPriceField,
         CommonAdditionalInfoField,
       ].filter(Boolean),
     };
-  }, [values]);
+  }, [hasVesting, hasPrice]);
 
   return (
     <VStack
