@@ -6,6 +6,6 @@ export function overrideProd() {
   const prev = jsxRuntime['jsx'];
   jsxRuntime['jsx'] = (type, props, ...other) => {
     const base = prev(type, props, ...other);
-    return main(type, props, base);
+    return main(type as any, props, base);
   };
 }
