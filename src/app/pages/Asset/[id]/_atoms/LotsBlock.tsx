@@ -76,7 +76,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
         direction: filters.direction,
         minContractValue,
         maxContractValue,
-        withReassign: filters.withReassign,
+        reassignmentType: filters.reassignmentType,
         type: filters.type,
         search: filters.search,
       },

@@ -215,6 +215,7 @@ export interface ThemeTypings extends BaseThemeTypings {
     | 'chakra-placeholder-color._dark'
     | 'promo'
     | 'done'
+    | 'error'
     | (string & {});
   colorSchemes:
     | 'whiteAlpha'

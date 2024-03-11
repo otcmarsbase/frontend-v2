@@ -1,24 +1,17 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
-import { UILogic, UIModals } from '@app/components';
-import { UIDictionary } from '@app/dictionary';
+import { LotReassignmentType, UILogic, UIModals } from '@app/components';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
-import { getContractSize, getRoundContractSize } from '@app/utils';
 import LINQ from '@berish/linq';
 import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
-import { UIKit } from '@shared/ui-kit';
+import { MoneyText, UIKit } from '@shared/ui-kit';
 
 import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
 import { AvailableBlock } from './_atoms/AvailableBlock';
-import {
-  MainChipFieldTypeTitleMap,
-  MobileTabItemDictionary,
-  MobileTabItemKey,
-  RoundInfoFieldDictionary,
-} from './_atoms/const';
+import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
 import { InfoBlock } from './_atoms_mobile';
 
 export interface LotMobileProps {
@@ -29,7 +22,7 @@ export interface LotMobileProps {
 
 export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }) => {
   const router = useRouter();
-  const [tab, setTab] = useState<MobileTabItemKey>('BIDS');
+  const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
   const { attributes } = lot;
 
   const onCreateBidClick = async () => {
@@ -57,6 +50,87 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
     ).groupBy((link) => link.group),
   );
 
+  const logInfoList = useMemo(() => {
+    const list = [
+      {
+        label: 'ID',
+        value: <Text fontSize="sm">{lot.id}</Text>,
+      },
+      {
+        label: 'Direction',
+        value: <UILogic.TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />,
+      },
+      {
+        label: 'Type',
+        value: <UILogic.LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
+      },
+      {
+        label: 'Available reassignment',
+        value: <LotReassignmentType value={attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
+      },
+      {
+        label: 'Size to offer',
+        value: (
+          <MoneyText
+            value={lot.attributes.COMMON_SUMMARY}
+            format="0,0.X"
+            fontSize="sm"
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Target valuation',
+        value: (
+          <MoneyText
+            value={lot.attributes.INVEST_DOC_FDV}
+            format="0,0.X"
+            fontSize="sm"
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      },
+      {
+        label: 'Minimal bid',
+        value: (
+          <MoneyText
+            value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
+            format="0,0.X"
+            fontSize="sm"
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      },
+    ]
+
+    if (['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type)) {
+      list.push({
+        label: lot.type === 'UNLOCKED_TOKENS' ? 'Price per share' : 'Price per token',
+        value: <MoneyText
+          value={lot.attributes.COMMON_PRICE}
+          format="0,0.X"
+          fontSize="sm"
+          currencyTextProps={{
+            color: 'dark.50',
+          }}
+        />,
+      })
+    } else {
+      list.push({
+        label: 'Vesting',
+        value: <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
+      })
+    }
+
+    return list
+  }, [lot.type])
+
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
   const socialLinks = groupedByGroupLinks.get('SOCIAL');
   const otherLinks = groupedByGroupLinks.get('OTHER');
@@ -71,164 +145,17 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
         renderKey={(key) => key}
         renderItem={(key) => MobileTabItemDictionary.get(key)}
       />
-      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
       {tab === 'LOT_INFO' && (
         <VStack w="full" gap="0.5rem">
           <InfoBlock
-            title="Main info"
-            fields={[
-              {
-                label: 'ID',
-                value: <Text fontSize="sm">{lot.id}</Text>,
-              },
-              {
-                label: 'Direction',
-                value: <UILogic.TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />,
-              },
-              {
-                label: 'Type',
-                value: <UILogic.LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
-              },
-            ]}
-          />
-          <InfoBlock
-            title="More info"
-            fields={[
-              {
-                label:
-                  lot.type !== 'TOKEN_WARRANT' &&
-                  RoundInfoFieldDictionary.get(lot.type === 'SAFE' ? 'ROUND_EQUITY_PRICE' : 'ROUND_TOKEN_PRICE').title,
-                value:
-                  lot.type !== 'TOKEN_WARRANT' ? (
-                    <UIKit.PercentText
-                      fontWeight={800}
-                      value={attributes.INVEST_DOC_ROUND_PRICE}
-                      fontSize="sm"
-                      percentTextProps={{ fontWeight: 800 }}
-                    />
-                  ) : (
-                    <UIKit.PercentText
-                      fontWeight={800}
-                      format="0.0000"
-                      value={getRoundContractSize(lot)}
-                      fontSize="sm"
-                      percentTextProps={{ fontWeight: 800 }}
-                    />
-                  ),
-              },
-              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
-                label: RoundInfoFieldDictionary.get('TGE_DATE').title,
-                value: (
-                  <UIKit.DateText value={typeof attributes.TOKEN_TGE === 'number' ? attributes.TOKEN_TGE : undefined} />
-                ),
-              },
-              {
-                label: RoundInfoFieldDictionary.get('ROUND_FDV').title,
-                value: (
-                  <UIKit.MoneyText
-                    value={attributes.INVEST_DOC_ROUND_FDV}
-                    fontSize="sm"
-                    format="0,00"
-                    fontWeight={800}
-                    currencyTextProps={{
-                      fontSize: 'sm',
-                      color: 'dark.50',
-                      fontWeight: 800,
-                    }}
-                  />
-                ),
-              },
-              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
-                label: RoundInfoFieldDictionary.get('LOCKUP_PERIOD').title,
-                value: (
-                  <Text fontWeight={800} fontSize="sm">
-                    {lot.attributes.TOKEN_LOCKUP_PERIOD ? attributes.TOKEN_LOCKUP_PERIOD : '-'}
-                  </Text>
-                ),
-              },
-              (lot.type !== 'SAFE' || lot.attributes.SAFE_WITH_TOKEN_WARRANT) && {
-                label: RoundInfoFieldDictionary.get('VESTING_CALENDAR').title,
-                value: (
-                  <Text fontSize="sm" fontWeight={800}>
-                    {attributes.TOKEN_VESTING_PERIOD ? attributes.TOKEN_VESTING_PERIOD : '-'}
-                  </Text>
-                ),
-              },
-            ].filter(Boolean)}
+            title="Lot info"
+            fields={logInfoList}
           />
           <AvailableBlock lot={lot} />
-          <InfoBlock
-            title="Round info"
-            fields={[
-              {
-                label: MainChipFieldTypeTitleMap.get(
-                  lot.type === 'SAFT' ? 'PRICE_UNIT' : lot.type === 'TOKEN_WARRANT' ? 'PRICE_TOKEN' : 'PRICE_EQUITY',
-                ),
-                value: (
-                  <UIKit.MoneyText fontSize="sm" fontWeight={500} value={lot.attributes.COMMON_PRICE} abbreviated />
-                ),
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('LOT_FDV'),
-                value: (
-                  <UIKit.MoneyText fontSize="sm" abbreviated fontWeight={500} value={lot.attributes.INVEST_DOC_FDV} />
-                ),
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('CONTRACT_SIZE'),
-                value: (
-                  <VStack>
-                    <UIKit.MoneyText
-                      fontSize="sm"
-                      abbreviated
-                      fontWeight={500}
-                      color="dark.50"
-                      value={lot.attributes.COMMON_SUMMARY}
-                    />
-                    {lot.type === 'SAFT' ? (
-                      <UIKit.MoneyText fontSize="xs" fontWeight={500} value={getContractSize(lot)} abbreviated />
-                    ) : (
-                      <UIKit.PercentText fontSize="xs" fontWeight={500} value={getContractSize(lot)} />
-                    )}
-                  </VStack>
-                ),
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('OWNER'),
-                value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get(lot.attributes.COMMON_DIRECTION === 'BUY' ? 'BUYER' : 'SELLER'),
-                value: (
-                  <Text fontWeight="500" fontSize="sm">
-                    {UIDictionary.MediatorTypeDictionary.get(lot.attributes.COMMON_MEDIATOR).title}
-                  </Text>
-                ),
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('MIN_BID'),
-                value: (
-                  <UIKit.MoneyText
-                    fontSize="sm"
-                    fontWeight={500}
-                    abbreviated
-                    value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-                  />
-                ),
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('TYPE_OF_BIDDER'),
-                value: <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_BID_MAKER_TYPES} />,
-              },
-              {
-                label: MainChipFieldTypeTitleMap.get('TYPE_OF_SELLER'),
-                value: <UILogic.ParticipantTypesText fontSize="sm" value={lot.attributes.COMMON_OFFER_MAKER_TYPES} />,
-              },
-            ].filter(Boolean)}
-          />
           <AdditionalInfoBlock lot={lot} />
         </VStack>
       )}
+      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
       {tab === 'ASSET_INFO' && (
         <VStack>
           {!isAssetCreateRequest && (

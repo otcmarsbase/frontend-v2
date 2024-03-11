@@ -17,6 +17,12 @@ export const LotTypeDictionary = createDictionary<Resource.Lot.Enums.LotType, Lo
     TOKEN_WARRANT: {
       title: 'Token warrant',
     },
+    EQUITY: {
+      title: 'Equity',
+    },
+    UNLOCKED_TOKENS: {
+      title: 'Unlocked tokens',
+    },
   })
   .setDefaultFactory((key) => ({
     title: key,

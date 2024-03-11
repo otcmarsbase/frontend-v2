@@ -1,19 +1,19 @@
 import { useCallback } from 'react';
 
-import { HStack, Text } from '@chakra-ui/react';
+import { HStack, StackProps, Text } from '@chakra-ui/react';
 import { Resource } from '@schema/desk-gateway';
 
 import { AssetImage } from '../AssetImage';
 
 type AssetNameSize = 'xs' | 'sm' | 'md';
 
-export interface AssetNameProps {
+export interface AssetNameProps extends StackProps {
   asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
   size?: AssetNameSize;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClick }) => {
+export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClick, ...stackProps }) => {
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
@@ -43,6 +43,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
       _hover={{
         textDecoration: onClick && 'underline',
       }}
+      {...stackProps}
     >
       {'title' in asset ? (
         <Text fontWeight="semibold" fontSize={fontSizes[size]}>

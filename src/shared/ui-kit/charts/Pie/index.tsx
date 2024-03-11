@@ -64,7 +64,7 @@ export const ChartPie: React.FC<ChartPieProps> = ({ size = 'md', formatValue, da
           anchor: 'right',
           direction: 'column',
           justify: false,
-          translateX: 120,
+          translateX: 50,
           translateY: 0,
           itemWidth: 60,
           itemHeight: 14,

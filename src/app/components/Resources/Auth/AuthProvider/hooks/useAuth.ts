@@ -20,6 +20,7 @@ export interface UseAuth {
   signInWithConnector: LoadingCallback<(connectorType: AuthConnectorType) => Promise<void>>;
   signIn: LoadingCallback<() => Promise<void>>;
   signOut: () => Promise<void>;
+  updateAccount: (account: Resource.Account.Account) => Promise<void>;
 }
 
 export function useAuth(): UseAuth {
@@ -48,5 +49,6 @@ export function useAuth(): UseAuth {
     signIn,
     signInWithConnector,
     signOut,
+    updateAccount: store.updateAccount,
   };
 }

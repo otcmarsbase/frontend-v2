@@ -1,11 +1,20 @@
 import { UILogic, useAuth } from '@app/components';
+import pages from '@app/pages';
 import { HStack, Box, Square, Link, Button, Text } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
-import { Dropdown, NotificationBell, NotificationBellItem, NotificationBellTrigger } from '@shared/ui-kit';
+import {
+  Dropdown,
+  LinkComponent,
+  NotificationBell,
+  NotificationBellItem,
+  NotificationBellTrigger,
+} from '@shared/ui-kit';
 
 export function RightBlock() {
   const { isAuthorized, signOut } = useAuth();
+  const router = useRouter();
 
   return (
     <HStack>
@@ -116,24 +125,34 @@ export function RightBlock() {
         </UILogic.AuthConnectButton>
       </Box>
       <HStack gap="0.6rem" display={{ base: 'none', md: 'flex' }}>
-        <NotificationBell
-          unreadCount={0}
-          items={[]}
-          renderTrigger={() => (
-            <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
-              <NotificationBellTrigger hasUnread={false} />
-            </Square>
-          )}
-          renderItem={(item) => <NotificationBellItem {...item} />}
-          onReadAll={() => undefined}
-          onViewAll={() => undefined}
-          placement="bottom-end"
-          empty={
-            <Text color="dark.200">
-              At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
-            </Text>
-          }
-        />
+        {isAuthorized && (
+          <>
+            <LinkComponent page={pages.Profile.Home} pageProps={{}}>
+              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                <UIIcons.Common.ProfileIcon w="1.125rem" h="1.125rem" />
+              </Square>
+            </LinkComponent>
+
+            <NotificationBell
+              unreadCount={0}
+              items={[]}
+              renderTrigger={() => (
+                <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                  <NotificationBellTrigger hasUnread={false} />
+                </Square>
+              )}
+              renderItem={(item) => <NotificationBellItem {...item} />}
+              onReadAll={() => undefined}
+              onViewAll={() => router.navigateComponent(pages.Profile.Notification, {}, {})}
+              placement="bottom-end"
+              empty={
+                <Text color="dark.200">
+                  At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
+                </Text>
+              }
+            />
+          </>
+        )}
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
           <UIIcons.Language.EnglishIcon w="1.125rem" h="1.125rem" />
         </Square>

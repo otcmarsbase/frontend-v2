@@ -1,9 +1,9 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo } from 'react';
 
-import { LotWizard, LotWizardProps, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
+import { LotSimpleWizard, LotSimpleWizardProps, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { Center } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { RPC } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
@@ -31,11 +31,16 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     }
   }, [lot, router]);
 
-  const onSubmit = useCallback<LotWizardProps['onSubmit']>(
+  const onSubmit = useCallback<LotSimpleWizardProps['onSubmit']>(
     async (data, meta) => {
       if (meta.isLastStep) {
         await rpcSchema.send('lot.sendOnModeration', { id });
-        await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
+        await queryClient.invalidateQueries({
+          predicate: ({ queryKey }) => {
+            console.log(queryKey);
+            return queryKey[0]?.toString()?.includes('lot');
+          },
+        });
 
         router.navigateComponent(MBPages.Lot.Moderation.__id__, { id }, { replace: true });
         return;
@@ -60,7 +65,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
 
   if (isLoading) return <UIKit.Loader />;
 
-  return <LotWizard defaultValues={mappedLot} onSubmit={onSubmit} />;
+  return (
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+      <LotSimpleWizard direction={lot.attributes.COMMON_DIRECTION} defaultValues={mappedLot} onSubmit={onSubmit} />
+    </Box>
+  );
 };
 
 View.getLayout = ({ children }) => (

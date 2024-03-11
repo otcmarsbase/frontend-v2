@@ -1,4 +1,5 @@
 export * from './BackButton';
+export * from './BooleanChip';
 export * from './Chip';
 export * from './Countdown';
 export * from './Dropdown';

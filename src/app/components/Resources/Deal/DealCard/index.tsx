@@ -1,13 +1,11 @@
 import { useMemo } from 'react';
 
 import { LotHotChip, UILogic, useAuth } from '@app/components';
-import { LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { Box, Divider, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
 
 import { DealRowFieldNameTitleMap } from '../const';
 
@@ -29,8 +27,6 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
   const router = useRouter();
   const { account } = useAuth();
 
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
-
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE') return [];
 
@@ -42,15 +38,6 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
       {
         name: DealRowFieldNameTitleMap.get('LOT_ID'),
         value: <Text>#{deal.lotKey.id}</Text>,
-      },
-      {
-        name: DealRowFieldNameTitleMap.get('DEAL_SIZE'),
-        value: (
-          <UIKit.PercentText
-            value={new Decimal(deal.units.value).div(multiplicator).toString()}
-            percent={LotUnitAddonDictionary.get(lot.type)}
-          />
-        ),
       },
       {
         name: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
@@ -65,7 +52,7 @@ export const DealCard: React.FC<DealCardProps> = ({ deal, lot, asset, minimalVie
         value: <UIKit.DateText value={deal.createdAt} />,
       },
     ].filter(Boolean);
-  }, [lot, deal, multiplicator]);
+  }, [lot, deal]);
 
   return (
     <VStack

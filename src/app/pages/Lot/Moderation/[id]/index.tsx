@@ -1,6 +1,6 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotCreateMappingSchema, UILogic, useRpcSchemaClient } from '@app/components';
+import { LotCreateSchema, LotReview, UILogic, useRpcSchemaClient } from '@app/components';
 import { useToastOuterCallback } from '@app/hooks';
 import { UILayout } from '@app/layouts';
 import { ModalController } from '@app/logic';
@@ -30,7 +30,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const mappedLot = useMemo(() => {
     if (!lot) return;
 
-    return LotCreateMappingSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
+    return LotCreateSchema.cast({ id: lot.id, type: lot.type, ...lot.attributes }, { assert: false });
   }, [lot]);
 
   const preload = useLoadingCallback(
@@ -93,23 +93,37 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     return <UIKit.Loader />;
 
   return (
-    <VStack gap="1.5rem" w="full" alignItems="start">
-      <Box w="full" bg="rgba(223, 96, 59, 0.30)" color="white" p="1.5rem 2rem" borderRadius="sm">
-        The lot has been added and is in the process of moderation. As a rule, this takes up to 3 days. You can always
-        edit or delete a published lot in your personal account.
+    <VStack gap="1.5rem" w="full" alignItems="start" maxW="54rem">
+      <Box
+        w="full"
+        bg="rgba(223, 96, 59, 0.30)"
+        color="white"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 5, md: 9 }}
+        borderRadius="sm"
+      >
+        Thank you for creating an offer. Your lot id number is {lot.id}. We will contact you on Telegram once we have
+        reviewed it. The current processing time for a review is 1 day.
       </Box>
-      <HStack w="full" justifyContent="space-between" bg="dark.900" borderRadius="sm" p="1.25rem 1.5rem">
+      <HStack
+        w="full"
+        justifyContent="space-between"
+        bg="dark.900"
+        borderRadius="sm"
+        px={{ base: 4, md: 8 }}
+        py={{ base: 5, md: 9 }}
+      >
         <UILogic.AssetName asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <HStack>
-          <Button variant="orange" onClick={handleEditLot}>
-            Edit
-          </Button>
-          <Button variant="darkOutline" onClick={handleDeleteLot}>
+          <Button size="sm" variant="darkOutline" onClick={handleDeleteLot}>
             Delete
+          </Button>
+          <Button size="sm" minW="7rem" variant="orange" onClick={handleEditLot}>
+            Edit
           </Button>
         </HStack>
       </HStack>
-      <UILogic.LotReview values={mappedLot} />
+      <LotReview values={mappedLot} />
     </VStack>
   );
 };

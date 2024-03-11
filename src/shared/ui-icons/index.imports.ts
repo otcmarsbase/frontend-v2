@@ -3,3 +3,4 @@ export * as Coin from './coin';
 export * as Common from './common';
 export * as Language from './language';
 export * as Social from './social';
+export * as Market from './market';
