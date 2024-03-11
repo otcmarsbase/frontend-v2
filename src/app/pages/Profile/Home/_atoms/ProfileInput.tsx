@@ -27,6 +27,8 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
   const isRequired = useIsRequired(ProfileSchema);
 
   const save = useCallback(async () => {
+    if (!isValid) return;
+
     try {
       setIsLoading(true);
       await rpcSchema.send('user.updateProfile', { [name]: value });
@@ -35,7 +37,7 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
     } finally {
       setIsLoading(false);
     }
-  }, [rpcSchema, name, value, updateAccount]);
+  }, [rpcSchema, name, value, updateAccount, isValid]);
 
   const onSave = useToastInnerCallback(save, {});
 
@@ -65,6 +67,7 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
             pos="absolute"
             onClick={onSave}
             isLoading={isLoading}
+            isDisabled={!isValid}
           >
             Save
           </Button>
