@@ -126,30 +126,33 @@ export function RightBlock() {
       </Box>
       <HStack gap="0.6rem" display={{ base: 'none', md: 'flex' }}>
         {isAuthorized && (
-          <LinkComponent page={pages.Profile.Home} pageProps={{}}>
-            <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-              <UIIcons.Common.ProfileIcon w="1.125rem" h="1.125rem" />
-            </Square>
-          </LinkComponent>
+          <>
+            <LinkComponent page={pages.Profile.Home} pageProps={{}}>
+              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                <UIIcons.Common.ProfileIcon w="1.125rem" h="1.125rem" />
+              </Square>
+            </LinkComponent>
+
+            <NotificationBell
+              unreadCount={0}
+              items={[]}
+              renderTrigger={() => (
+                <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                  <NotificationBellTrigger hasUnread={false} />
+                </Square>
+              )}
+              renderItem={(item) => <NotificationBellItem {...item} />}
+              onReadAll={() => undefined}
+              onViewAll={() => router.navigateComponent(pages.Profile.Notification, {}, {})}
+              placement="bottom-end"
+              empty={
+                <Text color="dark.200">
+                  At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
+                </Text>
+              }
+            />
+          </>
         )}
-        <NotificationBell
-          unreadCount={0}
-          items={[]}
-          renderTrigger={() => (
-            <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-              <NotificationBellTrigger hasUnread={false} />
-            </Square>
-          )}
-          renderItem={(item) => <NotificationBellItem {...item} />}
-          onReadAll={() => undefined}
-          onViewAll={() => router.navigateComponent(pages.Profile.Notification, {}, {})}
-          placement="bottom-end"
-          empty={
-            <Text color="dark.200">
-              At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
-            </Text>
-          }
-        />
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
           <UIIcons.Language.EnglishIcon w="1.125rem" h="1.125rem" />
         </Square>
