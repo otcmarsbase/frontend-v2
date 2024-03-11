@@ -1,19 +1,27 @@
 import { FC, useEffect, useRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
-import { NotificationSettingsItem, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
+import { NotificationSettingsItem, useAuth, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { ProfileLayout } from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { Heading, VStack, Text, Divider } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
 import { Resource } from '@schema/desk-gateway';
 
 const Settings: FC = () => {
+  const router = useRouter();
+  const { isAuthorized } = useAuth();
   const rpcSchema = useRpcSchemaClient();
-  const { data, isLoading } = useRpcSchemaQuery('notificationConfig.get', {}, { staleTime: 0 });
+  const { data, isLoading } = useRpcSchemaQuery('notificationConfig.get', {}, { staleTime: 0, enabled: isAuthorized });
   const isReady = useRef(false);
 
   const formMethods = useForm<Resource.NotificationConfig.ValueObjects.NotificationTypesSettings>();
 
   const values = formMethods.watch();
+
+  useEffect(() => {
+    if (!isAuthorized) router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+  }, [isAuthorized, router]);
 
   useEffect(() => {
     if (!data) return;
@@ -33,7 +41,7 @@ const Settings: FC = () => {
     });
   }, [values, rpcSchema]);
 
-  if (isLoading) return;
+  if (isLoading || !isAuthorized) return;
 
   return (
     <FormProvider {...formMethods}>
