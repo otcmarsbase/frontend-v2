@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { AssetVerticalJoin, LotReassignmentType, UILogic, useAuth } from '@app/components';
+import { LotReassignmentType, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Divider, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -57,7 +57,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
         ),
       },
       {
-        name: 'Reasigment',
+        name: 'Reassignment',
         value: <LotReassignmentType value={lot.attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
       },
       {
@@ -71,11 +71,6 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
             }}
           />
         ),
-      },
-      {
-        name: 'Vertical',
-        colSpan: 2,
-        value: <AssetVerticalJoin value={asset.info.verticals} />,
       },
     ].filter(Boolean);
   }, [lot, asset]);

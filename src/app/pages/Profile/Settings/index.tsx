@@ -1,15 +1,50 @@
-import { FC } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { FC, useEffect, useRef } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
 
+import { NotificationSettingsItem, useAuth, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { ProfileLayout } from '@app/layouts';
-import { Heading, VStack, Text, HStack, Divider } from '@chakra-ui/react';
-import { Switch } from '@shared/ui-kit';
+import { MBPages } from '@app/pages';
+import { Heading, VStack, Text, Divider } from '@chakra-ui/react';
+import { useRouter } from '@packages/router5-react-auto';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 const Settings: FC = () => {
-  const { control } = useForm();
+  const router = useRouter();
+  const { isAuthorized } = useAuth();
+  const rpcSchema = useRpcSchemaClient();
+  const { data, isLoading } = useRpcSchemaQuery('notificationConfig.get', {}, { staleTime: 0, enabled: isAuthorized });
+  const isReady = useRef(false);
+
+  const formMethods = useForm<DeskGatewaySchema.NotificationConfigSettings>();
+
+  const values = formMethods.watch();
+
+  useEffect(() => {
+    if (!isAuthorized) router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+  }, [isAuthorized, router]);
+
+  useEffect(() => {
+    if (!data) return;
+
+    for (const key in data.settings) {
+      formMethods.setValue(key as DeskGatewaySchema.NotificationType, data.settings[key]);
+    }
+
+    isReady.current = true;
+  }, [data, formMethods]);
+
+  useEffect(() => {
+    if (!isReady.current) return;
+
+    rpcSchema.send('notificationConfig.update', {
+      settings: values as DeskGatewaySchema.NotificationConfigSettings,
+    });
+  }, [values, rpcSchema]);
+
+  if (isLoading || !isAuthorized) return;
 
   return (
-    <>
+    <FormProvider {...formMethods}>
       <Heading fontSize="xl" mb="5">
         Settings
       </Heading>
@@ -24,68 +59,38 @@ const Settings: FC = () => {
           </Text>
         </VStack>
         <VStack bg="dark.900" px={{ base: '3', md: '9' }} py={{ base: '3', md: '6' }} w="full" rounded="md" spacing="4">
-          <HStack w="full" justifyContent="space-between">
-            <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md" fontWeight="bold">
-                Deal Status Update
-              </Text>
-              <Text color="dark.50" fontSize="sm">
-                Notify me about a trade progress status update, deal status update, new deal
-              </Text>
-            </VStack>
-            <Controller control={control} name="setting1" render={({ field }) => <Switch {...field} />} />
-          </HStack>
+          <NotificationSettingsItem
+            label="Deal Status Update"
+            text="Notify me about a trade progress status update, deal status update, new deal"
+            name="DEAL_STATUS_CHANGED"
+          />
           <Divider color="dark.500" opacity="0.5" />
-          <HStack w="full" justifyContent="space-between">
-            <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md" fontWeight="bold">
-                Lot Status Update
-              </Text>
-              <Text color="dark.50" fontSize="sm">
-                Notify me about the status update of the lot I created
-              </Text>
-            </VStack>
-            <Controller control={control} name="setting1" render={({ field }) => <Switch {...field} />} />
-          </HStack>
+          <NotificationSettingsItem
+            label="Lot Status Update"
+            text="Notify me about the status update of the lot I created"
+            name="LOT_STATUS_CHANGED"
+          />
           <Divider color="dark.500" opacity="0.5" />
-          <HStack w="full" justifyContent="space-between">
-            <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md" fontWeight="bold">
-                Bid Status Update
-              </Text>
-              <Text color="dark.50" fontSize="sm">
-                Notify me of an update on the status of a bid I left
-              </Text>
-            </VStack>
-            <Controller control={control} name="setting1" render={({ field }) => <Switch {...field} />} />
-          </HStack>
+          <NotificationSettingsItem
+            label="Bid Status Update"
+            text="Notify me of an update on the status of a bid I left"
+            name="BID_STATUS_CHANGED"
+          />
           <Divider color="dark.500" opacity="0.5" />
-          <HStack w="full" justifyContent="space-between">
-            <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md" fontWeight="bold">
-                New Lot Notification
-              </Text>
-              <Text color="dark.50" fontSize="sm">
-                Notify me about new lots on the platform
-              </Text>
-            </VStack>
-            <Controller control={control} name="setting1" render={({ field }) => <Switch {...field} />} />
-          </HStack>
+          <NotificationSettingsItem
+            label="New Lot Notification"
+            text="Notify me about new lots on the platform"
+            name="LOT_CREATED"
+          />
           <Divider color="dark.500" opacity="0.5" />
-          <HStack w="full" justifyContent="space-between">
-            <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md" fontWeight="bold">
-                OTC Desk News
-              </Text>
-              <Text color="dark.50" fontSize="sm">
-                Notify me about announcements, news and platform updates
-              </Text>
-            </VStack>
-            <Controller control={control} name="setting1" render={({ field }) => <Switch {...field} />} />
-          </HStack>
+          <NotificationSettingsItem
+            label="OTC Desk News"
+            text="Notify me about announcements, news and platform updates"
+            name="SYSTEM_INFO"
+          />
         </VStack>
       </VStack>
-    </>
+    </FormProvider>
   );
 };
 

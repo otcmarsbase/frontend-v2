@@ -40,7 +40,7 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
 
   const asset = useMemo(
     () =>
-      asset &&
+      deals &&
       (deals.links.find(
         (link) => link.resource === 'asset' && link.id === lot.attributes.INVEST_DOC_ASSET_PK,
       ) as DeskGatewaySchema.Asset),
@@ -48,11 +48,15 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
   );
 
   const offerMakers = useMemo(() => {
+    if (!deal) return [];
+
     const ids = deal.offerMakers.map((offerMaker) => offerMaker.id);
     return deals.links.filter((link) => link.resource === 'user' && ids.includes(link.id)) as DeskGatewaySchema.User[];
   }, [deals, deal]);
 
   const bidMakers = useMemo(() => {
+    if (!deal) return [];
+
     const ids = deal.bidMakers.map((bidMaker) => bidMaker.id);
     return deals.links.filter((link) => link.resource === 'user' && ids.includes(link.id)) as DeskGatewaySchema.User[];
   }, [deals, deal]);

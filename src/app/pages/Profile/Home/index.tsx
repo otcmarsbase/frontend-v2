@@ -1,22 +1,31 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { LocationSelect, useAuth } from '@app/components';
 import { ProfileLayout } from '@app/layouts';
+import { MBPages } from '@app/pages';
 import { VStack, Heading } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from '@packages/router5-react-auto';
 import { Input, InputTelegram } from '@shared/ui-kit';
 
 import { InputGroup, ProfileInput } from './_atoms';
 import { ProfileSchema } from './schema';
 
 const Home: FC = () => {
-  const { account } = useAuth();
+  const router = useRouter();
+  const { account, isAuthorized } = useAuth();
   const formMethods = useForm({
-    defaultValues: account.profile,
+    defaultValues: account?.profile,
     resolver: yupResolver(ProfileSchema),
-    mode: 'onTouched',
+    mode: 'onChange',
   });
+
+  useEffect(() => {
+    if (!isAuthorized) router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+  }, [isAuthorized, router]);
+
+  if (!isAuthorized) return;
 
   return (
     <FormProvider {...formMethods}>
@@ -50,11 +59,6 @@ const Home: FC = () => {
             name="telegram"
             label="Telegram"
             render={({ field }) => <InputTelegram placeholder="Enter telegram" {...field} />}
-          />
-          <ProfileInput
-            name="email"
-            label="Email"
-            render={({ field }) => <Input placeholder="Enter email" {...field} />}
           />
           <ProfileInput name="location" label="Location" render={({ field }) => <LocationSelect {...field} />} />
         </InputGroup>

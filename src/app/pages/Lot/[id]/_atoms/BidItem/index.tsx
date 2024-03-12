@@ -1,18 +1,12 @@
 import { useCallback } from 'react';
 
 import { AccountAvatar, UILogic, useAuth } from '@app/components';
-import {
-  LocationDictionary,
-  LotMultiplicatorDictionary,
-  LotUnitAddonDictionary,
-  ParticipantTypeDictionary,
-} from '@app/dictionary';
+import { LocationDictionary, ParticipantTypeDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
-import { DateText, UIKit } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
+import { UIKit } from '@shared/ui-kit';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
 

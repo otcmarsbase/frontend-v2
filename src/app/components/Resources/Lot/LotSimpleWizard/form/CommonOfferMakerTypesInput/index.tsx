@@ -16,7 +16,7 @@ export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error, watch } = useInput(NAME);
   const [direction, isDirect] = watch(['COMMON_DIRECTION', 'COMMON_IS_DIRECT']);
 
-  const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
+  const descriptor = useMemo(() => DescriptorDictionary.get(isDirect), [isDirect]);
 
   const tooltip = useMemo(() => {
     switch (direction) {
