@@ -46,6 +46,9 @@ const Deals: React.FC = () => {
   const findLot = useCallback(
     (deal: DeskGatewaySchema.Deal) => {
       const bid = findBid(deal);
+
+      if (!bid) return;
+
       return deals.links.find((link) => link.resource === 'lot' && link.id === bid.lotKey.id) as DeskGatewaySchema.Lot;
     },
 
@@ -55,6 +58,9 @@ const Deals: React.FC = () => {
   const findAsset = useCallback(
     (deal: DeskGatewaySchema.Deal) => {
       const lot = findLot(deal);
+
+      if (!lot) return;
+
       return deals.links.find(
         (link) => link.resource === 'asset' && link.id === lot.attributes.INVEST_DOC_ASSET_PK,
       ) as DeskGatewaySchema.Asset;
