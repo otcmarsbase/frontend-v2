@@ -1,24 +1,35 @@
-import { CompositeFilter, Pagination, QueryListPayload } from '@schema/common';
+import { CoreSchema } from '@schema/core';
 
-import { Resource } from '../../../Resource';
+import { Asset, AssetKey, AssetLotStatsAggregation, AssetTier, AssetVertical } from '../../../Resource';
 import { BidList } from '../Bid';
 import { DealList } from '../Deal';
 import { LotList } from '../Lot';
 
 export namespace AssetList {
-  export type Filter = CompositeFilter<{
-    id?: Resource.Asset.AssetKey['id'][];
+  export type Filter = CoreSchema.CompositeFilter<{
+    id?: AssetKey['id'][];
 
     search?: string;
     withLots?: boolean;
-    tier?: Resource.Asset.Enums.AssetTier[];
-    verticals?: Resource.Asset.Enums.AssetVertical[];
+    tier?: AssetTier[];
+    verticals?: AssetVertical[];
 
     lot?: LotList.Filter;
     bid?: BidList.Filter;
     deal?: DealList.Filter;
   }>;
 
-  export type Payload = QueryListPayload<Filter>;
-  export type Result = Pagination<Resource.Asset.Asset>;
+  export type Include = CoreSchema.Include<
+    Asset,
+    {
+      assetLotStatsAggregation: AssetLotStatsAggregation;
+    }
+  >;
+
+  export type Sortable = {
+    id?: CoreSchema.SortableValue;
+  };
+
+  export type Payload = CoreSchema.WithPagination & CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable>;
+  export type Result = CoreSchema.WithPaginationResult<Asset> & CoreSchema.WithIncludeLinks<Include>;
 }

@@ -1,4 +1,4 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
@@ -6,7 +6,7 @@ export interface DealStatusDictionaryInfo {
   title: string;
 }
 
-export const DealStatusDictionary = createDictionary<Resource.Deal.Enums.DealStatus, DealStatusDictionaryInfo>()
+export const DealStatusDictionary = createDictionary<DeskGatewaySchema.DealStatus, DealStatusDictionaryInfo>()
   .setFromRecord({
     NEGOTIATION: {
       title: 'Negotiation',

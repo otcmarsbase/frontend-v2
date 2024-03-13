@@ -1,14 +1,14 @@
 import { AssetLink, AssetVerticalRow } from '@app/components';
 import LINQ from '@berish/linq';
 import { VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { ExpandableText, GridItem } from '@shared/ui-kit';
 
 import { AssetBlock } from './AssetBlock';
 import { SidebarBlock } from './SidebarBlock';
 
 interface SidebarProps {
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
@@ -24,7 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ asset }) => {
               title: 'Site',
               url: asset.website,
             },
-          ] as Resource.Asset.ValueObjects.AssetLink[])
+          ] as DeskGatewaySchema.AssetLink[])
         : asset.info.links,
     ).groupBy((link) => link.group),
   );

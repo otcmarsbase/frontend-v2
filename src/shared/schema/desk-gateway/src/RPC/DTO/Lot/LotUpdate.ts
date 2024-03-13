@@ -1,11 +1,11 @@
-import { Resource } from '../../../Resource';
+import { Lot, LotInputObject, LotKey, LotType } from '../../../Resource';
 
 export namespace LotUpdate {
   export type Payload = {
-    id: number;
+    id: LotKey['id'];
 
-    type?: Resource.Lot.Enums.LotType;
-    inputs?: Resource.Lot.LotInputObject;
+    type?: LotType;
+    inputs?: LotInputObject;
   };
-  export type Result = Resource.Lot.Lot;
+  export type Result = Lot;
 }

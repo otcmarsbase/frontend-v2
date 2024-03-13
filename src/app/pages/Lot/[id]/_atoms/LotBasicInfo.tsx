@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { LotReassignmentType, LotTypeChip, ParticipantTypesText, TradeDirectionChip } from '@app/components';
 import { Text, HStack, VStack, Divider } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Tooltip, SuggestionIcon } from '@shared/ui-kit';
 
 interface InfoElementProps {
@@ -31,7 +31,7 @@ const InfoElement: React.FC<InfoElementProps> = ({ label, children, tooltip }) =
 
 const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600" />;
 
-export const LotBasicInfo: FC<{ lot: Resource.Lot.Lot }> = ({ lot }) => {
+export const LotBasicInfo: FC<{ lot: DeskGatewaySchema.Lot }> = ({ lot }) => {
   const { attributes, type, id } = lot;
 
   return (

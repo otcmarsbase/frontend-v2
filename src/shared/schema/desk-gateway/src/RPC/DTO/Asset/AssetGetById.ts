@@ -1,8 +1,8 @@
-import { Resource } from '../../../Resource';
+import { Asset, AssetKey } from '../../../Resource';
 
 export namespace AssetGetById {
   export type Payload = {
-    id: string;
+    id: AssetKey['id'];
   };
-  export type Result = Resource.Asset.Asset;
+  export type Result = Asset;
 }

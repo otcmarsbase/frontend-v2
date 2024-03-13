@@ -7,7 +7,7 @@ import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Box, Button, Center, HStack, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit, useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
@@ -24,8 +24,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     showWhenError: false,
     okText: `Lot with ${id} was success deleted`,
   });
-  const [lot, setLot] = useState<Resource.Lot.Lot>();
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [lot, setLot] = useState<DeskGatewaySchema.Lot>();
+  const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
 
   const mappedLot = useMemo(() => {
     if (!lot) return;

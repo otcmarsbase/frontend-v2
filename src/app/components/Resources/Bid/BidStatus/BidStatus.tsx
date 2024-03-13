@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { BidStatusInfoDictionary } from './const';
 
 export interface BidStatusProps extends BoxProps {
-  value: Resource.Bid.Enums.BidStatus;
+  value: DeskGatewaySchema.BidStatus;
 }
 
 export function BidStatus({ value, ...boxProps }: BidStatusProps) {

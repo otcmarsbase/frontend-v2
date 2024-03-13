@@ -4,7 +4,7 @@ import { LotReassignmentType, UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Divider, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
@@ -15,18 +15,19 @@ type FieldType = {
 };
 
 export interface LotCardProps {
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
+  asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, asset, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick }) => {
   const router = useRouter();
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
-  const available = new Decimal(lot.available?.value || '0');
+  const available = new Decimal(stat.available || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
   const executed = total.minus(available);
   const progress = executed.div(total).mul(100);

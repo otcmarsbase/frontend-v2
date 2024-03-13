@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { UILogic, useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -19,12 +19,12 @@ const AssetField = ({ value }: { value: LotCreateModel['INVEST_DOC_ASSET'] }) =>
   const rpcSchema = useRpcSchemaClient();
   const queryClient = useQueryClient();
 
-  const [asset, setAsset] = useState<Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest>();
+  const [asset, setAsset] = useState<DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest>();
 
   const preload = useLoadingCallback(
     useCallback(async () => {
       if (!('id' in value)) {
-        setAsset(value as Resource.Lot.ValueObjects.AssetCreateRequest);
+        setAsset(value as DeskGatewaySchema.LotAssetRequest);
         return;
       }
 
@@ -43,9 +43,6 @@ const AssetField = ({ value }: { value: LotCreateModel['INVEST_DOC_ASSET'] }) =>
   if (preload.isLoading || !asset) return <></>;
 
   return (
-    <UILogic.AssetName
-      size="xs"
-      asset={'title' in value ? (value as Resource.Lot.ValueObjects.AssetCreateRequest) : asset}
-    />
+    <UILogic.AssetName size="xs" asset={'title' in value ? (value as DeskGatewaySchema.LotAssetRequest) : asset} />
   );
 };

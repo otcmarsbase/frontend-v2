@@ -1,13 +1,13 @@
 import { createDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { LotCreateModel } from '../schema';
 
 import { ReviewFieldDescriptor, StepReviewField } from './types';
 
-const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, ReviewFieldDescriptor>()
+const DescriptorDictionary = createDictionary<DeskGatewaySchema.LotType, ReviewFieldDescriptor>()
   .setFromRecord({
     SAFE: {
       label: 'Price per 0,01% equity',

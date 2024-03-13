@@ -1,6 +1,6 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
-export function resolveTradeDirection(direction: Resource.Common.Enums.TradeDirection, reverse = false) {
+export function resolveTradeDirection(direction: DeskGatewaySchema.TradeDirection, reverse = false) {
   if (!reverse) return direction;
 
   return direction === 'BUY' ? 'SELL' : 'BUY';

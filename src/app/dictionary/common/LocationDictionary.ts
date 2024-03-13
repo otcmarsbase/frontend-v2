@@ -1,8 +1,8 @@
-import { Resource } from '@schema/desk-gateway';
+import { CommonSchema } from '@schema/common';
 
 import { createDictionary } from '../utils';
 
-export const LocationDictionary = createDictionary<Resource.Common.Enums.Location, { name: string }>({
+export const LocationDictionary = createDictionary<CommonSchema.Country, { name: string }>({
   UNKNOWN: {
     name: 'Unknown',
   },

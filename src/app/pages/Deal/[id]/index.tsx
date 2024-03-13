@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
 import * as Layouts from '@app/layouts';
 import { HStack, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 import { toNumber } from 'lodash';
 
@@ -13,23 +13,55 @@ import { DealInfo, DealParticipants, TradeProgressStatuses } from './_atoms';
 import { BaseDealInfo } from './_atoms/BaseDealInfo';
 
 interface DealProps {
-  id: Resource.Deal.DealKey['id'];
+  id: DeskGatewaySchema.DealKey['id'];
 }
 
 const Deal: React.FC<DealProps> = observer(({ id }) => {
-  const { data: deal, isLoading: dealIsLoading } = useRpcSchemaQuery('deal.getById', { id: toNumber(id) });
-  const { data: lot, isLoading: lotIsLoading } = useRpcSchemaQuery(
-    'lot.getById',
-    { id: deal?.lotKey?.id },
-    { enabled: !!deal },
-  );
-  const { data: asset, isLoading: assetIsLoading } = useRpcSchemaQuery(
-    'asset.getById',
-    { id: lot?.attributes?.INVEST_DOC_ASSET_PK },
-    { enabled: !!lot },
+  const { data: deals, isLoading } = useRpcSchemaQuery('deal.list', {
+    filter: { id: [toNumber(id)] },
+    include: { bid: { lot: { asset: true } }, bidMaker: true, offerMaker: true },
+  });
+
+  const deal = useMemo(() => !isLoading && deals.items[0], [deals, isLoading]);
+
+  const bid = useMemo(
+    () =>
+      deal &&
+      (deals.links.find((link) => link.resource === 'bid' && link.id === deal.bidKey.id) as DeskGatewaySchema.Bid),
+    [deals, deal],
   );
 
-  if (dealIsLoading || lotIsLoading || assetIsLoading) {
+  const lot = useMemo(
+    () =>
+      bid &&
+      (deals.links.find((link) => link.resource === 'lot' && link.id === bid.lotKey.id) as DeskGatewaySchema.Lot),
+    [deals, bid],
+  );
+
+  const asset = useMemo(
+    () =>
+      deals &&
+      (deals.links.find(
+        (link) => link.resource === 'asset' && link.id === lot.attributes.INVEST_DOC_ASSET_PK,
+      ) as DeskGatewaySchema.Asset),
+    [deals, lot],
+  );
+
+  const offerMakers = useMemo(() => {
+    if (!deal) return [];
+
+    const ids = deal.offerMakers.map((offerMaker) => offerMaker.id);
+    return deals.links.filter((link) => link.resource === 'user' && ids.includes(link.id)) as DeskGatewaySchema.User[];
+  }, [deals, deal]);
+
+  const bidMakers = useMemo(() => {
+    if (!deal) return [];
+
+    const ids = deal.bidMakers.map((bidMaker) => bidMaker.id);
+    return deals.links.filter((link) => link.resource === 'user' && ids.includes(link.id)) as DeskGatewaySchema.User[];
+  }, [deals, deal]);
+
+  if (isLoading) {
     return <UILogic.DealPageSkeleton />;
   }
 
@@ -37,20 +69,19 @@ const Deal: React.FC<DealProps> = observer(({ id }) => {
     <VStack gap="1rem" alignItems="start">
       <HStack flexDirection={{ base: 'column', md: 'row' }} width="full" gap="2rem" alignItems="start">
         <VStack gap="1.25rem" flex="1.5">
-          <BaseDealInfo lot={lot} deal={deal} asset={asset} />
+          <BaseDealInfo lot={lot} deal={deal} asset={asset} bidMakers={bidMakers} />
 
           <DealInfo
-            price={deal.price.value}
-            amount={deal.summary.value}
-            fdv={deal.fdv?.value}
+            price={deal.price}
+            amount={deal.summary}
+            fdv={deal.fdv}
             lotType={lot.type}
-            marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent.value).mul(100).toString()}
+            marsbaseCommission={new Decimal(deal.keyResults.marsbaseCommissionKR.percent).mul(100).toString()}
           />
 
           <DealParticipants
-            offerMakers={deal.offerMakers}
-            bidMakers={deal.bidMakers}
-            moderators={deal.moderators}
+            offerMakers={offerMakers}
+            bidMakers={bidMakers}
             telegramChatLink={deal.keyResults.telegramChatKR.url}
           />
         </VStack>

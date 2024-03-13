@@ -1,18 +1,19 @@
 import { useMemo, useState } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { HStack, UIKit, VStack } from '@shared/ui-kit';
 import { formatToMoney } from '@shared/utils';
 import Decimal from 'decimal.js';
 
 interface AvailableBlockProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
 }
 
-export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot }) => {
-  const available = new Decimal(lot.available?.value || '0');
-  const executed = new Decimal(lot.executed?.value || '0');
+export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot, stat }) => {
+  const available = useMemo(() => new Decimal(stat.available || '0'), [stat]);
+  const executed = useMemo(() => new Decimal(stat.executed || '0'), [stat]);
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
 
   const chartData = useMemo<UIKit.ChartPieData[]>(() => {

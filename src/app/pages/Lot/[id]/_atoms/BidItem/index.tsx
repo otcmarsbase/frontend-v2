@@ -1,18 +1,12 @@
 import { useCallback } from 'react';
 
 import { AccountAvatar, UILogic, useAuth } from '@app/components';
-import {
-  LocationDictionary,
-  LotMultiplicatorDictionary,
-  LotUnitAddonDictionary,
-  ParticipantTypeDictionary,
-} from '@app/dictionary';
+import { LocationDictionary, ParticipantTypeDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
 import { HStack, VStack, Text, SimpleGrid, Box, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
-import { DateText, UIKit } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
+import { UIKit } from '@shared/ui-kit';
 
 import { BidListFieldType, BidListFieldTypeTitleMap } from '../const';
 
@@ -32,27 +26,36 @@ const BidItemColumn: React.FC<BidItemColumnProps> = ({ type, children }) => {
 };
 
 export interface BidItemProps {
-  bid: Resource.Bid.Bid;
-  lot: Resource.Lot.Lot;
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
+  bid: DeskGatewaySchema.Bid;
+  lot: DeskGatewaySchema.Lot;
+  deal: DeskGatewaySchema.Deal;
+  asset: DeskGatewaySchema.Asset;
+  offerMaker: DeskGatewaySchema.User;
+  bidMaker: DeskGatewaySchema.User;
   isOfferMaker: boolean;
   refreshBids: () => Promise<any>;
 }
 
-export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOfferMaker, refreshBids }) => {
+export const BidItem: React.FC<BidItemProps> = ({
+  bid,
+  lot,
+  deal,
+  asset,
+  offerMaker,
+  bidMaker,
+  isOfferMaker,
+  refreshBids,
+}) => {
   const router = useRouter();
   const { account } = useAuth();
 
   const isBase = useBreakpointValue({ base: true, md: false });
 
   const handleClick = useCallback(() => {
-    if (!(bid.dealKey && (bid.bidMaker.nickname === account?.nickname || isOfferMaker))) return;
+    if (!(deal && (bidMaker.nickname === account?.nickname || isOfferMaker))) return;
 
-    router.navigateComponent(MBPages.Deal.__id__, { id: bid.dealKey.id }, {});
-  }, [bid, router, account, isOfferMaker]);
-
-  const multiplicator = LotMultiplicatorDictionary.get(lot.type).multiplicator;
+    router.navigateComponent(MBPages.Deal.__id__, { id: deal.id }, {});
+  }, [router, account, bidMaker, deal, isOfferMaker]);
 
   if (isBase)
     return (
@@ -60,6 +63,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
         bid={bid}
         lot={lot}
         asset={asset}
+        offerMaker={offerMaker}
         onClick={handleClick}
         offerMakerActions={{ isOfferMaker, refetch: refreshBids }}
       />
@@ -86,7 +90,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bid.bidMaker.nickname} />
+        <AccountAvatar nickname={bidMaker.nickname} />
       </VStack>
       <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">
@@ -95,7 +99,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             fontWeight="500"
             color="white"
             abbreviated
-            value={bid.summary.value}
+            value={bid.summary}
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -106,7 +110,7 @@ export const BidItem: React.FC<BidItemProps> = ({ bid, lot, deal, asset, isOffer
             fontSize="sm"
             fontWeight="500"
             color="white"
-            value={bid.fdv?.value}
+            value={bid.fdv}
             abbreviated
             currencyTextProps={{
               color: 'dark.50',

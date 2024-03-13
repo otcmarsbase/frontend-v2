@@ -1,8 +1,8 @@
-import { Resource } from '../../../Resource';
+import { Notification, NotificationKey } from '../../../Resource';
 
 export namespace NotificationGetById {
   export type Payload = {
-    notificationId: Resource.Notification.NotificationKey['notificationId'];
+    notificationId: NotificationKey['notificationId'];
   };
-  export type Result = Resource.Notification.Notification;
+  export type Result = Notification;
 }

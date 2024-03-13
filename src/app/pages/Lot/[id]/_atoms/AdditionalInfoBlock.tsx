@@ -1,11 +1,11 @@
 import Linkify from 'react-linkify';
 
 import { Heading, VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { ExpandableText } from '@shared/ui-kit';
 
 export interface AdditionalInfoBlockProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const AdditionalInfoBlock: React.FC<AdditionalInfoBlockProps> = ({ lot }) => {

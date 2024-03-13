@@ -1,12 +1,12 @@
 import { PropsWithChildren, useMemo } from 'react';
 
 import { Button } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { AssetLinkTypeIconMap } from './AssetLinkTypeIconMap';
 
 export interface AssetLinkProps extends PropsWithChildren {
-  type?: Resource.Asset.Enums.AssetLinkType;
+  type?: DeskGatewaySchema.AssetLinkType;
   url?: string;
 }
 

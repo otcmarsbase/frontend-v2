@@ -7,7 +7,7 @@ import { DashboardFilters } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Button, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource, RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Empty, List, Pagination, usePagination } from '@shared/ui-kit';
 
 import { ListLoader } from './_atoms';
@@ -18,7 +18,7 @@ const Deals: React.FC = () => {
 
   const filters = useWatch({ name: 'filters' }) as DashboardFilters;
 
-  const fetchPayload = useMemo<RPC.DTO.DealList.Payload>(() => {
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.DealList.Payload>(() => {
     const status = filters.status.length
       ? (filters.status.flatMap((value) => {
           switch (value) {
@@ -29,32 +29,38 @@ const Deals: React.FC = () => {
             default:
               return [];
           }
-        }) as Resource.Deal.Enums.DealStatus[])
+        }) as DeskGatewaySchema.DealStatus[])
       : undefined;
 
-    return { page: { skip, limit }, filter: { status } };
+    return { page: { skip, limit }, filter: { status }, include: { bid: { lot: { asset: true } } } };
   }, [skip, limit, filters]);
 
-  const { data: deals, isFetching: dealsIsLoading } = useRpcSchemaQuery('deal.list', fetchPayload);
-  const { data: assets, isFetching: assetsIsLoading } = useRpcSchemaQuery(
-    'asset.list',
-    { filter: { deal: { id: deals?.items?.map(({ id }) => id) } } },
-    { enabled: !!deals?.total },
-  );
-  const { data: lots, isFetching: lotsIsLoading } = useRpcSchemaQuery(
-    'lot.list',
-    { filter: { deal: { id: deals?.items?.map(({ id }) => id) } } },
-    { enabled: !!deals?.total },
-  );
+  const { data: deals, isFetching } = useRpcSchemaQuery('deal.list', fetchPayload);
 
-  const findAsset = useCallback(
-    (assetId: Resource.Asset.AssetKey['id']) => assets?.items?.find((asset) => asset.id === assetId),
-    [assets],
+  const findBid = useCallback(
+    (deal: DeskGatewaySchema.Deal) =>
+      deals.links.find((link) => link.resource === 'bid' && link.id === deal.bidKey.id) as DeskGatewaySchema.Bid,
+    [deals],
   );
 
   const findLot = useCallback(
-    (lotId: Resource.Lot.LotKey['id']) => lots?.items?.find((lot) => lot.id === lotId),
-    [lots],
+    (deal: DeskGatewaySchema.Deal) => {
+      const bid = findBid(deal);
+      return deals.links.find((link) => link.resource === 'lot' && link.id === bid.lotKey.id) as DeskGatewaySchema.Lot;
+    },
+
+    [deals, findBid],
+  );
+
+  const findAsset = useCallback(
+    (deal: DeskGatewaySchema.Deal) => {
+      const lot = findLot(deal);
+      return deals.links.find(
+        (link) => link.resource === 'asset' && link.id === lot.attributes.INVEST_DOC_ASSET_PK,
+      ) as DeskGatewaySchema.Asset;
+    },
+
+    [deals, findLot],
   );
 
   return (
@@ -63,7 +69,7 @@ const Deals: React.FC = () => {
         width="full"
         items={deals?.items}
         itemKey={(item) => item.id}
-        isLoading={dealsIsLoading || lotsIsLoading || assetsIsLoading}
+        isLoading={isFetching}
         loader={ListLoader}
         emptyText={
           <Empty
@@ -80,8 +86,8 @@ const Deals: React.FC = () => {
         itemRender={(item) => (
           <UILogic.DealRow
             deal={item}
-            lot={findLot(item.lotKey.id)}
-            asset={findAsset(item.assetKey.id)}
+            lot={findLot(item)}
+            asset={findAsset(item)}
             onClick={() => router.navigateComponent(MBPages.Deal.__id__, { id: item.id }, {})}
           />
         )}

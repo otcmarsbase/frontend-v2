@@ -5,16 +5,16 @@
 //   TradeDirectionDictionary,
 // } from '@app/dictionary';
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/desk-gateway';
+// import { DeskGatewaySchema} from '@schema/desk-gateway';
 // import { sample } from 'lodash';
 
-// const lot: Resource.Lot.Lot = null;
+// const lot: DeskGatewaySchema.Lot = null;
 
 // if (lot.status === 'DRAFT') {
 //   lot.offerMaker.
 // }
 
-// export const createLot = (assets: Resource.Asset.Asset[], id = faker.number.int()): Resource.Lot.Lot => {
+// export const createLot = (assets: DeskGatewaySchema.Asset[], id = faker.number.int()): DeskGatewaySchema.Lot => {
 //   const randomAsset = sample(assets);
 //   return {
 //     resource: 'lot',

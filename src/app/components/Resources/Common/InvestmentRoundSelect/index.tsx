@@ -1,15 +1,15 @@
 import { InvestmentRoundDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export type InvestmentRoundSelectProps = Omit<
-  React.ComponentProps<typeof UIKit.SelectSync<Resource.Common.Enums.InvestRound>>,
+  React.ComponentProps<typeof UIKit.SelectSync<DeskGatewaySchema.InvestRound>>,
   'items' | 'renderItem'
 >;
 
 export const InvestmentRoundSelect: React.FC<InvestmentRoundSelectProps> = (props) => {
   return (
-    <UIKit.SelectSync<Resource.Common.Enums.InvestRound>
+    <UIKit.SelectSync<DeskGatewaySchema.InvestRound>
       {...props}
       renderItem={(item) => InvestmentRoundDictionary.get(item).title}
       items={InvestmentRoundDictionary.keys()}

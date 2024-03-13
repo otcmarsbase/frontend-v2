@@ -5,7 +5,7 @@ import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Box, Center } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
@@ -47,7 +47,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       }
 
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
-      const payload: RPC.DTO.LotUpdate.Payload = { id, type, inputs };
+      const payload: DeskGatewaySchema.RPC.DTO.LotUpdate.Payload = { id, type, inputs };
 
       if (INVEST_DOC_ASSET instanceof Object) {
         if ('id' in INVEST_DOC_ASSET) {

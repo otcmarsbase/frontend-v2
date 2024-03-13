@@ -6,7 +6,7 @@ import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
@@ -28,21 +28,38 @@ export default function Lot({ id }: LotProps) {
   const router = useRouter();
   const { account } = useAuth();
 
-  const [lot, setLot] = useState<Resource.Lot.Lot>();
-  const [asset, setAsset] = useState<Resource.Asset.Asset>();
+  const [lot, setLot] = useState<DeskGatewaySchema.Lot>();
+  const [offerMaker, setOfferMaker] = useState<DeskGatewaySchema.User>();
+  const [stat, setStat] = useState<DeskGatewaySchema.LotTransactionStatsAggregation>();
+  const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
   const { isMobile } = useBreakpointDevice();
 
   const isOfferMaker = useMemo(() => {
     if (!(lot && account)) return false;
 
-    return lot.offerMaker.nickname === account.nickname;
-  }, [lot, account]);
+    return offerMaker.nickname === account.nickname;
+  }, [lot, account, offerMaker]);
 
   const preload = useLoadingCallback(
     useCallback(async () => {
-      const lot = await queryClient.fetchQuery({
-        queryKey: ['lot.getById', { id }],
-        queryFn: () => rpcSchema.send('lot.getById', { id }),
+      const params = {
+        filter: { id: [id] },
+        include: { offerMaker: true, lotTransactionStatsAggregation: true },
+      };
+      const { lot, offerMaker, stat } = await queryClient.fetchQuery({
+        queryKey: ['lot.list', params],
+        queryFn: async () => {
+          const { items, links } = await rpcSchema.send('lot.list', params);
+
+          const [lot] = items;
+
+          const offerMaker = links.find((link) => link.resource === 'user') as DeskGatewaySchema.User;
+          const stat = links.find(
+            (link) => link.resource === 'lot_transaction_stats_aggregation',
+          ) as DeskGatewaySchema.LotTransactionStatsAggregation;
+
+          return { lot, offerMaker, stat };
+        },
       });
 
       if (lot.attributes.INVEST_DOC_ASSET_PK) {
@@ -61,6 +78,8 @@ export default function Lot({ id }: LotProps) {
       }
 
       setLot(lot);
+      setOfferMaker(offerMaker);
+      setStat(stat);
     }, [id, rpcSchema, router, queryClient]),
   );
 
@@ -74,7 +93,9 @@ export default function Lot({ id }: LotProps) {
     return (
       <LotMobile
         isOfferMaker={isOfferMaker}
+        offerMaker={offerMaker}
         lot={lot}
+        stat={stat}
         asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
       />
     );
@@ -89,10 +110,10 @@ export default function Lot({ id }: LotProps) {
               <LotBasicInfo lot={lot} />
             </VStack>
             <VStack w="full">
-              <LotInfo lot={lot} />
+              <LotInfo lot={lot} stat={stat} />
               <AdditionalInfoBlock lot={lot} />
             </VStack>
-            <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />
+            <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} offerMaker={offerMaker} />
             {/* <LotFAQ /> */}
           </VStack>
         </GridItem>

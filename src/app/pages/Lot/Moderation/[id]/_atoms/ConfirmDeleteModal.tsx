@@ -2,11 +2,11 @@ import { useCallback } from 'react';
 
 import { Button, SimpleGrid, Text, VStack } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Modal } from '@shared/ui-kit';
 
 export interface ConfirmDeleteModalProps extends PortalProps<boolean> {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
 }
 
 export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ portal }) => {

@@ -1,14 +1,14 @@
-import { CompositeFilter, Pagination, QueryListPayload } from '@schema/common';
+import { CoreSchema } from '@schema/core';
 
-import { Resource } from '../../../Resource';
+import { Notification, NotificationKey, NotificationType } from '../../../Resource';
 
 export namespace NotificationList {
-  export type Filter = CompositeFilter<{
-    notificationIds?: Resource.Notification.NotificationKey['notificationId'][];
-    type?: Resource.NotificationCommon.Enums.NotificationType[];
+  export type Filter = CoreSchema.CompositeFilter<{
+    notificationIds?: NotificationKey['notificationId'][];
+    type?: NotificationType[];
     isReaded?: boolean;
   }>;
 
-  export type Payload = QueryListPayload<Filter>;
-  export type Result = Pagination<Resource.Notification.Notification>;
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithPagination;
+  export type Result = CoreSchema.WithPaginationResult<Notification>;
 }

@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useToastInnerCallback } from '@app/hooks';
 import { Button, VStack, chakra, useSteps } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import * as yup from 'yup';
 
 import { StepResolver, Stepper } from './_atoms';
@@ -15,7 +15,7 @@ import { useStepSchema } from './useStepSchema';
 
 export interface LotSimpleWizardProps {
   defaultValues?: LotCreateModel;
-  direction: Resource.Common.Enums.TradeDirection;
+  direction: DeskGatewaySchema.TradeDirection;
   onSubmit: (inputs: LotCreateModel, meta: { isLastStep: boolean; stepKey?: StepDescriptorKey }) => Promise<void>;
 }
 

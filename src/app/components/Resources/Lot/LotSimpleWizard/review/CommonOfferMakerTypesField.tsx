@@ -1,13 +1,13 @@
 import { UILogic } from '@app/components';
 import { createDictionary } from '@app/dictionary';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { LotCreateModel } from '../schema';
 
 import { StepReviewField, ReviewFieldDescriptor } from './types';
 
-const DescriptorDictionary = createDictionary<Resource.Common.Enums.TradeDirection, ReviewFieldDescriptor>()
+const DescriptorDictionary = createDictionary<DeskGatewaySchema.TradeDirection, ReviewFieldDescriptor>()
   .setFromRecord({
     BUY: {
       label: 'Offer maker',

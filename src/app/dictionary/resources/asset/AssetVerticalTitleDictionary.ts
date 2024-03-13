@@ -1,8 +1,8 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
-export const AssetVerticalTitleDictionary = createDictionary<Resource.Asset.Enums.AssetVertical, React.ReactNode>()
+export const AssetVerticalTitleDictionary = createDictionary<DeskGatewaySchema.AssetVertical, React.ReactNode>()
   .setFromEntries([
     ['BLOCKCHAIN_SERVICE', 'Blockchain service'],
     ['BRIDGE', 'Bridge'],

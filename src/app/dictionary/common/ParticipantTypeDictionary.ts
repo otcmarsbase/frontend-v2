@@ -1,4 +1,4 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../utils';
 
@@ -7,7 +7,7 @@ export interface ParticipantTypeDictionaryInfo {
 }
 
 export const ParticipantTypeDictionary = createDictionary<
-  Resource.Common.Enums.InvestorType,
+  DeskGatewaySchema.InvestorType,
   ParticipantTypeDictionaryInfo
 >()
   .setFromRecord({

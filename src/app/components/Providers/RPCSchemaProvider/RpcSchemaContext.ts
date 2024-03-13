@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-import { RPC } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
-export const RpcSchemaContext = createContext<RPC.Client>(null);
+export const RpcSchemaContext = createContext<DeskGatewaySchema.RPC.Client>(null);

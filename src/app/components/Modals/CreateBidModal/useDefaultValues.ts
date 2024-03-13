@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
-export function useDefaultValues(lot: Resource.Lot.Lot) {
+export function useDefaultValues(lot: DeskGatewaySchema.Lot) {
   return useMemo(
     () => ({
       lotId: lot.id,

@@ -1,8 +1,8 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export class AuthInstanceStore {
   isLoading: boolean;
-  account?: Resource.Account.Account;
+  account?: DeskGatewaySchema.Account;
 
   get isAuthorized() {
     return !!this.account;
