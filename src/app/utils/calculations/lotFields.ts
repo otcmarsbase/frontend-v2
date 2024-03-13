@@ -1,8 +1,8 @@
 import { UIDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import Decimal from 'decimal.js';
 
-export const getContractSize = (lot: Resource.Lot.Lot) => {
+export const getContractSize = (lot: DeskGatewaySchema.Lot) => {
   const { multiplicator } = UIDictionary.LotMultiplicatorDictionary.get(lot.type);
 
   if (!lot.attributes.COMMON_UNITS) return null;
@@ -10,7 +10,7 @@ export const getContractSize = (lot: Resource.Lot.Lot) => {
   return new Decimal(lot.attributes.COMMON_UNITS).div(multiplicator).toString();
 };
 
-export const getMinimumDealSize = (lot: Resource.Lot.Lot) => {
+export const getMinimumDealSize = (lot: DeskGatewaySchema.Lot) => {
   const { multiplicator } = UIDictionary.LotMultiplicatorDictionary.get(lot.type);
 
   if (!lot.attributes.COMMON_MIN_FILTER_UNITS) return null;
@@ -18,7 +18,7 @@ export const getMinimumDealSize = (lot: Resource.Lot.Lot) => {
   return new Decimal(lot.attributes.COMMON_MIN_FILTER_UNITS).div(multiplicator).toString();
 };
 
-export const getRoundContractSize = (lot: Resource.Lot.Lot) => {
+export const getRoundContractSize = (lot: DeskGatewaySchema.Lot) => {
   const { multiplicator } = UIDictionary.LotMultiplicatorDictionary.get(lot.type);
 
   if (!lot.attributes.INVEST_DOC_ROUND_UNITS) return null;

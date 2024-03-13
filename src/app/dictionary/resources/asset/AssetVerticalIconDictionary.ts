@@ -1,11 +1,11 @@
 import { ComponentWithAs, IconProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 import { createDictionary } from '../../utils';
 
 export const AssetVerticalIconDictionary = createDictionary<
-  Resource.Asset.Enums.AssetVertical,
+  DeskGatewaySchema.AssetVertical,
   ComponentWithAs<'svg', IconProps>
 >()
   .setFromEntries([

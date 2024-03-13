@@ -1,10 +1,12 @@
-import { Resource } from '../../../Resource';
+import { CommonSchema } from '@schema/common';
+
+import { Bid, InvestorType, LotKey } from '../../../Resource';
 
 export namespace BidCreate {
   export type Payload = {
-    lotId: number;
-    bidMakerType: Resource.Common.Enums.InvestorType;
-    location: Resource.Common.Enums.Location;
+    lotId: LotKey['id'];
+    bidMakerType: InvestorType;
+    location: CommonSchema.Country;
     readyForVerification: boolean;
     telegram: string;
     isDirect: boolean;
@@ -15,5 +17,5 @@ export namespace BidCreate {
     price: string;
     fdv?: string;
   };
-  export type Result = Resource.Bid.Bid;
+  export type Result = Bid;
 }

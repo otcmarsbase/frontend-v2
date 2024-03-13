@@ -1,9 +1,9 @@
-import { Resource } from '../../../Resource';
+import { Bid, BidKey } from '../../../Resource';
 
 export namespace BidReject {
   export type Payload = {
-    id: Resource.Bid.Bid['id'];
+    id: BidKey['id'];
     reason: string;
   };
-  export type Result = Resource.Bid.Bid;
+  export type Result = Bid;
 }

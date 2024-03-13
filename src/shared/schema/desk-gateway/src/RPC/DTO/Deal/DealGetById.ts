@@ -1,8 +1,8 @@
-import { Resource } from '../../../Resource';
+import { Deal, DealKey } from '../../../Resource';
 
 export namespace DealGetById {
   export type Payload = {
-    id: number;
+    id: DealKey['id'];
   };
-  export type Result = Resource.Deal.Deal;
+  export type Result = Deal;
 }

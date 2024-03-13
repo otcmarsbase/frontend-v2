@@ -1,25 +1,24 @@
 import { LotTypeChip, UILogic } from '@app/components';
-import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
+import { LocationDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
-import { formatDate } from '@app/utils';
 import { Flex, Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
 
 import { BidCard } from '../BidCard';
 import { BidRowFieldNameTitleMap } from '../const';
 
 export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  bid: Resource.Bid.Bid;
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
-  deal: Resource.Deal.Deal;
+  bid: DeskGatewaySchema.Bid;
+  lot: DeskGatewaySchema.Lot;
+  offerMaker: DeskGatewaySchema.User;
+  asset: DeskGatewaySchema.Asset;
+  deal: DeskGatewaySchema.Deal;
   onClick: () => any;
 }
 
-export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, ...stackProps }) => {
+export const BidRow: React.FC<BidRowProps> = ({ bid, lot, offerMaker, asset, deal, onClick, ...stackProps }) => {
   const router = useRouter();
 
   const isBase = useBreakpointValue({ base: true, md: false });
@@ -31,15 +30,15 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
-      value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
+      value: <UIKit.MoneyText value={bid.summary} format="0,0.X" />,
     },
     {
       label: BidRowFieldNameTitleMap.get('BID_FDV'),
-      value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
+      value: <UIKit.MoneyText value={bid.fdv} abbreviated />,
     },
     {
       label: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
-      value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
+      value: <UILogic.AccountAvatar nickname={offerMaker.nickname} />,
     },
 
     {
@@ -48,7 +47,7 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
     },
   ];
 
-  if (isBase) return <BidCard lot={lot} asset={asset} bid={bid} onClick={onClick} />;
+  if (isBase) return <BidCard lot={lot} asset={asset} bid={bid} offerMaker={offerMaker} onClick={onClick} />;
 
   return (
     <HStack
@@ -75,12 +74,14 @@ export const BidRow: React.FC<BidRowProps> = ({ bid, lot, asset, deal, onClick, 
         reverse
       />
       <Flex gap="1rem" alignItems="center" flexWrap="wrap">
-        <UILogic.AssetName
-          onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: bid.assetKey.id }, {})}
-          size="sm"
-          asset={asset}
-          flexShrink="0"
-        />
+        {asset && (
+          <UILogic.AssetName
+            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+            size="sm"
+            asset={asset}
+            flexShrink="0"
+          />
+        )}
         {deal ? (
           <UILogic.DealStatus value={deal.status} flexShrink="0" />
         ) : (

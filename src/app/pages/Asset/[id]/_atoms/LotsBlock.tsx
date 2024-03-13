@@ -5,10 +5,9 @@ import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { useDebounce } from '@app/hooks';
 import { MBPages } from '@app/pages';
-import { prepareFiltersParams } from '@app/utils';
 import { VStack, Text, HStack, Button, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { RPC, Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
 import { UIKit, usePagination } from '@shared/ui-kit';
 import pick from 'lodash/pick';
@@ -16,7 +15,7 @@ import * as yup from 'yup';
 
 const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
-const TradeDirectionTitleMap = new Map<Resource.Common.Enums.TradeDirection, React.ReactNode>([
+const TradeDirectionTitleMap = new Map<DeskGatewaySchema.TradeDirection, React.ReactNode>([
   ['BUY', `Lot's to buy`],
   ['SELL', `Lot's to sell`],
 ]);
@@ -31,7 +30,7 @@ export const QueryParamsSchema = yup.object({
 });
 
 export interface LotsBlockProps {
-  asset: Resource.Asset.Asset;
+  asset: DeskGatewaySchema.Asset;
 }
 
 export function LotsBlock({ asset }: LotsBlockProps) {
@@ -59,7 +58,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
-  const fetchPayload = useMemo<RPC.DTO.LotList.Payload>(() => {
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
 
     return {
@@ -80,12 +79,24 @@ export function LotsBlock({ asset }: LotsBlockProps) {
         type: filters.type,
         search: filters.search,
       },
+      include: {
+        lotTransactionStatsAggregation: true,
+      },
     };
   }, [skip, limit, filters, asset.id]);
 
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
+
+  const stats = useMemo(
+    () =>
+      !isLoading &&
+      (lots.links.filter(
+        (link) => link.resource === 'lot_transaction_stats_aggregation',
+      ) as DeskGatewaySchema.LotTransactionStatsAggregation[]),
+    [lots, isLoading],
+  );
 
   const onChangeFilters = (nextFilters: UILogic.LotFilterSidebarModel) => {
     paginationProps.onChange(1);
@@ -105,7 +116,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   };
 
   const renderTab = useCallback(
-    (direction: Resource.Common.Enums.TradeDirection) => (
+    (direction: DeskGatewaySchema.TradeDirection) => (
       <Text fontFamily="promo" textTransform="uppercase">
         {TradeDirectionTitleMap.get(direction)}
       </Text>
@@ -114,7 +125,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   );
 
   return (
-    <UIKit.Tabs<Resource.Common.Enums.TradeDirection>
+    <UIKit.Tabs<DeskGatewaySchema.TradeDirection>
       items={['BUY', 'SELL']}
       renderKey={(direction) => direction}
       renderTab={renderTab}
@@ -165,6 +176,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                         columns={{ base: 1, md: columnsCount }}
                         lots={lots.items}
                         assets={[asset]}
+                        stats={stats}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />
                     )}

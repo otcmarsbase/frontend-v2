@@ -1,8 +1,10 @@
-import { LotAttributes } from '../LotAttributes';
-import { LotInputs } from '../LotInputs';
+import { MergeAttributes } from '@schema/core';
+
+import { LotAttributes } from '../Attributes';
+import { LotInputs } from '../Inputs';
 
 export namespace CommonCategory {
-  export type InputObject = LotInputs.Utils.MergeInputs<
+  export type InputObject = MergeAttributes<
     [
       LotInputs.COMMON_BID_MAKER_TYPES,
       LotInputs.COMMON_DEADLINE,
@@ -19,7 +21,7 @@ export namespace CommonCategory {
     ]
   >;
 
-  export type AttributeObject = LotAttributes.Utils.MergeAttributes<
+  export type AttributeObject = MergeAttributes<
     [
       InputObject,
 

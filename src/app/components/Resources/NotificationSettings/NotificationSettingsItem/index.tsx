@@ -1,12 +1,12 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { VStack, Text, HStack, Switch } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface NotificationSettingsItemProps {
   label: string;
   text: string;
-  name: Resource.NotificationCommon.Enums.NotificationType;
+  name: DeskGatewaySchema.NotificationType;
 }
 
 export function NotificationSettingsItem({ label, text, name }: NotificationSettingsItemProps) {

@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
 import { Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { LotTypeColorMap, LotTypeTitleMap } from './const';
 
 export interface LotTypeChipProps extends TextProps {
-  value: Resource.Lot.Enums.LotType;
+  value: DeskGatewaySchema.LotType;
   withTokenWarrant?: boolean;
 }
 

@@ -1,8 +1,8 @@
-import { Resource } from '../../../Resource';
+import { NotificationConfigSettings } from '../../../Resource';
 
 export namespace NotificationConfigUpdate {
   export type Payload = {
-    settings: Resource.NotificationConfig.ValueObjects.NotificationTypesSettings;
+    settings: NotificationConfigSettings;
   };
 
   export type Result = void;

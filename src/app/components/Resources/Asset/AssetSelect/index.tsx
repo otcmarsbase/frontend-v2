@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 
 import { useRpcSchemaClient } from '@app/components';
 import { Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { AssetImage } from '../AssetImage';
 
-type SelectType = Resource.Asset.Asset;
+type SelectType = DeskGatewaySchema.Asset;
 
 export interface AssetSelectProps extends Omit<UIKit.SelectAsyncProps<SelectType>, 'load' | 'renderItem'> {}
 

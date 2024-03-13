@@ -5,7 +5,7 @@ import { MBPages } from '@app/pages';
 import { getContractSize } from '@app/utils';
 import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
@@ -19,12 +19,13 @@ interface FieldType {
 }
 
 export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  asset: DeskGatewaySchema.Asset;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackProps }) => {
+export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, onClick, ...stackProps }) => {
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, md: false });
 
@@ -102,7 +103,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, onClick, ...stackPro
     ].filter(Boolean);
   }, [lot, hasFdv, hasPrice, priceLabel]);
 
-  if (isBase) return <LotCard lot={lot} asset={asset} onClick={onClick} />;
+  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} onClick={onClick} />;
 
   return (
     <HStack

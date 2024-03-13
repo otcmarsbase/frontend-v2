@@ -2,11 +2,11 @@ import { UILogic } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Button, HStack, Heading, Link } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 
 export interface AssetBlockProps {
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
   onCreateBidClick?: () => void;
 }
 

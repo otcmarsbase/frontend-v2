@@ -7,7 +7,6 @@ export type Schema = {
   };
   asset: {
     getById(payload: DTO.AssetGetById.Payload): DTO.AssetGetById.Result;
-    getStatsById(payload: DTO.AssetGetStatsById.Payload): DTO.AssetGetStatsById.Result;
     list(payload: DTO.AssetList.Payload): DTO.AssetList.Result;
   };
   auth: {

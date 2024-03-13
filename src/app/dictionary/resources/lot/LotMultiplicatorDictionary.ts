@@ -1,8 +1,8 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
-export const LotMultiplicatorDictionary = createDictionary<Resource.Lot.Enums.LotType, { multiplicator: number }>()
+export const LotMultiplicatorDictionary = createDictionary<DeskGatewaySchema.LotType, { multiplicator: number }>()
   .setFromRecord({
     SAFE: {
       multiplicator: 100,

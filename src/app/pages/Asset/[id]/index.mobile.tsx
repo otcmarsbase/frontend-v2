@@ -1,12 +1,12 @@
 import { VStack } from '@chakra-ui/react';
-import { RPC, Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { LotsBlock, TitleBlock } from './_atoms';
 import { AssetInfoBlock, ProjectInfoBlock } from './_atoms_mobile';
 
 export interface ViewProps {
-  asset: Resource.Asset.Asset;
-  stats: RPC.DTO.AssetGetStatsById.Result;
+  asset: DeskGatewaySchema.Asset;
+  stats: DeskGatewaySchema.AssetLotStatsAggregation;
 }
 
 export default function AssetViewMobile({ asset, stats }: ViewProps) {

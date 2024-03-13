@@ -1,6 +1,6 @@
-import { Resource } from '../../../Resource';
+import { Account } from '../../../Resource';
 
 export namespace AccountMe {
   export type Payload = {};
-  export type Result = Resource.Account.Account;
+  export type Result = Account;
 }

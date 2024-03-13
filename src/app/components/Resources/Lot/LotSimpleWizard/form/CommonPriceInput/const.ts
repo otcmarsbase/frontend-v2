@@ -1,9 +1,9 @@
 import { createDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { InputDescriptor } from '../types';
 
-export const DescriptorDictionary = createDictionary<Resource.Lot.Enums.LotType, InputDescriptor>()
+export const DescriptorDictionary = createDictionary<DeskGatewaySchema.LotType, InputDescriptor>()
   .setFromRecord({
     SAFE: {
       label: 'Price per 0,01% equity',

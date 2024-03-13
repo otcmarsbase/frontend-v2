@@ -1,7 +1,7 @@
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/desk-gateway';
+// import { DeskGatewaySchema} from '@schema/desk-gateway';
 
-// export const createAssetLink = (): Resource.Asset.AssetLink => {
+// export const createAssetLink = (): DeskGatewaySchema.AssetLink => {
 //   return {
 //     resource: 'asset_link',
 //     title: faker.word.noun(),
@@ -11,7 +11,7 @@
 //   };
 // };
 
-// export const createAsset = (): Resource.Asset.Asset => {
+// export const createAsset = (): DeskGatewaySchema.Asset => {
 //   return {
 //     resource: 'asset',
 //     id: faker.number.int().toString(),

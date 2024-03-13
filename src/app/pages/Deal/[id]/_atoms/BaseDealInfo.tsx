@@ -5,7 +5,7 @@ import pages, { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
 import { Button, HStack, StackProps, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { CopyButton } from '@shared/ui-kit';
 
@@ -26,12 +26,13 @@ const Field: FC<FieldProps> = ({ label, value, ...props }) => {
 };
 
 export interface BaseDealInfoProps {
-  lot: Resource.Lot.Lot;
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
+  lot: DeskGatewaySchema.Lot;
+  deal: DeskGatewaySchema.Deal;
+  bidMakers: DeskGatewaySchema.User[];
+  asset: DeskGatewaySchema.Asset;
 }
 
-export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
+export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal, bidMakers }) => {
   const router = useRouter();
   const { account } = useAuth();
 
@@ -58,7 +59,7 @@ export const BaseDealInfo: FC<BaseDealInfoProps> = ({ lot, asset, deal }) => {
         left="0"
         top="0"
         value={lot?.attributes.COMMON_DIRECTION}
-        reverse={deal.bidMakers.some((bidMaker) => bidMaker.nickname === account?.nickname)}
+        reverse={bidMakers.some((bidMaker) => bidMaker.nickname === account?.nickname)}
       />
       <VStack alignItems="start">
         <AssetName asset={asset} onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})} />

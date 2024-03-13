@@ -6,7 +6,7 @@ import { ProfileLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { Heading, VStack, Text, Divider } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 const Settings: FC = () => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const Settings: FC = () => {
   const { data, isLoading } = useRpcSchemaQuery('notificationConfig.get', {}, { staleTime: 0, enabled: isAuthorized });
   const isReady = useRef(false);
 
-  const formMethods = useForm<Resource.NotificationConfig.ValueObjects.NotificationTypesSettings>();
+  const formMethods = useForm<DeskGatewaySchema.NotificationConfigSettings>();
 
   const values = formMethods.watch();
 
@@ -27,7 +27,7 @@ const Settings: FC = () => {
     if (!data) return;
 
     for (const key in data.settings) {
-      formMethods.setValue(key as Resource.NotificationCommon.Enums.NotificationType, data.settings[key]);
+      formMethods.setValue(key as DeskGatewaySchema.NotificationType, data.settings[key]);
     }
 
     isReady.current = true;
@@ -37,7 +37,7 @@ const Settings: FC = () => {
     if (!isReady.current) return;
 
     rpcSchema.send('notificationConfig.update', {
-      settings: values as Resource.NotificationConfig.ValueObjects.NotificationTypesSettings,
+      settings: values as DeskGatewaySchema.NotificationConfigSettings,
     });
   }, [values, rpcSchema]);
 

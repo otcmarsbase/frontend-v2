@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 
 import { Button } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Tooltip } from '@shared/ui-kit';
 
 import { AssetImage } from '../AssetImage';
 
 export interface AssetIconButtonProps {
-  asset: Resource.Asset.Asset;
+  asset: DeskGatewaySchema.Asset;
 
   isSelected: boolean;
   onSelect?: (isSelected: boolean) => void;

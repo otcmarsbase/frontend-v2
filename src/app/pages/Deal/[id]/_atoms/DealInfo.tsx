@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { LotUnitAddonDictionary } from '@app/dictionary';
 import { Heading, HStack, SimpleGrid, Text, VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealBlockTypeDictionary, DealInfoFieldDictionary } from './const';
@@ -29,7 +29,7 @@ export interface DealInfoProps {
   price: string;
   fdv: string;
   amount: string;
-  lotType: Resource.Lot.Enums.LotType;
+  lotType: DeskGatewaySchema.LotType;
   marsbaseCommission: string;
 }
 

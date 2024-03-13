@@ -1,13 +1,9 @@
-import * as SchemaCommon from '@schema/common';
+import { CoreSchema } from '@schema/core';
 
-import { Resource } from '../../Resource';
+import { UserKey } from '../User';
 
-export namespace NotificationConfig {
-  export namespace ValueObjects {
-    export type NotificationTypesSettings = Record<Resource.NotificationCommon.Enums.NotificationType, boolean>;
-  }
+import { NotificationConfigSettings } from './NotificationConfigSettings';
 
-  export interface NotificationConfig extends SchemaCommon.Resource<'notification_config'> {
-    settings: ValueObjects.NotificationTypesSettings;
-  }
+export interface NotificationConfig extends CoreSchema.Resource<'notification_config', UserKey> {
+  settings: NotificationConfigSettings;
 }

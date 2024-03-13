@@ -1,7 +1,7 @@
 import { RpcClient } from '@packages/berish-rpc-client';
 import { Service } from '@packages/service-manager';
-import { RpcClientErrorTrigger } from '@schema/common';
-import { RPC } from '@schema/desk-gateway';
+import { RpcClientErrorTrigger } from '@schema/core';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createRpcAxiosAdapter } from './createRpcAxiosAdapter';
 import { createRpcClient } from './createRpcClient';
@@ -9,8 +9,8 @@ import { createRpcSchemaClient } from './createRpcSchemaClient';
 
 export interface BackendApiServiceParams {
   baseURL: string;
-  getMeta: () => RPC.ClientMeta | Promise<RPC.ClientMeta>;
-  setMeta: (meta: RPC.ServerMeta) => void | Promise<void>;
+  getMeta: () => DeskGatewaySchema.RPC.ClientMeta | Promise<DeskGatewaySchema.RPC.ClientMeta>;
+  setMeta: (meta: DeskGatewaySchema.RPC.ServerMeta) => void | Promise<void>;
 
   globalErrorTriggers: RpcClientErrorTrigger[];
 }

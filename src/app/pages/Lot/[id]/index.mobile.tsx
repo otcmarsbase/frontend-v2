@@ -6,7 +6,7 @@ import { MBPages } from '@app/pages';
 import LINQ from '@berish/linq';
 import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
 
 import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
@@ -15,15 +15,16 @@ import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
 import { InfoBlock } from './_atoms_mobile';
 
 export interface LotMobileProps {
-  lot: Resource.Lot.Lot;
+  lot: DeskGatewaySchema.Lot;
+  offerMaker: DeskGatewaySchema.User;
+  stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   isOfferMaker: boolean;
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
 }
 
-export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }) => {
+export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker }) => {
   const router = useRouter();
   const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
-  const { attributes } = lot;
 
   const onCreateBidClick = async () => {
     const bid = await ModalController.create(UIModals.CreateBidModal, { lot });
@@ -45,7 +46,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
               title: 'Site',
               url: asset.website,
             },
-          ] as Resource.Asset.ValueObjects.AssetLink[])
+          ] as DeskGatewaySchema.AssetLink[])
         : asset.info.links,
     ).groupBy((link) => link.group),
   );
@@ -58,15 +59,15 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
       },
       {
         label: 'Direction',
-        value: <UILogic.TradeDirectionText variant="ghost" value={attributes.COMMON_DIRECTION} />,
+        value: <UILogic.TradeDirectionText variant="ghost" value={lot.attributes.COMMON_DIRECTION} />,
       },
       {
         label: 'Type',
-        value: <UILogic.LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
+        value: <UILogic.LotTypeChip withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} value={lot.type} />,
       },
       {
         label: 'Available reassignment',
-        value: <LotReassignmentType value={attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
+        value: <LotReassignmentType value={lot.attributes.INVEST_DOC_REASSIGNMENT_TYPE} />,
       },
       {
         label: 'Size to offer',
@@ -107,29 +108,31 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
           />
         ),
       },
-    ]
+    ];
 
     if (['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type)) {
       list.push({
         label: lot.type === 'UNLOCKED_TOKENS' ? 'Price per share' : 'Price per token',
-        value: <MoneyText
-          value={lot.attributes.COMMON_PRICE}
-          format="0,0.X"
-          fontSize="sm"
-          currencyTextProps={{
-            color: 'dark.50',
-          }}
-        />,
-      })
+        value: (
+          <MoneyText
+            value={lot.attributes.COMMON_PRICE}
+            format="0,0.X"
+            fontSize="sm"
+            currencyTextProps={{
+              color: 'dark.50',
+            }}
+          />
+        ),
+      });
     } else {
       list.push({
         label: 'Vesting',
         value: <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
-      })
+      });
     }
 
-    return list
-  }, [lot.type])
+    return list;
+  }, [lot]);
 
   const officialLinks = groupedByGroupLinks.get('OFFICIAL');
   const socialLinks = groupedByGroupLinks.get('SOCIAL');
@@ -147,15 +150,12 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, isOfferMaker }
       />
       {tab === 'LOT_INFO' && (
         <VStack w="full" gap="0.5rem">
-          <InfoBlock
-            title="Lot info"
-            fields={logInfoList}
-          />
-          <AvailableBlock lot={lot} />
+          <InfoBlock title="Lot info" fields={logInfoList} />
+          <AvailableBlock lot={lot} stat={stat} />
           <AdditionalInfoBlock lot={lot} />
         </VStack>
       )}
-      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} />}
+      {tab === 'BIDS' && <Bids isOfferMaker={isOfferMaker} offerMaker={offerMaker} lot={lot} asset={asset} />}
       {tab === 'ASSET_INFO' && (
         <VStack>
           {!isAssetCreateRequest && (

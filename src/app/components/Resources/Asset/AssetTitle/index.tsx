@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { Box, Text, HStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { AssetImage } from '../AssetImage';
 
 export interface AssetTitleProps {
-  asset: Resource.Asset.Asset;
+  asset: DeskGatewaySchema.Asset;
 }
 
 export function AssetTitle({ asset }: AssetTitleProps) {

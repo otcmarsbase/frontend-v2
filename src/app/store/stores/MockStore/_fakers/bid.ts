@@ -1,8 +1,8 @@
 // import { ParticipantTypeDictionary } from '@app/dictionary';
 // import { faker } from '@faker-js/faker';
-// import { Resource } from '@schema/desk-gateway';
+// import { DeskGatewaySchema} from '@schema/desk-gateway';
 
-// export function createBid(): Resource.Bid.Bid {
+// export function createBid(): DeskGatewaySchema.Bid {
 //   return {
 //     resource: 'bid',
 //     id: faker.string.numeric(5),
