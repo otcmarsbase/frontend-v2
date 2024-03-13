@@ -93,6 +93,8 @@ const MyBids: React.FC = () => {
     (bid: DeskGatewaySchema.Bid) => {
       const lot = findLot(bid);
 
+      if (!lot) return;
+
       return assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK);
     },
     [assets, findLot],
