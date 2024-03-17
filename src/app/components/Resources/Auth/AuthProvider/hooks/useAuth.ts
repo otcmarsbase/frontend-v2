@@ -5,20 +5,21 @@ import { useObserver } from 'mobx-react-lite';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 
-import { AuthConnectorInfo, AuthConnectorType } from '../info';
+import { IAuthWagmiConnectorInfo, AuthWagmiConnectorType } from '../info';
+import { IAuthConnectorInfo } from '../info/AuthConnectorInfo';
 import { AuthStatusType, AuthStore } from '../stores';
 
 export interface UseAuth {
-  status: AuthStatusType;
+  status: string;
   isAuthorized: boolean;
   isLoading: boolean;
 
   authToken?: string;
   account?: DeskGatewaySchema.Account;
-  connectorInfo?: AuthConnectorInfo;
+  connectorInfo?: IAuthConnectorInfo;
 
-  signInWithConnector: LoadingCallback<(connectorType: AuthConnectorType) => Promise<void>>;
   signIn: LoadingCallback<() => Promise<void>>;
+  onShowConnectModal: LoadingCallback<() => Promise<void>>
   signOut: () => Promise<void>;
   updateAccount: (account: DeskGatewaySchema.Account) => Promise<void>;
 }
@@ -34,8 +35,8 @@ export function useAuth(): UseAuth {
     status: store.status,
   }));
 
-  const signInWithConnector = useLoadingCallback(store.signInWithConnector);
   const signIn = useLoadingCallback(store.signIn);
+  const onShowConnectModal = useLoadingCallback(store.onShowConnectModal)
   const signOut = useCallback(async () => store.clearAuth(), [store]);
 
   return {
@@ -47,7 +48,7 @@ export function useAuth(): UseAuth {
     connectorInfo,
 
     signIn,
-    signInWithConnector,
+    onShowConnectModal,
     signOut,
     updateAccount: store.updateAccount,
   };

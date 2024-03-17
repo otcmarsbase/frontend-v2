@@ -1,8 +1,8 @@
 import { configureChains, createConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
-import { AuthChainDictionary } from './AuthChain';
-import { AuthConnectorDictionary } from './AuthConnector';
+import { AuthChainDictionary } from './AuthWagmiChain';
+import { AuthWagmiConnectorDictionary } from './IAuthWagmiConnectorInfo';
 
 const { publicClient, webSocketPublicClient } = configureChains(
   AuthChainDictionary.map((m) => m.wagmi)
@@ -15,5 +15,5 @@ export const AuthWagmiConfig = createConfig({
   autoConnect: true,
   publicClient,
   webSocketPublicClient,
-  connectors: AuthConnectorDictionary.map((m) => m.wagmiConnector).values(),
+  connectors: AuthWagmiConnectorDictionary.map((m) => m.wagmiConnector).values(),
 });

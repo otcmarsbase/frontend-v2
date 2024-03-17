@@ -3,12 +3,13 @@ import { PortalProps } from '@packages/berish-react-portal';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-export interface AuthVerifyModalProps extends PortalProps<void> {
-  onTryAgain?: () => any;
+export interface AuthTelegramVerifyModalProps extends PortalProps<void> {
+  code: string;
+  onRegenerateCode?: () => any;
   error?: string;
 }
 
-export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalProps) {
+export function AuthTelegramVerifyModal({ code, onRegenerateCode, error, portal }: AuthTelegramVerifyModalProps) {
   return (
     <UIKit.Modal
       title={
@@ -32,17 +33,21 @@ export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalPr
           <VStack alignItems="start" gap="0.25rem">
             <Text fontWeight={600}>Link wallet</Text>
             <Text color="dark.50" fontSize="sm">
-              Verify that you are the owner of this wallet
+              Verify that you are the owner code: { code }
             </Text>
           </VStack>
         </HStack>
         {error && (
           <VStack width="full">
             <Text>{error}</Text>
-            {onTryAgain && <Button onClick={onTryAgain}>Try again</Button>}
+            {onRegenerateCode &&
+              <Button onClick={onRegenerateCode}>
+                Regenerate code
+              </Button>
+            }
           </VStack>
         )}
       </VStack>
     </UIKit.Modal>
-  );
+  )
 }
