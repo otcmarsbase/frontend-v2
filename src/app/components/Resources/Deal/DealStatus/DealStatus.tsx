@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
 import { BoxProps, Circle, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { DealStatusColorMap, DealStatusTitleMap } from './const';
 
 export interface DealStatusProps extends BoxProps {
-  value: Resource.Deal.Enums.DealStatus;
+  value: DeskGatewaySchema.DealStatus;
 }
 
 export const DealStatus = ({ value, ...boxProps }: DealStatusProps): JSX.Element => {

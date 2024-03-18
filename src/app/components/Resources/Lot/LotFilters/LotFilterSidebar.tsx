@@ -1,15 +1,15 @@
 import { UILogic } from '@app/components';
-import { VStack, Text, Divider, FormControl, FormLabel, Checkbox } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { VStack, Text, Divider } from '@chakra-ui/react';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 export type LotFilterSidebarModel = Partial<{
   search: string;
-  direction: Resource.Common.Enums.TradeDirection;
-  type: Resource.Lot.Enums.LotType[];
-  verticals: Resource.Asset.Enums.AssetVertical[];
+  direction: DeskGatewaySchema.TradeDirection;
+  type: DeskGatewaySchema.LotType[];
+  verticals: DeskGatewaySchema.AssetVertical[];
   bidSize: [number, number];
-  reassignmentType: Resource.Lot.Enums.LotReassignmentType[];
+  reassignmentType: DeskGatewaySchema.LotReassignmentType[];
   assets: string[];
 }>;
 

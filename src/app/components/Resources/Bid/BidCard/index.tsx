@@ -1,13 +1,12 @@
 import { useMemo } from 'react';
 
-import { LotHotChip, LotTypeChip, UILogic } from '@app/components';
-import { LocationDictionary, LotMultiplicatorDictionary, LotUnitAddonDictionary } from '@app/dictionary';
+import { LotTypeChip, UILogic } from '@app/components';
+import { LocationDictionary } from '@app/dictionary';
 import { MBPages } from '@app/pages';
-import { Box, Divider, Grid, GridItem, HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, HStack, Text, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
-import Decimal from 'decimal.js';
 
 import { BidRowFieldNameTitleMap } from '../const';
 
@@ -18,9 +17,10 @@ type FieldType = {
 };
 
 export interface BidCardProps {
-  bid: Resource.Bid.Bid;
-  lot: Resource.Lot.Lot;
-  asset: Resource.Asset.Asset;
+  bid: DeskGatewaySchema.Bid;
+  lot: DeskGatewaySchema.Lot;
+  offerMaker: DeskGatewaySchema.User;
+  asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
   offerMakerActions?: {
@@ -33,6 +33,7 @@ export const BidCard: React.FC<BidCardProps> = ({
   bid,
   lot,
   asset,
+  offerMaker,
   minimalView = false,
   offerMakerActions,
   onClick,
@@ -49,15 +50,15 @@ export const BidCard: React.FC<BidCardProps> = ({
       },
       {
         name: BidRowFieldNameTitleMap.get('BID_FDV'),
-        value: <UIKit.MoneyText value={bid.fdv?.value} abbreviated />,
+        value: <UIKit.MoneyText value={bid.fdv} abbreviated />,
       },
       {
         name: BidRowFieldNameTitleMap.get('BID_AMOUNT'),
-        value: <UIKit.MoneyText value={bid.summary.value} format="0,0.X" />,
+        value: <UIKit.MoneyText value={bid.summary} format="0,0.X" />,
       },
       {
         name: BidRowFieldNameTitleMap.get('OFFER_MAKER'),
-        value: <UILogic.AccountAvatar nickname={lot.offerMaker.nickname} />,
+        value: <UILogic.AccountAvatar nickname={offerMaker.nickname} />,
       },
       {
         name: BidRowFieldNameTitleMap.get('LOCATION'),

@@ -1,18 +1,18 @@
 import { UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { formatDate } from '@app/utils';
-import { Grid, GridItem, HStack, SimpleGrid, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DealRowFieldNameTitleMap } from '../const';
 import { DealCard } from '../DealCard';
 
 export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
-  deal: Resource.Deal.Deal;
-  asset: Resource.Asset.Asset;
-  lot: Resource.Lot.Lot;
+  deal: DeskGatewaySchema.Deal;
+  asset: DeskGatewaySchema.Asset;
+  lot: DeskGatewaySchema.Lot;
   onClick: () => any;
 }
 
@@ -29,15 +29,15 @@ export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...
     },
     {
       label: DealRowFieldNameTitleMap.get('LOT_ID'),
-      value: <Text>#{deal.lotKey.id}</Text>,
+      value: <Text>#{lot.id}</Text>,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_AMOUNT'),
-      value: <UIKit.MoneyText value={deal.summary.value} format="0,0.X" abbreviated />,
+      value: <UIKit.MoneyText value={deal.summary} format="0,0.X" abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('DEAL_FDV'),
-      value: <UIKit.MoneyText value={deal.fdv?.value} abbreviated />,
+      value: <UIKit.MoneyText value={deal.fdv} abbreviated />,
     },
     {
       label: DealRowFieldNameTitleMap.get('CREATED_TIME'),

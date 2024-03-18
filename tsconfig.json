@@ -52,6 +52,7 @@
       "@shared/config": ["./src/shared/config"],
       "@ddd/errors": ["./src/shared/ddd-errors"],
       "@schema/common": ["./src/shared/schema/common/src"],
+      "@schema/core": ["./src/shared/schema/core/src"],
       "@schema/errors": ["./src/shared/schema/errors/src"],
       "@schema/desk-gateway": ["./src/shared/schema/desk-gateway/src"],
       "@shared/ui-icons": ["./src/shared/ui-icons"],

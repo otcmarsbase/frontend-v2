@@ -1,8 +1,8 @@
 import { VStack } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface BidItemCardProps {
-  bid: Resource.Bid.Bid;
+  bid: DeskGatewaySchema.Bid;
   onClick: () => void;
 }
 

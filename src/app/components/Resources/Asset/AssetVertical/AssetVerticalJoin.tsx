@@ -12,12 +12,12 @@ import {
   PopoverBody,
   PopoverArrow,
 } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { AssetVerticalRow } from './AssetVerticalRow';
 
 export interface AssetVerticalJoinProps extends TextProps {
-  value: Resource.Asset.Enums.AssetVertical[];
+  value: DeskGatewaySchema.AssetVertical[];
 }
 
 export function AssetVerticalJoin({ value }: AssetVerticalJoinProps) {

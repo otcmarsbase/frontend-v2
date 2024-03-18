@@ -1,27 +1,30 @@
 import { useCallback } from 'react';
 
 import { ResponsiveValue, SimpleGrid } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { motion } from 'framer-motion';
 
 import { LotCard } from '../LotCard';
 
 export interface LotGripProps {
   columns: ResponsiveValue<number>;
-  lots: Resource.Lot.Lot[];
-  assets: Resource.Asset.Asset[];
+  lots: DeskGatewaySchema.Lot[];
+  stats: DeskGatewaySchema.LotTransactionStatsAggregation[];
+  assets: DeskGatewaySchema.Asset[];
 
-  onSelect?: (lot: Resource.Lot.Lot, asset: Resource.Asset.Asset) => any;
+  onSelect?: (lot: DeskGatewaySchema.Lot, asset: DeskGatewaySchema.Asset) => any;
 }
 
-export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
+export function LotGrid({ columns, lots, assets, stats, onSelect }: LotGripProps) {
   const getAsset = useCallback(
-    (lot: Resource.Lot.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
+    (lot: DeskGatewaySchema.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
     [assets],
   );
 
+  const getStat = useCallback((lot: DeskGatewaySchema.Lot) => stats.find((stat) => stat.id === lot.id), [stats]);
+
   const onSelectCallback = useCallback(
-    (lot: Resource.Lot.Lot) => {
+    (lot: DeskGatewaySchema.Lot) => {
       if (onSelect) {
         const asset = getAsset(lot);
         onSelect(lot, asset);
@@ -34,7 +37,7 @@ export function LotGrid({ columns, lots, assets, onSelect }: LotGripProps) {
     <SimpleGrid w="full" columns={columns} spacing="2rem">
       {lots.map((lot) => (
         <motion.div layout key={lot.id}>
-          <LotCard lot={lot} asset={getAsset(lot)} onClick={() => onSelectCallback(lot)} />
+          <LotCard lot={lot} asset={getAsset(lot)} stat={getStat(lot)} onClick={() => onSelectCallback(lot)} />
         </motion.div>
       ))}
     </SimpleGrid>

@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 
 import { HStack, StackProps, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { AssetImage } from '../AssetImage';
 
 type AssetNameSize = 'xs' | 'sm' | 'md';
 
 export interface AssetNameProps extends StackProps {
-  asset: Resource.Asset.Asset | Resource.Lot.ValueObjects.AssetCreateRequest;
+  asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
   size?: AssetNameSize;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }

@@ -1,4 +1,4 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../utils';
 
@@ -6,7 +6,7 @@ export interface MediatorTypeDictionaryInfo {
   title: string;
 }
 
-export const MediatorTypeDictionary = createDictionary<Resource.Common.Enums.MediatorType, MediatorTypeDictionaryInfo>()
+export const MediatorTypeDictionary = createDictionary<DeskGatewaySchema.MediatorType, MediatorTypeDictionaryInfo>()
   .setFromRecord({
     DIRECT: {
       title: 'Direct',

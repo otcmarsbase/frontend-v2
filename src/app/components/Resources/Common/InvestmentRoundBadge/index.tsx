@@ -1,9 +1,9 @@
 import { InvestmentRoundDictionary } from '@app/dictionary';
 import { Text, TextProps } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface InvestmentRoundBadgeProps extends TextProps {
-  value?: Resource.Common.Enums.InvestRound;
+  value?: DeskGatewaySchema.InvestRound;
 }
 
 export const InvestmentRoundBadge: React.FC<InvestmentRoundBadgeProps> = ({ value, ...textProps }) => {

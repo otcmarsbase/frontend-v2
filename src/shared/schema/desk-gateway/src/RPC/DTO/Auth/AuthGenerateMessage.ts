@@ -1,4 +1,4 @@
-import { Resource } from '../../../Resource';
+import { AuthGeneratedMessage } from '../../../Resource';
 
 export namespace AuthGenerateMessage {
   export type Payload = {
@@ -7,5 +7,5 @@ export namespace AuthGenerateMessage {
     address: string;
   };
 
-  export type Result = Resource.Auth.AuthGeneratedMessage;
+  export type Result = AuthGeneratedMessage;
 }

@@ -1,9 +1,9 @@
 import { UILogic } from '@app/components';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { HStack, UIKit } from '@shared/ui-kit';
 
 export interface VerticalBlockProps {
-  verticals: Resource.Asset.Enums.AssetVertical[];
+  verticals: DeskGatewaySchema.AssetVertical[];
 }
 
 export function VerticalBlock({ verticals }: VerticalBlockProps) {

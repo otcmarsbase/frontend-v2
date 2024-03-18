@@ -1,18 +1,12 @@
-import * as SchemaCommon from '@schema/common';
+import { CoreSchema } from '@schema/core';
 
-import { Resource } from '../../Resource';
+import { NotificationType } from './Enums';
+import { NotificationKey } from './NotificationKey';
+import { NotificationPayload } from './NotificationPayload';
 
-export namespace Notification {
-  export interface NotificationKey extends SchemaCommon.ResourceKey<'notification'> {
-    notificationId: string;
-  }
-
-  export interface Notification<Type extends Resource.NotificationCommon.Enums.NotificationType = Resource.NotificationCommon.Enums.NotificationType>
-    extends SchemaCommon.Resource<'notification'>,
-      SchemaCommon.ResourceOmit<NotificationKey> {
-    type: Type;
-    createdAt: number;
-    payload: Resource.NotificationCommon.NotificationPayload<Type>;
-    isReaded: boolean;
-  }
+export interface Notification<Type extends NotificationType = NotificationType> extends CoreSchema.Resource<'notification', NotificationKey> {
+  type: Type;
+  createdAt: number;
+  payload: NotificationPayload<Type>;
+  isReaded: boolean;
 }

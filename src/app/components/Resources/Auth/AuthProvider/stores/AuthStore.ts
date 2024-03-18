@@ -4,7 +4,7 @@ import { makePersistable } from 'mobx-persist-store';
 import { ModalController, appManager } from '@app/logic';
 import { RuntimeError } from '@ddd/errors';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { connect, getAccount, signMessage } from '@wagmi/core';
@@ -29,7 +29,7 @@ export class AuthStore {
   private readonly _local: AuthLocalStore;
 
   private _loadingHashes: string[];
-  private _account: Resource.Account.Account;
+  private _account: DeskGatewaySchema.Account;
   private _connectModalResolver?: PortalInstanceControl<AuthConnectModalProps, void>;
   private _verifyModalResolver?: PortalInstanceControl<AuthVerifyModalProps, void>;
 
@@ -92,7 +92,7 @@ export class AuthStore {
     this._local.connectorType = connectorType;
   }
 
-  async updateAccount(account?: Resource.Account.Account): Promise<void> {
+  async updateAccount(account?: DeskGatewaySchema.Account): Promise<void> {
     try {
       if (account) {
         this._account = account;
@@ -195,9 +195,10 @@ export class AuthStore {
     });
 
     const signature = await signMessage({ message: generatedMessage.message });
+
     await schema.send('auth.signIn', {
       message: generatedMessage.message,
-      signatureHash: generatedMessage.signature_hash,
+      signatureHash: generatedMessage.signatureHash,
       signature,
     });
   }

@@ -1,10 +1,10 @@
 import { createDictionary } from '@app/dictionary';
 import { VStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { InputDescriptor } from '../types';
 
-export const DescriptorDictionary = createDictionary<Resource.Common.Enums.TradeDirection, InputDescriptor>()
+export const DescriptorDictionary = createDictionary<DeskGatewaySchema.TradeDirection, InputDescriptor>()
   .setFromRecord({
     BUY: {
       label: 'I am',

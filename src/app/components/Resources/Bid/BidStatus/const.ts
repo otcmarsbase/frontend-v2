@@ -1,9 +1,9 @@
 import { createDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Property } from 'csstype';
 
 export const BidStatusInfoDictionary = createDictionary<
-  Resource.Bid.Enums.BidStatus,
+  DeskGatewaySchema.BidStatus,
   { title: React.ReactNode; color: Property.Color }
 >({
   ACTIVE: { title: 'Active', color: 'done' },

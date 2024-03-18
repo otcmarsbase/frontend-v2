@@ -8,13 +8,13 @@ import {
   AssetVerticalTitleDictionary,
 } from '@app/dictionary';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
 import { omitBy } from 'lodash';
 
 interface FiltersModel extends Omit<LotFilterSidebarModel, 'assets'> {
-  assets: Resource.Asset.Asset[];
+  assets: DeskGatewaySchema.Asset[];
 }
 
 type FormatValue = {

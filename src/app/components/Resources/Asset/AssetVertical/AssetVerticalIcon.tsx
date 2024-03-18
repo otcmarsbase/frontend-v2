@@ -2,11 +2,11 @@ import { useMemo } from 'react';
 
 import { AssetVerticalIconDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { Square } from '@chakra-ui/react';
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Tooltip } from '@shared/ui-kit';
 
 export interface AssetVerticalIconProps {
-  value: Resource.Asset.Enums.AssetVertical;
+  value: DeskGatewaySchema.AssetVertical;
 }
 
 export const AssetVerticalIcon: React.FC<AssetVerticalIconProps> = ({ value }) => {

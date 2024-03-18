@@ -1,4 +1,4 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
@@ -6,7 +6,7 @@ export interface LotTypeDictionaryInfo {
   title: string;
 }
 
-export const LotTypeDictionary = createDictionary<Resource.Lot.Enums.LotType, LotTypeDictionaryInfo>()
+export const LotTypeDictionary = createDictionary<DeskGatewaySchema.LotType, LotTypeDictionaryInfo>()
   .setFromRecord({
     SAFE: {
       title: 'SAFE',

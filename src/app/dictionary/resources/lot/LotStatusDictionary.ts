@@ -1,4 +1,4 @@
-import { Resource } from '@schema/desk-gateway';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { createDictionary } from '../../utils';
 
@@ -7,7 +7,7 @@ export interface LotStatusDictionaryInfo {
   color: string;
 }
 
-export const LotStatusDictionary = createDictionary<Resource.Lot.Enums.LotStatus, LotStatusDictionaryInfo>()
+export const LotStatusDictionary = createDictionary<DeskGatewaySchema.LotStatus, LotStatusDictionaryInfo>()
   .setFromRecord({
     COMPLETED: {
       title: 'Completed',

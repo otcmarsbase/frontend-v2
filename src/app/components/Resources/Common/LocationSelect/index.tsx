@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 
 import { LocationDictionary } from '@app/dictionary';
-import { Resource } from '@schema/desk-gateway';
+import { CommonSchema } from '@schema/common';
 import { UIKit } from '@shared/ui-kit';
 
 export type LocationSelectProps = Omit<
-  React.ComponentProps<typeof UIKit.SelectSync<Resource.Common.Enums.Location>>,
+  React.ComponentProps<typeof UIKit.SelectSync<CommonSchema.Country>>,
   'items' | 'renderItem'
 >;
 
@@ -20,7 +20,7 @@ export const LocationSelect: React.FC<LocationSelectProps> = (props) => {
   );
 
   return (
-    <UIKit.SelectSync<Resource.Common.Enums.Location>
+    <UIKit.SelectSync<CommonSchema.Country>
       {...props}
       onSearch={setSearch}
       renderItem={(item) => LocationDictionary.get(item).name}
