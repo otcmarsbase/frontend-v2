@@ -13,13 +13,13 @@ export const AuthWagmiConnectorType = ['metamask'] as const;
 
 export type AuthWagmiConnectorType = (typeof AuthWagmiConnectorType)[number];
 
-export interface IAuthWagmiConnectorInfo extends IAuthConnectorInfo {
+export interface AuthWagmiConnectorInfoType extends IAuthConnectorInfo {
   type: AuthWagmiConnectorType;
   wagmiConnector: Connector;
   isInstalled: (ethereum?: WindowProvider) => boolean;
 }
 
-export const AuthWagmiConnectorDictionary = createDictionary<AuthWagmiConnectorType, IAuthWagmiConnectorInfo>();
+export const AuthWagmiConnectorDictionary = createDictionary<AuthWagmiConnectorType, AuthWagmiConnectorInfoType>();
 
 AuthWagmiConnectorDictionary.set('metamask', {
   type: 'metamask',

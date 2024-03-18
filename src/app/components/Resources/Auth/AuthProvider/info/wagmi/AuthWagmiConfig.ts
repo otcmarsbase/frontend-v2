@@ -2,7 +2,7 @@ import { configureChains, createConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
 import { AuthChainDictionary } from './AuthWagmiChain';
-import { AuthWagmiConnectorDictionary } from './IAuthWagmiConnectorInfo';
+import { AuthWagmiConnectorDictionary } from './AuthWagmiConnectorInfo';
 
 const { publicClient, webSocketPublicClient } = configureChains(
   AuthChainDictionary.map((m) => m.wagmi)

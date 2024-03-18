@@ -5,9 +5,8 @@ import { useObserver } from 'mobx-react-lite';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 
-import { IAuthWagmiConnectorInfo, AuthWagmiConnectorType } from '../info';
-import { IAuthConnectorInfo } from '../info/AuthConnectorInfo';
-import { AuthStatusType, AuthStore } from '../stores';
+import { IAuthConnectorInfo } from '../info';
+import { AuthStore } from '../stores';
 
 export interface UseAuth {
   status: string;

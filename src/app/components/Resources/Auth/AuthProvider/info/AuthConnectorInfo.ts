@@ -2,6 +2,7 @@ import { AuthTelegramConnector, AuthWagmiConnector } from '@app/components';
 import { createDictionary } from '@app/dictionary';
 
 
+import { AuthTelegramConnectorInfo } from './telegram/AuthTelegramConnectorInfo';
 import { AuthWagmiConnectorDictionary } from './wagmi';
 
 export type AuthConnectorsType = AuthWagmiConnector | AuthTelegramConnector
@@ -26,5 +27,5 @@ AuthWagmiConnectorDictionary
   .forEach((key) => (
     AuthConnectorsDictionary.set(key, AuthWagmiConnectorDictionary.get(key))
   ))
-
+AuthConnectorsDictionary.set('telegram', AuthTelegramConnectorInfo)
 

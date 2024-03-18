@@ -8,11 +8,11 @@ export const AuthTelegramConnectorType = ['telegram'] as const;
 
 export type AuthTelegramConnectorType = (typeof AuthTelegramConnectorType)[number];
 
-export interface IAuthTelegramConnectorInfo extends IAuthConnectorInfo {
+export interface AuthTelegramConnectorInfoType extends IAuthConnectorInfo {
   type: AuthTelegramConnectorType
 }
 
-export const AuthTelegramConnectorInfo: IAuthTelegramConnectorInfo = {
+export const AuthTelegramConnectorInfo: AuthTelegramConnectorInfoType = {
   type: 'telegram',
   title: 'Telegram',
   description: 'Quick connection via messenger',

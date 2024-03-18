@@ -1,4 +1,4 @@
-import { AuthWagmiConnectorDictionary, IAuthWagmiConnectorInfo, AuthWagmiConnectorType } from '@app/components';
+import { AuthWagmiConnectorDictionary, AuthWagmiConnectorInfoType, AuthWagmiConnectorType } from '@app/components';
 import { appManager, ModalController } from '@app/logic';
 import { RuntimeError } from '@ddd/errors';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
@@ -10,7 +10,7 @@ import { IAuthConnector } from './IAuthConnector';
 
 export type AuthWagmiStatusType = 'CONNECT_WALLET' | 'VERIFY_WALLET';
 
-export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, IAuthWagmiConnectorInfo>{
+export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, AuthWagmiConnectorInfoType>{
   private _status: AuthWagmiStatusType;
 
   private _verifyModalResolver?: PortalInstanceControl<AuthWagmiVerifyModalProps, void>;

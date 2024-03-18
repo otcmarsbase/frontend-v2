@@ -1,2 +1,3 @@
 export * from './AuthConnectModal';
-export * from './AuthWagmiVerifyModal';
+export * from './wagmi';
+export * from './telegram'
