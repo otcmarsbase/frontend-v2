@@ -14,6 +14,7 @@ export type Schema = {
     generateMessage(payload: DTO.AuthGenerateMessage.Payload): DTO.AuthGenerateMessage.Result;
     generateTelegramCode(payload: DTO.AuthGenerateTelegramCode.Payload): DTO.AuthGenerateTelegramCode.Result;
     telegramCheckSignIn(payload: DTO.AuthTelegramCheckSignIn.Payload): DTO.AuthTelegramCheckSignIn.Result;
+    telegramVerifyWebApp(payload: DTO.AuthTelegramVerifyWebApp.Payload): DTO.AuthTelegramVerifyWebApp.Result;
   };
   bid: {
     create(payload: DTO.BidCreate.Payload): DTO.BidCreate.Result;

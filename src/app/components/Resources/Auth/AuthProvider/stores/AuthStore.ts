@@ -178,6 +178,6 @@ export class AuthStore {
     });
 
     await this.updateToken(this._local.token);
-    this._updateAuthConnector(this._local.connectorType);
+    this._updateAuthConnector(this._local?.connectorType || 'telegram');
   }
 }

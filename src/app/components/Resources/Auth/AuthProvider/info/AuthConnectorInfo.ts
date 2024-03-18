@@ -27,5 +27,6 @@ AuthWagmiConnectorDictionary
   .forEach((key) => (
     AuthConnectorsDictionary.set(key, AuthWagmiConnectorDictionary.get(key))
   ))
+
 AuthConnectorsDictionary.set('telegram', AuthTelegramConnectorInfo)
 
