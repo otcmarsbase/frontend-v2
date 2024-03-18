@@ -157,7 +157,7 @@ export const OtcDesk: React.FC = observer(() => {
               <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
-                {!lots.total ? (
+                {!lots?.total ? (
                   <Empty
                     createButton={
                       <UILogic.AuthAction>

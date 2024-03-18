@@ -4,12 +4,11 @@ import { Text } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { UIKit } from '@shared/ui-kit';
 
-import { AuthConnectorType } from '../info';
 
 import { SelectConnector } from './atoms';
 
 export interface AuthConnectModalProps extends PortalProps<void> {
-  onSelect?: (type: AuthConnectorType) => any;
+  onSelect?: (connectorType: string) => any;
 }
 
 export const AuthConnectModal: React.FC<AuthConnectModalProps> = ({ onSelect }: AuthConnectModalProps) => {
@@ -18,7 +17,7 @@ export const AuthConnectModal: React.FC<AuthConnectModalProps> = ({ onSelect }: 
   }, [onSelect]);
 
   const onResolve = useCallback(
-    (connectorType: AuthConnectorType) => {
+    (connectorType: string) => {
       if (onSelect) onSelect(connectorType);
     },
     [onSelect],

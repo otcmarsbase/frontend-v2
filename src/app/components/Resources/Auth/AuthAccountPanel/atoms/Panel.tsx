@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 
+import { IAuthConnectorInfo } from '@app/components';
 import { formatAddress, formatNumber } from '@app/utils';
 import { HStack, Circle, Box, Image, Text } from '@chakra-ui/react';
 
-import { AuthConnectorInfo } from '../../AuthProvider';
 
 export interface PanelProps {
-  connectorInfo: AuthConnectorInfo;
+  connectorInfo: IAuthConnectorInfo;
   nickname: string;
 
   balance: string;

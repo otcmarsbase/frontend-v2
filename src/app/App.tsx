@@ -4,6 +4,7 @@ import {
   AppStateController,
   RpcSchemaProvider,
   ThemeProvider,
+  TelegramProvider
 } from '@app/components';
 import { StoreProvider } from '@app/store';
 import { PortalProvider } from '@packages/berish-react-portal';
@@ -25,9 +26,11 @@ export function App() {
                   <StoreProvider>
                     <RpcSchemaProvider client={appManager.serviceManager.backendApiService.schema}>
                       <ModalRenderProvider />
-                      <AppStateController>
-                        <RouterProvider router={appManager.router} notFound={pages.Errors.NotFound} />
-                      </AppStateController>
+                      <TelegramProvider>
+                        <AppStateController>
+                          <RouterProvider router={appManager.router} notFound={pages.Errors.NotFound} />
+                        </AppStateController>
+                      </TelegramProvider>
                     </RpcSchemaProvider>
                   </StoreProvider>
                 </AuthProvider>

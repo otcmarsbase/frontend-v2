@@ -1,5 +1,6 @@
-import { Fragment, PropsWithChildren, useEffect } from 'react';
+import { Fragment, PropsWithChildren, useEffect, useState } from 'react';
 
+import { Text } from '@chakra-ui/react';
 import { WagmiConfig } from 'wagmi';
 
 import { AuthWagmiConfig } from './info';
