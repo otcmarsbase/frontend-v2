@@ -149,21 +149,6 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, onClick, ...st
             </GridItem>
           ))}
         </Grid>
-        <UIKit.Dropdown items={[{ label: 'Edit' }, { label: 'Duplicate' }, { label: 'Delete' }]}>
-          <UIIcons.Common.KebabMenuIcon
-            position="absolute"
-            top="1.5rem"
-            right="2rem"
-            w="2rem"
-            color="dark.200"
-            transition="all 0.3s"
-            _hover={{ color: 'orange.500' }}
-            h="2rem"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        </UIKit.Dropdown>
       </HStack>
     </HStack>
   );
