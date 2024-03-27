@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'react-use';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
