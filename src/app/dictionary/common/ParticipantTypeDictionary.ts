@@ -11,20 +11,17 @@ export const ParticipantTypeDictionary = createDictionary<
   ParticipantTypeDictionaryInfo
 >()
   .setFromRecord({
-    INDIVIDUAL: {
-      title: 'Individual',
+    PRIVATE_INVESTOR: {
+      title: 'Private Investor',
     },
-    VC: {
-      title: 'VC',
+    VENTURE_FUND: {
+      title: 'Venture Fund',
     },
-    HEDGE_FUND: {
-      title: 'Hedge fund',
+    COMMUNITY_FUND: {
+      title: 'Community Fund',
     },
-    FAMILY_OFFICE: {
-      title: 'Family Office',
-    },
-    DAO: {
-      title: 'DAO',
+    PROJECT_TEAM: {
+      title: 'Project Team',
     },
   })
   .setDefaultFactory((key) => ({
