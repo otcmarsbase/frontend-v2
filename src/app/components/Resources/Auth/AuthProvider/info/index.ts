@@ -1,3 +1,3 @@
-export * from './AuthChain';
-export * from './AuthConnector';
-export * from './AuthWagmiConfig';
+export * from './AuthConnectorInfo'
+export * from './telegram'
+export * from './wagmi'

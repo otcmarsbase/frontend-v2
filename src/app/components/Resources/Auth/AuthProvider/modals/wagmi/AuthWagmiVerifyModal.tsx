@@ -3,12 +3,12 @@ import { PortalProps } from '@packages/berish-react-portal';
 import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
 
-export interface AuthVerifyModalProps extends PortalProps<void> {
+export interface AuthWagmiVerifyModalProps extends PortalProps<void> {
   onTryAgain?: () => any;
   error?: string;
 }
 
-export function AuthVerifyModal({ onTryAgain, error, portal }: AuthVerifyModalProps) {
+export function AuthWagmiVerifyModal({ onTryAgain, error, portal }: AuthWagmiVerifyModalProps) {
   return (
     <UIKit.Modal
       title={

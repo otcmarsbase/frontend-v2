@@ -1,10 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 
-import { AuthConnectorType } from '../info';
-
 export class AuthLocalStore {
   token: string;
-  connectorType: AuthConnectorType;
+  connectorType: string;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });

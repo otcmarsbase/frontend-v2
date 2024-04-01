@@ -161,7 +161,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
-                    {!lots.total ? (
+                    {!lots?.total ? (
                       <UIKit.Empty
                         createButton={
                           <UILogic.AuthAction>
