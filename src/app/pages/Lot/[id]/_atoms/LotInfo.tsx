@@ -4,6 +4,8 @@ import { SimpleGrid, VStack, Heading, Text } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText } from '@shared/ui-kit';
 
+import { LotTargetValuation } from '../../../../components/Resources/Lot/LotTargetValuation';
+
 import { AvailableBlock } from './AvailableBlock';
 import { LotInfoItem } from './LotInfoItem';
 
@@ -31,14 +33,7 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           />
         </LotInfoItem>
         <LotInfoItem fieldName="INVEST_DOC_FDV">
-          <MoneyText
-            value={lot.attributes.INVEST_DOC_FDV}
-            format="0,0.X"
-            fontSize="sm"
-            currencyTextProps={{
-              color: 'dark.50',
-            }}
-          />
+          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm"/>
         </LotInfoItem>
         <LotInfoItem fieldName="COMMON_MIN_FILTER_SUMMARY">
           <MoneyText
