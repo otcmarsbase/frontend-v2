@@ -37,14 +37,14 @@ export function Header() {
             <Markets />
 
             <UILogic.AuthAction>
-              <LinkComponent page={pages.Dashboard.Home} pageProps={{}}>
+              <LinkComponent page={pages.Dashboard.Home} pageProps={{}} overrideClick={false}>
                 <Link>My Dashboard</Link>
               </LinkComponent>
             </UILogic.AuthAction>
 
             <HStack fontFamily="body">
               <UILogic.AuthAction>
-                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'BUY' }}>
+                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'BUY' }}  overrideClick={false}>
                   <Button bg="done" h="7">
                     Buy
                   </Button>
@@ -52,7 +52,7 @@ export function Header() {
               </UILogic.AuthAction>
 
               <UILogic.AuthAction>
-                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'SELL' }}>
+                <LinkComponent page={pages.Lot.Create.Home} pageProps={{ direction: 'SELL' }}  overrideClick={false}>
                   <Button bg="error" h="7">
                     Sell
                   </Button>

@@ -154,6 +154,9 @@ export class AuthStore {
       const authConnector = AuthConnectorsDictionary.get(authConnectorType)
       this._local.connectorType = authConnector.type
       this._selectedAuthConnector = authConnector.getConnector()
+    } else {
+      this._local.connectorType = null
+      this._selectedAuthConnector = null
     }
   }
 
