@@ -7,7 +7,7 @@ export interface AuthActionProps extends PropsWithChildren {}
 export function AuthAction({ children }: AuthActionProps) {
   return (
     <AuthThen>
-      {({ isAuthorized, signIn }) =>
+      {({ isAuthorized, onShowConnectModal }) =>
         isAuthorized ? (
           <Fragment>{children}</Fragment>
         ) : (
@@ -15,7 +15,7 @@ export function AuthAction({ children }: AuthActionProps) {
             onClick: (e) => {
               e.preventDefault();
               e.stopPropagation();
-              signIn();
+              onShowConnectModal();
             },
           })
         )
