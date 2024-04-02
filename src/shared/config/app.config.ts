@@ -63,7 +63,7 @@ export const AppConfig: AppConfigType = {
     supportURL: 'https://t.me/marsbase_saft_bot',
     termsOfUseURL: 'https://drive.google.com/file/d/1PlJSXdu7b8dH3EAY7XY7NPSsB9YZS6Pg/view',
     privacyPolicyURL: 'https://drive.google.com/file/d/1mHwB3uSvzpRFOQftK8EOTmxMRX2LVfq8/view',
-    telegramBotURL: 'https://t.me/marsbase_test_bot',
+    telegramBotURL: configurator.get('TELEGRAM_BOT_URL'),
   },
 
   wagmi: {
