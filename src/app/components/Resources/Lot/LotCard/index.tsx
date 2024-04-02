@@ -8,6 +8,8 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
+import { LotTargetValuation } from '../LotTargetValuation';
+
 type FieldType = {
   name: string;
   value: React.ReactNode;
@@ -47,13 +49,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       {
         name: 'Target valuation',
         value: (
-          <UIKit.MoneyText
-            value={lot.attributes.INVEST_DOC_FDV}
-            currencyPlacement="end"
-            currencyTextProps={{
-              color: 'dark.50',
-            }}
-          />
+          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV}/>
         ),
       },
       {
@@ -65,7 +61,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
         value: (
           <UIKit.MoneyText
             value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-            currencyPlacement="end"
+            currencyPlacement='end'
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -84,14 +80,14 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       borderRadius="sm"
       bg={minimalView ? 'dark.800' : 'dark.900'}
       gap={0}
-      alignItems="start"
-      h="full"
-      transition="all 0.3s"
+      alignItems='start'
+      h='full'
+      transition='all 0.3s'
       _hover={{
         bg: minimalView ? 'dark.700' : 'dark.800',
       }}
     >
-      <Box flexShrink="0" mb="0.75rem">
+      <Box flexShrink='0' mb='0.75rem'>
         {asset && (
           <UILogic.AssetName
             lotId={lot.id}
@@ -102,26 +98,26 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       </Box>
       {!minimalView && (
         <>
-          <Divider variant="dashed" color="dark.600" />
-          <VStack flex="1" py="1rem" spacing="0.75rem" alignItems="flex-start" w="full">
+          <Divider variant='dashed' color='dark.600' />
+          <VStack flex='1' py='1rem' spacing='0.75rem' alignItems='flex-start' w='full'>
             {fields.map((field, index) => (
-              <HStack gap="0.25rem" alignItems="center" key={index} justifyContent="space-between" w="full">
-                <Text fontWeight={600} fontSize="sm" color="dark.50">
+              <HStack gap='0.25rem' alignItems='center' key={index} justifyContent='space-between' w='full'>
+                <Text fontWeight={600} fontSize='sm' color='dark.50'>
                   {field.name}
                 </Text>
                 {field.value}
               </HStack>
             ))}
           </VStack>
-          <Divider variant="dashed" mb="1rem" color="dark.600" />
+          <Divider variant='dashed' mb='1rem' color='dark.600' />
         </>
       )}
-      <VStack width="full" alignItems="start">
-        <HStack width="full" justifyContent="space-between">
-          <Text fontWeight={600} fontSize="sm" color="dark.50">
+      <VStack width='full' alignItems='start'>
+        <HStack width='full' justifyContent='space-between'>
+          <Text fontWeight={600} fontSize='sm' color='dark.50'>
             Available
           </Text>
-          <HStack fontWeight={600} color="white" fontSize="xs">
+          <HStack fontWeight={600} color='white' fontSize='xs'>
             <UIKit.MoneyText value={available.toNumber()} abbreviated />
             <Text>/</Text>
             <UIKit.MoneyText value={total.toNumber()} abbreviated />
@@ -131,7 +127,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       </VStack>
       {!minimalView && (
         <UILogic.AuthAction>
-          <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
+          <Button w='full' variant='darkOutline' size='sm' mt='1.25rem'>
             {isOfferMaker ? 'View my lot' : 'Place bid'}
           </Button>
         </UILogic.AuthAction>

@@ -10,6 +10,8 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
 import { formatDistance } from 'date-fns';
 
+import { LotTargetValuation } from '../../../components/Resources/Lot/LotTargetValuation';
+
 import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
 import { AvailableBlock } from './_atoms/AvailableBlock';
 import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
@@ -92,14 +94,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
       {
         label: 'Target valuation',
         value: (
-          <MoneyText
-            value={lot.attributes.INVEST_DOC_FDV}
-            format="0,0.X"
-            fontSize="sm"
-            currencyTextProps={{
-              color: 'dark.50',
-            }}
-          />
+          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm"/>
         ),
       },
       {
