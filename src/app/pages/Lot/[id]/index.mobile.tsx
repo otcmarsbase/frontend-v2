@@ -8,6 +8,7 @@ import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
+import { formatDistance } from 'date-fns';
 
 import { LotTargetValuation } from '../../../components/Resources/Lot/LotTargetValuation';
 
@@ -37,6 +38,12 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
   };
 
   const isAssetCreateRequest = 'title' in asset;
+
+  const createdAt = useMemo(() => formatDistance(
+    new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE),
+    new Date(),
+    { addSuffix: true }
+  ), [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE])
 
   const groupedByGroupLinks = new Map(
     LINQ.from(
@@ -125,6 +132,11 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
         value: <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
       });
     }
+
+    list.push({
+      label: 'Publish date',
+      value:  <Text fontSize="sm">{createdAt}</Text>
+    })
 
     return list;
   }, [lot]);

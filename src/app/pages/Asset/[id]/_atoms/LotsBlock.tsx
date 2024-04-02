@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'react-use';
 
 import { UILogic, useRpcSchemaQuery } from '@app/components';
@@ -161,7 +161,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
-                    {!lots.total ? (
+                    {!lots?.total ? (
                       <UIKit.Empty
                         createButton={
                           <UILogic.AuthAction>

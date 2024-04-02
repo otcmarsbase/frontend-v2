@@ -74,10 +74,10 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
   return (
     <VStack
       onClick={onClick}
-      cursor='pointer'
-      p='1.5rem 1.25rem'
-      position='relative'
-      borderRadius='sm'
+      cursor="pointer"
+      p="1rem 1.25rem"
+      position="relative"
+      borderRadius="sm"
       bg={minimalView ? 'dark.800' : 'dark.900'}
       gap={0}
       alignItems='start'
@@ -90,6 +90,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       <Box flexShrink='0' mb='0.75rem'>
         {asset && (
           <UILogic.AssetName
+            lotId={lot.id}
             asset={asset}
             onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
           />

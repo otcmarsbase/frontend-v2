@@ -7,11 +7,10 @@ import { PortalInstanceControl } from '@packages/berish-react-portal';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
-import { connect, getAccount, signMessage } from '@wagmi/core';
 import { v4 } from 'uuid';
 
-import { AuthConnectorDictionary, AuthConnectorType } from '../info';
-import { AuthConnectModal, AuthConnectModalProps, AuthVerifyModal, AuthVerifyModalProps } from '../modals';
+import { AuthConnectorsDictionary, AuthConnectorsType } from '../info/AuthConnectorInfo';
+import { AuthConnectModal, AuthConnectModalProps } from '../modals';
 
 import { AuthLocalStore } from './AuthLocalStore';
 
@@ -30,8 +29,10 @@ export class AuthStore {
 
   private _loadingHashes: string[];
   private _account: DeskGatewaySchema.Account;
+
   private _connectModalResolver?: PortalInstanceControl<AuthConnectModalProps, void>;
-  private _verifyModalResolver?: PortalInstanceControl<AuthVerifyModalProps, void>;
+
+  private _selectedAuthConnector?: AuthConnectorsType;
 
   private constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -53,17 +54,16 @@ export class AuthStore {
   }
 
   get connectorInfo() {
-    return AuthConnectorDictionary.get(this._local.connectorType);
+    return this._selectedAuthConnector?.info;
   }
 
   get isLoading() {
     return this._loadingHashes.length > 0;
   }
 
-  get status(): AuthStatusType {
+  get status() {
     if (this.isAuthorized) return 'AUTHORIZED';
-    if (this._connectModalResolver && !this._connectModalResolver.isResulted) return 'CONNECT_WALLET';
-    if (this._verifyModalResolver && !this._verifyModalResolver.isResulted) return 'VERIFY_WALLET';
+    if (this._selectedAuthConnector?.status) return this._selectedAuthConnector.status;
 
     return 'NOT_AUTHORIZED';
   }
@@ -86,10 +86,6 @@ export class AuthStore {
 
     this._local.token = token;
     await this.updateAccount();
-  }
-
-  async updateConnector(connectorType: AuthConnectorType) {
-    this._local.connectorType = connectorType;
   }
 
   async updateAccount(account?: DeskGatewaySchema.Account): Promise<void> {
@@ -120,38 +116,13 @@ export class AuthStore {
     }
   }
 
-  async signIn() {
-    await this._connectWallet();
-    if (this.connectorInfo?.type) await this.signInWithConnector(this.connectorInfo.type);
+  async onShowConnectModal() {
+    await this._resolveConnectModal();
   }
 
-  async signInWithConnector(connectorType: AuthConnectorType): Promise<void> {
-    this.updateConnector(connectorType);
-
-    if (this._verifyModalResolver && !this._verifyModalResolver.isResulted) {
-      // Its already exists, ok - Update initial states
-      this._verifyModalResolver.updateProps({});
-    } else {
-      // Its new, ok - Open Modal
-      this._verifyModalResolver = ModalController.create(AuthVerifyModal, {});
-    }
-
-    try {
-      await this._signInWithConnector(connectorType);
-
-      // All ok, close modal
-      this._verifyModalResolver?.resolve();
-    } catch (err) {
-      const errorString = this._stringifyError(err);
-
-      this._verifyModalResolver?.updateProps({
-        error: errorString,
-        onTryAgain: () => this.signInWithConnector(connectorType),
-      });
-    }
-
-    await this._verifyModalResolver;
-    this._verifyModalResolver = null;
+  async signIn(authConnectorType: string) {
+    this._updateAuthConnector(authConnectorType)
+    if (this._selectedAuthConnector) await this._selectedAuthConnector.execute()
   }
 
   clearAuth() {
@@ -160,78 +131,30 @@ export class AuthStore {
     this._account = null;
   }
 
-  private async _connectWallet(): Promise<void> {
-    this.updateConnector(null);
-
+  private async _resolveConnectModal(): Promise<void> {
     if (!this._connectModalResolver || !this._connectModalResolver.isResulted) {
       this._connectModalResolver = ModalController.create(AuthConnectModal, {
-        onSelect: (type) => this._onSelectConnectorType(type),
+        onSelect: (authConnectorType) => {
+          this.signIn(authConnectorType)
+            .then(() => {
+              if (this._connectModalResolver) {
+                this._connectModalResolver.resolve();
+                this._connectModalResolver = null;
+              }
+            })
+        },
       });
     }
 
     await this._connectModalResolver;
   }
 
-  private async _signInWithConnector(connectorType: AuthConnectorType): Promise<void> {
-    const { schema } = appManager.serviceManager.backendApiService;
-
-    const connectorInfo = AuthConnectorDictionary.get(connectorType);
-    if (!connectorInfo) return void 0;
-
-    const wagmiAccount = getAccount();
-
-    const connectedAddress =
-      wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
-        ? wagmiAccount.address
-        : await connect({ connector: connectorInfo.wagmiConnector })
-            .then((result) => result.account)
-            .catch<`0x${string}`>(() => null);
-    if (!connectedAddress) return void 0;
-
-    const generatedMessage = await schema.send('auth.generateMessage', {
-      domain: window.location.host,
-      uri: window.location.origin,
-      address: connectedAddress,
-    });
-
-    const signature = await signMessage({ message: generatedMessage.message });
-
-    await schema.send('auth.signIn', {
-      message: generatedMessage.message,
-      signatureHash: generatedMessage.signatureHash,
-      signature,
-    });
-  }
-
-  private async _onSelectConnectorType(connectorType: AuthConnectorType) {
-    const connectModalResolve = () => {
-      if (this._connectModalResolver) {
-        this._connectModalResolver.resolve();
-        this._connectModalResolver = null;
-      }
-    };
-
-    const connectorInfo = AuthConnectorDictionary.get(connectorType);
-    if (!connectorInfo) return connectModalResolve();
-
-    const wagmiAccount = getAccount();
-    const connectedAddress =
-      wagmiAccount.connector?.id === connectorInfo.wagmiConnector.id
-        ? wagmiAccount.address
-        : await connect({ connector: connectorInfo.wagmiConnector })
-            .then((result) => result.account)
-            .catch<`0x${string}`>(() => null);
-    if (!connectedAddress) return connectModalResolve();
-
-    this.updateConnector(connectorType);
-    return connectModalResolve();
-  }
-
-  private _stringifyError(err: any) {
-    if (err instanceof RuntimeError) return err.message;
-    if (err instanceof Error) return err.message;
-
-    return String(err);
+  private _updateAuthConnector(authConnectorType?: string) {
+    if (authConnectorType) {
+      const authConnector = AuthConnectorsDictionary.get(authConnectorType)
+      this._local.connectorType = authConnector.type
+      this._selectedAuthConnector = authConnector.getConnector()
+    }
   }
 
   // Execute loading function
@@ -255,5 +178,6 @@ export class AuthStore {
     });
 
     await this.updateToken(this._local.token);
+    this._updateAuthConnector(this._local?.connectorType || 'telegram');
   }
 }
