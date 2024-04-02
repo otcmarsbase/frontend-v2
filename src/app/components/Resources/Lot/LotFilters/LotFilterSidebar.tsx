@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { UILogic } from '@app/components';
 import { VStack, Text, Divider } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
@@ -34,11 +36,9 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
 
   return (
     <VStack w={{ base: '100%', md: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
-      <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem">
+      <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem" marginBottom="0.5rem">
         Filter
       </Text>
-
-      <Divider color="rgba(255, 255, 255, 0.15)" />
 
       {fieldsVisibility.reassignmentType && (
         <UIKit.KeyValueRowAccordion keyComponent="Reassignment">
@@ -88,7 +88,7 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
         <UIKit.KeyValueRowAccordion keyComponent="Size">
           <UIKit.RangeNumberSlider
             minMax={[0, 999999]}
-            value={filters.bidSize}
+            value={filters.bidSize || [0, 50000]}
             onChange={(bidSize) => onChange({ bidSize })}
             formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
             step={20}

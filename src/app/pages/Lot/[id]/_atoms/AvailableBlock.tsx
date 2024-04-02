@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { Text, Box } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
@@ -51,7 +51,7 @@ export const AvailableBlock: React.FC<AvailableBlockProps> = ({ lot, stat }) => 
           <UIKit.MoneyText fontSize="sm" value={totalSum} abbreviated currencyTextProps={{ color: 'dark.50' }} />
         </HStack>
       </HStack>
-      <Box w="full" h="11rem">
+      <Box width="100%" h="11rem">
         <UIKit.ChartPie
           data={chartData}
           size="sm"

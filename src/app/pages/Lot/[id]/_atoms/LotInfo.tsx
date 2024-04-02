@@ -51,7 +51,7 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           />
         </LotInfoItem>
         {isShowPrice ? (
-          <LotInfoItem fieldName={lot.type === 'UNLOCKED_TOKENS' ? 'PRICE_PER_SHARE' : 'PRICE_PER_TOKEN'}>
+          <LotInfoItem fieldName="PRICE_PER_TOKEN">
             <MoneyText
               value={lot.attributes.COMMON_PRICE}
               format="0,0.X"
@@ -63,7 +63,7 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           </LotInfoItem>
         ) : (
           <LotInfoItem fieldName="TOKEN_VESTING_PERIOD">
-            <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
+            <Text fontSize="sm" textAlign="right">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
           </LotInfoItem>
         )}
       </VStack>
