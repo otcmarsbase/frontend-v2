@@ -12,7 +12,7 @@ import { formatDistance } from 'date-fns';
 
 import { LotTargetValuation } from '../../../components/Resources/Lot/LotTargetValuation';
 
-import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
+import { AdditionalInfoBlock, AssetBlock, Bids, LotAnalytics, SidebarBlock } from './_atoms';
 import { AvailableBlock } from './_atoms/AvailableBlock';
 import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
 import { InfoBlock } from './_atoms_mobile';
@@ -23,9 +23,11 @@ export interface LotMobileProps {
   stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   isOfferMaker: boolean;
   asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker }) => {
+export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker, onEdit, onDelete }) => {
   const router = useRouter();
   const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
 
@@ -147,6 +149,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
 
   return (
     <VStack>
+      <LotAnalytics onEdit={onEdit} onDelete={onDelete} />
       <AssetBlock asset={asset} onCreateBidClick={onCreateBidClick} />
       <UIKit.RadioButtons
         value={tab}
