@@ -54,7 +54,7 @@ export const Home = () => {
 
   const findFavorite = useCallback(
     (lotId: DeskGatewaySchema.LotKey['id']) =>
-      !isFetching && favorites.items.find((favorite) => favorite.lotKey.id === lotId),
+      !isFetching && favorites?.items?.find((favorite) => favorite.lotKey.id === lotId),
     [favorites, isFetching],
   );
 
@@ -67,7 +67,7 @@ export const Home = () => {
           </Heading>
           {favorites?.items && (
             <Text color="dark.200" mb={1}>
-              ({favorites.items.length} lots)
+              ({favorites?.items.length} lots)
             </Text>
           )}
         </HStack>

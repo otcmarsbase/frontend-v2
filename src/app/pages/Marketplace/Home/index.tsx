@@ -179,7 +179,7 @@ export const OtcDesk: React.FC = observer(() => {
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}
-                      favorites={favorites.items}
+                      favorites={favorites?.items}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

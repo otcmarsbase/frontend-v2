@@ -31,7 +31,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   );
 
   const findFavorite = useCallback(
-    (lot: DeskGatewaySchema.Lot) => favorites.items.find((favorite) => favorite.lotKey.id === lot.id),
+    (lot: DeskGatewaySchema.Lot) => favorites?.items?.find((favorite) => favorite.lotKey.id === lot.id),
     [favorites],
   );
 

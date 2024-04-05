@@ -16,7 +16,7 @@ export interface LotGripProps {
   onSelect?: (lot: DeskGatewaySchema.Lot, asset: DeskGatewaySchema.Asset) => any;
 }
 
-export function LotGrid({ columns, lots, assets, stats, favorites, onSelect }: LotGripProps) {
+export function LotGrid({ columns, lots, assets, stats, favorites = [], onSelect }: LotGripProps) {
   const getAsset = useCallback(
     (lot: DeskGatewaySchema.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
     [assets],
