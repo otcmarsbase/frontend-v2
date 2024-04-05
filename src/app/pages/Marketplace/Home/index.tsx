@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
 import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
@@ -20,6 +20,7 @@ const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
@@ -96,7 +97,11 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
-  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery('favoriteLot.list', {});
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
+    'favoriteLot.list',
+    {},
+    { enabled: isAuthorized },
+  );
 
   const stats = useMemo(
     () =>

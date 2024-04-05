@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'react-use';
 
-import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { useDebounce } from '@app/hooks';
 import { MBPages } from '@app/pages';
@@ -35,6 +35,7 @@ export interface LotsBlockProps {
 
 export function LotsBlock({ asset }: LotsBlockProps) {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue({ base: false, md: true }, { ssr: false });
   const [isFiltersOpened, toggleFilters] = useToggle(defaultIsFiltersOpened);
@@ -88,7 +89,11 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
-  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery('favoriteLot.list', {});
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
+    'favoriteLot.list',
+    {},
+    { enabled: isAuthorized },
+  );
 
   const stats = useMemo(
     () =>

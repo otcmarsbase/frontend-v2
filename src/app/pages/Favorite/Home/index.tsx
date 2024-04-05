@@ -20,7 +20,11 @@ export const Home = () => {
 
   const { skip, limit, ...paginationProps } = usePagination();
 
-  const { data: favorites, isFetching: favoritesIsFetching } = useRpcSchemaQuery('favoriteLot.list', {});
+  const { data: favorites, isFetching: favoritesIsFetching } = useRpcSchemaQuery(
+    'favoriteLot.list',
+    {},
+    { enabled: isAuthorized },
+  );
 
   const { data: lots, isFetching: lotsIsFetching } = useRpcSchemaQuery(
     'lot.list',
