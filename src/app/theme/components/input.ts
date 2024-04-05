@@ -63,6 +63,9 @@ const baseStyle = definePartsStyle({
         opacity: 0,
       },
     },
+    _autofill: {
+      transition: 'background-color 0s 600000s, color 0s 600000s',
+    },
   },
   element: {
     color: 'dark.200',

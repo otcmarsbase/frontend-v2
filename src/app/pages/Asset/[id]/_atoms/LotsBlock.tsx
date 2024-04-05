@@ -88,6 +88,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery('favoriteLot.list', {});
 
   const stats = useMemo(
     () =>
@@ -132,6 +133,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       value={filters.direction}
       onChange={(direction) => onChangeFilters({ direction })}
       variant="promo"
+      isLazy={true}
     >
       {(direction) => (
         <VStack width="full" alignItems="start" gap="1.5rem">
@@ -157,7 +159,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   filters={{ ...filters, assets: undefined, direction: undefined }}
                   onReset={handleResetFilters}
                 />
-                {isLoading ? (
+                {isLoading || favoritesIsLoading ? (
                   <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
@@ -177,6 +179,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                         lots={lots.items}
                         assets={[asset]}
                         stats={stats}
+                        favorites={favorites.items}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />
                     )}

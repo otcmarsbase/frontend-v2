@@ -96,6 +96,8 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery('favoriteLot.list', {});
+
   const stats = useMemo(
     () =>
       (lots
@@ -104,7 +106,10 @@ export const OtcDesk: React.FC = observer(() => {
     [lots],
   );
 
-  const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
+  const isLoading = useMemo(
+    () => lotsIsLoading || assetsIsLoading || favoritesIsLoading,
+    [lotsIsLoading, assetsIsLoading, favoritesIsLoading],
+  );
 
   const toggleFilters = () => {
     setIsFiltersOpened((opened) => !opened);
@@ -174,6 +179,7 @@ export const OtcDesk: React.FC = observer(() => {
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}
+                      favorites={favorites.items}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

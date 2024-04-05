@@ -1,11 +1,14 @@
 import { useMemo } from 'react';
 
-import { LotReassignmentType, UILogic, useAuth } from '@app/components';
+import { LotReassignmentType, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { useToastInnerCallback } from '@app/hooks';
 import { MBPages } from '@app/pages';
-import { Box, Divider, HStack, Text, Button, VStack, Progress } from '@chakra-ui/react';
+import { Box, Divider, HStack, Text, Button, VStack, Progress, IconButton } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
+import { UIIcons } from '@shared/ui-icons';
 import { UIKit } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 import Decimal from 'decimal.js';
 
 import { LotTargetValuation } from '../LotTargetValuation';
@@ -22,17 +25,20 @@ export interface LotCardProps {
   asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
+  favorite?: DeskGatewaySchema.FavoriteLot;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, minimalView = false, onClick }) => {
   const router = useRouter();
-  const { account } = useAuth();
+  const { account, isAuthorized } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
 
   const available = new Decimal(stat.available || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
   const executed = total.minus(available);
   const progress = executed.div(total).mul(100);
+  const rpcSchema = useRpcSchemaClient();
+  const queryClient = useQueryClient();
 
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE' || !asset) return [];
@@ -48,9 +54,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       },
       {
         name: 'Target valuation',
-        value: (
-          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV}/>
-        ),
+        value: <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} />,
       },
       {
         name: 'Reassignment',
@@ -61,7 +65,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
         value: (
           <UIKit.MoneyText
             value={lot.attributes.COMMON_MIN_FILTER_SUMMARY}
-            currencyPlacement='end'
+            currencyPlacement="end"
             currencyTextProps={{
               color: 'dark.50',
             }}
@@ -70,6 +74,23 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       },
     ].filter(Boolean);
   }, [lot, asset]);
+
+  const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (favorite) {
+      await rpcSchema.send('favoriteLot.delete', { id: favorite.id });
+    } else {
+      await rpcSchema.send('favoriteLot.create', { lot: lot.id });
+    }
+
+    await queryClient.invalidateQueries({
+      predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('favoriteLot'),
+    });
+  };
+
+  const handleFavoriteClick = useToastInnerCallback(toggleFavorite, { okText: 'Success', showWhenOk: true });
 
   return (
     <VStack
@@ -80,44 +101,76 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       borderRadius="sm"
       bg={minimalView ? 'dark.800' : 'dark.900'}
       gap={0}
-      alignItems='start'
-      h='full'
-      transition='all 0.3s'
+      alignItems="start"
+      h="full"
+      transition="all 0.3s"
       _hover={{
         bg: minimalView ? 'dark.700' : 'dark.800',
       }}
     >
-      <Box flexShrink='0' mb='0.75rem'>
-        {asset && (
-          <UILogic.AssetName
-            lotId={lot.id}
-            asset={asset}
-            onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-          />
-        )}
+      {minimalView && (
+        <UILogic.TradeDirectionChip
+          value={lot.attributes.COMMON_DIRECTION}
+          position="absolute"
+          top={0}
+          right={0}
+          borderRadius={12}
+          borderTopLeftRadius={0}
+          borderBottomRightRadius={0}
+        />
+      )}
+      <Box flexShrink="0" mb="0.75rem" w="full">
+        <HStack alignItems="center" marginBottom="0.75rem">
+          <Text color="dark.50" fontSize="0.8rem" textDecoration="none">
+            #{lot.id}
+          </Text>
+          {minimalView && (
+            <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
+          )}
+        </HStack>
+        <HStack justifyContent="space-between" alignItems="center" w="full">
+          {asset && (
+            <UILogic.AssetName
+              asset={asset}
+              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
+            />
+          )}
+          {isAuthorized && (
+            <IconButton
+              variant="ghost"
+              aria-label="favorite"
+              fontSize="lg"
+              _hover={{ color: '#f9c409' }}
+              color={favorite && '#f9c409'}
+              icon={<UIIcons.Common.BookmarkIcon />}
+              onClickCapture={handleFavoriteClick}
+            />
+          )}
+        </HStack>
       </Box>
+
       {!minimalView && (
         <>
-          <Divider variant='dashed' color='dark.600' />
-          <VStack flex='1' py='1rem' spacing='0.75rem' alignItems='flex-start' w='full'>
+          <Divider variant="dashed" color="dark.600" />
+          <VStack flex="1" py="1rem" spacing="0.75rem" alignItems="flex-start" w="full">
             {fields.map((field, index) => (
-              <HStack gap='0.25rem' alignItems='center' key={index} justifyContent='space-between' w='full'>
-                <Text fontWeight={600} fontSize='sm' color='dark.50'>
+              <HStack gap="0.25rem" alignItems="center" key={index} justifyContent="space-between" w="full">
+                <Text fontWeight={600} fontSize="sm" color="dark.50">
                   {field.name}
                 </Text>
                 {field.value}
               </HStack>
             ))}
           </VStack>
-          <Divider variant='dashed' mb='1rem' color='dark.600' />
+          <Divider variant="dashed" mb="1rem" color="dark.600" />
         </>
       )}
-      <VStack width='full' alignItems='start'>
-        <HStack width='full' justifyContent='space-between'>
-          <Text fontWeight={600} fontSize='sm' color='dark.50'>
+      <VStack width="full" alignItems="start">
+        <HStack width="full" justifyContent="space-between">
+          <Text fontWeight={600} fontSize="sm" color="dark.50">
             Available
           </Text>
-          <HStack fontWeight={600} color='white' fontSize='xs'>
+          <HStack fontWeight={600} color="white" fontSize="xs">
             <UIKit.MoneyText value={available.toNumber()} abbreviated />
             <Text>/</Text>
             <UIKit.MoneyText value={total.toNumber()} abbreviated />
@@ -127,7 +180,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
       </VStack>
       {!minimalView && (
         <UILogic.AuthAction>
-          <Button w='full' variant='darkOutline' size='sm' mt='1.25rem'>
+          <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
             {isOfferMaker ? 'View my lot' : 'Place bid'}
           </Button>
         </UILogic.AuthAction>

@@ -121,8 +121,8 @@ export class AuthStore {
   }
 
   async signIn(authConnectorType: string) {
-    this._updateAuthConnector(authConnectorType)
-    if (this._selectedAuthConnector) await this._selectedAuthConnector.execute()
+    this._updateAuthConnector(authConnectorType);
+    if (this._selectedAuthConnector) await this._selectedAuthConnector.execute();
   }
 
   clearAuth() {
@@ -135,13 +135,12 @@ export class AuthStore {
     if (!this._connectModalResolver || !this._connectModalResolver.isResulted) {
       this._connectModalResolver = ModalController.create(AuthConnectModal, {
         onSelect: (authConnectorType) => {
-          this.signIn(authConnectorType)
-            .then(() => {
-              if (this._connectModalResolver) {
-                this._connectModalResolver.resolve();
-                this._connectModalResolver = null;
-              }
-            })
+          this.signIn(authConnectorType).then(() => {
+            if (this._connectModalResolver) {
+              this._connectModalResolver.resolve();
+              this._connectModalResolver = null;
+            }
+          });
         },
       });
     }
@@ -151,12 +150,12 @@ export class AuthStore {
 
   private _updateAuthConnector(authConnectorType?: string) {
     if (authConnectorType) {
-      const authConnector = AuthConnectorsDictionary.get(authConnectorType)
-      this._local.connectorType = authConnector.type
-      this._selectedAuthConnector = authConnector.getConnector()
+      const authConnector = AuthConnectorsDictionary.get(authConnectorType);
+      this._local.connectorType = authConnector.type;
+      this._selectedAuthConnector = authConnector.getConnector();
     } else {
-      this._local.connectorType = null
-      this._selectedAuthConnector = null
+      this._local.connectorType = null;
+      this._selectedAuthConnector = null;
     }
   }
 

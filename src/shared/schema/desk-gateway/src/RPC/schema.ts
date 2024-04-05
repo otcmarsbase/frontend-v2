@@ -53,4 +53,9 @@ export type Schema = {
     get(payload: DTO.NotificationConfigGet.Payload): DTO.NotificationConfigGet.Result;
     update(payload: DTO.NotificationConfigUpdate.Payload): DTO.NotificationConfigUpdate.Result;
   };
+  favoriteLot: {
+    create(payload: DTO.FavoriteLotCreate.Payload): DTO.FavoriteLotCreate.Result;
+    delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
+    list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
+  };
 };

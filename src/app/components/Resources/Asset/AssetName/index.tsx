@@ -8,13 +8,12 @@ import { AssetImage } from '../AssetImage';
 type AssetNameSize = 'xs' | 'sm' | 'md';
 
 export interface AssetNameProps extends StackProps {
-  lotId?: number | string,
   asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
   size?: AssetNameSize;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-export const AssetName: React.FC<AssetNameProps> = ({ lotId, asset, size = 'md', onClick, ...stackProps }) => {
+export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClick, ...stackProps }) => {
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
@@ -35,8 +34,6 @@ export const AssetName: React.FC<AssetNameProps> = ({ lotId, asset, size = 'md',
     md: '3rem',
   };
 
-  console.log(asset)
-
   return (
     <HStack
       gap="0.5rem"
@@ -49,11 +46,6 @@ export const AssetName: React.FC<AssetNameProps> = ({ lotId, asset, size = 'md',
       {...stackProps}
     >
       <Box>
-        {lotId && (
-          <Text color="dark.50" fontSize="0.8rem" marginBottom="0.75rem" textDecoration="none">
-            #{lotId}
-          </Text>
-        )}
         <Flex alignItems="center">
           {'title' in asset ? (
             <Text fontWeight="semibold" fontSize={fontSizes[size]}>

@@ -22,10 +22,11 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: DeskGatewaySchema.Lot;
   asset: DeskGatewaySchema.Asset;
   stat: DeskGatewaySchema.LotTransactionStatsAggregation;
+  favorite?: DeskGatewaySchema.FavoriteLot;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, onClick, ...stackProps }) => {
+export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, favorite, onClick, ...stackProps }) => {
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, md: false });
 
@@ -103,7 +104,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, onClick, ...st
     ].filter(Boolean);
   }, [lot, hasFdv, hasPrice, priceLabel]);
 
-  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} onClick={onClick} />;
+  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} favorite={favorite} onClick={onClick} />;
 
   return (
     <HStack

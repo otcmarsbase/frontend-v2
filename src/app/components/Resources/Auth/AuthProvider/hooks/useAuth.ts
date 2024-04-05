@@ -18,7 +18,7 @@ export interface UseAuth {
   connectorInfo?: IAuthConnectorInfo;
 
   signIn: LoadingCallback<() => Promise<void>>;
-  onShowConnectModal: LoadingCallback<() => Promise<void>>
+  onShowConnectModal: LoadingCallback<() => Promise<void>>;
   signOut: () => Promise<void>;
   updateAccount: (account: DeskGatewaySchema.Account) => Promise<void>;
 }
@@ -35,7 +35,7 @@ export function useAuth(): UseAuth {
   }));
 
   const signIn = useLoadingCallback(store.signIn);
-  const onShowConnectModal = useLoadingCallback(store.onShowConnectModal)
+  const onShowConnectModal = useLoadingCallback(store.onShowConnectModal);
   const signOut = useCallback(async () => store.clearAuth(), [store]);
 
   return {
