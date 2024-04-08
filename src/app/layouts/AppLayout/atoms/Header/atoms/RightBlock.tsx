@@ -93,16 +93,23 @@ export function RightBlock() {
           </Button>
         </Dropdown>
 
-        <Link
+        <Button
+          as="a"
           href={AppConfig.links.howItWorksURL}
           target="_blank"
           fontWeight="400"
-          color="dark.50"
+          color="#f9c409"
+          border="1px solid #f9c409"
           whiteSpace="nowrap"
+          backgroundColor="rgba(249, 196, 9, 0.1)"
           fontSize="xs"
+          size="sm"
+          _hover={{
+            backgroundColor: 'rgba(249, 196, 9, 0.2)',
+          }}
         >
           How it works?
-        </Link>
+        </Button>
       </HStack>
 
       <Box mr={{ base: '0', md: '1.5rem' }}>
@@ -151,6 +158,12 @@ export function RightBlock() {
                 </Text>
               }
             />
+
+            <LinkComponent page={pages.Favorite.Home} pageProps={{}}>
+              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                <UIIcons.Common.FavoriteIcon w="1.125rem" h="1.125rem" fill="transparent" stroke="white" />
+              </Square>
+            </LinkComponent>
           </>
         )}
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">

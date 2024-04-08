@@ -90,6 +90,7 @@ export const Home = () => {
             asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
             stat={findStat(item.id)}
             favorite={findFavorite(item.id)}
+            withFavoriteControl
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
           />
         )}

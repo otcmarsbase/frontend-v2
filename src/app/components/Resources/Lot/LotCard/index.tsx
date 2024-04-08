@@ -90,7 +90,10 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, mi
     });
   };
 
-  const handleFavoriteClick = useToastInnerCallback(toggleFavorite, { okText: 'Success', showWhenOk: true });
+  const handleFavoriteClick = useToastInnerCallback(toggleFavorite, {
+    okText: favorite ? 'Lot removed from favorites' : 'Lot added to favorites',
+    showWhenOk: true,
+  });
 
   return (
     <VStack
