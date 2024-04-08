@@ -88,7 +88,7 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
         <UIKit.KeyValueRowAccordion keyComponent="Size">
           <UIKit.RangeNumberSlider
             minMax={[0, 999999]}
-            value={filters.bidSize || [0, 50000]}
+            value={filters.bidSize || [50000, 50000]}
             onChange={(bidSize) => onChange({ bidSize })}
             formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
             step={20}
