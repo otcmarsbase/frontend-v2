@@ -58,7 +58,7 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           </LotInfoItem>
         ) : (
           <LotInfoItem fieldName="TOKEN_VESTING_PERIOD">
-            <Text fontSize="sm" textAlign="right">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
+            <Text fontSize="sm" wordBreak="break-all" textAlign="right">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
           </LotInfoItem>
         )}
       </VStack>
