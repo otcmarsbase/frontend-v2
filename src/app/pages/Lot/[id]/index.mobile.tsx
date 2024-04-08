@@ -129,7 +129,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
     } else {
       list.push({
         label: 'Vesting',
-        value: <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
+        value: <Text wordBreak="break-all" fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
       });
     }
 
