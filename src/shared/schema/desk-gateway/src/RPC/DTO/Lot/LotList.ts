@@ -30,6 +30,10 @@ export namespace LotList {
     direction?: TradeDirection;
     minContractValue?: number;
     maxContractValue?: number;
+    minBidSize?: number;
+    maxBidSize?: number;
+    minTargetValuation?: number;
+    maxTargetValuation?: number;
     reassignmentType?: LotReassignmentType[];
     isHot?: boolean;
     onlyMy?: boolean;
