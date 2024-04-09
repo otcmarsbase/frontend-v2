@@ -1,1 +1,1 @@
-export * from './AuthTelegramSignInStatus'
+export * from './AuthTelegramSignInStatus';

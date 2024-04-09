@@ -34,6 +34,8 @@ export namespace LotList {
     maxBidSize?: number;
     minTargetValuation?: number;
     maxTargetValuation?: number;
+    minCreatedAt?: number;
+    maxCreatedAt?: number;
     reassignmentType?: LotReassignmentType[];
     isHot?: boolean;
     onlyMy?: boolean;

@@ -3,7 +3,7 @@ export namespace AuthTelegramVerifyWebApp {
     username: string;
     hash: string;
     checkDataString: string;
-  }
+  };
 
-  export type Result = void
+  export type Result = void;
 }
