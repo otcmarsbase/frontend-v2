@@ -30,6 +30,12 @@ export namespace LotList {
     direction?: TradeDirection;
     minContractValue?: number;
     maxContractValue?: number;
+    minBidSize?: number;
+    maxBidSize?: number;
+    minTargetValuation?: number;
+    maxTargetValuation?: number;
+    minCreatedAt?: number;
+    maxCreatedAt?: number;
     reassignmentType?: LotReassignmentType[];
     isHot?: boolean;
     onlyMy?: boolean;
@@ -54,9 +60,6 @@ export namespace LotList {
     id?: CoreSchema.SortableValue;
   };
 
-  export type Payload = CoreSchema.WithFilter<Filter> &
-    CoreSchema.WithInclude<Include> &
-    CoreSchema.WithSortable<Sortable> &
-    CoreSchema.WithPagination;
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable> & CoreSchema.WithPagination;
   export type Result = CoreSchema.WithPaginationResult<Lot> & CoreSchema.WithIncludeLinks<Include>;
 }

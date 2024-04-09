@@ -1,7 +1,7 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useToggle } from 'react-use';
 
-import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
 import { TradeDirectionDictionary, LotTypeDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
 import { useDebounce } from '@app/hooks';
 import { MBPages } from '@app/pages';
@@ -35,6 +35,7 @@ export interface LotsBlockProps {
 
 export function LotsBlock({ asset }: LotsBlockProps) {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue({ base: false, md: true }, { ssr: false });
   const [isFiltersOpened, toggleFilters] = useToggle(defaultIsFiltersOpened);
@@ -88,6 +89,11 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
+    'favoriteLot.list',
+    {},
+    { enabled: isAuthorized },
+  );
 
   const stats = useMemo(
     () =>
@@ -132,6 +138,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       value={filters.direction}
       onChange={(direction) => onChangeFilters({ direction })}
       variant="promo"
+      isLazy={true}
     >
       {(direction) => (
         <VStack width="full" alignItems="start" gap="1.5rem">
@@ -157,11 +164,11 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                   filters={{ ...filters, assets: undefined, direction: undefined }}
                   onReset={handleResetFilters}
                 />
-                {isLoading ? (
+                {isLoading || favoritesIsLoading ? (
                   <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
                 ) : (
                   <>
-                    {!lots.total ? (
+                    {!lots?.total ? (
                       <UIKit.Empty
                         createButton={
                           <UILogic.AuthAction>
@@ -177,6 +184,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                         lots={lots.items}
                         assets={[asset]}
                         stats={stats}
+                        favorites={favorites?.items ?? []}
                         onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                       />
                     )}

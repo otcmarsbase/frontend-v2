@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
-import { HStack, StackProps, Text } from '@chakra-ui/react';
+import { Box, HStack, StackProps, Text, Flex } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { AssetImage } from '../AssetImage';
@@ -45,24 +45,29 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
       }}
       {...stackProps}
     >
-      {'title' in asset ? (
-        <Text fontWeight="semibold" fontSize={fontSizes[size]}>
-          {asset.title}
-        </Text>
-      ) : (
-        <>
-          <AssetImage
-            rounded="full"
-            objectFit="cover"
-            asset={asset}
-            w={assetImageSize[size]}
-            h={assetImageSize[size]}
-          />
-          <Text fontWeight="semibold" fontSize={fontSizes[size]}>
-            {asset?.info.title}
-          </Text>
-        </>
-      )}
+      <Box>
+        <Flex alignItems="center">
+          {'title' in asset ? (
+            <Text fontWeight="semibold" fontSize={fontSizes[size]}>
+              {asset.title}
+            </Text>
+          ) : (
+            <>
+              <AssetImage
+                rounded="full"
+                objectFit="cover"
+                asset={asset}
+                w={assetImageSize[size]}
+                h={assetImageSize[size]}
+                marginRight="0.35rem"
+              />
+              <Text fontWeight="semibold" fontSize={fontSizes[size]}>
+                {asset?.info.title}
+              </Text>
+            </>
+          )}
+        </Flex>
+      </Box>
     </HStack>
   );
 };

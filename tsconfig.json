@@ -58,7 +58,8 @@
       "@shared/ui-icons": ["./src/shared/ui-icons"],
       "@shared/ui-kit": ["./src/shared/ui-kit"],
       "@shared/hooks": ["./src/shared/hooks"],
-      "@shared/utils": ["./src/shared/utils"]
+      "@shared/utils": ["./src/shared/utils"],
+      "@shared/yup-custom-validators":  ["./src/shared/yup-custom-validators"]
     }
   },
   "include": ["./src"],

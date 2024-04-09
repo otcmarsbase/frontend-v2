@@ -78,7 +78,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           {
             label: 'Profile',
             icon: 'ProfileIcon',
-            onClick: () => router.navigateComponent(MBPages.Marketplace.Home, {}, {}),
+            onClick: () => router.navigateComponent(MBPages.Profile.Home, {}, {}),
             needAuth: true,
           },
           {

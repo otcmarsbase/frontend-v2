@@ -12,6 +12,9 @@ export type Schema = {
   auth: {
     signIn(payload: DTO.AuthSignIn.Payload): DTO.AuthSignIn.Result;
     generateMessage(payload: DTO.AuthGenerateMessage.Payload): DTO.AuthGenerateMessage.Result;
+    generateTelegramCode(payload: DTO.AuthGenerateTelegramCode.Payload): DTO.AuthGenerateTelegramCode.Result;
+    telegramCheckSignIn(payload: DTO.AuthTelegramCheckSignIn.Payload): DTO.AuthTelegramCheckSignIn.Result;
+    telegramVerifyWebApp(payload: DTO.AuthTelegramVerifyWebApp.Payload): DTO.AuthTelegramVerifyWebApp.Result;
   };
   bid: {
     create(payload: DTO.BidCreate.Payload): DTO.BidCreate.Result;
@@ -49,5 +52,10 @@ export type Schema = {
   notificationConfig: {
     get(payload: DTO.NotificationConfigGet.Payload): DTO.NotificationConfigGet.Result;
     update(payload: DTO.NotificationConfigUpdate.Payload): DTO.NotificationConfigUpdate.Result;
+  };
+  favoriteLot: {
+    create(payload: DTO.FavoriteLotCreate.Payload): DTO.FavoriteLotCreate.Result;
+    delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
+    list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
 };

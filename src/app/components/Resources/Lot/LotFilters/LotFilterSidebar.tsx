@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { UILogic } from '@app/components';
 import { VStack, Text, Divider } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
@@ -9,6 +11,8 @@ export type LotFilterSidebarModel = Partial<{
   type: DeskGatewaySchema.LotType[];
   verticals: DeskGatewaySchema.AssetVertical[];
   bidSize: [number, number];
+  minBidSize: [number, number];
+  targetValuation: [number, number];
   reassignmentType: DeskGatewaySchema.LotReassignmentType[];
   assets: string[];
 }>;
@@ -26,6 +30,8 @@ const defaultVisibility: LotFilterFieldsVisibility = {
   type: true,
   verticals: true,
   bidSize: true,
+  minBidSize: true,
+  targetValuation: true,
   reassignmentType: true,
 };
 
@@ -34,11 +40,9 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
 
   return (
     <VStack w={{ base: '100%', md: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
-      <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem">
+      <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem" marginBottom="0.5rem">
         Filter
       </Text>
-
-      <Divider color="rgba(255, 255, 255, 0.15)" />
 
       {fieldsVisibility.reassignmentType && (
         <UIKit.KeyValueRowAccordion keyComponent="Reassignment">
@@ -88,8 +92,30 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
         <UIKit.KeyValueRowAccordion keyComponent="Size">
           <UIKit.RangeNumberSlider
             minMax={[0, 999999]}
-            value={filters.bidSize}
+            value={filters.bidSize || [50000, 50000]}
             onChange={(bidSize) => onChange({ bidSize })}
+            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
+            step={20}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
+      {fieldsVisibility.minBidSize && (
+        <UIKit.KeyValueRowAccordion keyComponent="Minimal bid">
+          <UIKit.RangeNumberSlider
+            minMax={[0, 999999]}
+            value={filters.minBidSize || [5000, 999999]}
+            onChange={(minBidSize) => onChange({ minBidSize })}
+            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
+            step={20}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
+      {fieldsVisibility.targetValuation && (
+        <UIKit.KeyValueRowAccordion keyComponent="Target valuation">
+          <UIKit.RangeNumberSlider
+            minMax={[0, 999999]}
+            value={filters.targetValuation || [0, 999999]}
+            onChange={(targetValuation) => onChange({ targetValuation })}
             formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
             step={20}
           />

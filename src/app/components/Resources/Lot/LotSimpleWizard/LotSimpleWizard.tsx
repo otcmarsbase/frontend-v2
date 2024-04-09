@@ -16,10 +16,11 @@ import { useStepSchema } from './useStepSchema';
 export interface LotSimpleWizardProps {
   defaultValues?: LotCreateModel;
   direction: DeskGatewaySchema.TradeDirection;
+  allowAllSteps?: boolean
   onSubmit: (inputs: LotCreateModel, meta: { isLastStep: boolean; stepKey?: StepDescriptorKey }) => Promise<void>;
 }
 
-export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direction, onSubmit }) => {
+export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direction, allowAllSteps = false, onSubmit }) => {
   const innerDefaultValues = useMemo(
     () =>
       defaultValues
