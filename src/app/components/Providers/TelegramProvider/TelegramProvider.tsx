@@ -21,6 +21,8 @@ export function TelegramProvider({ children, }: { children: React.ReactNode; }) 
     checkDataString,
     hash,
     username
+  }, {
+    enabled: checkDataString && hash && username
   })
 
   useEffect(() => {

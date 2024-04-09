@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
-import { useBreakpointDevice, usePreloadPage } from '@app/hooks';
+import { useBreakpointDevice, usePreloadPage, useToastOuterCallback } from '@app/hooks';
 import * as Layouts from '@app/layouts';
+import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -11,9 +12,12 @@ import { useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
 
-import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock, LotFAQ } from './_atoms';
+
+import { ConfirmDeleteModal } from '../Moderation/[id]/_atoms';
+
+import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock, LotAnalytics } from './_atoms';
+import { SimilarLotsBlock } from './_atoms';
 import { LotInfo } from './_atoms/LotInfo';
-import { SimilarLotsBlock } from './_atoms/SimilarLotsBlock';
 import { LotMobile } from './index.mobile';
 
 export interface LotProps extends React.PropsWithChildren {
@@ -33,6 +37,12 @@ export default function Lot({ id }: LotProps) {
   const [stat, setStat] = useState<DeskGatewaySchema.LotTransactionStatsAggregation>();
   const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
   const { isMobile } = useBreakpointDevice();
+
+  const deleteToastCallback = useToastOuterCallback({
+    showWhenOk: true,
+    showWhenError: false,
+    okText: `Lot with ${id} was success deleted`,
+  });
 
   const isOfferMaker = useMemo(() => {
     if (!(lot && account)) return false;
@@ -85,6 +95,19 @@ export default function Lot({ id }: LotProps) {
 
   usePreloadPage(preload);
 
+  const handleDeleteLot = useCallback(() => {
+    deleteToastCallback(async () => {
+      const result = await ModalController.create(ConfirmDeleteModal, { lot });
+      // TODO: remove this, refactor `useToastOuterCallback` for canceling
+      if (!result) throw new Error();
+
+      const archivedLot = await rpcSchema.send('lot.archive', { id: lot.id });
+      await queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('lot') });
+
+      if (archivedLot['status'] === 'ARCHIVED') return router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+    });
+  }, [deleteToastCallback, lot, rpcSchema, router, queryClient]);
+
   if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
   if (!lot) return;
@@ -97,6 +120,8 @@ export default function Lot({ id }: LotProps) {
         lot={lot}
         stat={stat}
         asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
+        onEdit={() => router.navigateComponent(MBPages.Lot.Update.__id__, { id }, { replace: true })}
+        onDelete={handleDeleteLot}
       />
     );
 
@@ -106,6 +131,12 @@ export default function Lot({ id }: LotProps) {
         <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>
           <VStack w="full" gap="0.75rem">
+            <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
+              <LotAnalytics
+                onEdit={() => router.navigateComponent(MBPages.Lot.Update.__id__, { id }, { replace: true })}
+                onDelete={handleDeleteLot}
+              />
+            </VStack>
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
               <LotBasicInfo lot={lot} />
             </VStack>

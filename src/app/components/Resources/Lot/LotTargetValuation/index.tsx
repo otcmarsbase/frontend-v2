@@ -22,5 +22,5 @@ export const LotTargetValuation = memo<LotTargetValuationProps>(({ value, fontSi
   )
   const NegotiableComponent = <Text fontSize={fontSize} whiteSpace='nowrap'>Negotiable</Text>
 
-  return <>{value ? TargetValuationComponent : NegotiableComponent}</>
+  return <>{Number(value) ? TargetValuationComponent : NegotiableComponent}</>
 })
