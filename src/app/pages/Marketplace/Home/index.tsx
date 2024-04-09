@@ -52,6 +52,8 @@ export const OtcDesk: React.FC = observer(() => {
     ]);
 
     if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
+    if (queryParams.minBidSize) initialFilters.minBidSize = queryParams.minBidSize as [number, number];
+    if (queryParams.targetValuation) initialFilters.targetValuation = queryParams.targetValuation as [number, number];
 
     return initialFilters;
   });
@@ -60,6 +62,8 @@ export const OtcDesk: React.FC = observer(() => {
 
   const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
+    const [minBidSize, maxBidSize] = filters.minBidSize ?? [];
+    const [minTargetValuation, maxTargetValuation] = filters.targetValuation ?? [];
 
     const payload: DeskGatewaySchema.RPC.DTO.LotList.Payload = {
       page: {
@@ -74,6 +78,10 @@ export const OtcDesk: React.FC = observer(() => {
         direction: filters.direction,
         minContractValue,
         maxContractValue,
+        minBidSize,
+        maxBidSize,
+        minTargetValuation,
+        maxTargetValuation,
         reassignmentType: filters.reassignmentType,
         verticals: filters.verticals,
         type: filters.type,

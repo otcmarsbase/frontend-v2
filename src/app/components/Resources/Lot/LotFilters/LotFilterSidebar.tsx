@@ -11,6 +11,8 @@ export type LotFilterSidebarModel = Partial<{
   type: DeskGatewaySchema.LotType[];
   verticals: DeskGatewaySchema.AssetVertical[];
   bidSize: [number, number];
+  minBidSize: [number, number];
+  targetValuation: [number, number];
   reassignmentType: DeskGatewaySchema.LotReassignmentType[];
   assets: string[];
 }>;
@@ -28,6 +30,8 @@ const defaultVisibility: LotFilterFieldsVisibility = {
   type: true,
   verticals: true,
   bidSize: true,
+  minBidSize: true,
+  targetValuation: true,
   reassignmentType: true,
 };
 
@@ -90,6 +94,28 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
             minMax={[0, 999999]}
             value={filters.bidSize || [50000, 50000]}
             onChange={(bidSize) => onChange({ bidSize })}
+            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
+            step={20}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
+      {fieldsVisibility.minBidSize && (
+        <UIKit.KeyValueRowAccordion keyComponent="Minimal bid">
+          <UIKit.RangeNumberSlider
+            minMax={[0, 999999]}
+            value={filters.minBidSize || [5000, 999999]}
+            onChange={(minBidSize) => onChange({ minBidSize })}
+            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
+            step={20}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
+      {fieldsVisibility.targetValuation && (
+        <UIKit.KeyValueRowAccordion keyComponent="Target valuation">
+          <UIKit.RangeNumberSlider
+            minMax={[0, 999999]}
+            value={filters.targetValuation || [0, 999999]}
+            onChange={(targetValuation) => onChange({ targetValuation })}
             formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
             step={20}
           />
