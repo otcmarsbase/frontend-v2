@@ -131,12 +131,14 @@ export default function Lot({ id }: LotProps) {
         <Sidebar asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <GridItem>
           <VStack w="full" gap="0.75rem">
-            <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
-              <LotAnalytics
-                onEdit={() => router.navigateComponent(MBPages.Lot.Update.__id__, { id }, { replace: true })}
-                onDelete={handleDeleteLot}
-              />
-            </VStack>
+            {isOfferMaker && (
+              <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
+                <LotAnalytics
+                  onEdit={() => router.navigateComponent(MBPages.Lot.Update.__id__, { id }, { replace: true })}
+                  onDelete={handleDeleteLot}
+                />
+              </VStack>
+            )}
             <VStack position="sticky" top={0} bg="dark.950" w="100%" zIndex={1}>
               <LotBasicInfo lot={lot} />
             </VStack>

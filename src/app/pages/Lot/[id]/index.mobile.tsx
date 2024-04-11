@@ -149,7 +149,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
 
   return (
     <VStack>
-      <LotAnalytics onEdit={onEdit} onDelete={onDelete} />
+      {isOfferMaker && (<LotAnalytics onEdit={onEdit} onDelete={onDelete} />)}
       <AssetBlock asset={asset} onCreateBidClick={onCreateBidClick} />
       <UIKit.RadioButtons
         value={tab}
