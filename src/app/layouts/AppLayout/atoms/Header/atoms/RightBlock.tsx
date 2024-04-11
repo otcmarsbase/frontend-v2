@@ -1,5 +1,6 @@
-import { UILogic, useAuth } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import pages from '@app/pages';
+import { getNotificationText, getNotificationTitle } from '@app/utils';
 import { HStack, Box, Square, Link, Button, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { AppConfig } from '@shared/config';
@@ -11,10 +12,29 @@ import {
   NotificationBellItem,
   NotificationBellTrigger,
 } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
 
 export function RightBlock() {
   const { isAuthorized, signOut } = useAuth();
   const router = useRouter();
+  const schemaClient = useRpcSchemaClient();
+  const queryClient = useQueryClient();
+
+  const { data: notifications } = useRpcSchemaQuery('notification.list', {
+    filter: { isReaded: false },
+    sort: { createdAt: 'DESC' },
+  });
+
+  const unreadCount = (notifications?.items ?? []).length;
+
+  const handleReadAll = async () => {
+    await schemaClient.send('notification.makeRead', {
+      isReaded: true,
+      filter: { notificationIds: notifications.items.map((item) => item.notificationId) },
+    });
+
+    queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('notification') });
+  };
 
   return (
     <HStack>
@@ -141,15 +161,22 @@ export function RightBlock() {
             </LinkComponent>
 
             <NotificationBell
-              unreadCount={0}
-              items={[]}
+              unreadCount={unreadCount}
+              items={notifications?.items ?? []}
               renderTrigger={() => (
                 <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-                  <NotificationBellTrigger hasUnread={false} />
+                  <NotificationBellTrigger hasUnread={!!unreadCount} />
                 </Square>
               )}
-              renderItem={(item) => <NotificationBellItem {...item} />}
-              onReadAll={() => undefined}
+              renderItem={(item) => (
+                <NotificationBellItem
+                  title={getNotificationTitle(item)}
+                  text={getNotificationText(item)}
+                  date={item.createdAt}
+                  unread={!item.isReaded}
+                />
+              )}
+              onReadAll={handleReadAll}
               onViewAll={() => router.navigateComponent(pages.Profile.Notification, {}, {})}
               placement="bottom-end"
               empty={
