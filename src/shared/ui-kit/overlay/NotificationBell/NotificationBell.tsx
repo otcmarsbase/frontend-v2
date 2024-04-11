@@ -34,6 +34,7 @@ export const NotificationBell = <T,>({
   renderItem,
   empty,
   onViewAll,
+  onReadAll,
   ...popoverProps
 }: NotificationBellProps<T>) => {
   const isEmpty = useMemo(() => !items.length, [items]);
@@ -41,7 +42,7 @@ export const NotificationBell = <T,>({
   return (
     <Popover {...popoverProps}>
       <PopoverTrigger>{renderTrigger()}</PopoverTrigger>
-      <PopoverContent bg="dark.800" border="none" rounded="0.5rem" width={{ base: 'sm', md: isEmpty ? 'sm' : 'md' }}>
+      <PopoverContent bg="dark.800" border="none" rounded="0.5rem" width={{ base: 'sm', md: 'md' }}>
         <PopoverHeader borderBottom="1px solid rgba(81, 84, 96, 0.3)">
           <Flex alignItems="center" justifyContent="space-between" w="full">
             <HStack spacing="2">
@@ -50,7 +51,7 @@ export const NotificationBell = <T,>({
                 {unreadCount}
               </Circle>
             </HStack>
-            <Link color="dark.200" fontSize="sm">
+            <Link color="dark.200" fontSize="sm" onClick={onReadAll}>
               Mark all as read
             </Link>
           </Flex>
