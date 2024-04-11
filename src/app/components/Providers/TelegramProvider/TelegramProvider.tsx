@@ -1,6 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-
-import { is } from 'date-fns/locale';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import { useRpcSchemaQuery } from '../RPCSchemaProvider';
 
@@ -22,12 +20,12 @@ export function TelegramProvider({ children, }: { children: React.ReactNode; }) 
     hash,
     username
   }, {
-    enabled: checkDataString && hash && username
+    enabled: !!webApp
   })
 
   useEffect(() => {
     const app = (window as any).Telegram?.WebApp;
-    if (app) {
+    if (app?.initData) {
       app.ready();
       setWebApp(app);
     }
