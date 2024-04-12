@@ -16,7 +16,7 @@ env:
   IMAGE_SHA_TAG: <calculate> # Full docker tag with SHA, as: 'otc-desk-frontend:0.1.0-dev-fbade6a1'
 
   DEVOPS_REPOSITORY: otcmarsbase/devops
-  DEVOPS_WORKFLOW: OtcDeskInterfaceDispatchedThenUpdateVersion.yml
+  DEVOPS_WORKFLOW: DeskInterfaceDispatchedThenUpdateVersion.yml
 
 jobs:
   build-and-push:
