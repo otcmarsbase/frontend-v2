@@ -1,15 +1,14 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
+import { AuthConnectorsDictionary, AuthConnectorsType } from '@app/components';
 import { ModalController, appManager } from '@app/logic';
-import { RuntimeError } from '@ddd/errors';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { v4 } from 'uuid';
 
-import { AuthConnectorsDictionary, AuthConnectorsType } from '../info/AuthConnectorInfo';
 import { AuthConnectModal, AuthConnectModalProps } from '../modals';
 
 import { AuthLocalStore } from './AuthLocalStore';
@@ -151,7 +150,7 @@ export class AuthStore {
   private _updateAuthConnector(authConnectorType?: string) {
     if (authConnectorType) {
       const authConnector = AuthConnectorsDictionary.get(authConnectorType);
-      this._local.connectorType = authConnector.type;
+      this._local.connectorType = authConnector.info.type;
       this._selectedAuthConnector = authConnector.getConnector();
     } else {
       this._local.connectorType = null;
