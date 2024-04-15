@@ -40,6 +40,20 @@ export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }
         <UIKit.MoneyText value={to} abbreviated />
       </HStack>
     ),
+    minBidSize: ([from, to]) => (
+      <HStack spacing=".5rem">
+        <UIKit.MoneyText value={from} abbreviated />
+        <Text>-</Text>
+        <UIKit.MoneyText value={to} abbreviated />
+      </HStack>
+    ),
+    targetValuation: ([from, to]) => (
+      <HStack spacing=".5rem">
+        <UIKit.MoneyText value={from} abbreviated />
+        <Text>-</Text>
+        <UIKit.MoneyText value={to} abbreviated />
+      </HStack>
+    ),
     search: (value) => `Search: ${value}`,
     assets: (value) => value.map((asset) => asset.info.title),
   };

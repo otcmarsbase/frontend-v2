@@ -1,7 +1,9 @@
-import { UILogic, useAuth } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import pages from '@app/pages';
-import { HStack, Box, Square, Link, Button, Text } from '@chakra-ui/react';
+import { getNotificationText, getNotificationTitle } from '@app/utils';
+import { HStack, Box, Square, Button, Text, useDisclosure } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import {
@@ -11,10 +13,42 @@ import {
   NotificationBellItem,
   NotificationBellTrigger,
 } from '@shared/ui-kit';
+import { useQueryClient } from '@tanstack/react-query';
+import { handleNotificationClick } from 'src/app/utils/handleNotificationClick';
 
 export function RightBlock() {
   const { isAuthorized, signOut } = useAuth();
   const router = useRouter();
+  const schemaClient = useRpcSchemaClient();
+  const queryClient = useQueryClient();
+
+  const notificationBellDisclosure = useDisclosure();
+
+  const { data: notifications } = useRpcSchemaQuery('notification.list', {
+    filter: { isReaded: false },
+    sort: { createdAt: 'DESC' },
+  });
+
+  const unreadCount = (notifications?.items ?? []).length;
+
+  const handleReadAll = async () => {
+    await schemaClient.send('notification.makeRead', {
+      isReaded: true,
+      filter: { notificationIds: notifications.items.map((item) => item.notificationId) },
+    });
+
+    queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('notification') });
+    notificationBellDisclosure.onClose();
+  };
+
+  const handleRead = async (notification: DeskGatewaySchema.Notification) => {
+    await schemaClient.send('notification.makeRead', {
+      isReaded: true,
+      filter: { notificationIds: [notification.notificationId] },
+    });
+
+    queryClient.invalidateQueries({ predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('notification') });
+  };
 
   return (
     <HStack>
@@ -93,16 +127,23 @@ export function RightBlock() {
           </Button>
         </Dropdown>
 
-        <Link
+        <Button
+          as="a"
           href={AppConfig.links.howItWorksURL}
           target="_blank"
           fontWeight="400"
-          color="dark.50"
+          color="#f9c409"
+          border="1px solid #f9c409"
           whiteSpace="nowrap"
+          backgroundColor="rgba(249, 196, 9, 0.1)"
           fontSize="xs"
+          size="sm"
+          _hover={{
+            backgroundColor: 'rgba(249, 196, 9, 0.2)',
+          }}
         >
           How it works?
-        </Link>
+        </Button>
       </HStack>
 
       <Box mr={{ base: '0', md: '1.5rem' }}>
@@ -134,23 +175,45 @@ export function RightBlock() {
             </LinkComponent>
 
             <NotificationBell
-              unreadCount={0}
-              items={[]}
+              unreadCount={unreadCount}
+              items={notifications?.items ?? []}
               renderTrigger={() => (
                 <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-                  <NotificationBellTrigger hasUnread={false} />
+                  <NotificationBellTrigger hasUnread={!!unreadCount} />
                 </Square>
               )}
-              renderItem={(item) => <NotificationBellItem {...item} />}
-              onReadAll={() => undefined}
-              onViewAll={() => router.navigateComponent(pages.Profile.Notification, {}, {})}
+              renderItem={(item) => (
+                <NotificationBellItem
+                  title={getNotificationTitle(item)}
+                  text={getNotificationText(item)}
+                  date={item.createdAt}
+                  unread={!item.isReaded}
+                  onClick={() => {
+                    handleNotificationClick(router, item);
+                    handleRead(item);
+                    notificationBellDisclosure.onClose();
+                  }}
+                />
+              )}
+              onReadAll={handleReadAll}
+              onViewAll={() => {
+                router.navigateComponent(pages.Profile.Notification, {}, {});
+                notificationBellDisclosure.onClose();
+              }}
               placement="bottom-end"
               empty={
                 <Text color="dark.200">
                   At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
                 </Text>
               }
+              {...notificationBellDisclosure}
             />
+
+            <LinkComponent page={pages.Favorite.Home} pageProps={{}}>
+              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                <UIIcons.Common.FavoriteIcon w="1.125rem" h="1.125rem" fill="transparent" stroke="white" />
+              </Square>
+            </LinkComponent>
           </>
         )}
         <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">

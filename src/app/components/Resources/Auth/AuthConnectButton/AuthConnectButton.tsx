@@ -12,13 +12,13 @@ export interface AuthConnectButtonProps extends PropsWithChildren {
 export function AuthConnectButton({ customRender, children }: AuthConnectButtonProps) {
   return (
     <AuthThen>
-      {({ isAuthorized, signIn, ...other }) =>
+      {({ isAuthorized, onShowConnectModal, ...other }) =>
         isAuthorized ? (
           <Fragment>{children}</Fragment>
         ) : customRender ? (
-          customRender({ isAuthorized, signIn, ...other })
+          customRender({ isAuthorized, onShowConnectModal, ...other })
         ) : (
-          <Button variant="brand" isLoading={signIn.isLoading} onClick={signIn}>
+          <Button variant="brand" isLoading={onShowConnectModal.isLoading} onClick={onShowConnectModal} size="sm">
             Connect wallet
           </Button>
         )

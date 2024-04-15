@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { LotCard, useRpcSchemaQuery } from '@app/components';
+import { LotCard, useAuth, useRpcSchemaQuery } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Heading, SimpleGrid, VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -12,12 +12,14 @@ export interface SimilarLotsBlockProps {
 
 export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   const { data: assets } = useRpcSchemaQuery('asset.list', {});
   const { data: lots } = useRpcSchemaQuery('lot.list', {
     filter: { status: ['ACTIVE'], asset: { id: [lot.attributes.INVEST_DOC_ASSET_PK] } },
     include: { lotTransactionStatsAggregation: true },
   });
+  const { data: favorites } = useRpcSchemaQuery('favoriteLot.list', {}, { enabled: isAuthorized });
 
   const similarLots = useMemo(() => lots?.items?.filter((other) => other.id !== lot.id) || [], [lots, lot]);
 
@@ -27,6 +29,11 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
         (link) => link.resource === 'lot_transaction_stats_aggregation' && lot.id === link.id,
       ) as DeskGatewaySchema.LotTransactionStatsAggregation,
     [lots],
+  );
+
+  const findFavorite = useCallback(
+    (lot: DeskGatewaySchema.Lot) => favorites?.items?.find((favorite) => favorite.lotKey.id === lot.id),
+    [favorites],
   );
 
   if (!lots?.total) return null;
@@ -57,6 +64,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
             minimalView
             lot={lot}
             stat={findStat(lot)}
+            favorite={findFavorite(lot)}
             asset={assets?.items?.find((asset) => asset.id === lot.attributes.INVEST_DOC_ASSET_PK)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
           />

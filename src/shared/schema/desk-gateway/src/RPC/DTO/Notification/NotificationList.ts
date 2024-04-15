@@ -9,6 +9,11 @@ export namespace NotificationList {
     isReaded?: boolean;
   }>;
 
-  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithPagination;
+  export type Sortable = {
+    isReaded?: CoreSchema.SortableValue;
+    createdAt?: CoreSchema.SortableValue;
+  };
+
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithPagination & CoreSchema.WithSortable<Sortable>;
   export type Result = CoreSchema.WithPaginationResult<Notification>;
 }

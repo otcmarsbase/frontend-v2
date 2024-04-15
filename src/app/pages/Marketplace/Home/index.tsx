@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
 import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
@@ -20,6 +20,7 @@ const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
@@ -51,6 +52,8 @@ export const OtcDesk: React.FC = observer(() => {
     ]);
 
     if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
+    if (queryParams.minBidSize) initialFilters.minBidSize = queryParams.minBidSize as [number, number];
+    if (queryParams.targetValuation) initialFilters.targetValuation = queryParams.targetValuation as [number, number];
 
     return initialFilters;
   });
@@ -59,6 +62,8 @@ export const OtcDesk: React.FC = observer(() => {
 
   const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const [minContractValue, maxContractValue] = filters.bidSize ?? [];
+    const [minBidSize, maxBidSize] = filters.minBidSize ?? [];
+    const [minTargetValuation, maxTargetValuation] = filters.targetValuation ?? [];
 
     const payload: DeskGatewaySchema.RPC.DTO.LotList.Payload = {
       page: {
@@ -73,6 +78,10 @@ export const OtcDesk: React.FC = observer(() => {
         direction: filters.direction,
         minContractValue,
         maxContractValue,
+        minBidSize,
+        maxBidSize,
+        minTargetValuation,
+        maxTargetValuation,
         reassignmentType: filters.reassignmentType,
         verticals: filters.verticals,
         type: filters.type,
@@ -96,6 +105,12 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
+  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
+    'favoriteLot.list',
+    {},
+    { enabled: isAuthorized },
+  );
+
   const stats = useMemo(
     () =>
       (lots
@@ -104,7 +119,10 @@ export const OtcDesk: React.FC = observer(() => {
     [lots],
   );
 
-  const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
+  const isLoading = useMemo(
+    () => lotsIsLoading || assetsIsLoading || favoritesIsLoading,
+    [lotsIsLoading, assetsIsLoading, favoritesIsLoading],
+  );
 
   const toggleFilters = () => {
     setIsFiltersOpened((opened) => !opened);
@@ -157,7 +175,7 @@ export const OtcDesk: React.FC = observer(() => {
               <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
-                {!lots.total ? (
+                {!lots?.total ? (
                   <Empty
                     createButton={
                       <UILogic.AuthAction>
@@ -174,6 +192,7 @@ export const OtcDesk: React.FC = observer(() => {
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}
+                      favorites={favorites?.items}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

@@ -1,22 +1,23 @@
+import { AuthWagmiConnectorInfoType } from '@app/components';
+import { AuthConnectorsDictionary } from '@app/components';
 import { Spinner, VStack, Text } from '@chakra-ui/react';
 
-import { AuthConnectorDictionary, AuthConnectorType } from '../../info';
 
 import { ConnectorRenderItem } from './ConnectorRenderItem';
 
 export interface SelectConnectorProps {
   isLoading: boolean;
-  onConnectorClick: (type: AuthConnectorType) => any;
+  onConnectorClick: (connectorType: string) => any;
 }
 
 export function SelectConnector({ isLoading, onConnectorClick }: SelectConnectorProps) {
   return (
     <VStack position="relative">
-      {AuthConnectorDictionary.keys().map((connectorType) => (
+      {AuthConnectorsDictionary.keys().map((connectorType) => (
         <ConnectorRenderItem
           key={connectorType}
-          authConnectorInfo={AuthConnectorDictionary.get(connectorType)}
-          onClick={() => onConnectorClick(connectorType)}
+          authConnector={AuthConnectorsDictionary.get(connectorType).info as AuthWagmiConnectorInfoType}
+          onClick={onConnectorClick}
         />
       ))}
       {isLoading && (

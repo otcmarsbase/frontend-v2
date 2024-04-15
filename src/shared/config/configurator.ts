@@ -9,6 +9,7 @@ export interface EnvConfiguration {
   DOCS_BASE_URL: string;
   WAGMI_PROJECT_ID: string;
   BACKEND_API_GATEWAY_URL: string;
+  TELEGRAM_BOT_URL: string;
 }
 
 export const configurator = new CraConfigurator<EnvConfiguration>({

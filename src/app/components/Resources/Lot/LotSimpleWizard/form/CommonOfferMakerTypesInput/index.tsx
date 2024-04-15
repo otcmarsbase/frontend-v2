@@ -40,7 +40,6 @@ export const CommonOfferMakerTypesInput: FC<BaseInputProps> = () => {
         render={({ field }) => (
           <ParticipantTypeSelect
             {...field}
-            isMulti
             isInvalid={!isValid}
             onChange={field.onChange}
             placeholder={descriptor.placeholder}

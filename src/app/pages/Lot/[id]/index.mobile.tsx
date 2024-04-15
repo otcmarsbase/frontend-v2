@@ -8,8 +8,11 @@ import { VStack, Text } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { MoneyText, UIKit } from '@shared/ui-kit';
+import { formatDistance } from 'date-fns';
 
-import { AdditionalInfoBlock, AssetBlock, Bids, SidebarBlock } from './_atoms';
+import { LotTargetValuation } from '../../../components/Resources/Lot/LotTargetValuation';
+
+import { AdditionalInfoBlock, AssetBlock, Bids, LotAnalytics, SidebarBlock } from './_atoms';
 import { AvailableBlock } from './_atoms/AvailableBlock';
 import { MobileTabItemDictionary, MobileTabItemKey } from './_atoms/const';
 import { InfoBlock } from './_atoms_mobile';
@@ -20,9 +23,11 @@ export interface LotMobileProps {
   stat: DeskGatewaySchema.LotTransactionStatsAggregation;
   isOfferMaker: boolean;
   asset: DeskGatewaySchema.Asset | DeskGatewaySchema.LotAssetRequest;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker }) => {
+export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker, onEdit, onDelete }) => {
   const router = useRouter();
   const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
 
@@ -35,6 +40,12 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
   };
 
   const isAssetCreateRequest = 'title' in asset;
+
+  const createdAt = useMemo(() => formatDistance(
+    new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE),
+    new Date(),
+    { addSuffix: true }
+  ), [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE])
 
   const groupedByGroupLinks = new Map(
     LINQ.from(
@@ -85,14 +96,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
       {
         label: 'Target valuation',
         value: (
-          <MoneyText
-            value={lot.attributes.INVEST_DOC_FDV}
-            format="0,0.X"
-            fontSize="sm"
-            currencyTextProps={{
-              color: 'dark.50',
-            }}
-          />
+          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm"/>
         ),
       },
       {
@@ -127,9 +131,14 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
     } else {
       list.push({
         label: 'Vesting',
-        value: <Text fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
+        value: <Text wordBreak="break-all" fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
       });
     }
+
+    list.push({
+      label: 'Publish date',
+      value:  <Text fontSize="sm">{createdAt}</Text>
+    })
 
     return list;
   }, [lot]);
@@ -140,6 +149,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
 
   return (
     <VStack>
+      {isOfferMaker && (<LotAnalytics onEdit={onEdit} onDelete={onDelete} />)}
       <AssetBlock asset={asset} onCreateBidClick={onCreateBidClick} />
       <UIKit.RadioButtons
         value={tab}

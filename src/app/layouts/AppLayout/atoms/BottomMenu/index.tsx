@@ -33,7 +33,7 @@ export const BottomMenu: React.FC<BottomMenuProps> = ({ items }) => {
           </VStack>
         );
 
-        return item.needAuth ? <AuthAction>{content}</AuthAction> : content;
+        return item.needAuth ? <AuthAction key={key}>{content}</AuthAction> : content;
       })}
     </HStack>
   );
