@@ -7,7 +7,7 @@ export type ParticipantTypeSelectProps = Omit<
   'items' | 'renderItem'
 > & {
   // TODO move to SelectSyncProps as filterItems prop
-  showOnlyTypes?: DeskGatewaySchema.InvestorType[];
+  showOnlyTypes?: DeskGatewaySchema.InvestorType;
 };
 
 export const ParticipantTypeSelect: React.FC<ParticipantTypeSelectProps> = (props) => {
@@ -18,7 +18,7 @@ export const ParticipantTypeSelect: React.FC<ParticipantTypeSelectProps> = (prop
       {...selectProps}
       renderItem={(item) => ParticipantTypeDictionary.get(item).title}
       items={
-        showOnlyTypes?.length
+        !!showOnlyTypes
           ? ParticipantTypeDictionary.keys().filter((type) => showOnlyTypes.includes(type))
           : ParticipantTypeDictionary.keys()
       }

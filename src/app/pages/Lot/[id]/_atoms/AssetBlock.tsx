@@ -1,4 +1,4 @@
-import { UILogic } from '@app/components';
+import { UILogic, useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Button, HStack, Heading, Link } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
@@ -12,6 +12,7 @@ export interface AssetBlockProps {
 
 export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick }) => {
   const router = useRouter();
+  const { isAuthorized } = useAuth()
 
   const isAssetCreateRequest = 'title' in asset;
 
@@ -43,7 +44,7 @@ export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick 
             {isAssetCreateRequest ? asset.title : asset.info.title}
           </Heading>
         </HStack>
-        {!isAssetCreateRequest && asset.info.analyticURL && (
+        {isAuthorized && !isAssetCreateRequest && asset.info.analyticURL && (
           <Button
             as={Link}
             href={asset.info.analyticURL}

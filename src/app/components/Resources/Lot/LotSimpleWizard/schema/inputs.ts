@@ -12,7 +12,7 @@ export const COMMON_TELEGRAM = yup
   .min(5)
   .max(32);
 
-export const COMMON_OFFER_MAKER_TYPES = yup.array().of(yup.string().oneOf(ParticipantTypeDictionary.keys()));
+export const COMMON_OFFER_MAKER_TYPES = yup.string().oneOf(ParticipantTypeDictionary.keys());
 export const COMMON_UNITS = yup.string();
 export const COMMON_SUMMARY = new CustomStringScheme();
 export const COMMON_MIN_FILTER_SUMMARY = new CustomStringScheme();

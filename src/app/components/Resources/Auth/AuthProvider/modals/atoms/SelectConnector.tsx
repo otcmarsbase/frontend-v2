@@ -16,7 +16,7 @@ export function SelectConnector({ isLoading, onConnectorClick }: SelectConnector
       {AuthConnectorsDictionary.keys().map((connectorType) => (
         <ConnectorRenderItem
           key={connectorType}
-          authConnector={AuthConnectorsDictionary.get(connectorType) as AuthWagmiConnectorInfoType}
+          authConnector={AuthConnectorsDictionary.get(connectorType).info as AuthWagmiConnectorInfoType}
           onClick={onConnectorClick}
         />
       ))}

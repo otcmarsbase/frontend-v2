@@ -3,7 +3,7 @@ import { HStack, StackProps, Text, TextProps } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 export interface ParticipantTypesTextProps extends StackProps {
-  value: DeskGatewaySchema.InvestorType[];
+  value: DeskGatewaySchema.InvestorType;
   empty?: string;
   textProps?: TextProps;
 }
@@ -22,12 +22,10 @@ export const ParticipantTypesText: React.FC<ParticipantTypesTextProps> = ({
     }
     {...stackProps}
   >
-    {value.length > 0 ? (
-      value.map((participantType) => (
-        <Text {...textProps} color="orange.500" key={participantType}>
-          {ParticipantTypeDictionary.get(participantType).title}
-        </Text>
-      ))
+    {!!value ? (
+      <Text {...textProps} color="orange.500">
+        {ParticipantTypeDictionary.get(value).title}
+      </Text>
     ) : (
       <Text {...textProps}>{empty}</Text>
     )}
