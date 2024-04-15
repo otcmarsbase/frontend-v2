@@ -3,7 +3,6 @@ import { WindowProvider } from 'wagmi';
 import { Connector } from 'wagmi/connectors';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 
-import { AuthWagmiConnector } from '../../connectors';
 import { IAuthConnectorInfo } from '../AuthConnectorInfo';
 
 import metamaskLogo from './assets/metamask.png';
@@ -30,5 +29,4 @@ AuthWagmiConnectorDictionary.set('metamask', {
   supportUrl: 'https://support.metamask.io/hc/en-us/articles/360015489531',
   wagmiConnector: new MetaMaskConnector({ chains: AuthChainDictionary.map((m) => m.wagmi).values() }),
   isInstalled: () => (window as unknown as WindowProvider)?.isMetaMask,
-  getConnector: () => new AuthWagmiConnector('metamask'),
 });
