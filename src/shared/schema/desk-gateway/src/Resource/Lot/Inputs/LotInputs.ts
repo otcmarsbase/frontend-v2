@@ -12,8 +12,8 @@ export namespace LotInputs {
   export type COMMON_DEADLINE = Attribute<'COMMON_DEADLINE', number>;
   export type COMMON_ADDITIONAL_INFO = Attribute<'COMMON_ADDITIONAL_INFO', string>;
 
-  export type COMMON_OFFER_MAKER_TYPES = Attribute<'COMMON_OFFER_MAKER_TYPES', InvestorType[]>;
-  export type COMMON_BID_MAKER_TYPES = Attribute<'COMMON_BID_MAKER_TYPES', InvestorType[]>;
+  export type COMMON_OFFER_MAKER_TYPES = Attribute<'COMMON_OFFER_MAKER_TYPES', InvestorType>;
+  export type COMMON_BID_MAKER_TYPES = Attribute<'COMMON_BID_MAKER_TYPES', InvestorType>;
   export type COMMON_UNITS = Attribute<'COMMON_UNITS', string>;
   export type COMMON_SUMMARY = Attribute<'COMMON_SUMMARY', string>;
   export type COMMON_MIN_FILTER_UNITS = Attribute<'COMMON_MIN_FILTER_UNITS', string>;
