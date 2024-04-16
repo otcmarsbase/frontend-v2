@@ -1,4 +1,9 @@
-import { LotTypeDictionary, TradeDirectionDictionary, AssetVerticalTitleDictionary } from '@app/dictionary';
+import {
+  LotTypeDictionary,
+  TradeDirectionDictionary,
+  AssetVerticalTitleDictionary,
+  AssetTierDictionary,
+} from '@app/dictionary';
 import * as yup from 'yup';
 
 export const QueryParamsSchema = yup.object({
@@ -11,4 +16,5 @@ export const QueryParamsSchema = yup.object({
   targetValuation: yup.array().of(yup.number()),
   withReassign: yup.bool().transform((value) => (typeof value === 'boolean' ? value : value === '1' ? true : false)),
   assets: yup.array().of(yup.string()),
+  tier: yup.array().of(yup.string().oneOf(AssetTierDictionary.keys())),
 });

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { UILogic } from '@app/components';
-import { VStack, Text, Divider } from '@chakra-ui/react';
+import { VStack, Text } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
@@ -14,13 +14,15 @@ export type LotFilterSidebarModel = Partial<{
   minBidSize: [number, number];
   targetValuation: [number, number];
   reassignmentType: DeskGatewaySchema.LotReassignmentType[];
-  assets: string[];
+  assets: DeskGatewaySchema.Asset[];
+  tier: DeskGatewaySchema.AssetTier[];
 }>;
 
 type LotFilterFieldsVisibility = Partial<Record<keyof LotFilterSidebarModel, boolean>>;
 
 export interface LotFilterSidebarProps {
   filters: LotFilterSidebarModel;
+  assets?: DeskGatewaySchema.Asset[];
   visibility?: LotFilterFieldsVisibility;
   onChange: (filters: LotFilterSidebarModel) => void;
 }
@@ -33,9 +35,11 @@ const defaultVisibility: LotFilterFieldsVisibility = {
   minBidSize: true,
   targetValuation: true,
   reassignmentType: true,
+  tier: true,
+  assets: true,
 };
 
-export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSidebarProps) {
+export function LotFilterSidebar({ filters, onChange, visibility, assets = [] }: LotFilterSidebarProps) {
   const fieldsVisibility = { ...defaultVisibility, ...visibility };
 
   return (
@@ -77,6 +81,18 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
           />
         </UIKit.KeyValueRowAccordion>
       )}
+      {fieldsVisibility.assets && (
+        <UIKit.KeyValueRowAccordion keyComponent="Asset">
+          <UILogic.AssetSelectSync
+            placeholder="Choose asset"
+            isClearable
+            isMulti
+            items={assets}
+            value={filters.assets}
+            onChange={(assets) => onChange({ assets: Array.isArray(assets) ? assets : [assets] })}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
       {fieldsVisibility.verticals && (
         <UIKit.KeyValueRowAccordion keyComponent="Asset vertical">
           <UILogic.AssetVerticalSelect
@@ -85,6 +101,17 @@ export function LotFilterSidebar({ filters, onChange, visibility }: LotFilterSid
             isMulti
             value={filters.verticals}
             onChange={(verticals) => onChange({ verticals })}
+          />
+        </UIKit.KeyValueRowAccordion>
+      )}
+      {fieldsVisibility.tier && (
+        <UIKit.KeyValueRowAccordion keyComponent="Asset tier">
+          <UILogic.AssetTierSelect
+            placeholder="Choose tier"
+            isClearable
+            isMulti
+            value={filters.tier}
+            onChange={(tier) => onChange({ tier })}
           />
         </UIKit.KeyValueRowAccordion>
       )}

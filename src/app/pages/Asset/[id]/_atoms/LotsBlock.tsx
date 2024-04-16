@@ -145,7 +145,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
           <HStack alignItems="start" w="full" gap="2rem" flexDirection={{ base: 'column', md: 'row' }}>
             {isFiltersOpened && (
               <UILogic.LotFilterSidebar
-                visibility={{ direction: false, verticals: false }}
+                visibility={{ direction: false, verticals: false, assets: false, tier: false }}
                 filters={filters}
                 onChange={onChangeFilters}
               />

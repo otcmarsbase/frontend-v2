@@ -6,23 +6,19 @@ import {
   LotReassignmentTypeDictionary,
   TradeDirectionDictionary,
   AssetVerticalTitleDictionary,
+  AssetTierDictionary,
 } from '@app/dictionary';
 import { Button, Flex, HStack, Text } from '@chakra-ui/react';
-import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
 import { omitBy } from 'lodash';
 
-interface FiltersModel extends Omit<LotFilterSidebarModel, 'assets'> {
-  assets: DeskGatewaySchema.Asset[];
-}
-
 type FormatValue = {
-  [key in keyof FiltersModel]: (value: FiltersModel[key]) => ReactNode;
+  [key in keyof LotFilterSidebarModel]: (value: LotFilterSidebarModel[key]) => ReactNode;
 };
 
 export interface LotActiveFiltersProps {
-  filters: FiltersModel;
+  filters: LotFilterSidebarModel;
   onReset: () => void;
 }
 
@@ -56,6 +52,7 @@ export const LotActiveFilters: FC<LotActiveFiltersProps> = ({ filters, onReset }
     ),
     search: (value) => `Search: ${value}`,
     assets: (value) => value.map((asset) => asset.info.title),
+    tier: (value) => value.map((tier) => AssetTierDictionary.get(tier)),
   };
 
   const isEmpty = useMemo(() => isDeeplyEmpty(notEmptyFilters), [notEmptyFilters]);

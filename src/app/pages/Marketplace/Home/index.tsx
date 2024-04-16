@@ -48,7 +48,7 @@ export const OtcDesk: React.FC = observer(() => {
       'type',
       'verticals',
       'withReassign',
-      'assets',
+      'tier',
     ]);
 
     if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
@@ -73,7 +73,7 @@ export const OtcDesk: React.FC = observer(() => {
       filter: {
         status: ['ACTIVE'],
         asset: {
-          id: filters.assets,
+          id: filters.assets?.map((asset) => asset.id),
         },
         direction: filters.direction,
         minContractValue,
@@ -86,6 +86,7 @@ export const OtcDesk: React.FC = observer(() => {
         verticals: filters.verticals,
         type: filters.type,
         search: filters.search,
+        tier: filters.tier,
       },
       include: {
         lotTransactionStatsAggregation: true,
@@ -134,9 +135,12 @@ export const OtcDesk: React.FC = observer(() => {
       ...filters,
       ...nextFilters,
     }));
+
+    const { assets, ...queryParamsFilters } = nextFilters;
+
     setQueryParams((queryParams) => ({
       ...queryParams,
-      ...nextFilters,
+      ...queryParamsFilters,
     }));
   };
 
@@ -152,11 +156,11 @@ export const OtcDesk: React.FC = observer(() => {
       <Heading variant="pageHeader">OTC Desk</Heading>
       <UILogic.LotAssetFilter
         assets={assets}
-        value={assets.filter((asset) => filters.assets?.includes(asset.id))}
-        onChange={(assets) => onChangeFilters({ assets: assets.map((asset) => asset.id) })}
+        value={filters.assets ?? []}
+        onChange={(assets) => onChangeFilters({ assets })}
       />
       <HStack alignItems="start" flexDirection={{ base: 'column', md: 'row' }} w="full" gap="2rem">
-        {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} onChange={onChangeFilters} />}
+        {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} assets={assets} onChange={onChangeFilters} />}
         <VStack w="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls
             toggleButton={{
@@ -167,10 +171,7 @@ export const OtcDesk: React.FC = observer(() => {
             onChangeSearch={(search) => onChangeFilters({ search })}
           />
           <VStack alignItems="start" spacing="1rem" width="full">
-            <UILogic.LotActiveFilters
-              filters={{ ...filters, assets: assets.filter((asset) => filters.assets?.includes(asset.id)) }}
-              onReset={handleResetFilters}
-            />
+            <UILogic.LotActiveFilters filters={filters} onReset={handleResetFilters} />
             {isLoading ? (
               <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
