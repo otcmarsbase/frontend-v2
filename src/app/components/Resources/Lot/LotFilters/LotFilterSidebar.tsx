@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { UILogic } from '@app/components';
-import { VStack, Text } from '@chakra-ui/react';
+import { VStack, Text, HStack } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
@@ -10,11 +10,14 @@ export type LotFilterSidebarModel = Partial<{
   direction: DeskGatewaySchema.TradeDirection;
   type: DeskGatewaySchema.LotType[];
   verticals: DeskGatewaySchema.AssetVertical[];
-  bidSize: [number, number];
-  minBidSize: [number, number];
-  targetValuation: [number, number];
+  minContractValue: number;
+  maxContractValue: number;
+  minBidSize: number;
+  maxBidSize: number;
+  minTargetValuation: number;
+  maxTargetValuation: number;
   reassignmentType: DeskGatewaySchema.LotReassignmentType[];
-  assets: DeskGatewaySchema.Asset[];
+  assets: string[];
   tier: DeskGatewaySchema.AssetTier[];
 }>;
 
@@ -31,9 +34,9 @@ const defaultVisibility: LotFilterFieldsVisibility = {
   direction: true,
   type: true,
   verticals: true,
-  bidSize: true,
+  minContractValue: true,
   minBidSize: true,
-  targetValuation: true,
+  minTargetValuation: true,
   reassignmentType: true,
   tier: true,
   assets: true,
@@ -41,6 +44,8 @@ const defaultVisibility: LotFilterFieldsVisibility = {
 
 export function LotFilterSidebar({ filters, onChange, visibility, assets = [] }: LotFilterSidebarProps) {
   const fieldsVisibility = { ...defaultVisibility, ...visibility };
+
+  const filterAssets = assets.filter((asset) => filters.assets?.includes(asset.id));
 
   return (
     <VStack w={{ base: '100%', md: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
@@ -88,8 +93,8 @@ export function LotFilterSidebar({ filters, onChange, visibility, assets = [] }:
             isClearable
             isMulti
             items={assets}
-            value={filters.assets}
-            onChange={(assets) => onChange({ assets: Array.isArray(assets) ? assets : [assets] })}
+            value={filterAssets}
+            onChange={(assets) => onChange({ assets: assets.map((asset) => asset.id) })}
           />
         </UIKit.KeyValueRowAccordion>
       )}
@@ -115,37 +120,52 @@ export function LotFilterSidebar({ filters, onChange, visibility, assets = [] }:
           />
         </UIKit.KeyValueRowAccordion>
       )}
-      {fieldsVisibility.bidSize && (
+      {fieldsVisibility.minContractValue && (
         <UIKit.KeyValueRowAccordion keyComponent="Size">
-          <UIKit.RangeNumberSlider
-            minMax={[0, 999999]}
-            value={filters.bidSize || [50000, 50000]}
-            onChange={(bidSize) => onChange({ bidSize })}
-            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
-            step={20}
-          />
+          <HStack>
+            <UIKit.InputNumber
+              value={filters.minContractValue}
+              onChange={(minContractValue) => onChange({ minContractValue })}
+              placeholder="From"
+            />
+            <UIKit.InputNumber
+              value={filters.maxContractValue}
+              onChange={(maxContractValue) => onChange({ maxContractValue })}
+              placeholder="To"
+            />
+          </HStack>
         </UIKit.KeyValueRowAccordion>
       )}
       {fieldsVisibility.minBidSize && (
         <UIKit.KeyValueRowAccordion keyComponent="Minimal bid">
-          <UIKit.RangeNumberSlider
-            minMax={[0, 999999]}
-            value={filters.minBidSize || [5000, 999999]}
-            onChange={(minBidSize) => onChange({ minBidSize })}
-            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
-            step={20}
-          />
+          <HStack>
+            <UIKit.InputNumber
+              value={filters.minBidSize}
+              onChange={(minBidSize) => onChange({ minBidSize })}
+              placeholder="From"
+            />
+            <UIKit.InputNumber
+              value={filters.maxBidSize}
+              onChange={(maxBidSize) => onChange({ maxBidSize })}
+              placeholder="To"
+            />
+          </HStack>
         </UIKit.KeyValueRowAccordion>
       )}
-      {fieldsVisibility.targetValuation && (
+      {fieldsVisibility.minTargetValuation && (
         <UIKit.KeyValueRowAccordion keyComponent="Target valuation">
-          <UIKit.RangeNumberSlider
-            minMax={[0, 999999]}
-            value={filters.targetValuation || [0, 999999]}
-            onChange={(targetValuation) => onChange({ targetValuation })}
-            formatValue={(value) => <UIKit.MoneyText value={value} abbreviated />}
-            step={20}
-          />
+          <HStack>
+            <UIKit.InputNumber
+              value={filters.minTargetValuation}
+              onChange={(minTargetValuation) => onChange({ minTargetValuation })}
+              placeholder="From"
+            />
+            <UIKit.InputNumber
+              value={filters.maxTargetValuation}
+              onChange={(maxTargetValuation) => onChange({ maxTargetValuation })}
+              placeholder="To"
+            />
+          </HStack>
         </UIKit.KeyValueRowAccordion>
       )}
     </VStack>

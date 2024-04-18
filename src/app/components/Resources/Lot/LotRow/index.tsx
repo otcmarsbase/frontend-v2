@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
 
-import { LotHotChip, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
-import { MBPages } from '@app/pages';
-import { getContractSize } from '@app/utils';
+import pages from '@app/pages';
 import { Grid, GridItem, HStack, IconButton, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
+import { LinkComponent, UIKit } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { LotCard } from '../LotCard';
@@ -141,64 +140,70 @@ export const LotRow: React.FC<LotRowProps> = ({
   if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} favorite={favorite} onClick={onClick} />;
 
   return (
-    <HStack
-      bg="dark.900"
-      borderRadius="0.75rem"
-      width="full"
-      padding="1.5rem"
-      paddingTop="2rem"
-      paddingRight="6rem"
-      justifyContent="space-between"
-      position="relative"
-      transition="all 0.3s"
-      cursor="pointer"
-      _hover={{
-        bg: 'dark.800',
-      }}
-      alignItems="start"
-      onClick={onClick}
-      {...stackProps}
-    >
-      <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
-      <VStack alignItems="flex-start" spacing="0">
-        <Text color="dark.50">#{lot.id}</Text>
-        <HStack gap="1rem" alignItems="center">
-          <HStack>
-            {isAuthorized && withFavoriteControl && (
-              <IconButton
-                variant="ghost"
-                aria-label="favorite"
-                fontSize="lg"
-                _hover={{ color: '#f9c409' }}
-                color={favorite && '#f9c409'}
-                icon={<UIIcons.Common.FavoriteIcon fill="error" stroke="error" />}
-                onClickCapture={handleFavoriteClick}
-                minW="auto"
+    <LinkComponent page={pages.Lot.__id__} pageProps={{ id: lot.id }} onClick={onClick}>
+      <HStack
+        bg="dark.900"
+        borderRadius="0.75rem"
+        width="full"
+        padding="1.5rem"
+        paddingTop="2rem"
+        paddingRight="6rem"
+        justifyContent="space-between"
+        position="relative"
+        transition="all 0.3s"
+        cursor="pointer"
+        _hover={{
+          bg: 'dark.800',
+        }}
+        alignItems="start"
+        onClick={onClick}
+        {...stackProps}
+      >
+        <UILogic.TradeDirectionText position="absolute" top="0" left="0" value={lot.attributes.COMMON_DIRECTION} />
+        <VStack alignItems="flex-start" spacing="0">
+          <Text color="dark.50">#{lot.id}</Text>
+          <HStack gap="1rem" alignItems="center">
+            <HStack>
+              {isAuthorized && withFavoriteControl && (
+                <IconButton
+                  variant="ghost"
+                  aria-label="favorite"
+                  fontSize="lg"
+                  _hover={{ color: '#f9c409' }}
+                  color={favorite && '#f9c409'}
+                  icon={<UIIcons.Common.FavoriteIcon fill="error" stroke="error" />}
+                  onClickCapture={handleFavoriteClick}
+                  minW="auto"
+                />
+              )}
+              <UILogic.AssetName
+                size="sm"
+                onClickCapture={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  router.navigateComponent(pages.Asset.__id__, { id: asset.id }, {});
+                }}
+                asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
               />
-            )}
-            <UILogic.AssetName
-              size="sm"
-              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-              asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST}
-            />
+            </HStack>
+            <UILogic.LotStatus value={lot.status} />
           </HStack>
-          <UILogic.LotStatus value={lot.status} />
+        </VStack>
+        <HStack>
+          <Grid templateColumns={'repeat(5, minmax(9rem, 1fr))'} gap="2rem" w="full">
+            {fields.map((field, index) => (
+              <GridItem w="full" key={index} pb="0.75rem">
+                <VStack alignItems="start" maxW="8rem" w="full" key={index}>
+                  <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
+                    {field.label}
+                  </Text>
+                  {typeof field.value === 'string' ? <Text fontWeight={600}>{field.value}</Text> : <>{field.value}</>}
+                </VStack>
+              </GridItem>
+            ))}
+          </Grid>
         </HStack>
-      </VStack>
-      <HStack>
-        <Grid templateColumns={'repeat(5, minmax(9rem, 1fr))'} gap="2rem" w="full">
-          {fields.map((field, index) => (
-            <GridItem w="full" key={index} pb="0.75rem">
-              <VStack alignItems="start" maxW="8rem" w="full" key={index}>
-                <Text whiteSpace="nowrap" fontWeight={600} color="dark.50">
-                  {field.label}
-                </Text>
-                {typeof field.value === 'string' ? <Text fontWeight={600}>{field.value}</Text> : <>{field.value}</>}
-              </VStack>
-            </GridItem>
-          ))}
-        </Grid>
       </HStack>
-    </HStack>
+    </LinkComponent>
   );
 };

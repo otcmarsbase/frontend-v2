@@ -41,30 +41,13 @@ export const OtcDesk: React.FC = observer(() => {
   }, [_assets]);
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema);
-  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
-    const initialFilters: UILogic.LotFilterSidebarModel = pick(queryParams, [
-      'search',
-      'direction',
-      'type',
-      'verticals',
-      'withReassign',
-      'tier',
-    ]);
-
-    if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
-    if (queryParams.minBidSize) initialFilters.minBidSize = queryParams.minBidSize as [number, number];
-    if (queryParams.targetValuation) initialFilters.targetValuation = queryParams.targetValuation as [number, number];
-
-    return initialFilters;
-  });
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(queryParams);
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
-  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
-    const [minContractValue, maxContractValue] = filters.bidSize ?? [];
-    const [minBidSize, maxBidSize] = filters.minBidSize ?? [];
-    const [minTargetValuation, maxTargetValuation] = filters.targetValuation ?? [];
+  const filterAssets = assets.filter((asset) => filters.assets?.includes(asset.id));
 
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const payload: DeskGatewaySchema.RPC.DTO.LotList.Payload = {
       page: {
         skip,
@@ -73,15 +56,15 @@ export const OtcDesk: React.FC = observer(() => {
       filter: {
         status: ['ACTIVE'],
         asset: {
-          id: filters.assets?.map((asset) => asset.id),
+          id: filters.assets,
         },
         direction: filters.direction,
-        minContractValue,
-        maxContractValue,
-        minBidSize,
-        maxBidSize,
-        minTargetValuation,
-        maxTargetValuation,
+        minContractValue: filters.minContractValue,
+        maxContractValue: filters.maxContractValue,
+        minBidSize: filters.minBidSize,
+        maxBidSize: filters.maxBidSize,
+        minTargetValuation: filters.minTargetValuation,
+        maxTargetValuation: filters.maxTargetValuation,
         reassignmentType: filters.reassignmentType,
         verticals: filters.verticals,
         type: filters.type,
@@ -136,11 +119,9 @@ export const OtcDesk: React.FC = observer(() => {
       ...nextFilters,
     }));
 
-    const { assets, ...queryParamsFilters } = nextFilters;
-
     setQueryParams((queryParams) => ({
       ...queryParams,
-      ...queryParamsFilters,
+      ...nextFilters,
     }));
   };
 
@@ -156,8 +137,8 @@ export const OtcDesk: React.FC = observer(() => {
       <Heading variant="pageHeader">OTC Desk</Heading>
       <UILogic.LotAssetFilter
         assets={assets}
-        value={filters.assets ?? []}
-        onChange={(assets) => onChangeFilters({ assets })}
+        value={filterAssets}
+        onChange={(assets) => onChangeFilters({ assets: assets.map((asset) => asset.id) })}
       />
       <HStack alignItems="start" flexDirection={{ base: 'column', md: 'row' }} w="full" gap="2rem">
         {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} assets={assets} onChange={onChangeFilters} />}
@@ -171,7 +152,7 @@ export const OtcDesk: React.FC = observer(() => {
             onChangeSearch={(search) => onChangeFilters({ search })}
           />
           <VStack alignItems="start" spacing="1rem" width="full">
-            <UILogic.LotActiveFilters filters={filters} onReset={handleResetFilters} />
+            <UILogic.LotActiveFilters filters={filters} assets={assets} onReset={handleResetFilters} />
             {isLoading ? (
               <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (

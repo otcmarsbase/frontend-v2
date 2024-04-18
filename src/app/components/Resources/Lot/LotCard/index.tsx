@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 
 import { LotReassignmentType, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
-import { MBPages } from '@app/pages';
+import pages from '@app/pages';
 import { Box, Divider, HStack, Text, Button, VStack, Progress, IconButton } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
-import { UIKit } from '@shared/ui-kit';
+import { LinkComponent, UIKit } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import Decimal from 'decimal.js';
 
@@ -96,98 +96,105 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, mi
   });
 
   return (
-    <VStack
-      onClick={onClick}
-      cursor="pointer"
-      p="1rem 1.25rem"
-      position="relative"
-      borderRadius="sm"
-      bg={minimalView ? 'dark.800' : 'dark.900'}
-      gap={0}
-      alignItems="start"
-      h="full"
-      transition="all 0.3s"
-      _hover={{
-        bg: minimalView ? 'dark.700' : 'dark.800',
-      }}
-    >
-      {minimalView && (
-        <UILogic.TradeDirectionChip
-          value={lot.attributes.COMMON_DIRECTION}
-          position="absolute"
-          top={0}
-          right={0}
-          borderRadius={12}
-          borderTopLeftRadius={0}
-          borderBottomRightRadius={0}
-        />
-      )}
-      <Box flexShrink="0" mb="0.75rem" w="full">
-        <HStack alignItems="center" marginBottom="0.75rem">
-          <Text color="dark.50" fontSize="0.8rem" textDecoration="none">
-            #{lot.id}
-          </Text>
-          {minimalView && (
-            <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
-          )}
-        </HStack>
-        <HStack justifyContent="space-between" alignItems="center" w="full">
-          {asset && (
-            <UILogic.AssetName
-              asset={asset}
-              onClick={() => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})}
-            />
-          )}
-          {isAuthorized && (
-            <IconButton
-              variant="ghost"
-              aria-label="favorite"
-              fontSize="lg"
-              _hover={{ color: '#f9c409' }}
-              color={favorite && '#f9c409'}
-              icon={<UIIcons.Common.BookmarkIcon />}
-              onClickCapture={handleFavoriteClick}
-            />
-          )}
-        </HStack>
-      </Box>
-
-      {!minimalView && (
-        <>
-          <Divider variant="dashed" color="dark.600" />
-          <VStack flex="1" py="1rem" spacing="0.75rem" alignItems="flex-start" w="full">
-            {fields.map((field, index) => (
-              <HStack gap="0.25rem" alignItems="center" key={index} justifyContent="space-between" w="full">
-                <Text fontWeight={600} fontSize="sm" color="dark.50">
-                  {field.name}
-                </Text>
-                {field.value}
-              </HStack>
-            ))}
-          </VStack>
-          <Divider variant="dashed" mb="1rem" color="dark.600" />
-        </>
-      )}
-      <VStack width="full" alignItems="start">
-        <HStack width="full" justifyContent="space-between">
-          <Text fontWeight={600} fontSize="sm" color="dark.50">
-            Available
-          </Text>
-          <HStack fontWeight={600} color="white" fontSize="xs">
-            <UIKit.MoneyText value={available.toNumber()} abbreviated />
-            <Text>/</Text>
-            <UIKit.MoneyText value={total.toNumber()} abbreviated />
+    <LinkComponent page={pages.Lot.__id__} pageProps={{ id: lot.id }} onClick={onClick}>
+      <VStack
+        onClick={onClick}
+        cursor="pointer"
+        p="1rem 1.25rem"
+        position="relative"
+        borderRadius="sm"
+        bg={minimalView ? 'dark.800' : 'dark.900'}
+        gap={0}
+        alignItems="start"
+        h="full"
+        transition="all 0.3s"
+        _hover={{
+          bg: minimalView ? 'dark.700' : 'dark.800',
+        }}
+        as="a"
+      >
+        {minimalView && (
+          <UILogic.TradeDirectionChip
+            value={lot.attributes.COMMON_DIRECTION}
+            position="absolute"
+            top={0}
+            right={0}
+            borderRadius={12}
+            borderTopLeftRadius={0}
+            borderBottomRightRadius={0}
+          />
+        )}
+        <Box flexShrink="0" mb="0.75rem" w="full">
+          <HStack alignItems="center" marginBottom="0.75rem">
+            <Text color="dark.50" fontSize="0.8rem" textDecoration="none">
+              #{lot.id}
+            </Text>
+            {minimalView && (
+              <UILogic.LotTypeChip value={lot.type} withTokenWarrant={lot.attributes.SAFE_WITH_TOKEN_WARRANT} />
+            )}
           </HStack>
-        </HStack>
-        <Progress value={progress.toNumber()} />
+          <HStack justifyContent="space-between" alignItems="center" w="full">
+            {asset && (
+              <UILogic.AssetName
+                asset={asset}
+                onClickCapture={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  router.navigateComponent(pages.Asset.__id__, { id: asset.id }, {});
+                }}
+              />
+            )}
+            {isAuthorized && (
+              <IconButton
+                variant="ghost"
+                aria-label="favorite"
+                fontSize="lg"
+                _hover={{ color: '#f9c409' }}
+                color={favorite && '#f9c409'}
+                icon={<UIIcons.Common.BookmarkIcon />}
+                onClickCapture={handleFavoriteClick}
+              />
+            )}
+          </HStack>
+        </Box>
+
+        {!minimalView && (
+          <>
+            <Divider variant="dashed" color="dark.600" />
+            <VStack flex="1" py="1rem" spacing="0.75rem" alignItems="flex-start" w="full">
+              {fields.map((field, index) => (
+                <HStack gap="0.25rem" alignItems="center" key={index} justifyContent="space-between" w="full">
+                  <Text fontWeight={600} fontSize="sm" color="dark.50">
+                    {field.name}
+                  </Text>
+                  {field.value}
+                </HStack>
+              ))}
+            </VStack>
+            <Divider variant="dashed" mb="1rem" color="dark.600" />
+          </>
+        )}
+        <VStack width="full" alignItems="start">
+          <HStack width="full" justifyContent="space-between">
+            <Text fontWeight={600} fontSize="sm" color="dark.50">
+              Available
+            </Text>
+            <HStack fontWeight={600} color="white" fontSize="xs">
+              <UIKit.MoneyText value={available.toNumber()} abbreviated />
+              <Text>/</Text>
+              <UIKit.MoneyText value={total.toNumber()} abbreviated />
+            </HStack>
+          </HStack>
+          <Progress value={progress.toNumber()} />
+        </VStack>
+        {!minimalView && (
+          <UILogic.AuthAction>
+            <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
+              {isOfferMaker ? 'View my lot' : 'Place bid'}
+            </Button>
+          </UILogic.AuthAction>
+        )}
       </VStack>
-      {!minimalView && (
-        <UILogic.AuthAction>
-          <Button w="full" variant="darkOutline" size="sm" mt="1.25rem">
-            {isOfferMaker ? 'View my lot' : 'Place bid'}
-          </Button>
-        </UILogic.AuthAction>
-      )}
-    </VStack>
+    </LinkComponent>
   );
 };

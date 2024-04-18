@@ -48,11 +48,12 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       'direction',
       'type',
       'withReassign',
+      'minContractValue',
+      'maxContractValue',
+      'reassignmentType',
     ]);
 
     initialFilters.direction ??= 'BUY';
-
-    if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
 
     return initialFilters;
   });
@@ -60,8 +61,6 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   const { skip, limit, ...paginationProps } = usePagination(12);
 
   const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
-    const [minContractValue, maxContractValue] = filters.bidSize ?? [];
-
     return {
       page: {
         skip,
@@ -74,8 +73,8 @@ export function LotsBlock({ asset }: LotsBlockProps) {
           id: [asset.id],
         },
         direction: filters.direction,
-        minContractValue,
-        maxContractValue,
+        minContractValue: filters.minContractValue,
+        maxContractValue: filters.maxContractValue,
         reassignmentType: filters.reassignmentType,
         type: filters.type,
         search: filters.search,

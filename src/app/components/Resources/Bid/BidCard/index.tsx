@@ -65,7 +65,7 @@ export const BidCard: React.FC<BidCardProps> = ({
         value: <Text>{LocationDictionary.get(bid.location).name}</Text>,
       },
     ].filter(Boolean);
-  }, [lot, bid]);
+  }, [lot, bid, offerMaker]);
 
   return (
     <VStack
