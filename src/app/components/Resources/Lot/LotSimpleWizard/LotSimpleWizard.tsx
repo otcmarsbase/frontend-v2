@@ -61,6 +61,7 @@ export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direc
   const handleSubmit = useToastInnerCallback(
     useCallback<SubmitHandler<LotCreateModel>>(
       async (data) => {
+
         const stepData = stepSchema.cast(data, { assert: false, stripUnknown: true });
 
         await onSubmit(stepData, { isLastStep, stepKey: currentStep });

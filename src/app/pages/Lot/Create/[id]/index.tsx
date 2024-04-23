@@ -49,6 +49,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
       const payload: DeskGatewaySchema.RPC.DTO.LotUpdate.Payload = { id, type, inputs };
 
+      console.log(inputs)
+
       if (INVEST_DOC_ASSET instanceof Object) {
         if ('id' in INVEST_DOC_ASSET) {
           payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;

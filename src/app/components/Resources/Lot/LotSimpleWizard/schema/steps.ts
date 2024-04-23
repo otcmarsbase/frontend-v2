@@ -22,6 +22,12 @@ export const InvestDocInfoStepInputs = LotCreateSchema.pick([
   'COMMON_MIN_FILTER_SUMMARY',
   'COMMON_ADDITIONAL_INFO',
   'TOKEN_VESTING_PERIOD',
+  'BOOSTER_INFO_ROUND_TYPE',
+  'BOOSTER_INFO_FDV',
+  'BOOSTER_INFO_ROUND_PRICE',
+  'BOOSTER_INFO_FUTURE_ROUND_PRICE',
+  'BOOSTER_INFO_ADDITIONAL_INFO',
+  'BOOSTER_INFO_LISTING_TIMELINE',
 ]);
 
 export const InvestDocReviewStepInputs = yup.lazy((value: LotCreateModel) => {
