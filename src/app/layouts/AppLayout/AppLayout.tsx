@@ -1,7 +1,10 @@
+import { useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { AppConfig } from '@shared/config';
+
+import { FeedbackButton } from '../../components/Resources/Feedback';
 
 import { Header, Footer } from './atoms';
 import { BottomMenu } from './atoms/BottomMenu';
@@ -12,6 +15,7 @@ export interface AppLayoutProps {
 
 export function AppLayout({ children, containerSize = 'lg' }) {
   const router = useRouter();
+  const { isAuthorized } = useAuth()
 
   return (
     <>
@@ -88,6 +92,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           },
         ]}
       />
+      {isAuthorized && <FeedbackButton />}
     </>
   );
 }

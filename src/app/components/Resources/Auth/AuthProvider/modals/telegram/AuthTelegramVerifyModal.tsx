@@ -7,9 +7,6 @@ import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import { Tooltip, UIKit } from '@shared/ui-kit';
 
-
-
-
 export interface AuthTelegramVerifyModalProps extends PortalProps<void> {
   code?: string;
   link?: string;
