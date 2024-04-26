@@ -34,7 +34,7 @@ export function LotAssetFilter({ assets, value, onChange }: LotAssetFilterProps)
 
   return (
     <SimpleGrid
-      display={{ base: 'flex', md: 'grid' }}
+      display={{ base: 'flex', lg: 'grid' }}
       minH="3.5rem"
       columns={20}
       autoFlow="column"

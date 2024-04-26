@@ -7,7 +7,7 @@ export interface StatsInvertProps {
 
 export function StatsInvert({ title, value }: StatsInvertProps) {
   return (
-    <VStack gap="0">
+    <VStack gap="0" alignItems="flex-start">
       <HStack justifyContent="flex-start" w="full">
         {value}
       </HStack>

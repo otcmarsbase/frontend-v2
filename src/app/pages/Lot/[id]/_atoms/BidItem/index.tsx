@@ -49,7 +49,7 @@ export const BidItem: React.FC<BidItemProps> = ({
   const router = useRouter();
   const { account } = useAuth();
 
-  const isBase = useBreakpointValue({ base: true, md: false });
+  const isBase = useBreakpointValue({ base: true, lg: false });
 
   const handleClick = useCallback(() => {
     if (!(deal && (bidMaker.nickname === account?.nickname || isOfferMaker))) return;

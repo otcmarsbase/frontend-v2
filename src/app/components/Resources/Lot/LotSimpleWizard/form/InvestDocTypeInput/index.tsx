@@ -32,7 +32,7 @@ export const InvestDocTypeInput: FC<BaseInputProps> = () => {
           <SuggestionIcon />
         </Tooltip>
       </FormLabel>
-      <SimpleGrid columns={{ base: 2, md: 3 }} gap={3}>
+      <SimpleGrid columns={{ base: 2, lg: 3 }} gap={3}>
         <GridItem>
           <Controller
             name={NAME}

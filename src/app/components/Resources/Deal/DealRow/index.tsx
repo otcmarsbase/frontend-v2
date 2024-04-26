@@ -19,7 +19,7 @@ export interface DealRowProps extends Omit<StackProps, 'direction' | 'onClick'> 
 export const DealRow: React.FC<DealRowProps> = ({ deal, lot, asset, onClick, ...stackProps }) => {
   const router = useRouter();
 
-  const isBase = useBreakpointValue({ base: true, md: false });
+  const isBase = useBreakpointValue({ base: true, lg: false });
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     {

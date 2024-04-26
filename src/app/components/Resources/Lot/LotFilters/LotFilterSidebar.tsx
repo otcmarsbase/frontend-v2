@@ -48,7 +48,7 @@ export function LotFilterSidebar({ filters, onChange, visibility, assets = [] }:
   const filterAssets = assets.filter((asset) => filters.assets?.includes(asset.id));
 
   return (
-    <VStack w={{ base: '100%', md: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
+    <VStack w={{ base: '100%', lg: '20rem' }} paddingTop="10px" gap="0.65rem" alignItems="flex-start">
       <Text display="flex" fontSize="lg" fontWeight={700} lineHeight="2rem" marginBottom="0.5rem">
         Filter
       </Text>

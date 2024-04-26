@@ -1,23 +1,18 @@
 import { UILogic, useAuth, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import pages from '@app/pages';
 import { getNotificationText, getNotificationTitle } from '@app/utils';
-import { HStack, Box, Square, Button, Text, useDisclosure } from '@chakra-ui/react';
+import { HStack, Box, Square, Button, Text, useDisclosure, Hide } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
-import {
-  Dropdown,
-  LinkComponent,
-  NotificationBell,
-  NotificationBellItem,
-  NotificationBellTrigger,
-} from '@shared/ui-kit';
+import { Dropdown, NotificationBell, NotificationBellItem, NotificationBellTrigger } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
+import { AuthAccountPanel } from 'src/app/components/Resources/Auth/AuthAccountPanel';
 import { handleNotificationClick } from 'src/app/utils/handleNotificationClick';
 
 export function RightBlock() {
-  const { isAuthorized, signOut } = useAuth();
+  const { isAuthorized } = useAuth();
   const router = useRouter();
   const schemaClient = useRpcSchemaClient();
   const queryClient = useQueryClient();
@@ -52,7 +47,7 @@ export function RightBlock() {
 
   return (
     <HStack>
-      <HStack gap="2.5rem" mr="1.7rem" display={{ base: 'none', md: 'flex' }}>
+      <Hide below="md">
         <Dropdown
           trigger="hover"
           items={[
@@ -144,82 +139,50 @@ export function RightBlock() {
         >
           How it works?
         </Button>
-      </HStack>
+      </Hide>
 
-      <Box mr={{ base: '0', md: '1.5rem' }}>
-        <UILogic.AuthConnectButton>
-          <HStack gap="1rem">
-            <UILogic.AuthAccountPanel />
+      <UILogic.AuthConnectButton>
+        <AuthAccountPanel />
+      </UILogic.AuthConnectButton>
 
-            {isAuthorized && (
-              <Button
-                variant="link"
-                display={{ base: 'none', md: 'block' }}
-                fontSize="sm"
-                onClick={signOut}
-                color="orange.300"
-              >
-                Logout
-              </Button>
+      {isAuthorized && (
+        <Hide below="md">
+          <NotificationBell
+            unreadCount={unreadCount}
+            items={notifications?.items ?? []}
+            renderTrigger={() => (
+              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
+                <NotificationBellTrigger hasUnread={!!unreadCount} />
+              </Square>
             )}
-          </HStack>
-        </UILogic.AuthConnectButton>
-      </Box>
-      <HStack gap="0.6rem" display={{ base: 'none', md: 'flex' }}>
-        {isAuthorized && (
-          <>
-            <LinkComponent page={pages.Profile.Home} pageProps={{}}>
-              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-                <UIIcons.Common.ProfileIcon w="1.125rem" h="1.125rem" />
-              </Square>
-            </LinkComponent>
-
-            <NotificationBell
-              unreadCount={unreadCount}
-              items={notifications?.items ?? []}
-              renderTrigger={() => (
-                <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-                  <NotificationBellTrigger hasUnread={!!unreadCount} />
-                </Square>
-              )}
-              renderItem={(item) => (
-                <NotificationBellItem
-                  title={getNotificationTitle(item)}
-                  text={getNotificationText(item)}
-                  date={item.createdAt}
-                  unread={!item.isReaded}
-                  onClick={() => {
-                    handleNotificationClick(router, item);
-                    handleRead(item);
-                    notificationBellDisclosure.onClose();
-                  }}
-                />
-              )}
-              onReadAll={handleReadAll}
-              onViewAll={() => {
-                router.navigateComponent(pages.Profile.Notification, {}, {});
-                notificationBellDisclosure.onClose();
-              }}
-              placement="bottom-end"
-              empty={
-                <Text color="dark.200">
-                  At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
-                </Text>
-              }
-              {...notificationBellDisclosure}
-            />
-
-            <LinkComponent page={pages.Favorite.Home} pageProps={{}}>
-              <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem" cursor="pointer">
-                <UIIcons.Common.FavoriteIcon w="1.125rem" h="1.125rem" fill="transparent" stroke="white" />
-              </Square>
-            </LinkComponent>
-          </>
-        )}
-        <Square size="2.5rem" bg="rgba(37, 38, 40, 0.50)" borderRadius="0.5rem">
-          <UIIcons.Language.EnglishIcon w="1.125rem" h="1.125rem" />
-        </Square>
-      </HStack>
+            renderItem={(item) => (
+              <NotificationBellItem
+                title={getNotificationTitle(item)}
+                text={getNotificationText(item)}
+                date={item.createdAt}
+                unread={!item.isReaded}
+                onClick={() => {
+                  handleNotificationClick(router, item);
+                  handleRead(item);
+                  notificationBellDisclosure.onClose();
+                }}
+              />
+            )}
+            onReadAll={handleReadAll}
+            onViewAll={() => {
+              router.navigateComponent(pages.Profile.Notification, {}, {});
+              notificationBellDisclosure.onClose();
+            }}
+            placement="bottom-end"
+            empty={
+              <Text color="dark.200">
+                At the moment you do not have any notifications yet. As soon as it is there it will&nbsp;be&nbsp;here
+              </Text>
+            }
+            {...notificationBellDisclosure}
+          />
+        </Hide>
+      )}
     </HStack>
   );
 }

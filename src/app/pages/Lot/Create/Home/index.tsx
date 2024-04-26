@@ -34,7 +34,7 @@ const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
   );
 
   return (
-    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', lg: '8' }} bg="dark.900" rounded="3xl">
       <LotSimpleWizard direction={direction} defaultValues={{ COMMON_DIRECTION: direction }} onSubmit={onSubmit} />
     </Box>
   );

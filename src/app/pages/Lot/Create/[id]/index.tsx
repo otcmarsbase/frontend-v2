@@ -66,7 +66,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   if (isLoading) return <UIKit.Loader />;
 
   return (
-    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', lg: '8' }} bg="dark.900" rounded="3xl">
       <LotSimpleWizard direction={lot.attributes.COMMON_DIRECTION} defaultValues={mappedLot} onSubmit={onSubmit} />
     </Box>
   );

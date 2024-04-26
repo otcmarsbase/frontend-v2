@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { HStack, Stack, VStack } from '@chakra-ui/react';
+import { Stack, VStack } from '@chakra-ui/react';
 
 import {
   CommonAdditionalInfoInput,
@@ -28,11 +28,11 @@ export const InvestDocInfoStep = () => {
 
   return (
     <VStack w="full" spacing={3}>
-      <Stack direction={{ base: 'column', md: 'row' }} spacing={3} alignItems="flex-start" w="full">
+      <Stack direction={{ base: 'column', lg: 'row' }} spacing={3} alignItems="flex-start" w="full">
         <CommonSummaryInput />
         <InvestDocFdvInput />
       </Stack>
-      <Stack direction={{ base: 'column', md: 'row' }} spacing={3} alignItems="flex-start" w="full">
+      <Stack direction={{ base: 'column', lg: 'row' }} spacing={3} alignItems="flex-start" w="full">
         <CommonMinFilterSummaryInput />
         {hasPrice && <CommonPriceInput />}
         {hasVesting && <TokenVestingPeriodInput />}

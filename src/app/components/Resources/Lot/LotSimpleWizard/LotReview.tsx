@@ -60,8 +60,8 @@ export const LotReview: FC<LotReviewProps> = ({ values }) => {
   return (
     <VStack
       spacing="6"
-      px={{ base: 4, md: 8 }}
-      py={{ base: 5, md: 9 }}
+      px={{ base: 4, lg: 8 }}
+      py={{ base: 5, lg: 9 }}
       bg="dark.900"
       rounded="sm"
       w="full"

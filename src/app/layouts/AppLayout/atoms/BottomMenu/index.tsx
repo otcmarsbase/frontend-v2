@@ -15,7 +15,7 @@ export const BottomMenu: React.FC<BottomMenuProps> = ({ items }) => {
       borderTop="0.0625rem solid"
       borderColor="dark.700"
       boxSizing="border-box"
-      display={{ base: 'flex', md: 'none' }}
+      display={{ base: 'flex', lg: 'none' }}
       zIndex="sticky"
       justifyContent="center"
       position="fixed"
