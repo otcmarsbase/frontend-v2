@@ -90,7 +90,7 @@ export const BidItem: React.FC<BidItemProps> = ({
         <Text color="dark.200" fontSize="sm">
           #{bid.id}
         </Text>
-        <AccountAvatar nickname={bidMaker.nickname} />
+        <AccountAvatar shortNickname nickname={bidMaker.nickname} />
       </VStack>
       <SimpleGrid w="75%" columns={6} gridColumnGap="1.5rem">
         <BidItemColumn type="AMOUNT">
