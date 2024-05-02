@@ -32,7 +32,7 @@ export function AuthTelegramVerifyModal({ code, link, onShowQrCode, onRegenerate
     <UIKit.Modal
       title={
         <Text fontSize='2md' color='white' fontFamily='promo'>
-          Login in with Telegram
+          Login with Telegram
         </Text>
       }
       onClose={() => portal.resolve()}
