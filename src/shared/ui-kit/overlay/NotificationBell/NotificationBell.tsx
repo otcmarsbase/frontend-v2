@@ -42,7 +42,7 @@ export const NotificationBell = <T,>({
   return (
     <Popover {...popoverProps}>
       <PopoverTrigger>{renderTrigger()}</PopoverTrigger>
-      <PopoverContent bg="dark.800" border="none" rounded="0.5rem" width={{ base: 'sm', md: 'md' }}>
+      <PopoverContent bg="dark.800" border="none" rounded="0.5rem" width={{ base: 'sm', lg: 'md' }}>
         <PopoverHeader borderBottom="1px solid rgba(81, 84, 96, 0.3)">
           <Flex alignItems="center" justifyContent="space-between" w="full">
             <HStack spacing="2">

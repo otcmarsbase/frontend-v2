@@ -39,7 +39,7 @@ export const DealInfo: FC<DealInfoProps> = ({ price, fdv, amount, lotType, marsb
       <Heading variant="h3" fontSize="1rem" textTransform="uppercase" w="100%">
         {DealBlockTypeDictionary.get('DEAL_INFO').title}
       </Heading>
-      <SimpleGrid columns={{ base: 1, md: 2 }} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
+      <SimpleGrid columns={{ base: 1, lg: 2 }} w="full" gridColumnGap="5.5rem" gridRowGap="0.75rem">
         <DealInfoField
           label={DealInfoFieldDictionary.get('PRICE')}
           value={<UIKit.MoneyText abbreviated value={price} currencyTextProps={{ color: 'dark.50' }} />}

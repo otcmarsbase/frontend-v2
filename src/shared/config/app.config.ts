@@ -44,6 +44,10 @@ export interface AppConfigType {
     youtubeUrl: string;
     instagramUrl: string;
   };
+
+  analytics: {
+    googleTagId: string;
+  };
 }
 
 export const AppConfig: AppConfigType = {
@@ -85,5 +89,9 @@ export const AppConfig: AppConfigType = {
     redditUrl: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
     youtubeUrl: 'https://www.youtube.com/channel/UCmtM-VPNiLLQljTEJAd0PHg',
     instagramUrl: 'https://www.instagram.com/marsbase.io/',
+  },
+
+  analytics: {
+    googleTagId: configurator.get('GOOGLE_TAG_ID'),
   },
 };

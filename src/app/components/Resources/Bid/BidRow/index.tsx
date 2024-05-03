@@ -21,7 +21,7 @@ export interface BidRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
 export const BidRow: React.FC<BidRowProps> = ({ bid, lot, offerMaker, asset, deal, onClick, ...stackProps }) => {
   const router = useRouter();
 
-  const isBase = useBreakpointValue({ base: true, md: false });
+  const isBase = useBreakpointValue({ base: true, lg: false });
 
   const fields: { label: React.ReactNode; value: React.ReactNode }[] = [
     {

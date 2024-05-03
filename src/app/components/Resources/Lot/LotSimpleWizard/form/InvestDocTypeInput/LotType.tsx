@@ -23,7 +23,7 @@ export const LotType: FC<LotTypeProps> = ({ title, active, onClick, ...stackProp
       onClick={onClick}
       {...stackProps}
     >
-      <Common.AssetIcon color="orange.300" fontSize={{ base: '1.5rem', md: '2rem' }} lineHeight={1} />
+      <Common.AssetIcon color="orange.300" fontSize={{ base: '1.5rem', lg: '2rem' }} lineHeight={1} />
       <Text lineHeight="1" fontWeight="500">
         {title}
       </Text>

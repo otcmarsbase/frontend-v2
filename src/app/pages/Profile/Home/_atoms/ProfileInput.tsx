@@ -48,7 +48,7 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
           <Controller control={control} name={name} render={render} />
           {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>
-        <Show above="md">
+        <Show above="lg">
           <Button
             _groupFocusWithin={{
               opacity: 1,

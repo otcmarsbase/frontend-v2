@@ -15,17 +15,17 @@ export function AppLayout({ children, containerSize = 'lg' }) {
 
   return (
     <>
-      <VStack minHeight="100vh" width="full" gap="0" mb={{ base: '5rem', md: 'initial' }}>
+      <VStack minHeight="100vh" width="full" gap="0" mb={{ base: '5rem', lg: 'initial' }}>
         <Box width="full" flexShrink="0">
           <Header />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize} mt={{ base: '1rem', md: '3rem' }} maxW={{ base: '100%', md: '85%' }}>
+          <Container size={containerSize} mt={{ base: '1rem', lg: '3rem' }} maxW={{ base: '100%', lg: '85%' }}>
             {children}
           </Container>
         </Box>
         <Box width="full" marginTop="auto">
-          <Box w="full" px={{ base: '1rem', md: '10rem' }} margin="0 auto">
+          <Box w="full" px={{ base: '1rem', lg: '10rem' }} margin="0 auto">
             <Footer
               links={[
                 {

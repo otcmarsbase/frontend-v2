@@ -24,7 +24,7 @@ export const OtcDesk: React.FC = observer(() => {
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
-      md: true,
+      lg: true,
       base: false,
     },
     { ssr: false },
@@ -140,7 +140,7 @@ export const OtcDesk: React.FC = observer(() => {
         value={filterAssets}
         onChange={(assets) => onChangeFilters({ assets: assets.map((asset) => asset.id) })}
       />
-      <HStack alignItems="start" flexDirection={{ base: 'column', md: 'row' }} w="full" gap="2rem">
+      <HStack alignItems="start" flexDirection={{ base: 'column', lg: 'row' }} w="full" gap="2rem">
         {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} assets={assets} onChange={onChangeFilters} />}
         <VStack w="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls
@@ -154,7 +154,7 @@ export const OtcDesk: React.FC = observer(() => {
           <VStack alignItems="start" spacing="1rem" width="full">
             <UILogic.LotActiveFilters filters={filters} assets={assets} onReset={handleResetFilters} />
             {isLoading ? (
-              <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
+              <UILogic.LotGridSkeleton columns={{ base: 1, lg: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
                 {!lots?.total ? (
@@ -170,7 +170,7 @@ export const OtcDesk: React.FC = observer(() => {
                 ) : (
                   <>
                     <UILogic.LotGrid
-                      columns={{ base: 1, md: columnsCount }}
+                      columns={{ base: 1, lg: columnsCount }}
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}

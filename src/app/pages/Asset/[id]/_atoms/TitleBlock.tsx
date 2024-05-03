@@ -11,16 +11,16 @@ export function TitleBlock({ logoUrl, title, analyticsUrl }: TitleBlockProps) {
     <HStack
       w="100%"
       gap="1.5rem"
-      bg={{ base: 'dark.900', md: 'none' }}
-      borderRadius={{ base: 'sm', md: 'none' }}
-      p={{ base: '0.75rem', md: '0' }}
+      bg={{ base: 'dark.900', lg: 'none' }}
+      borderRadius={{ base: 'sm', lg: 'none' }}
+      p={{ base: '0.75rem', lg: '0' }}
     >
       <HStack gap="0.5rem">
         {logoUrl && (
-          <Image borderRadius="sm" w={{ base: '2rem', md: '4rem' }} h={{ base: '2rem', md: '4rem' }} src={logoUrl} />
+          <Image borderRadius="sm" w={{ base: '2rem', lg: '4rem' }} h={{ base: '2rem', lg: '4rem' }} src={logoUrl} />
         )}
         {title && (
-          <Heading variant="h2" fontSize={{ base: '1rem', md: '2rem' }} fontWeight="500">
+          <Heading variant="h2" fontSize={{ base: '1rem', lg: '2rem' }} fontWeight="500">
             {title}
           </Heading>
         )}
