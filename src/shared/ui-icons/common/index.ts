@@ -39,3 +39,4 @@ export * from './ChevronDoubleRightIcon';
 export * from './FlagIcon';
 export * from './BookmarkIcon';
 export * from './FavoriteIcon';
+export * from './UploadIcon';

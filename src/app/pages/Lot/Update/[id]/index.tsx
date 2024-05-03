@@ -57,7 +57,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
           if ('id' in INVEST_DOC_ASSET) {
             payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
           } else {
-            payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+            payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string; pitchDeck: string; tokenomics: string };
           }
         }
 

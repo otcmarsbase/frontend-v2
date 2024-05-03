@@ -110,7 +110,6 @@ const MyBids: React.FC = () => {
   const findOfferMaker = useCallback(
     (bid: DeskGatewaySchema.Bid) => {
       const lot = findLot(bid);
-      console.log(bids.links);
 
       if (!lot) return;
 

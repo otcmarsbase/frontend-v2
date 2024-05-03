@@ -37,7 +37,6 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         await rpcSchema.send('lot.sendOnModeration', { id });
         await queryClient.invalidateQueries({
           predicate: ({ queryKey }) => {
-            console.log(queryKey);
             return queryKey[0]?.toString()?.includes('lot');
           },
         });
@@ -49,13 +48,11 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
       const { type, INVEST_DOC_ASSET, ...inputs } = data;
       const payload: DeskGatewaySchema.RPC.DTO.LotUpdate.Payload = { id, type, inputs };
 
-      console.log(inputs)
-
       if (INVEST_DOC_ASSET instanceof Object) {
         if ('id' in INVEST_DOC_ASSET) {
           payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
         } else {
-          payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+          payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string; pitchDeck: string; tokenomics: string };
         }
       }
 

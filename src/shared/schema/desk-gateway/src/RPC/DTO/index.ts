@@ -8,4 +8,5 @@ export * from './Lot';
 export * from './Notification';
 export * from './NotificationConfig';
 export * from './System';
+export * from './File';
 export * from './User';

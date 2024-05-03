@@ -19,6 +19,7 @@ export const InvestDocInfoStepInputs = LotCreateSchema.pick([
   'COMMON_SUMMARY',
   'COMMON_UNITS',
   'INVEST_DOC_FDV',
+  'INVEST_DOC_ASSET',
   'COMMON_MIN_FILTER_SUMMARY',
   'COMMON_ADDITIONAL_INFO',
   'TOKEN_VESTING_PERIOD',

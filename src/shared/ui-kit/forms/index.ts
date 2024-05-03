@@ -17,3 +17,4 @@ export * from './Select';
 export * from './Slider';
 export * from './SummaryStep';
 export * from './Switch';
+export * from './InputWithUpload';
