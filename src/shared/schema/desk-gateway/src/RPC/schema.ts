@@ -58,4 +58,7 @@ export type Schema = {
     delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
+  feedback: {
+    create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
+  }
 };
