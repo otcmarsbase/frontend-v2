@@ -10,3 +10,4 @@ export * from './NotificationConfig';
 export * from './System';
 export * from './File';
 export * from './User';
+export * from './Feedback';

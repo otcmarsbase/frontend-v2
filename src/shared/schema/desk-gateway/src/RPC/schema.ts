@@ -61,6 +61,9 @@ export type Schema = {
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
   file: {
-    getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result
+    getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result;
+  }
+  feedback: {
+    create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
   }
 };
