@@ -10,4 +10,5 @@ export * from './Lot';
 export * from './Notification';
 export * from './NotificationConfig';
 export * from './User';
+export * from './File';
 export * from './Feedback';

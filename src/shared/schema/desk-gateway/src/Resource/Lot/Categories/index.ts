@@ -5,3 +5,4 @@ export * from './SAFECategory';
 export * from './SAFTCategory';
 export * from './TokenWarrantCategory';
 export * from './UnlockedTokensCategory';
+export * from './BoosterInfoCategory';

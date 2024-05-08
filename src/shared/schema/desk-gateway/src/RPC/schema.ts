@@ -37,6 +37,8 @@ export type Schema = {
     list(payload: DTO.LotList.Payload): DTO.LotList.Result;
     sendOnModeration(payload: DTO.LotSendOnModeration.Payload): DTO.LotSendOnModeration.Result;
     update(payload: DTO.LotUpdate.Payload): DTO.LotUpdate.Result;
+    getUploadPitchDeckURL(payload: DTO.LotGetUploadPitchDeckURL.Payload): DTO.LotGetUploadPitchDeckURL.Result;
+    getUploadTokenomicsURL(payload: DTO.LotGetUploadTokenomicsURL.Payload): DTO.LotGetUploadTokenomicsURL.Result;
   };
   system: {
     getVersion(payload: DTO.SystemGetVersion.Payload): DTO.SystemGetVersion.Result;
@@ -58,6 +60,9 @@ export type Schema = {
     delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
+  file: {
+    getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result;
+  }
   feedback: {
     create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
   }

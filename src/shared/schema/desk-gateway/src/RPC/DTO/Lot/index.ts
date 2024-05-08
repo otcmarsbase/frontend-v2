@@ -7,3 +7,5 @@ export * from './LotGetById';
 export * from './LotList';
 export * from './LotSendOnModeration';
 export * from './LotUpdate';
+export * from './LotGetUploadTokenomicsURL';
+export * from './LotGetUploadPitchDeckURL';
