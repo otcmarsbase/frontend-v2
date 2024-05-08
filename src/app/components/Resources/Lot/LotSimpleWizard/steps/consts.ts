@@ -1,5 +1,3 @@
-import { UseFormGetValues } from 'react-hook-form';
-
 import { LotCreateModel } from '@app/components';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 
@@ -17,10 +15,11 @@ export const BOOSTER_INFO_PROGRESS = (type: DeskGatewaySchema.LotType, SAFE_WITH
     INVEST_DOC_FDV: 10,
     BOOSTER_INFO_ROUND_TYPE: 4,
     BOOSTER_INFO_FDV: 4,
-    BOOSTER_INFO_ROUND_PRICE: 5,
-    BOOSTER_INFO_FUTURE_ROUND_PRICE: 5,
-    BOOSTER_INFO_LISTING_TIMELINE: 5,
-    BOOSTER_INFO_ADDITIONAL_INFO: 5,
+    BOOSTER_INFO_ROUND_PRICE: 4,
+    BOOSTER_INFO_PREVIOUS_ROUND_PRICE: 4,
+    BOOSTER_INFO_FUTURE_ROUND_PRICE: 4,
+    BOOSTER_INFO_LISTING_TIMELINE: 4,
+    BOOSTER_INFO_ADDITIONAL_INFO: 4,
   }
 
   const calcProgress = () => {

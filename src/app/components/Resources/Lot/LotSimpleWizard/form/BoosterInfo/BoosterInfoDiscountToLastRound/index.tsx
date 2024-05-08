@@ -14,16 +14,16 @@ export const BoosterInfoDiscountToLastRound: FC<BaseInputProps> = () => {
 
   const direction = watch('COMMON_DIRECTION');
 
-  const targetValuation = watch('COMMON_SUMMARY')
-  const futureRound = watch('BOOSTER_INFO_ROUND_TYPE');
+  const targetValuation = watch('INVEST_DOC_FDV')
+  const previousRound = watch('BOOSTER_INFO_PREVIOUS_ROUND_PRICE');
 
   const value = useMemo(() => {
-    if (futureRound in RoundValueMap && !isNaN(Number(targetValuation))) {
-      return Number(targetValuation) / RoundValueMap[futureRound] - 1
+    if (!targetValuation || !previousRound) {
+      return null
     }
 
-    return null
-  }, [targetValuation, futureRound])
+    return Math.round((Number(targetValuation) / Number(previousRound)) - 1)
+  }, [targetValuation, previousRound])
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 

@@ -10,9 +10,8 @@ export const DescriptorDictionary = createDictionary<
   .setFromRecord({
     BUY: {},
     SELL: {
-      label: 'Last round',
-      placeholder: 'Amount',
-      tooltip: 'Pricing of the round, which project closed'
+      label: 'Previous round',
+      placeholder: 'Amount'
     }
   })
   .asReadonly();
