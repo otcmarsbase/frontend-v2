@@ -11,7 +11,8 @@ export const DescriptorDictionary = createDictionary<
     BUY: {},
     SELL: {
       label: 'Project pitchdeck',
-      placeholder: 'Link'
+      placeholder: 'Link',
+      tooltip: 'This info already included in asset page'
     }
   })
   .asReadonly();

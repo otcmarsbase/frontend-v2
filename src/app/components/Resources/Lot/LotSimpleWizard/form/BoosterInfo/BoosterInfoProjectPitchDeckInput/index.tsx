@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 import { useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
-import { FormControl, FormErrorMessage, FormLabel, InputWithUpload } from '@shared/ui-kit';
+import { FormControl, FormErrorMessage, FormLabel, InputWithUpload, SuggestionIcon, Tooltip } from '@shared/ui-kit';
 
 import { BaseInputProps } from '../../types';
 import { useInput } from '../../useInput';
@@ -48,12 +48,18 @@ export const BoosterInfoProjectPitchDeckInput: FC<BaseInputProps> = () => {
     <FormControl isInvalid={!isValid} isDisabled={isDisabled}>
       <FormLabel display="flex" gap="0.25rem" alignItems="center">
         {descriptor.label}
+        {isDisabled && (
+          <Tooltip label={descriptor.tooltip}>
+            <SuggestionIcon />
+          </Tooltip>
+        )}
       </FormLabel>
       <Controller
         name={NAME}
         render={() => (
           <InputWithUpload
             value={inputValue}
+            isDisabled={isDisabled}
             uploadLink={fileUploader}
             onUpload={onUploadFile}
             onChange={onChangeInput}

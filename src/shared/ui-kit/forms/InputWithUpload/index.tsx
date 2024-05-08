@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { Button, Input, InputGroup, InputProps, InputRightElement, Text } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Common } from '@shared/ui-icons';
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 
 const uploadFile = async (file: File, { id, uploadURL }: DeskGatewaySchema.FileUploader) => {
   const formData = new FormData();
@@ -21,7 +22,7 @@ export interface InputUploadProps extends InputProps {
   onUpload?: (id: string) => void,
 }
 
-export function InputWithUpload({ onChange, accept, uploadLink, onUpload, ...props }: InputUploadProps) {
+export function InputWithUpload({ onChange, accept, uploadLink, onUpload, isDisabled, ...props }: InputUploadProps) {
   const inputFileRef = useRef<HTMLInputElement>()
   const inputRef = useRef<HTMLInputElement>()
 
@@ -48,9 +49,12 @@ export function InputWithUpload({ onChange, accept, uploadLink, onUpload, ...pro
 
   return (
     <InputGroup>
-      <Input ref={inputRef} onChange={onChange} {...props} />
-      <input type="file" accept={accept} hidden ref={inputFileRef} onChange={onChangeInputFile} />
-      <InputRightElement cursor="pointer" onClick={onClickIcon}>
+      <Input ref={inputRef} onChange={onChange} isDisabled={isDisabled} {...props} />
+      <input disabled={isDisabled} type="file" accept={accept} hidden ref={inputFileRef} onChange={onChangeInputFile} />
+      <InputRightElement
+        cursor={isDisabled ? 'not-allowed' : 'pointer'}
+        onClick={onClickIcon}
+      >
         <Text color="orange.500" fontSize="sm">
           <Common.UploadIcon />
         </Text>
