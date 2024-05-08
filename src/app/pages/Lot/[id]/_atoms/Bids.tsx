@@ -67,7 +67,7 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, offerMaker, lot, asset }) =>
         lineHeight={'1.5rem'}
         textTransform={'uppercase'}
         w={'100%'}
-        display={{ base: 'none', md: 'flex' }}
+        display={{ base: 'none', lg: 'flex' }}
       >
         <HStack alignItems="center">
           <Text textTransform="uppercase" fontFamily="promo">

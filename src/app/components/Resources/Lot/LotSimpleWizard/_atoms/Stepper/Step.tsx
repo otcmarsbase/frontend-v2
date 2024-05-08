@@ -18,29 +18,29 @@ export const Step: FC<StepProps> = ({ title, icon: Icon, onClick, ...stackProps 
       <HStack
         rounded="light"
         border="1px solid"
-        px={{ base: '2', md: '3' }}
-        py={{ base: '1', md: '2' }}
+        px={{ base: '2', lg: '3' }}
+        py={{ base: '1', lg: '2' }}
         opacity={isIncomplete ? 0.5 : 1}
         alignItems="center"
         w="full"
-        spacing={{ base: 1, md: 3 }}
+        spacing={{ base: 1, lg: 3 }}
         borderColor={isIncomplete ? 'dark.500' : 'orange.300'}
         onClick={onClick}
         {...stackProps}
       >
-        <Icon color="orange.300" fontSize={{ base: '1.5rem', md: '2rem' }} lineHeight={1} />
+        <Icon color="orange.300" fontSize={{ base: '1.5rem', lg: '2rem' }} lineHeight={1} />
         <Box fontWeight="500">
-          <Text color="orange.300" fontSize={{ base: '3xs', md: 'xs' }}>
+          <Text color="orange.300" fontSize={{ base: '3xs', lg: 'xs' }}>
             Step {index + 1}
           </Text>
-          <Text color="white" lineHeight={1} fontSize={{ base: 'xs', md: 'md' }}>
+          <Text color="white" lineHeight={1} fontSize={{ base: 'xs', lg: 'md' }}>
             {title}
           </Text>
         </Box>
       </HStack>
       {!isLast && (
         <Common.ChevronDoubleRightIcon
-          fontSize={{ base: 'md', md: 'lg' }}
+          fontSize={{ base: 'md', lg: 'lg' }}
           color={isIncomplete ? 'dark.500' : 'orange.300'}
         />
       )}

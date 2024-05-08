@@ -58,7 +58,7 @@ const Settings: FC = () => {
             calculate your supply.
           </Text>
         </VStack>
-        <VStack bg="dark.900" px={{ base: '3', md: '9' }} py={{ base: '3', md: '6' }} w="full" rounded="md" spacing="4">
+        <VStack bg="dark.900" px={{ base: '3', lg: '9' }} py={{ base: '3', lg: '6' }} w="full" rounded="md" spacing="4">
           <NotificationSettingsItem
             label="Deal Status Update"
             text="Notify me about a trade progress status update, deal status update, new deal"

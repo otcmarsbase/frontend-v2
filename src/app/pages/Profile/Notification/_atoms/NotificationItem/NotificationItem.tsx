@@ -33,20 +33,20 @@ export function NotificationItem({ notification }: NotificationItemProps) {
     <Flex
       onClick={handleClick}
       cursor="pointer"
-      gap={{ base: 3, md: 6 }}
+      gap={{ base: 3, lg: 6 }}
       justifyContent="space-between"
       p={4}
       bg="dark.900"
       borderRadius={12}
     >
-      <Box w={{ base: '2.25rem', md: '3.25rem' }} h={{ base: '2.25rem', md: '3.25rem' }} borderRadius="full">
+      <Box w={{ base: '2.25rem', lg: '3.25rem' }} h={{ base: '2.25rem', lg: '3.25rem' }} borderRadius="full">
         <Image src={Icon} />
       </Box>
       <Flex
         flexGrow={1}
-        gap={{ base: 3, md: 6 }}
+        gap={{ base: 3, lg: 6 }}
         justifyContent="space-between"
-        flexDir={{ base: 'column', md: 'row' }}
+        flexDir={{ base: 'column', lg: 'row' }}
       >
         <Box flexGrow={1}>
           <Text mb={1} fontWeight={600} color="white">
@@ -56,7 +56,7 @@ export function NotificationItem({ notification }: NotificationItemProps) {
             {getNotificationText(notification)}
           </Text>
         </Box>
-        <Text fontWeight={500} fontSize="sm" color="dark.100" textAlign={{ md: 'right' }}>
+        <Text fontWeight={500} fontSize="sm" color="dark.100" textAlign={{ lg: 'right' }}>
           {formatDistance(notification.createdAt, new Date(), { addSuffix: true })}
         </Text>
       </Flex>

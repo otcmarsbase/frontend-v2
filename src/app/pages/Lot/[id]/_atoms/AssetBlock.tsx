@@ -12,7 +12,7 @@ export interface AssetBlockProps {
 
 export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick }) => {
   const router = useRouter();
-  const { isAuthorized } = useAuth()
+  const { isAuthorized } = useAuth();
 
   const isAssetCreateRequest = 'title' in asset;
 
@@ -20,13 +20,13 @@ export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick 
     <HStack
       w="100%"
       justifyContent="space-between"
-      padding={{ base: '0.75rem', md: '1rem 1.25rem' }}
+      padding={{ base: '0.75rem', lg: '1rem 1.25rem' }}
       bg="dark.900"
       borderRadius="0.75rem"
     >
-      <HStack gap="2.12rem" flexDirection={{ base: 'column', md: 'row' }}>
+      <HStack gap="2.12rem" flexDirection={{ base: 'column', lg: 'row' }}>
         <HStack
-          gap={{ base: '0.25rem', md: '1.5rem' }}
+          gap={{ base: '0.25rem', lg: '1.5rem' }}
           onClick={
             !isAssetCreateRequest
               ? () => router.navigateComponent(MBPages.Asset.__id__, { id: asset.id }, {})
@@ -38,9 +38,9 @@ export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick 
           }}
         >
           {!isAssetCreateRequest && (
-            <UILogic.AssetImage w={{ base: '2rem', md: '4rem' }} asset={asset} borderRadius="light" />
+            <UILogic.AssetImage w={{ base: '2rem', lg: '4rem' }} asset={asset} borderRadius="light" />
           )}
-          <Heading as="h2" variant="h4" fontSize={{ base: 'md', md: 'lg' }} fontFamily="promo">
+          <Heading as="h2" variant="h4" fontSize={{ base: 'md', lg: 'lg' }} fontFamily="promo">
             {isAssetCreateRequest ? asset.title : asset.info.title}
           </Heading>
         </HStack>
@@ -62,7 +62,7 @@ export const AssetBlock: React.FC<AssetBlockProps> = ({ asset, onCreateBidClick 
           variant="brand"
           onClick={onCreateBidClick}
           size="xs"
-          display={{ base: 'block', md: 'none' }}
+          display={{ base: 'block', lg: 'none' }}
           leftIcon={<UIIcons.Common.AddIcon />}
         >
           Create bid

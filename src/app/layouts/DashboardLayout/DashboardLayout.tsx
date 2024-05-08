@@ -31,7 +31,7 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
   return (
     <FormProvider control={control} {...formProps}>
       <Box>
-        <Heading fontFamily="promo" fontSize="2rem" marginTop={{ base: '0', md: '2.5rem' }} marginBottom="0.75rem">
+        <Heading fontFamily="promo" fontSize="2rem" marginTop={{ base: '0', lg: '2.5rem' }} marginBottom="0.75rem">
           Dashboard
         </Heading>
         <VStack gap="0.5rem">
@@ -41,9 +41,9 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
             gap="0"
             borderRadius="0.75rem"
             bg="dark.900"
-            padding={{ base: '0', md: '0.5rem' }}
-            paddingRight={{ base: '0', md: '1.25rem' }}
-            flexDirection={{ base: 'column', md: 'row' }}
+            padding={{ base: '0', lg: '0.5rem' }}
+            paddingRight={{ base: '0', lg: '1.25rem' }}
+            flexDirection={{ base: 'column', lg: 'row' }}
           >
             <HStack width="full" gap="1rem">
               <UIKit.RadioButtons
@@ -53,14 +53,14 @@ export const DashboardLayout: React.FC<PropsWithChildren<DashboardLayoutProps>> 
                 items={DashboardTabType}
                 renderKey={(item) => item}
                 renderItem={(item) => DashboardTabTypeTitleMap.get(item)}
-                variant={{ base: 'outline', md: 'solid' }}
+                variant={{ base: 'outline', lg: 'solid' }}
                 value={tabType}
                 onChange={onRoute}
-                bg={{ base: 'transparent', md: 'dark.800' }}
+                bg={{ base: 'transparent', lg: 'dark.800' }}
               />
             </HStack>
             {tabType !== 'MY_DEALS' && (
-              <HStack gap="1rem" my={{ base: '0.7rem', md: 0 }}>
+              <HStack gap="1rem" my={{ base: '0.7rem', lg: 0 }}>
                 {DashboardFilterStatusDictionary.entries().map(([status, label]) => (
                   <Controller
                     key={status}

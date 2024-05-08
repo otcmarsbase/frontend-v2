@@ -16,7 +16,7 @@ export function LotFilterControls({ toggleButton, search, onChangeSearch }: LotF
   const searchValue = useMemo(() => search ?? '', [search]);
 
   return (
-    <HStack w={{ base: '100%', md: 'auto' }} flexDirection={{ base: 'row-reverse', md: 'row' }}>
+    <HStack w={{ base: '100%', lg: 'auto' }} flexDirection={{ base: 'row-reverse', lg: 'row' }}>
       <Button
         variant={toggleButton?.isSelected ? 'red' : 'darkOutline'}
         borderColor={toggleButton?.isSelected ? 'red.200' : 'dark.200'}

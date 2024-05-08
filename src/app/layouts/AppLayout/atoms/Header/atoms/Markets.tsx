@@ -19,13 +19,19 @@ import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import { LinkComponent } from '@shared/ui-kit';
 
+import { HeaderLink } from './HeaderLink';
+
 export function Markets() {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <Popover trigger="hover" onClose={onClose} onOpen={onOpen} isOpen={isOpen}>
       <PopoverTrigger>
-        <Link>Mars Markets</Link>
+        <HeaderLink>
+          <HStack>
+            <Box>Mars Markets</Box> <UIIcons.Common.ArrowDown />
+          </HStack>
+        </HeaderLink>
       </PopoverTrigger>
       <PopoverContent
         bg="dark.700"

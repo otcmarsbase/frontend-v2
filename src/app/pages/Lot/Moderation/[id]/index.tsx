@@ -98,8 +98,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         w="full"
         bg="rgba(223, 96, 59, 0.30)"
         color="white"
-        px={{ base: 4, md: 8 }}
-        py={{ base: 5, md: 9 }}
+        px={{ base: 4, lg: 8 }}
+        py={{ base: 5, lg: 9 }}
         borderRadius="sm"
       >
         Thank you for creating an offer. Your lot id number is {lot.id}. We will contact you on Telegram once we have
@@ -110,8 +110,8 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         justifyContent="space-between"
         bg="dark.900"
         borderRadius="sm"
-        px={{ base: 4, md: 8 }}
-        py={{ base: 5, md: 9 }}
+        px={{ base: 4, lg: 8 }}
+        py={{ base: 5, lg: 9 }}
       >
         <UILogic.AssetName asset={asset || lot.attributes.INVEST_DOC_ASSET_CREATE_REQUEST} />
         <HStack>

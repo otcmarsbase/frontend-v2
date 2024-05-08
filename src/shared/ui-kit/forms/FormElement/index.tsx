@@ -15,7 +15,7 @@ export const FormElement: React.FC<FormElementProps> = ({ label, info, isRequire
 
   return (
     <SimpleGrid
-      gridTemplateColumns={{ base: '1fr', md: '10rem 2fr' }}
+      gridTemplateColumns={{ base: '1fr', lg: '10rem 2fr' }}
       alignItems="start"
       gridColumnGap="3rem"
       w="full"

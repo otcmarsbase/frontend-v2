@@ -38,7 +38,7 @@ export const LotRow: React.FC<LotRowProps> = ({
   ...stackProps
 }) => {
   const router = useRouter();
-  const isBase = useBreakpointValue({ base: true, md: false });
+  const isBase = useBreakpointValue({ base: true, lg: false });
   const { isAuthorized } = useAuth();
   const rpcSchema = useRpcSchemaClient();
   const queryClient = useQueryClient();
@@ -169,9 +169,15 @@ export const LotRow: React.FC<LotRowProps> = ({
                   variant="ghost"
                   aria-label="favorite"
                   fontSize="lg"
-                  _hover={{ color: '#f9c409' }}
-                  color={favorite && '#f9c409'}
-                  icon={<UIIcons.Common.FavoriteIcon fill="error" stroke="error" />}
+                  height="fit-content"
+                  role="group"
+                  icon={
+                    <UIIcons.Common.FavoriteIcon
+                      fill={favorite ? 'error' : ''}
+                      stroke={favorite ? 'error' : 'dark.50'}
+                      _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
+                    />
+                  }
                   onClickCapture={handleFavoriteClick}
                   minW="auto"
                 />

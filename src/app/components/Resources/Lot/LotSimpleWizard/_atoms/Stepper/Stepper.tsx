@@ -24,7 +24,7 @@ export const Stepper: FC<PropsWithChildren<StepperProps>> = ({
   );
 
   return (
-    <ChakraStepper index={activeStep} w="full" gap={{ base: '1', md: '2' }}>
+    <ChakraStepper index={activeStep} w="full" gap={{ base: '1', lg: '2' }}>
       {steps.map((step, index) => (
         <Step key={index} {...step} onClick={() => handleClick(index)} cursor={isCompleteStep(index) && 'pointer'} />
       ))}

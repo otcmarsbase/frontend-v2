@@ -1,8 +1,10 @@
 import '@packages/router5-react-auto';
 
 import React from 'react';
+import TagManager from 'react-gtm-module';
 
 import { override } from '@packages/react-runtime-layout';
+import { AppConfig } from '@shared/config';
 import ReactDOM from 'react-dom/client';
 
 import './locale';
@@ -10,6 +12,10 @@ import { App } from './app';
 import reportWebVitals from './reportWebVitals';
 
 override();
+
+if (AppConfig.analytics.googleTagId) {
+  TagManager.initialize({ gtmId: AppConfig.analytics.googleTagId });
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
