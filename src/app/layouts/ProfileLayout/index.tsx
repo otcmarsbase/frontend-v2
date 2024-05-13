@@ -12,7 +12,7 @@ export const ProfileLayout: FC<PropsWithChildren<ProfileLayoutProps>> = ({ child
   const { isMobile } = useBreakpointDevice();
 
   return (
-    <SimpleGrid gridTemplateColumns={{ base: '1fr', lg: '18rem 1fr' }} gap="10">
+    <SimpleGrid gridTemplateColumns={{ base: '1fr', xl: '13.5rem 45.5rem' }} gap="10">
       {!isMobile && (
         <GridItem>
           <Sidebar />
