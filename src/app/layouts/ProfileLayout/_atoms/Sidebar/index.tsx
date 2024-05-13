@@ -1,13 +1,19 @@
 import { FC } from 'react';
 
 import pages from '@app/pages';
-import { Button, Link, VStack } from '@chakra-ui/react';
+import { Button, Link, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { SystemProps } from '@chakra-ui/styled-system';
 import { UIIcons } from '@shared/ui-icons';
 import { LinkComponent } from '@shared/ui-kit';
 
 export const Sidebar: FC = () => {
+  const flexDirection: SystemProps['flexDirection'] = useBreakpointValue({
+    base: 'row',
+    xl: 'column'
+  })
+
   return (
-    <VStack w="full">
+    <Flex flexDirection={flexDirection} w="full" gap="0.5rem">
       <LinkComponent page={pages.Profile.Home} pageProps={{}}>
         <Button
           px="6"
@@ -83,6 +89,6 @@ export const Sidebar: FC = () => {
           Settings
         </Button>
       </LinkComponent>
-    </VStack>
+    </Flex>
   );
 };
