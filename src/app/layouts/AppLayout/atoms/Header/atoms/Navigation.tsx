@@ -20,10 +20,6 @@ export function Navigation() {
       textTransform="uppercase"
       fontFamily="promo"
     >
-      <LinkComponent page={pages.Home} pageProps={{}}>
-        <HeaderLink>Main</HeaderLink>
-      </LinkComponent>
-
       <Markets />
 
       <AuthAction>

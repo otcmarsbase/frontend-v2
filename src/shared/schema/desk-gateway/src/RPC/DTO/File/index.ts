@@ -1,1 +1,1 @@
-export * from './FileGetById'
+export * from './FileGetById';

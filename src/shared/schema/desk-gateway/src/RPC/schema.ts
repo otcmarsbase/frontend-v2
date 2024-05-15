@@ -1,6 +1,9 @@
 import * as DTO from './DTO';
 
 export type Schema = {
+  feedback: {
+    create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
+  };
   account: {
     me(payload: DTO.AccountMe.Payload): DTO.AccountMe.Result;
     saveProfile(payload: DTO.AccountSaveProfile.Payload): DTO.AccountSaveProfile.Result;
@@ -60,10 +63,10 @@ export type Schema = {
     delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
+  sumsub: {
+    generateVerificationLink(payload: DTO.SumsubGenerateVerificationLink.Payload): DTO.SumsubGenerateVerificationLink.Result;
+  };
   file: {
     getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result;
-  }
-  feedback: {
-    create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
-  }
+  };
 };

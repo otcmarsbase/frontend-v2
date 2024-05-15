@@ -7,11 +7,13 @@ import { Grid, GridItem, VStack, Text } from '@chakra-ui/react';
 import { UIKit } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
+import { FAQBlock } from './_atoms/FAQBlock';
 import { AssetTab } from './types';
 
 const TabsDictionary = createDictionary<AssetTab, string>().setFromRecord({
   DESCRIPTION: 'Description',
   LOTS: 'Lots',
+  FAQ: 'FAQ',
 });
 
 export interface ViewProps {
@@ -54,6 +56,8 @@ export default function View({ id }: ViewProps) {
         );
       case 'LOTS':
         return <LotsBlock asset={asset} />;
+      case 'FAQ':
+        return <FAQBlock />;
     }
   };
 

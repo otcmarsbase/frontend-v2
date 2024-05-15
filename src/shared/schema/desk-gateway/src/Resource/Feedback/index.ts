@@ -1,2 +1,2 @@
-export * from './Feedback'
-export * from './FeedbackPK'
+export * from './Feedback';
+export * from './FeedbackPK';

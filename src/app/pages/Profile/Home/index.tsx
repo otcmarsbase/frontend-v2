@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { LocationSelect, useAuth } from '@app/components';
 import { ProfileLayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { VStack, Heading, Box, HStack } from '@chakra-ui/react';
+import { VStack, Heading } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from '@packages/router5-react-auto';
 import { Input, InputTelegram } from '@shared/ui-kit';
@@ -36,7 +36,7 @@ const Home: FC = () => {
         <UserCard
           id={account.id}
           nickname={account.nickname}
-          isVerifyKYC
+          isVerifyKYC={account.verification.isVerified}
           lastLoginDeviceType="PC"
           lastLoginTime={new Date()}
         />

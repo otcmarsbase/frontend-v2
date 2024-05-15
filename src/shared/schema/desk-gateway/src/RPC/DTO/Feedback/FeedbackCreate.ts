@@ -3,7 +3,7 @@ export namespace FeedbackCreate {
     text: string;
     page: string;
     rating: number;
-  }
+  };
 
   export type Result = void;
 }

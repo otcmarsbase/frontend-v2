@@ -8,10 +8,10 @@ import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 interface LotCreateProps {
-  direction: DeskGatewaySchema.TradeDirection;
+  direction?: DeskGatewaySchema.TradeDirection;
 }
 
-const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
+const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction = 'BUY' }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
 
@@ -23,7 +23,12 @@ const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
       if ('id' in INVEST_DOC_ASSET) {
         payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
       } else {
-        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string; pitchDeck: string; tokenomics: string };
+        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as {
+          title: string;
+          website: string;
+          pitchDeck: string;
+          tokenomics: string;
+        };
       }
 
       const { id } = await rpcSchema.send('lot.create', payload);

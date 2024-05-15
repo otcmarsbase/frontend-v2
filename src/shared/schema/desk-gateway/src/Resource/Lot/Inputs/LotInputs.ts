@@ -40,11 +40,11 @@ export namespace LotInputs {
   export type TOKEN_VESTING_PERIOD = Attribute<'TOKEN_VESTING_PERIOD', string>;
 
   // Booster info
-  export type BOOSTER_INFO_ROUND_TYPE = Attribute<'BOOSTER_INFO_ROUND_TYPE', InvestRound>
-  export type BOOSTER_INFO_FDV = Attribute<'BOOSTER_INFO_FDV', string>
-  export type BOOSTER_INFO_ROUND_PRICE = Attribute<'BOOSTER_INFO_ROUND_PRICE', string>
-  export type BOOSTER_INFO_PREVIOUS_ROUND_PRICE = Attribute<'BOOSTER_INFO_PREVIOUS_ROUND_PRICE', string>
-  export type BOOSTER_INFO_FUTURE_ROUND_PRICE = Attribute<'BOOSTER_INFO_FUTURE_ROUND_PRICE', string>
-  export type BOOSTER_INFO_LISTING_TIMELINE = Attribute<'BOOSTER_INFO_LISTING_TIMELINE', number>
-  export type BOOSTER_INFO_ADDITIONAL_INFO = Attribute<'BOOSTER_INFO_ADDITIONAL_INFO', string>
+  export type BOOSTER_INFO_ROUND_TYPE = Attribute<'BOOSTER_INFO_ROUND_TYPE', InvestRound>;
+  export type BOOSTER_INFO_FDV = Attribute<'BOOSTER_INFO_FDV', string>;
+  export type BOOSTER_INFO_ROUND_PRICE = Attribute<'BOOSTER_INFO_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_PREVIOUS_ROUND_PRICE = Attribute<'BOOSTER_INFO_PREVIOUS_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_FUTURE_ROUND_PRICE = Attribute<'BOOSTER_INFO_FUTURE_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_LISTING_TIMELINE = Attribute<'BOOSTER_INFO_LISTING_TIMELINE', number>;
+  export type BOOSTER_INFO_ADDITIONAL_INFO = Attribute<'BOOSTER_INFO_ADDITIONAL_INFO', string>;
 }

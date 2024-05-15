@@ -109,8 +109,8 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   };
 
   const handleResetFilters = () => {
-    setFilters((filters) => ({ direction: filters.direction }));
-    setQueryParams((queryParams) => ({ direction: queryParams.direction }));
+    setFilters({});
+    setQueryParams({});
   };
 
   return (

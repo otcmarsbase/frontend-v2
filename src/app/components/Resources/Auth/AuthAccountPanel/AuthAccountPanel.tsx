@@ -56,25 +56,25 @@ export function AuthAccountPanel() {
           </Box>
 
           <VStack spacing={3} mb={4} alignItems="flex-start">
-            <LinkComponent page={pages.Profile.Home} pageProps={{}}>
+            <LinkComponent page={pages.Profile.Home} pageProps={{}} onClick={onClose} overrideClick={false}>
               <HStack as={Link}>
                 <UIIcons.Common.ProfileIcon w="1.125rem" h="1.125rem" color="white" />
                 <Text color="#C8CDD0">My Profile</Text>
               </HStack>
             </LinkComponent>
-            <LinkComponent page={pages.Favorite.Home} pageProps={{}}>
+            <LinkComponent page={pages.Favorite.Home} pageProps={{}} onClick={onClose} overrideClick={false}>
               <HStack as={Link}>
                 <UIIcons.Common.FavoriteIcon w="1.125rem" h="1.125rem" stroke="white" fill="transparent" />
                 <Text color="#C8CDD0">My favorite lots</Text>
               </HStack>
             </LinkComponent>
-            <LinkComponent page={pages.Profile.Notification} pageProps={{}}>
+            <LinkComponent page={pages.Profile.Notification} pageProps={{}} onClick={onClose} overrideClick={false}>
               <HStack as={Link}>
                 <UIIcons.Common.NotificationIcon w="1.125rem" h="1.125rem" color="white" />
                 <Text color="#C8CDD0">Notification</Text>
               </HStack>
             </LinkComponent>
-            <LinkComponent page={pages.Profile.Settings} pageProps={{}}>
+            <LinkComponent page={pages.Profile.Settings} pageProps={{}} onClick={onClose} overrideClick={false}>
               <HStack as={Link}>
                 <UIIcons.Common.SettingsIcon w="1.125rem" h="1.125rem" color="white" />
                 <Text color="#C8CDD0">Settings</Text>
@@ -83,7 +83,13 @@ export function AuthAccountPanel() {
           </VStack>
 
           <Box textAlign="center">
-            <Link color="orange.300" onClick={signOut}>
+            <Link
+              color="orange.300"
+              onClick={() => {
+                signOut();
+                onClose();
+              }}
+            >
               Log out
             </Link>
           </Box>

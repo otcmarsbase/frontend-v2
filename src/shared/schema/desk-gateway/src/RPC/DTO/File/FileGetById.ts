@@ -1,9 +1,9 @@
 export namespace FileGetById {
   export type Payload = {
-    id: string
-  }
+    id: string;
+  };
 
   export type Result = {
-    url: string
-  }
+    url: string;
+  };
 }
