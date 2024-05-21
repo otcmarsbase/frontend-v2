@@ -19,7 +19,7 @@ export const CopyButton: FC<CopyButtonProps> = ({ value }) => {
   };
 
   return (
-    <Box onClick={copy}>
+    <Box cursor="pointer" onClick={copy}>
       <Tooltip
         hasArrow
         closeOnPointerDown
