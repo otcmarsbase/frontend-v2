@@ -43,6 +43,8 @@ export const FeedbackForm = ({ onSubmit }: FeedbackFormProps) => {
             <UIKit.SelectSync
               key="feedback-rating"
               items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+              renderKey={(item) => item}
+              renderItem={(item) => item}
               {...field}
             />
           )}
