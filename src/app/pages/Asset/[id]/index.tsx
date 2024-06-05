@@ -4,6 +4,7 @@ import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { createDictionary } from '@app/dictionary';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack, Text } from '@chakra-ui/react';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
 import { DescriptionBlock, LinksBlock, VerticalBlock, LotsBlock, StatsBlock, TitleBlock } from './_atoms';
@@ -22,13 +23,25 @@ export interface ViewProps {
 
 export default function View({ id }: ViewProps) {
   const { data, isLoading } = useRpcSchemaQuery('asset.list', {
-    filter: { id: [id] },
-    include: { assetLotStatsAggregation: true },
+    filter: { id: [id], status: ['ACTIVE'] },
+    include: { assetLotStatsAggregation: true, assetFaq: true },
   });
   const [activeTab, setActiveTab] = useState<AssetTab>('LOTS');
 
   const asset = useMemo(() => !isLoading && data.items[0], [data, isLoading]);
-  const stats = useMemo(() => !isLoading && data.links[0], [data, isLoading]);
+  const stats = useMemo(
+    () =>
+      !isLoading &&
+      (data.links.find(
+        (item) => item.resource === 'asset_lot_stats_aggregation',
+      ) as DeskGatewaySchema.AssetLotStatsAggregation),
+    [data, isLoading],
+  );
+
+  const faq = useMemo(
+    () => !isLoading && (data.links.filter((item) => item.resource === 'asset_faq') as DeskGatewaySchema.AssetFaq[]),
+    [data, isLoading],
+  );
 
   if (!asset || isLoading) return <UILogic.AssetPageSkeleton />;
 
@@ -57,7 +70,7 @@ export default function View({ id }: ViewProps) {
       case 'LOTS':
         return <LotsBlock asset={asset} />;
       case 'FAQ':
-        return <FAQBlock />;
+        return <FAQBlock items={faq} />;
     }
   };
 

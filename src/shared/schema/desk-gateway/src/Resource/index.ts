@@ -1,5 +1,6 @@
 export * from './Account';
 export * from './Asset';
+export * from './AssetFaq';
 export * from './Auth';
 export * from './AuthTelegram';
 export * from './Bid';
@@ -9,6 +10,7 @@ export * from './FavoriteLot';
 export * from './Feedback';
 export * from './File';
 export * from './Lot';
+export * from './LotQuestion';
 export * from './Notification';
 export * from './NotificationConfig';
 export * from './User';

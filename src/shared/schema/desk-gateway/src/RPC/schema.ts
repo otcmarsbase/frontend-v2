@@ -69,4 +69,8 @@ export type Schema = {
   file: {
     getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result;
   };
+  lotQuestion: {
+    create(payload: DTO.LotQuestionCreate.Payload): DTO.LotQuestionCreate.Result;
+    list(payload: DTO.LotQuestionList.Payload): DTO.LotQuestionList.Result;
+  };
 };

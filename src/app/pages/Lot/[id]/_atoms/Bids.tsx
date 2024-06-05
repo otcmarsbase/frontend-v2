@@ -45,8 +45,6 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, offerMaker, lot, asset }) =>
     { enabled: !!bids?.total },
   );
 
-  const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
-
   const findDeal = useCallback(
     (bidId: DeskGatewaySchema.BidKey['id']) => deals?.items?.find((deal) => deal.bidKey.id === bidId),
     [deals],
@@ -60,40 +58,6 @@ export const Bids: FC<BidsProps> = ({ isOfferMaker, offerMaker, lot, asset }) =>
 
   return (
     <VStack h="100%" w="100%" gap="1rem">
-      <HStack
-        justifyContent={'space-between'}
-        alignItems="center"
-        fontWeight={'700'}
-        lineHeight={'1.5rem'}
-        textTransform={'uppercase'}
-        w={'100%'}
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        <HStack alignItems="center">
-          <Text textTransform="uppercase" fontFamily="promo">
-            Active Bids
-          </Text>
-          <Circle padding="0 0.25rem" size="1.25rem" bg="orange.500" borderRadius="50%">
-            <Text fontSize="xs">{bids && bids.total}</Text>
-          </Circle>
-        </HStack>
-        <HStack flex="auto" justifyContent="flex-end">
-          {!isOfferMaker && (
-            <UILogic.AuthAction>
-              <Button
-                leftIcon={<UIIcons.Common.AddIcon />}
-                variant="brand"
-                size="sm"
-                borderRadius="0.375rem"
-                padding="0.5rem 0.75rem"
-                onClick={onCreateBidClick}
-              >
-                Create Bid
-              </Button>
-            </UILogic.AuthAction>
-          )}
-        </HStack>
-      </HStack>
       <List
         emptyText={<Empty description="Unfortunately, you don't have any bids yet. You can create your own bid" />}
         w="full"

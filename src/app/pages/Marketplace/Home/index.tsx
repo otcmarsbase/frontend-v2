@@ -12,7 +12,6 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
 import { Empty, Pagination, usePagination } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
-import pick from 'lodash/pick';
 
 import { QueryParamsSchema } from './schema';
 
@@ -32,7 +31,9 @@ export const OtcDesk: React.FC = observer(() => {
 
   const [isFiltersOpened, setIsFiltersOpened] = useState<boolean>(defaultIsFiltersOpened);
 
-  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', { filter: { withLots: true } });
+  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', {
+    filter: { withLots: true, status: ['ACTIVE'] },
+  });
 
   const assets = useMemo(() => {
     if (!_assets) return [];

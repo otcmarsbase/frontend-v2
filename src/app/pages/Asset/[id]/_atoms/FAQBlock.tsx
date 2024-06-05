@@ -9,29 +9,27 @@ import {
   Box,
   Heading,
 } from '@chakra-ui/react';
+import { DeskGatewaySchema } from '@schema/desk-gateway';
 
-const FAQ_ITEMS = [
-  {
-    title: 'How to place a bid?',
-    text: 'If you liked the lot or have any questions, leave a bid by clicking on the “create bid” button and start discussions with the owner about the lot',
-  },
-];
+interface FAQBlockProps {
+  items: DeskGatewaySchema.AssetFaq[];
+}
 
-export const FAQBlock: FC = () => {
+export const FAQBlock: FC<FAQBlockProps> = ({ items }) => {
   return (
-    <Accordion defaultIndex={[0]} allowMultiple>
-      {FAQ_ITEMS.map((item, index) => (
+    <Accordion defaultIndex={[0]} allowMultiple display="grid" gap={4}>
+      {items.map((item, index) => (
         <AccordionItem border="none" bg="dark.900" rounded="sm" p="1rem 1.5rem" key={index}>
           <Heading>
             <AccordionButton p="0">
               <Box as="span" flex="1" textAlign="left">
-                {item.title}
+                {item.question}
               </Box>
               <AccordionIcon color="orange.500" fontSize="1.75rem" />
             </AccordionButton>
           </Heading>
           <AccordionPanel p="0" pt="2" color="dark.50">
-            {item.text}
+            {item.answer}
           </AccordionPanel>
         </AccordionItem>
       ))}
