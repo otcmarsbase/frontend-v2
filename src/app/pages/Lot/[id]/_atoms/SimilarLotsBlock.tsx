@@ -14,7 +14,7 @@ export const SimilarLotsBlock: React.FC<SimilarLotsBlockProps> = ({ lot }) => {
   const router = useRouter();
   const { isAuthorized } = useAuth();
 
-  const { data: assets } = useRpcSchemaQuery('asset.list', {});
+  const { data: assets } = useRpcSchemaQuery('asset.list', { filter: { status: ['ACTIVE'] } });
   const { data: lots } = useRpcSchemaQuery('lot.list', {
     filter: { status: ['ACTIVE'], asset: { id: [lot.attributes.INVEST_DOC_ASSET_PK] } },
     include: { lotTransactionStatsAggregation: true },

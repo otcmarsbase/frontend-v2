@@ -28,11 +28,8 @@ export function LotQuestionModerationModal({ portal }: PortalProps<void>) {
           will come to you in notifications
         </Text>
         <HStack w="100%" gap={6}>
-          <Button bg="linear-gradient(266.47deg, #C77326 10.33%, #981807 102.01%);" w="100%">
-            View notifications
-          </Button>
-          <Button variant="outline" w="100%" onClick={onClose}>
-            Cancel
+          <Button bg="linear-gradient(266.47deg, #C77326 10.33%, #981807 102.01%);" w="100%" onClick={onClose}>
+            OK
           </Button>
         </HStack>
       </VStack>

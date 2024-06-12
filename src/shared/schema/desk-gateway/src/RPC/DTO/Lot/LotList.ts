@@ -18,6 +18,7 @@ import {
 import { AssetList } from '../Asset';
 import { BidList } from '../Bid';
 import { DealList } from '../Deal';
+import { LotQuestionList } from '../LotQuestion';
 
 export namespace LotList {
   export type Filter = CoreSchema.CompositeFilter<{
@@ -54,7 +55,7 @@ export namespace LotList {
       lotTotalBidsCountAggregation: LotTotalBidsCountAggregation;
       lotTransactionStatsAggregation: LotTransactionStatsAggregation;
       offerMaker: User;
-      lotQuestion: LotQuestion;
+      lotQuestion: LotQuestionList.Include;
     }
   >;
 

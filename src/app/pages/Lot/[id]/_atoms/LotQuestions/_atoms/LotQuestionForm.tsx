@@ -26,7 +26,7 @@ export function LotQuestionForm({ lot }: LotQuestionFormProps) {
   };
 
   return (
-    <VStack gap={6} alignItems="flex-start">
+    <VStack gap={6} alignItems="flex-start" w="full" padding={5} backgroundColor="dark.900" rounded="xl">
       <Heading fontSize="md" w="full">
         You can ask questions
       </Heading>

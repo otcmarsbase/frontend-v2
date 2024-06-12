@@ -45,6 +45,7 @@ export default function Lot({ id }: LotProps) {
   const [stat, setStat] = useState<DeskGatewaySchema.LotTransactionStatsAggregation>();
   const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
   const [questions, setQuestions] = useState<DeskGatewaySchema.LotQuestion[]>();
+  const [questionUsers, setQuestionUsers] = useState<DeskGatewaySchema.User[]>();
   const { isMobile } = useBreakpointDevice();
   const [activeTab, setActiveTab] = useState<LotTab>('BIDS');
 
@@ -64,24 +65,27 @@ export default function Lot({ id }: LotProps) {
     useCallback(async () => {
       const params = {
         filter: { id: [id] },
-        include: { offerMaker: true, lotTransactionStatsAggregation: true, lotQuestion: true },
+        include: { offerMaker: true, lotTransactionStatsAggregation: true, lotQuestion: { user: true } },
       };
-      const { lot, offerMaker, stat, questions } = await queryClient.fetchQuery({
+      const { lot, offerMaker, stat, questions, questionUsers } = await queryClient.fetchQuery({
         queryKey: ['lot.list', params],
         queryFn: async () => {
           const { items, links } = await rpcSchema.send('lot.list', params);
 
           const [lot] = items;
 
-          const offerMaker = links.find((link) => link.resource === 'user') as DeskGatewaySchema.User;
+          const offerMaker = links.find(
+            (link) => link.resource === 'user' && lot.offerMaker.id === link.id,
+          ) as DeskGatewaySchema.User;
           const stat = links.find(
             (link) => link.resource === 'lot_transaction_stats_aggregation',
           ) as DeskGatewaySchema.LotTransactionStatsAggregation;
           const questions = links.filter(
             (link) => link.resource === 'lot_question' && link.status === 'ACTIVE',
           ) as DeskGatewaySchema.LotQuestion[];
+          const questionUsers = links.filter((link) => link.resource === 'user') as DeskGatewaySchema.User[];
 
-          return { lot, offerMaker, stat, questions };
+          return { lot, offerMaker, stat, questions, questionUsers };
         },
       });
 
@@ -104,6 +108,7 @@ export default function Lot({ id }: LotProps) {
       setOfferMaker(offerMaker);
       setStat(stat);
       setQuestions(questions);
+      setQuestionUsers(questionUsers);
     }, [id, rpcSchema, router, queryClient]),
   );
 
@@ -133,7 +138,7 @@ export default function Lot({ id }: LotProps) {
       case 'BIDS':
         return <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} offerMaker={offerMaker} />;
       case 'QUESTIONS':
-        return <LotQuestions lot={lot} questions={questions} />;
+        return <LotQuestions lot={lot} questions={questions} users={questionUsers} />;
     }
   };
 

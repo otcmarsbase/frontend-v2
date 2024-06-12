@@ -44,3 +44,5 @@ export * from './BookmarkIcon';
 export * from './FavoriteIcon';
 export * from './UploadIcon';
 export * from './ShieldIcon';
+export * from './SendIcon';
+export * from './StarIcon';

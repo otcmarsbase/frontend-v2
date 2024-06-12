@@ -31,7 +31,7 @@ export const AssetSelect: React.FC<AssetSelectProps> = (props) => {
   const load = useCallback(async () => {
     const { items } = await queryClient.fetchQuery({
       queryKey: ['asset.list', { limit: 5 }],
-      queryFn: () => rpcSchema.send('asset.list', { page: { limit: 5 } }),
+      queryFn: () => rpcSchema.send('asset.list', { page: { limit: 5 }, filter: { status: ['ACTIVE'] } }),
     });
     return items;
   }, [rpcSchema, queryClient]);
