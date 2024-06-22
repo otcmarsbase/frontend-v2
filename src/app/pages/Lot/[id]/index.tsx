@@ -1,24 +1,32 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { UILogic, UIModals, useAuth, useRpcSchemaClient } from '@app/components';
+import { createDictionary } from '@app/dictionary';
 import { useBreakpointDevice, usePreloadPage, useToastOuterCallback } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { ModalController } from '@app/logic';
 import { MBPages } from '@app/pages';
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, VStack, Text, Button } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
-import { useLoadingCallback } from '@shared/ui-kit';
+import { UIIcons } from '@shared/ui-icons';
+import { Tabs, useLoadingCallback } from '@shared/ui-kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { toNumber } from 'lodash';
-
 
 import { ConfirmDeleteModal } from '../Moderation/[id]/_atoms';
 
 import { LotBasicInfo, Bids, Sidebar, AdditionalInfoBlock, LotAnalytics } from './_atoms';
 import { SimilarLotsBlock } from './_atoms';
 import { LotInfo } from './_atoms/LotInfo';
+import { LotQuestions } from './_atoms/LotQuestions';
 import { LotMobile } from './index.mobile';
+import { LotTab } from './types';
+
+const TabsDictionary = createDictionary<LotTab, string>().setFromRecord({
+  BIDS: 'Bids',
+  QUESTIONS: 'questions',
+});
 
 export interface LotProps extends React.PropsWithChildren {
   id: number;
@@ -36,7 +44,10 @@ export default function Lot({ id }: LotProps) {
   const [offerMaker, setOfferMaker] = useState<DeskGatewaySchema.User>();
   const [stat, setStat] = useState<DeskGatewaySchema.LotTransactionStatsAggregation>();
   const [asset, setAsset] = useState<DeskGatewaySchema.Asset>();
+  const [questions, setQuestions] = useState<DeskGatewaySchema.LotQuestion[]>();
+  const [questionUsers, setQuestionUsers] = useState<DeskGatewaySchema.User[]>();
   const { isMobile } = useBreakpointDevice();
+  const [activeTab, setActiveTab] = useState<LotTab>('BIDS');
 
   const deleteToastCallback = useToastOuterCallback({
     showWhenOk: true,
@@ -54,21 +65,27 @@ export default function Lot({ id }: LotProps) {
     useCallback(async () => {
       const params = {
         filter: { id: [id] },
-        include: { offerMaker: true, lotTransactionStatsAggregation: true },
+        include: { offerMaker: true, lotTransactionStatsAggregation: true, lotQuestion: { user: true } },
       };
-      const { lot, offerMaker, stat } = await queryClient.fetchQuery({
+      const { lot, offerMaker, stat, questions, questionUsers } = await queryClient.fetchQuery({
         queryKey: ['lot.list', params],
         queryFn: async () => {
           const { items, links } = await rpcSchema.send('lot.list', params);
 
           const [lot] = items;
 
-          const offerMaker = links.find((link) => link.resource === 'user') as DeskGatewaySchema.User;
+          const offerMaker = links.find(
+            (link) => link.resource === 'user' && lot.offerMaker.id === link.id,
+          ) as DeskGatewaySchema.User;
           const stat = links.find(
             (link) => link.resource === 'lot_transaction_stats_aggregation',
           ) as DeskGatewaySchema.LotTransactionStatsAggregation;
+          const questions = links.filter(
+            (link) => link.resource === 'lot_question' && link.status === 'ACTIVE',
+          ) as DeskGatewaySchema.LotQuestion[];
+          const questionUsers = links.filter((link) => link.resource === 'user') as DeskGatewaySchema.User[];
 
-          return { lot, offerMaker, stat };
+          return { lot, offerMaker, stat, questions, questionUsers };
         },
       });
 
@@ -90,6 +107,8 @@ export default function Lot({ id }: LotProps) {
       setLot(lot);
       setOfferMaker(offerMaker);
       setStat(stat);
+      setQuestions(questions);
+      setQuestionUsers(questionUsers);
     }, [id, rpcSchema, router, queryClient]),
   );
 
@@ -107,6 +126,23 @@ export default function Lot({ id }: LotProps) {
       if (archivedLot['status'] === 'ARCHIVED') return router.navigateComponent(MBPages.Marketplace.Home, {}, {});
     });
   }, [deleteToastCallback, lot, rpcSchema, router, queryClient]);
+
+  const renderTabTitle = (tab: LotTab) => (
+    <Text fontFamily="promo" textTransform="uppercase">
+      {TabsDictionary.get(tab)}
+    </Text>
+  );
+
+  const renderTab = (tab: LotTab) => {
+    switch (tab) {
+      case 'BIDS':
+        return <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} offerMaker={offerMaker} />;
+      case 'QUESTIONS':
+        return <LotQuestions lot={lot} questions={questions} users={questionUsers} />;
+    }
+  };
+
+  const onCreateBidClick = () => ModalController.create(UIModals.CreateBidModal, { lot });
 
   if (preload.isLoading) return <UILogic.LotPageSkeleton />;
 
@@ -146,8 +182,33 @@ export default function Lot({ id }: LotProps) {
               <LotInfo lot={lot} stat={stat} />
               <AdditionalInfoBlock lot={lot} />
             </VStack>
-            <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} offerMaker={offerMaker} />
-            {/* <LotFAQ /> */}
+            <Tabs<LotTab>
+              items={LotTab as unknown as LotTab[]}
+              renderTab={renderTabTitle}
+              value={activeTab}
+              onChange={setActiveTab}
+              isLazy={true}
+              variant="promo"
+              rightElement={
+                !isOfferMaker &&
+                activeTab === 'BIDS' && (
+                  <UILogic.AuthAction>
+                    <Button
+                      leftIcon={<UIIcons.Common.AddIcon />}
+                      variant="brand"
+                      size="sm"
+                      borderRadius="0.375rem"
+                      padding="0.5rem 0.75rem"
+                      onClick={onCreateBidClick}
+                    >
+                      Create Bid
+                    </Button>
+                  </UILogic.AuthAction>
+                )
+              }
+            >
+              {renderTab}
+            </Tabs>
           </VStack>
         </GridItem>
       </Grid>

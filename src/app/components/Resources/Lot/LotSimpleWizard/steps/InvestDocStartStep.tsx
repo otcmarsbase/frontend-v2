@@ -6,10 +6,12 @@ import {
   InvestDocTypeInput,
   InvestDocWithReassignInput,
 } from '../form';
+import { CommonDirectionInput } from '../form/CommonDirectionInput';
 
 export const InvestDocStartStep = () => {
   return (
     <>
+      <CommonDirectionInput />
       <CommonTelegramInput />
       <CommonIsDirectInput />
       <CommonOfferMakerTypesInput />

@@ -1,3 +1,5 @@
+import { Accordion } from './Accordion';
+
 export * from './BackButton';
 export * from './BooleanChip';
 export * from './Chip';
@@ -18,3 +20,4 @@ export * from './SuggestionIcon';
 export * from './Tabs';
 export * from './Text';
 export * from './Maintenance';
+export * from './Accordion';

@@ -8,10 +8,10 @@ import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 interface LotCreateProps {
-  direction: DeskGatewaySchema.TradeDirection;
+  direction?: DeskGatewaySchema.TradeDirection;
 }
 
-const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
+const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction = 'BUY' }) => {
   const rpcSchema = useRpcSchemaClient();
   const router = useRouter();
 
@@ -23,7 +23,12 @@ const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
       if ('id' in INVEST_DOC_ASSET) {
         payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
       } else {
-        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+        payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as {
+          title: string;
+          website: string;
+          pitchDeck: string;
+          tokenomics: string;
+        };
       }
 
       const { id } = await rpcSchema.send('lot.create', payload);
@@ -34,7 +39,7 @@ const View: React.FC<PropsWithChildren<LotCreateProps>> = ({ direction }) => {
   );
 
   return (
-    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', lg: '8' }} bg="dark.900" rounded="3xl">
       <LotSimpleWizard direction={direction} defaultValues={{ COMMON_DIRECTION: direction }} onSubmit={onSubmit} />
     </Box>
   );

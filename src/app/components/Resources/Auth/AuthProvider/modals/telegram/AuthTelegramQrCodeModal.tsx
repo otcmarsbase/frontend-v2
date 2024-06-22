@@ -28,7 +28,7 @@ export function AuthTelegramQrCodeModal({ link, portal }: AuthTelegramQrCodeModa
             Scan this QR with device camera where Telegram is installed or
           </Text>
         </HStack>
-        <QRCode value={link} />
+        <QRCode value={link} style={{ background: 'white', padding: '16px' }}/>
       </VStack>
     </UIKit.Modal>
   )

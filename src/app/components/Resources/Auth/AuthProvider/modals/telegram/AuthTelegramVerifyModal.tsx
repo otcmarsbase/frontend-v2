@@ -7,9 +7,6 @@ import { AppConfig } from '@shared/config';
 import { UIIcons } from '@shared/ui-icons';
 import { Tooltip, UIKit } from '@shared/ui-kit';
 
-
-
-
 export interface AuthTelegramVerifyModalProps extends PortalProps<void> {
   code?: string;
   link?: string;
@@ -32,7 +29,7 @@ export function AuthTelegramVerifyModal({ code, link, onShowQrCode, onRegenerate
     <UIKit.Modal
       title={
         <Text fontSize='2md' color='white' fontFamily='promo'>
-          Login in with Telegram
+          Login with Telegram
         </Text>
       }
       onClose={() => portal.resolve()}

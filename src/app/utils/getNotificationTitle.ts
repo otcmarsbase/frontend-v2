@@ -14,6 +14,10 @@ export function getNotificationTitle(notification: DeskGatewaySchema.Notificatio
       return 'Deal: Created';
     case 'DEAL_STATUS_CHANGED':
       return 'Deal: Status changed';
+    case 'LOT_QUESTION_PUBLISHED':
+      return 'Question: Published';
+    case 'LOT_QUESTION_RECEIVED':
+      return 'Question: Received';
     default:
       return '';
   }

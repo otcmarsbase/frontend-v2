@@ -10,6 +10,8 @@ export interface EnvConfiguration {
   WAGMI_PROJECT_ID: string;
   BACKEND_API_GATEWAY_URL: string;
   TELEGRAM_BOT_URL: string;
+
+  GOOGLE_TAG_ID: string;
 }
 
 export const configurator = new CraConfigurator<EnvConfiguration>({
