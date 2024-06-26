@@ -16,8 +16,16 @@ export function LotQuestionContent({ user, question, isLotOwner }: LotQuestionCo
   const formattedNickname = useMemo(() => formatAddress(user.nickname, 8, 4), [user.nickname]);
 
   return (
-    <HStack alignItems="center" spacing={3} w="full">
-      <Flex alignItems="center" justifyContent="center" borderRadius="100%" bg="dark.500" width="3rem" height="3rem">
+    <HStack alignItems="start" spacing={3} w="full">
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        borderRadius="100%"
+        bg="dark.500"
+        width="3rem"
+        height="3rem"
+        flexShrink={0}
+      >
         <UIIcons.Common.UserIcon width="2rem" height="2rem" color="dark.100" />
       </Flex>
       <Box>

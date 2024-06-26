@@ -35,7 +35,7 @@ export function LotQuestionForm({ lot }: LotQuestionFormProps) {
           <Input placeholder="Write a question" value={question} onChange={handleChange} />
         </FormControl>
         <Button minW={36} type="submit" isDisabled={!question}>
-          Punlish
+          Publish
         </Button>
       </HStack>
     </VStack>

@@ -38,11 +38,11 @@ const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
     <VStack w="full" flexDirection={{ base: 'row', lg: 'column' }} gap="1.5rem">
       <GridParticipantField
         label={DealParticipantDictionary.get(type).title}
-        value={<AccountAvatar nickname={user.nickname} />}
+        value={<AccountAvatar nickname={user.nickname} shortNickname />}
       />
       <GridParticipantField
         label={DealParticipantDictionary.get(type).walletTitle}
-        value={<Text fontSize="sm">{formatAddress(user.address || '0x0001020120')}</Text>}
+        value={<Text fontSize="sm">{formatAddress(user.address)}</Text>}
       />
     </VStack>
   );
