@@ -13,7 +13,7 @@ export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
 }
 
-export function AppLayout({ children, containerSize = 'lg' }) {
+export function AppLayout({ children, containerSize = 'xl' }) {
   const router = useRouter();
   const { isAuthorized } = useAuth()
 
@@ -24,7 +24,14 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           <Header />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize} mt={{ base: '1rem', lg: '3rem' }} maxW={{ base: '100%', lg: '85%' }}>
+          <Container
+            size={containerSize}
+            mt={{ base: '1rem', lg: '3rem' }}
+            maxW={{ base: '100%', lg: '100%' }}
+            paddingX={{
+              base: '1rem',
+            }}
+          >
             {children}
           </Container>
         </Box>

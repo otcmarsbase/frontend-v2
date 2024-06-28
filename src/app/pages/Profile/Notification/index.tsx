@@ -12,7 +12,7 @@ import { NotificationItem } from './_atoms/NotificationItem';
 const Notification: FC = () => {
   const router = useRouter();
   const { isAuthorized } = useAuth();
-  const { skip, limit, ...paginationProps } = usePagination();
+  const { skip, limit, ...paginationProps } = usePagination(10);
 
   const { data: notifications, isLoading } = useRpcSchemaQuery('notification.list', {
     sort: { isReaded: 'ASC', createdAt: 'DESC' },
@@ -38,7 +38,15 @@ const Notification: FC = () => {
         isLoading={isLoading}
         emptyText={<Empty title="Sorry, no notification" description="You have 0 notifications so far" />}
         itemRender={(item) => <NotificationItem notification={item} />}
-        footer={notifications?.total > 0 && <Pagination {...paginationProps} total={notifications.total} />}
+        footer={notifications?.total > 0 && (
+          <Pagination
+            {...paginationProps}
+            total={notifications.total}
+            showCaption
+            showPageSize
+            pageSizeOptions={[10, 15, 20]}
+          />
+        )}
       />
     </>
   );

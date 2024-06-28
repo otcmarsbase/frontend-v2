@@ -1,24 +1,25 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { LotRow, useAuth, useRpcSchemaQuery } from '@app/components';
+import { LotCard, LotRow, useAuth, useRpcSchemaQuery } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
-import { HStack, Heading, Text } from '@chakra-ui/react';
+import { HStack, Heading, Text, Box, Button, SimpleGrid, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
-import { Empty, List, Pagination, VStack, usePagination } from '@shared/ui-kit';
+import { Empty, List, Pagination, VStack, usePagination, VIEW_TYPE, ViewSwitcher } from '@shared/ui-kit';
 
 import { ListLoader } from '../../Dashboard/Lots/_atoms';
 
 export const Home = () => {
   const router = useRouter();
   const { isAuthorized } = useAuth();
+  const isShowViewSwitcher = useBreakpointValue({ base: false, lg: true })
 
   useEffect(() => {
     if (!isAuthorized) router.navigateComponent(MBPages.Marketplace.Home, {}, {});
   }, [isAuthorized, router]);
 
-  const { skip, limit, ...paginationProps } = usePagination();
+  const { skip, limit, ...paginationProps } = usePagination(10);
 
   const { data: favorites, isFetching: favoritesIsFetching } = useRpcSchemaQuery(
     'favoriteLot.list',
@@ -37,6 +38,8 @@ export const Home = () => {
     },
     { enabled: !favoritesIsFetching },
   );
+
+  const [viewType, setViewType] = useState<VIEW_TYPE>('LIST')
 
   const isFetching = useMemo(() => favoritesIsFetching || lotsIsFetching, [favoritesIsFetching, lotsIsFetching]);
 
@@ -62,9 +65,63 @@ export const Home = () => {
     [favorites, isFetching],
   );
 
+  const FavoritePagination = (
+    <Pagination
+      {...paginationProps}
+      total={lots?.total}
+      showCaption
+      showPageSize
+      pageSizeOptions={[10, 15, 20]}
+    />
+  )
+
+  const FavoriteList = (
+    <List
+      width="full"
+      items={lots?.items}
+      itemKey={(item) => item.id}
+      isLoading={isFetching}
+      loader={ListLoader}
+      emptyText={<Empty />}
+      itemRender={(item) => (
+        <LotRow
+          lot={item}
+          asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
+          stat={findStat(item.id)}
+          favorite={findFavorite(item.id)}
+          withFavoriteControl
+          onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
+        />
+      )}
+      footer={lots?.total > 0 && FavoritePagination}
+    />
+  )
+
+  const FavoriteGrid = (
+    <>
+      <SimpleGrid w="full" columns={{ base: 1, lg: 4 }} spacing="2rem">
+        {lots?.items.map((item) => (
+          <LotCard
+            lot={item}
+            asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
+            stat={findStat(item.id)}
+            favorite={findFavorite(item.id)}
+            onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
+          />
+        ))}
+      </SimpleGrid>
+      {lots?.total > 0 && FavoritePagination}
+    </>
+  )
+
+  const Favoreties = useMemo(
+    () => viewType === 'LIST' ? FavoriteList : FavoriteGrid,
+    [FavoriteGrid, FavoriteList, FavoritePagination]
+  )
+
   return (
     <VStack width="full" alignItems="flex-start">
-      <HStack mb="6">
+      <HStack width="full" mb="6">
         <HStack alignItems="flex-end" lineHeight={1}>
           <Heading fontFamily="promo" fontSize="2rem" lineHeight={1}>
             My favorite
@@ -75,27 +132,19 @@ export const Home = () => {
             </Text>
           )}
         </HStack>
-      </HStack>
-
-      <List
-        width="full"
-        items={lots?.items}
-        itemKey={(item) => item.id}
-        isLoading={isFetching}
-        loader={ListLoader}
-        emptyText={<Empty />}
-        itemRender={(item) => (
-          <LotRow
-            lot={item}
-            asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
-            stat={findStat(item.id)}
-            favorite={findFavorite(item.id)}
-            withFavoriteControl
-            onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
+        {isShowViewSwitcher && (
+          <ViewSwitcher
+            stackProps={{
+              marginLeft: 'auto'
+            }}
+            initialValue={viewType}
+            onChange={setViewType}
           />
         )}
-        footer={lots?.total > 0 && <Pagination {...paginationProps} />}
-      />
+      </HStack>
+
+      {Favoreties}
+
     </VStack>
   );
 };

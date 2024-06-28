@@ -55,7 +55,7 @@ export default function View({ id }: ViewProps) {
     switch (tab) {
       case 'DESCRIPTION':
         return (
-          <Grid templateColumns={{ base: '1fr', xl: '2fr 25rem' }} gap="2rem" w="full">
+          <Grid templateColumns={{ base: '1fr', xl: '2fr 22rem' }} gap="2rem" w="full">
             <GridItem h="full">
               <DescriptionBlock description={asset.info.description} />
             </GridItem>

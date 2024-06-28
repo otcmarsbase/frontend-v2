@@ -32,7 +32,7 @@ export const InvestDocInfoStep = () => {
 
   const accordionElements = [{
     key: 'booster-info',
-    label: 'Additional info',
+    label: 'Booster Info',
     body: <BoosterInfoForm />
   }]
 
