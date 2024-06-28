@@ -1,6 +1,6 @@
 import { UILogic } from '@app/components';
 import LINQ from '@berish/linq';
-import { HStack, VStack } from '@chakra-ui/react';
+import { Divider, HStack, VStack } from '@chakra-ui/react';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIKit } from '@shared/ui-kit';
 
@@ -17,46 +17,45 @@ export function LinksBlock({ links }: LinksBlockProps) {
 
   return (
     <VStack w="full" gap="0.8rem">
-      {officialLinks && (
         <UIKit.Section w="full">
           <UIKit.SectionContent title="Project Links">
-            <HStack>
-              {officialLinks.map((link) => (
-                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                  {link.title}
-                </UILogic.AssetLink>
-              ))}
-            </HStack>
+            <VStack alignItems="flex-start" width="full">
+              {officialLinks && (
+                <HStack>
+                  {officialLinks.map((link) => (
+                    <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                      {link.title}
+                    </UILogic.AssetLink>
+                  ))}
+                </HStack>
+              )}
+              {socialLinks && (
+                <>
+                  <Divider variant="dashed" height="1px" marginY="1rem"/>
+                  <HStack>
+                    {socialLinks.map((link) => (
+                      <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                        {link.title}
+                      </UILogic.AssetLink>
+                    ))}
+                  </HStack>
+                </>
+              )}
+              {otherLinks && (
+                <>
+                  <Divider variant="dashed" height="1px" marginY="1rem"/>
+                  <HStack>
+                    {otherLinks.map((link) => (
+                      <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                        {link.title}
+                      </UILogic.AssetLink>
+                    ))}
+                  </HStack>
+                </>
+              )}
+            </VStack>
           </UIKit.SectionContent>
         </UIKit.Section>
-      )}
-
-      {socialLinks && (
-        <UIKit.Section w="full">
-          <UIKit.SectionContent title="Social Links">
-            <HStack>
-              {socialLinks.map((link) => (
-                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                  {link.title}
-                </UILogic.AssetLink>
-              ))}
-            </HStack>
-          </UIKit.SectionContent>
-        </UIKit.Section>
-      )}
-      {otherLinks && (
-        <UIKit.Section w="full">
-          <UIKit.SectionContent title="Other Links">
-            <HStack>
-              {otherLinks.map((link) => (
-                <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                  {link.title}
-                </UILogic.AssetLink>
-              ))}
-            </HStack>
-          </UIKit.SectionContent>
-        </UIKit.Section>
-      )}
     </VStack>
   );
 }
