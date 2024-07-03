@@ -153,4 +153,4 @@ export function SelectSync<T, M extends boolean = boolean>({
 const defaultRenderKey: SelectSyncProps<any>['renderKey'] = (item, index) => String(index);
 const defaultRenderItem: SelectSyncProps<any>['renderItem'] = (item, index) => String(index);
 const defaultEqualsItems: SelectSyncProps<any>['equalsItems'] = (first, second) => Object.is(first, second);
-const defaultChildren: SelectSyncProps<any>['children'] = (props) => <SelectDefaultView {...props} />;
+const defaultChildren: SelectSyncProps<any>['children'] = (props: any) => <SelectDefaultView {...props} />;
