@@ -1,6 +1,5 @@
-import { Divider, HStack, VStack } from '@chakra-ui/react';
+import { HStack, VStack } from '@chakra-ui/react';
 
-import { BoosterInfoAdditionalInfoInput } from './BoosterInfoAdditionalInfoInput';
 import { BoosterInfoDiscountToLastRound } from './BoosterInfoDiscountToLastRound';
 import { BoosterInfoFdvInput } from './BoosterInfoFdvInput';
 import { BoosterInfoFutureRoundPriceInput } from './BoosterInfoFutureRoundPriceInput';
@@ -25,7 +24,6 @@ export const BoosterInfoForm = () => {
       <BoosterInfoFutureRoundPriceInput />
       <BoosterInfoDiscountToLastRound />
       <BoosterInfoListingTimelineInput />
-      <BoosterInfoAdditionalInfoInput />
     </VStack>
   )
 }
