@@ -1,59 +1,61 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, get, useForm } from 'react-hook-form';
 
-import { Button, HStack, VStack } from '@chakra-ui/react';
-import { FormControl, FormErrorMessage, FormLabel, UIKit, useIsRequired } from '@shared/ui-kit';
+import { Button, chakra, VStack } from '@chakra-ui/react';
+import { FormControl, FormLabel, UIKit, useIsRequired } from '@shared/ui-kit';
 
 import { FeedbackCreateModel, FeedbackCreateSchema } from './schema';
 
 export interface FeedbackFormProps {
-  onSubmit?: (payload: FeedbackCreateModel) => void
+  onSubmit?: (payload: FeedbackCreateModel) => void;
 }
 
 export const FeedbackForm = ({ onSubmit }: FeedbackFormProps) => {
-  const {
-    handleSubmit,
-    control,
-    getValues,
-    formState: { errors, isSubmitting },
-  } = useForm<FeedbackCreateModel>()
+  const formMethods = useForm<FeedbackCreateModel>();
 
-  const isRequired = useIsRequired(FeedbackCreateSchema, getValues);
+  const isRequired = useIsRequired(FeedbackCreateSchema, formMethods.getValues);
 
   return (
-    <VStack spacing="1rem" width="full">
-      <FormControl isInvalid={Boolean(errors?.text)} isRequired={isRequired('text')}>
-        <FormLabel display="flex" gap="0.25rem" alignItems="center">
-          Comment
-        </FormLabel>
-        <Controller
-          control={control}
-          name="text"
-          render={({ field }) => <UIKit.Textarea {...field} />}
-        />
-        {errors?.text && <FormErrorMessage>{errors?.text?.message}</FormErrorMessage>}
-      </FormControl>
-      <FormControl isInvalid={Boolean(errors?.rating)}  isRequired={isRequired('rating')}>
-        <FormLabel display="flex" gap="0.25rem" alignItems="center">
-          How likely is it that you would recommend marsbase to a friend or colleague?
-        </FormLabel>
-        <Controller
-          control={control}
-          name="rating"
-          render={({ field }) => (
-            <UIKit.SelectSync
-              key="feedback-rating"
-              items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-              renderKey={(item) => item}
-              renderItem={(item) => item}
-              {...field}
-            />
-          )}
-        />
-        {errors?.text && <FormErrorMessage>{errors?.text?.message}</FormErrorMessage>}
-      </FormControl>
-      <Button w="full" isLoading={isSubmitting} onClick={handleSubmit(onSubmit)}>
-        Submit
-      </Button>
-    </VStack>
-  )
-}
+    <FormProvider {...formMethods}>
+      <VStack as={chakra.form} onSubmit={formMethods.handleSubmit(onSubmit, console.log)} spacing='1rem' width='full'>
+        <FormControl
+          isInvalid={!!get(formMethods.formState.errors, 'text')}
+          isRequired={isRequired('text')}
+        >
+          <FormLabel display='flex' gap='0.25rem' alignItems='center'>
+            Comment
+          </FormLabel>
+          <Controller
+            name='text'
+            render={({ field, formState: { isValid } }) => (
+              <UIKit.Textarea {...field} isInvalid={!isValid}/>
+            )}
+          />
+        </FormControl>
+        <FormControl
+          isInvalid={!!get(formMethods.formState.errors, 'text')}
+          isRequired={isRequired('rating')}
+        >
+          <FormLabel display='flex' gap='0.25rem' alignItems='center'>
+            How likely is it that you would recommend marsbase to a friend or colleague?
+          </FormLabel>
+          <Controller
+            name='rating'
+            render={({ field, formState: { isValid } }) => (
+              <UIKit.SelectSync
+                key='feedback-rating'
+                items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+                renderKey={(item) => item}
+                renderItem={(item) => item}
+                isInvalid={!isValid}
+                {...field}
+              />
+            )}
+          />
+        </FormControl>
+        <Button w='full' isLoading={formMethods.formState?.isSubmitting} type='submit'>
+          Submit
+        </Button>
+      </VStack>
+    </FormProvider>
+  );
+};
