@@ -16,7 +16,7 @@ interface LotQuestionFormProps {
 
 export function LotQuestionsubform({ parentQuestion }: LotQuestionFormProps) {
   const rpcSchema = useRpcSchemaClient();
-  const form = useForm<LotQuestionModel>({ resolver: yupResolver(LotQuestionSchema), mode: 'all' });
+  const form = useForm<LotQuestionModel>({ resolver: yupResolver(LotQuestionSchema), mode: 'onChange' });
 
   form.watch();
 

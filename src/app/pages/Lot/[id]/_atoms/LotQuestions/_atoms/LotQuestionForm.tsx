@@ -15,7 +15,7 @@ interface LotQuestionFormProps {
 
 export function LotQuestionForm({ lot }: LotQuestionFormProps) {
   const rpcSchema = useRpcSchemaClient();
-  const form = useForm<LotQuestionModel>({ resolver: yupResolver(LotQuestionSchema), mode: 'all' });
+  const form = useForm<LotQuestionModel>({ resolver: yupResolver(LotQuestionSchema), mode: 'onChange' });
 
   form.watch();
 
@@ -32,7 +32,7 @@ export function LotQuestionForm({ lot }: LotQuestionFormProps) {
       <Heading fontSize="md" w="full">
         You can ask questions
       </Heading>
-      <HStack spacing={3} as="form" onSubmit={form.handleSubmit(publish)} w="full" ml={6}>
+      <HStack alignItems="flex-start" spacing={3} as="form" onSubmit={form.handleSubmit(publish)} w="full" ml={6}>
         <FormControl isInvalid={!!error}>
           <Input placeholder="Write a question" {...form.register('text')} />
           {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
