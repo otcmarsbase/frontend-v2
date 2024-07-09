@@ -45,13 +45,13 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
 
   const onFocus = () => {
     if (isMobile) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden';
     }
-  }
+  };
 
   const onBlur = () => {
-    document.body.style.overflow = 'auto'
-  }
+    document.body.style.overflow = 'auto';
+  };
 
   return (
     <FormElement label={label} isRequired={isRequired(name)} w="full" onFocus={onFocus} onBlur={onBlur}>
@@ -91,14 +91,14 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
               minW: '10rem',
               visibility: 'visible',
               pos: 'fixed',
-              zIndex: '9999'
+              zIndex: '9999',
             }}
             _loading={{
               opacity: 1,
               minW: '10rem',
               visibility: 'visible',
               pos: 'fixed',
-              zIndex: '9999'
+              zIndex: '9999',
             }}
             width="calc(100% - 2rem)"
             opacity="0"
