@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Controller, FieldPath, useFormContext, get, ControllerProps } from 'react-hook-form';
 
 import { useAuth, useRpcSchemaClient } from '@app/components';
-import { useBreakpointDevice, useToastInnerCallback } from '@app/hooks';
+import { useToastInnerCallback } from '@app/hooks';
 import { HStack, FormControl, FormErrorMessage, Button, Show } from '@chakra-ui/react';
 import { FormElement, useIsRequired } from '@shared/ui-kit';
 
@@ -18,8 +18,6 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
   const rpcSchema = useRpcSchemaClient();
   const { updateAccount } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-
-  const { isMobile } = useBreakpointDevice();
 
   const { control, formState, watch } = useFormContext<ProfileModel>();
   const error = useMemo(() => get(formState.errors, name), [formState, name]);
@@ -43,18 +41,8 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
 
   const onSave = useToastInnerCallback(save, {});
 
-  const onFocus = () => {
-    if (isMobile) {
-      document.body.style.overflow = 'hidden';
-    }
-  };
-
-  const onBlur = () => {
-    document.body.style.overflow = 'auto';
-  };
-
   return (
-    <FormElement label={label} isRequired={isRequired(name)} w="full" onFocus={onFocus} onBlur={onBlur}>
+    <FormElement label={label} isRequired={isRequired(name)} w="full">
       <HStack role="group" alignItems="flex-start">
         <FormControl isInvalid={!isValid}>
           <Controller control={control} name={name} render={render} />
@@ -77,36 +65,6 @@ export const ProfileInput = <T extends FieldPath<ProfileModel>>({ name, label, r
             opacity="0"
             visibility="hidden"
             pos="absolute"
-            onClick={onSave}
-            isLoading={isLoading}
-            isDisabled={!isValid}
-          >
-            Save
-          </Button>
-        </Show>
-        <Show below="md">
-          <Button
-            _groupFocusWithin={{
-              opacity: 1,
-              minW: '10rem',
-              visibility: 'visible',
-              pos: 'fixed',
-              zIndex: '9999',
-            }}
-            _loading={{
-              opacity: 1,
-              minW: '10rem',
-              visibility: 'visible',
-              pos: 'fixed',
-              zIndex: '9999',
-            }}
-            width="calc(100% - 2rem)"
-            opacity="0"
-            visibility="hidden"
-            pos="absolute"
-            top="calc(100dvh - 2rem)"
-            left="50%"
-            transform="translate(-50%,-50%)"
             onClick={onSave}
             isLoading={isLoading}
             isDisabled={!isValid}

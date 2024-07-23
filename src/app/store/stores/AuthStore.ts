@@ -1,15 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 import { makePersistable } from 'mobx-persist-store';
 
-import { AuthConnectorsDictionary, AuthConnectorsType } from '@app/components';
+import { AuthConnectModal, AuthConnectModalProps, AuthConnectorsDictionary, AuthConnectorsType } from '@app/components';
 import { ModalController, appManager } from '@app/logic';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { v4 } from 'uuid';
-
-import { AuthConnectModal, AuthConnectModalProps } from '../modals';
 
 import { AuthLocalStore } from './AuthLocalStore';
 

@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 
-import { LotReassignmentType, UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { useObserver } from 'mobx-react-lite';
+
+import { LotReassignmentType, UILogic, useAuth } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
 import pages from '@app/pages';
+import { useStore } from '@app/store';
 import { Box, Divider, HStack, Text, Button, VStack, Progress, IconButton } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { LinkComponent, UIKit } from '@shared/ui-kit';
-import { useQueryClient } from '@tanstack/react-query';
 import Decimal from 'decimal.js';
 
 import { LotTargetValuation } from '../LotTargetValuation';
@@ -25,20 +27,18 @@ export interface LotCardProps {
   asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
-  favorite?: DeskGatewaySchema.FavoriteLot;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick }) => {
   const router = useRouter();
-  const { account, isAuthorized } = useAuth();
+  const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
+  const { favoriteLotStore } = useStore();
 
   const available = new Decimal(stat.available || '0');
   const total = new Decimal(lot.attributes.COMMON_SUMMARY || '0');
   const executed = total.minus(available);
   const progress = executed.div(total).mul(100);
-  const rpcSchema = useRpcSchemaClient();
-  const queryClient = useQueryClient();
 
   const fields: FieldType[] = useMemo(() => {
     if (lot.status !== 'ACTIVE' || !asset) return [];
@@ -75,23 +75,17 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, mi
     ].filter(Boolean);
   }, [lot, asset]);
 
+  const isFavorite = useObserver(() => favoriteLotStore.isFavorite(lot.id));
+
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (favorite) {
-      await rpcSchema.send('favoriteLot.delete', { id: favorite.id });
-    } else {
-      await rpcSchema.send('favoriteLot.create', { lot: lot.id });
-    }
-
-    await queryClient.invalidateQueries({
-      predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('favoriteLot'),
-    });
+    favoriteLotStore.toggleFavorite(lot.id);
   };
 
   const handleFavoriteClick = useToastInnerCallback(toggleFavorite, {
-    okText: favorite ? 'Lot removed from favorites' : 'Lot added to favorites',
+    okText: isFavorite ? 'Lot removed from favorites' : 'Lot added to favorites',
     showWhenOk: true,
   });
 
@@ -144,23 +138,21 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, favorite, mi
                 }}
               />
             )}
-            {isAuthorized && (
-              <IconButton
-                variant="ghost"
-                aria-label="favorite"
-                fontSize="lg"
-                height="fit-content"
-                role="group"
-                icon={
-                  <UIIcons.Common.FavoriteIcon
-                    fill={favorite ? 'error' : ''}
-                    stroke={favorite ? 'error' : 'dark.50'}
-                    _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
-                  />
-                }
-                onClickCapture={handleFavoriteClick}
-              />
-            )}
+            <IconButton
+              variant="ghost"
+              aria-label="favorite"
+              fontSize="lg"
+              height="fit-content"
+              role="group"
+              icon={
+                <UIIcons.Common.FavoriteIcon
+                  fill={isFavorite ? 'error' : ''}
+                  stroke={isFavorite ? 'error' : 'dark.50'}
+                  _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
+                />
+              }
+              onClickCapture={handleFavoriteClick}
+            />
           </HStack>
         </Box>
 

@@ -1,3 +1,5 @@
+import { makeAutoObservable } from 'mobx';
+
 import { appManager } from '@app/logic';
 
 export class SystemStore {
@@ -10,6 +12,10 @@ export class SystemStore {
 
   private _apiVersion: string;
   private _maintenance: boolean;
+
+  private constructor() {
+    makeAutoObservable(this, {}, { autoBind: true });
+  }
 
   get apiVersion() {
     return this._apiVersion;

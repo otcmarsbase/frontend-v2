@@ -1,6 +1,7 @@
-import { makeAutoObservable } from 'mobx';
+import { autorun, makeAutoObservable, when } from 'mobx';
 
-import { AuthInstanceStore } from './stores';
+import { AuthStore } from './stores/AuthStore';
+import { FavoriteLotStore } from './stores/FavoriteLotStore';
 import { SystemStore } from './stores/SystemStore';
 
 export class RootStore {
@@ -8,35 +9,23 @@ export class RootStore {
     return makeAutoObservable(new RootStore(), {}, { autoBind: true });
   }
 
-  // public readonly authLocalStore: AuthLocalStore;
-  public readonly authInstanceStore: AuthInstanceStore;
   public readonly systemStore: SystemStore;
-
-  // private _persistStore: PersistStore<AuthLocalStore, 'authToken'>;
+  public readonly favoriteLotStore: FavoriteLotStore;
+  public readonly authStore: AuthStore;
 
   private constructor() {
-    this.authInstanceStore = makeAutoObservable(new AuthInstanceStore(), {}, { autoBind: true });
-    this.systemStore = makeAutoObservable(new SystemStore(), {}, { autoBind: true });
-    // this.authLocalStore = makeAutoObservable(new AuthLocalStore(), {}, { autoBind: true });
+    this.systemStore = SystemStore.getStore();
+    this.authStore = AuthStore.getStore();
+    this.favoriteLotStore = FavoriteLotStore.getStore();
   }
 
   async start() {
     this.systemStore.start();
-    // if (!this._persistStore) {
-    //   this._persistStore = await makePersistable(this.authLocalStore, {
-    //     name: AppConfig.storage.AUTH_META_LOCAL_STORAGE_KEY,
-    //     properties: ['authToken'],
-    //     storage: window.localStorage,
-    //   });
-    // }
+    await this.authStore.start();
+    // this.favoriteLotStore.start();
   }
 
-  async stop() {
-    // if (this._persistStore) {
-    //   this._persistStore.stopPersisting();
-    //   this._persistStore = null;
-    // }
-  }
+  async stop() {}
 }
 
 export const rootStore = RootStore.create();

@@ -2,11 +2,11 @@ import { useCallback } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
+import { useStore } from '@app/store';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { LoadingCallback, useLoadingCallback } from '@shared/ui-kit';
 
 import { IAuthConnectorInfo } from '../info';
-import { AuthStore } from '../stores';
 
 export interface UseAuth {
   status: string;
@@ -24,7 +24,7 @@ export interface UseAuth {
 }
 
 export function useAuth(): UseAuth {
-  const store = AuthStore.getStore();
+  const { authStore: store } = useStore();
 
   const { isAuthorized, isLoading, account, connectorInfo, status } = useObserver(() => ({
     isAuthorized: store.isAuthorized,
