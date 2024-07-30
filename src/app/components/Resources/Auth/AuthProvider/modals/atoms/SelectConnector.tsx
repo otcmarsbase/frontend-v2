@@ -2,7 +2,6 @@ import { AuthWagmiConnectorInfoType } from '@app/components';
 import { AuthConnectorsDictionary } from '@app/components';
 import { Spinner, VStack, Text } from '@chakra-ui/react';
 
-
 import { ConnectorRenderItem } from './ConnectorRenderItem';
 
 export interface SelectConnectorProps {

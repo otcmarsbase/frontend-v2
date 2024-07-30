@@ -30,13 +30,18 @@ export const InvestDocInfoStep = () => {
     return type === 'EQUITY' || type === 'UNLOCKED_TOKENS';
   }, [type]);
 
-  const accordionElements = [{
-    key: 'booster-info',
-    label: 'Booster Info',
-    body: <BoosterInfoForm />
-  }]
+  const accordionElements = [
+    {
+      key: 'booster-info',
+      label: 'Booster Info',
+      body: <BoosterInfoForm />,
+    },
+  ];
 
-  const progress = useMemo(() => BOOSTER_INFO_PROGRESS(type, SAFE_WITH_TOKEN_WARRANT, getValues()), [type, SAFE_WITH_TOKEN_WARRANT, getValues()])
+  const progress = useMemo(
+    () => BOOSTER_INFO_PROGRESS(type, SAFE_WITH_TOKEN_WARRANT, getValues()),
+    [type, SAFE_WITH_TOKEN_WARRANT, getValues()],
+  );
 
   return (
     <VStack w="full" spacing={3}>
@@ -61,7 +66,7 @@ export const InvestDocInfoStep = () => {
             </Text>
             <Progress value={progress} />
           </VStack>
-          <Accordion allowToggle items={accordionElements} marginTop="0.5rem"/>
+          <Accordion allowToggle items={accordionElements} marginTop="0.5rem" />
         </Box>
       )}
     </VStack>

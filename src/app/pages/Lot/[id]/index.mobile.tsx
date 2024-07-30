@@ -27,7 +27,15 @@ export interface LotMobileProps {
   onDelete: () => void;
 }
 
-export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMaker, isOfferMaker, onEdit, onDelete }) => {
+export const LotMobile: React.FC<LotMobileProps> = ({
+  lot,
+  asset,
+  stat,
+  offerMaker,
+  isOfferMaker,
+  onEdit,
+  onDelete,
+}) => {
   const router = useRouter();
   const [tab, setTab] = useState<MobileTabItemKey>('LOT_INFO');
 
@@ -41,11 +49,10 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
 
   const isAssetCreateRequest = 'title' in asset;
 
-  const createdAt = useMemo(() => formatDistance(
-    new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE),
-    new Date(),
-    { addSuffix: true }
-  ), [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE])
+  const createdAt = useMemo(
+    () => formatDistance(new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE), new Date(), { addSuffix: true }),
+    [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE],
+  );
 
   const groupedByGroupLinks = new Map(
     LINQ.from(
@@ -95,9 +102,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
       },
       {
         label: 'Target valuation',
-        value: (
-          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm"/>
-        ),
+        value: <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm" />,
       },
       {
         label: 'Minimal bid',
@@ -131,14 +136,18 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
     } else {
       list.push({
         label: 'Vesting',
-        value: <Text wordBreak="break-all" fontSize="sm">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>,
+        value: (
+          <Text wordBreak="break-all" fontSize="sm">
+            {lot.attributes.TOKEN_VESTING_PERIOD}
+          </Text>
+        ),
       });
     }
 
     list.push({
       label: 'Publish date',
-      value:  <Text fontSize="sm">{createdAt}</Text>
-    })
+      value: <Text fontSize="sm">{createdAt}</Text>,
+    });
 
     return list;
   }, [lot]);
@@ -149,7 +158,7 @@ export const LotMobile: React.FC<LotMobileProps> = ({ lot, asset, stat, offerMak
 
   return (
     <VStack>
-      {isOfferMaker && (<LotAnalytics onEdit={onEdit} onDelete={onDelete} />)}
+      {isOfferMaker && <LotAnalytics onEdit={onEdit} onDelete={onDelete} />}
       <AssetBlock asset={asset} onCreateBidClick={onCreateBidClick} />
       <UIKit.RadioButtons
         value={tab}

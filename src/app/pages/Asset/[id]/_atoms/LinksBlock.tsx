@@ -17,45 +17,45 @@ export function LinksBlock({ links }: LinksBlockProps) {
 
   return (
     <VStack w="full" gap="0.8rem">
-        <UIKit.Section w="full">
-          <UIKit.SectionContent title="Project Links">
-            <VStack alignItems="flex-start" width="full">
-              {officialLinks && (
+      <UIKit.Section w="full">
+        <UIKit.SectionContent title="Project Links">
+          <VStack alignItems="flex-start" width="full">
+            {officialLinks && (
+              <HStack>
+                {officialLinks.map((link) => (
+                  <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                    {link.title}
+                  </UILogic.AssetLink>
+                ))}
+              </HStack>
+            )}
+            {socialLinks && (
+              <>
+                <Divider variant="dashed" height="1px" marginY="1rem" />
                 <HStack>
-                  {officialLinks.map((link) => (
+                  {socialLinks.map((link) => (
                     <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
                       {link.title}
                     </UILogic.AssetLink>
                   ))}
                 </HStack>
-              )}
-              {socialLinks && (
-                <>
-                  <Divider variant="dashed" height="1px" marginY="1rem"/>
-                  <HStack>
-                    {socialLinks.map((link) => (
-                      <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                        {link.title}
-                      </UILogic.AssetLink>
-                    ))}
-                  </HStack>
-                </>
-              )}
-              {otherLinks && (
-                <>
-                  <Divider variant="dashed" height="1px" marginY="1rem"/>
-                  <HStack>
-                    {otherLinks.map((link) => (
-                      <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
-                        {link.title}
-                      </UILogic.AssetLink>
-                    ))}
-                  </HStack>
-                </>
-              )}
-            </VStack>
-          </UIKit.SectionContent>
-        </UIKit.Section>
+              </>
+            )}
+            {otherLinks && (
+              <>
+                <Divider variant="dashed" height="1px" marginY="1rem" />
+                <HStack>
+                  {otherLinks.map((link) => (
+                    <UILogic.AssetLink key={link.title} type={link.type} url={link.url}>
+                      {link.title}
+                    </UILogic.AssetLink>
+                  ))}
+                </HStack>
+              </>
+            )}
+          </VStack>
+        </UIKit.SectionContent>
+      </UIKit.Section>
     </VStack>
   );
 }

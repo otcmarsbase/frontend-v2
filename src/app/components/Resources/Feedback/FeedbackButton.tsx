@@ -9,8 +9,8 @@ export interface FeedbackButtonProps extends ButtonProps {}
 
 export const FeedbackButton = ({ ...rest }: FeedbackButtonProps) => {
   const createModal = () => {
-    ModalController.create(FeedbackModal, {})
-  }
+    ModalController.create(FeedbackModal, {});
+  };
 
   return (
     <Button
@@ -26,15 +26,13 @@ export const FeedbackButton = ({ ...rest }: FeedbackButtonProps) => {
       size="sm"
       variant="orange"
       _hover={{
-        background: 'orange.500'
+        background: 'orange.500',
       }}
       onClick={createModal}
       {...rest}
     >
-      <FeedbackIcon marginRight="0.5rem"/>
-      <Text fontSize="xs">
-        Feedback about the site
-      </Text>
+      <FeedbackIcon marginRight="0.5rem" />
+      <Text fontSize="xs">Feedback about the site</Text>
     </Button>
-  )
-}
+  );
+};

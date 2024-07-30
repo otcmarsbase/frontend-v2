@@ -7,28 +7,28 @@ export type NullableResolve<T> = T extends NullableObject
     ? null
     : NullableResolve<Exclude<T, NullableObject>> | null
   : T extends null | undefined
-  ? Exclude<T, null | undefined> extends never
-    ? undefined
-    : NullableResolve<Exclude<T, null | undefined>> | undefined
-  : T;
+    ? Exclude<T, null | undefined> extends never
+      ? undefined
+      : NullableResolve<Exclude<T, null | undefined>> | undefined
+    : T;
 
 export type NullableResolveDeep<T> = T extends NullableObject | null | undefined
   ? NullableResolve<T>
   : T extends object | unknown[]
-  ? {
-      [Key in keyof T]: T[Key] extends NullableObject
-        ? Exclude<T[Key], NullableObject> extends never
-          ? null
-          : NullableResolveDeep<Exclude<T[Key], NullableObject>> | null
-        : T[Key] extends null | undefined
-        ? Exclude<T[Key], null | undefined> extends never
-          ? undefined
-          : NullableResolveDeep<Exclude<T[Key], null | undefined>>
-        : T[Key] extends object | any[]
-        ? NullableResolveDeep<T[Key]>
-        : NullableResolve<T[Key]>;
-    }
-  : T;
+    ? {
+        [Key in keyof T]: T[Key] extends NullableObject
+          ? Exclude<T[Key], NullableObject> extends never
+            ? null
+            : NullableResolveDeep<Exclude<T[Key], NullableObject>> | null
+          : T[Key] extends null | undefined
+            ? Exclude<T[Key], null | undefined> extends never
+              ? undefined
+              : NullableResolveDeep<Exclude<T[Key], null | undefined>>
+            : T[Key] extends object | any[]
+              ? NullableResolveDeep<T[Key]>
+              : NullableResolve<T[Key]>;
+      }
+    : T;
 
 export interface NullableObject extends IEquatable<NullableObject | null | undefined> {
   [NULLABLE_TYPE]: typeof NULLABLE_TYPE;

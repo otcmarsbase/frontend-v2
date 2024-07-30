@@ -17,5 +17,5 @@ export type PathValue<
       : never
     : never
   : TPath extends keyof T
-  ? T[TPath]
-  : never;
+    ? T[TPath]
+    : never;

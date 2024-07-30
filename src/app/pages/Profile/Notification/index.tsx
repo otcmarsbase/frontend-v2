@@ -38,15 +38,17 @@ const Notification: FC = () => {
         isLoading={isLoading}
         emptyText={<Empty title="Sorry, no notification" description="You have 0 notifications so far" />}
         itemRender={(item) => <NotificationItem notification={item} />}
-        footer={notifications?.total > 0 && (
-          <Pagination
-            {...paginationProps}
-            total={notifications.total}
-            showCaption
-            showPageSize
-            pageSizeOptions={[10, 15, 20]}
-          />
-        )}
+        footer={
+          notifications?.total > 0 && (
+            <Pagination
+              {...paginationProps}
+              total={notifications.total}
+              showCaption
+              showPageSize
+              pageSizeOptions={[10, 15, 20]}
+            />
+          )
+        }
       />
     </>
   );

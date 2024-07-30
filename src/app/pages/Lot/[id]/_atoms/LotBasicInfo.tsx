@@ -56,7 +56,7 @@ export const LotBasicInfo: FC<{ lot: DeskGatewaySchema.Lot }> = ({ lot }) => {
           <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
         </InfoElement>
         {InfoDivider}
-        <InfoElement label="Seller">
+        <InfoElement label={attributes.COMMON_DIRECTION === 'BUY' ? 'Buyer' : 'Seller'}>
           <ParticipantTypesText value={attributes.COMMON_OFFER_MAKER_TYPES} whiteSpace="nowrap" />
         </InfoElement>
         {InfoDivider}

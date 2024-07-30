@@ -4,7 +4,6 @@ import { Text } from '@chakra-ui/react';
 import { PortalProps } from '@packages/berish-react-portal';
 import { UIKit } from '@shared/ui-kit';
 
-
 import { SelectConnector } from './atoms';
 
 export interface AuthConnectModalProps extends PortalProps<void> {

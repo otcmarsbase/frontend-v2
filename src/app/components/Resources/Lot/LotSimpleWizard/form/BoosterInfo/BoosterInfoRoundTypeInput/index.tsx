@@ -8,9 +8,7 @@ import { FormControl, FormErrorMessage } from '@shared/ui-kit';
 import { BaseInputProps } from '../../types';
 import { useInput } from '../../useInput';
 
-import { DescriptorDictionary } from './const'
-
-
+import { DescriptorDictionary } from './const';
 
 const NAME = 'BOOSTER_INFO_ROUND_TYPE';
 
@@ -22,8 +20,8 @@ export const BoosterInfoRoundTypeInput: FC<BaseInputProps> = () => {
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
   return (
-    <FormControl isInvalid={!isValid} label={descriptor.label} isRequired={isRequired} w='full'>
-      <FormLabel display='flex' gap='0.25rem' alignItems='center'>
+    <FormControl isInvalid={!isValid} label={descriptor.label} isRequired={isRequired} w="full">
+      <FormLabel display="flex" gap="0.25rem" alignItems="center">
         {descriptor.label}
       </FormLabel>
       <Controller

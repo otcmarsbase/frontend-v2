@@ -4,7 +4,7 @@ import {
   AppStateController,
   RpcSchemaProvider,
   ThemeProvider,
-  TelegramProvider
+  TelegramProvider,
 } from '@app/components';
 import { StoreProvider } from '@app/store';
 import { PortalProvider } from '@packages/berish-react-portal';

@@ -39,5 +39,5 @@ export const BoosterInfoPreviousRoundPriceInput: FC<BaseInputProps> = () => {
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  )
-}
+  );
+};

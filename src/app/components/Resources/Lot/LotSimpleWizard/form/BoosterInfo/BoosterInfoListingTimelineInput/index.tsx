@@ -19,10 +19,10 @@ export const BoosterInfoListingTimelineInput: FC<BaseInputProps> = () => {
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
   const onChange = (field, date: Date | Range<Date>) => {
-   if (date) {
-     field.onChange(date.valueOf())
-   }
-  }
+    if (date) {
+      field.onChange(date.valueOf());
+    }
+  };
 
   return (
     <FormControl isInvalid={!isValid} isRequired={isRequired}>
@@ -31,11 +31,9 @@ export const BoosterInfoListingTimelineInput: FC<BaseInputProps> = () => {
       </FormLabel>
       <Controller
         name={NAME}
-        render={({ field }) => (
-          <DatePicker onChange={(date) => onChange(field, date)} value={field.value}/>
-        )}
+        render={({ field }) => <DatePicker onChange={(date) => onChange(field, date)} value={field.value} />}
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  )
-}
+  );
+};

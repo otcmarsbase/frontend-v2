@@ -1,2 +1,2 @@
 export * from './Resource';
-export * from './RPC';
+export * as RPC from './RPC';

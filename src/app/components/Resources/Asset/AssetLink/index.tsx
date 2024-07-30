@@ -14,7 +14,15 @@ export function AssetLink({ type, url, children }: AssetLinkProps) {
   const LinkIcon = useMemo(() => AssetLinkTypeIconMap.get(type), [type]);
 
   return (
-    <Button as="a" href={url} target="_blank" variant="darkSolid" size="xs" fontSize="0.875rem" leftIcon={<LinkIcon color="white" />}>
+    <Button
+      as="a"
+      href={url}
+      target="_blank"
+      variant="darkSolid"
+      size="xs"
+      fontSize="0.875rem"
+      leftIcon={<LinkIcon color="white" />}
+    >
       {children}
     </Button>
   );

@@ -3,10 +3,7 @@ import { RuntimeError } from '@ddd/errors';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
 import { AppConfig } from '@shared/config';
 
-import {
-  AuthTelegramConnectorInfo,
-  AuthTelegramConnectorInfoType,
-} from '../info';
+import { AuthTelegramConnectorInfo, AuthTelegramConnectorInfoType } from '../info';
 import { AuthTelegramQrCodeModal, AuthTelegramQrCodeModalProps } from '../modals';
 import { AuthTelegramVerifyModal, AuthTelegramVerifyModalProps } from '../modals';
 
@@ -14,7 +11,7 @@ import { IAuthConnector } from './IAuthConnector';
 
 export type AuthTelegramStatusType = 'CODE_SENT' | 'CODE_EXPIRED';
 
-export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusType, AuthTelegramConnectorInfoType>{
+export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusType, AuthTelegramConnectorInfoType> {
   private _code?: string;
 
   private _status: AuthTelegramStatusType | null;
@@ -22,18 +19,16 @@ export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusT
   private _showQrCodeResolver?: PortalInstanceControl<AuthTelegramQrCodeModalProps, void>;
   private _verifyModalResolver?: PortalInstanceControl<AuthTelegramVerifyModalProps, void>;
 
-  private _interval: NodeJS.Timeout
-
-
+  private _interval: NodeJS.Timeout;
 
   get info() {
-    return AuthTelegramConnectorInfo
+    return AuthTelegramConnectorInfo;
   }
 
   get status() {
-    if (this._status) return this._status
+    if (this._status) return this._status;
 
-    return null
+    return null;
   }
 
   async execute(): Promise<void> {
@@ -42,38 +37,35 @@ export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusT
   }
 
   private get tgBotLink() {
-    return `${AppConfig.links.telegramBotURL}/?start=${this._code}`
+    return `${AppConfig.links.telegramBotURL}/?start=${this._code}`;
   }
 
   private _updateStatus(status: AuthTelegramStatusType) {
-    this._status = status
+    this._status = status;
   }
 
   private async _generateMessage() {
     const { schema } = appManager.serviceManager.backendApiService;
 
-    const data = await schema.send('auth.generateTelegramCode', {})
+    const data = await schema.send('auth.generateTelegramCode', {});
 
     if (data?.code) {
-      this._updateStatus('CODE_SENT')
+      this._updateStatus('CODE_SENT');
 
-      this._code = data.code
+      this._code = data.code;
 
       if (this._verifyModalResolver && !this._verifyModalResolver.isResulted) {
         this._verifyModalResolver.updateProps({
           code: this._code,
           link: this.tgBotLink,
-          onShowQrCode: () => this._onShowQrCode()
-        })
+          onShowQrCode: () => this._onShowQrCode(),
+        });
       } else {
-        this._verifyModalResolver = ModalController.create(
-          AuthTelegramVerifyModal,
-          {
-            code: this._code,
-            link: this.tgBotLink,
-            onShowQrCode: () => this._onShowQrCode()
-          }
-        )
+        this._verifyModalResolver = ModalController.create(AuthTelegramVerifyModal, {
+          code: this._code,
+          link: this.tgBotLink,
+          onShowQrCode: () => this._onShowQrCode(),
+        });
       }
     }
   }
@@ -86,16 +78,16 @@ export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusT
         this._verifyModalResolver.resolve();
         this._verifyModalResolver = null;
       }
-      this._closeQrCodeModal()
-      this._clearInterval()
-    }
+      this._closeQrCodeModal();
+      this._clearInterval();
+    };
 
     this._interval = setInterval(async () => {
       try {
         if (this._code) {
-          const { status } = await schema.send('auth.telegramCheckSignIn', { code: this._code })
+          const { status } = await schema.send('auth.telegramCheckSignIn', { code: this._code });
           if (status === 'Success') {
-            _resolveVerifyModalAndClearInterval()
+            _resolveVerifyModalAndClearInterval();
           }
         }
       } catch (err) {
@@ -107,27 +99,27 @@ export class AuthTelegramConnector implements IAuthConnector<AuthTelegramStatusT
         this._verifyModalResolver?.updateProps({
           error: errorString,
           onRegenerateCode: () => this._generateMessage(),
-          onShowQrCode: () => this._onShowQrCode()
-        })
+          onShowQrCode: () => this._onShowQrCode(),
+        });
 
-        this._updateStatus('CODE_EXPIRED')
+        this._updateStatus('CODE_EXPIRED');
       }
-    }, 1000)
+    }, 1000);
 
-    await this._verifyModalResolver
-    _resolveVerifyModalAndClearInterval()
+    await this._verifyModalResolver;
+    _resolveVerifyModalAndClearInterval();
   }
 
   private _onShowQrCode() {
     if (this._code) {
-      this._showQrCodeResolver = ModalController.create(AuthTelegramQrCodeModal, { link: this.tgBotLink })
+      this._showQrCodeResolver = ModalController.create(AuthTelegramQrCodeModal, { link: this.tgBotLink });
     }
   }
 
   private _closeQrCodeModal() {
     if (this._showQrCodeResolver && !this._showQrCodeResolver.isResulted) {
-      this._showQrCodeResolver.resolve()
-      this._showQrCodeResolver = null
+      this._showQrCodeResolver.resolve();
+      this._showQrCodeResolver = null;
     } else {
       this._showQrCodeResolver = null;
     }

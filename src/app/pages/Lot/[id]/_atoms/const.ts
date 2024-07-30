@@ -9,7 +9,7 @@ export const LotInfoFieldType = [
   'COMMON_MIN_FILTER_SUMMARY',
   'TOKEN_VESTING_PERIOD',
   'PRICE_PER_TOKEN',
-  'PRICE_PER_SHARE'
+  'PRICE_PER_SHARE',
 ] as const;
 export type LotInfoFieldType = (typeof LotInfoFieldType)[number];
 
@@ -19,7 +19,7 @@ export const LotInfoFieldDictionary = createDictionary<LotInfoFieldType, string>
   COMMON_MIN_FILTER_SUMMARY: 'Minimal bid',
   TOKEN_VESTING_PERIOD: 'Vesting',
   PRICE_PER_TOKEN: 'Price per token',
-  PRICE_PER_SHARE: 'Price per share'
+  PRICE_PER_SHARE: 'Price per share',
 });
 
 export const BidListFieldTypeTitleMap = new Map<BidListFieldType, React.ReactNode>([

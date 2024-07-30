@@ -14,6 +14,6 @@ export const LotCreateSchema = yup
   .concat(CommonInputs)
   .concat(InvestDocInputs)
   .concat(TokenInputs)
-  .concat(BoosterInfo)
+  .concat(BoosterInfo);
 
 export type LotCreateModel = yup.InferType<typeof LotCreateSchema>;

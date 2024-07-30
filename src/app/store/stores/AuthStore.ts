@@ -4,8 +4,8 @@ import { makePersistable } from 'mobx-persist-store';
 import { AuthConnectModal, AuthConnectModalProps, AuthConnectorsDictionary, AuthConnectorsType } from '@app/components';
 import { ModalController, appManager } from '@app/logic';
 import { PortalInstanceControl } from '@packages/berish-react-portal';
+import { AuthNotAuthorizedError } from '@schema/common';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
-import { AuthNotAuthorizedError } from '@schema/errors';
 import { AppConfig } from '@shared/config';
 import { v4 } from 'uuid';
 

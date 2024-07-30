@@ -12,13 +12,13 @@ const NAME = 'INVEST_DOC_FDV';
 
 export const InvestDocFdvInput: FC<BaseInputProps> = () => {
   const { isRequired, isValid, error, setValue, control } = useInput(NAME);
-  const [isNegotiable, setIsNegotiable] = useState(false)
+  const [isNegotiable, setIsNegotiable] = useState(false);
 
   useEffect(() => {
     if (isNegotiable) {
-      setValue('0')
+      setValue('0');
     }
-  }, [isNegotiable])
+  }, [isNegotiable]);
 
   return (
     <FormControl isInvalid={!isValid} isRequired={isRequired}>

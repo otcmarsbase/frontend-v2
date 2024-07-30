@@ -16,33 +16,25 @@ export const FeedbackForm = ({ onSubmit }: FeedbackFormProps) => {
 
   return (
     <FormProvider {...formMethods}>
-      <VStack as={chakra.form} onSubmit={formMethods.handleSubmit(onSubmit, console.log)} spacing='1rem' width='full'>
-        <FormControl
-          isInvalid={!!get(formMethods.formState.errors, 'text')}
-          isRequired={isRequired('text')}
-        >
-          <FormLabel display='flex' gap='0.25rem' alignItems='center'>
+      <VStack as={chakra.form} onSubmit={formMethods.handleSubmit(onSubmit, console.log)} spacing="1rem" width="full">
+        <FormControl isInvalid={!!get(formMethods.formState.errors, 'text')} isRequired={isRequired('text')}>
+          <FormLabel display="flex" gap="0.25rem" alignItems="center">
             Comment
           </FormLabel>
           <Controller
-            name='text'
-            render={({ field, formState: { isValid } }) => (
-              <UIKit.Textarea {...field} isInvalid={!isValid}/>
-            )}
+            name="text"
+            render={({ field, formState: { isValid } }) => <UIKit.Textarea {...field} isInvalid={!isValid} />}
           />
         </FormControl>
-        <FormControl
-          isInvalid={!!get(formMethods.formState.errors, 'text')}
-          isRequired={isRequired('rating')}
-        >
-          <FormLabel display='flex' gap='0.25rem' alignItems='center'>
+        <FormControl isInvalid={!!get(formMethods.formState.errors, 'text')} isRequired={isRequired('rating')}>
+          <FormLabel display="flex" gap="0.25rem" alignItems="center">
             How likely is it that you would recommend marsbase to a friend or colleague?
           </FormLabel>
           <Controller
-            name='rating'
+            name="rating"
             render={({ field, formState: { isValid } }) => (
               <UIKit.SelectSync
-                key='feedback-rating'
+                key="feedback-rating"
                 items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                 renderKey={(item) => item}
                 renderItem={(item) => item}
@@ -52,7 +44,7 @@ export const FeedbackForm = ({ onSubmit }: FeedbackFormProps) => {
             )}
           />
         </FormControl>
-        <Button w='full' isLoading={formMethods.formState?.isSubmitting} type='submit'>
+        <Button w="full" isLoading={formMethods.formState?.isSubmitting} type="submit">
           Submit
         </Button>
       </VStack>

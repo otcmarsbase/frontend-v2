@@ -16,11 +16,16 @@ import { useStepSchema } from './useStepSchema';
 export interface LotSimpleWizardProps {
   defaultValues?: LotCreateModel;
   direction: DeskGatewaySchema.TradeDirection;
-  allowAllSteps?: boolean
+  allowAllSteps?: boolean;
   onSubmit: (inputs: LotCreateModel, meta: { isLastStep: boolean; stepKey?: StepDescriptorKey }) => Promise<void>;
 }
 
-export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direction, allowAllSteps = false, onSubmit }) => {
+export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({
+  defaultValues,
+  direction,
+  allowAllSteps = false,
+  onSubmit,
+}) => {
   const innerDefaultValues = useMemo(
     () =>
       defaultValues
@@ -61,7 +66,6 @@ export const LotSimpleWizard: FC<LotSimpleWizardProps> = ({ defaultValues, direc
   const handleSubmit = useToastInnerCallback(
     useCallback<SubmitHandler<LotCreateModel>>(
       async (data) => {
-
         const stepData = stepSchema.cast(data, { assert: false, stripUnknown: true });
 
         await onSubmit(stepData, { isLastStep, stepKey: currentStep });

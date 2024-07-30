@@ -5,7 +5,6 @@ import {
   AssetVertical,
   Lot,
   LotKey,
-  LotQuestion,
   LotReassignmentType,
   LotStatus,
   LotTotalBidsCountAggregation,
@@ -63,9 +62,6 @@ export namespace LotList {
     id?: CoreSchema.SortableValue;
   };
 
-  export type Payload = CoreSchema.WithFilter<Filter> &
-    CoreSchema.WithInclude<Include> &
-    CoreSchema.WithSortable<Sortable> &
-    CoreSchema.WithPagination;
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable> & CoreSchema.WithPagination;
   export type Result = CoreSchema.WithPaginationResult<Lot> & CoreSchema.WithIncludeLinks<Include>;
 }

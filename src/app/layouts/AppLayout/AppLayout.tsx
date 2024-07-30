@@ -15,7 +15,7 @@ export interface AppLayoutProps {
 
 export function AppLayout({ children, containerSize = 'xl' }) {
   const router = useRouter();
-  const { isAuthorized } = useAuth()
+  const { isAuthorized } = useAuth();
 
   return (
     <>

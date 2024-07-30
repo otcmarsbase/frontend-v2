@@ -1,1 +1,1 @@
-export * from './AuthTelegramConnectorInfo'
+export * from './AuthTelegramConnectorInfo';

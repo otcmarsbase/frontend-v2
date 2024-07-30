@@ -10,20 +10,20 @@ import { BaseInputProps } from '../../types';
 import { DescriptorDictionary, RoundValueMap } from './const';
 
 export const BoosterInfoDiscountToLastRound: FC<BaseInputProps> = () => {
-  const { watch } = useFormContext<LotCreateModel>()
+  const { watch } = useFormContext<LotCreateModel>();
 
   const direction = watch('COMMON_DIRECTION');
 
-  const targetValuation = watch('INVEST_DOC_FDV')
+  const targetValuation = watch('INVEST_DOC_FDV');
   const previousRound = watch('BOOSTER_INFO_PREVIOUS_ROUND_PRICE');
 
   const value = useMemo(() => {
     if (!targetValuation || !previousRound) {
-      return null
+      return null;
     }
 
-    return Math.round((Number(targetValuation) / Number(previousRound)) - 1)
-  }, [targetValuation, previousRound])
+    return Math.round(Number(targetValuation) / Number(previousRound) - 1);
+  }, [targetValuation, previousRound]);
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
@@ -41,5 +41,5 @@ export const BoosterInfoDiscountToLastRound: FC<BaseInputProps> = () => {
         </InputRightElement>
       </InputGroup>
     </FormControl>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export * from './FeedbackButton'
+export * from './FeedbackButton';
