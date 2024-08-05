@@ -31,7 +31,7 @@ export const AssetName: React.FC<AssetNameProps> = ({ asset, size = 'md', onClic
   const assetImageSize: Record<AssetNameSize, string> = {
     xs: '1.5rem',
     sm: '2.25rem',
-    md: '3rem',
+    md: '2.25rem',
   };
 
   return (

@@ -10,7 +10,7 @@ import { IAuthConnector } from './IAuthConnector';
 
 export type AuthWagmiStatusType = 'CONNECT_WALLET' | 'VERIFY_WALLET';
 
-export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, AuthWagmiConnectorInfoType>{
+export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, AuthWagmiConnectorInfoType> {
   private _status: AuthWagmiStatusType;
 
   private _verifyModalResolver?: PortalInstanceControl<AuthWagmiVerifyModalProps, void>;
@@ -18,18 +18,17 @@ export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, A
   private readonly _type: AuthWagmiConnectorType;
 
   constructor(type: AuthWagmiConnectorType) {
-    this._type = type
+    this._type = type;
   }
 
-
   get status() {
-    if (this._status) return this._status
+    if (this._status) return this._status;
 
-    return null
+    return null;
   }
 
   get info() {
-    return AuthWagmiConnectorDictionary.get(this._type)
+    return AuthWagmiConnectorDictionary.get(this._type);
   }
 
   async execute() {
@@ -37,7 +36,7 @@ export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, A
   }
 
   private _updateStatus(status: AuthWagmiStatusType | null) {
-    this._status = status
+    this._status = status;
   }
 
   async signInWithConnector(): Promise<void> {
@@ -82,8 +81,8 @@ export class AuthWagmiConnector implements IAuthConnector<AuthWagmiStatusType, A
       wagmiAccount.connector?.id === this.info.wagmiConnector.id
         ? wagmiAccount.address
         : await connect({ connector: this.info.wagmiConnector })
-          .then((result) => result.account)
-          .catch<`0x${string}`>(() => null);
+            .then((result) => result.account)
+            .catch<`0x${string}`>(() => null);
     if (!connectedAddress) return void 0;
 
     const generatedMessage = await schema.send('auth.generateMessage', {

@@ -1,27 +1,29 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { UIModals, useRpcSchemaClient } from '@app/components';
 import { ModalController } from '@app/logic';
-import { Button, FormControl, Heading, HStack, VStack } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, Heading, HStack, VStack } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { Input } from '@shared/ui-kit';
+
+import { LotQuestionModel, LotQuestionSchema } from '../schema';
 
 interface LotQuestionFormProps {
   lot: DeskGatewaySchema.Lot;
 }
 
 export function LotQuestionForm({ lot }: LotQuestionFormProps) {
-  const [question, setQuestion] = useState('');
   const rpcSchema = useRpcSchemaClient();
+  const form = useForm<LotQuestionModel>({ resolver: yupResolver(LotQuestionSchema), mode: 'onChange' });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuestion(e.target.value);
-  };
+  form.watch();
 
-  const publish = async (e: FormEvent) => {
-    e.preventDefault();
-    await rpcSchema.send('lotQuestion.create', { lot: lot.id, text: question });
-    setQuestion('');
+  const error = form.formState.errors.text;
+
+  const publish: SubmitHandler<LotQuestionModel> = async (data) => {
+    await rpcSchema.send('lotQuestion.create', { lot: lot.id, text: data.text });
+    form.reset();
     ModalController.create(UIModals.LotQuestionModerationModal, {});
   };
 
@@ -30,12 +32,13 @@ export function LotQuestionForm({ lot }: LotQuestionFormProps) {
       <Heading fontSize="md" w="full">
         You can ask questions
       </Heading>
-      <HStack spacing={3} as="form" onSubmit={publish} w="full" ml={6}>
-        <FormControl>
-          <Input placeholder="Write a question" value={question} onChange={handleChange} />
+      <HStack alignItems="flex-start" spacing={3} as="form" onSubmit={form.handleSubmit(publish)} w="full" ml={6}>
+        <FormControl isInvalid={!!error}>
+          <Input placeholder="Write a question" {...form.register('text')} />
+          {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
         </FormControl>
-        <Button minW={36} type="submit" isDisabled={!question}>
-          Punlish
+        <Button minW={36} type="submit" disabled={!!error}>
+          Publish
         </Button>
       </HStack>
     </VStack>

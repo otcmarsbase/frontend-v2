@@ -1,7 +1,7 @@
 import { formatNumber } from '@app/utils';
 import { StringSchema } from 'yup';
 
-export class CustomStringScheme extends StringSchema{
+export class CustomStringScheme extends StringSchema {
   minValue(minValue: number, message?: string) {
     return this.test({
       name: 'maxValue',
@@ -16,7 +16,7 @@ export class CustomStringScheme extends StringSchema{
         return !isNaN(numberValue) && numberValue >= minValue;
       },
       message: message || 'The value must be of at least ${minValue}',
-    })
+    });
   }
 
   lessThan(referenceField: string, message?: string) {
@@ -28,12 +28,12 @@ export class CustomStringScheme extends StringSchema{
       },
       test(value: string) {
         const referenceValue = Number(this.parent && this.parent[referenceField]);
-        const numberValue = Number(value)
+        const numberValue = Number(value);
 
         if (!numberValue || !referenceValue) return false;
 
         return numberValue <= referenceValue;
       },
-    })
+    });
   }
 }

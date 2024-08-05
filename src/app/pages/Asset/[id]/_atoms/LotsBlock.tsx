@@ -74,6 +74,10 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       },
       include: {
         lotTransactionStatsAggregation: true,
+        lotViewCountAggregation: true,
+      },
+      sort: {
+        badge: 'DESC_NULLS_LAST',
       },
     };
   }, [skip, limit, filters, asset.id]);
@@ -81,11 +85,6 @@ export function LotsBlock({ asset }: LotsBlockProps) {
   const debouncedPayload = useDebounce(fetchPayload, CHANGE_FILTERS_DEBOUNCE_DURATION_MS);
 
   const { data: lots, isLoading } = useRpcSchemaQuery('lot.list', debouncedPayload, {});
-  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
-    'favoriteLot.list',
-    {},
-    { enabled: isAuthorized },
-  );
 
   const stats = useMemo(
     () =>
@@ -93,6 +92,15 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       (lots.links.filter(
         (link) => link.resource === 'lot_transaction_stats_aggregation',
       ) as DeskGatewaySchema.LotTransactionStatsAggregation[]),
+    [lots, isLoading],
+  );
+
+  const viewsCount = useMemo(
+    () =>
+      !isLoading &&
+      (lots.links.filter(
+        (link) => link.resource === 'lot_view_count_aggregation',
+      ) as DeskGatewaySchema.LotViewCountAggregation[]),
     [lots, isLoading],
   );
 
@@ -134,7 +142,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
           />
           <VStack alignItems="start" spacing="1rem" width="full">
             <UILogic.LotActiveFilters filters={{ ...filters, assets: undefined }} onReset={handleResetFilters} />
-            {isLoading || favoritesIsLoading ? (
+            {isLoading ? (
               <UILogic.LotGridSkeleton columns={{ base: 1, lg: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
@@ -154,7 +162,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                     lots={lots.items}
                     assets={[asset]}
                     stats={stats}
-                    favorites={favorites?.items ?? []}
+                    viewsCount={viewsCount}
                     onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                   />
                 )}

@@ -1,10 +1,9 @@
 import { FC } from 'react';
 
 import pages from '@app/pages';
-import { Button, Link, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { Flex, useBreakpointValue } from '@chakra-ui/react';
 import { SystemProps } from '@chakra-ui/styled-system';
 import { UIIcons } from '@shared/ui-icons';
-import { LinkComponent } from '@shared/ui-kit';
 
 import { SidebarLink } from './SidebarLink';
 
@@ -22,9 +21,9 @@ export const Sidebar: FC = () => {
       <SidebarLink page={pages.Profile.Notification} pageProps={{}} icon={<UIIcons.Common.NotificationIcon />}>
         Notification
       </SidebarLink>
-      <SidebarLink page={pages.Profile.Verification} pageProps={{}} icon={<UIIcons.Common.ShieldIcon />}>
+      {/* <SidebarLink page={pages.Profile.Verification} pageProps={{}} icon={<UIIcons.Common.ShieldIcon />}>
         Verification
-      </SidebarLink>
+      </SidebarLink> */}
       <SidebarLink page={pages.Profile.Settings} pageProps={{}} icon={<UIIcons.Common.SettingsIcon />}>
         Settings
       </SidebarLink>

@@ -38,7 +38,7 @@ export default function Lot({ id }: LotProps) {
   const queryClient = useQueryClient();
 
   const router = useRouter();
-  const { account } = useAuth();
+  const { account, isAuthorized } = useAuth();
 
   const [lot, setLot] = useState<DeskGatewaySchema.Lot>();
   const [offerMaker, setOfferMaker] = useState<DeskGatewaySchema.User>();
@@ -89,6 +89,8 @@ export default function Lot({ id }: LotProps) {
         },
       });
 
+      rpcSchema.send('viewLot.create', { lotId: id });
+
       if (lot.attributes.INVEST_DOC_ASSET_PK) {
         const asset = await queryClient.fetchQuery({
           queryKey: ['asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }],
@@ -133,12 +135,14 @@ export default function Lot({ id }: LotProps) {
     </Text>
   );
 
+  const tabs: LotTab[] = isAuthorized ? ['BIDS', 'QUESTIONS'] : ['BIDS'];
+
   const renderTab = (tab: LotTab) => {
     switch (tab) {
       case 'BIDS':
         return <Bids isOfferMaker={isOfferMaker} lot={lot} asset={asset} offerMaker={offerMaker} />;
       case 'QUESTIONS':
-        return <LotQuestions lot={lot} questions={questions} users={questionUsers} />;
+        return <LotQuestions isOfferMaker={isOfferMaker} lot={lot} questions={questions} users={questionUsers} />;
     }
   };
 
@@ -183,7 +187,7 @@ export default function Lot({ id }: LotProps) {
               <AdditionalInfoBlock lot={lot} />
             </VStack>
             <Tabs<LotTab>
-              items={LotTab as unknown as LotTab[]}
+              items={tabs}
               renderTab={renderTabTitle}
               value={activeTab}
               onChange={setActiveTab}

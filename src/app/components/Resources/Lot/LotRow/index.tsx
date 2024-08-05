@@ -1,14 +1,16 @@
 import { useMemo } from 'react';
 
-import { UILogic, useAuth, useRpcSchemaClient } from '@app/components';
+import { useObserver } from 'mobx-react-lite';
+
+import { UILogic } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
 import pages from '@app/pages';
+import { useStore } from '@app/store';
 import { Grid, GridItem, HStack, IconButton, StackProps, Text, VStack, useBreakpointValue } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { UIIcons } from '@shared/ui-icons';
 import { LinkComponent, UIKit } from '@shared/ui-kit';
-import { useQueryClient } from '@tanstack/react-query';
 
 import { LotCard } from '../LotCard';
 
@@ -23,25 +25,14 @@ export interface LotRowProps extends Omit<StackProps, 'direction' | 'onClick'> {
   lot: DeskGatewaySchema.Lot;
   asset: DeskGatewaySchema.Asset;
   stat: DeskGatewaySchema.LotTransactionStatsAggregation;
-  favorite?: DeskGatewaySchema.FavoriteLot;
   withFavoriteControl?: boolean;
   onClick: () => any;
 }
 
-export const LotRow: React.FC<LotRowProps> = ({
-  lot,
-  asset,
-  stat,
-  favorite,
-  withFavoriteControl,
-  onClick,
-  ...stackProps
-}) => {
+export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, withFavoriteControl, onClick, ...stackProps }) => {
   const router = useRouter();
   const isBase = useBreakpointValue({ base: true, lg: false });
-  const { isAuthorized } = useAuth();
-  const rpcSchema = useRpcSchemaClient();
-  const queryClient = useQueryClient();
+  const { favoriteLotStore } = useStore();
 
   const hasPrice = useMemo(() => {
     return lot.type === 'EQUITY' || lot.type === 'UNLOCKED_TOKENS';
@@ -117,27 +108,21 @@ export const LotRow: React.FC<LotRowProps> = ({
     ].filter(Boolean);
   }, [lot, hasFdv, hasPrice, priceLabel]);
 
+  const isFavorite = useObserver(() => favoriteLotStore.isFavorite(lot.id));
+
   const toggleFavorite = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (favorite) {
-      await rpcSchema.send('favoriteLot.delete', { id: favorite.id });
-    } else {
-      await rpcSchema.send('favoriteLot.create', { lot: lot.id });
-    }
-
-    await queryClient.invalidateQueries({
-      predicate: ({ queryKey }) => queryKey[0]?.toString()?.includes('favoriteLot'),
-    });
+    favoriteLotStore.toggleFavorite(lot.id);
   };
 
   const handleFavoriteClick = useToastInnerCallback(toggleFavorite, {
-    okText: favorite ? 'Lot removed from favorites' : 'Lot added to favorites',
+    okText: isFavorite ? 'Lot removed from favorites' : 'Lot added to favorites',
     showWhenOk: true,
   });
 
-  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} favorite={favorite} onClick={onClick} />;
+  if (isBase) return <LotCard lot={lot} asset={asset} stat={stat} onClick={onClick} />;
 
   return (
     <LinkComponent page={pages.Lot.__id__} pageProps={{ id: lot.id }} onClick={onClick}>
@@ -164,7 +149,7 @@ export const LotRow: React.FC<LotRowProps> = ({
           <Text color="dark.50">#{lot.id}</Text>
           <HStack gap="1rem" alignItems="center">
             <HStack>
-              {isAuthorized && withFavoriteControl && (
+              {withFavoriteControl && (
                 <IconButton
                   variant="ghost"
                   aria-label="favorite"
@@ -173,8 +158,8 @@ export const LotRow: React.FC<LotRowProps> = ({
                   role="group"
                   icon={
                     <UIIcons.Common.FavoriteIcon
-                      fill={favorite ? 'error' : ''}
-                      stroke={favorite ? 'error' : 'dark.50'}
+                      fill={isFavorite ? 'error' : ''}
+                      stroke={isFavorite ? 'error' : 'dark.50'}
                       _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
                     />
                   }

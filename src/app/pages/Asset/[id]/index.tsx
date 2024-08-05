@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 
-import { UILogic, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useRpcSchemaClient, useRpcSchemaQuery } from '@app/components';
 import { createDictionary } from '@app/dictionary';
 import { UILayout } from '@app/layouts';
 import { Grid, GridItem, VStack, Text } from '@chakra-ui/react';
@@ -27,6 +27,7 @@ export default function View({ id }: ViewProps) {
     include: { assetLotStatsAggregation: true, assetFaq: true },
   });
   const [activeTab, setActiveTab] = useState<AssetTab>('LOTS');
+  const rpcClient = useRpcSchemaClient();
 
   const asset = useMemo(() => !isLoading && data.items[0], [data, isLoading]);
   const stats = useMemo(
@@ -55,7 +56,7 @@ export default function View({ id }: ViewProps) {
     switch (tab) {
       case 'DESCRIPTION':
         return (
-          <Grid templateColumns={{ base: '1fr', xl: '2fr 25rem' }} gap="2rem" w="full">
+          <Grid templateColumns={{ base: '1fr', xl: '2fr 22rem' }} gap="2rem" w="full">
             <GridItem h="full">
               <DescriptionBlock description={asset.info.description} />
             </GridItem>

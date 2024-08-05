@@ -63,6 +63,10 @@ export type Schema = {
     delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
   };
+  viewLot: {
+    create(payload: DTO.ViewLotCreate.Payload): DTO.ViewLotCreate.Result;
+    getByLotId(payload: DTO.ViewLotGetByLotId.Payload): DTO.ViewLotGetByLotId.Result;
+  };
   sumsub: {
     generateVerificationLink(payload: DTO.SumsubGenerateVerificationLink.Payload): DTO.SumsubGenerateVerificationLink.Result;
   };

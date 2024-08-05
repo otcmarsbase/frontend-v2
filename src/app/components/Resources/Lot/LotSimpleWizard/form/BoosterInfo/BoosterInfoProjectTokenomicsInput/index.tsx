@@ -22,26 +22,26 @@ export const BoosterInfoProjectTokenomicsInput: FC<BaseInputProps> = () => {
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
-  const isDisabled = useMemo(() => !('tokenomics' in value), [value])
+  const isDisabled = useMemo(() => !('tokenomics' in value), [value]);
 
   const inputValue = useMemo(() => {
     if ('tokenomics' in value) {
-      return value.tokenomics
+      return value.tokenomics;
     }
-    return null
-  }, [value])
+    return null;
+  }, [value]);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if ('tokenomics' in value) {
-      setValue({...value, tokenomics: e.target.value})
+      setValue({ ...value, tokenomics: e.target.value });
     }
-  }
+  };
 
   const onUploadFile = async (id: string) => {
-    const data = await rpcSchema.send('file.getById', { id })
+    const data = await rpcSchema.send('file.getById', { id });
 
-    setValue({...value, tokenomics: data.url})
-  }
+    setValue({ ...value, tokenomics: data.url });
+  };
 
   return (
     <FormControl isInvalid={!isValid} isDisabled={isDisabled}>
@@ -67,5 +67,5 @@ export const BoosterInfoProjectTokenomicsInput: FC<BaseInputProps> = () => {
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  )
-}
+  );
+};

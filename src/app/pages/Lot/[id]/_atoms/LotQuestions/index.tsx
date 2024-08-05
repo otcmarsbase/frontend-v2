@@ -10,9 +10,10 @@ interface LotQuestionsProps {
   lot: DeskGatewaySchema.Lot;
   questions: DeskGatewaySchema.LotQuestion[];
   users: DeskGatewaySchema.User[];
+  isOfferMaker: boolean;
 }
 
-export function LotQuestions({ lot, questions, users }: LotQuestionsProps) {
+export function LotQuestions({ lot, questions, users, isOfferMaker }: LotQuestionsProps) {
   const { isAuthorized } = useAuth();
 
   const findUser = (question: DeskGatewaySchema.LotQuestion) => {
@@ -28,7 +29,7 @@ export function LotQuestions({ lot, questions, users }: LotQuestionsProps) {
 
   return (
     <VStack mt={9} spacing={4} w="100%">
-      {isAuthorized && <LotQuestionForm lot={lot} />}
+      {isAuthorized && !isOfferMaker && <LotQuestionForm lot={lot} />}
 
       {topLevelQuestions.map((question) => {
         const user = findUser(question);

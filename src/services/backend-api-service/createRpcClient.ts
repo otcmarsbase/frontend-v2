@@ -1,4 +1,4 @@
-import '@schema/errors';
+import '@schema/common';
 import { RpcClient } from '@packages/berish-rpc-client';
 
 import { BackendApiService } from './service';

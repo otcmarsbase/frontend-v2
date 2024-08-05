@@ -16,33 +16,32 @@ export const BoosterInfoProjectPitchDeckInput: FC<BaseInputProps> = () => {
 
   const { data: fileUploader } = useRpcSchemaQuery('lot.getUploadPitchDeckURL', {});
 
-
   const { isValid, error, watch, value, setValue } = useInput(NAME);
 
   const direction = watch('COMMON_DIRECTION');
 
   const descriptor = useMemo(() => DescriptorDictionary.get(direction), [direction]);
 
-  const isDisabled = useMemo(() => !('pitchDeck' in value), [value])
+  const isDisabled = useMemo(() => !('pitchDeck' in value), [value]);
 
   const inputValue = useMemo(() => {
     if ('pitchDeck' in value) {
-      return value.pitchDeck
+      return value.pitchDeck;
     }
-    return null
-  }, [value])
+    return null;
+  }, [value]);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if ('pitchDeck' in value) {
-      setValue({...value, pitchDeck: e.target.value})
+      setValue({ ...value, pitchDeck: e.target.value });
     }
-  }
+  };
 
   const onUploadFile = async (id: string) => {
-    const data = await rpcSchema.send('file.getById', { id })
+    const data = await rpcSchema.send('file.getById', { id });
 
-    setValue({...value, pitchDeck: data.url})
-  }
+    setValue({ ...value, pitchDeck: data.url });
+  };
 
   return (
     <FormControl isInvalid={!isValid} isDisabled={isDisabled}>
@@ -68,5 +67,5 @@ export const BoosterInfoProjectPitchDeckInput: FC<BaseInputProps> = () => {
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  )
-}
+  );
+};

@@ -15,29 +15,32 @@ export const FeedbackModal = ({ portal }: FeedbackModalProps) => {
   const location = useLocation();
   const rpcSchema = useRpcSchemaClient();
 
-  const createFeedback = useCallback(async (payload: FeedbackCreateModel) => {
-    await rpcSchema.send('feedback.create', {
-      text: payload.text,
-      page: `${location.host}${location.pathname}`,
-      rating: payload.rating,
-    })
-    portal.resolve()
-  }, [location.host, location.pathname, portal, rpcSchema])
+  const createFeedback = useCallback(
+    async (payload: FeedbackCreateModel) => {
+      await rpcSchema.send('feedback.create', {
+        text: payload.text,
+        page: `${location.host}${location.pathname}`,
+        rating: payload.rating,
+      });
+      portal.resolve();
+    },
+    [location.host, location.pathname, portal, rpcSchema],
+  );
 
   return (
     <UIKit.Modal
       title={
-        <Text fontSize='2md' color='white' fontFamily='promo'>
+        <Text fontSize="2md" color="white" fontFamily="promo">
           Feedback
         </Text>
       }
       onClose={() => portal.resolve()}
-      size='2xl'
+      size="2xl"
       isCentered
-      variant='brand'
-      maxW='30rem'
+      variant="brand"
+      maxW="30rem"
     >
-      <FeedbackForm onSubmit={createFeedback}/>
+      <FeedbackForm onSubmit={createFeedback} />
     </UIKit.Modal>
-  )
-}
+  );
+};

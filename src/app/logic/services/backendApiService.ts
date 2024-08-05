@@ -1,7 +1,7 @@
+import { rootStore } from '@app/store';
 import { createService } from '@packages/service-manager';
 import { BackendApiService } from '@services/backend-api-service';
 import { AppConfig } from '@shared/config';
-import { AuthStore } from 'src/app/components/Resources/Auth/AuthProvider/stores';
 
 export function backendApiService() {
   const {
@@ -16,13 +16,13 @@ export function backendApiService() {
 
     baseURL: apiGatewayUrl,
     getMeta: async () => {
-      const store = AuthStore.getStore();
+      const store = rootStore.authStore;
       return {
         token: store.token,
       };
     },
     setMeta: async (meta) => {
-      const store = AuthStore.getStore();
+      const store = rootStore.authStore;
 
       if (typeof meta.authToken !== 'undefined') {
         await store.updateToken(meta.authToken);

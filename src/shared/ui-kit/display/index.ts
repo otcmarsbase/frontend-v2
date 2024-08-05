@@ -21,3 +21,4 @@ export * from './Tabs';
 export * from './Text';
 export * from './Maintenance';
 export * from './Accordion';
+export * from './ViewSwitcher';

@@ -39,7 +39,7 @@ export const CreateBidModal: React.FC<CreateBidModalProps> = ({ portal, lot }) =
   } = formMethods;
 
   const isRequired = useIsRequired(BidCreateSchema, getValues);
-  const isShowPrice = useMemo(() => ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type), [lot.type])
+  const isShowPrice = useMemo(() => ['UNLOCKED_TOKENS', 'EQUITY'].includes(lot.type), [lot.type]);
 
   const onClose = useCallback(() => {
     if (portal && portal.resolve) portal.resolve(null);

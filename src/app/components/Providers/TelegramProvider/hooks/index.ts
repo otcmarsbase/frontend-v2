@@ -1,1 +1,1 @@
-export * from './useWebAppVerifyData'
+export * from './useWebAppVerifyData';

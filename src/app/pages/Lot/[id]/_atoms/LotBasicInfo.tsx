@@ -34,15 +34,14 @@ const InfoDivider = <Divider h="3.25rem" orientation="vertical" color="dark.600"
 
 export const LotBasicInfo: FC<{ lot: DeskGatewaySchema.Lot }> = ({ lot }) => {
   const { attributes, type, id } = lot;
-  const createdAt = useMemo(() => formatDistance(
-    new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE),
-    new Date(),
-    { addSuffix: true }
-  ), [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE])
+  const createdAt = useMemo(
+    () => formatDistance(new Date(lot.attributes.COMMON_CREATED_AT_ATTRIBUTE), new Date(), { addSuffix: true }),
+    [lot.attributes.COMMON_CREATED_AT_ATTRIBUTE],
+  );
 
   return (
     <HStack bg="dark.900" w="full" borderRadius="0.75rem" padding="1.25rem" justifyContent="space-between">
-      <HStack gap="2rem">
+      <HStack gap="2rem" alignItems="flex-start">
         <InfoElement label="ID">
           <Text fontSize="sm" fontWeight="500" whiteSpace="nowrap">
             {id}
@@ -57,8 +56,8 @@ export const LotBasicInfo: FC<{ lot: DeskGatewaySchema.Lot }> = ({ lot }) => {
           <LotTypeChip withTokenWarrant={attributes.SAFE_WITH_TOKEN_WARRANT} value={type} />
         </InfoElement>
         {InfoDivider}
-        <InfoElement label="Seller">
-          <ParticipantTypesText value={attributes.COMMON_OFFER_MAKER_TYPES} />
+        <InfoElement label={attributes.COMMON_DIRECTION === 'BUY' ? 'Buyer' : 'Seller'}>
+          <ParticipantTypesText value={attributes.COMMON_OFFER_MAKER_TYPES} whiteSpace="nowrap" />
         </InfoElement>
         {InfoDivider}
         <InfoElement label="Available reassignment">

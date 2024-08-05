@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import AutoSizer from "react-virtualized-auto-sizer";
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { Text, HStack, useToken, ChakraProps } from '@chakra-ui/react';
 import { Pie, PieTooltipProps } from '@nivo/pie';

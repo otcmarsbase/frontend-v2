@@ -18,6 +18,7 @@ export namespace CommonCategory {
       LotInputs.COMMON_TELEGRAM,
       LotInputs.COMMON_UNITS,
       LotInputs.COMMON_ADDITIONAL_INFO,
+      LotInputs.COMMON_BADGE,
     ]
   >;
 

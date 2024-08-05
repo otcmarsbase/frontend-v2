@@ -39,5 +39,5 @@ export const BoosterInfoFdvInput: FC<BaseInputProps> = () => {
       />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
-  )
-}
+  );
+};

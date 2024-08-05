@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
@@ -19,7 +19,6 @@ const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
@@ -74,6 +73,10 @@ export const OtcDesk: React.FC = observer(() => {
       },
       include: {
         lotTransactionStatsAggregation: true,
+        lotViewCountAggregation: true,
+      },
+      sort: {
+        badge: 'DESC_NULLS_LAST',
       },
     };
 
@@ -90,12 +93,6 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
-  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
-    'favoriteLot.list',
-    {},
-    { enabled: isAuthorized },
-  );
-
   const stats = useMemo(
     () =>
       (lots
@@ -104,10 +101,15 @@ export const OtcDesk: React.FC = observer(() => {
     [lots],
   );
 
-  const isLoading = useMemo(
-    () => lotsIsLoading || assetsIsLoading || favoritesIsLoading,
-    [lotsIsLoading, assetsIsLoading, favoritesIsLoading],
+  const viewsCount = useMemo(
+    () =>
+      (lots
+        ? lots.links.filter((link) => link.resource === 'lot_view_count_aggregation')
+        : []) as DeskGatewaySchema.LotViewCountAggregation[],
+    [lots],
   );
+
+  const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
 
   const toggleFilters = () => {
     setIsFiltersOpened((opened) => !opened);
@@ -175,7 +177,7 @@ export const OtcDesk: React.FC = observer(() => {
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}
-                      favorites={favorites?.items}
+                      viewsCount={viewsCount}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

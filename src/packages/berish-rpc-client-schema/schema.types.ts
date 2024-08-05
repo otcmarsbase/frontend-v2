@@ -10,16 +10,8 @@ export type RpcApiMethod<TSchema extends RpcApiSchema, TPath extends RpcApiMetho
   TPath
 >;
 
-export type RpcApiPayload<TSchema extends RpcApiSchema, TPath extends RpcApiMethodName<TSchema>> = RpcApiMethod<
-  TSchema,
-  TPath
-> extends APIAtomicType<infer Payload, any>
-  ? Payload
-  : never;
+export type RpcApiPayload<TSchema extends RpcApiSchema, TPath extends RpcApiMethodName<TSchema>> =
+  RpcApiMethod<TSchema, TPath> extends APIAtomicType<infer Payload, any> ? Payload : never;
 
-export type RpcApiResult<TSchema extends RpcApiSchema, TPath extends RpcApiMethodName<TSchema>> = RpcApiMethod<
-  TSchema,
-  TPath
-> extends APIAtomicType<any, infer Result>
-  ? Result
-  : never;
+export type RpcApiResult<TSchema extends RpcApiSchema, TPath extends RpcApiMethodName<TSchema>> =
+  RpcApiMethod<TSchema, TPath> extends APIAtomicType<any, infer Result> ? Result : never;

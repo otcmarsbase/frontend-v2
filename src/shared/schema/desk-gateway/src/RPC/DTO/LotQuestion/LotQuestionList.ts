@@ -21,9 +21,6 @@ export namespace LotQuestionList {
     createdAt?: CoreSchema.SortableValue;
   };
 
-  export type Payload = CoreSchema.WithFilter<Filter> &
-    CoreSchema.WithInclude<Include> &
-    CoreSchema.WithSortable<Sortable> &
-    CoreSchema.WithPagination;
+  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable> & CoreSchema.WithPagination;
   export type Result = CoreSchema.WithPaginationResult<LotQuestion> & CoreSchema.WithIncludeLinks<Include>;
 }

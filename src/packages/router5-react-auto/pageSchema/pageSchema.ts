@@ -18,8 +18,8 @@ export type PageSchema<Props> = {
   [Key in keyof Props]-?: Props[Key] extends (infer Item)[]
     ? PageSchema<Item>[] | PageSchemaParser<Item>[]
     : Props[Key] extends Record<string, any>
-    ? PageSchema<Props[Key]> | PageSchemaParser<Props[Key]>
-    : PageSchemaParser<Props[Key]>;
+      ? PageSchema<Props[Key]> | PageSchemaParser<Props[Key]>
+      : PageSchemaParser<Props[Key]>;
 };
 
 export type PageSchemaStringify<Props extends Record<string, any>> = {

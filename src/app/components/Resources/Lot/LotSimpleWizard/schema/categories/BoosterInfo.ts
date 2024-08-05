@@ -9,4 +9,4 @@ export const BoosterInfo = yup.object({
   BOOSTER_INFO_FUTURE_ROUND_PRICE: yup.string().nullable(),
   BOOSTER_INFO_LISTING_TIMELINE: yup.number().nullable(),
   BOOSTER_INFO_ADDITIONAL_INFO: yup.string().max(1000).nullable(),
-})
+});

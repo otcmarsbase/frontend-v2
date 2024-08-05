@@ -5,12 +5,12 @@ import {
   AssetVertical,
   Lot,
   LotKey,
-  LotQuestion,
   LotReassignmentType,
   LotStatus,
   LotTotalBidsCountAggregation,
   LotTransactionStatsAggregation,
   LotType,
+  LotViewCountAggregation,
   TradeDirection,
   User,
   UserKey,
@@ -54,6 +54,7 @@ export namespace LotList {
       asset: AssetList.Include;
       lotTotalBidsCountAggregation: LotTotalBidsCountAggregation;
       lotTransactionStatsAggregation: LotTransactionStatsAggregation;
+      lotViewCountAggregation: LotViewCountAggregation;
       offerMaker: User;
       lotQuestion: LotQuestionList.Include;
     }
@@ -61,6 +62,7 @@ export namespace LotList {
 
   export type Sortable = {
     id?: CoreSchema.SortableValue;
+    badge?: CoreSchema.SortableValue;
   };
 
   export type Payload = CoreSchema.WithFilter<Filter> &

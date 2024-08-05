@@ -3,19 +3,15 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 
 import { InputDescriptor } from '../../types';
 
-export const DescriptorDictionary = createDictionary<
-  DeskGatewaySchema.TradeDirection,
-  InputDescriptor
->()
+export const DescriptorDictionary = createDictionary<DeskGatewaySchema.TradeDirection, InputDescriptor>()
   .setFromRecord({
     BUY: {},
     SELL: {
       label: 'Discount premium to last round',
-      placeholder: 'Amount'
-    }
+      placeholder: 'Amount',
+    },
   })
   .asReadonly();
-
 
 export const RoundValueMap = {
   PRESEED: 1,
@@ -26,4 +22,4 @@ export const RoundValueMap = {
   ROUND_C: 6,
   PRIVATE: 7,
   FUNDING_ROUND: 8,
-}
+};

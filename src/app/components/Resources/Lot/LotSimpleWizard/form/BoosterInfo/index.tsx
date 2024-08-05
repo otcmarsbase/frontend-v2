@@ -27,5 +27,5 @@ export const BoosterInfoForm = () => {
       <BoosterInfoListingTimelineInput />
       <BoosterInfoAdditionalInfoInput />
     </VStack>
-  )
-}
+  );
+};

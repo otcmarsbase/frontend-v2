@@ -18,47 +18,44 @@ const uploadFile = async (file: File, { id, uploadURL }: DeskGatewaySchema.FileU
 };
 
 export interface InputUploadProps extends InputProps {
-  uploadLink?: DeskGatewaySchema.FileUploader
-  onUpload?: (id: string) => void,
+  uploadLink?: DeskGatewaySchema.FileUploader;
+  onUpload?: (id: string) => void;
 }
 
 export function InputWithUpload({ onChange, accept, uploadLink, onUpload, isDisabled, ...props }: InputUploadProps) {
-  const inputFileRef = useRef<HTMLInputElement>()
-  const inputRef = useRef<HTMLInputElement>()
+  const inputFileRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>();
 
-  const [ isLoading, setIsLoading ] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClickIcon = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation()
-    setIsLoading(true)
-    inputFileRef.current.click()
-  }
+    e.stopPropagation();
+    setIsLoading(true);
+    inputFileRef.current.click();
+  };
 
   const onChangeInputFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.currentTarget.files
+    const files = event.currentTarget.files;
 
     if (files.length) {
-      const id = await uploadFile(files[0], uploadLink)
+      const id = await uploadFile(files[0], uploadLink);
       if (onUpload) {
-        onUpload(id)
+        onUpload(id);
       }
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   return (
     <InputGroup>
       <Input ref={inputRef} onChange={onChange} isDisabled={isDisabled} {...props} />
       <input disabled={isDisabled} type="file" accept={accept} hidden ref={inputFileRef} onChange={onChangeInputFile} />
-      <InputRightElement
-        cursor={isDisabled ? 'not-allowed' : 'pointer'}
-        onClick={onClickIcon}
-      >
+      <InputRightElement cursor={isDisabled ? 'not-allowed' : 'pointer'} onClick={onClickIcon}>
         <Text color="orange.500" fontSize="sm">
           <Common.UploadIcon />
         </Text>
       </InputRightElement>
     </InputGroup>
-  )
+  );
 }

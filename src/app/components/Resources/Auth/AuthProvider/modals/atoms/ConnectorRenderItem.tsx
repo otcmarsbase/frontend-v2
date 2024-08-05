@@ -12,9 +12,9 @@ export interface ConnectorRenderItemProps {
 export function ConnectorRenderItem({ authConnector, onClick }: ConnectorRenderItemProps) {
   const isInstalled = useMemo(() => {
     if (authConnector.isInstalled) {
-      return authConnector.isInstalled()
+      return authConnector.isInstalled();
     }
-    return true
+    return true;
   }, [authConnector]);
 
   return (
