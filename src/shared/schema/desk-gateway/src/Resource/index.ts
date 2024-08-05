@@ -14,3 +14,4 @@ export * from './LotQuestion';
 export * from './Notification';
 export * from './NotificationConfig';
 export * from './User';
+export * from './ViewLot';

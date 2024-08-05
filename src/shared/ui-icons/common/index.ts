@@ -48,3 +48,4 @@ export * from './UploadIcon';
 export * from './ShieldIcon';
 export * from './SendIcon';
 export * from './StarIcon';
+export * from './ViewIcon';

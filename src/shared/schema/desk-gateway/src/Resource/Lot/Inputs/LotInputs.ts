@@ -19,6 +19,8 @@ export namespace LotInputs {
   export type COMMON_MIN_FILTER_UNITS = Attribute<'COMMON_MIN_FILTER_UNITS', string>;
   export type COMMON_MIN_FILTER_SUMMARY = Attribute<'COMMON_MIN_FILTER_SUMMARY', string>;
 
+  export type COMMON_BADGE = Attribute<'COMMON_BADGE', string>;
+
   export type INVEST_DOC_ASSET_PK = Attribute<'INVEST_DOC_ASSET_PK', string>;
   export type INVEST_DOC_ASSET_CREATE_REQUEST = Attribute<'INVEST_DOC_ASSET_CREATE_REQUEST', LotAssetRequest>;
   export type INVEST_DOC_REASSIGNMENT_TYPE = Attribute<'INVEST_DOC_REASSIGNMENT_TYPE', LotReassignmentType>;

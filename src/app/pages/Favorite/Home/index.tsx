@@ -32,7 +32,7 @@ export const Home = () => {
       filter: {
         id: favorites.map((favorite) => favorite.lotKey.id),
       },
-      include: { asset: true, lotTransactionStatsAggregation: true },
+      include: { asset: true, lotTransactionStatsAggregation: true, lotViewCountAggregation: true },
     },
     { enabled: !favoritesIsFetching },
   );
@@ -54,6 +54,15 @@ export const Home = () => {
       (lots.links.find(
         (link) => link.resource === 'lot_transaction_stats_aggregation' && link.id === lotId,
       ) as DeskGatewaySchema.LotTransactionStatsAggregation),
+    [lots, isFetching],
+  );
+
+  const findViewCount = useCallback(
+    (lotId: DeskGatewaySchema.LotKey['id']) =>
+      !isFetching &&
+      (lots.links.find(
+        (link) => link.resource === 'lot_view_count_aggregation' && link.id === lotId,
+      ) as DeskGatewaySchema.LotViewCountAggregation),
     [lots, isFetching],
   );
 
@@ -92,6 +101,7 @@ export const Home = () => {
             asset={findAsset(item.attributes.INVEST_DOC_ASSET_PK)}
             stat={findStat(item.id)}
             onClick={() => router.navigateComponent(MBPages.Lot.__id__, { id: item.id }, {})}
+            viewCount={findViewCount(item.id)}
           />
         ))}
       </SimpleGrid>

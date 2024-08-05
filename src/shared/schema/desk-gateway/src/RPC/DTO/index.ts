@@ -14,3 +14,4 @@ export * from './NotificationConfig';
 export * from './Sumsub';
 export * from './System';
 export * from './User';
+export * from './ViewLot';

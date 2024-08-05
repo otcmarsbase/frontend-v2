@@ -74,6 +74,10 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       },
       include: {
         lotTransactionStatsAggregation: true,
+        lotViewCountAggregation: true,
+      },
+      sort: {
+        badge: 'DESC_NULLS_LAST',
       },
     };
   }, [skip, limit, filters, asset.id]);
@@ -88,6 +92,15 @@ export function LotsBlock({ asset }: LotsBlockProps) {
       (lots.links.filter(
         (link) => link.resource === 'lot_transaction_stats_aggregation',
       ) as DeskGatewaySchema.LotTransactionStatsAggregation[]),
+    [lots, isLoading],
+  );
+
+  const viewsCount = useMemo(
+    () =>
+      !isLoading &&
+      (lots.links.filter(
+        (link) => link.resource === 'lot_view_count_aggregation',
+      ) as DeskGatewaySchema.LotViewCountAggregation[]),
     [lots, isLoading],
   );
 
@@ -149,6 +162,7 @@ export function LotsBlock({ asset }: LotsBlockProps) {
                     lots={lots.items}
                     assets={[asset]}
                     stats={stats}
+                    viewsCount={viewsCount}
                     onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                   />
                 )}

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useObserver } from 'mobx-react-lite';
 
 import { LotReassignmentType, UILogic, useAuth } from '@app/components';
+import { LotLabelDictionary } from '@app/dictionary';
 import { useToastInnerCallback } from '@app/hooks';
 import pages from '@app/pages';
 import { useStore } from '@app/store';
@@ -14,6 +15,8 @@ import { LinkComponent, UIKit } from '@shared/ui-kit';
 import Decimal from 'decimal.js';
 
 import { LotTargetValuation } from '../LotTargetValuation';
+
+import { LotCardBadge } from './LotCardBadge';
 
 type FieldType = {
   name: string;
@@ -27,9 +30,10 @@ export interface LotCardProps {
   asset: DeskGatewaySchema.Asset;
   onClick: () => void;
   minimalView?: boolean;
+  viewCount?: DeskGatewaySchema.LotViewCountAggregation;
 }
 
-export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick }) => {
+export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView = false, onClick, viewCount }) => {
   const router = useRouter();
   const { account } = useAuth();
   const isOfferMaker = lot.offerMaker.id === account?.id;
@@ -89,6 +93,30 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
     showWhenOk: true,
   });
 
+  const borderColor = useMemo(() => {
+    switch (lot.attributes.COMMON_BADGE?.toLowerCase()) {
+      case 'vip':
+        return 'linear-gradient(121deg, #CF8E16 12.55%, #DAB36C 51.61%, #CB8C16 90.67%)';
+      case 'hot':
+        return 'linear-gradient(266deg, #FF9B3F 10%, #FF3216 100%)';
+      case 'promo':
+        return 'linear-gradient(106deg, #4E7FFE -1.74%, #DA48FF 94.35%)';
+    }
+  }, [lot]);
+
+  const background = useMemo(() => {
+    switch (lot.attributes.COMMON_BADGE?.toLowerCase()) {
+      case 'vip':
+        return '#19170e';
+      case 'hot':
+        return '#100502';
+      case 'promo':
+        return '#090c1a';
+      default:
+        return minimalView ? 'dark.800' : 'dark.900';
+    }
+  }, [lot, minimalView]);
+
   return (
     <LinkComponent page={pages.Lot.__id__} pageProps={{ id: lot.id }} onClick={onClick}>
       <VStack
@@ -97,16 +125,29 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
         p="1rem 1.25rem"
         position="relative"
         borderRadius="sm"
-        bg={minimalView ? 'dark.800' : 'dark.900'}
         gap={0}
         alignItems="start"
         h="full"
         transition="all 0.3s"
+        background={background}
         _hover={{
           bg: minimalView ? 'dark.700' : 'dark.800',
         }}
         as="a"
       >
+        {lot.attributes.COMMON_BADGE && (
+          <>
+            <Box background={borderColor} position="absolute" borderRadius="sm" inset="-2px" zIndex={-1} />
+            <LotCardBadge
+              pos="absolute"
+              top={0}
+              left="50%"
+              transform="translateX(-50%)"
+              type={lot.attributes.COMMON_BADGE}
+            />
+          </>
+        )}
+
         {minimalView && (
           <UILogic.TradeDirectionChip
             value={lot.attributes.COMMON_DIRECTION}
@@ -119,7 +160,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
           />
         )}
         <Box flexShrink="0" mb="0.75rem" w="full">
-          <HStack alignItems="center" marginBottom="0.75rem">
+          <HStack alignItems="center" marginBottom="0.125rem">
             <Text color="dark.50" fontSize="0.8rem" textDecoration="none">
               #{lot.id}
             </Text>
@@ -138,21 +179,28 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
                 }}
               />
             )}
-            <IconButton
-              variant="ghost"
-              aria-label="favorite"
-              fontSize="lg"
-              height="fit-content"
-              role="group"
-              icon={
-                <UIIcons.Common.FavoriteIcon
-                  fill={isFavorite ? 'error' : ''}
-                  stroke={isFavorite ? 'error' : 'dark.50'}
-                  _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
-                />
-              }
-              onClickCapture={handleFavoriteClick}
-            />
+            <HStack>
+              {viewCount && (
+                <HStack>
+                  <Text>{viewCount.count}</Text>
+                </HStack>
+              )}
+              <IconButton
+                variant="ghost"
+                aria-label="favorite"
+                fontSize="lg"
+                height="fit-content"
+                role="group"
+                icon={
+                  <UIIcons.Common.FavoriteIcon
+                    fill={isFavorite ? 'error' : ''}
+                    stroke={isFavorite ? 'error' : 'dark.50'}
+                    _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
+                  />
+                }
+                onClickCapture={handleFavoriteClick}
+              />
+            </HStack>
           </HStack>
         </Box>
 
