@@ -138,13 +138,15 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
         {lot.attributes.COMMON_BADGE && (
           <>
             <Box background={borderColor} position="absolute" borderRadius="sm" inset="-2px" zIndex={-1} />
-            <LotCardBadge
-              pos="absolute"
-              top={0}
-              left="50%"
-              transform="translateX(-50%)"
-              type={lot.attributes.COMMON_BADGE}
-            />
+            {!minimalView && (
+              <LotCardBadge
+                pos="absolute"
+                top={0}
+                left="50%"
+                transform="translateX(-50%)"
+                type={lot.attributes.COMMON_BADGE}
+              />
+            )}
           </>
         )}
 
@@ -181,8 +183,11 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
             )}
             <HStack>
               {viewCount && (
-                <HStack>
-                  <Text>{viewCount.count}</Text>
+                <HStack color="dark.50" spacing={1}>
+                  <UIIcons.Common.ViewIcon />
+                  <Text color="dark.50" fontSize="sm">
+                    {viewCount.count}
+                  </Text>
                 </HStack>
               )}
               <IconButton

@@ -89,6 +89,8 @@ export default function Lot({ id }: LotProps) {
         },
       });
 
+      rpcSchema.send('viewLot.create', { lotId: id });
+
       if (lot.attributes.INVEST_DOC_ASSET_PK) {
         const asset = await queryClient.fetchQuery({
           queryKey: ['asset.getById', { id: lot.attributes.INVEST_DOC_ASSET_PK }],
