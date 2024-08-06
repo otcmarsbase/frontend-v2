@@ -12,6 +12,7 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
 import { Empty, Pagination, usePagination } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
+import { omit } from 'lodash';
 
 import { QueryParamsSchema } from './schema';
 
@@ -41,7 +42,7 @@ export const OtcDesk: React.FC = observer(() => {
   }, [_assets]);
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema);
-  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(queryParams);
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => omit(queryParams, ['limit', 'skip']));
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
