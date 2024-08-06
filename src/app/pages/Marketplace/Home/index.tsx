@@ -77,7 +77,7 @@ export const OtcDesk: React.FC = observer(() => {
         lotViewCountAggregation: true,
       },
       sort: {
-        badge: 'DESC_NULLS_LAST',
+        badge: 'ASC_NULLS_LAST',
       },
     };
 
