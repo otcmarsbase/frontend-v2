@@ -19,6 +19,8 @@ export namespace LotInputs {
   export type COMMON_MIN_FILTER_UNITS = Attribute<'COMMON_MIN_FILTER_UNITS', string>;
   export type COMMON_MIN_FILTER_SUMMARY = Attribute<'COMMON_MIN_FILTER_SUMMARY', string>;
 
+  export type COMMON_BADGE = Attribute<'COMMON_BADGE', string>;
+
   export type INVEST_DOC_ASSET_PK = Attribute<'INVEST_DOC_ASSET_PK', string>;
   export type INVEST_DOC_ASSET_CREATE_REQUEST = Attribute<'INVEST_DOC_ASSET_CREATE_REQUEST', LotAssetRequest>;
   export type INVEST_DOC_REASSIGNMENT_TYPE = Attribute<'INVEST_DOC_REASSIGNMENT_TYPE', LotReassignmentType>;
@@ -38,4 +40,13 @@ export namespace LotInputs {
   export type TOKEN_TGE = Attribute<'TOKEN_TGE', number | 'TBD'>;
   export type TOKEN_LOCKUP_PERIOD = Attribute<'TOKEN_LOCKUP_PERIOD', (string & {}) | 'OVER'>;
   export type TOKEN_VESTING_PERIOD = Attribute<'TOKEN_VESTING_PERIOD', string>;
+
+  // Booster info
+  export type BOOSTER_INFO_ROUND_TYPE = Attribute<'BOOSTER_INFO_ROUND_TYPE', InvestRound>;
+  export type BOOSTER_INFO_FDV = Attribute<'BOOSTER_INFO_FDV', string>;
+  export type BOOSTER_INFO_ROUND_PRICE = Attribute<'BOOSTER_INFO_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_PREVIOUS_ROUND_PRICE = Attribute<'BOOSTER_INFO_PREVIOUS_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_FUTURE_ROUND_PRICE = Attribute<'BOOSTER_INFO_FUTURE_ROUND_PRICE', string>;
+  export type BOOSTER_INFO_LISTING_TIMELINE = Attribute<'BOOSTER_INFO_LISTING_TIMELINE', number>;
+  export type BOOSTER_INFO_ADDITIONAL_INFO = Attribute<'BOOSTER_INFO_ADDITIONAL_INFO', string>;
 }

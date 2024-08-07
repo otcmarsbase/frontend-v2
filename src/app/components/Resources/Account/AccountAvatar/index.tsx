@@ -26,6 +26,8 @@ export const AccountAvatar: React.FC<AccountAvatarProps> = ({
     return nickname;
   }, [nickname, nicknameMaxLength, shortNickname]);
 
+  console.log(preparedNickname);
+
   return (
     <HStack {...stackProps}>
       <Circle bg={`url(${avatarUrl})`} bgSize="contain" size="1.5rem" />

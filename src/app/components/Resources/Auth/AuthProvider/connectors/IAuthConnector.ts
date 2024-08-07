@@ -1,6 +1,6 @@
 export interface IAuthConnector<TStatus, TInfo> {
   status: TStatus | null;
-  info: TInfo
+  info: TInfo;
 
-  execute: () => Promise<void>
+  execute: () => Promise<void>;
 }

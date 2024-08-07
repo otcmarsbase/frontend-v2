@@ -1,6 +1,6 @@
 import { CoreSchema } from '@schema/core';
 
-import { Asset, AssetKey, AssetLotStatsAggregation, AssetTier, AssetVertical } from '../../../Resource';
+import { Asset, AssetFaq, AssetKey, AssetLotStatsAggregation, AssetStatus, AssetTier, AssetVertical } from '../../../Resource';
 import { BidList } from '../Bid';
 import { DealList } from '../Deal';
 import { LotList } from '../Lot';
@@ -13,6 +13,7 @@ export namespace AssetList {
     withLots?: boolean;
     tier?: AssetTier[];
     verticals?: AssetVertical[];
+    status?: AssetStatus[];
 
     lot?: LotList.Filter;
     bid?: BidList.Filter;
@@ -23,6 +24,7 @@ export namespace AssetList {
     Asset,
     {
       assetLotStatsAggregation: AssetLotStatsAggregation;
+      assetFaq: AssetFaq;
     }
   >;
 

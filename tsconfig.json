@@ -53,13 +53,12 @@
       "@ddd/errors": ["./src/shared/ddd-errors"],
       "@schema/common": ["./src/shared/schema/common/src"],
       "@schema/core": ["./src/shared/schema/core/src"],
-      "@schema/errors": ["./src/shared/schema/errors/src"],
       "@schema/desk-gateway": ["./src/shared/schema/desk-gateway/src"],
       "@shared/ui-icons": ["./src/shared/ui-icons"],
       "@shared/ui-kit": ["./src/shared/ui-kit"],
       "@shared/hooks": ["./src/shared/hooks"],
       "@shared/utils": ["./src/shared/utils"],
-      "@shared/yup-custom-validators":  ["./src/shared/yup-custom-validators"]
+      "@shared/yup-custom-validators": ["./src/shared/yup-custom-validators"]
     }
   },
   "include": ["./src"],

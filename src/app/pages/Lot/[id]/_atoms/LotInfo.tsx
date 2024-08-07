@@ -33,7 +33,7 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           />
         </LotInfoItem>
         <LotInfoItem fieldName="INVEST_DOC_FDV">
-          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm"/>
+          <LotTargetValuation value={lot.attributes.INVEST_DOC_FDV} fontSize="sm" />
         </LotInfoItem>
         <LotInfoItem fieldName="COMMON_MIN_FILTER_SUMMARY">
           <MoneyText
@@ -58,7 +58,9 @@ export const LotInfo: React.FC<LotInfoProps> = ({ lot, stat }) => {
           </LotInfoItem>
         ) : (
           <LotInfoItem fieldName="TOKEN_VESTING_PERIOD">
-            <Text fontSize="sm" wordBreak="break-all" textAlign="right">{lot.attributes.TOKEN_VESTING_PERIOD}</Text>
+            <Text fontSize="sm" wordBreak="break-all" textAlign="right">
+              {lot.attributes.TOKEN_VESTING_PERIOD}
+            </Text>
           </LotInfoItem>
         )}
       </VStack>

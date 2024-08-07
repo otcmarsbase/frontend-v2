@@ -24,6 +24,8 @@ export const INVEST_DOC_ASSET_PK = yup
 export const INVEST_DOC_ASSET_CREATE_REQUEST = yup.object({
   title: yup.string().required(),
   website: yup.string().default(''),
+  pitchDeck: yup.string().default(''),
+  tokenomics: yup.string().default(''),
 });
 export const INVEST_DOC_ASSET = yup.lazy((value) =>
   typeof value === 'string' || value?.id || !Boolean(value)

@@ -1,1 +1,1 @@
-export * from './CustomStringScheme'
+export * from './CustomStringScheme';

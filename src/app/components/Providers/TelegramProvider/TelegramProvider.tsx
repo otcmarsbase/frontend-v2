@@ -12,16 +12,20 @@ export interface ITelegramContext {
 
 export const TelegramContext = createContext<ITelegramContext>({});
 
-export function TelegramProvider({ children, }: { children: React.ReactNode; }) {
+export function TelegramProvider({ children }: { children: React.ReactNode }) {
   const [webApp, setWebApp] = useState<IWebApp | null>(null);
-  const { checkDataString, hash, username } = useWebAppVerifyData(webApp)
-  useRpcSchemaQuery('auth.telegramVerifyWebApp', {
-    checkDataString,
-    hash,
-    username
-  }, {
-    enabled: !!webApp
-  })
+  const { checkDataString, hash, username } = useWebAppVerifyData(webApp);
+  useRpcSchemaQuery(
+    'auth.telegramVerifyWebApp',
+    {
+      checkDataString,
+      hash,
+      username,
+    },
+    {
+      enabled: !!webApp,
+    },
+  );
 
   useEffect(() => {
     const app = (window as any).Telegram?.WebApp;
@@ -34,19 +38,15 @@ export function TelegramProvider({ children, }: { children: React.ReactNode; }) 
   const value = useMemo(() => {
     return webApp
       ? {
-        webApp,
-        unsafeData: webApp.initDataUnsafe,
-        user: webApp.initDataUnsafe.user,
-        initData: webApp.initData,
-      }
+          webApp,
+          unsafeData: webApp.initDataUnsafe,
+          user: webApp.initDataUnsafe.user,
+          initData: webApp.initData,
+        }
       : {};
   }, [webApp]);
 
-  return (
-    <TelegramContext.Provider value={value}>
-      {children}
-    </TelegramContext.Provider>
-  );
-};
+  return <TelegramContext.Provider value={value}>{children}</TelegramContext.Provider>;
+}
 
 export const useTelegram = () => useContext(TelegramContext);

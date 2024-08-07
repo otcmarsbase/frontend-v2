@@ -1,2 +1,2 @@
-export * from './AuthTelegramVerifyModal'
-export * from './AuthTelegramQrCodeModal'
+export * from './AuthTelegramVerifyModal';
+export * from './AuthTelegramQrCodeModal';

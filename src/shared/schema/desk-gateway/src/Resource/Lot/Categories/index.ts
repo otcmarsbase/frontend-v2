@@ -1,3 +1,4 @@
+export * from './BoosterInfoCategory';
 export * from './CommonCategory';
 export * from './EquityCategory';
 export * from './InvestDocumentCategory';

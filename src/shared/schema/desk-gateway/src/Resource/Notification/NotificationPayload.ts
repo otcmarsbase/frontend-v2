@@ -1,6 +1,7 @@
 import { Bid } from '../Bid';
 import { Deal } from '../Deal';
 import { Lot } from '../Lot';
+import { LotQuestion } from '../LotQuestion';
 import { User } from '../User';
 
 import { NotificationType } from './Enums';
@@ -34,5 +35,11 @@ export interface NotificationPayloadMap {
   };
   USER_PROFILE_CHANGED: {
     user: User;
+  };
+  LOT_QUESTION_RECEIVED: {
+    lotQuestion: LotQuestion;
+  };
+  LOT_QUESTION_PUBLISHED: {
+    lotQuestion: LotQuestion;
   };
 }

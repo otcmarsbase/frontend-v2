@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
-import { UILogic, useAuth, useRpcSchemaQuery } from '@app/components';
+import { UILogic, useRpcSchemaQuery } from '@app/components';
 import { useDebounce } from '@app/hooks';
 import * as Layouts from '@app/layouts';
 import { MBPages } from '@app/pages';
@@ -12,7 +12,7 @@ import { DeskGatewaySchema } from '@schema/desk-gateway';
 import { useQueryParams } from '@shared/hooks';
 import { Empty, Pagination, usePagination } from '@shared/ui-kit';
 import { isDeeplyEmpty } from '@shared/utils';
-import pick from 'lodash/pick';
+import { omit } from 'lodash';
 
 import { QueryParamsSchema } from './schema';
 
@@ -20,11 +20,10 @@ const CHANGE_FILTERS_DEBOUNCE_DURATION_MS = 300;
 
 export const OtcDesk: React.FC = observer(() => {
   const router = useRouter();
-  const { isAuthorized } = useAuth();
 
   const defaultIsFiltersOpened = useBreakpointValue(
     {
-      md: true,
+      lg: true,
       base: false,
     },
     { ssr: false },
@@ -32,7 +31,9 @@ export const OtcDesk: React.FC = observer(() => {
 
   const [isFiltersOpened, setIsFiltersOpened] = useState<boolean>(defaultIsFiltersOpened);
 
-  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', { filter: { withLots: true } });
+  const { data: _assets, isLoading: assetsIsLoading } = useRpcSchemaQuery('asset.list', {
+    filter: { withLots: true, status: ['ACTIVE'] },
+  });
 
   const assets = useMemo(() => {
     if (!_assets) return [];
@@ -41,30 +42,13 @@ export const OtcDesk: React.FC = observer(() => {
   }, [_assets]);
 
   const { queryParams, setQueryParams } = useQueryParams(QueryParamsSchema);
-  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => {
-    const initialFilters: UILogic.LotFilterSidebarModel = pick(queryParams, [
-      'search',
-      'direction',
-      'type',
-      'verticals',
-      'withReassign',
-      'assets',
-    ]);
-
-    if (queryParams.bidSize) initialFilters.bidSize = queryParams.bidSize as [number, number];
-    if (queryParams.minBidSize) initialFilters.minBidSize = queryParams.minBidSize as [number, number];
-    if (queryParams.targetValuation) initialFilters.targetValuation = queryParams.targetValuation as [number, number];
-
-    return initialFilters;
-  });
+  const [filters, setFilters] = useState<UILogic.LotFilterSidebarModel>(() => omit(queryParams, ['limit', 'skip']));
 
   const { skip, limit, ...paginationProps } = usePagination(12);
 
-  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
-    const [minContractValue, maxContractValue] = filters.bidSize ?? [];
-    const [minBidSize, maxBidSize] = filters.minBidSize ?? [];
-    const [minTargetValuation, maxTargetValuation] = filters.targetValuation ?? [];
+  const filterAssets = assets.filter((asset) => filters.assets?.includes(asset.id));
 
+  const fetchPayload = useMemo<DeskGatewaySchema.RPC.DTO.LotList.Payload>(() => {
     const payload: DeskGatewaySchema.RPC.DTO.LotList.Payload = {
       page: {
         skip,
@@ -76,19 +60,24 @@ export const OtcDesk: React.FC = observer(() => {
           id: filters.assets,
         },
         direction: filters.direction,
-        minContractValue,
-        maxContractValue,
-        minBidSize,
-        maxBidSize,
-        minTargetValuation,
-        maxTargetValuation,
+        minContractValue: filters.minContractValue,
+        maxContractValue: filters.maxContractValue,
+        minBidSize: filters.minBidSize,
+        maxBidSize: filters.maxBidSize,
+        minTargetValuation: filters.minTargetValuation,
+        maxTargetValuation: filters.maxTargetValuation,
         reassignmentType: filters.reassignmentType,
         verticals: filters.verticals,
         type: filters.type,
         search: filters.search,
+        tier: filters.tier,
       },
       include: {
         lotTransactionStatsAggregation: true,
+        lotViewCountAggregation: true,
+      },
+      sort: {
+        badge: 'ASC_NULLS_LAST',
       },
     };
 
@@ -105,12 +94,6 @@ export const OtcDesk: React.FC = observer(() => {
 
   const { data: lots, isLoading: lotsIsLoading } = useRpcSchemaQuery('lot.list', debauncedPayload, {});
 
-  const { data: favorites, isLoading: favoritesIsLoading } = useRpcSchemaQuery(
-    'favoriteLot.list',
-    {},
-    { enabled: isAuthorized },
-  );
-
   const stats = useMemo(
     () =>
       (lots
@@ -119,10 +102,15 @@ export const OtcDesk: React.FC = observer(() => {
     [lots],
   );
 
-  const isLoading = useMemo(
-    () => lotsIsLoading || assetsIsLoading || favoritesIsLoading,
-    [lotsIsLoading, assetsIsLoading, favoritesIsLoading],
+  const viewsCount = useMemo(
+    () =>
+      (lots
+        ? lots.links.filter((link) => link.resource === 'lot_view_count_aggregation')
+        : []) as DeskGatewaySchema.LotViewCountAggregation[],
+    [lots],
   );
+
+  const isLoading = useMemo(() => lotsIsLoading || assetsIsLoading, [lotsIsLoading, assetsIsLoading]);
 
   const toggleFilters = () => {
     setIsFiltersOpened((opened) => !opened);
@@ -134,6 +122,7 @@ export const OtcDesk: React.FC = observer(() => {
       ...filters,
       ...nextFilters,
     }));
+
     setQueryParams((queryParams) => ({
       ...queryParams,
       ...nextFilters,
@@ -152,11 +141,11 @@ export const OtcDesk: React.FC = observer(() => {
       <Heading variant="pageHeader">OTC Desk</Heading>
       <UILogic.LotAssetFilter
         assets={assets}
-        value={assets.filter((asset) => filters.assets?.includes(asset.id))}
+        value={filterAssets}
         onChange={(assets) => onChangeFilters({ assets: assets.map((asset) => asset.id) })}
       />
-      <HStack alignItems="start" flexDirection={{ base: 'column', md: 'row' }} w="full" gap="2rem">
-        {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} onChange={onChangeFilters} />}
+      <HStack alignItems="start" flexDirection={{ base: 'column', lg: 'row' }} w="full" gap="2rem">
+        {isFiltersOpened && <UILogic.LotFilterSidebar filters={filters} assets={assets} onChange={onChangeFilters} />}
         <VStack w="full" alignItems="start" gap="1.5rem">
           <UILogic.LotFilterControls
             toggleButton={{
@@ -167,12 +156,9 @@ export const OtcDesk: React.FC = observer(() => {
             onChangeSearch={(search) => onChangeFilters({ search })}
           />
           <VStack alignItems="start" spacing="1rem" width="full">
-            <UILogic.LotActiveFilters
-              filters={{ ...filters, assets: assets.filter((asset) => filters.assets?.includes(asset.id)) }}
-              onReset={handleResetFilters}
-            />
+            <UILogic.LotActiveFilters filters={filters} assets={assets} onReset={handleResetFilters} />
             {isLoading ? (
-              <UILogic.LotGridSkeleton columns={{ base: 1, md: columnsCount }} withAnimation={isFiltersOpened} />
+              <UILogic.LotGridSkeleton columns={{ base: 1, lg: columnsCount }} withAnimation={isFiltersOpened} />
             ) : (
               <>
                 {!lots?.total ? (
@@ -188,11 +174,11 @@ export const OtcDesk: React.FC = observer(() => {
                 ) : (
                   <>
                     <UILogic.LotGrid
-                      columns={{ base: 1, md: columnsCount }}
+                      columns={{ base: 1, lg: columnsCount }}
                       lots={lots.items}
                       assets={_assets?.items || []}
                       stats={stats}
-                      favorites={favorites?.items}
+                      viewsCount={viewsCount}
                       onSelect={(lot) => router.navigateComponent(MBPages.Lot.__id__, { id: lot.id }, {})}
                     />
                     <Pagination

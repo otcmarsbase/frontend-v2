@@ -33,10 +33,10 @@ export function useToastOuterCallback({
           typeof errorText === 'string'
             ? errorText
             : typeof err === 'string'
-            ? err
-            : 'message' in err
-            ? err.message
-            : JSON.stringify(err);
+              ? err
+              : 'message' in err
+                ? err.message
+                : JSON.stringify(err);
         toast({ description: message, status: 'error', position });
       }
     },

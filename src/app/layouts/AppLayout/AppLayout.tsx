@@ -1,7 +1,10 @@
+import { useAuth } from '@app/components';
 import { MBPages } from '@app/pages';
 import { Box, Container, ContainerProps, VStack } from '@chakra-ui/react';
 import { useRouter } from '@packages/router5-react-auto';
 import { AppConfig } from '@shared/config';
+
+import { FeedbackButton } from '../../components/Resources/Feedback';
 
 import { Header, Footer } from './atoms';
 import { BottomMenu } from './atoms/BottomMenu';
@@ -10,22 +13,30 @@ export interface AppLayoutProps {
   containerSize?: ContainerProps['size'];
 }
 
-export function AppLayout({ children, containerSize = 'lg' }) {
+export function AppLayout({ children, containerSize = 'xl' }) {
   const router = useRouter();
+  const { isAuthorized } = useAuth();
 
   return (
     <>
-      <VStack minHeight="100vh" width="full" gap="0" mb={{ base: '5rem', md: 'initial' }}>
+      <VStack minHeight="100vh" width="full" gap="0" mb={{ base: '5rem', lg: 'initial' }}>
         <Box width="full" flexShrink="0">
           <Header />
         </Box>
         <Box flex="1" width="full">
-          <Container size={containerSize} mt={{ base: '1rem', md: '3rem' }} maxW={{ base: '100%', md: '85%' }}>
+          <Container
+            size={containerSize}
+            mt={{ base: '1rem', lg: '3rem' }}
+            maxW={{ base: '100%', lg: '100%' }}
+            paddingX={{
+              base: '1rem',
+            }}
+          >
             {children}
           </Container>
         </Box>
         <Box width="full" marginTop="auto">
-          <Box w="full" px={{ base: '1rem', md: '10rem' }} margin="0 auto">
+          <Box w="full" px={{ base: '1rem', lg: '10rem' }} margin="0 auto">
             <Footer
               links={[
                 {
@@ -88,6 +99,7 @@ export function AppLayout({ children, containerSize = 'lg' }) {
           },
         ]}
       />
+      {isAuthorized && <FeedbackButton />}
     </>
   );
 }

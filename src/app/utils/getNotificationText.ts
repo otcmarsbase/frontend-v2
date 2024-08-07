@@ -22,6 +22,10 @@ export function getNotificationText(notification: DeskGatewaySchema.Notification
       return `Deal status updated. (${
         DealStatusDictionary.get(getTypedPayload<'DEAL_STATUS_CHANGED'>(notification.payload).deal.status).title
       })`;
+    case 'LOT_QUESTION_RECEIVED':
+      return 'New question received for a lot.';
+    case 'LOT_QUESTION_PUBLISHED':
+      return 'Question published successfully';
     default:
       return '';
   }

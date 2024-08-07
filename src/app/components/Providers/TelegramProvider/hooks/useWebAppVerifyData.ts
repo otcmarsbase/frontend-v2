@@ -13,23 +13,22 @@ export function useWebAppVerifyData(webApp?: IWebApp) {
   let username;
 
   if (webApp && webApp?.initData) {
-    const data = Object.fromEntries(new URLSearchParams(webApp.initData))
+    const data = Object.fromEntries(new URLSearchParams(webApp.initData));
 
     checkDataString = Object.keys(data)
-      .filter((key) => key !== "hash")
+      .filter((key) => key !== 'hash')
       .map((key) => `${key}=${data[key]}`)
       .sort()
-      .join("\n")
+      .join('\n');
 
-    hash = data.hash
+    hash = data.hash;
 
-    username = webApp.initDataUnsafe.user.username
+    username = webApp.initDataUnsafe.user.username;
   }
-
 
   return {
     username,
     hash,
     checkDataString,
-  }
+  };
 }

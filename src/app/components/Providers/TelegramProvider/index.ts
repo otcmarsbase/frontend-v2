@@ -1,3 +1,3 @@
-export * from './hooks'
-export * from './types'
-export * from './TelegramProvider'
+export * from './hooks';
+export * from './types';
+export * from './TelegramProvider';

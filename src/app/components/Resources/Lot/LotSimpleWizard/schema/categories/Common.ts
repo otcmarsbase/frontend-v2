@@ -12,12 +12,10 @@ import {
   COMMON_ADDITIONAL_INFO,
 } from '../inputs';
 
-
 export const CommonInputs = yup.object({
   COMMON_DIRECTION: COMMON_DIRECTION.required().default('BUY'),
   COMMON_IS_DIRECT: COMMON_IS_DIRECT.required().default(true),
-  COMMON_MIN_FILTER_SUMMARY: COMMON_MIN_FILTER_SUMMARY
-    .minValue(5000)
+  COMMON_MIN_FILTER_SUMMARY: COMMON_MIN_FILTER_SUMMARY.minValue(5000)
     .lessThan('COMMON_SUMMARY', 'The "Minimal bid" field must be less than the "Deal size".')
     .default('5000')
     .required(),

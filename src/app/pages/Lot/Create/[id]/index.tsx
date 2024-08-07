@@ -37,7 +37,6 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         await rpcSchema.send('lot.sendOnModeration', { id });
         await queryClient.invalidateQueries({
           predicate: ({ queryKey }) => {
-            console.log(queryKey);
             return queryKey[0]?.toString()?.includes('lot');
           },
         });
@@ -53,7 +52,12 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
         if ('id' in INVEST_DOC_ASSET) {
           payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
         } else {
-          payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+          payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as {
+            title: string;
+            website: string;
+            pitchDeck: string;
+            tokenomics: string;
+          };
         }
       }
 
@@ -66,7 +70,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   if (isLoading) return <UIKit.Loader />;
 
   return (
-    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', lg: '8' }} bg="dark.900" rounded="3xl">
       <LotSimpleWizard direction={lot.attributes.COMMON_DIRECTION} defaultValues={mappedLot} onSubmit={onSubmit} />
     </Box>
   );

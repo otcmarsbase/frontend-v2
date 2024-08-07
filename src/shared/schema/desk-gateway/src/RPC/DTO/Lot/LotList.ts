@@ -10,6 +10,7 @@ import {
   LotTotalBidsCountAggregation,
   LotTransactionStatsAggregation,
   LotType,
+  LotViewCountAggregation,
   TradeDirection,
   User,
   UserKey,
@@ -17,6 +18,7 @@ import {
 import { AssetList } from '../Asset';
 import { BidList } from '../Bid';
 import { DealList } from '../Deal';
+import { LotQuestionList } from '../LotQuestion';
 
 export namespace LotList {
   export type Filter = CoreSchema.CompositeFilter<{
@@ -52,14 +54,20 @@ export namespace LotList {
       asset: AssetList.Include;
       lotTotalBidsCountAggregation: LotTotalBidsCountAggregation;
       lotTransactionStatsAggregation: LotTransactionStatsAggregation;
+      lotViewCountAggregation: LotViewCountAggregation;
       offerMaker: User;
+      lotQuestion: LotQuestionList.Include;
     }
   >;
 
   export type Sortable = {
     id?: CoreSchema.SortableValue;
+    badge?: CoreSchema.SortableValue;
   };
 
-  export type Payload = CoreSchema.WithFilter<Filter> & CoreSchema.WithInclude<Include> & CoreSchema.WithSortable<Sortable> & CoreSchema.WithPagination;
+  export type Payload = CoreSchema.WithFilter<Filter> &
+    CoreSchema.WithInclude<Include> &
+    CoreSchema.WithSortable<Sortable> &
+    CoreSchema.WithPagination;
   export type Result = CoreSchema.WithPaginationResult<Lot> & CoreSchema.WithIncludeLinks<Include>;
 }

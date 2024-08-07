@@ -1,6 +1,9 @@
 import * as DTO from './DTO';
 
 export type Schema = {
+  feedback: {
+    create(payload: DTO.FeedbackCreate.Payload): DTO.FeedbackCreate.Result;
+  };
   account: {
     me(payload: DTO.AccountMe.Payload): DTO.AccountMe.Result;
     saveProfile(payload: DTO.AccountSaveProfile.Payload): DTO.AccountSaveProfile.Result;
@@ -37,6 +40,8 @@ export type Schema = {
     list(payload: DTO.LotList.Payload): DTO.LotList.Result;
     sendOnModeration(payload: DTO.LotSendOnModeration.Payload): DTO.LotSendOnModeration.Result;
     update(payload: DTO.LotUpdate.Payload): DTO.LotUpdate.Result;
+    getUploadPitchDeckURL(payload: DTO.LotGetUploadPitchDeckURL.Payload): DTO.LotGetUploadPitchDeckURL.Result;
+    getUploadTokenomicsURL(payload: DTO.LotGetUploadTokenomicsURL.Payload): DTO.LotGetUploadTokenomicsURL.Result;
   };
   system: {
     getVersion(payload: DTO.SystemGetVersion.Payload): DTO.SystemGetVersion.Result;
@@ -57,5 +62,19 @@ export type Schema = {
     create(payload: DTO.FavoriteLotCreate.Payload): DTO.FavoriteLotCreate.Result;
     delete(payload: DTO.FavoriteLotDelete.Payload): DTO.FavoriteLotDelete.Result;
     list(payload: DTO.FavoriteLotList.Payload): DTO.FavoriteLotList.Result;
+  };
+  viewLot: {
+    create(payload: DTO.ViewLotCreate.Payload): DTO.ViewLotCreate.Result;
+    getByLotId(payload: DTO.ViewLotGetByLotId.Payload): DTO.ViewLotGetByLotId.Result;
+  };
+  sumsub: {
+    generateVerificationLink(payload: DTO.SumsubGenerateVerificationLink.Payload): DTO.SumsubGenerateVerificationLink.Result;
+  };
+  file: {
+    getById(payload: DTO.FileGetById.Payload): DTO.FileGetById.Result;
+  };
+  lotQuestion: {
+    create(payload: DTO.LotQuestionCreate.Payload): DTO.LotQuestionCreate.Result;
+    list(payload: DTO.LotQuestionList.Payload): DTO.LotQuestionList.Result;
   };
 };

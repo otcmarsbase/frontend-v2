@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 
 import { useMultiStyleConfig } from '@chakra-ui/react';
-import { Select as ChakraSelect, Props as ChakraSelectProps, OnChangeValue } from 'chakra-react-select';
+import { Select as ChakraSelect, Props as ChakraSelectProps, OnChangeValue, GroupBase } from 'chakra-react-select';
 
 import { SelectViewProps, MultiDependentValue } from './types';
 
 export interface SelectDefaultViewProps<T, M extends boolean>
   extends SelectViewProps<T, M>,
     Omit<
-      ChakraSelectProps<Option, M>,
+      ChakraSelectProps<Option, M, GroupBase<Option>>,
       'options' | 'onChange' | 'isDisabled' | 'isLoading' | 'placeholder' | 'isClearable' | 'isInvalid' | 'isMulti'
     > {}
 

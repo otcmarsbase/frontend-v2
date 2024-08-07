@@ -35,14 +35,14 @@ interface DealParticipantProps {
 
 const DealParticipant: React.FC<DealParticipantProps> = ({ user, type }) => {
   return (
-    <VStack w="full" flexDirection={{ base: 'row', md: 'column' }} gap="1.5rem">
+    <VStack w="full" flexDirection={{ base: 'row', lg: 'column' }} gap="1.5rem">
       <GridParticipantField
         label={DealParticipantDictionary.get(type).title}
-        value={<AccountAvatar nickname={user.nickname} />}
+        value={<AccountAvatar nickname={user.nickname} shortNickname />}
       />
       <GridParticipantField
         label={DealParticipantDictionary.get(type).walletTitle}
-        value={<Text fontSize="sm">{formatAddress(user.address || '0x0001020120')}</Text>}
+        value={<Text fontSize="sm">{formatAddress(user.address)}</Text>}
       />
     </VStack>
   );
@@ -67,7 +67,7 @@ export const DealParticipants: FC<DealParticipantsProps> = ({ offerMakers, bidMa
           </Button>
         )}
       </HStack>
-      <SimpleGrid w="full" columns={{ base: 1, md: 4 }} gridColumnGap="4.2rem" gridRowGap="1.5rem">
+      <SimpleGrid w="full" columns={{ base: 1, lg: 4 }} gridColumnGap="4.2rem" gridRowGap="1.5rem">
         {!!offerMakers.length &&
           offerMakers.map((user) => <DealParticipant key={user.id} type="OFFER_MAKER" user={user} />)}
         {!!bidMakers.length && bidMakers.map((user) => <DealParticipant key={user.id} type="BID_MAKER" user={user} />)}

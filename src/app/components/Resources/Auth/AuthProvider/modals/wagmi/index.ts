@@ -1,1 +1,1 @@
-export * from './AuthWagmiVerifyModal'
+export * from './AuthWagmiVerifyModal';

@@ -3,7 +3,8 @@ import { PropsWithChildren, useCallback, useEffect, useMemo, useState } from 're
 import {
   LotCreateModel,
   LotSimpleWizard,
-  LotSimpleWizardProps, useAuth,
+  LotSimpleWizardProps,
+  useAuth,
   useRpcSchemaClient,
   useRpcSchemaQuery,
 } from '@app/components';
@@ -26,7 +27,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   const router = useRouter();
   const { account } = useAuth();
 
-  const [lotCreateModel, setLotCreateModel] = useState<LotCreateModel>({})
+  const [lotCreateModel, setLotCreateModel] = useState<LotCreateModel>({});
 
   const mappedLot = useMemo(() => {
     if (!lot) return;
@@ -38,7 +39,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
     if (!lot) return;
 
     if (lot?.offerMaker?.id !== account?.id) {
-      router.navigateComponent(MBPages.Home, {}, { replace: true })
+      router.navigateComponent(MBPages.Home, {}, { replace: true });
     }
 
     if (lot.status !== 'ACTIVE') {
@@ -48,16 +49,21 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
 
   const onSubmit = useCallback<LotSimpleWizardProps['onSubmit']>(
     async (data, meta) => {
-      setLotCreateModel((prev) => ({...prev, ...data}))
+      setLotCreateModel((prev) => ({ ...prev, ...data }));
       if (meta.isLastStep) {
-        const { type, INVEST_DOC_ASSET, ...inputs } = lotCreateModel
+        const { type, INVEST_DOC_ASSET, ...inputs } = lotCreateModel;
         const payload: DeskGatewaySchema.RPC.DTO.LotUpdate.Payload = { id, type, inputs };
 
         if (INVEST_DOC_ASSET instanceof Object) {
           if ('id' in INVEST_DOC_ASSET) {
             payload.inputs.INVEST_DOC_ASSET_PK = INVEST_DOC_ASSET.id;
           } else {
-            payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as { title: string; website: string };
+            payload.inputs.INVEST_DOC_ASSET_CREATE_REQUEST = INVEST_DOC_ASSET as {
+              title: string;
+              website: string;
+              pitchDeck: string;
+              tokenomics: string;
+            };
           }
         }
 
@@ -79,7 +85,7 @@ const View: React.FC<PropsWithChildren<{ id: number }>> = ({ id }) => {
   if (isLoading) return <UIKit.Loader />;
 
   return (
-    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', md: '8' }} bg="dark.900" rounded="3xl">
+    <Box justifyContent="center" maxW="36rem" w="full" p={{ base: '0', lg: '8' }} bg="dark.900" rounded="3xl">
       <LotSimpleWizard direction={lot.attributes.COMMON_DIRECTION} defaultValues={mappedLot} onSubmit={onSubmit} />
     </Box>
   );

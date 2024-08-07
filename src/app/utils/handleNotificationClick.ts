@@ -25,8 +25,16 @@ export function handleNotificationClick(router: Router, notification: DeskGatewa
         },
         {},
       );
-    default:
-      return;
+    case 'LOT_QUESTION_PUBLISHED':
+    case 'LOT_QUESTION_RECEIVED':
+      return router.navigateComponent(
+        MBPages.Lot.__id__,
+        {
+          id: getTypedPayload<'LOT_QUESTION_PUBLISHED' | 'LOT_QUESTION_RECEIVED'>(notification.payload).lotQuestion
+            .lotKey.id,
+        },
+        {},
+      );
   }
 }
 

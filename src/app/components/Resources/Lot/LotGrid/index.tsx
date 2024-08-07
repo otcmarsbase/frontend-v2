@@ -11,22 +11,20 @@ export interface LotGripProps {
   lots: DeskGatewaySchema.Lot[];
   stats: DeskGatewaySchema.LotTransactionStatsAggregation[];
   assets: DeskGatewaySchema.Asset[];
-  favorites: DeskGatewaySchema.FavoriteLot[];
-
+  viewsCount: DeskGatewaySchema.LotViewCountAggregation[];
   onSelect?: (lot: DeskGatewaySchema.Lot, asset: DeskGatewaySchema.Asset) => any;
 }
 
-export function LotGrid({ columns, lots, assets, stats, favorites = [], onSelect }: LotGripProps) {
+export function LotGrid({ columns, lots, assets, stats, onSelect, viewsCount }: LotGripProps) {
   const getAsset = useCallback(
     (lot: DeskGatewaySchema.Lot) => assets.find((m) => m.id === lot.attributes.INVEST_DOC_ASSET_PK),
     [assets],
   );
 
   const getStat = useCallback((lot: DeskGatewaySchema.Lot) => stats.find((stat) => stat.id === lot.id), [stats]);
-
-  const getFavorite = useCallback(
-    (lot: DeskGatewaySchema.Lot) => favorites.find((favorite) => favorite.lotKey.id === lot.id),
-    [favorites],
+  const getViewCount = useCallback(
+    (lot: DeskGatewaySchema.Lot) => viewsCount.find((item) => item.id === lot.id),
+    [viewsCount],
   );
 
   const onSelectCallback = useCallback(
@@ -47,7 +45,7 @@ export function LotGrid({ columns, lots, assets, stats, favorites = [], onSelect
             lot={lot}
             asset={getAsset(lot)}
             stat={getStat(lot)}
-            favorite={getFavorite(lot)}
+            viewCount={getViewCount(lot)}
             onClick={() => onSelectCallback(lot)}
           />
         </motion.div>

@@ -20,11 +20,11 @@ export const InputGroup: FC<PropsWithChildren<InputGroupProps>> = ({ title, desc
       </VStack>
       <VStack
         bg="dark.900"
-        px={{ base: '3', md: '9' }}
-        py={{ base: '3', md: '6' }}
+        px={{ base: '3', lg: '9' }}
+        py={{ base: '3', lg: '6' }}
         w="full"
         rounded="md"
-        spacing={{ base: '3', md: '9' }}
+        spacing={{ base: '3', lg: '9' }}
       >
         {children}
       </VStack>
