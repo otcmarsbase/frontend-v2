@@ -1,6 +1,6 @@
 {
   "name": "@otcmarsbase/frontend",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "description": "OTC Marsbase",
   "private": true,
   "scripts": {
