@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
-import { UILogic } from '@app/components';
+import { AuthAction, UILogic } from '@app/components';
 import { useToastInnerCallback } from '@app/hooks';
 import pages from '@app/pages';
 import { useStore } from '@app/store';
@@ -150,22 +150,24 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, withFavoriteCo
           <HStack gap="1rem" alignItems="center">
             <HStack>
               {withFavoriteControl && (
-                <IconButton
-                  variant="ghost"
-                  aria-label="favorite"
-                  fontSize="lg"
-                  height="fit-content"
-                  role="group"
-                  icon={
-                    <UIIcons.Common.FavoriteIcon
-                      fill={isFavorite ? 'error' : ''}
-                      stroke={isFavorite ? 'error' : 'dark.50'}
-                      _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
-                    />
-                  }
-                  onClickCapture={handleFavoriteClick}
-                  minW="auto"
-                />
+                <AuthAction>
+                  <IconButton
+                    variant="ghost"
+                    aria-label="favorite"
+                    fontSize="lg"
+                    height="fit-content"
+                    role="group"
+                    icon={
+                      <UIIcons.Common.FavoriteIcon
+                        fill={isFavorite ? 'error' : ''}
+                        stroke={isFavorite ? 'error' : 'dark.50'}
+                        _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
+                      />
+                    }
+                    onClickCapture={handleFavoriteClick}
+                    minW="auto"
+                  />
+                </AuthAction>
               )}
               <UILogic.AssetName
                 size="sm"
