@@ -203,7 +203,7 @@ export const LotCard: React.FC<LotCardProps> = ({ lot, asset, stat, minimalView 
                       _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
                     />
                   }
-                  onClickCapture={handleFavoriteClick}
+                  onClick={handleFavoriteClick}
                 />
               </AuthAction>
             </HStack>

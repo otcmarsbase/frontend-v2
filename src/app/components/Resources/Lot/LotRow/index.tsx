@@ -164,7 +164,7 @@ export const LotRow: React.FC<LotRowProps> = ({ lot, asset, stat, withFavoriteCo
                         _groupHover={{ lg: { fill: 'error', stroke: 'error' } }}
                       />
                     }
-                    onClickCapture={handleFavoriteClick}
+                    onClick={handleFavoriteClick}
                     minW="auto"
                   />
                 </AuthAction>
