@@ -19,7 +19,7 @@ export function AuthConnectButton({ customRender, children }: AuthConnectButtonP
           customRender({ isAuthorized, onShowConnectModal, ...other })
         ) : (
           <Button variant="brand" isLoading={onShowConnectModal.isLoading} onClick={onShowConnectModal} size="sm">
-            Connect wallet
+            Login
           </Button>
         )
       }

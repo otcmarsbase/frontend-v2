@@ -84,7 +84,7 @@ export const AppConfig: AppConfigType = {
     linktreeUrl: 'https://linktr.ee/MARSBASE/',
     twitterUrl: 'https://twitter.com/MARSBASEio/',
     githubUrl: 'https://github.com/otcmarsbase/',
-    telegramUrl: 'https://t.me/otcmarsbase/',
+    telegramUrl: 'https://t.me/marsbase_network/',
     mediumUrl: 'https://marsbaseotc.medium.com/',
     redditUrl: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
     youtubeUrl: 'https://www.youtube.com/channel/UCmtM-VPNiLLQljTEJAd0PHg',

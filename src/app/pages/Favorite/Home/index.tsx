@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useObserver } from 'mobx-react-lite';
 
-import { LotCard, LotRow, useRpcSchemaQuery } from '@app/components';
+import { LotCard, LotRow, useAuth, useRpcSchemaQuery } from '@app/components';
 import { UILayout } from '@app/layouts';
 import { MBPages } from '@app/pages';
 import { useStore } from '@app/store';
@@ -17,6 +17,12 @@ export const Home = () => {
   const router = useRouter();
   const isShowViewSwitcher = useBreakpointValue({ base: false, lg: true });
   const { favoriteLotStore } = useStore();
+
+  const { isAuthorized } = useAuth();
+
+  useEffect(() => {
+    if (!isAuthorized) router.navigateComponent(MBPages.Marketplace.Home, {}, {});
+  }, [isAuthorized, router]);
 
   const { skip, limit, ...paginationProps } = usePagination(10);
 
