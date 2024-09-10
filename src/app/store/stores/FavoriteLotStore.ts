@@ -24,8 +24,6 @@ export class FavoriteLotStore {
   private constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
 
-    makePersistable(this, { name: 'FavoriteLotStore', properties: ['favoriteLots'], storage: window.sessionStorage });
-
     this._authStore = AuthStore.getStore();
 
     autorun(() => {
