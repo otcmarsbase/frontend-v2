@@ -8,20 +8,10 @@ export interface SocialBlockProps {
   medium: string;
   linktree: string;
   linkedin: string;
-  instagram: string;
   youtube: string;
 }
 
-export function SocialBlock({
-  github,
-  twitter,
-  linkedin,
-  telegram,
-  medium,
-  linktree,
-  instagram,
-  youtube,
-}: SocialBlockProps) {
+export function SocialBlock({ github, twitter, linkedin, telegram, medium, linktree, youtube }: SocialBlockProps) {
   return (
     <HStack gap="1.75rem">
       {twitter && (
@@ -52,11 +42,6 @@ export function SocialBlock({
       {github && (
         <Link target="_blank" href={github}>
           <UIIcons.Social.GithubIcon color="dark.50" />
-        </Link>
-      )}
-      {instagram && (
-        <Link target="_blank" href={instagram}>
-          <UIIcons.Social.InstagramIcon color="dark.50" />
         </Link>
       )}
       {youtube && (
