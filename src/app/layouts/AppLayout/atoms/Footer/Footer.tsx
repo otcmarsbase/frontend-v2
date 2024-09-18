@@ -68,7 +68,6 @@ export const Footer: React.FC<FooterProps> = observer(({ links, about, socials, 
             linkedin={socials.linkedinUrl}
             linktree={socials.linktreeUrl}
             youtube={socials.youtubeUrl}
-            instagram={socials.instagramUrl}
           />
           <Text fontSize="sm" color="dark.50">
             {copyrightText}

@@ -94,13 +94,6 @@ export function RightBlock() {
               target: '_blank',
             },
             {
-              label: 'Instagram',
-              as: 'a',
-              href: AppConfig.socials.instagramUrl,
-              icon: UIIcons.Social.InstagramIcon,
-              target: '_blank',
-            },
-            {
               label: 'YouTube',
               as: 'a',
               href: AppConfig.socials.youtubeUrl,
