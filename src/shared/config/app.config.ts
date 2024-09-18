@@ -42,7 +42,6 @@ export interface AppConfigType {
     redditUrl: string;
     linktreeUrl: string;
     youtubeUrl: string;
-    instagramUrl: string;
   };
 
   analytics: {
@@ -87,8 +86,7 @@ export const AppConfig: AppConfigType = {
     telegramUrl: 'https://t.me/marsbase_network/',
     mediumUrl: 'https://marsbaseotc.medium.com/',
     redditUrl: 'https://www.reddit.com/r/MarsbaseCryptoOTC/',
-    youtubeUrl: 'https://www.youtube.com/channel/UCmtM-VPNiLLQljTEJAd0PHg',
-    instagramUrl: 'https://www.instagram.com/marsbase.io/',
+    youtubeUrl: 'https://www.youtube.com/@marsbase.network',
   },
 
   analytics: {
